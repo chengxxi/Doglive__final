@@ -72,21 +72,21 @@
         |       |   └── mypage.vue
         |       |
         │       └── main
-        │               ├── components /* 메인 관련 컴포넌트(사이드바, 헤더, 푸터, 로그인 다이얼로그) */
-        │               │   ├── login-dialog.vue
-        |               |   ├── main-content.vue
-        │               │   ├── main-footer.vue
-        │               │   └── main-header.vue
-        │               │
-        │               ├── main.css
-        │               ├── main.vue
-        |               ├── menu.json
-        │               └── store
-        │                   ├── actions.js
-        │                   ├── getters.js
-        │                   ├── index.js
-        │                   ├── mutations.js
-        │                   └── state.js
+        │           ├── components /* 메인 관련 컴포넌트(사이드바, 헤더, 푸터, 로그인 다이얼로그) */
+        │           │   ├── login-dialog.vue
+        |           |   ├── main-content.vue
+        │           │   ├── main-footer.vue
+        │           │   └── main-header.vue
+        │           │
+        │           ├── main.css
+        │           ├── main.vue
+        |           ├── menu.json
+        │           └── store
+        │               ├── actions.js
+        │               ├── getters.js
+        │               ├── index.js
+        │               ├── mutations.js
+        │               └── state.js
         ├── vue.config.js /* Vue3 관련 설정 파일(프록시, 기타 옵션) */
         └── webpack.config.js /* stylus 파일 확장자(.styl) 관련 설정 */
 ```
