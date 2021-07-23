@@ -38,8 +38,8 @@
         │   ├── App.vue /* 진입점 */
         │   ├── assets /* 리소스 저장용 폴더 */
         │   │   ├── images
-        │   │    |
-        |   |    └── fonts /* 폰트 저장 폴더 */
+        │   │   |
+        |   |   └── fonts /* 폰트 저장 폴더 */
         │   ├── common
         │   │   ├── css
         │   │   │   ├── common.css /* 공통 요소 (html, body, font), 공통 반응형 .hide-on-small 등 */
