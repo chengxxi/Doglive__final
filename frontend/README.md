@@ -39,7 +39,7 @@
         │   ├── assets /* 리소스 저장용 폴더 */
         │   │   ├── images
         │   │    |
-         |     |    └── fonts /* 폰트 저장 폴더 */
+        |   |    └── fonts /* 폰트 저장 폴더 */
         │   ├── common
         │   │   ├── css
         │   │   │   ├── common.css /* 공통 요소 (html, body, font), 공통 반응형 .hide-on-small 등 */
@@ -54,39 +54,39 @@
         │   │   └── util.js  /* 공용 유틸 관련 함수 정의 */
         │   ├── main.js
         │   └── views
-        │         │
-         |          ├── about /* 독립 메뉴 (서비스 소개, 팀 소개) */
-         |           |    ├── service-about.vue
-         |           |    └── team-about.vue
-        │         │
-         |          ├── user
-        │         │   ├── components /* 유저 관련 컴포넌트(프로필, 내 글목록, 신청자 목록, 신청결과 목록) */
-         |           |     |   ├── user-profile.vue
-         |           |     |   ├── user-profileForm.vue
-         |           |     |   ├── user-postList.vue
-         |           |     |   ├── user-applyList.vue
-         |           |     |   ├── user-applyItem.vue
-         |           |     |   ├── user-applyResultList.vue
-         |           |     |   └── user-applyResultItem.vue
-         |           |     |
-         |           |    └── mypage.vue
-         |           |
-        │         └── main
+        │       │
+        |       ├── about /* 독립 메뉴 (서비스 소개, 팀 소개) */
+        |       |   ├── service-about.vue
+        |       |   └── team-about.vue
+        │       │
+        |       ├── user
+        │       │   ├── components /* 유저 관련 컴포넌트(프로필, 내 글목록, 신청자 목록, 신청결과 목록) */
+        |       |   |   ├── user-profile.vue
+        |       |   |   ├── user-profileForm.vue
+        |       |   |   ├── user-postList.vue
+        |       |   |   ├── user-applyList.vue
+        |       |   |   ├── user-applyItem.vue
+        |       |   |   ├── user-applyResultList.vue
+        |       |   |   └── user-applyResultItem.vue
+        |       |   |
+        |       |   └── mypage.vue
+        |       |
+        │       └── main
         │               ├── components /* 메인 관련 컴포넌트(사이드바, 헤더, 푸터, 로그인 다이얼로그) */
         │               │   ├── login-dialog.vue
-         |                 |    ├── main-content.vue
+        |               |   ├── main-content.vue
         │               │   ├── main-footer.vue
         │               │   └── main-header.vue
         │               │
         │               ├── main.css
         │               ├── main.vue
-         |                ├── menu.json
+        |               ├── menu.json
         │               └── store
-        │                     ├── actions.js
-        │                     ├── getters.js
-        │                     ├── index.js
-        │                     ├── mutations.js
-        │                     └── state.js
+        │                   ├── actions.js
+        │                   ├── getters.js
+        │                   ├── index.js
+        │                   ├── mutations.js
+        │                   └── state.js
         ├── vue.config.js /* Vue3 관련 설정 파일(프록시, 기타 옵션) */
         └── webpack.config.js /* stylus 파일 확장자(.styl) 관련 설정 */
 ```
