@@ -5,8 +5,8 @@ html, body {
 
 body {
   margin: 0;
-  font-family: SpoqaHanSansNeo;
-  font-weight: 400;
+  font-family: NEXONLv1Gothic;
+  font-weight: 500;
 }
 
 @media (max-width: 1269px) {
@@ -32,17 +32,17 @@ body {
 }
 
 @font-face {
-  font-family: 'SpoqaHanSansNeo';
+  font-family: 'NEXONLv1Gothic';
   font-weight: 600;
-  src: url('../../assets/fonts/SpoqaHanSansNeo-Bold.ttf');
+  src: url('../../assets/fonts/NEXONLv1GothicBold.ttf');
 }
 @font-face {
-  font-family: 'SpoqaHanSansNeo';
+  font-family: 'NEXONLv1Gothic';
   font-weight: 500;
-  src: url('../../assets/fonts/SpoqaHanSansNeo-Medium.ttf');
+  src: url('../../assets/fonts/NEXONLv1GothicRegular.ttf');
 }
 @font-face {
-  font-family: 'SpoqaHanSansNeo';
+  font-family: 'NEXONLv1Gothic';
   font-weight: 400;
-  src: url('../../assets/fonts/SpoqaHanSansNeo-Regular.ttf');
+  src: url('../../assets/fonts/NEXONLv1GothicLight.ttf');
 }
