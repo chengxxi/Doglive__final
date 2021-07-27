@@ -1,6 +1,4 @@
 <template>
-  <el-container class="main-content">
-  </el-container>
 </template>
 
 <style scoped>
@@ -8,7 +6,6 @@
   display: block;
   width: 100;
   height: 150%;;
-  background-color: coral;
 }
 </style>
 
@@ -16,7 +13,6 @@
 export default {
   name: 'main-content',
   setup() {
-
   }
 }
 </script>
