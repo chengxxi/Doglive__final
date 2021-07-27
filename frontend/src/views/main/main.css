@@ -26,6 +26,8 @@
 
 .main-container {
   height: calc(100% - 195px);
+  margin-top: 70px;
+  margin-bottom: 70px ;
 }
 
 .el-row.main-footer {
