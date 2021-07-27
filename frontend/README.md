@@ -19,8 +19,9 @@
         │   │   └── chunk-vendors.bfd3c584.css
         │   ├── favicon.ico
         │   ├── fonts
-        │   │   ├── element-icons.abe71f7d.ttf
-        │   │   └── element-icons.d9491be2.woff
+        │   │   ├── NEXONLv1GothicBold.ttf
+        │   │   ├── NEXONLv1GothicRegular.ttf
+        │   │   └── NEXONLv1GothicLight.woff
         │   ├── img
         │   │   └── ssafy-logo.74eec4f3.png
         │   ├── index.html
@@ -56,18 +57,18 @@
         │   └── views
         │       │
         |       ├── about /* 독립 메뉴 (서비스 소개, 팀 소개) */
-        |       |   ├── service-about.vue
-        |       |   └── team-about.vue
+        |       |   ├── about-service.vue
+        |       |   └── about-team.vue
         │       │
         |       ├── user
         │       │   ├── components /* 유저 관련 컴포넌트(프로필, 내 글목록, 신청자 목록, 신청결과 목록) */
         |       |   |   ├── user-profile.vue
-        |       |   |   ├── user-profileForm.vue
-        |       |   |   ├── user-postList.vue
-        |       |   |   ├── user-applyList.vue
-        |       |   |   ├── user-applyItem.vue
-        |       |   |   ├── user-applyResultList.vue
-        |       |   |   └── user-applyResultItem.vue
+        |       |   |   ├── user-profile-form.vue
+        |       |   |   ├── user-post-list.vue
+        |       |   |   ├── user-apply-list.vue
+        |       |   |   ├── user-apply-item.vue
+        |       |   |   ├── user-apply-result-list.vue
+        |       |   |   └── user-apply-result-item.vue
         |       |   |
         |       |   └── mypage.vue
         |       |
