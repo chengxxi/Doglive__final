@@ -20,34 +20,36 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.HashMap;
 
-@Configuration
-@PropertySource({"classpath:application.yaml"})
-@ConfigurationProperties(prefix = "spring.community.datasource")                         //application.yaml에서 어떤 properties를 읽을지 지정
+@Configuration //application.yaml에서 어떤 properties를 읽을지 지정
+@EnableTransactionManagement
 @EnableJpaRepositories(                                                             //Jpa에 관한 설정 및 파일의 위치 명시
-        entityManagerFactoryRef = "communityEntityManagerFactory",
+        entityManagerFactoryRef = "communityEntityManager",
         transactionManagerRef = "communityTransactionManager",
         basePackages = "com.ssafy.db.repository.community"                               //repository의 위치
 )
 public class CommunityDBConfig extends HikariConfig {
 
     @Bean
+    @ConfigurationProperties("community.datasource")
     public DataSourceProperties communityDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
+    @ConfigurationProperties("community.datasource.configuration")
     public DataSource communityDataSource(@Qualifier("communityDataSourceProperties") DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean communityEntityManagerFactory(EntityManagerFactoryBuilder builder,
-                                                                                @Qualifier("communityDataSource") DataSource dataSource) {
+                                                                           @Qualifier("communityDataSource") DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
                 .packages("com.ssafy.db.entity.community")
@@ -59,6 +61,4 @@ public class CommunityDBConfig extends HikariConfig {
     public PlatformTransactionManager communityTransactionManager(@Qualifier("communityEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
-
-
 }

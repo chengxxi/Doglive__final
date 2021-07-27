@@ -21,14 +21,15 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
-@PropertySource({"classpath:application.yaml"})
-@ConfigurationProperties(prefix = "spring.board.datasource")                         //application.yaml에서 어떤 properties를 읽을지 지정
+                       //application.yaml에서 어떤 properties를 읽을지 지정
+@EnableTransactionManagement
 @EnableJpaRepositories(                                                             //Jpa에 관한 설정 및 파일의 위치 명시
         entityManagerFactoryRef = "boardEntityManagerFactory",
         transactionManagerRef = "boardTransactionManager",
@@ -37,18 +38,20 @@ import java.util.HashMap;
 public class BoardDBConfig extends HikariConfig {
 
     @Bean
+    @ConfigurationProperties("board.datasource")
     public DataSourceProperties boardDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
+    @ConfigurationProperties("board.datasource.configuration")
     public DataSource boardDataSource(@Qualifier("boardDataSourceProperties") DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean boardEntityManagerFactory(EntityManagerFactoryBuilder builder,
-                                                                            @Qualifier("boardDataSource") DataSource dataSource) {
+                                                                           @Qualifier("boardDataSource") DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
                 .packages("com.ssafy.db.entity.board")
@@ -60,5 +63,4 @@ public class BoardDBConfig extends HikariConfig {
     public PlatformTransactionManager boardTransactionManager(@Qualifier("boardEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
-
 }
