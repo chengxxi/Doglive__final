@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Repository
-public class ChatQuerydslRepositorySupport extends QuerydslRepositorySupport {
+public abstract class ChatQuerydslRepositorySupport extends QuerydslRepositorySupport {
 
     public ChatQuerydslRepositorySupport(Class<?> domainClass) {
         super(domainClass);

@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Repository
-public class BoardQuerydslRepositorySupport extends QuerydslRepositorySupport {
+public abstract class BoardQuerydslRepositorySupport extends QuerydslRepositorySupport {
 
     public BoardQuerydslRepositorySupport(Class<?> domainClass) {
         super(domainClass);
