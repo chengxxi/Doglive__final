@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -21,12 +22,14 @@ public class QCommunity extends EntityPathBase<Community> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
+    public final ListPath<CommunityComment, QCommunityComment> communityComments = this.<CommunityComment, QCommunityComment>createList("communityComments", CommunityComment.class, QCommunityComment.class, PathInits.DIRECT2);
+
+    public final ListPath<CommunityImage, QCommunityImage> communityImages = this.<CommunityImage, QCommunityImage>createList("communityImages", CommunityImage.class, QCommunityImage.class, PathInits.DIRECT2);
+
     public final StringPath description = createString("description");
 
     //inherited
     public final NumberPath<Long> id = _super.id;
-
-    public final NumberPath<Long> likeCnt = createNumber("likeCnt", Long.class);
 
     public final DateTimePath<java.sql.Timestamp> registerDate = createDateTime("registerDate", java.sql.Timestamp.class);
 

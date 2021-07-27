@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -19,18 +20,21 @@ public class QUserProfile extends EntityPathBase<UserProfile> {
 
     public static final QUserProfile userProfile = new QUserProfile("userProfile");
 
-    public final QUserBaseEntity _super = new QUserBaseEntity(this);
+    public final ListPath<Bookmark, QBookmark> bookmarks = this.<Bookmark, QBookmark>createList("bookmarks", Bookmark.class, QBookmark.class, PathInits.DIRECT2);
+
+    public final ListPath<CounselingHistory, QCounselingHistory> counselingHistories = this.<CounselingHistory, QCounselingHistory>createList("counselingHistories", CounselingHistory.class, QCounselingHistory.class, PathInits.DIRECT2);
 
     public final StringPath email = createString("email");
 
-    //inherited
-    public final StringPath id = _super.id;
+    public final StringPath id = createString("id");
 
     public final StringPath name = createString("name");
 
     public final StringPath phoneNumber = createString("phoneNumber");
 
     public final StringPath profileImageUrl = createString("profileImageUrl");
+
+    public final ListPath<UserToken, QUserToken> userTokens = this.<UserToken, QUserToken>createList("userTokens", UserToken.class, QUserToken.class, PathInits.DIRECT2);
 
     public QUserProfile(String variable) {
         super(UserProfile.class, forVariable(variable));

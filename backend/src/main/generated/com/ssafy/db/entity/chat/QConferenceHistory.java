@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,13 +18,15 @@ public class QConferenceHistory extends EntityPathBase<ConferenceHistory> {
 
     private static final long serialVersionUID = 1696858308L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QConferenceHistory conferenceHistory = new QConferenceHistory("conferenceHistory");
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
     public final NumberPath<Long> action = createNumber("action", Long.class);
 
-    public final NumberPath<Long> conferenceId = createNumber("conferenceId", Long.class);
+    public final QConference conferenceId;
 
     //inherited
     public final NumberPath<Long> id = _super.id;
@@ -33,15 +36,24 @@ public class QConferenceHistory extends EntityPathBase<ConferenceHistory> {
     public final StringPath userId = createString("userId");
 
     public QConferenceHistory(String variable) {
-        super(ConferenceHistory.class, forVariable(variable));
+        this(ConferenceHistory.class, forVariable(variable), INITS);
     }
 
     public QConferenceHistory(Path<? extends ConferenceHistory> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QConferenceHistory(PathMetadata metadata) {
-        super(ConferenceHistory.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QConferenceHistory(PathMetadata metadata, PathInits inits) {
+        this(ConferenceHistory.class, metadata, inits);
+    }
+
+    public QConferenceHistory(Class<? extends ConferenceHistory> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.conferenceId = inits.isInitialized("conferenceId") ? new QConference(forProperty("conferenceId")) : null;
     }
 
 }

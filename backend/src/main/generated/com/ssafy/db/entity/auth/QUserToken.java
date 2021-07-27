@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,25 +18,37 @@ public class QUserToken extends EntityPathBase<UserToken> {
 
     private static final long serialVersionUID = 705255466L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QUserToken userToken = new QUserToken("userToken");
 
-    public final QUserBaseEntity _super = new QUserBaseEntity(this);
+    public final StringPath accessToken = createString("accessToken");
 
-    //inherited
-    public final StringPath id = _super.id;
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final StringPath kakaoToken = createString("kakaoToken");
+    public final StringPath refreshToken = createString("refreshToken");
+
+    public final QUserProfile userId;
 
     public QUserToken(String variable) {
-        super(UserToken.class, forVariable(variable));
+        this(UserToken.class, forVariable(variable), INITS);
     }
 
     public QUserToken(Path<? extends UserToken> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QUserToken(PathMetadata metadata) {
-        super(UserToken.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QUserToken(PathMetadata metadata, PathInits inits) {
+        this(UserToken.class, metadata, inits);
+    }
+
+    public QUserToken(Class<? extends UserToken> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.userId = inits.isInitialized("userId") ? new QUserProfile(forProperty("userId")) : null;
     }
 
 }
