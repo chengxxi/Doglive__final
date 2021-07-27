@@ -29,8 +29,10 @@
 }
 
 .main-container {
-  height: calc(100% - 100px); /* 전체 높이 - 헤더 높이 */
+  /* height: calc(100% - 100px); 전체 높이 - 헤더 높이 */
+  height: calc(100% - 170px); /* 전체 높이 - 헤더 높이 - 푸터 높이 */
   margin-top: 70px !important;
+  margin-bottom: 70px !important;
 }
 
 .el-footer.main-footer {
