@@ -163,6 +163,8 @@ dependencies {
     implementation("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
 
+    implementation("com.h2database:h2")
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
