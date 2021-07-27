@@ -5,44 +5,44 @@ html, body {
 
 body {
   margin: 0;
-  font-family: SpoqaHanSansNeo;
-  font-weight: 400;
-}
-
-@media (max-width: 1269px) {
-  .hide-on-small {
-    display: none !important;
-  }
-  .hide-on-big {
-    display: block;
-  }
-}
-
-@media (min-width: 1270px) {
-  html, body {
-    min-width: 1270px;
-  }
-
-  .hide-on-small {
-    display: block;
-  }
-  .hide-on-big {
-    display: none !important;
-  }
-}
-
-@font-face {
-  font-family: 'SpoqaHanSansNeo';
-  font-weight: 600;
-  src: url('../../assets/fonts/SpoqaHanSansNeo-Bold.ttf');
-}
-@font-face {
-  font-family: 'SpoqaHanSansNeo';
+  font-family: NEXONLv1Gothic;
   font-weight: 500;
-  src: url('../../assets/fonts/SpoqaHanSansNeo-Medium.ttf');
+}
+
+@media (max-width: 749px) {
+  .hide-on-small {
+    display: none !important;
+  }
+  .hide-on-big {
+    display: block;
+  }
+}
+
+@media (min-width: 750px) {
+  html, body {
+    min-width: 750px;
+  }
+
+  .hide-on-small {
+    display: block;
+  }
+  .hide-on-big {
+    display: none !important;
+  }
+}
+
+@font-face {
+  font-family: 'NEXONLv1Gothic';
+  font-weight: 600;
+  src: url('../../assets/fonts/NEXONLv1GothicBold.ttf');
 }
 @font-face {
-  font-family: 'SpoqaHanSansNeo';
+  font-family: 'NEXONLv1Gothic';
+  font-weight: 500;
+  src: url('../../assets/fonts/NEXONLv1GothicRegular.ttf');
+}
+@font-face {
+  font-family: 'NEXONLv1Gothic';
   font-weight: 400;
-  src: url('../../assets/fonts/SpoqaHanSansNeo-Regular.ttf');
+  src: url('../../assets/fonts/NEXONLv1GothicLight.ttf');
 }
