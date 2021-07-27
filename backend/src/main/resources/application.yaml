@@ -47,40 +47,50 @@ server:
       force: true
 spa:
   default-file: /dist/index.html
+
+
 spring:
   data:
     web:
       pageable:
         one-indexed-parameters: true
-  datasource:
-    auth:
+
+  auth:
+    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
       hikari:
         password: 1234
         username: root
       url: jdbc:mariadb://i5a501.p.ssafy.io:3306/auth?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
-    board:
-      driver-class-name: org.mariadb.jdbc.Driver
-      hikari:
-        password: 1234
-        username: root
-      url: jdbc:mariadb://i5a501.p.ssafy.io/board?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
-    community:
-      driver-class-name: org.mariadb.jdbc.Driver
-      hikari:
-        password: 1234
-        username: root
-      url: jdbc:mariadb://i5a501.p.ssafy.io/community?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
-    chat:
-      driver-class-name: org.mariadb.jdbc.Driver
-      hikari:
-        password: 1234
-        username: root
-      url: jdbc:mariadb://i5a501.p.ssafy.io/chat?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
 
-    devtools:
+  board:
+    datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      hikari:
+        password: 1234
+        username: root
+      url: jdbc:mariadb://i5a501.p.ssafy.io:3306/board?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+
+  chat:
+    datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      hikari:
+        password: 1234
+        username: root
+      url: jdbc:mariadb://i5a501.p.ssafy.io:3306/chat?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+
+  community:
+    datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      hikari:
+        password: 1234
+        username: root
+      url: jdbc:mariadb://i5a501.p.ssafy.io:3306/community?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+
+  devtools:
     livereload:
       enabled: true
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -89,7 +99,9 @@ spring:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL57Dialect
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+
   mvc:
     throw-exception-if-no-handler-found: true
   resources:
