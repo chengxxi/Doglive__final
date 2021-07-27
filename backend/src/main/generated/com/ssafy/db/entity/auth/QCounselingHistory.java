@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,11 +17,9 @@ public class QCounselingHistory extends EntityPathBase<CounselingHistory> {
 
     private static final long serialVersionUID = 796609923L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QCounselingHistory counselingHistory = new QCounselingHistory("counselingHistory");
 
-    public final QUserProfile applicantId;
+    public final StringPath applicantId = createString("applicantId");
 
     public final NumberPath<Long> boardId = createNumber("boardId", Long.class);
 
@@ -35,24 +32,15 @@ public class QCounselingHistory extends EntityPathBase<CounselingHistory> {
     public final StringPath result = createString("result");
 
     public QCounselingHistory(String variable) {
-        this(CounselingHistory.class, forVariable(variable), INITS);
+        super(CounselingHistory.class, forVariable(variable));
     }
 
     public QCounselingHistory(Path<? extends CounselingHistory> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QCounselingHistory(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QCounselingHistory(PathMetadata metadata, PathInits inits) {
-        this(CounselingHistory.class, metadata, inits);
-    }
-
-    public QCounselingHistory(Class<? extends CounselingHistory> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.applicantId = inits.isInitialized("applicantId") ? new QUserProfile(forProperty("applicantId"), inits.get("applicantId")) : null;
+        super(CounselingHistory.class, metadata);
     }
 
 }

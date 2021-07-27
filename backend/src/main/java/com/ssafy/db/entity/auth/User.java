@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
-public class User extends UserBaseEntity{
+public class User {
   private String kakaoId;       // 사용자의 Kakao Id
 
 }

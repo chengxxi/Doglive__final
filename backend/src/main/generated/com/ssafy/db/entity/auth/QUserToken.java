@@ -19,15 +19,12 @@ public class QUserToken extends EntityPathBase<UserToken> {
 
     public static final QUserToken userToken = new QUserToken("userToken");
 
-    public final StringPath accessToken = createString("accessToken");
+    public final QUserBaseEntity _super = new QUserBaseEntity(this);
 
-    public final StringPath expiresIn = createString("expiresIn");
+    //inherited
+    public final StringPath id = _super.id;
 
-    public final StringPath id = createString("id");
-
-    public final StringPath refreshToken = createString("refreshToken");
-
-    public final StringPath refreshTokenExpiresIn = createString("refreshTokenExpiresIn");
+    public final StringPath kakaoToken = createString("kakaoToken");
 
     public QUserToken(String variable) {
         super(UserToken.class, forVariable(variable));

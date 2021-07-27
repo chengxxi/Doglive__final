@@ -55,38 +55,6 @@ spring:
       pageable:
         one-indexed-parameters: true
 
-  auth:
-    datasource:
-      driver-class-name: org.mariadb.jdbc.Driver
-      hikari:
-        password: 1234
-        username: root
-      url: jdbc:mariadb://i5a501.p.ssafy.io:3306/auth?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
-
-  board:
-    datasource:
-      driver-class-name: org.mariadb.jdbc.Driver
-      hikari:
-        password: 1234
-        username: root
-      url: jdbc:mariadb://i5a501.p.ssafy.io:3306/board?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
-
-  chat:
-    datasource:
-      driver-class-name: org.mariadb.jdbc.Driver
-      hikari:
-        password: 1234
-        username: root
-      url: jdbc:mariadb://i5a501.p.ssafy.io:3306/chat?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
-
-  community:
-    datasource:
-      driver-class-name: org.mariadb.jdbc.Driver
-      hikari:
-        password: 1234
-        username: root
-      url: jdbc:mariadb://i5a501.p.ssafy.io:3306/community?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
-
   devtools:
     livereload:
       enabled: true
@@ -100,6 +68,34 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+auth:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    password: 1234
+    username: root
+    url: jdbc:mariadb://i5a501.p.ssafy.io/auth?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+
+board:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    password: 1234
+    username: root
+    url: jdbc:mariadb://i5a501.p.ssafy.io/board?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+
+chat:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    password: 1234
+    username: root
+    url: jdbc:mariadb://i5a501.p.ssafy.io/chat?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+
+community:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    password: 1234
+    username: root
+    url: jdbc:mariadb://i5a501.p.ssafy.io/community?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
 
 
   mvc:

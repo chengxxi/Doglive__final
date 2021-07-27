@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -21,10 +20,6 @@ public class QChatRoom extends EntityPathBase<ChatRoom> {
     public static final QChatRoom chatRoom = new QChatRoom("chatRoom");
 
     public final QBaseEntity _super = new QBaseEntity(this);
-
-    public final ListPath<ChatMessage, QChatMessage> chatMessages = this.<ChatMessage, QChatMessage>createList("chatMessages", ChatMessage.class, QChatMessage.class, PathInits.DIRECT2);
-
-    public final ListPath<ChatRoomJoin, QChatRoomJoin> chatRoomJoins = this.<ChatRoomJoin, QChatRoomJoin>createList("chatRoomJoins", ChatRoomJoin.class, QChatRoomJoin.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> counselingId = createNumber("counselingId", Long.class);
 

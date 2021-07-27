@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,13 +17,11 @@ public class QCommunityImage extends EntityPathBase<CommunityImage> {
 
     private static final long serialVersionUID = 1343228249L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QCommunityImage communityImage = new QCommunityImage("communityImage");
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final QCommunity communityId;
+    public final NumberPath<Long> communityId = createNumber("communityId", Long.class);
 
     public final StringPath filePath = createString("filePath");
 
@@ -32,24 +29,15 @@ public class QCommunityImage extends EntityPathBase<CommunityImage> {
     public final NumberPath<Long> id = _super.id;
 
     public QCommunityImage(String variable) {
-        this(CommunityImage.class, forVariable(variable), INITS);
+        super(CommunityImage.class, forVariable(variable));
     }
 
     public QCommunityImage(Path<? extends CommunityImage> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QCommunityImage(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QCommunityImage(PathMetadata metadata, PathInits inits) {
-        this(CommunityImage.class, metadata, inits);
-    }
-
-    public QCommunityImage(Class<? extends CommunityImage> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.communityId = inits.isInitialized("communityId") ? new QCommunity(forProperty("communityId")) : null;
+        super(CommunityImage.class, metadata);
     }
 
 }

@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,15 +17,13 @@ public class QConferenceHistory extends EntityPathBase<ConferenceHistory> {
 
     private static final long serialVersionUID = 1696858308L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QConferenceHistory conferenceHistory = new QConferenceHistory("conferenceHistory");
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
     public final NumberPath<Long> action = createNumber("action", Long.class);
 
-    public final QConference conferenceId;
+    public final NumberPath<Long> conferenceId = createNumber("conferenceId", Long.class);
 
     //inherited
     public final NumberPath<Long> id = _super.id;
@@ -36,24 +33,15 @@ public class QConferenceHistory extends EntityPathBase<ConferenceHistory> {
     public final StringPath userId = createString("userId");
 
     public QConferenceHistory(String variable) {
-        this(ConferenceHistory.class, forVariable(variable), INITS);
+        super(ConferenceHistory.class, forVariable(variable));
     }
 
     public QConferenceHistory(Path<? extends ConferenceHistory> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QConferenceHistory(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QConferenceHistory(PathMetadata metadata, PathInits inits) {
-        this(ConferenceHistory.class, metadata, inits);
-    }
-
-    public QConferenceHistory(Class<? extends ConferenceHistory> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.conferenceId = inits.isInitialized("conferenceId") ? new QConference(forProperty("conferenceId"), inits.get("conferenceId")) : null;
+        super(ConferenceHistory.class, metadata);
     }
 
 }

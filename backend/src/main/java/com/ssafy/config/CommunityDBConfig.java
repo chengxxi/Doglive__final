@@ -29,7 +29,7 @@ import java.util.HashMap;
 @Configuration //application.yaml에서 어떤 properties를 읽을지 지정
 @EnableTransactionManagement
 @EnableJpaRepositories(                                                             //Jpa에 관한 설정 및 파일의 위치 명시
-        entityManagerFactoryRef = "communityEntityManager",
+        entityManagerFactoryRef = "communityEntityManagerFactory",
         transactionManagerRef = "communityTransactionManager",
         basePackages = "com.ssafy.db.repository.community"                               //repository의 위치
 )

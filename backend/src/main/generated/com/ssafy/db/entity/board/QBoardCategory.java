@@ -26,6 +26,8 @@ public class QBoardCategory extends EntityPathBase<BoardCategory> {
 
     public final StringPath name = createString("name");
 
+    public final NumberPath<Long> type = createNumber("type", Long.class);
+
     public QBoardCategory(String variable) {
         super(BoardCategory.class, forVariable(variable));
     }

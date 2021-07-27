@@ -26,11 +26,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.HashMap;
 
-@Configuration
-                        //application.yaml에서 어떤 properties를 읽을지 지정
+@Configuration                                                                      //application.yaml에서 어떤 properties를 읽을지 지정
 @EnableTransactionManagement
 @EnableJpaRepositories(                                                             //Jpa에 관한 설정 및 파일의 위치 명시
-        entityManagerFactoryRef = "chatEntityManager",
+        entityManagerFactoryRef = "chatEntityManagerFactory",
         transactionManagerRef = "chatTransactionManager",
         basePackages = "com.ssafy.db.repository.chat"                               //repository의 위치
 )
