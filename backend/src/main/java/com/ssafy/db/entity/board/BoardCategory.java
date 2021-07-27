@@ -4,6 +4,7 @@ package com.ssafy.db.entity.board;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 /**
@@ -14,7 +15,7 @@ import javax.persistence.Entity;
 @Setter
 public class BoardCategory extends BaseEntity {
 
-  private long type;      // 게시판 type code
+  @Column(length = 2)
   private String name;    // 타입 명 (입양, 임보, 실종, 보호)
 
 }

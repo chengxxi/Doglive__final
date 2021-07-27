@@ -3,9 +3,8 @@ package com.ssafy.db.entity.chat;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * 화상회의 정보를 관리할 Conference Entity
@@ -22,5 +21,10 @@ public class Conference extends BaseEntity{
     @Temporal(TemporalType.TIME)
     private java.util.Date callStartTime;   //컨퍼런스가 시작한 시간
 
+    @OneToMany(mappedBy = "conferenceId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+    private List<ConferenceHistory> conferenceHistories;
+
+    @OneToMany(mappedBy = "conferenceId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+    private List<ConferenceUser> conferenceUsers;
 }
 

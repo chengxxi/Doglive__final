@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * 커뮤니티 이미지 관련 Entity
@@ -13,7 +15,11 @@ import javax.persistence.Entity;
 @Setter
 public class CommunityImage extends BaseEntity {
 
-    private long communityId;       // 커뮤니티 번호
+    @ManyToOne
+    @JoinColumn(name="community_id")
+    private Community communityId;       // 커뮤니티 번호
+
+
     private String filePath;        // 이미지 파일 경로
 
 }

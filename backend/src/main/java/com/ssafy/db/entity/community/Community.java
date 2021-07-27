@@ -1,9 +1,15 @@
 package com.ssafy.db.entity.community;
 
+import com.ssafy.db.entity.board.BoardComment;
+import com.ssafy.db.entity.board.BoardImage;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * 커뮤니티 게시글 정보 Entity
@@ -13,11 +19,21 @@ import javax.persistence.Entity;
 @Setter
 public class Community extends BaseEntity {
 
+    @Column(length = 13)
     private String userId;                    // 사용자 아이디
+
+    @Column(length = 30)
     private String title;                     // 게시글 제목
+
+    @Column(columnDefinition = "TEXT")
     private String description;               // 게시글 내용
     private java.sql.Timestamp registerDate;  // 게시글 작성 시간
-    private long likeCnt;                     // 게시글 좋아요 수
+
+    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+    private List<CommunityComment> communityComments;
+
+    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+    private List<CommunityImage> communityImages;
 
 }
 

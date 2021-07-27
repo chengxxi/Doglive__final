@@ -3,7 +3,7 @@ package com.ssafy.db.entity.auth;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * Kakao에서 발급된 토큰 관련 Entity
@@ -11,8 +11,17 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
-public class UserToken extends  UserBaseEntity{
+public class UserToken{
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  private String kakaoToken;      // 카카오 토큰
+  @ManyToOne
+  @JoinColumn(name="user_id")
+  @Column(length = 13)
+  private UserProfile userId;    // 사용자의 Kakao Id
+
+  private String accessToken;
+  private String refreshToken;
 
 }

@@ -1,8 +1,12 @@
 package com.ssafy.db.entity.chat;
+import com.ssafy.db.entity.board.BoardImage;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 
 /**
@@ -16,5 +20,10 @@ public class ChatRoom extends BaseEntity {
 
     private long counselingId;   //채팅방과 연관된 공고를 저장할 공고 게시글 ID
 
+    @OneToMany(mappedBy = "roomId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+    private List<ChatRoomJoin> chatRoomJoins;
+
+    @OneToMany(mappedBy = "roomId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+    private List<ChatMessage> chatMessages;
 
 }

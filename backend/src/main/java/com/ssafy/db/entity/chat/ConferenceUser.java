@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * 회의 사용자 Entity : 한 회의에 참여한 사용자 목록 확인 가능
@@ -13,7 +15,10 @@ import javax.persistence.Entity;
 @Setter
 public class ConferenceUser extends BaseEntity {
 
-    private long conferenceId;      // 회의 id
+    @ManyToOne
+    @JoinColumn(name="Conference_ID")
+    private Conference conferenceId;      // 회의 id
+
     private String userId;          // 사용자 id
 
 
