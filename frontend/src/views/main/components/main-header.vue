@@ -1,13 +1,15 @@
 <template>
-<el-row class="main-header"
+<el-header class="main-header"
   :style="{'height': height}">
-  <!-- Destop 전용 화면 -->
-  <div class="hide-on-small" @mouseover="changeDisplay('over')" @mouseleave="changeDisplay('leave')">
-    <div class="logo-wrapper">
-      <div class="logo"/>
-    </div>
-    <div class="menu-wrapper">
+  <!-- Desktop 전용 화면 -->
+  <div class="hide-on-small">
+    <div class="menu-wrapper" @mouseover="changeDisplay('over')" @mouseleave="changeDisplay('leave')">
         <ul class="depth0">
+            <li>
+              <div class="logo-wrapper">
+                <div class="logo"/>
+              </div>
+            </li>
             <li>
               <a href="#">독립</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
@@ -38,13 +40,13 @@
                   <li><a href="#">내 피드 확인하기</a></li>
                 </ul>
             </li>
+            <li>
+              <el-avatar class="userBtn" icon="el-icon-user-solid" @click="click"></el-avatar>
+            </li>
         </ul>
     </div>
-    <div class="user-wrapper">
-      <el-avatar class="userBtn" icon="el-icon-user-solid" @click="click"></el-avatar>
-    </div>
   </div>
-</el-row>
+</el-header>
 </template>
 
 <style scoped>
@@ -53,58 +55,57 @@
   top: 0;
   left: 0;
   right: 0;
-  padding: 10px 20px;
   text-align: center;
   overflow: visible;
 }
 .main-header .hide-on-small{
-  margin: 0 auto;
-  vertical-align: center;
-}
-.main-header .hide-on-small .logo-wrapper{
- float: left;
- cursor: pointer;
-}
-.main-header .hide-on-small .logo-wrapper .logo {
-  width: 150px;
-  height: 49px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-image: url('../../../assets/images/temp-logo.png');
+  height: inherit;
 }
 .main-header .hide-on-small .menu-wrapper{
   display: inline-block;
-  width: 70%;
-  height: 49px;
-  margin: 0 auto;
+  width: 100%;
+  height: inherit;
 }
 .main-header .hide-on-small .menu-wrapper .depth0{
-  list-style: none;
-  padding-left: 0;
+  width: 100%;
+  height: auto;
   font-size: 18px;
   font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.main-header .hide-on-small .menu-wrapper .depth0 ul{
+  list-style: none;
 }
 .main-header .hide-on-small .menu-wrapper .depth0 li{
   display: inline-block;
-  width: 25%;
+  width: 15%;
+  line-height: 70px;
   vertical-align: top;
 }
-.main-header .hide-on-small .menu-wrapper .depth0 a{
-  text-decoration: none;
-  color: black;
+.main-header .hide-on-small .menu-wrapper .depth0 a:hover{
+  color: #D7AEA4;
 }
 .main-header .hide-on-small .menu-wrapper .depth1{
-  display: none;
+  display: block;
   text-align: center;
-  padding-left: 0;
   margin-top: 40px;
   font-size: 16px;
   font-weight: 400;
 }
 .main-header .hide-on-small .menu-wrapper .depth1 li{
-  display: block;
   width: 100%;
-  margin-top: 8%;
+  line-height: 5px;
+}
+.main-header .hide-on-small .logo-wrapper{
+  float: left;
+  cursor: pointer;
+}
+.main-header .hide-on-small .logo-wrapper .logo {
+  width: 150px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url('../../../assets/images/temp-logo.png');
 }
 .main-header .hide-on-small .user-wrapper{
   float: right;
