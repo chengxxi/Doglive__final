@@ -10,27 +10,33 @@
   display: block !important;
 }
 
-.el-row.main-header {
+.el-header {
+  padding: 0;
+}
+
+.el-header.main-header {
   width: 100%;
   display: block;
   max-width: 100%;
   margin-left: 0 !important;
   margin-right: 0 !important;
-  border-bottom: 1px solid #dcdfe6;
+  /*border-bottom: 1px solid #dcdfe6;*/
 }
 
-.el-row.main-sidebar {
+.main-sidebar {
   height: 100%;
   display: inline-block;
 }
 
 .main-container {
-  height: calc(100% - 195px);
+  height: calc(100% - 100px); /* 전체 높이 - 헤더 높이 */
+  margin-top: 70px !important;
 }
 
-.el-row.main-footer {
+.el-footer.main-footer {
   z-index: -1;
   margin-left: 0 !important;
   margin-right: 0 !important;
   border-top: 1px solid #dcdfe6;
 }
+

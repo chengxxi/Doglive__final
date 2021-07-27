@@ -2,9 +2,7 @@
 <el-container class="main-wrapper">
     <main-header :height="`70px`"/>
     <el-container class="main-container">
-      <el-main>
-        <router-view></router-view>
-      </el-main>
+      <router-view></router-view>
     </el-container>
     <main-footer :height="`110px`"/>
   </el-container>
