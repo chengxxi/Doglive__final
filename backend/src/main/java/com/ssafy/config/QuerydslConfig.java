@@ -23,7 +23,7 @@ public class QuerydslConfig {
     @PersistenceContext(unitName = "communityEntityManager")
     EntityManager communityEntityManager;
 
-    @Bean
+    @Bean(name="authQueryFactory")
     public JPAQueryFactory authQueryFactory() {
         return new JPAQueryFactory(authEntityManager);
     }
