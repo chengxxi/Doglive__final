@@ -36,13 +36,13 @@ import java.util.HashMap;
 public class ChatDBConfig extends HikariConfig {
 
     @Bean
-    @ConfigurationProperties("chat.datasource")
+    @ConfigurationProperties("spring.datasource.hikari.chat")
     public DataSourceProperties chatDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
-    @ConfigurationProperties("chat.datasource.configuration")
+    @ConfigurationProperties("spring.datasource.hikari.chat.configuration")
     public DataSource chatDataSource(@Qualifier("chatDataSourceProperties") DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }

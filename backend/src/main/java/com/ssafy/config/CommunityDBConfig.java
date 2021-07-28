@@ -36,13 +36,13 @@ import java.util.HashMap;
 public class CommunityDBConfig extends HikariConfig {
 
     @Bean
-    @ConfigurationProperties("community.datasource")
+    @ConfigurationProperties("spring.datasource.hikari.community")
     public DataSourceProperties communityDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
-    @ConfigurationProperties("community.datasource.configuration")
+    @ConfigurationProperties("spring.datasource.hikari.community.configuration")
     public DataSource communityDataSource(@Qualifier("communityDataSourceProperties") DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }

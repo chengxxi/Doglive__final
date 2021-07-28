@@ -38,13 +38,13 @@ import java.util.HashMap;
 public class BoardDBConfig extends HikariConfig {
 
     @Bean
-    @ConfigurationProperties("board.datasource")
+    @ConfigurationProperties("spring.datasource.hikari.board")
     public DataSourceProperties boardDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
-    @ConfigurationProperties("board.datasource.configuration")
+    @ConfigurationProperties("spring.datasource.hikari.board.configuration")
     public DataSource boardDataSource(@Qualifier("boardDataSourceProperties") DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }

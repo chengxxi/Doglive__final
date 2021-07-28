@@ -39,14 +39,14 @@ public class AuthDBConfig extends HikariConfig {
 
     @Primary
     @Bean
-    @ConfigurationProperties("auth.datasource")
+    @ConfigurationProperties("spring.datasource.hikari.auth")
     public DataSourceProperties authDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Primary
     @Bean
-    @ConfigurationProperties("auth.datasource.configuration")
+    @ConfigurationProperties("spring.datasource.hikari.auth.configuration")
     public DataSource authDataSource(@Qualifier("authDataSourceProperties") DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
