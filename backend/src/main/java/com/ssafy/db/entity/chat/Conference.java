@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.chat;
 
+import com.ssafy.db.entity.auth.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,9 +16,13 @@ import java.util.List;
 @Setter
 public class Conference extends BaseEntity{
 
-    private String ownerId;                 //컨퍼런스의 Hose User Id
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private UserProfile ownerId;                 //컨퍼런스의 Hose User Id
 
-    private long chatRoomId;                // 채팅방 room Id
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="chat_room_id")
+    private ChatRoom chatRoomId;                // 채팅방 room Id
 
     @Temporal(TemporalType.TIME)
     private java.util.Date callStartTime;   //컨퍼런스가 시작한 시간

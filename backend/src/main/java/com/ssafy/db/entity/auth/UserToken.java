@@ -21,7 +21,7 @@ public class UserToken{
 
   @ManyToOne
   @JoinColumn(name="user_id")
-  private UserProfile userId;    // 사용자의 Kakao Id
+  private User userId;    // 사용자의 Kakao Id
 
   private String accessToken;
   private String refreshToken;

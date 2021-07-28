@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,11 +18,15 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
 
     private static final long serialVersionUID = 41556250L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QDogInformation dogInformation = new QDogInformation("dogInformation");
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
     public final StringPath address = createString("address");
+
+    public final QBoard boardId;
 
     public final NumberPath<Long> colorType = createNumber("colorType", Long.class);
 
@@ -41,15 +46,24 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
     public final NumberPath<Long> weight = createNumber("weight", Long.class);
 
     public QDogInformation(String variable) {
-        super(DogInformation.class, forVariable(variable));
+        this(DogInformation.class, forVariable(variable), INITS);
     }
 
     public QDogInformation(Path<? extends DogInformation> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QDogInformation(PathMetadata metadata) {
-        super(DogInformation.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QDogInformation(PathMetadata metadata, PathInits inits) {
+        this(DogInformation.class, metadata, inits);
+    }
+
+    public QDogInformation(Class<? extends DogInformation> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.boardId = inits.isInitialized("boardId") ? new QBoard(forProperty("boardId"), inits.get("boardId")) : null;
     }
 
 }

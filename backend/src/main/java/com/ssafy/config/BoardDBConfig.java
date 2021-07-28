@@ -5,16 +5,15 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -27,9 +26,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.HashMap;
 
-@Configuration
-                       //application.yaml에서 어떤 properties를 읽을지 지정
-@EnableTransactionManagement
+
+@Configuration //application.yaml에서 어떤 properties를 읽을지 지정
+@ConfigurationProperties(prefix="spring.datasource.hikari.board")
 @EnableJpaRepositories(                                                             //Jpa에 관한 설정 및 파일의 위치 명시
         entityManagerFactoryRef = "boardEntityManagerFactory",
         transactionManagerRef = "boardTransactionManager",
@@ -37,22 +36,36 @@ import java.util.HashMap;
 )
 public class BoardDBConfig extends HikariConfig {
 
-
-    @Autowired
-    @Qualifier("boardDataSource")
-    private DataSource boardDataSource;
-
-    @Bean(name="boardEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean boardEntityManagerFactory(EntityManagerFactoryBuilder builder){
-        return builder.dataSource(boardDataSource)
-                .packages("com.ssafy.db.entity.board")
-                .persistenceUnit("boardEntityManager")
-                .build();
+    @Bean
+    public DataSource boardDataSource() {
+        return new LazyConnectionDataSourceProxy(new HikariDataSource(this));
     }
 
-    @Bean("boardTransactionManager")
-    public PlatformTransactionManager boardTransactionManager(EntityManagerFactoryBuilder builder){
-        return new JpaTransactionManager(boardEntityManagerFactory(builder).getObject());
+    @Bean
+    public EntityManagerFactory boardEntityManagerFactory() {
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+
+        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+        factory.setDataSource(this.boardDataSource());
+        factory.setJpaVendorAdapter(vendorAdapter);
+        factory.setJpaPropertyMap(ImmutableMap.of(
+                "hibernate.hbm2ddl.auto", "update",
+                "hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect",
+                "hibernate.show_sql", "true"
+        ));
+
+        factory.setPackagesToScan("com.ssafy.db.entity.board");
+        factory.setPersistenceUnitName("boardEntityManager");
+        factory.afterPropertiesSet();
+
+        return factory.getObject();
+    }
+
+    @Bean
+    public PlatformTransactionManager boardTransactionManager() {
+        JpaTransactionManager tm = new JpaTransactionManager();
+        tm.setEntityManagerFactory(boardEntityManagerFactory());
+        return tm;
     }
 
 }

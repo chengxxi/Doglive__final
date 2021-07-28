@@ -1,8 +1,14 @@
 package com.ssafy.db.entity.auth;
 
+import com.ssafy.db.entity.board.Board;
+import com.ssafy.db.entity.board.BoardComment;
+import com.ssafy.db.entity.chat.*;
+import com.ssafy.db.entity.community.Community;
+import com.ssafy.db.entity.community.CommunityComment;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,8 +24,10 @@ import java.util.List;
 public class UserProfile {
 
   @Id
-  @Column(length = 13)
-  private String id;    // 사용자의 Kakao Id
+  @OneToOne
+  @JoinColumn(name= "id")
+  private User user;
+
 
   @Column(length = 30)
   private String email;
@@ -32,13 +40,38 @@ public class UserProfile {
   @Column(length = 13)
   private String phoneNumber;
 
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<UserToken> userTokens;
 
   @OneToMany(mappedBy = "applicantId", cascade = {CascadeType.ALL}, orphanRemoval=true)
   private List<CounselingHistory> counselingHistories;
 
   @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
   private List<Bookmark> bookmarks;
+
+  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  private List<Board> boards;
+
+  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  private List<BoardComment> comments;
+
+  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  private List<ChatMessage> chatMessages;
+
+  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  private List<ChatRoomJoin> chatRoomJoins;
+
+  @OneToMany(mappedBy = "ownerId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  private List<Conference> conferences;
+
+  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  private List<ConferenceHistory> conferenceHistories;
+
+  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  private List<ConferenceUser> conferenceUsers;
+
+  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  private List<Community> communities;
+
+  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  private List<CommunityComment> communityComments;
 
 }

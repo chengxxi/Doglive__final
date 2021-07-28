@@ -20,4 +20,5 @@ public class BoardCategory extends BaseEntity {
   @Column(length = 2)
   private String name;    // 타입 명 (입양, 임보, 실종, 보호)
 
+
 }

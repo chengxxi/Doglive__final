@@ -33,7 +33,7 @@ public class QBoardComment extends EntityPathBase<BoardComment> {
 
     public final TimePath<java.util.Date> registerDate = createTime("registerDate", java.util.Date.class);
 
-    public final StringPath userId = createString("userId");
+    public final com.ssafy.db.entity.auth.QUserProfile userId;
 
     public QBoardComment(String variable) {
         this(BoardComment.class, forVariable(variable), INITS);
@@ -54,6 +54,7 @@ public class QBoardComment extends EntityPathBase<BoardComment> {
     public QBoardComment(Class<? extends BoardComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.boardId = inits.isInitialized("boardId") ? new QBoard(forProperty("boardId"), inits.get("boardId")) : null;
+        this.userId = inits.isInitialized("userId") ? new com.ssafy.db.entity.auth.QUserProfile(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }

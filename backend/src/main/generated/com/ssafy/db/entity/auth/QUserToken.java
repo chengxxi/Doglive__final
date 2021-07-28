@@ -28,7 +28,7 @@ public class QUserToken extends EntityPathBase<UserToken> {
 
     public final StringPath refreshToken = createString("refreshToken");
 
-    public final QUserProfile userId;
+    public final QUser userId;
 
     public QUserToken(String variable) {
         this(UserToken.class, forVariable(variable), INITS);
@@ -48,7 +48,7 @@ public class QUserToken extends EntityPathBase<UserToken> {
 
     public QUserToken(Class<? extends UserToken> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.userId = inits.isInitialized("userId") ? new QUserProfile(forProperty("userId")) : null;
+        this.userId = inits.isInitialized("userId") ? new QUser(forProperty("userId")) : null;
     }
 
 }

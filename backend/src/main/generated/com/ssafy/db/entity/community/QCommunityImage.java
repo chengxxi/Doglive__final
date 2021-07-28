@@ -49,7 +49,7 @@ public class QCommunityImage extends EntityPathBase<CommunityImage> {
 
     public QCommunityImage(Class<? extends CommunityImage> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.communityId = inits.isInitialized("communityId") ? new QCommunity(forProperty("communityId")) : null;
+        this.communityId = inits.isInitialized("communityId") ? new QCommunity(forProperty("communityId"), inits.get("communityId")) : null;
     }
 
 }

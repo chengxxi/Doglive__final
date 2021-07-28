@@ -29,7 +29,7 @@ public class QConferenceUser extends EntityPathBase<ConferenceUser> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
-    public final StringPath userId = createString("userId");
+    public final com.ssafy.db.entity.auth.QUserProfile userId;
 
     public QConferenceUser(String variable) {
         this(ConferenceUser.class, forVariable(variable), INITS);
@@ -49,7 +49,8 @@ public class QConferenceUser extends EntityPathBase<ConferenceUser> {
 
     public QConferenceUser(Class<? extends ConferenceUser> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.conferenceId = inits.isInitialized("conferenceId") ? new QConference(forProperty("conferenceId")) : null;
+        this.conferenceId = inits.isInitialized("conferenceId") ? new QConference(forProperty("conferenceId"), inits.get("conferenceId")) : null;
+        this.userId = inits.isInitialized("userId") ? new com.ssafy.db.entity.auth.QUserProfile(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }

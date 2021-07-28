@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.auth;
 
+import com.ssafy.db.entity.board.Board;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,10 @@ public class Bookmark {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;                                   //bookmark id
-  private long boardId;                              //공고 id
+
+  @ManyToOne
+  @JoinColumn(name = "board_id")
+  private Board boardId;                              //공고 id
 
   @ManyToOne
   @JoinColumn(name="user_id")

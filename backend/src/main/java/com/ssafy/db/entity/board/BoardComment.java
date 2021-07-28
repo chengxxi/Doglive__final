@@ -1,8 +1,10 @@
 package com.ssafy.db.entity.board;
 
 
+import com.ssafy.db.entity.auth.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
+import org.checkerframework.checker.compilermsgs.qual.CompilerMessageKey;
 
 import javax.persistence.*;
 
@@ -15,8 +17,9 @@ import javax.persistence.*;
 @Setter
 public class BoardComment extends BaseEntity {
 
-  @Column(length = 13)
-  private String userId;                      // 사용자 아이디
+  @ManyToOne
+  @JoinColumn(name="user_id")
+  private UserProfile userId;                      // 사용자 아이디
 
   @ManyToOne
   @JoinColumn(name="board_id")
@@ -25,6 +28,7 @@ public class BoardComment extends BaseEntity {
   @Column(columnDefinition = "TEXT")
   private String comment;                     // 댓글 내용
 
+  @Column(name="register_date")
   @Temporal(TemporalType.TIME)
   private java.util.Date registerDate;        // 댓글 작성 시간
 

@@ -17,12 +17,13 @@ import java.util.List;
 @Getter
 @Setter
 public class User {
+
   @Id
-  @Column(length = 13)
+  @Column(length = 13, name = "id")
   private String id;    // 사용자의 Kakao Id
 
-  @OneToOne @MapsId
-  UserProfile userProfile;
+  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  private List<UserToken> userTokens;
 
 
 }

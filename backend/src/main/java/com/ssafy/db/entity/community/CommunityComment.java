@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.community;
 
+import com.ssafy.db.entity.auth.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,13 +19,16 @@ public class CommunityComment extends BaseEntity {
     @JoinColumn(name="community_id")
     private Community communityId;                 // 사용자 커뮤니티 번호
 
-    @Column(length=13)
-    private String userId;                    // 사용자 아이디
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private UserProfile userId;                    // 사용자 아이디
 
     @Column(columnDefinition = "TEXT")
     private String comment;                   // 커뮤니티 댓글내용
 
-    private java.sql.Timestamp registerDate;  // 커뮤니티 댓글 작성 시간
+    @Column(name="reg_date")
+    @Temporal(TemporalType.TIME)
+    private java.util.Date regDate;  // 커뮤니티 댓글 작성 시간
 
 
 }

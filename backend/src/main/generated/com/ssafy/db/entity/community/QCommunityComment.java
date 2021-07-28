@@ -31,9 +31,9 @@ public class QCommunityComment extends EntityPathBase<CommunityComment> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
-    public final DateTimePath<java.sql.Timestamp> registerDate = createDateTime("registerDate", java.sql.Timestamp.class);
+    public final TimePath<java.util.Date> regDate = createTime("regDate", java.util.Date.class);
 
-    public final StringPath userId = createString("userId");
+    public final com.ssafy.db.entity.auth.QUserProfile userId;
 
     public QCommunityComment(String variable) {
         this(CommunityComment.class, forVariable(variable), INITS);
@@ -53,7 +53,8 @@ public class QCommunityComment extends EntityPathBase<CommunityComment> {
 
     public QCommunityComment(Class<? extends CommunityComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.communityId = inits.isInitialized("communityId") ? new QCommunity(forProperty("communityId")) : null;
+        this.communityId = inits.isInitialized("communityId") ? new QCommunity(forProperty("communityId"), inits.get("communityId")) : null;
+        this.userId = inits.isInitialized("userId") ? new com.ssafy.db.entity.auth.QUserProfile(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }

@@ -22,7 +22,7 @@ public class QBookmark extends EntityPathBase<Bookmark> {
 
     public static final QBookmark bookmark = new QBookmark("bookmark");
 
-    public final NumberPath<Long> boardId = createNumber("boardId", Long.class);
+    public final com.ssafy.db.entity.board.QBoard boardId;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -46,7 +46,8 @@ public class QBookmark extends EntityPathBase<Bookmark> {
 
     public QBookmark(Class<? extends Bookmark> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.userId = inits.isInitialized("userId") ? new QUserProfile(forProperty("userId")) : null;
+        this.boardId = inits.isInitialized("boardId") ? new com.ssafy.db.entity.board.QBoard(forProperty("boardId"), inits.get("boardId")) : null;
+        this.userId = inits.isInitialized("userId") ? new QUserProfile(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }

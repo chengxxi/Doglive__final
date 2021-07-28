@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.chat;
 
+import com.ssafy.db.entity.auth.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,10 +19,13 @@ import javax.persistence.Table;
 public class ConferenceUser extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name="Conference_ID")
+    @JoinColumn(name="conference_id")
     private Conference conferenceId;      // 회의 id
 
-    private String userId;          // 사용자 id
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private UserProfile userId;          // 사용자 id
 
 
 }
