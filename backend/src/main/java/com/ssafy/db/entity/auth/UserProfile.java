@@ -25,7 +25,7 @@ import java.util.List;
 public class UserProfile {
 
   @Id
-  private User user;
+  private String userId;
 
 
   @Column(length = 30)
