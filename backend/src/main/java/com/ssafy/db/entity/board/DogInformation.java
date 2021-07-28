@@ -22,7 +22,7 @@ public class DogInformation extends BaseEntity {
   private long gender;                    // 강아지 성별
 
   @OneToOne(mappedBy = "dogId")
-  private Board boardId;
+  private Board board;
 
   @Column(length = 4)
   private String mbti;                    // 강아지 MBTI

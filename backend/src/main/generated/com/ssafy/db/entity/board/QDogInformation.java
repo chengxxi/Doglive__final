@@ -26,7 +26,7 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
 
     public final StringPath address = createString("address");
 
-    public final QBoard boardId;
+    public final QBoard board;
 
     public final NumberPath<Long> colorType = createNumber("colorType", Long.class);
 
@@ -63,7 +63,7 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
 
     public QDogInformation(Class<? extends DogInformation> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.boardId = inits.isInitialized("boardId") ? new QBoard(forProperty("boardId"), inits.get("boardId")) : null;
+        this.board = inits.isInitialized("board") ? new QBoard(forProperty("board"), inits.get("board")) : null;
     }
 
 }

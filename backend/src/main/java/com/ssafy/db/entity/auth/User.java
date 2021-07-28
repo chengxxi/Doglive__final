@@ -22,6 +22,11 @@ public class User {
   @Column(length = 13, name = "id")
   private String id;    // 사용자의 Kakao Id
 
+  @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL})
+  @PrimaryKeyJoinColumn
+  private UserProfile userProfile;
+
+
   @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
   private List<UserToken> userTokens;
 

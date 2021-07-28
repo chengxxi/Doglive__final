@@ -22,7 +22,7 @@ public class Board extends BaseEntity{
   private String userId;                //사용자 ID
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name="dog_id")
+  @JoinColumn(name="dog_id", referencedColumnName = "id")
   private DogInformation dogId;                   // 유기견 ID
 
   @ManyToOne

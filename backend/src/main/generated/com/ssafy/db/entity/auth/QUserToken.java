@@ -48,7 +48,7 @@ public class QUserToken extends EntityPathBase<UserToken> {
 
     public QUserToken(Class<? extends UserToken> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.userId = inits.isInitialized("userId") ? new QUser(forProperty("userId")) : null;
+        this.userId = inits.isInitialized("userId") ? new QUser(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }
