@@ -19,7 +19,7 @@
 </template>
 
 <style scoped>
-@media (max-width: 749px) {
+@media (max-width: 749px) { /* 작은 화면 */
   .main-footer {
     height: 90px;
     background-color: #F2EFED;
@@ -31,7 +31,7 @@
   }
 }
 
-@media (min-width: 750px) {
+@media (min-width: 750px) { /* 큰 화면 */
   .main-footer {
     height: 70px;
     background-color: #F2EFED;
