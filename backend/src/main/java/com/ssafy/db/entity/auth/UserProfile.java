@@ -32,12 +32,13 @@ public class UserProfile {
   @Column(length = 30)
   private String email;
 
+  @Column(name="profile_image_url")
   private String profileImageUrl;
 
   @Column(length = 10)
   private String name;
 
-  @Column(length = 13)
+  @Column(length = 13, name="phone_number")
   private String phoneNumber;
 
   @OneToOne

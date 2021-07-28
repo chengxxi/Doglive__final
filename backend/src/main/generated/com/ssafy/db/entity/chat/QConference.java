@@ -26,7 +26,7 @@ public class QConference extends EntityPathBase<Conference> {
 
     public final TimePath<java.util.Date> callStartTime = createTime("callStartTime", java.util.Date.class);
 
-    public final QChatRoom chatRoomId;
+    public final QChatRoom chatRoom;
 
     public final ListPath<ConferenceHistory, QConferenceHistory> conferenceHistories = this.<ConferenceHistory, QConferenceHistory>createList("conferenceHistories", ConferenceHistory.class, QConferenceHistory.class, PathInits.DIRECT2);
 
@@ -55,7 +55,7 @@ public class QConference extends EntityPathBase<Conference> {
 
     public QConference(Class<? extends Conference> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.chatRoomId = inits.isInitialized("chatRoomId") ? new QChatRoom(forProperty("chatRoomId"), inits.get("chatRoomId")) : null;
+        this.chatRoom = inits.isInitialized("chatRoom") ? new QChatRoom(forProperty("chatRoom"), inits.get("chatRoom")) : null;
     }
 
 }

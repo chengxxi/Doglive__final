@@ -19,11 +19,12 @@ import java.util.List;
 @Setter
 public class Board extends BaseEntity{
 
+  @Column(name="user_id")
   private String userId;                //사용자 ID
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name="dog_id", referencedColumnName = "id")
-  private DogInformation dogId;                   // 유기견 ID
+  @OneToOne(mappedBy = "board", fetch = FetchType.LAZY,
+          cascade = CascadeType.ALL)
+  private DogInformation dogInformation;                   // 유기견 ID
 
   @ManyToOne
   @JoinColumn(name="board_type")

@@ -22,7 +22,7 @@ public class User {
   @Column(length = 13, name = "id")
   private String id;    // 사용자의 Kakao Id
 
-  @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL})
+  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
   @PrimaryKeyJoinColumn
   private UserProfile userProfile;
 

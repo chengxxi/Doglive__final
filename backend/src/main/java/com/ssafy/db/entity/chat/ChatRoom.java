@@ -17,9 +17,11 @@ import java.util.List;
 @Setter
 public class ChatRoom extends BaseEntity {
 
+    @Column(name="counseling_id")
     private Long counselingId;   //상담신청 아이디 연결
 
-    @OneToOne(mappedBy = "chatRoomId")
+    @OneToOne(mappedBy = "chatRoom", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Conference conference;
 
     @OneToMany(mappedBy = "roomId", cascade = {CascadeType.ALL}, orphanRemoval=true)
