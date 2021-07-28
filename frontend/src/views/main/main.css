@@ -6,7 +6,7 @@
 }
 
 #app, .main-wrapper {
-  height: 300%;
+  height: 100%;
   display: block !important;
 }
 
