@@ -4,10 +4,7 @@ package com.ssafy.db.entity.board;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 강아지 정보 Entity
@@ -21,7 +18,8 @@ public class DogInformation extends BaseEntity {
 
   private long gender;                    // 강아지 성별
 
-  @OneToOne(mappedBy = "dogId")
+  @OneToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "board_id", nullable = false)
   private Board board;
 
   @Column(length = 4)

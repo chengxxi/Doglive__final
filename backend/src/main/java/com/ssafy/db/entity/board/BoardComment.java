@@ -17,6 +17,7 @@ import javax.persistence.*;
 @Setter
 public class BoardComment extends BaseEntity {
 
+  @Column(name="user_id")
   private String userId;                      // 사용자 아이디
 
   @ManyToOne
@@ -26,7 +27,7 @@ public class BoardComment extends BaseEntity {
   @Column(columnDefinition = "TEXT")
   private String comment;                     // 댓글 내용
 
-  @Column(name="register_date")
+  @Column(name="reg_date")
   @Temporal(TemporalType.TIME)
   private java.util.Date registerDate;        // 댓글 작성 시간
 

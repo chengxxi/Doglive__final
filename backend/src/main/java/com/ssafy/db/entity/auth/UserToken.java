@@ -23,7 +23,10 @@ public class UserToken{
   @JoinColumn(name="user_id")
   private User userId;    // 사용자의 Kakao Id
 
+  @Column(name="access_token")
   private String accessToken;
+
+  @Column(name="refresh_token")
   private String refreshToken;
 
 }

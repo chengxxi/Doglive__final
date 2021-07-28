@@ -28,7 +28,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final ListPath<BoardImage, QBoardImage> boardImages = this.<BoardImage, QBoardImage>createList("boardImages", BoardImage.class, QBoardImage.class, PathInits.DIRECT2);
 
-    public final QDogInformation dogId;
+    public final QDogInformation dogInformation;
 
     //inherited
     public final NumberPath<Long> id = _super.id;
@@ -61,7 +61,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public QBoard(Class<? extends Board> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.dogId = inits.isInitialized("dogId") ? new QDogInformation(forProperty("dogId"), inits.get("dogId")) : null;
+        this.dogInformation = inits.isInitialized("dogInformation") ? new QDogInformation(forProperty("dogInformation"), inits.get("dogInformation")) : null;
         this.type = inits.isInitialized("type") ? new QBoardCategory(forProperty("type")) : null;
     }
 

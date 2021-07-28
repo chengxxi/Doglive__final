@@ -19,6 +19,8 @@ public class BoardImage extends BaseEntity {
   @ManyToOne
   @JoinColumn(name="board_id")
   private Board boardId;             // 공고 아이디
+
+  @Column(name="file_path")
   private String filePath;          // 이미지 경로
 
 
