@@ -57,7 +57,7 @@ public class AuthDBConfig extends HikariConfig {
                 "hibernate.show_sql", "true"
         ));
 
-        factory.setPackagesToScan("com.ssafy.db.entity.auth");
+        factory.setPackagesToScan("com.ssafy.db.entity");
         factory.setPersistenceUnitName("authEntityManager");
         factory.afterPropertiesSet();
 
