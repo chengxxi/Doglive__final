@@ -32,7 +32,7 @@ public class UserProfile {
   @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
   private List<UserToken> userTokens;
 
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  @OneToMany(mappedBy = "applicantId", cascade = {CascadeType.ALL}, orphanRemoval=true)
   private List<CounselingHistory> counselingHistories;
 
   @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)

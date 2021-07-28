@@ -18,7 +18,6 @@ public class UserToken{
 
   @ManyToOne
   @JoinColumn(name="user_id")
-  @Column(length = 13)
   private UserProfile userId;    // 사용자의 Kakao Id
 
   private String accessToken;
