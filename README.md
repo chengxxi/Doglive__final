@@ -223,6 +223,12 @@
 
 <br><br>
 
+### ERD
+
+![image](/uploads/abef4b0fa6208f15673cfded09d4841a/image.png)
+
+<br><br>
+
 
 ## 개발문서 
 #### [ 📑 Wiki 보러 가기](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/wikis/home)
