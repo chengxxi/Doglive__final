@@ -6,11 +6,13 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * 강아지 정보 Entity
  */
 @Entity
+@Table(name="dog_information", schema = "board")
 @Getter
 @Setter
 

@@ -3,15 +3,13 @@ package com.ssafy.db.entity.community;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * 커뮤니티 댓글 정보 Entity
  */
 @Entity
+@Table(name="community_comment", schema = "community")
 @Getter
 @Setter
 public class CommunityComment extends BaseEntity {

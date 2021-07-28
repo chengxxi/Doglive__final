@@ -6,11 +6,13 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * 커뮤니티 이미지 관련 Entity
  */
 @Entity
+@Table(name="community_image", schema = "community")
 @Getter
 @Setter
 public class CommunityImage extends BaseEntity {

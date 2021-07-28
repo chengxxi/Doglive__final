@@ -10,6 +10,7 @@ import java.util.List;
  * 화상회의 정보를 관리할 Conference Entity
  */
 @Entity
+@Table(name="conference", schema = "chat")
 @Getter
 @Setter
 public class Conference extends BaseEntity{

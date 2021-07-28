@@ -6,11 +6,13 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * 회의 이력 Entity
  */
 @Entity
+@Table(name="conference_history", schema = "chat")
 @Getter
 @Setter
 public class ConferenceHistory extends BaseEntity {

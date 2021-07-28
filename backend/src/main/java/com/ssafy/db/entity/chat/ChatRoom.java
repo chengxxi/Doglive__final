@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 
@@ -13,6 +14,7 @@ import java.util.List;
  * 채팅방을 관리할 ChatRoom Entity
  */
 @Entity
+@Table(name="chat_room", schema = "chat")
 @Getter
 @Setter
 public class ChatRoom extends BaseEntity {

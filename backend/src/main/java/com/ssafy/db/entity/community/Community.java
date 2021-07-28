@@ -5,16 +5,14 @@ import com.ssafy.db.entity.board.BoardImage;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * 커뮤니티 게시글 정보 Entity
  */
 @Entity
+@Table(name="community", schema = "community")
 @Getter
 @Setter
 public class Community extends BaseEntity {

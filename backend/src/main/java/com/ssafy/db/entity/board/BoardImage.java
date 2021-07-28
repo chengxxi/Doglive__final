@@ -5,15 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.checkerframework.common.aliasing.qual.MaybeAliased;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  * 게시판 이미지 관련 Entity
  */
 @Entity
+@Table(name="board_image", schema = "board")
 @Getter
 @Setter
 public class BoardImage extends BaseEntity {

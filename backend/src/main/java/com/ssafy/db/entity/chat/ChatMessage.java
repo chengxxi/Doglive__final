@@ -9,6 +9,7 @@ import javax.persistence.*;
  * 채팅 데이터를 저장할 ChatMessage Entity
  */
 @Entity
+@Table(name="chat_message", schema = "chat")
 @Getter
 @Setter
 public class ChatMessage extends BaseEntity {
