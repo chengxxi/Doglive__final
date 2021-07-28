@@ -37,35 +37,26 @@ import java.util.HashMap;
 )
 public class AuthDBConfig extends HikariConfig {
 
-    @Primary
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari.auth")
-    public DataSourceProperties authDataSourceProperties() {
-        return new DataSourceProperties();
-    }
 
-    @Primary
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari.auth.configuration")
-    public DataSource authDataSource(@Qualifier("authDataSourceProperties") DataSourceProperties dataSourceProperties) {
-        return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
-    }
+    @Autowired
+    @Qualifier("authDataSource")
+    private DataSource authDataSource;
 
+
+    @Bean(name="authEntityManagerFactory")
     @Primary
-    @Bean
-    public LocalContainerEntityManagerFactoryBean authEntityManagerFactory(EntityManagerFactoryBuilder builder,
-                                                                              @Qualifier("authDataSource") DataSource dataSource) {
-        return builder
-                .dataSource(dataSource)
+    public LocalContainerEntityManagerFactoryBean authEntityManagerFactory(EntityManagerFactoryBuilder builder){
+        return builder.dataSource(authDataSource)
                 .packages("com.ssafy.db.entity.auth")
                 .persistenceUnit("authEntityManager")
                 .build();
     }
 
+    @Bean("authTransactionManager")
     @Primary
-    @Bean
-    public PlatformTransactionManager authTransactionManager(@Qualifier("authEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
+    public PlatformTransactionManager authTransactionManager(EntityManagerFactoryBuilder builder){
+        return new JpaTransactionManager(authEntityManagerFactory(builder).getObject());
     }
+
 
 }

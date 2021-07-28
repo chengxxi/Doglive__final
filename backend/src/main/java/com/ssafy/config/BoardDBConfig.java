@@ -37,30 +37,22 @@ import java.util.HashMap;
 )
 public class BoardDBConfig extends HikariConfig {
 
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari.board")
-    public DataSourceProperties boardDataSourceProperties() {
-        return new DataSourceProperties();
-    }
 
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari.board.configuration")
-    public DataSource boardDataSource(@Qualifier("boardDataSourceProperties") DataSourceProperties dataSourceProperties) {
-        return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
-    }
+    @Autowired
+    @Qualifier("boardDataSource")
+    private DataSource boardDataSource;
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean boardEntityManagerFactory(EntityManagerFactoryBuilder builder,
-                                                                           @Qualifier("boardDataSource") DataSource dataSource) {
-        return builder
-                .dataSource(dataSource)
+    @Bean(name="boardEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean boardEntityManagerFactory(EntityManagerFactoryBuilder builder){
+        return builder.dataSource(boardDataSource)
                 .packages("com.ssafy.db.entity.board")
                 .persistenceUnit("boardEntityManager")
                 .build();
     }
 
-    @Bean
-    public PlatformTransactionManager boardTransactionManager(@Qualifier("boardEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
+    @Bean("boardTransactionManager")
+    public PlatformTransactionManager boardTransactionManager(EntityManagerFactoryBuilder builder){
+        return new JpaTransactionManager(boardEntityManagerFactory(builder).getObject());
     }
+
 }

@@ -35,31 +35,21 @@ import java.util.HashMap;
 )
 public class ChatDBConfig extends HikariConfig {
 
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari.chat")
-    public DataSourceProperties chatDataSourceProperties() {
-        return new DataSourceProperties();
-    }
+    @Autowired
+    @Qualifier("chatDataSource")
+    private DataSource chatDataSource;
 
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari.chat.configuration")
-    public DataSource chatDataSource(@Qualifier("chatDataSourceProperties") DataSourceProperties dataSourceProperties) {
-        return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
-    }
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean chatEntityManagerFactory(EntityManagerFactoryBuilder builder,
-                                                                            @Qualifier("chatDataSource") DataSource dataSource) {
-        return builder
-                .dataSource(dataSource)
+    @Bean(name="chatEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean chatEntityManagerFactory(EntityManagerFactoryBuilder builder){
+        return builder.dataSource(chatDataSource)
                 .packages("com.ssafy.db.entity.chat")
                 .persistenceUnit("chatEntityManager")
                 .build();
     }
 
-    @Bean
-    public PlatformTransactionManager chatTransactionManager(@Qualifier("chatEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
+    @Bean("chatTransactionManager")
+    public PlatformTransactionManager chatTransactionManager(EntityManagerFactoryBuilder builder){
+        return new JpaTransactionManager(chatEntityManagerFactory(builder).getObject());
     }
 
 }

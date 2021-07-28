@@ -35,30 +35,21 @@ import java.util.HashMap;
 )
 public class CommunityDBConfig extends HikariConfig {
 
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari.community")
-    public DataSourceProperties communityDataSourceProperties() {
-        return new DataSourceProperties();
-    }
+    @Autowired
+    @Qualifier("communityDataSource")
+    private DataSource communityDataSource;
 
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari.community.configuration")
-    public DataSource communityDataSource(@Qualifier("communityDataSourceProperties") DataSourceProperties dataSourceProperties) {
-        return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
-    }
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean communityEntityManagerFactory(EntityManagerFactoryBuilder builder,
-                                                                           @Qualifier("communityDataSource") DataSource dataSource) {
-        return builder
-                .dataSource(dataSource)
+    @Bean(name="communityEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean communityEntityManagerFactory(EntityManagerFactoryBuilder builder){
+        return builder.dataSource(communityDataSource)
                 .packages("com.ssafy.db.entity.community")
                 .persistenceUnit("communityEntityManager")
                 .build();
     }
 
-    @Bean
-    public PlatformTransactionManager communityTransactionManager(@Qualifier("communityEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
+    @Bean("communityTransactionManager")
+    public PlatformTransactionManager communityTransactionManager(EntityManagerFactoryBuilder builder){
+        return new JpaTransactionManager(communityEntityManagerFactory(builder).getObject());
     }
+
 }
