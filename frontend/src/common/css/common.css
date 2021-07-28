@@ -7,6 +7,7 @@ body {
   margin: 0;
   font-family: NEXONLv1Gothic;
   font-weight: 500;
+  font-size: 16px;
 }
 
 ul, li {
@@ -19,6 +20,7 @@ a{
   color: black;
 }
 
+/* Mobile */
 @media (max-width: 749px) {
   .hide-on-small {
     display: none !important;
@@ -28,11 +30,11 @@ a{
   }
 }
 
+/* Desktop */
 @media (min-width: 750px) {
   html, body {
     min-width: 750px;
   }
-
   .hide-on-small {
     display: block;
   }

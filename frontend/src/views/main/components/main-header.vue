@@ -6,7 +6,7 @@
     <div class="menu-wrapper">
         <ul class="depth0" @mouseleave="changeDisplay('leave')">
             <li>
-                <div class="logo"/>
+                <div class="logo" @click="clickLogo"></div>
             </li>
             <li></li>
             <li>
@@ -46,10 +46,10 @@
               <el-popover
                 placement="bottom"
                 width="200"
-                trigger="click"
+                trigger="hover"
                 v-model="state.showUserModal">
                 <table :style="{margin: '0 auto'}">
-                  <tr v-for="(path, key, index) in notLoggedIn" v-bind:key="index">
+                  <tr v-for="(path, key, index) in loggedIn" v-bind:key="index">
                     <td><a :href="path">{{ key }}</a></td>
                   </tr>
                 </table>
@@ -66,6 +66,7 @@
 
 <style scoped>
 .main-header{
+  z-index: 1; /* 헤더 맨위 고정 */
   position: fixed;
   top: 0;
   left: 0;
@@ -83,9 +84,9 @@
   display: table;
   table-layout: fixed;
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
-  background-color: rgba(255, 244, 233, 0.979);
+  background-color: rgba(249, 240, 231, 0.6);
 }
 .main-header .hide-on-small .menu-wrapper .depth0 ul{
   list-style: none;
@@ -128,6 +129,7 @@
 
 <script>
 import { computed, reactive } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'main-header',
@@ -138,30 +140,32 @@ export default {
       },
   },
   setup() {
+    const router = useRouter()
     const notLoggedIn = {
       '로그인': '/',
-    };
+    }
     const loggedIn = {
-      '마이페이지': '/',
+      '마이페이지': '/mypage/profile',
       '로그아웃': '/'
-    };
-
+    }
     const state = reactive({
       showHiddenMenu: 'none',
       showUserModal: false,
     })
 
+    const clickLogo = function() {
+      router.push({name : 'Main'}) // vue-router.js 밑에 정의해둔 메인페이지 경로로 이동
+    }
     const changeUserModal = function(){
       state.showUserModal=!state.showUserModal;
     }
-
     const changeDisplay = function(mouse){
       if(mouse === "over")
-        state.showHiddenMenu = 'block';
+        state.showHiddenMenu = 'block'
       else
-        state.showHiddenMenu = 'none';
+        state.showHiddenMenu = 'none'
     }
-    return { state, changeUserModal, changeDisplay, notLoggedIn, loggedIn }
+    return { state, clickLogo, changeUserModal, changeDisplay, notLoggedIn, loggedIn }
   },
 }
 </script>

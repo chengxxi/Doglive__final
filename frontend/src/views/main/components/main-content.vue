@@ -1,11 +1,11 @@
 <template>
+  <div class="main-content"></div>
 </template>
 
 <style scoped>
 .main-content{
-  display: block;
-  width: 100;
-  height: 150%;;
+  width: 100%;
+  height: 100%;
 }
 </style>
 

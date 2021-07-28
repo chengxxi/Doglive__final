@@ -15,8 +15,6 @@
           <li><img :src="require('@/assets/images/twitter.png')" /></li>
         </ul> -->
       </li>
-
-
     </ul>
   </footer>
 </template>
@@ -24,7 +22,7 @@
 <style scoped>
 footer {
   display: flex;
-  position: fixed; /* 하단 고정 */
+  /* position: fixed; 하단 고정 */
   left: 0px;
   bottom: 0px;
   height: 70px; /* main.vue에 footer 기준은 110 */
