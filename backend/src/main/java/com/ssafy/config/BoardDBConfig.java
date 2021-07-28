@@ -54,7 +54,7 @@ public class BoardDBConfig extends HikariConfig {
                 "hibernate.show_sql", "true"
         ));
 
-        factory.setPackagesToScan("com.ssafy.db.entity");
+        factory.setPackagesToScan("com.ssafy.db.entity.board");
         factory.setPersistenceUnitName("boardEntityManager");
         factory.afterPropertiesSet();
 

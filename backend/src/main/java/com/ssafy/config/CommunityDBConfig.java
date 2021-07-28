@@ -53,7 +53,7 @@ public class CommunityDBConfig extends HikariConfig {
                 "hibernate.show_sql", "true"
         ));
 
-        factory.setPackagesToScan("com.ssafy.db.entity");
+        factory.setPackagesToScan("com.ssafy.db.entity.community");
         factory.setPersistenceUnitName("communityEntityManager");
         factory.afterPropertiesSet();
 

@@ -53,7 +53,7 @@ public class ChatDBConfig extends HikariConfig {
                 "hibernate.show_sql", "true"
         ));
 
-        factory.setPackagesToScan("com.ssafy.db.entity");
+        factory.setPackagesToScan("com.ssafy.db.entity.chat");
         factory.setPersistenceUnitName("chatEntityManager");
         factory.afterPropertiesSet();
 
