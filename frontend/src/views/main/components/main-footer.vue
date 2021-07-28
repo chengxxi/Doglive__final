@@ -1,37 +1,61 @@
 <template>
-  <footer>
-    <ul>
-      <li class="img_area"><img :src="require('@/assets/images/temp-logo.png')" style="height: 3rem; !important" /></li>
-      <li><h3 class="title">Dog-Live</h3></li>
+  <el-row
+    class="main-footer"
+    :gutter="10">
+    <div class="contents">
+      <ul>
+        <li class="img_area"><img :src="require('@/assets/images/temp-logo.png')" style="height: 3rem; !important" /></li>
+        <li><h3 class="title">Dog-Live</h3></li>
 
-      <li><h5><a href="#">오시는 길</a></h5></li>
-      <li><h5>|</h5></li>
-      <li><h5><a href="#">문의처</a></h5></li>
-      <li><h5>|</h5></li>
-      <li><h5><a href="#">SNS</a></h5>
-        <!-- <ul style="height: 50px;">
-          <li><img :src="require('@/assets/images/youtube.png')" /></li>
-          <li><img :src="require('@/assets/images/facebook.png')" /></li>
-          <li><img :src="require('@/assets/images/twitter.png')" /></li>
-        </ul> -->
-      </li>
-    </ul>
-  </footer>
+        <li><h5><a href="#">오시는 길</a></h5></li>
+        <li><h5>|</h5></li>
+        <li><h5><a href="#">문의처</a></h5></li>
+        <li><h5>|</h5></li>
+        <li><h5><a href="#">SNS</a></h5></li>
+
+      </ul>
+    </div>
+  </el-row>
 </template>
 
 <style scoped>
-footer {
-  display: flex;
-  /* position: fixed; 하단 고정 */
-  left: 0px;
-  bottom: 0px;
-  height: 70px; /* main.vue에 footer 기준은 110 */
-  width: 100%;
-  background-color: #F2EFED;
-  /* vertical-align: middle; */
+@media (max-width: 749px) { /* 작은 화면 */
+  .main-footer {
+    height: 90px;
+    background-color: #F2EFED;
+  }
+  .main-footer .contents {
+    /* line-height: 90px; */
+    text-align: center;
+    margin: 0 auto;
+  }
 }
 
-footer .title {
+@media (min-width: 750px) { /* 큰 화면 */
+  .main-footer {
+    height: 70px;
+    background-color: #F2EFED;
+  }
+  .main-footer .contents {
+    /* line-height: 70px; */
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+
+
+/* main-footer {
+  display: flex;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  height: 70px;
+  width: 100%;
+  margin-top: -30rem;
+  background-color: #F2EFED;
+} */
+
+main-footer .title {
   color: #755744 !important;
 }
 
@@ -78,10 +102,24 @@ a {
 </style>
 
 <script>
+import { reactive } from 'vue'
+import { useStore } from 'vuex'
+
 export default {
   name: 'main-footer',
-  setup() {
 
+  props: {
+    height: {
+      type: String,
+      default: '110px'
+    }
+  },
+
+  setup() {
+    const state = reactive({})
+
+    return { state }
   }
 }
+
 </script>
