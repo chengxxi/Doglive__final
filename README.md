@@ -13,7 +13,7 @@
 <br><br>
 
 ### 서버 아키텍처
-
+![image](/uploads/95a84c075630ea281c5b7895f384885e/image.png)
 
 <br><br>
 
