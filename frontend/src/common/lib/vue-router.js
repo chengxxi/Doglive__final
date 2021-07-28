@@ -18,6 +18,21 @@ const routes = [
         name: "mypage-profile",
         component: () => import("@/views/user/components/user-profile.vue"),
       },
+      {
+        path: "mypost",
+        name: "mypage-mypost",
+        component: () => import("@/views/user/components/user-post-list.vue"),
+      },
+      {
+        path: "applyList",
+        name: "mypage-apply-list",
+        component: () => import("@/views/user/components/user-apply-list.vue"),
+      },
+      {
+        path: "applyResultList",
+        name: "mypage-result-list",
+        component: () => import("@/views/user/components/user-apply-result-list.vue"),
+      },
     ]
   }
 ]

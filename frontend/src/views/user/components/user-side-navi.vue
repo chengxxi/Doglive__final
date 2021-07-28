@@ -4,18 +4,12 @@
       <div class="menu-title">
         <h3>마이페이지</h3>
       </div>
-      <!-- <el-menu
-        class="el-menu-vertical-demo"
-        :default-active="String(state.activeIndex)"
-        active-text-color="#ffd04b">
-        <el-menu-item v-for="(item, index) in state.menuItems" :key="index" :index="index.toString()">
-          <i v-if="item.icon" :class="['ic', item.icon]"/>
-          <span>{{ item.title }}</span>
-        </el-menu-item>
-      </el-menu> -->
+      <!-- 사용자 정보 -->
       <el-menu
         class="menu-list el-menu-vertical-demo"
+        active-text-color="#D7AEA4"
         default-active="1-1"
+        :default-openeds=openedMenu
         @open="handleOpen"
         @close="handleClose">
         <el-submenu index="1">
@@ -61,28 +55,27 @@
 .el-menu .el-submenu{
    position: inherit !important;
 }
-
 .side-navi .menu-list .el-submenu{
   font-weight: 600;
 }
 .side-navi .menu-list .el-menu-item{
-  color: black !important;
+  color: black;
   font-weight: 500;
 }
-
 </style>
 
 <script>
 export default {
   name: 'main-footer',
   setup() {
+    const openedMenu = ['1', '2']; // 처음 화면에 들어왔을 때, open할 메뉴의 index 저장
     const handleOpen = function(key, keyPath){
       console.log(key, keyPath);
     }
     const handleClose = function(key, keyPath){
       console.log(key, keyPath);
     }
-    return {handleOpen, handleClose}
+    return {handleOpen, handleClose, openedMenu}
   }
 }
 </script>

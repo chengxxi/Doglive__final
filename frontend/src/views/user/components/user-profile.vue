@@ -42,7 +42,7 @@
         <el-form-item
           label="생년월일"
           :rules="{ required: true, message: 'Please input email address', trigger: 'blur' }">
-        <el-date-picker type="date" v-model="formData.birth" disabled></el-date-picker>
+        <el-date-picker style="width: 60%; min-width: 150px" type="date" v-model="formData.birth" disabled></el-date-picker>
         </el-form-item>
 
         <el-form-item
@@ -53,7 +53,7 @@
 
         </el-form>
         <div class="button-group">
-          <el-button @click="updateProfile">수정하기</el-button>
+          <el-button class="updateBtn" @click="updateProfile">수정하기</el-button>
         </div>
       </div>
     </div>
@@ -87,11 +87,15 @@
   border-bottom: solid 1px rgb(212, 212, 212);
 }
 .mypage-body .mypage-content .userinfo-wrapper .el-input{
+  width: 60% !important;
   min-width: 150px;
-  width: 60%;
 }
 .mypage-body .mypage-content .button-group{
   margin-top: 20px;
+}
+.mypage-body .mypage-content .button-group .el-button{
+  border-color: #D7AEA4;
+  font-weight: 600;
 }
 </style>
 
