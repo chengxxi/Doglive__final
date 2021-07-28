@@ -15,9 +15,8 @@ import javax.persistence.*;
 @Setter
 public class ConferenceHistory extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private UserProfile userId;                    // 사용자 id
+    @Column(name="user_id")
+    private String userId;                    // 사용자 id
 
     @ManyToOne
     @JoinColumn(name="conference_id")

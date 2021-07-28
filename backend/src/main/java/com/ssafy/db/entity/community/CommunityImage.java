@@ -21,7 +21,6 @@ public class CommunityImage extends BaseEntity {
     @JoinColumn(name="community_id")
     private Community communityId;       // 커뮤니티 번호
 
-
     private String filePath;        // 이미지 파일 경로
 
 }

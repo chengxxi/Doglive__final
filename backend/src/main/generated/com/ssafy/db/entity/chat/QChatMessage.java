@@ -33,7 +33,7 @@ public class QChatMessage extends EntityPathBase<ChatMessage> {
 
     public final TimePath<java.util.Date> time = createTime("time", java.util.Date.class);
 
-    public final com.ssafy.db.entity.auth.QUserProfile userId;
+    public final StringPath userId = createString("userId");
 
     public QChatMessage(String variable) {
         this(ChatMessage.class, forVariable(variable), INITS);
@@ -54,7 +54,6 @@ public class QChatMessage extends EntityPathBase<ChatMessage> {
     public QChatMessage(Class<? extends ChatMessage> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.roomId = inits.isInitialized("roomId") ? new QChatRoom(forProperty("roomId"), inits.get("roomId")) : null;
-        this.userId = inits.isInitialized("userId") ? new com.ssafy.db.entity.auth.QUserProfile(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }

@@ -30,7 +30,7 @@ public class QChatRoom extends EntityPathBase<ChatRoom> {
 
     public final QConference conference;
 
-    public final com.ssafy.db.entity.auth.QCounselingHistory counselingId;
+    public final NumberPath<Long> counselingId = createNumber("counselingId", Long.class);
 
     //inherited
     public final NumberPath<Long> id = _super.id;
@@ -54,7 +54,6 @@ public class QChatRoom extends EntityPathBase<ChatRoom> {
     public QChatRoom(Class<? extends ChatRoom> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.conference = inits.isInitialized("conference") ? new QConference(forProperty("conference"), inits.get("conference")) : null;
-        this.counselingId = inits.isInitialized("counselingId") ? new com.ssafy.db.entity.auth.QCounselingHistory(forProperty("counselingId"), inits.get("counselingId")) : null;
     }
 
 }

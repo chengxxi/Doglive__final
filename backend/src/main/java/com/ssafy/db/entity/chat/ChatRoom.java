@@ -17,10 +17,7 @@ import java.util.List;
 @Setter
 public class ChatRoom extends BaseEntity {
 
-
-    @ManyToOne
-    @JoinColumn(name = "counseling_id")
-    private CounselingHistory counselingId;   //상담신청 아이디 연결
+    private Long counselingId;   //상담신청 아이디 연결
 
     @OneToOne(mappedBy = "chatRoomId")
     private Conference conference;

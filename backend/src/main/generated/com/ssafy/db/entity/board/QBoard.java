@@ -28,10 +28,6 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final ListPath<BoardImage, QBoardImage> boardImages = this.<BoardImage, QBoardImage>createList("boardImages", BoardImage.class, QBoardImage.class, PathInits.DIRECT2);
 
-    public final ListPath<com.ssafy.db.entity.auth.Bookmark, com.ssafy.db.entity.auth.QBookmark> bookmarks = this.<com.ssafy.db.entity.auth.Bookmark, com.ssafy.db.entity.auth.QBookmark>createList("bookmarks", com.ssafy.db.entity.auth.Bookmark.class, com.ssafy.db.entity.auth.QBookmark.class, PathInits.DIRECT2);
-
-    public final ListPath<com.ssafy.db.entity.auth.CounselingHistory, com.ssafy.db.entity.auth.QCounselingHistory> counselingHistories = this.<com.ssafy.db.entity.auth.CounselingHistory, com.ssafy.db.entity.auth.QCounselingHistory>createList("counselingHistories", com.ssafy.db.entity.auth.CounselingHistory.class, com.ssafy.db.entity.auth.QCounselingHistory.class, PathInits.DIRECT2);
-
     public final QDogInformation dogId;
 
     //inherited
@@ -45,7 +41,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final QBoardCategory type;
 
-    public final com.ssafy.db.entity.auth.QUser userId;
+    public final StringPath userId = createString("userId");
 
     public QBoard(String variable) {
         this(Board.class, forVariable(variable), INITS);
@@ -67,7 +63,6 @@ public class QBoard extends EntityPathBase<Board> {
         super(type, metadata, inits);
         this.dogId = inits.isInitialized("dogId") ? new QDogInformation(forProperty("dogId"), inits.get("dogId")) : null;
         this.type = inits.isInitialized("type") ? new QBoardCategory(forProperty("type")) : null;
-        this.userId = inits.isInitialized("userId") ? new com.ssafy.db.entity.auth.QUser(forProperty("userId")) : null;
     }
 
 }

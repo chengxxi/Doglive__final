@@ -21,9 +21,7 @@ public class Bookmark {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;                                   //bookmark id
 
-  @ManyToOne
-  @JoinColumn(name = "board_id")
-  private Board boardId;                              //공고 id
+  private long boardId;                              //공고 id
 
   @ManyToOne
   @JoinColumn(name="user_id")

@@ -17,9 +17,7 @@ import javax.persistence.*;
 @Setter
 public class BoardComment extends BaseEntity {
 
-  @ManyToOne
-  @JoinColumn(name="user_id")
-  private UserProfile userId;                      // 사용자 아이디
+  private String userId;                      // 사용자 아이디
 
   @ManyToOne
   @JoinColumn(name="board_id")

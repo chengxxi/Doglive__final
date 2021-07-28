@@ -18,8 +18,6 @@ public class QCommunity extends EntityPathBase<Community> {
 
     private static final long serialVersionUID = 350328098L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QCommunity community = new QCommunity("community");
 
     public final QBaseEntity _super = new QBaseEntity(this);
@@ -37,27 +35,18 @@ public class QCommunity extends EntityPathBase<Community> {
 
     public final StringPath title = createString("title");
 
-    public final com.ssafy.db.entity.auth.QUserProfile userId;
+    public final StringPath userId = createString("userId");
 
     public QCommunity(String variable) {
-        this(Community.class, forVariable(variable), INITS);
+        super(Community.class, forVariable(variable));
     }
 
     public QCommunity(Path<? extends Community> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QCommunity(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QCommunity(PathMetadata metadata, PathInits inits) {
-        this(Community.class, metadata, inits);
-    }
-
-    public QCommunity(Class<? extends Community> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.userId = inits.isInitialized("userId") ? new com.ssafy.db.entity.auth.QUserProfile(forProperty("userId"), inits.get("userId")) : null;
+        super(Community.class, metadata);
     }
 
 }

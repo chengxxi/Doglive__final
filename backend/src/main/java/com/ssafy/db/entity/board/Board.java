@@ -19,9 +19,7 @@ import java.util.List;
 @Setter
 public class Board extends BaseEntity{
 
-  @ManyToOne
-  @JoinColumn(name="user_id")
-  private User userId;                //사용자 ID
+  private String userId;                //사용자 ID
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="dog_id")
@@ -47,10 +45,5 @@ public class Board extends BaseEntity{
   @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, orphanRemoval=true)
   private List<BoardImage> boardImages;
 
-  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<CounselingHistory> counselingHistories;
-
-  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<Bookmark> bookmarks;
 
 }

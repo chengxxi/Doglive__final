@@ -15,9 +15,8 @@ import javax.persistence.*;
 @Setter
 public class ChatMessage extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private UserProfile userId;          //채팅을 보낸 사용자 ID
+    @Column(name="user_id")
+    private String userId;          //채팅을 보낸 사용자 ID
 
     @ManyToOne
     @JoinColumn(name="room_id")

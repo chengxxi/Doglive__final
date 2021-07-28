@@ -47,31 +47,5 @@ public class UserProfile {
   @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
   private List<Bookmark> bookmarks;
 
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<Board> boards;
-
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<BoardComment> comments;
-
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<ChatMessage> chatMessages;
-
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<ChatRoomJoin> chatRoomJoins;
-
-  @OneToMany(mappedBy = "ownerId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<Conference> conferences;
-
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<ConferenceHistory> conferenceHistories;
-
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<ConferenceUser> conferenceUsers;
-
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<Community> communities;
-
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<CommunityComment> communityComments;
 
 }

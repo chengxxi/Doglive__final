@@ -29,13 +29,11 @@ public class CounselingHistory {
   @JoinColumn(name="applicant_id")
   private UserProfile applicantId;       //신청자 아이디
 
-  @ManyToOne
-  @JoinColumn(name="board_id")
-  private Board boardId;             //입양 공고 아이디
+  @Column(name="board_id")
+  private Long boardId;             //입양 공고 아이디
 
-  @ManyToOne
-  @JoinColumn(name="board_type")
-  private BoardCategory boardType;           //입양 공고 타입
+  @Column(name="board_type")
+  private Long boardType;           //입양 공고 타입
 
   @Column(columnDefinition = "JSON")
   private String content;           //입양 신청 설문 내용
@@ -43,7 +41,5 @@ public class CounselingHistory {
   @Column(length = 10)
   private String result;            //입양 신청 결과
 
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<ChatRoom> chatRooms;
 
 }

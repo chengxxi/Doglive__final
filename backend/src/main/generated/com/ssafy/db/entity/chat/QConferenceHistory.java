@@ -33,7 +33,7 @@ public class QConferenceHistory extends EntityPathBase<ConferenceHistory> {
 
     public final DateTimePath<java.sql.Timestamp> regDate = createDateTime("regDate", java.sql.Timestamp.class);
 
-    public final com.ssafy.db.entity.auth.QUserProfile userId;
+    public final StringPath userId = createString("userId");
 
     public QConferenceHistory(String variable) {
         this(ConferenceHistory.class, forVariable(variable), INITS);
@@ -54,7 +54,6 @@ public class QConferenceHistory extends EntityPathBase<ConferenceHistory> {
     public QConferenceHistory(Class<? extends ConferenceHistory> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.conferenceId = inits.isInitialized("conferenceId") ? new QConference(forProperty("conferenceId"), inits.get("conferenceId")) : null;
-        this.userId = inits.isInitialized("userId") ? new com.ssafy.db.entity.auth.QUserProfile(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }

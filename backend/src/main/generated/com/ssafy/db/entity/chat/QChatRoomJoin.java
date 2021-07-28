@@ -29,7 +29,7 @@ public class QChatRoomJoin extends EntityPathBase<ChatRoomJoin> {
 
     public final QChatRoom roomId;
 
-    public final com.ssafy.db.entity.auth.QUserProfile userId;
+    public final StringPath userId = createString("userId");
 
     public QChatRoomJoin(String variable) {
         this(ChatRoomJoin.class, forVariable(variable), INITS);
@@ -50,7 +50,6 @@ public class QChatRoomJoin extends EntityPathBase<ChatRoomJoin> {
     public QChatRoomJoin(Class<? extends ChatRoomJoin> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.roomId = inits.isInitialized("roomId") ? new QChatRoom(forProperty("roomId"), inits.get("roomId")) : null;
-        this.userId = inits.isInitialized("userId") ? new com.ssafy.db.entity.auth.QUserProfile(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }

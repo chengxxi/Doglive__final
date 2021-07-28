@@ -24,11 +24,9 @@ public class QCounselingHistory extends EntityPathBase<CounselingHistory> {
 
     public final QUserProfile applicantId;
 
-    public final com.ssafy.db.entity.board.QBoard boardId;
+    public final NumberPath<Long> boardId = createNumber("boardId", Long.class);
 
-    public final com.ssafy.db.entity.board.QBoardCategory boardType;
-
-    public final ListPath<com.ssafy.db.entity.chat.ChatRoom, com.ssafy.db.entity.chat.QChatRoom> chatRooms = this.<com.ssafy.db.entity.chat.ChatRoom, com.ssafy.db.entity.chat.QChatRoom>createList("chatRooms", com.ssafy.db.entity.chat.ChatRoom.class, com.ssafy.db.entity.chat.QChatRoom.class, PathInits.DIRECT2);
+    public final NumberPath<Long> boardType = createNumber("boardType", Long.class);
 
     public final StringPath content = createString("content");
 
@@ -55,8 +53,6 @@ public class QCounselingHistory extends EntityPathBase<CounselingHistory> {
     public QCounselingHistory(Class<? extends CounselingHistory> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.applicantId = inits.isInitialized("applicantId") ? new QUserProfile(forProperty("applicantId"), inits.get("applicantId")) : null;
-        this.boardId = inits.isInitialized("boardId") ? new com.ssafy.db.entity.board.QBoard(forProperty("boardId"), inits.get("boardId")) : null;
-        this.boardType = inits.isInitialized("boardType") ? new com.ssafy.db.entity.board.QBoardCategory(forProperty("boardType")) : null;
     }
 
 }

@@ -3,10 +3,7 @@ import com.ssafy.db.entity.auth.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 채팅방을 관리할 ChatRoom Entity
@@ -17,9 +14,8 @@ import javax.persistence.Table;
 @Setter
 public class ChatRoomJoin extends BaseEntity{
 
-    @ManyToOne
-    @JoinColumn(name= "user_id")
-    private UserProfile userId;              //참여한 User Id
+    @Column(name= "user_id")
+    private String userId;              //참여한 User Id
 
     @ManyToOne
     @JoinColumn(name="room_id")

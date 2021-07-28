@@ -16,14 +16,14 @@ import java.util.List;
 @Setter
 public class Conference extends BaseEntity{
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private UserProfile ownerId;                 //컨퍼런스의 Hose User Id
+    @Column(name="owner_id")
+    private String ownerId;                     //컨퍼런스의 Hose User Id
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="chat_room_id")
     private ChatRoom chatRoomId;                // 채팅방 room Id
 
+    @Column(name="call_start_time")
     @Temporal(TemporalType.TIME)
     private java.util.Date callStartTime;   //컨퍼런스가 시작한 시간
 

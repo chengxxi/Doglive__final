@@ -18,9 +18,8 @@ import java.util.List;
 @Setter
 public class Community extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private UserProfile userId;                    // 사용자 아이디
+    @Column(name="user_id")
+    private String userId;                    // 사용자 아이디
 
     @Column(length = 30)
     private String title;                     // 게시글 제목

@@ -19,9 +19,8 @@ public class CommunityComment extends BaseEntity {
     @JoinColumn(name="community_id")
     private Community communityId;                 // 사용자 커뮤니티 번호
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private UserProfile userId;                    // 사용자 아이디
+    @Column(name="user_id")
+    private String userId;                    // 사용자 아이디
 
     @Column(columnDefinition = "TEXT")
     private String comment;                   // 커뮤니티 댓글내용
