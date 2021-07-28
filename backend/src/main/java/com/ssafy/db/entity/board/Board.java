@@ -11,6 +11,7 @@ import java.util.List;
  * 유기견 공고 게시물 정보를 담을 Board Entity
  */
 @Entity
+@Table(name="board", schema = "board")
 @Getter
 @Setter
 public class Board extends BaseEntity{

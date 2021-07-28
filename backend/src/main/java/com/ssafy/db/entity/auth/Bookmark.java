@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.auth;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,8 @@ import javax.persistence.*;
  * Bookmark Entity
  */
 @Entity
+@Data
+@Table(name="bookmark", schema = "auth")
 @Getter
 @Setter
 public class Bookmark {

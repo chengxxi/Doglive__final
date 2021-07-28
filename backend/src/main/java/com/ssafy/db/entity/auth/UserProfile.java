@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.auth;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,8 @@ import java.util.List;
  * 사용자 정보 모델을 정의하는 Entity
  */
 @Entity
+@Data
+@Table(name="user_profile", schema = "auth")
 @Getter
 @Setter
 public class UserProfile {
