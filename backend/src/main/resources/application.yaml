@@ -48,6 +48,31 @@ server:
 spa:
   default-file: /dist/index.html
 spring:
+  security:
+    user:
+      name: "ssafy"
+      password: "ssafy"
+  oauth2:
+    client:
+      registration:
+        kakao:
+          authorization-grant-type: authorization_code
+          client-id: 8a6da8dccc17d0706c19f099353a04ca
+          client-secret: tbCfosMsAwk9xOpgebmWpWvXacrl25VK
+          redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+          scope:
+            - profile
+            - account_email
+          client-authentication-method: POST
+          client-name: Kakao
+
+      provider:
+
+        kakao:
+          authorization-uri: https://kauth.kakao.com/oauth/authorize
+          token-uri: https://kauth.kakao.com/oauth/token
+          user-info-uri: http://kapi.kakao.com/v2/user/me
+          user-name-attribute: id
   data:
     web:
       pageable:

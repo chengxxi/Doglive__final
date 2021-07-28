@@ -30,8 +30,8 @@ public class KakaoAPI {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=b5f85af25d1bdf961d4f2016bafe3c6e");
-            sb.append("&redirect_uri=http://localhost:8000/login");
+            sb.append("&client_id=8a6da8dccc17d0706c19f099353a04ca");
+            sb.append("&redirect_uri=http://localhost:8080/auth/kakao/callback");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -50,7 +50,7 @@ public class KakaoAPI {
             }
             System.out.println("response body : " + result);
 
-            //    Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+            // Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
 
@@ -80,7 +80,7 @@ public class KakaoAPI {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
 
-            //    요청에 필요한 Header에 포함될 내용
+            // 요청에 필요한 Header에 포함될 내용
             conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 
             int responseCode = conn.getResponseCode();
@@ -113,5 +113,30 @@ public class KakaoAPI {
         }
 
         return userInfo;
+    }
+
+    public void Logout(String access_Token) {
+        String reqURL = "https://kapi.kakao.com/v1/user/logout";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String result = "";
+            String line = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
