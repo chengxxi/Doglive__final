@@ -5,6 +5,7 @@ import com.ssafy.api.service.KakaoAPI;
 import com.ssafy.api.service.UserService;
 import com.ssafy.db.entity.auth.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +21,15 @@ public class KakaoController {
     private KakaoAPI kakaoAPI;
     @Autowired
     UserService userService;
-
     @GetMapping(value = "/oauth")
-    public String kakaoConnect(){
+    public ResponseEntity<String> kakaoConnect(){
         StringBuffer url = new StringBuffer();
         url.append("https://kauth.kakao.com/oauth/authorize?");
         url.append("client_id=" + "8a6da8dccc17d0706c19f099353a04ca");
         url.append("&redirect_uri=http://localhost:8080/kakao/login");
         url.append("&response_type=code");
         System.out.println(url.toString());
-        return "redirect:" + url.toString();
+        return new ResponseEntity<String>(url.toString(),HttpStatus.OK);
     }
 
     @RequestMapping(value="/login")
@@ -41,7 +41,7 @@ public class KakaoController {
         HashMap<String, Object> userInfo = kakaoAPI.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
 
-        // 사용자 정보에서 이메일을 가져온다.
+        // 카카오가 보낸 정보에서 id를 가져온다.
         String id = (String) userInfo.get("userid");
         System.out.println(id);
         User user = userService.getUserById(id);

@@ -13,4 +13,5 @@ public class UserLoginPostReq {
     String id;
     @ApiModelProperty
     String password;
+
 }
