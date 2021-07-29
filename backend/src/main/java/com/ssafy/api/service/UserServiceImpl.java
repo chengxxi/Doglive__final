@@ -34,6 +34,17 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
+    @Override
+    public boolean deleteUser(String id) {
+        System.out.println("탈퇴할 아이디: " + id);
+        if(getUserById(id)!=null){
+            User user = userRepositorySupport.findUserById(id).get();
+            userRepository.delete(user);
+            return true;
+        }
+        return false;
+
+    }
 
 
 }
