@@ -23,7 +23,7 @@ public class CounselingHistory {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;                  //신청 인덱스 아이디
+  Long id = null;                 //신청 인덱스 아이디
 
   @ManyToOne
   @JoinColumn(name="applicant_id")

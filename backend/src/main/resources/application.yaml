@@ -7,9 +7,6 @@ logging:
   file:
     name: ./dog-live.log
   level:
-    com:
-      samsung:
-        security: DEBUG
     org:
       apache:
         tiles: INFO
@@ -50,6 +47,31 @@ spa:
 
 
 spring:
+  security:
+    user:
+      name: "ssafy"
+      password: "ssafy"
+  oauth2:
+    client:
+      registration:
+        kakao:
+          authorization-grant-type: authorization_code
+          client-id: 8a6da8dccc17d0706c19f099353a04ca
+          client-secret: tbCfosMsAwk9xOpgebmWpWvXacrl25VK
+          redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+          scope:
+            - profile
+            - account_email
+          client-authentication-method: POST
+          client-name: Kakao
+
+      provider:
+
+        kakao:
+          authorization-uri: https://kauth.kakao.com/oauth/authorize
+          token-uri: https://kauth.kakao.com/oauth/token
+          user-info-uri: http://kapi.kakao.com/v2/user/me
+          user-name-attribute: id
   data:
     web:
       pageable:
@@ -83,25 +105,25 @@ spring:
   datasource:
     hikari:
       auth:
-        password: 1234
-        username: root
+        password: doglivedoggi
+        username: doglive
         jdbc-url: jdbc:mariadb://i5a501.p.ssafy.io/auth?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver
 
       board:
-        password: 1234
-        username: root
+        password: doglivedoggi
+        username: doglive
         jdbc-url: jdbc:mariadb://i5a501.p.ssafy.io/board?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver
 
       community:
-        password: 1234
-        username: root
+        password: doglivedoggi
+        username: doglive
         jdbc-url: jdbc:mariadb://i5a501.p.ssafy.io/community?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver
 
       chat:
-        password: 1234
-        username: root
+        password: doglivedoggi
+        username: doglive
         jdbc-url: jdbc:mariadb://i5a501.p.ssafy.io/chat?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver

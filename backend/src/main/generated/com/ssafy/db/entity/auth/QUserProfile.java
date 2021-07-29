@@ -18,8 +18,6 @@ public class QUserProfile extends EntityPathBase<UserProfile> {
 
     private static final long serialVersionUID = -19767398L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QUserProfile userProfile = new QUserProfile("userProfile");
 
     public final ListPath<Bookmark, QBookmark> bookmarks = this.<Bookmark, QBookmark>createList("bookmarks", Bookmark.class, QBookmark.class, PathInits.DIRECT2);
@@ -34,29 +32,18 @@ public class QUserProfile extends EntityPathBase<UserProfile> {
 
     public final StringPath profileImageUrl = createString("profileImageUrl");
 
-    public final QUser user;
-
     public final StringPath userId = createString("userId");
 
     public QUserProfile(String variable) {
-        this(UserProfile.class, forVariable(variable), INITS);
+        super(UserProfile.class, forVariable(variable));
     }
 
     public QUserProfile(Path<? extends UserProfile> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QUserProfile(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QUserProfile(PathMetadata metadata, PathInits inits) {
-        this(UserProfile.class, metadata, inits);
-    }
-
-    public QUserProfile(Class<? extends UserProfile> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.user = inits.isInitialized("user") ? new QUser(forProperty("user"), inits.get("user")) : null;
+        super(UserProfile.class, metadata);
     }
 
 }

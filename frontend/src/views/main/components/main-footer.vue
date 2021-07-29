@@ -3,8 +3,7 @@
     class="main-footer">
     <div class="contents">
       <ul>
-        <li class="img_area"><img :src="require('@/assets/images/temp-logo.png')" style="height: 3rem; !important" /></li>
-        <li><h3 class="title">Dog-Live</h3></li>
+        <li class="img_area"><img :src="require('@/assets/images/logo2.png')" style="height: 3rem; !important" /></li>
 
         <li><h5><a href="#">오시는 길</a></h5></li>
         <li><h5>|</h5></li>
@@ -34,6 +33,8 @@
   .main-footer {
     height: 70px;
     background-color: #F2EFED;
+
+
   }
   .main-footer .contents {
     /* line-height: 70px; */

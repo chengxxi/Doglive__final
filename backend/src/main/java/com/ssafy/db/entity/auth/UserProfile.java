@@ -24,9 +24,10 @@ import java.util.List;
 @Setter
 public class UserProfile {
 
+
   @Id
-  @Column(name="user_id")
-  private String userId;
+  @Column(name = "user_id")
+  String userId = "";
 
 
   @Column(length = 30)
@@ -41,10 +42,6 @@ public class UserProfile {
   @Column(length = 13, name="phone_number")
   private String phoneNumber;
 
-  @OneToOne
-  @MapsId
-  @JoinColumn(name = "user_id")
-  private User user;
 
   @OneToMany(mappedBy = "applicantId", cascade = {CascadeType.ALL}, orphanRemoval=true)
   private List<CounselingHistory> counselingHistories;

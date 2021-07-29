@@ -20,15 +20,14 @@ public class User {
 
   @Id
   @Column(length = 13, name = "id")
-  private String id;    // 사용자의 Kakao Id
-
-  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-  @PrimaryKeyJoinColumn
-  private UserProfile userProfile;
-
+  String id = "";    // 사용자의 Kakao Id
 
   @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
   private List<UserToken> userTokens;
+
+//  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+//  private List<UserProfile> userProfiles;
+//
 
 
 }

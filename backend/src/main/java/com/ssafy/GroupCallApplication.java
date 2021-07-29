@@ -5,10 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.nio.charset.Charset;
 
+@CrossOrigin(origins = "*")
 @SpringBootApplication
 public class GroupCallApplication {
 	public static void main(String[] args) {

@@ -46,7 +46,7 @@ public class QBookmark extends EntityPathBase<Bookmark> {
 
     public QBookmark(Class<? extends Bookmark> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.userId = inits.isInitialized("userId") ? new QUserProfile(forProperty("userId"), inits.get("userId")) : null;
+        this.userId = inits.isInitialized("userId") ? new QUserProfile(forProperty("userId")) : null;
     }
 
 }
