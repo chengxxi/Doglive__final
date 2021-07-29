@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Main from '@/views/main/components/main-content.vue'
+import Login from '@/views/main/components/login-dialog.vue'
 import Mypage from '@/views/user/mypage.vue'
 
 const routes = [
@@ -7,6 +8,11 @@ const routes = [
     path: '/',
     name: 'Main',
     component: Main,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
   },
   {
     path: '/mypage',

@@ -80,7 +80,7 @@
   display: table;
   table-layout: fixed;
   width: 100%;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   background-color: rgba(249, 240, 231, 0.6);
 }
@@ -100,7 +100,7 @@
 .main-header .hide-on-small .menu-wrapper .depth1{
   text-align: center;
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
 }
 .main-header .hide-on-small .menu-wrapper .depth1 > li{
@@ -137,7 +137,7 @@ export default {
   setup() {
     const router = useRouter()
     const notLoggedIn = {
-      '로그인': '/',
+      '로그인': '/login',
     }
     const loggedIn = {
       '마이페이지': '/mypage/profile',
