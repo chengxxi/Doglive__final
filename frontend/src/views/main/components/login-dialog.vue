@@ -58,18 +58,22 @@
 </style>
 
 <script>
+import { useStore } from 'vuex'
+
 export default {
   name: 'login-dialog',
   setup() {
+    const store = new useStore()
 
     // 카카오 로그인
     const loginWithKakao = function(){
-      console.log('login')
-      const params = {
-        redirectUri: "http://localhost:8080/kakao/login",
-        scope: 'profile_nickname, profile_image, account_email, birthday'
-      }
-      window.Kakao.Auth.authorize(params);
+      store.dispatch('root/requestLogin')
+      .then(function(result){
+        console.log(result)
+      })
+      .catch(function(err){
+        console.log('로그인 실패' + err);
+      })
     }
 
     return { loginWithKakao }
