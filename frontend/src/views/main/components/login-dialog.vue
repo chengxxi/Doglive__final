@@ -90,11 +90,12 @@ export default {
         store.commit('root/setLoginUserInfo', result.user.userInfo.userInfo)
         alert("로그인 되었습니다!")
         // 기존 페이지로 redirect
-        router.push({name: 'Main'})
+        // router.push({name: 'Main'})
       })
       .catch(function(err){
+        console.log(err)
         alert("로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.")
-        router.push({name: 'Main'})
+        // router.push({name: 'Main'})
       })
     }
 

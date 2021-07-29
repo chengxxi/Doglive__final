@@ -36,7 +36,6 @@ public class KakaoController {
     public ResponseEntity<UserLoginPostRes> login(@RequestParam("code") String code, HttpSession session) {
         HashMap<String,Object> Token = kakaoAPI.getAccessToken(code);
 
-
         String access_Token = (String) Token.get("accessToken");
         String refresh_Token = (String) Token.get("refreshToken");
 
@@ -55,7 +54,6 @@ public class KakaoController {
         System.out.println(userObject);
         System.out.println("-------------------");
 
-
         // 카카오가 보낸 정보에서 id를 가져온다.
         String id = (String) userInfo.get("userid");
         System.out.println(id);
@@ -64,19 +62,15 @@ public class KakaoController {
         if(user!=null){
             System.out.println("login success!");
             return ResponseEntity.ok(UserLoginPostRes.of(200,"Success", userObject));
-        }else{
-            // 클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-            if (userInfo.get("email") != null) {
+        }
+        // 클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+        if (userInfo.get("email") != null) {
 //                session.setAttribute("userId", userInfo.get("email"));
 //                session.setAttribute("access_Token", userObject);
-
-            }
-
-             userService.createUser(access_Token, refresh_Token, userProfile);
-
         }
-        // 유효하지 않는 패스워드인 경우, 로그인 실패로 응답.
-        return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Invalid Password", null));
+        userService.createUser(access_Token, refresh_Token, userProfile);
+        return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", userObject));
+
     }
 
     @GetMapping(value="/logout")
