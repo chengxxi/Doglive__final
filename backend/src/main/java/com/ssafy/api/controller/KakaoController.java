@@ -42,7 +42,9 @@ public class KakaoController {
 
         System.out.println("code : " + code);
         // 사용자의 정보를 <string, 객체> 로 생성
-        HashMap<String, Object> userInfo = kakaoAPI.getUserInfo(Token);
+        HashMap<String, Object> userInfo = kakaoAPI.getUserInfo(Token); //front 전송 용 유저 Info Hash Map
+        HashMap<String, Object> userProfile = kakaoAPI.getUserProfile(access_Token, refresh_Token); //create 용 유저 Profile Hash Map
+
         System.out.println("login Controller : " + userInfo);
 
         HashMap<String, Object> userObject = new HashMap<String, Object>();
@@ -70,7 +72,7 @@ public class KakaoController {
 
             }
 
-             userService.createUser(access_Token, refresh_Token, userInfo);
+             userService.createUser(access_Token, refresh_Token, userProfile);
 
         }
         // 유효하지 않는 패스워드인 경우, 로그인 실패로 응답.

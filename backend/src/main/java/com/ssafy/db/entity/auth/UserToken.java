@@ -14,10 +14,11 @@ import javax.persistence.*;
 @Table(name="user_token", schema = "auth")
 @Getter
 @Setter
-public class UserToken{
+public class UserToken {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  Long id = null;
 
   @ManyToOne
   @JoinColumn(name="user_id")

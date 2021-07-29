@@ -19,7 +19,7 @@ public class Bookmark {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;                                   //bookmark id
+  Long id = null;                                //bookmark id
 
   @Column(name="board_id")
   private long boardId;                              //공고 id

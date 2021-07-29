@@ -47,11 +47,14 @@ public class UserServiceImpl<UserProfileRepositorySupport> implements UserServic
         String refreshToken = (String) userInfo.get("refreshToken");
         String phoneNumber = (String) userInfo.get("phoneNumber");
 
+        System.out.println(id+" "+name+profileImageUrl+email+accessToken+refreshToken+phoneNumber);
+
         /* User 저장 */
         user.setId(id);
+        User returnUser = userRepository.save(user);
 
         /* User Profile 저장 */
-        userProfile.setUserId(user);
+        userProfile.setUserId(id);
         userProfile.setName(name);
         userProfile.setProfileImageUrl(profileImageUrl);
         userProfile.setEmail(email);
@@ -70,7 +73,6 @@ public class UserServiceImpl<UserProfileRepositorySupport> implements UserServic
 
         userTokenRepository.save(userToken);
 
-        User returnUser = userRepository.save(user);
 
 
 

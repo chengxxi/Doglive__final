@@ -179,16 +179,16 @@ public class KakaoAPI {
 
             userid = element.getAsJsonObject().get("id").getAsString();
             email = kakao_account.getAsJsonObject().get("email").getAsString();
-            profileImageUrl = properties.getAsJsonObject().get("profile_image").getAsString();
-            name = properties.getAsJsonObject().get("nickname").getAsString();
+            //profileImageUrl = properties.getAsJsonObject().get("profile_image").getAsString();
+            //name = properties.getAsJsonObject().get("nickname").getAsString();
             //phoneNumber = kakao_account.getAsJsonObject().get("birthday").getAsString();
 
             System.out.println("userInfo!!!" + userid + " " + email + " " + profileImageUrl + " " + name);
 
             userInfo.put("userid", userid);
             userInfo.put("email" , email);
-            userInfo.put("profileImageUrl",profileImageUrl);
-            userInfo.put("name",name);
+            //userInfo.put("profileImageUrl",profileImageUrl);
+            //userInfo.put("name",name);
 
 
         } catch (IOException e) {

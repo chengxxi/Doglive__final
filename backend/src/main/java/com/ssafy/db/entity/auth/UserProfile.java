@@ -24,13 +24,10 @@ import java.util.List;
 @Setter
 public class UserProfile {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  Long id = null;
 
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User userId;
+  @Id
+  @Column(name = "user_id")
+  String userId = "";
 
 
   @Column(length = 30)
