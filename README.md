@@ -190,7 +190,8 @@ Entity 구현
 
 <br><br>
 |Name|이상현|이영주|조다운|최혜원|한승희|
-|Profile|![프로필](/uploads/214e8b5dbcc5590618ea823b01c5566e/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/214e8b5dbcc5590618ea823b01c5566e/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/214e8b5dbcc5590618ea823b01c5566e/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/214e8b5dbcc5590618ea823b01c5566e/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/214e8b5dbcc5590618ea823b01c5566e/KakaoTalk_20210729_151806060.png)|
+|-----|-----|-----|------|----|-----|
+|Profile|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|
 |Position|Frontend & UI/UX|Backend Develop & CI/CD|	👑팀장 & Backend Develop & CI/CD|Backend Develop & CI/CD|Frontend & UI/UX|
 |Git|	@jodawoooon|	@kimkuan|	@0JUUU| @hiii456('https://github.com/hiii456')|	@chengxxi|
 <br><br>
