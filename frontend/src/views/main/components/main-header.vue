@@ -73,9 +73,6 @@
   text-align: center;
   overflow: visible;
 }
-.main-header .hide-on-small{
-  height: inherit;
-}
 .main-header .hide-on-small .menu-wrapper{
   width: 100%;
 }
@@ -89,8 +86,8 @@
   background-color: rgba(249, 240, 231, 0.6);
 }
 .main-header .hide-on-small .menu-wrapper .depth0 ul{
-  list-style: none;
   width: 100%;
+  list-style: none;
 }
 .main-header .hide-on-small .menu-wrapper .depth0 > li{
   display: table-cell;
@@ -100,7 +97,17 @@
 .main-header .hide-on-small .menu-wrapper .depth0 a:hover{
   color: #D7AEA4;
 }
-/* 메인 로고 */
+/* 하단 메뉴 */
+.main-header .hide-on-small .menu-wrapper .depth1{
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.main-header .hide-on-small .menu-wrapper .depth1 > li{
+  width: 100%;
+  line-height: 40px;
+}
 .main-header .hide-on-small .logo {
   width: 150px;
   height: 50px;
@@ -113,17 +120,6 @@
 }
 .main-header .hide-on-small .userBtn{
   cursor: pointer;
-}
-/* 하단 메뉴 */
-.main-header .hide-on-small .menu-wrapper .depth1{
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: 500;
-}
-.main-header .hide-on-small .menu-wrapper .depth1 > li{
-  width: 100%;
-  line-height: 40px;
 }
 </style>
 
@@ -157,7 +153,7 @@ export default {
       router.push({name : 'Main'}) // vue-router.js 밑에 정의해둔 메인페이지 경로로 이동
     }
     const changeUserModal = function(){
-      state.showUserModal=!state.showUserModal;
+      state.showUserModal=!state.showUserModal
     }
     const changeDisplay = function(mouse){
       if(mouse === "over")
@@ -165,6 +161,7 @@ export default {
       else
         state.showHiddenMenu = 'none'
     }
+
     return { state, clickLogo, changeUserModal, changeDisplay, notLoggedIn, loggedIn }
   },
 }

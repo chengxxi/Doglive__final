@@ -11,46 +11,31 @@
         </div>
 
         <!-- 사용자 프로필 정보 -->
-        <!-- <el-table class="userinfo-wrapper"
-          :data="tableData"
-          show-header=false
-          style="width: 50%; min-width: 300px">
-          <el-table-column class="label" prop="label" min-width="80">
-          </el-table-column>
-          <el-table-column min-width="150">
-            <el-input></el-input>
-          </el-table-column>
-        </el-table> -->
-
-        <!-- 사용자 프로필 정보 -->
-        <el-form class="userinfo-wrapper" :model="formData" label-width="120px" label-position="left">
+        <el-form class="userinfo-wrapper" :model="formData" label-width="120px" label-position="right">
         <el-form-item
+          prop="nickname"
           label="닉네임"
-          :rules="{ required: true, message: 'Please input email address', trigger: 'blur' }">
+          :rules="{ required: true, message: '닉네임을 입력해주세요', trigger: 'change' }">
         <el-input v-model="formData.nickname"></el-input>
         </el-form-item>
-
         <el-form-item
           label="Email"
           :rules="[
-            { required: true, message: 'Please input email address', trigger: 'blur' },
+            { required: true, message: 'Please input email address', trigger: 'change' },
             { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
           ]">
         <el-input v-model="formData.email" disabled></el-input>
         </el-form-item>
-
         <el-form-item
           label="생년월일"
-          :rules="{ required: true, message: 'Please input email address', trigger: 'blur' }">
-        <el-date-picker style="width: 60%; min-width: 150px" type="date" v-model="formData.birth" disabled></el-date-picker>
+          :rules="{ required: true, message: 'Please input email address', trigger: 'change' }">
+        <el-date-picker type="date" v-model="formData.birth" disabled></el-date-picker>
         </el-form-item>
-
         <el-form-item
           label="Phone"
-          :rules="{ required: true, message: 'Please input email address', trigger: 'blur' }">
+          :rules="{ required: true, message: 'Please input email address', trigger: 'change' }">
         <el-input v-model="formData.phone" disabled></el-input>
         </el-form-item>
-
         </el-form>
         <div class="button-group">
           <el-button class="updateBtn" @click="updateProfile">수정하기</el-button>
@@ -90,8 +75,18 @@
   width: 60% !important;
   min-width: 150px;
 }
+/* element-ui에서 제공해주는 내부 클래스를 변경하려면 ::v-deep 선택자 붙여주기 */
+::v-deep .el-date-editor.el-input{
+  width: 60% !important;
+  min-width: 150px;
+}
+::v-deep .el-form-item__error{
+  left: 20%;
+}
+/* 수정하기 버튼 */
 .mypage-body .mypage-content .button-group{
   margin-top: 20px;
+  margin-bottom: 50px;
 }
 .mypage-body .mypage-content .button-group .el-button{
   border-color: #D7AEA4;
@@ -110,9 +105,10 @@ export default {
       email: 'ssafy@ssafy.com',
       birth: '1998-06-26',
       phone: '010-1234-1234',
-     });
+     })
 
     const updateProfile = function(){
+      console.log("프로필 업데이트")
     }
     return { updateProfile, formData }
   }
