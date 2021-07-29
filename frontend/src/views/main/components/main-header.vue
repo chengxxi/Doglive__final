@@ -42,14 +42,13 @@
               <li></li>
             <li>
               <!-- User 아이콘에 마우스 hover했을 때 나올 popover 정의 -->
-              <!-- <el-button @click="changeUserModal">activate</el-button> -->
               <el-popover
                 placement="bottom"
                 width="200"
                 trigger="hover"
                 v-model="state.showUserModal">
                 <table :style="{margin: '0 auto'}">
-                  <tr v-for="(path, key, index) in loggedIn" v-bind:key="index">
+                  <tr v-for="(path, key, index) in notLoggedIn" v-bind:key="index">
                     <td><a :href="path">{{ key }}</a></td>
                   </tr>
                 </table>
