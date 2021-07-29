@@ -12,16 +12,12 @@
             </span>
             <img class="loginBtn" @click="loginWithKakao" :src="require('@/assets/images/kakao_login_medium_wide.png')"/>
           </div>
-          <!-- <div class="button-group">
-            <span class="comment">아직 아이디가 없으신가요?</span>
-            <img class="login-Btn" @click="login" :src="require('@/assets/images/kakao_login_start_medium_wide.png')"/>
-          </div> -->
         </div>
       </el-card>
   </div>
 </template>
 <style scoped>
-/* 페이지 만들 때, 이 구조가 기준이 됩니다! (양옆 여백 10%, 위 여백 10%) */
+/* 페이지 만들 때, 이 구조가 기준이 됩니다! (양옆 여백 10%) */
 .main-body{
   display: flex;
   width: 100%;
@@ -47,7 +43,6 @@
   padding-top: 2%;
 }
 .login-wrapper .button-group{
-  /* 수직 정렬을 위한 스타일 */
   width: 300px;
   padding-top: 25px;
   margin: 0 auto;
@@ -72,18 +67,9 @@ export default {
       console.log('login')
       const params = {
         redirectUri: "http://localhost:8080/kakao/login",
-        scope: 'account_email, birthday'
+        scope: 'profile_nickname, profile_image, account_email, birthday'
       }
       window.Kakao.Auth.authorize(params);
-
-      // Kakao.Auth.login({
-      //   success: function(response){
-      //     console.log(response);
-      //   },
-      //   fail: function(error){
-      //     console.log(error)
-      //   }
-      // })
     }
 
     return { loginWithKakao }

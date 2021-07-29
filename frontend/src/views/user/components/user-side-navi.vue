@@ -19,6 +19,7 @@
           </template>
           <el-menu-item index="1-1">- 내 프로필</el-menu-item>
           <el-menu-item index="1-2">- 내가 쓴 글 보기</el-menu-item>
+          <el-menu-item index="1-2">- 회원탈퇴</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template #title>
