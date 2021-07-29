@@ -32,7 +32,7 @@
   /* height: calc(100% - 70px); /* 전체 높이 - 헤더 높이 */
   /* height: 100%; */ /* 높이를 지정해주지 않아야 푸터가 100%밑이 아닌 컨텐츠 아래에 붙음 */
   min-height: calc(100% - 70px);
-  padding-top: 70px !important;
+  margin-top: 70px !important;
 }
 
 .el-footer.main-footer {
