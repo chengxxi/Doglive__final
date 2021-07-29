@@ -115,7 +115,7 @@
   cursor: pointer;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url('../../../assets/images/temp-logo.png');
+  background-image: url('../../../assets/images/logo2.png');
 }
 .main-header .hide-on-small .userBtn{
   cursor: pointer;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins={"*"}, maxAge=6000)
 @RestController
 @RequestMapping("/kakao")
 public class KakaoController {

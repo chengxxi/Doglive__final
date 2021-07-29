@@ -1,9 +1,12 @@
 
 // Vue3 관련 설정 파일
 module.exports = {
+
   devServer: {
+    compress: true,
+    disableHostCheck: true,
     https: false,
-    port: 8083,
+    port: 8080,
     open: true,
     proxy: {
       '/api/v1': {
@@ -12,9 +15,6 @@ module.exports = {
     },
     historyApiFallback: true,
     hot: true
-  },
-  css: {
-    requireModuleExtension: false // import 시에 경로에 .module 포함 안해도 됨.
   },
   transpileDependencies: [
     'element-plus'
