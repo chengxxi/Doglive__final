@@ -58,21 +58,43 @@
 </style>
 
 <script>
+import axios from 'axios' // 서버로부터 받은 kakao url에 요청보내기 위한 axios
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'login-dialog',
   setup() {
     const store = new useStore()
+    const router = new useRouter()
 
     // 카카오 로그인
     const loginWithKakao = function(){
       store.dispatch('root/requestLogin')
       .then(function(result){
         console.log(result)
+        openKakaoLogin(result.data) // 카카오 로그인 창 OPEN & 로그인
       })
       .catch(function(err){
         console.log('로그인 실패' + err);
+      })
+    }
+
+    const openKakaoLogin = function(url){
+      axios.get(url)
+      .then(function(result){
+        // accessToken 및 회원정보 저장
+        console.log(result.data)
+        store.commit('root/setAccessToken', result.data.token.accessToken)
+        store.commit('root/setRefreshToken', result.data.token.refreshToken)
+        store.commit('root/setLoginUserInfo', result.data.token.userInfo)
+        alert("로그인 되었습니다!")
+        // 기존 페이지로 redirect
+        router.push({name: 'Main'})
+      })
+      .catch(function(err){
+        alert("로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.")
+        router.push({name: 'Main'})
       })
     }
 
