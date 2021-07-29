@@ -192,7 +192,7 @@ Entity 구현
 |Name|이상현|이영주|조다운|최혜원|한승희|
 |-----|-----|-----|------|----|-----|
 |Profile|![image](/uploads/3860f308d6c0cd6bb835c4fd14579524/image.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|![image](/uploads/539297e8b6d36bd2b60c5ce5ed870936/image.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|
-|Position|Frontend & UI/UX|Backend Develop & CI/CD|	👑팀장 & Backend Develop & CI/CD|Backend Develop & CI/CD|Frontend & UI/UX|
+|Position|Frontend, Backend Develop & UI/UX|Backend Develop & CI/CD|	👑팀장 & Backend Develop & CI/CD|Backend Develop & CI/CD|Frontend & UI/UX|
 |Git|@kimkuan|@0JUUU|@jodawoooon | @hiii456|	@chengxxi|
 
 
