@@ -1,19 +1,14 @@
 ## 🐶 독립 Dog-Live (獨立)
-![image](/uploads/c1e409ff914b45b9b9de3755c822d114/image.png)
+![image](/uploads/3ba663b36dd5ee65085a392b548cb83a/image.png)
 
-독립은 유기견들의 행복하고 안정적인 삶을 위해 노력하는 서비스입니다.
+#### 독립은 유기견들의 행복하고 안정적인 삶을 위해 노력하는 서비스입니다.
 
 <br>
 
 * * *
-
-## 🥜 프로젝트 기획
-### 기획 배경
-
-<br><br>
-
 ## 🥜 프로젝트 소개
 
+### 🔔 타겟 및 목표
 ### 🔨 기술 스택
 ![image](/uploads/736f81d4235a557e9d56274d7b32ed97/image.png)
 <br>
