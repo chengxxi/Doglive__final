@@ -7,7 +7,9 @@ import com.ssafy.db.entity.auth.User;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 사용자 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -48,11 +50,10 @@ public class UserController {
     })
     public ResponseEntity<? extends BaseResponseBody> deleteUser(@PathVariable("id") String id) {
         System.out.println(id + "탈퇴할거야");
-        userService.deleteUser(id);
-        System.out.print("delete User");
+        boolean flag = userService.deleteUser(id);
+        System.out.print("delete User : " + flag);
         return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Success"));
     }
-
 
 
 }
