@@ -43,6 +43,7 @@ public class KakaoController {
 
         // 사용자 정보에서 이메일을 가져온다.
         String email = (String) userInfo.get("email");
+        System.out.println(email);
         User user = userService.getUserById(email);
         // 회원가입이 되어있는 경우
         if(user!=null){
@@ -55,7 +56,6 @@ public class KakaoController {
                 session.setAttribute("access_Token", access_Token);
             }
         }
-
         // 유효하지 않는 패스워드인 경우, 로그인 실패로 응답.
         return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Invalid Password", null));
     }

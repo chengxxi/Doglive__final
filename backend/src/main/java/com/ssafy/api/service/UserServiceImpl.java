@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
@@ -20,9 +21,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public User createUser(UserRegisterPostReq userRegisterInfo) {
         User user = new User();
-        UserProfile profile = new UserProfile();
         user.setId(userRegisterInfo.getId());
-
+        user.setUserProfile(userRegisterInfo.getUserProfile());
+        user.setUserTokens(userRegisterInfo.getUserTokens());
         return userRepository.save(user);
     }
 
