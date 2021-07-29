@@ -108,25 +108,25 @@ spring:
   datasource:
     hikari:
       auth:
-        password: 1234
-        username: root
+        password: doglivedoggi
+        username: doglive
         jdbc-url: jdbc:mariadb://i5a501.p.ssafy.io/auth?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver
 
       board:
-        password: 1234
-        username: root
+        password: doglivedoggi
+        username: doglive
         jdbc-url: jdbc:mariadb://i5a501.p.ssafy.io/board?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver
 
       community:
-        password: 1234
-        username: root
+        password: doglivedoggi
+        username: doglive
         jdbc-url: jdbc:mariadb://i5a501.p.ssafy.io/community?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver
 
       chat:
-        password: 1234
-        username: root
+        password: doglivedoggi
+        username: doglive
         jdbc-url: jdbc:mariadb://i5a501.p.ssafy.io/chat?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver
