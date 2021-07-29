@@ -7,9 +7,6 @@ logging:
   file:
     name: ./dog-live.log
   level:
-    com:
-      samsung:
-        security: DEBUG
     org:
       apache:
         tiles: INFO
