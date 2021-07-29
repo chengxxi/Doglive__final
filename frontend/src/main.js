@@ -209,4 +209,7 @@ plugins.forEach(plugin => {
   app.use(plugin)
 })
 
+/* Kakao javascript Key 설정 */
+window.Kakao.init('2c046ed5f7ec0f72bdf74502a7ccb16c');
+
 app.mount('#app')

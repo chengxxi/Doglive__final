@@ -1,122 +1,130 @@
 <template>
-<el-row class="main-header"
+<el-header class="main-header"
   :style="{'height': height}">
-  <!-- Destop 전용 화면 -->
-  <div class="hide-on-small" @mouseover="changeDisplay('over')" @mouseleave="changeDisplay('leave')">
-    <div class="logo-wrapper">
-      <div class="logo"/>
-    </div>
+  <!-- Desktop 전용 화면 -->
+  <div class="hide-on-small">
     <div class="menu-wrapper">
-        <ul class="depth0">
+        <ul class="depth0" @mouseleave="changeDisplay('leave')">
             <li>
-              <a href="#">독립</a>
+                <div class="logo" @click="clickLogo"></div>
+            </li>
+            <li></li>
+            <li>
+              <a href="#" @mouseover="changeDisplay('over')">독립</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
                     <li><a href="#">About 독립</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
             </li>
             <li>
-              <a href="#">입양/임보</a>
+              <a href="#" @mouseover="changeDisplay('over')">입양/임보</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
                   <li><a href="#">입양하기</a></li>
                   <li><a href="#">임시보호하기</a></li>
                   <li><a href="#">입양 사전 설문</a></li>
-                  <li><a href="#">나와 맞는 MBTI</a></li>
+                  <li><a href="#">나와 맞는 강아지 MBTI</a></li>
                 </ul>
             </li>
             <li>
-              <a href="#">실종/보호</a>
+              <a href="#" @mouseover="changeDisplay('over')">실종/보호</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
                     <li><a href="#">찾아주세요</a></li>
                     <li><a href="#">보호하고 있어요</a></li>
                 </ul>
             </li>
             <li>
-              <a href="#">커뮤니티</a>
+              <a href="#" @mouseover="changeDisplay('over')">커뮤니티</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
                   <li><a href="#">게시글 구경하기</a></li>
                   <li><a href="#">내 피드 확인하기</a></li>
                 </ul>
             </li>
+              <li></li>
+            <li>
+              <!-- User 아이콘에 마우스 hover했을 때 나올 popover 정의 -->
+              <el-popover
+                placement="bottom"
+                width="200"
+                trigger="hover"
+                v-model="state.showUserModal">
+                <table :style="{margin: '0 auto'}">
+                  <tr v-for="(path, key, index) in notLoggedIn" v-bind:key="index">
+                    <td><a :href="path">{{ key }}</a></td>
+                  </tr>
+                </table>
+                <template #reference>
+                  <i class="el-icon-s-custom userBtn" @click="changeUserModal" ></i>
+                </template>
+              </el-popover>
+            </li>
         </ul>
     </div>
-    <div class="user-wrapper">
-      <el-avatar class="userBtn" icon="el-icon-user-solid" @click="click"></el-avatar>
-    </div>
   </div>
-</el-row>
+</el-header>
 </template>
 
 <style scoped>
 .main-header{
+  z-index: 1; /* 헤더 맨위 고정 */
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  padding: 10px 20px;
   text-align: center;
   overflow: visible;
 }
-.main-header .hide-on-small{
-  margin: 0 auto;
-  vertical-align: center;
+.main-header .hide-on-small .menu-wrapper{
+  width: 100%;
 }
-.main-header .hide-on-small .logo-wrapper{
- float: left;
- cursor: pointer;
+/* 상단 메뉴 */
+.main-header .hide-on-small .menu-wrapper .depth0{
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: rgba(249, 240, 231, 0.6);
 }
-.main-header .hide-on-small .logo-wrapper .logo {
+.main-header .hide-on-small .menu-wrapper .depth0 ul{
+  width: 100%;
+  list-style: none;
+}
+.main-header .hide-on-small .menu-wrapper .depth0 > li{
+  display: table-cell;
+  line-height: 70px;
+  vertical-align: top;
+}
+.main-header .hide-on-small .menu-wrapper .depth0 a:hover{
+  color: #D7AEA4;
+}
+/* 하단 메뉴 */
+.main-header .hide-on-small .menu-wrapper .depth1{
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.main-header .hide-on-small .menu-wrapper .depth1 > li{
+  width: 100%;
+  line-height: 40px;
+}
+.main-header .hide-on-small .logo {
   width: 150px;
-  height: 49px;
+  height: 50px;
+  margin-top: 10px;
+  margin-left: 20px;
+  cursor: pointer;
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url('../../../assets/images/temp-logo.png');
 }
-.main-header .hide-on-small .menu-wrapper{
-  display: inline-block;
-  width: 70%;
-  height: 49px;
-  margin: 0 auto;
-}
-.main-header .hide-on-small .menu-wrapper .depth0{
-  list-style: none;
-  padding-left: 0;
-  font-size: 18px;
-  font-weight: 500;
-}
-.main-header .hide-on-small .menu-wrapper .depth0 li{
-  display: inline-block;
-  width: 25%;
-  vertical-align: top;
-}
-.main-header .hide-on-small .menu-wrapper .depth0 a{
-  text-decoration: none;
-  color: black;
-}
-.main-header .hide-on-small .menu-wrapper .depth1{
-  display: none;
-  text-align: center;
-  padding-left: 0;
-  margin-top: 40px;
-  font-size: 16px;
-  font-weight: 400;
-}
-.main-header .hide-on-small .menu-wrapper .depth1 li{
-  display: block;
-  width: 100%;
-  margin-top: 8%;
-}
-.main-header .hide-on-small .user-wrapper{
-  float: right;
-  width: 5%;
-}
-.main-header .hide-on-small .user-wrapper .userBtn{
+.main-header .hide-on-small .userBtn{
   cursor: pointer;
 }
 </style>
 
 <script>
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'main-header',
@@ -127,17 +135,33 @@ export default {
       },
   },
   setup() {
-    const state = reactive({
-      showHiddenMenu: false,
-    })
-    const changeDisplay = function(cmd){
-      if(cmd === "over")
-        state.showHiddenMenu = 'block';
-      else
-        state.showHiddenMenu = 'none';
-      console.log(state.showHiddenMenu)
+    const router = useRouter()
+    const notLoggedIn = {
+      '로그인': '/login',
     }
-    return { state, changeDisplay }
+    const loggedIn = {
+      '마이페이지': '/mypage/profile',
+      '로그아웃': '/'
+    }
+    const state = reactive({
+      showHiddenMenu: 'none',
+      showUserModal: false,
+    })
+
+    const clickLogo = function() {
+      router.push({name : 'Main'}) // vue-router.js 밑에 정의해둔 메인페이지 경로로 이동
+    }
+    const changeUserModal = function(){
+      state.showUserModal=!state.showUserModal
+    }
+    const changeDisplay = function(mouse){
+      if(mouse === "over")
+        state.showHiddenMenu = 'block'
+      else
+        state.showHiddenMenu = 'none'
+    }
+
+    return { state, clickLogo, changeUserModal, changeDisplay, notLoggedIn, loggedIn }
   },
 }
 </script>

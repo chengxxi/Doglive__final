@@ -1,12 +1,12 @@
 /* Element Plus Overriding CSS */
 
-@media (max-width: 1269px) {
+@media (max-width: 749px) {
   .el-main {
     width: calc(100% - 2px);
   }
 }
 
-@media (min-width: 1270px) {
+@media (min-width: 750px) {
   .el-main {
     width: calc(100% - 242px); /* border 2px + sidebar 240px */
   }
