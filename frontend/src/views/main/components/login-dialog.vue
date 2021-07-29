@@ -7,6 +7,7 @@
         </div>
         <div class="login-content">
           <div class="button-group">
+            <img width="200" :src="require('@/assets/images/mbti_isfp.png')"/>
             <span class="comment">카카오 아이디로 간편하게 로그인!
             </span>
             <img class="loginBtn" @click="loginWithKakao" :src="require('@/assets/images/kakao_login_medium_wide.png')"/>
@@ -28,7 +29,8 @@
   margin: 0 auto;
 }
 .main-padding{
-  padding-top: 100px;
+  padding-top: 170px;
+  padding-bottom: 170px;
 }
 .login-wrapper{
   width: 400px;
@@ -39,12 +41,13 @@
 .login-wrapper .login-title{
   height: 20px;
   font-size: 1.125rem;
+  font-weight: 600;
   padding-bottom: 10px;
   border-bottom: solid 1px rgb(212, 212, 212);;
 }
 .login-wrapper .login-content{
   height: calc(100% - 70px); /* el-card padding(40px) + login-title(30px) */
-  padding-top: 30%;
+  padding-top: 7%;
 }
 .login-wrapper .button-group{
   /* 수직 정렬을 위한 스타일 */

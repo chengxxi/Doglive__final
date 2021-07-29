@@ -1,7 +1,6 @@
 <template>
   <el-row
-    class="main-footer"
-    :gutter="10">
+    class="main-footer">
     <div class="contents">
       <ul>
         <li class="img_area"><img :src="require('@/assets/images/temp-logo.png')" style="height: 3rem; !important" /></li>
