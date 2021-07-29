@@ -34,12 +34,25 @@ public class KakaoController {
 
     @RequestMapping(value="/login")
     public ResponseEntity<UserLoginPostRes> login(@RequestParam("code") String code, HttpSession session) {
-        String access_Token = kakaoAPI.getAccessToken(code);
+        HashMap<String,Object> Token = kakaoAPI.getAccessToken(code);
+
+
+        String access_Token = (String) Token.get("accessToken");
+        String refresh_Token = (String) Token.get("refreshToken");
 
         System.out.println("code : " + code);
         // 사용자의 정보를 <string, 객체> 로 생성
-        HashMap<String, Object> userInfo = kakaoAPI.getUserInfo(access_Token);
+        HashMap<String, Object> userInfo = kakaoAPI.getUserInfo(Token);
         System.out.println("login Controller : " + userInfo);
+
+        HashMap<String, Object> userObject = new HashMap<String, Object>();
+        userObject.put("Token",Token);
+        userObject.put("userInfo",userInfo);
+
+        System.out.println("-------------------");
+        System.out.println(userObject);
+        System.out.println("-------------------");
+
 
         // 카카오가 보낸 정보에서 id를 가져온다.
         String id = (String) userInfo.get("userid");
@@ -48,13 +61,17 @@ public class KakaoController {
         // 회원가입이 되어있는 경우
         if(user!=null){
             System.out.println("login success!");
-            return ResponseEntity.ok(UserLoginPostRes.of(200,"Success",access_Token));
+            return ResponseEntity.ok(UserLoginPostRes.of(200,"Success", userObject));
         }else{
             // 클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
             if (userInfo.get("email") != null) {
-                session.setAttribute("userId", userInfo.get("email"));
-                session.setAttribute("access_Token", access_Token);
+//                session.setAttribute("userId", userInfo.get("email"));
+//                session.setAttribute("access_Token", userObject);
+
             }
+
+             userService.createUser(access_Token, refresh_Token, userInfo);
+
         }
         // 유효하지 않는 패스워드인 경우, 로그인 실패로 응답.
         return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Invalid Password", null));

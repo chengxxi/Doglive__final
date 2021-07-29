@@ -6,18 +6,20 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
+
 @Getter
 @Setter
 @ApiModel("UserLoginPostResponse")
 public class UserLoginPostRes extends BaseResponseBody {
     @ApiModelProperty
-    String accessToken;
+    HashMap<String,Object> user;
 
-    public static UserLoginPostRes of(Integer statusCode, String message, String accessToken) {
+    public static UserLoginPostRes of(Integer statusCode, String message, HashMap<String,Object> user) {
         UserLoginPostRes res = new UserLoginPostRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
-        res.setAccessToken(accessToken);
+        res.setUser(user);
         return res;
     }
 

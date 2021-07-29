@@ -28,15 +28,15 @@ public class QUserProfile extends EntityPathBase<UserProfile> {
 
     public final StringPath email = createString("email");
 
+    public final NumberPath<Long> id = createNumber("id", Long.class);
+
     public final StringPath name = createString("name");
 
     public final StringPath phoneNumber = createString("phoneNumber");
 
     public final StringPath profileImageUrl = createString("profileImageUrl");
 
-    public final QUser user;
-
-    public final StringPath userId = createString("userId");
+    public final QUser userId;
 
     public QUserProfile(String variable) {
         this(UserProfile.class, forVariable(variable), INITS);
@@ -56,7 +56,7 @@ public class QUserProfile extends EntityPathBase<UserProfile> {
 
     public QUserProfile(Class<? extends UserProfile> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.user = inits.isInitialized("user") ? new QUser(forProperty("user"), inits.get("user")) : null;
+        this.userId = inits.isInitialized("userId") ? new QUser(forProperty("userId")) : null;
     }
 
 }

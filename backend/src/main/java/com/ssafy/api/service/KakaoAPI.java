@@ -13,10 +13,11 @@ import java.util.HashMap;
 @Service
 public class KakaoAPI {
 
-    public String getAccessToken(String authorize_code){
+    public HashMap<String, Object> getAccessToken(String authorize_code){
         String access_Token = "";
         String refresh_Token = "";
 
+        HashMap<String, Object> Token = new HashMap<>();
         String reqURL = "https://kauth.kakao.com/oauth/token";
 
         try {
@@ -61,6 +62,9 @@ public class KakaoAPI {
             System.out.println("access_token : " + access_Token);
             System.out.println("refresh_token : " + refresh_Token);
 
+            Token.put("accessToken",access_Token);
+            Token.put("refreshToken",refresh_Token);
+
             br.close();
             bw.close();
         } catch (IOException e) {
@@ -68,10 +72,13 @@ public class KakaoAPI {
             e.printStackTrace();
         }
 
-        return access_Token;
+        return Token;
     }
 
-    public HashMap<String, Object> getUserInfo(String access_Token){
+
+    public HashMap<String, Object> getUserProfile(String access_Token, String refresh_Token){
+        String accessToken = access_Token;
+        String refreshToken = refresh_Token;
         String userid="";
         String email = "";
         String profileImageUrl = "";
@@ -110,16 +117,19 @@ public class KakaoAPI {
 
             userid = element.getAsJsonObject().get("id").getAsString();
             email = kakao_account.getAsJsonObject().get("email").getAsString();
-            //profileImageUrl = kakao_account.getAsJsonObject().get("profile_image").getAsString();
-            //name = kakao_account.getAsJsonObject().get("nickname").getAsString();
-            //phoneNumber = kakao_account.getAsJsonObject().get("birthday").getAsString();
+            profileImageUrl = kakao_account.getAsJsonObject().get("profile").getAsJsonObject().get("profile_image_url").getAsString();
+            name = kakao_account.getAsJsonObject().get("profile").getAsJsonObject().get("nickname").getAsString();
+            phoneNumber = kakao_account.getAsJsonObject().get("birthday").getAsString();
 
             System.out.println("userInfo!!!" + userid + " " + email) ;
 //            userInfo.put("userid", userid);
+            userInfo.put("accessToken", accessToken);
+            userInfo.put("refreshToken", refreshToken);
             userInfo.put("userid", userid);
-//            userInfo.put("profileImageUrl", profileImageUrl);
-//            userInfo.put("name", name);
-//            userInfo.put("phoneNumber", phoneNumber);
+            userInfo.put("email", email);
+            userInfo.put("profileImageUrl", profileImageUrl);
+            userInfo.put("name", name);
+            userInfo.put("phoneNumber", phoneNumber);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -127,6 +137,67 @@ public class KakaoAPI {
 
         return userInfo;
     }
+
+    public HashMap<String, Object> getUserInfo(HashMap<String, Object> Token){
+        String userid="";
+        String email = "";
+        String profileImageUrl = "";
+        String name = "";
+        String phoneNumber = "";
+
+        // 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+        HashMap<String, Object> userInfo = new HashMap<>();
+        String reqURL = "https://kapi.kakao.com/v2/user/me";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+
+            String access_Token = (String) Token.get("accessToken");
+
+            // 요청에 필요한 Header에 포함될 내용
+            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String line = "";
+            String result = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println("response body : " + result);
+
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(result);
+
+            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+            JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+
+            userid = element.getAsJsonObject().get("id").getAsString();
+            email = kakao_account.getAsJsonObject().get("email").getAsString();
+            profileImageUrl = properties.getAsJsonObject().get("profile_image").getAsString();
+            name = properties.getAsJsonObject().get("nickname").getAsString();
+            //phoneNumber = kakao_account.getAsJsonObject().get("birthday").getAsString();
+
+            System.out.println("userInfo!!!" + userid + " " + email + " " + profileImageUrl + " " + name);
+
+            userInfo.put("userid", userid);
+            userInfo.put("email" , email);
+            userInfo.put("profileImageUrl",profileImageUrl);
+            userInfo.put("name",name);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return userInfo;
+    }
+
 
     public void Logout(String access_Token) {
         String reqURL = "https://kapi.kakao.com/v1/user/logout";
