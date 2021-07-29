@@ -42,9 +42,9 @@ public class KakaoController {
         System.out.println("login Controller : " + userInfo);
 
         // 사용자 정보에서 이메일을 가져온다.
-        String email = (String) userInfo.get("email");
-        System.out.println(email);
-        User user = userService.getUserById(email);
+        String id = (String) userInfo.get("userid");
+        System.out.println(id);
+        User user = userService.getUserById(id);
         // 회원가입이 되어있는 경우
         if(user!=null){
             System.out.println("login success!");
