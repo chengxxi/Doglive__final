@@ -73,7 +73,7 @@ export default {
       store.dispatch('root/requestLogin')
       .then(function(result){
         console.log(result)
-        openKakaoLogin(result.data) // 카카오 로그인 창 OPEN & 로그인
+        openKakaoLogin(result) // 카카오 로그인 창 OPEN & 로그인
       })
       .catch(function(err){
         console.log('로그인 실패' + err);
