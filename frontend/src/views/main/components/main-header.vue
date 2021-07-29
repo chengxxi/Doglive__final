@@ -5,10 +5,10 @@
   <div class="hide-on-small">
     <div class="menu-wrapper">
         <ul class="depth0" @mouseleave="changeDisplay('leave')">
+            <li></li>
             <li>
                 <div class="logo" @click="clickLogo"></div>
             </li>
-            <li></li>
             <li>
               <a href="#" @mouseover="changeDisplay('over')">독립</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
@@ -39,7 +39,6 @@
                   <li><a href="#">내 피드 확인하기</a></li>
                 </ul>
             </li>
-              <li></li>
             <li>
               <!-- User 아이콘에 마우스 hover했을 때 나올 popover 정의 -->
               <el-popover
@@ -57,6 +56,7 @@
                 </template>
               </el-popover>
             </li>
+            <li></li>
         </ul>
     </div>
   </div>
@@ -81,7 +81,7 @@
   table-layout: fixed;
   width: 100%;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   background-color: rgba(249, 240, 231, 0.6);
 }
 .main-header .hide-on-small .menu-wrapper .depth0 ul{
