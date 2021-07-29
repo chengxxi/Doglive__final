@@ -84,10 +84,10 @@ export default {
       axios.get(url)
       .then(function(result){
         // accessToken 및 회원정보 저장
-        console.log(result.data)
-        store.commit('root/setAccessToken', result.data.token.accessToken)
-        store.commit('root/setRefreshToken', result.data.token.refreshToken)
-        store.commit('root/setLoginUserInfo', result.data.token.userInfo)
+        console.log(result.user)
+        store.commit('root/setAccessToken', result.user.Token.accessToken)
+        store.commit('root/setRefreshToken', result.user.Token.refreshToken)
+        store.commit('root/setLoginUserInfo', result.user.userInfo.userInfo)
         alert("로그인 되었습니다!")
         // 기존 페이지로 redirect
         router.push({name: 'Main'})
