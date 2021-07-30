@@ -21,8 +21,8 @@
     <br>
 2. [🔈 구현 결과](#-구현-결과)
     <br>
-    - [📑 Frontend](#-frontend)
-    - [📑 Backend](#-backend)
+    - [📑 Frontend](#frontend)
+    - [📑 Backend](#backend)
     <br>
 3. [🔈 팀원 소개 및 역할](#-팀원-소개-및-역할)
     <br><br>
