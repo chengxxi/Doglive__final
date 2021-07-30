@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 @Service("userService")
-public class UserServiceImpl<UserProfileRepositorySupport> implements UserService{
+public class UserServiceImpl implements UserService{
     @Autowired
     UserRepository userRepository;
 
@@ -27,7 +27,14 @@ public class UserServiceImpl<UserProfileRepositorySupport> implements UserServic
     UserProfileRepository userProfileRepository;
 
     @Autowired
+    UserProfileRepositorySupport userProfileRepositorySupport;
+
+
+    @Autowired
     UserTokenRepository userTokenRepository;
+
+    @Autowired
+    UserTokenRepositorySupport userTokenRepositorySupport;
 
 
 
@@ -54,7 +61,7 @@ public class UserServiceImpl<UserProfileRepositorySupport> implements UserServic
         User returnUser = userRepository.save(user);
 
         /* User Profile 저장 */
-        userProfile.setUserId(id);
+        userProfile.setUserId(returnUser);
         userProfile.setName(name);
         userProfile.setProfileImageUrl(profileImageUrl);
         userProfile.setEmail(email);
@@ -103,6 +110,12 @@ public class UserServiceImpl<UserProfileRepositorySupport> implements UserServic
         System.out.println("탈퇴할 아이디: " + id);
         if(getUserById(id)!=null){
             User user = userRepositorySupport.findUserById(id).get();
+
+            Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUser(user);
+            if(userProfile.isPresent()) {
+                userProfileRepository.delete(userProfile.get());
+            }
+
             userRepository.delete(user);
             return true;
         }

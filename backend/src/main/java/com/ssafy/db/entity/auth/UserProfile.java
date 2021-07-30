@@ -22,12 +22,16 @@ import java.util.List;
 @Table(name="user_profile", schema = "auth")
 @Getter
 @Setter
-public class UserProfile {
+public class UserProfile implements Serializable {
 
 
   @Id
-  @Column(name = "user_id")
-  String userId = "";
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Long id = null;
+
+  @ManyToOne
+  @JoinColumn(name="user_id")
+  private User userId;
 
 
   @Column(length = 30)

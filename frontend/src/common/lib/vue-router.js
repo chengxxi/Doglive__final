@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Main from '@/views/main/components/main-content.vue'
 import Login from '@/views/main/components/login-dialog.vue'
 import Mypage from '@/views/user/mypage.vue'
+import KakaoLogin from '@/views/main/components/KakaoLogin.vue'
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path : '/kakao/login',
+    name: 'KakaoLogin',
+    coponent : KakaoLogin,
   },
   {
     path: '/mypage',

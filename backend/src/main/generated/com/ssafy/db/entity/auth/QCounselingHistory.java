@@ -52,7 +52,7 @@ public class QCounselingHistory extends EntityPathBase<CounselingHistory> {
 
     public QCounselingHistory(Class<? extends CounselingHistory> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.applicantId = inits.isInitialized("applicantId") ? new QUserProfile(forProperty("applicantId")) : null;
+        this.applicantId = inits.isInitialized("applicantId") ? new QUserProfile(forProperty("applicantId"), inits.get("applicantId")) : null;
     }
 
 }

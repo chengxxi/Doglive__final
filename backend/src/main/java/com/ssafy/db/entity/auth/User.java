@@ -25,9 +25,9 @@ public class User {
   @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
   private List<UserToken> userTokens;
 
-//  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-//  private List<UserProfile> userProfiles;
-//
+  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+  private List<UserProfile> userProfiles;
+
 
 
 }
