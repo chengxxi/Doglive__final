@@ -21,8 +21,8 @@
     <br>
 2. [🔈 구현 결과](#-구현-결과)
     <br>
-    - [📑 Frontend](#frontend)
-    - [📑 Backend](#Backend)
+    - [📑 Frontend](#-frontend)
+    - [📑 Backend](#-backend)
     <br>
 3. [🔈 팀원 소개 및 역할](#-팀원-소개-및-역할)
     <br><br>
@@ -209,9 +209,9 @@ DB 데이터 확인
 
 DB 데이터 .삭제 확인
 
-    ![image](/uploads/304dea9aee32d70d48ff968fd6359344/image.png)  
-    ![image](/uploads/218135223b89fea8b2259827375d80ab/image.png)  
-    ![image](/uploads/c8df503e36aaed7e0eee652ca9d68c94/image.png)  
+![image](/uploads/304dea9aee32d70d48ff968fd6359344/image.png)  
+![image](/uploads/218135223b89fea8b2259827375d80ab/image.png)  
+![image](/uploads/c8df503e36aaed7e0eee652ca9d68c94/image.png)  
     
 <br><br>
 
