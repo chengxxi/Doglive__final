@@ -137,41 +137,43 @@
 ## 🥜 구현 결과
 
 ### Frontend
-##### 📌 기준 페이지 디자인
-![image](/uploads/ca7c197ab88dc6d3f109e50a366a8b8d/image.png)
+
+##### ✨ 프론트 디자인
+
+
+##### ✨ 프론트 구현 메인 페이지
+![image](/uploads/4374caa937fff595f6c1bc1ab4bf034c/image.png)  
+![image](/uploads/ecfd8c9902889e1fb090ed3925d3e76d/image.png)  
+header, footer, carousel 등 구현  
 <br><br>
 
-##### 👩 Header 페이지 디자인
-![image](/uploads/f2a0471e8e91f08c16bb52918a82a4e6/image.png)
+##### ✨ 프론트 구현 로그인 페이지
+![image](/uploads/007f1de6fb158665ac7259fb55fd60be/image.png)  
+![image](/uploads/cf10532d43eeebd0b19b3f0a0cca168d/image.png)  
+상단 header - User 아이콘 마우스 Hover로 로그인 페이지로 이동  
 <br><br>
 
-##### 🦶 Footer 페이지 디자인
-![image](/uploads/28c7b9d13bf55a280e2e31c66e62dc7a/image.png)
+##### ✨ 프론트 구현 로그인 결과 (회원가입/로그인)
+![image](/uploads/0c111c6a41e7895c4e137f18162f6414/image.png)  
+로그인 버튼 클릭 시 카카오 API 호출 및 로그인 진행  
+![image](/uploads/9ce879e4edde3e561abf6c168bd72123/image.png)  
 <br><br>
 
-##### 👸 메인 페이지 디자인
-![image](/uploads/133315614469ceec579e13b14df5b9eb/image.png)
-<br><br>
+✔✔ 자체 DB에 해당 유저 없을 시 -> 회원가입 후 로그인
+✔✔ 자체 DB에 해당 유저 있을 시 -> 로그인
 
-##### 📲 로그인/로그아웃 페이지 디자인
-![image](/uploads/a29a11782c3e79d6ac02bc7596af8121/image.png)
 <br><br>
+DB 데이터 확인
 
-##### 👩‍💻 마이 페이지 디자인
-![image](/uploads/a6b65de9173f8b34decf459100632fe0/image.png)
-<br><br>
+- User Table  
+    ![image](/uploads/bed202258196e09f576964219f8a4e6c/image.png)  
+- UserToken Table  
+    ![image](/uploads/1f937ab37c450b5957fed8722f75ddf6/image.png)  
+- UserProfile Table  
+    ![image](/uploads/cd26425ffd18c9aa9f65e896383396fd/image.png)  
+    ( 카카오 phone_number 접근에 실패하여 임시로 birthday값을 mapping한 상태 )
 
-- 수정
-![image](/uploads/a6b65de9173f8b34decf459100632fe0/image.png)
-<br><br>
-
-- 내가 쓴 글
-![image](/uploads/54985f5becb4b49aac96a74fd57a7327/image.png)
-<br><br>
-
-- 신청자 목록
-![image](/uploads/0579bd1f868fa1d713c39b459a7ed337/image.png)
-<br><br>
+<br><br><br><br>
 
 ### Backend
 
@@ -179,11 +181,32 @@
 ![image](/uploads/208a8eb6ec51379d798c63ee42406591/image.png)
 <br><br>
 
-Entity 구현
-다중 DataSource 구현
-유저 관리
 
-<br><br><br><br>
+##### 로그인/회원가입
+
+✔✔ 자체 DB에 해당 유저 없을 시 -> 회원가입 후 로그인
+✔✔ 자체 DB에 해당 유저 있을 시 -> 로그인
+
+<br><br>
+DB 데이터 확인
+
+- User Table  
+    ![image](/uploads/bed202258196e09f576964219f8a4e6c/image.png)  
+- UserToken Table  
+    ![image](/uploads/1f937ab37c450b5957fed8722f75ddf6/image.png)  
+- UserProfile Table  
+    ![image](/uploads/cd26425ffd18c9aa9f65e896383396fd/image.png)  
+    ( 카카오 phone_number 접근에 실패하여 임시로 birthday값을 mapping한 상태 )
+
+
+##### 회원탈퇴
+![image](/uploads/b09ab5fa43de99e9b1345e4b7397cede/image.png)
+
+결과  
+- User Table
+    - ![image](/uploads/304dea9aee32d70d48ff968fd6359344/image.png)
+    - ![image](/uploads/218135223b89fea8b2259827375d80ab/image.png)
+    - ![image](/uploads/c8df503e36aaed7e0eee652ca9d68c94/image.png)
 
 ## 🥜 팀원 소개 및 역할
 
