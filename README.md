@@ -11,10 +11,9 @@
 1. [🔈 프로젝트 소개](#-프로젝트-소개)
     <br>
     - [📑 타겟 및 목표](#-타겟-및-목표)
-    - [📑 개발 환경](#-개발-환경)
     - [📑 기술 스택](#-기술-스택)
     - [📑 서버 아키텍처](#-서버-아키텍처)
-    - [📑 ERD](#-ERD)
+    - [📑 ERD](#-erd)
     - [📑 컴포넌트](#-컴포넌트)
     - [📑 와이어프레임](#-와이어프레임)
     - [📑 스토리보드](#-스토리보드)
@@ -191,9 +190,9 @@ Entity 구현
 <br><br>
 |Name|이상현|이영주|조다운|최혜원|한승희|
 |-----|-----|-----|------|----|-----|
-|Profile|![image](/uploads/3860f308d6c0cd6bb835c4fd14579524/image.png)|![image](/uploads/6abd97f8243c6f2d3957ed924dadf288/image.png)|![image](/uploads/539297e8b6d36bd2b60c5ce5ed870936/image.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|
+|Profile|![image](/uploads/3860f308d6c0cd6bb835c4fd14579524/image.png)|![image](/uploads/6abd97f8243c6f2d3957ed924dadf288/image.png)|![image](/uploads/539297e8b6d36bd2b60c5ce5ed870936/image.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|![image](/uploads/4ef2f44fbf9ba4cae83bd853d836bfb7/image.png)|
 |Position|Frontend, Backend Develop & UI/UX|Backend Develop & CI/CD|	👑팀장 & Backend Develop & CI/CD|Backend Develop & CI/CD|Frontend & UI/UX|
-|Git|@zxd9857|@clleo97|@jodawoooon | @hiii456|	@chengxxi|
+|Git|@zxd9857|@clleo97|@jodawooooon | @hiii456|	@chengxxi|
 
 
 <br><br>
