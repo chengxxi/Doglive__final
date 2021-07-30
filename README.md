@@ -161,12 +161,11 @@
 - 로그인 버튼 클릭 시 카카오 API 호출 및 로그인 진행  
     ![image](/uploads/0c111c6a41e7895c4e137f18162f6414/image.png)  
 
--
     ![image](/uploads/9ce879e4edde3e561abf6c168bd72123/image.png)  
 <br><br>
 
-✔✔ 자체 DB에 해당 유저 없을 시 -> 회원가입 후 로그인
-✔✔ 자체 DB에 해당 유저 있을 시 -> 로그인
+✔✔ 자체 DB에 해당 유저 없을 시 -> 회원가입 후 로그인  
+✔✔ 자체 DB에 해당 유저 있을 시 -> 로그인  
 
 <br><br>
 DB 데이터 확인
@@ -175,9 +174,9 @@ DB 데이터 확인
     ![image](/uploads/bed202258196e09f576964219f8a4e6c/image.png)  
 - UserToken Table  
     ![image](/uploads/1f937ab37c450b5957fed8722f75ddf6/image.png)  
-- UserProfile Table  
-    ![image](/uploads/cd26425ffd18c9aa9f65e896383396fd/image.png)  
-    ( 카카오 phone_number 접근에 실패하여 임시로 birthday값을 mapping한 상태 )
+- UserProfile Table    
+    ![image](/uploads/cd26425ffd18c9aa9f65e896383396fd/image.png)    
+    ( 카카오 phone_number 접근에 실패하여 임시로 birthday값을 mapping한 상태 )  
 
 <br><br><br><br>
 
@@ -190,30 +189,29 @@ DB 데이터 확인
 
 #### 로그인/회원가입
 
-✔✔ 자체 DB에 해당 유저 없을 시 -> 회원가입 후 로그인
-✔✔ 자체 DB에 해당 유저 있을 시 -> 로그인
+✔✔ 자체 DB에 해당 유저 없을 시 -> 회원가입 후 로그인  
+✔✔ 자체 DB에 해당 유저 있을 시 -> 로그인  
 
 <br><br>
-DB 데이터 확인
 
-- User Table  
-    ![image](/uploads/bed202258196e09f576964219f8a4e6c/image.png)  
-- UserToken Table  
-    ![image](/uploads/1f937ab37c450b5957fed8722f75ddf6/image.png)  
-- UserProfile Table  
-    ![image](/uploads/cd26425ffd18c9aa9f65e896383396fd/image.png)  
-    ( 카카오 phone_number 접근에 실패하여 임시로 birthday값을 mapping한 상태 )
+- kakao 인가 코드 받기
+    ![image](/uploads/3c6d4e1d7bfef30da73d4ac7e27f2c1a/image.png)  
 
+- 카카오 로그인/회원가입 완료
+    - User Table  
+        ![image](/uploads/0d597998113f385b759a7d424ec654d0/image.png)  
+        ![image](/uploads/9f413de5e2b958557dae4efc2d4841d9/image.png)   
+        ![image](/uploads/c6eabc05b9ba346c4282217fd6ea1ea5/image.png)    
 <br><br>
 
 #### 회원탈퇴
-![image](/uploads/b09ab5fa43de99e9b1345e4b7397cede/image.png)
+![image](/uploads/b09ab5fa43de99e9b1345e4b7397cede/image.png)  
 
-결과  
-- User Table
-    - ![image](/uploads/304dea9aee32d70d48ff968fd6359344/image.png)
-    - ![image](/uploads/218135223b89fea8b2259827375d80ab/image.png)
-    - ![image](/uploads/c8df503e36aaed7e0eee652ca9d68c94/image.png)
+DB 데이터 .삭제 확인
+
+    ![image](/uploads/304dea9aee32d70d48ff968fd6359344/image.png)  
+    ![image](/uploads/218135223b89fea8b2259827375d80ab/image.png)  
+    ![image](/uploads/c8df503e36aaed7e0eee652ca9d68c94/image.png)  
     
 <br><br>
 
