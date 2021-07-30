@@ -37,6 +37,7 @@ export default {
       */
 
       console.log(router)
+      router.push('/') // Main으로 redirect
     }
 }
 </script>
