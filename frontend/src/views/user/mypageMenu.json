@@ -1,0 +1,11 @@
+{
+  "userInfo" : {
+    "name" : "회원정보",
+    "hidden" : false,
+    "path" : "/mypage/profile",
+    "icon" : "el-icon-s-home",
+    "children" : [
+    ],
+    "isLogin" : false
+  }
+}
