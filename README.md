@@ -142,21 +142,27 @@
 #### [💜 프론트 디자인 보기](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/wikis/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%94%94%EC%9E%90%EC%9D%B8)
 
 #### ✨ 프론트 구현 메인 페이지
-![image](/uploads/4374caa937fff595f6c1bc1ab4bf034c/image.png)  
-![image](/uploads/ecfd8c9902889e1fb090ed3925d3e76d/image.png)  
-header, footer, carousel 등 구현  
+- header, footer, carousel 등 구현  
+    ![image](/uploads/4374caa937fff595f6c1bc1ab4bf034c/image.png)  
+    ![image](/uploads/ecfd8c9902889e1fb090ed3925d3e76d/image.png)  
+
 <br><br>
 
 #### ✨ 프론트 구현 로그인 페이지
-![image](/uploads/007f1de6fb158665ac7259fb55fd60be/image.png)  
-![image](/uploads/cf10532d43eeebd0b19b3f0a0cca168d/image.png)  
-상단 header - User 아이콘 마우스 Hover로 로그인 페이지로 이동  
+- 상단 header - User 아이콘 마우스 Hover로 로그인 페이지로 이동  
+    ![image](/uploads/007f1de6fb158665ac7259fb55fd60be/image.png)  
+
+- 로그인 페이지
+    ![image](/uploads/cf10532d43eeebd0b19b3f0a0cca168d/image.png)  
+ 
 <br><br>
 
 #### ✨ 프론트 구현 로그인 결과 (회원가입/로그인)
-![image](/uploads/0c111c6a41e7895c4e137f18162f6414/image.png)  
-로그인 버튼 클릭 시 카카오 API 호출 및 로그인 진행  
-![image](/uploads/9ce879e4edde3e561abf6c168bd72123/image.png)  
+- 로그인 버튼 클릭 시 카카오 API 호출 및 로그인 진행  
+    ![image](/uploads/0c111c6a41e7895c4e137f18162f6414/image.png)  
+
+-
+    ![image](/uploads/9ce879e4edde3e561abf6c168bd72123/image.png)  
 <br><br>
 
 ✔✔ 자체 DB에 해당 유저 없을 시 -> 회원가입 후 로그인
