@@ -103,7 +103,7 @@
 <br><br>
 
 ### 📖 스토리보드
-⚠ 많은 페이지가 존재하는 관계로 일부만 README.md에 업로드하고 나머지는 첨부하겠습니다. [📁 스토리보드 보러가기](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/tree/master/documents/Storyboard)
+⚠ 많은 페이지가 존재하는 관계로 일부만 README.md에 업로드하고 나머지는 첨부하겠습니다. [📁 스토리보드 보러가기](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/blob/master/documents/Storyboard/DogLive_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)
 
 ▪ 메인 페이지 관련
 ![image](/uploads/75829b704ffad2e53cde4620f2a68bc9/image.png)
@@ -191,15 +191,15 @@ Entity 구현
 <br><br>
 |Name|이상현|이영주|조다운|최혜원|한승희|
 |-----|-----|-----|------|----|-----|
-|Profile|![image](/uploads/3860f308d6c0cd6bb835c4fd14579524/image.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|![image](/uploads/539297e8b6d36bd2b60c5ce5ed870936/image.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|
+|Profile|![image](/uploads/3860f308d6c0cd6bb835c4fd14579524/image.png)|![image](/uploads/6abd97f8243c6f2d3957ed924dadf288/image.png)|![image](/uploads/539297e8b6d36bd2b60c5ce5ed870936/image.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|![프로필](/uploads/a5aaa3204da807182a5a184adfa45532/KakaoTalk_20210729_151806060.png)|
 |Position|Frontend, Backend Develop & UI/UX|Backend Develop & CI/CD|	👑팀장 & Backend Develop & CI/CD|Backend Develop & CI/CD|Frontend & UI/UX|
-|Git|@kimkuan|@0JUUU|@jodawoooon | @hiii456|	@chengxxi|
+|Git|@zxd9857|@clleo97|@jodawoooon | @hiii456|	@chengxxi|
 
 
 <br><br>
 
 ## 🥜 개발 문서
-#### [ 🧾 기능명세서 ](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/blob/master/documents/function/DogLive_%EA%B8%B0%EB%8A%A5_%EB%AA%85%EC%84%B8%EC%84%9C.pdf)
+#### [ 🧾 기능명세서 ](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/blob/master/documents/function/DogLive_%EA%B8%B0%EB%8A%A5%EB%AA%85%EC%84%B8%EC%84%9C.pdf)
 #### [ 📑 Wiki 보러 가기 ](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/wikis/home)
 
 
