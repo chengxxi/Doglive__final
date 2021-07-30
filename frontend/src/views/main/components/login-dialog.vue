@@ -81,9 +81,13 @@ export default {
     }
 
     const openKakaoLogin = function(url){
+
       console.log(url)
       window.location.replace(url)
       alert("로그인 성공")
+
+      
+
     }
 
     return { loginWithKakao }

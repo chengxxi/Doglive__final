@@ -23,6 +23,20 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @GetMapping("present/{userId}")
+    @ApiOperation(value = "존재하는 회원 확인", notes = "해당 userID를 사용하는 사용자가 있는지 확인한다.")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<BaseResponseBody> isPresentUser(@PathVariable String userId) {
+        User user = userService.getUserById(userId);
+        if(user == null)
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "사용할 수 있는 ID입니다."));
+        return ResponseEntity.status(409).body(BaseResponseBody.of(409, "이미 존재하는 사용자 ID입니다."));
+    }
 
 
     @DeleteMapping("/{id}")
