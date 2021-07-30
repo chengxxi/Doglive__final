@@ -198,6 +198,7 @@ DB 데이터 확인
     ![image](/uploads/cd26425ffd18c9aa9f65e896383396fd/image.png)  
     ( 카카오 phone_number 접근에 실패하여 임시로 birthday값을 mapping한 상태 )
 
+<br><br>
 
 ##### 회원탈퇴
 ![image](/uploads/b09ab5fa43de99e9b1345e4b7397cede/image.png)
@@ -207,6 +208,8 @@ DB 데이터 확인
     - ![image](/uploads/304dea9aee32d70d48ff968fd6359344/image.png)
     - ![image](/uploads/218135223b89fea8b2259827375d80ab/image.png)
     - ![image](/uploads/c8df503e36aaed7e0eee652ca9d68c94/image.png)
+    
+<br><br>
 
 ## 🥜 팀원 소개 및 역할
 
