@@ -27,19 +27,10 @@ public class AdoptServiceImpl implements AdoptService{
     BoardCommentRepository boardCommentRepository;
 
     @Autowired
-    BoardCommentRepositorySupport boardCommentRepositorySupport;
-
-    @Autowired
     BoardImageRepository boardImageRepository;
 
     @Autowired
-    BoardImageRepositorySupport boardImageRepositorySupport;
-
-    @Autowired
     DogInformationRepository dogInformationRepository;
-
-    @Autowired
-    DogInformationRepositorySupport dogInformationRepositorySupport;
 
 
 
@@ -89,23 +80,18 @@ public class AdoptServiceImpl implements AdoptService{
     }
 
     @Override
-    public Board getAdoptBoard() {
-        return null;
-    }
-
-    @Override
     public boolean deleteAdoptBoard(Long boardId) {
 
         Board tgtBoard = getBoardByBoardId(boardId); //지울 대상
 
         if(tgtBoard!=null){
 
-            BoardComment tgtBoardComment = getBoardCommentByBoard(tgtBoard);
-            BoardImage tgtBoardImage = getBoardImageByBoard(tgtBoard);
+
             DogInformation tgtDogInformation = getDogInformationByBoard(tgtBoard);
 
-            if(tgtBoard!=null) boardCommentRepository.delete(tgtBoardComment);
-            if(tgtBoardImage!=null) boardImageRepository.delete(tgtBoardImage);
+
+            deleteAllBoardCommentsByBoard(tgtBoard);
+            deleteAllBoardCommentsByBoard(tgtBoard);
             if(tgtDogInformation!=null) dogInformationRepository.delete(tgtDogInformation);
 
             boardRepository.delete(tgtBoard);
@@ -120,8 +106,53 @@ public class AdoptServiceImpl implements AdoptService{
     }
 
     @Override
-    public Board updateAdoptBoard() {
-        return null;
+    public Board updateAdoptBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq) {
+
+
+        Board board = getBoardByBoardId(boardId);
+        DogInformation dogInformation = getDogInformationByBoard(board);
+
+
+        //boardImage 수정
+        if(board!=null) {
+            deleteAllBoardImagesByBoard(board);
+        }
+
+        if(!boardRegisterPostReq.getFilePath().isEmpty()){
+
+            for(String file : boardRegisterPostReq.getFilePath()){
+                BoardImage boardImage = new BoardImage();
+
+                boardImage.setBoardId(board);
+                boardImage.setFilePath(file);
+
+                boardImageRepository.save(boardImage);
+            }
+        }
+
+        //board, DogInformation 수정
+
+        board.setType(boardRegisterPostReq.getBoardType());
+        board.setTitle(boardRegisterPostReq.getTitle());
+        board.setThumbnailUrl(boardRegisterPostReq.getThumbnailUrl());
+        board.setUserId(boardRegisterPostReq.getUserId());
+        boardRepository.save(board);
+
+
+        dogInformation.setDescription(boardRegisterPostReq.getDescription());
+        dogInformation.setMbti(boardRegisterPostReq.getMbti());
+        dogInformation.setGender(boardRegisterPostReq.getGender());
+        dogInformation.setAddress(boardRegisterPostReq.getAddress());
+        dogInformation.setBoardId(board);
+        dogInformation.setColorType(boardRegisterPostReq.getColorType());
+        dogInformation.setHairType(boardRegisterPostReq.getHairType());
+        dogInformation.setWeight(boardRegisterPostReq.getWeight());
+        dogInformation.setNeutralization(boardRegisterPostReq.getNeutralization());
+
+        dogInformationRepository.save(dogInformation);
+
+
+        return board;
     }
 
     @Override
@@ -135,30 +166,55 @@ public class AdoptServiceImpl implements AdoptService{
     }
 
     @Override
-    public BoardComment getBoardCommentByBoard(Board board) {
+    public List<BoardComment> getBoardCommentsByBoard(Board board) {
 
-        Optional<BoardComment> boardComment = boardCommentRepositorySupport.findBoardCommentByBoardId(board);
+        Optional<List<BoardComment>> boardCommentList = boardCommentRepository.findBoardCommentsByBoardId(board);
 
-        if(boardComment.isPresent()) return boardComment.get();
+        if(boardCommentList.isPresent()) return boardCommentList.get();
         return null;
     }
 
     @Override
-    public BoardImage getBoardImageByBoard(Board board) {
+    public List<BoardImage> getBoardImagesByBoard(Board board) {
 
-        Optional<BoardImage> boardImage = boardImageRepositorySupport.findBoardImageByBoardId(board);
+        Optional<List<BoardImage>> boardImageList = boardImageRepository.findBoardImagesByBoardId(board);
 
-        if(boardImage.isPresent()) return boardImage.get();
+        if(boardImageList.isPresent()) return boardImageList.get();
         return null;
     }
 
     @Override
     public DogInformation getDogInformationByBoard(Board board) {
 
-        Optional<DogInformation> dogInformation= dogInformationRepositorySupport.findDogInformationByBoardId(board);
+        Optional<DogInformation> dogInformation= dogInformationRepository.findDogInformationByBoardId(board);
 
         if(dogInformation.isPresent()) return dogInformation.get();
         return null;
+    }
+
+    @Override
+    public void deleteAllBoardImagesByBoard(Board board) {
+
+        List<BoardComment> tgtBoardComment = getBoardCommentsByBoard(board);
+
+
+
+        if(tgtBoardComment!=null) {
+            for(BoardComment tgt : tgtBoardComment) boardCommentRepository.delete(tgt);
+        }
+
+    }
+
+    @Override
+    public void deleteAllBoardCommentsByBoard(Board board) {
+
+        List<BoardImage> tgtBoardImage = getBoardImagesByBoard(board);
+
+        if(tgtBoardImage!=null) {
+
+            for(BoardImage tgt : tgtBoardImage) boardImageRepository.delete(tgt);
+        }
+
     }
 
 
