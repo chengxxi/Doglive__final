@@ -69,7 +69,6 @@ export default {
 
     // 카카오 로그인
     const loginWithKakao = function(){
-
       Kakao.Auth.authorize({
         redirectUri: 'http://localhost:8080/kakao/callback'
       });
