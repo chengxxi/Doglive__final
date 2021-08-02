@@ -63,6 +63,7 @@ public class BoardServiceImpl implements  BoardService{
     CounselingHistoryRepository counselingHistoryRepository;
 
 
+    /* 유기동물 관련 게시물 작성하기 */
     @Override
     public Board registerBoard(BoardRegisterPostReq boardRegisterPostReq) {
 
@@ -121,6 +122,7 @@ public class BoardServiceImpl implements  BoardService{
         return board;
     }
 
+    /* 유기동물 관련 게시물 삭제하기 */
     @Override
     public boolean deleteBoard(Long boardId) {
 
@@ -128,8 +130,7 @@ public class BoardServiceImpl implements  BoardService{
 
         if(tgtBoard!=null){
 
-
-            DogInformation tgtDogInformation = getDogInformationByBoard(tgtBoard);
+            DogInformation tgtDogInformation = getDogInformationByBoard(tgtBoard); //dogInformation도 삭제
 
 
             deleteAllBoardCommentsByBoard(tgtBoard);
@@ -142,13 +143,13 @@ public class BoardServiceImpl implements  BoardService{
         return false;
     }
 
-
+    /* 유기동물 관련 게시물 수정하기 */
     @Override
     public Board updateBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq) {
 
 
-        Board board = getBoardByBoardId(boardId);
-        DogInformation dogInformation = getDogInformationByBoard(board);
+        Board board = getBoardByBoardId(boardId); //수정할 Board 찾기
+        DogInformation dogInformation = getDogInformationByBoard(board); //수정할 dogInformation 찾기
 
 
         //boardImage 수정
@@ -206,6 +207,7 @@ public class BoardServiceImpl implements  BoardService{
         return board;
     }
 
+    /* BoardId로 Board 찾기 */
     @Override
     public Board getBoardByBoardId(Long id) {
 
@@ -216,6 +218,7 @@ public class BoardServiceImpl implements  BoardService{
 
     }
 
+    /* Board로 BoardComment 찾기 */
     @Override
     public List<BoardComment> getBoardCommentsByBoard(Board board) {
 
@@ -225,6 +228,7 @@ public class BoardServiceImpl implements  BoardService{
         return null;
     }
 
+    /* Board로 BoardImage 찾기 */
     @Override
     public List<BoardImage> getBoardImagesByBoard(Board board) {
 
@@ -234,6 +238,7 @@ public class BoardServiceImpl implements  BoardService{
         return null;
     }
 
+    /* Board로 DogInformtaion 찾기 */
     @Override
     public DogInformation getDogInformationByBoard(Board board) {
 
@@ -243,6 +248,7 @@ public class BoardServiceImpl implements  BoardService{
         return null;
     }
 
+    /* Board로 BoardImage 전부 지우기 */
     @Override
     public void deleteAllBoardImagesByBoard(Board board) {
 
@@ -256,6 +262,7 @@ public class BoardServiceImpl implements  BoardService{
 
     }
 
+    /* Board로 BoardComment 전부 지우기 */
     @Override
     public void deleteAllBoardCommentsByBoard(Board board) {
 
@@ -268,6 +275,7 @@ public class BoardServiceImpl implements  BoardService{
 
     }
 
+    /* 공통코드 찾기 */
     @Override
     public Code getCode(Long id) {
         Optional<Code> code = codeRepository.findById(id);
@@ -275,6 +283,7 @@ public class BoardServiceImpl implements  BoardService{
         return null;
     }
 
+    /* 북마크 생성하기 */
     @Override
     public Bookmark insertBookmark(BookmarkReq bookmarkReq) {
 
@@ -300,6 +309,8 @@ public class BoardServiceImpl implements  BoardService{
         return bookmark;
     }
 
+
+    /* 북마크 지우기 */
     @Override
     public Bookmark deleteBookmark(BookmarkReq bookmarkReq) {
 
@@ -309,6 +320,8 @@ public class BoardServiceImpl implements  BoardService{
         return null;
     }
 
+
+    /* 북마크 존재하면 찾기 */
     @Override
     public Bookmark getBookmark(BookmarkReq bookmarkReq) {
 

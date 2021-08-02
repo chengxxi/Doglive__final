@@ -18,6 +18,7 @@ public class FindServiceImpl implements FindService {
     @Autowired
     BoardRepositorySupport boardRepositorySupport;
 
+    /* 실종보호 게시물 전체 목록 보기 */
     @Override
     public List<Board> getFindBoardList() {
         Optional<List<Board>> boardList = boardRepository.findFindBoard();
