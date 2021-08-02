@@ -1,14 +1,11 @@
 package com.ssafy.api.service;
 
 
-import com.ssafy.api.request.BoardRegisterPostReq;
+import com.ssafy.api.request.AdoptFormReq;
+import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.board.Board;
-import com.ssafy.db.entity.board.BoardComment;
-import com.ssafy.db.entity.board.BoardImage;
-import com.ssafy.db.entity.board.DogInformation;
 import com.ssafy.db.repository.board.*;
 
-import net.bytebuddy.description.NamedElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +15,7 @@ import java.util.Optional;
 
 @Service("adoptService")
 public class AdoptServiceImpl implements AdoptService{
+
     @Autowired
     BoardRepository boardRepository;
 
@@ -31,4 +29,11 @@ public class AdoptServiceImpl implements AdoptService{
 
         return null;
     }
+
+    @Override
+    public CounselingHistory insertAdoptForm(String userId, AdoptFormReq adoptFormReq) {
+
+        return null;
+    }
+
 }
