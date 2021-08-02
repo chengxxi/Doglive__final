@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.User;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
@@ -36,6 +38,20 @@ public class UserController {
         if(user == null)
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "사용할 수 있는 ID입니다."));
         return ResponseEntity.status(409).body(BaseResponseBody.of(409, "이미 존재하는 사용자 ID입니다."));
+    }
+
+    @PutMapping("/{id}")
+    @ApiOperation(value = "회원 정보 수정", notes = "DB에 저장된 회원정보를 새로운 값으로 수정한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 409, message = "이미 존재하는 유저"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> updateUser(@PathVariable("id") String id, @RequestParam("profileImgUrl") MultipartFile multipartFile, @RequestBody @ApiParam(value="회원정보수정", required = true) UserUpdatePutReq userUpdatePutReq){
+        userService.updateUserProfile(id, userUpdatePutReq, multipartFile);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200,"Success"));
     }
 
 
