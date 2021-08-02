@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Table(name="dog_information", schema = "board")
 @Getter
 @Setter
-
 public class DogInformation extends BaseEntity {
 
   private Long gender;                    // 강아지 성별
