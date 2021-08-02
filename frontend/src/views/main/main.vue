@@ -18,12 +18,24 @@
 <script>
 import MainHeader from './components/main-header'
 import MainFooter from './components/main-footer'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'main',
   components: {
     MainHeader,
     MainFooter,
+  },
+  setup(){
+    const store = useStore()
+    const router = useRouter()
+
+    router.afterEach((to, from, next) => {
+      // console.log(to)
+      console.log(store.getters['root/getLoginUserInfo'])
+      store.commit('root/setCurrentPath', to)
+    })
   }
 }
 </script>

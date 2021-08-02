@@ -3,6 +3,7 @@ import Main from '@/views/main/components/main-content.vue'
 import Login from '@/views/main/components/login-dialog.vue'
 import Mypage from '@/views/user/mypage.vue'
 import KakaoCallback from '@/views/main/components/kakao-callback.vue'
+import { useStore } from 'vuex'
 
 const routes = [
   {
@@ -16,9 +17,14 @@ const routes = [
     component: Login,
   },
   {
+    path: '/logout',
+    name: 'Logout',
+    component: Logout,
+  },
+  {
     path : '/kakao/callback',
     name: 'KakaoCallback',
-    coponent : KakaoCallback,
+    component : KakaoCallback,
   },
   {
     path: '/mypage',

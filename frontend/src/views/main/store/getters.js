@@ -13,3 +13,8 @@ export function getRefreshToken(state){
 export function getLoginUserInfo(state) {
   return state.loginUserInfo
 }
+
+// 현재 Current Path 가져오기
+export function getCurrentPath(state) {
+  return state.currentPath
+}

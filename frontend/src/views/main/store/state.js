@@ -4,4 +4,5 @@ export default {
   accessToken : null,
   refreshToken : null,
   loginUserInfo: {},
+  currentPath : {},
 }
