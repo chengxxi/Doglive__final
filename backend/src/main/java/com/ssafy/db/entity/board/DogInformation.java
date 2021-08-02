@@ -27,8 +27,10 @@ public class DogInformation extends BaseEntity {
 
   private Long neutralization;            // 강아지 중성화 여부
 
+  @Column(name="color_type")
   private Long colorType;                 // 강아지 털색 (흰색 / 검정색 / 금색 / 갈색)
 
+  @Column(name="hair_type")
   private Long hairType;                  // 강아지 모 종류 (단모 / 장모)
 
   private Long weight;                    // 강아지 무게 (대(18KG이상) / 중(8-18KG)/ 소(8KG 미만))
