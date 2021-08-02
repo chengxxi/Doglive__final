@@ -1,14 +1,21 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.BoardRegisterPostReq;
-import com.ssafy.db.entity.board.Board;
-import com.ssafy.db.entity.board.BoardComment;
-import com.ssafy.db.entity.board.BoardImage;
-import com.ssafy.db.entity.board.DogInformation;
+import com.ssafy.api.request.BookmarkReq;
+import com.ssafy.db.entity.auth.Bookmark;
+import com.ssafy.db.entity.auth.User;
+import com.ssafy.db.entity.auth.UserProfile;
+import com.ssafy.db.entity.board.*;
+import com.ssafy.db.repository.auth.BookmarkRepository;
+import com.ssafy.db.repository.auth.CounselingHistoryRepository;
+import com.ssafy.db.repository.auth.UserProfileRepository;
+import com.ssafy.db.repository.auth.UserRepository;
 import com.ssafy.db.repository.board.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -18,6 +25,8 @@ import java.util.Optional;
 
 @Service("boardService")
 public class BoardServiceImpl implements  BoardService{
+
+
     @Autowired
     BoardRepository boardRepository;
 
@@ -33,6 +42,25 @@ public class BoardServiceImpl implements  BoardService{
     @Autowired
     DogInformationRepository dogInformationRepository;
 
+    @Autowired
+    BoardCategoryRepository boardCategoryRepository;
+
+    @Autowired
+    CodeRepository codeRepository;
+
+
+    @Autowired
+    UserRepository userRepository;
+
+
+    @Autowired
+    UserProfileRepository userProfileRepository;
+
+    @Autowired
+    BookmarkRepository bookmarkRepository;
+
+    @Autowired
+    CounselingHistoryRepository counselingHistoryRepository;
 
 
     @Override
@@ -41,9 +69,11 @@ public class BoardServiceImpl implements  BoardService{
         Board board = new Board();
 
         DogInformation dogInformation = new DogInformation();
+        Optional<BoardCategory> boardCategory = boardCategoryRepository.findById(boardRegisterPostReq.getBoardType());
+        if(boardCategory.isPresent()){
+            board.setType(boardCategory.get());
+        }
 
-        board.setRegDate((Date)Time);
-        board.setType(boardRegisterPostReq.getBoardType());
         board.setTitle(boardRegisterPostReq.getTitle());
         board.setThumbnailUrl(boardRegisterPostReq.getThumbnailUrl());
         board.setUserId(boardRegisterPostReq.getUserId());
@@ -65,15 +95,25 @@ public class BoardServiceImpl implements  BoardService{
             }
         }
 
+        dogInformation.setBoardId(board);
         dogInformation.setDescription(boardRegisterPostReq.getDescription());
         dogInformation.setMbti(boardRegisterPostReq.getMbti());
-        dogInformation.setGender(boardRegisterPostReq.getGender());
         dogInformation.setAddress(boardRegisterPostReq.getAddress());
-        dogInformation.setBoardId(board);
-        dogInformation.setColorType(boardRegisterPostReq.getColorType());
-        dogInformation.setHairType(boardRegisterPostReq.getHairType());
-        dogInformation.setWeight(boardRegisterPostReq.getWeight());
-        dogInformation.setNeutralization(boardRegisterPostReq.getNeutralization());
+
+        Code gender = getCode(boardRegisterPostReq.getGender());
+        if(gender!=null) dogInformation.setGender(gender);
+
+        Code colorType = getCode(boardRegisterPostReq.getColorType());
+        if(colorType!=null) dogInformation.setColorType(colorType);
+
+        Code hairType = getCode(boardRegisterPostReq.getHairType());
+        if(hairType!=null) dogInformation.setHairType(hairType);
+
+        Code weight = getCode(boardRegisterPostReq.getWeight());
+        if(weight!=null) dogInformation.setWeight(weight);
+
+        Code neutralization = getCode(boardRegisterPostReq.getNeutralization());
+        if(neutralization!=null) dogInformation.setNeutralization(neutralization);
 
         dogInformationRepository.save(dogInformation);
 
@@ -130,22 +170,35 @@ public class BoardServiceImpl implements  BoardService{
 
         //board, DogInformation 수정
 
-        board.setType(boardRegisterPostReq.getBoardType());
+        Optional<BoardCategory> boardCategory = boardCategoryRepository.findById(boardRegisterPostReq.getBoardType());
+        if(boardCategory.isPresent()){
+            board.setType(boardCategory.get());
+        }
         board.setTitle(boardRegisterPostReq.getTitle());
         board.setThumbnailUrl(boardRegisterPostReq.getThumbnailUrl());
         board.setUserId(boardRegisterPostReq.getUserId());
         boardRepository.save(board);
 
 
+        dogInformation.setBoardId(board);
         dogInformation.setDescription(boardRegisterPostReq.getDescription());
         dogInformation.setMbti(boardRegisterPostReq.getMbti());
-        dogInformation.setGender(boardRegisterPostReq.getGender());
         dogInformation.setAddress(boardRegisterPostReq.getAddress());
-        dogInformation.setBoardId(board);
-        dogInformation.setColorType(boardRegisterPostReq.getColorType());
-        dogInformation.setHairType(boardRegisterPostReq.getHairType());
-        dogInformation.setWeight(boardRegisterPostReq.getWeight());
-        dogInformation.setNeutralization(boardRegisterPostReq.getNeutralization());
+
+        Code gender = getCode(boardRegisterPostReq.getGender());
+        if(gender!=null) dogInformation.setGender(gender);
+
+        Code colorType = getCode(boardRegisterPostReq.getColorType());
+        if(colorType!=null) dogInformation.setColorType(colorType);
+
+        Code hairType = getCode(boardRegisterPostReq.getHairType());
+        if(hairType!=null) dogInformation.setHairType(hairType);
+
+        Code weight = getCode(boardRegisterPostReq.getWeight());
+        if(weight!=null) dogInformation.setWeight(weight);
+
+        Code neutralization = getCode(boardRegisterPostReq.getNeutralization());
+        if(neutralization!=null) dogInformation.setNeutralization(neutralization);
 
         dogInformationRepository.save(dogInformation);
 
@@ -213,6 +266,65 @@ public class BoardServiceImpl implements  BoardService{
             for(BoardImage tgt : tgtBoardImage) boardImageRepository.delete(tgt);
         }
 
+    }
+
+    @Override
+    public Code getCode(Long id) {
+        Optional<Code> code = codeRepository.findById(id);
+        if(code.isPresent()) return code.get();
+        return null;
+    }
+
+    @Override
+    public Bookmark insertBookmark(BookmarkReq bookmarkReq) {
+
+        Bookmark bookmark = new Bookmark();
+
+        String userId = bookmarkReq.getUserId();
+        Long boardId = bookmarkReq.getBoardId();
+
+
+        Optional<User> user = userRepository.findUserById(userId);
+        if(user.isPresent()) {
+            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
+            if(userProfile.isPresent()) {
+                bookmark.setUserId(userProfile.get());
+            }
+        }
+
+        bookmark.setBoardId(boardId);
+
+
+        bookmarkRepository.save(bookmark);
+
+        return bookmark;
+    }
+
+    @Override
+    public Bookmark deleteBookmark(BookmarkReq bookmarkReq) {
+
+        Bookmark bookmark = getBookmark(bookmarkReq);
+        if(bookmark!=null) bookmarkRepository.delete(bookmark);
+
+        return null;
+    }
+
+    @Override
+    public Bookmark getBookmark(BookmarkReq bookmarkReq) {
+
+        String userId = bookmarkReq.getUserId();
+        Long boardId = bookmarkReq.getBoardId();
+
+        Optional<User> user = userRepository.findUserById(userId);
+        if(user.isPresent()) {
+            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
+            if(userProfile.isPresent()) {
+                Optional<Bookmark> bookmark = bookmarkRepository.findBookmarkByBoardIdAndUserId(boardId, userProfile.get());
+                if(bookmark.isPresent()) return bookmark.get();
+            }
+        }
+
+        return null;
     }
 
 

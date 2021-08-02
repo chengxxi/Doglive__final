@@ -1,10 +1,11 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.AdoptFormReq;
 import com.ssafy.api.request.BoardRegisterPostReq;
-import com.ssafy.db.entity.board.Board;
-import com.ssafy.db.entity.board.BoardComment;
-import com.ssafy.db.entity.board.BoardImage;
-import com.ssafy.db.entity.board.DogInformation;
+import com.ssafy.api.request.BookmarkReq;
+import com.ssafy.db.entity.auth.Bookmark;
+import com.ssafy.db.entity.auth.UserProfile;
+import com.ssafy.db.entity.board.*;
 
 import java.util.List;
 
@@ -28,5 +29,12 @@ public interface BoardService {
 
     void deleteAllBoardCommentsByBoard(Board board);
 
+    Code getCode(Long id);
+
+    Bookmark insertBookmark(BookmarkReq bookmarkReq);
+
+    Bookmark deleteBookmark(BookmarkReq bookmarkReq);
+
+    Bookmark getBookmark(BookmarkReq bookmarkReq);
 
 }
