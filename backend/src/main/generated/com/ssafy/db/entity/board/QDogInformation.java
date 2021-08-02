@@ -26,24 +26,24 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
 
     public final StringPath address = createString("address");
 
-    public final QBoard board;
+    public final QBoard boardId;
 
-    public final NumberPath<Long> colorType = createNumber("colorType", Long.class);
+    public final QCode colorType;
 
     public final StringPath description = createString("description");
 
-    public final NumberPath<Long> gender = createNumber("gender", Long.class);
+    public final QCode gender;
 
-    public final NumberPath<Long> hairType = createNumber("hairType", Long.class);
+    public final QCode hairType;
 
     //inherited
     public final NumberPath<Long> id = _super.id;
 
     public final StringPath mbti = createString("mbti");
 
-    public final NumberPath<Long> neutralization = createNumber("neutralization", Long.class);
+    public final QCode neutralization;
 
-    public final NumberPath<Long> weight = createNumber("weight", Long.class);
+    public final QCode weight;
 
     public QDogInformation(String variable) {
         this(DogInformation.class, forVariable(variable), INITS);
@@ -63,7 +63,12 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
 
     public QDogInformation(Class<? extends DogInformation> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.board = inits.isInitialized("board") ? new QBoard(forProperty("board"), inits.get("board")) : null;
+        this.boardId = inits.isInitialized("boardId") ? new QBoard(forProperty("boardId"), inits.get("boardId")) : null;
+        this.colorType = inits.isInitialized("colorType") ? new QCode(forProperty("colorType")) : null;
+        this.gender = inits.isInitialized("gender") ? new QCode(forProperty("gender")) : null;
+        this.hairType = inits.isInitialized("hairType") ? new QCode(forProperty("hairType")) : null;
+        this.neutralization = inits.isInitialized("neutralization") ? new QCode(forProperty("neutralization")) : null;
+        this.weight = inits.isInitialized("weight") ? new QCode(forProperty("weight")) : null;
     }
 
 }
