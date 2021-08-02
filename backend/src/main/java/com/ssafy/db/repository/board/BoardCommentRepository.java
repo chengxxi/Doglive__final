@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -18,4 +19,6 @@ public interface BoardCommentRepository extends JpaRepository<BoardComment, Long
 
 //    Optional<BoardComment> findBoardCommentByBoard(Board boardId);
 
+
+    Optional<List<BoardComment>> findBoardCommentsByBoardId(Board boardId);
 }

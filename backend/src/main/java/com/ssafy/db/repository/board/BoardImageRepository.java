@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface BoardImageRepository extends JpaRepository<BoardImage, Long> {
 
-    Optional<BoardImage> findBoardImageByBoardId(Board boardId);
-
+    Optional<List<BoardImage>> findBoardImagesByBoardId(Board board);
 }

@@ -13,16 +13,6 @@ import java.util.Optional;
 @Repository
 public class BoardRepositorySupport {
 
-//    @Autowired
-//    private JPAQueryFactory jpaQueryFactory;
-//
-//    QBoard qBoard = QBoard.board;
-//
-//    public Optional<Board> findBoardById(Long boardId) {
-//        Board board = jpaQueryFactory.select(qBoard).from(qBoard)
-//                .where(qBoard.id.eq(boardId)).fetchOne();
-//        if(board == null) return Optional.empty();
-//        return Optional.ofNullable(board);
-//    }
+
 
 }

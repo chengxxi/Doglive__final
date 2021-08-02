@@ -12,15 +12,5 @@ import java.util.Optional;
 
 @Repository
 public class BoardCommentRepositorySupport {
-    @Autowired
-    private JPAQueryFactory jpaQueryFactory;
 
-    QBoardComment qBoardComment = QBoardComment.boardComment;
-
-    public Optional<BoardComment> findBoardCommentByBoard(Board board) {
-        BoardComment boardComment = jpaQueryFactory.select(qBoardComment).from(qBoardComment)
-                .where(qBoardComment.boardId.eq(board)).fetchOne();
-        if(boardComment == null) return Optional.empty();
-        return Optional.ofNullable(boardComment);
-    }
 }

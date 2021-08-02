@@ -10,15 +10,4 @@ import java.util.Optional;
 @Repository
 public class DogInformationRepositorySupport {
 
-    @Autowired
-    private JPAQueryFactory jpaQueryFactory;
-
-    QDogInformation qDogInformation = QDogInformation.dogInformation;
-
-    public Optional<DogInformation> findDogInformationByBoardId(Board boardId) {
-        DogInformation dogInformation = jpaQueryFactory.select(qDogInformation).from(qDogInformation)
-                .where(qDogInformation.boardId.eq(boardId)).fetchOne();
-        if(dogInformation == null) return Optional.empty();
-        return Optional.ofNullable(dogInformation);
-    }
 }
