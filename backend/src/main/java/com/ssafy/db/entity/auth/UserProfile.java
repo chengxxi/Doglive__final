@@ -23,7 +23,7 @@ public class UserProfile implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id = null;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="user_id")
   private User userId;
 

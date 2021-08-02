@@ -4,13 +4,13 @@ import Login from '@/views/main/components/login-dialog.vue'
 import Logout from '@/views/main/components/logout-dialog.vue'
 import Mypage from '@/views/user/mypage.vue'
 import KakaoCallback from '@/views/main/components/kakao-callback.vue'
-import { useStore } from 'vuex'
 
 const routes = [
   {
     path: '/',
     name: 'Main',
     component: Main,
+    // beforeEnter: requireAuth,
   },
   {
     path: '/login',
@@ -18,8 +18,8 @@ const routes = [
     component: Login,
   },
   {
-    path: '/logout',
-    name: 'Logout',
+    path: '/userLogout',
+    name: 'UserLogout',
     component: Logout,
   },
   {
@@ -59,6 +59,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach(function(to, from, next){
+  next()
 })
 
 export default router

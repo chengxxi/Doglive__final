@@ -32,8 +32,6 @@ export default {
     const router = useRouter()
 
     router.afterEach((to, from, next) => {
-      // console.log(to)
-      console.log(store.getters['root/getLoginUserInfo'])
       store.commit('root/setCurrentPath', to)
     })
   }

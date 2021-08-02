@@ -126,6 +126,7 @@
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import Cookies from 'universal-cookie';
 
 export default {
   name: 'main-header',
@@ -137,20 +138,20 @@ export default {
   },
   setup() {
     const router = useRouter()
-    const store = useStore()
+    const cookies = new Cookies()
 
     const notLoggedIn = {
       '로그인': '/login',
     }
     const loggedIn = {
       '마이페이지': '/mypage/profile',
-      '로그아웃': '/logout'
+      '로그아웃': '/userLogout'
     }
     const state = reactive({
       showHiddenMenu: 'none',
       showUserModal: false,
       userMenu: computed(() => {
-        if(store.getters['root/getAccessToken'] == null)
+        if(cookies.get('refreshToken') == undefined)
           return notLoggedIn
         else
           return loggedIn

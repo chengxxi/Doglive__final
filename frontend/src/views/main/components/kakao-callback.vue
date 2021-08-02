@@ -1,6 +1,5 @@
 <template>
   <div>
-    callback 페이지 입니다.
   </div>
 </template>
 
@@ -9,6 +8,7 @@
 
 <script>
 import $axios from 'axios'
+import Cookies from 'universal-cookie'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
@@ -17,6 +17,7 @@ export default {
   setup() {
       const store = new useStore()
       const router = new useRouter()
+      const cookies = new Cookies()
 
       // URL에서 code를 뽑아오는 코드
       const code = store.getters['root/getCurrentPath'].query.code;
@@ -33,22 +34,21 @@ export default {
         $axios.post('http://localhost:8080/kakao/login', { accessToken : accessToken, refreshToken : refreshToken })
         .then(function(result){
             console.log(result)
-            store.commit('root/setAccessToken', result.data.user.Token.accessToken)
-            store.commit('root/setRefreshToken', result.data.user.Token.refreshToken)
-            store.commit('root/setLoginUserInfo', result.data.user.userInfo)
-
-            console.log(store.getters['root/getLoginUserInfo'])
+            cookies.set('accessToken', result.data.user.Token.accessToken, { path : '/', sameSite : 'strict' })
+            cookies.set('refreshToken', result.data.user.Token.refreshToken, { path : '/', sameSite : 'strict' })
+            cookies.set('loginUserInfo', result.data.user.userInfo, { path : '/', sameSite : 'strict' })
             alert("로그인 되었습니다.")
 
             router.push({name : 'Main'}) // Main으로 redirect
          }).catch(function(err){
+           console.log(err)
            alert("로그인에 실패하였습니다.")
          });
       }).catch(function(err){
         alert("로그인에 실패하였습니다.")
       });
 
-      router.push({name : 'Main'}) // Main으로 redirect
+      // router.push({name : 'Main'}) // Main으로 redirect
     }
 }
 </script>

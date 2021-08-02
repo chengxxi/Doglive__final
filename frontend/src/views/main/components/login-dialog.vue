@@ -58,14 +58,9 @@
 </style>
 
 <script>
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-
 export default {
   name: 'login-dialog',
   setup() {
-    const store = new useStore()
-    const router = new useRouter()
 
     // 카카오 로그인
     const loginWithKakao = function(){

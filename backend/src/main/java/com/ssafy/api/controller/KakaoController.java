@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -67,12 +68,13 @@ public class KakaoController {
         return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", userObject));
     }
 
-    @GetMapping(value="/logout")
-    public Object logout(HttpSession session){
-        kakaoAPI.Logout((String)session.getAttribute("access_Token"));
-        session.removeAttribute("access_Token");
-        session.removeAttribute("refresh_Token");
-        session.removeAttribute("login");
-        return "logout";
+    @RequestMapping(value="/logout")
+    public ResponseEntity<String> logout(@CookieValue(value="accessToken", required = false) Cookie access_Token){
+        if(access_Token == null)
+            return ResponseEntity.ok("토큰이 유효하지 않습니다.");
+
+        System.out.println("logout accessToken : " + access_Token.getValue());
+        kakaoAPI.Logout(access_Token.getValue());
+        return ResponseEntity.ok("로그아웃 되었습니다.");
     }
 }

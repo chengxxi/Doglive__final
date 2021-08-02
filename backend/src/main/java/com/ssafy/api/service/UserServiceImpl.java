@@ -44,8 +44,6 @@ public class UserServiceImpl implements UserService{
         User user = new User();
         UserProfile userProfile = new UserProfile();
 
-
-
         String id = (String) userInfo.get("userid");
         String name = (String) userInfo.get("name");
         String profileImageUrl = (String)userInfo.get("profileImageUrl");
@@ -67,10 +65,7 @@ public class UserServiceImpl implements UserService{
         userProfile.setEmail(email);
         userProfile.setPhoneNumber(phoneNumber);
 
-
         userProfileRepository.save(userProfile);
-
-
 
         /* User Token 저장 */
         UserToken userToken = new UserToken();
@@ -79,18 +74,6 @@ public class UserServiceImpl implements UserService{
         userToken.setRefreshToken(refreshToken);
 
         userTokenRepository.save(userToken);
-
-
-
-
-
-
-
-
-
-
-
-
 
         return returnUser;
     }
@@ -110,17 +93,14 @@ public class UserServiceImpl implements UserService{
         System.out.println("탈퇴할 아이디: " + id);
         if(getUserById(id)!=null){
             User user = userRepositorySupport.findUserById(id).get();
-
-            Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUser(user);
-            if(userProfile.isPresent()) {
-                userProfileRepository.delete(userProfile.get());
-            }
-
+//            Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUser(user);
+//            if(userProfile.isPresent()) {
+//                userProfileRepository.delete(userProfile.get());
+//            }
             userRepository.delete(user);
             return true;
         }
         return false;
-
     }
 
 
