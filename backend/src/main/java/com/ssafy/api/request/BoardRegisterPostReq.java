@@ -1,5 +1,7 @@
 package com.ssafy.api.request;
 
+import com.ssafy.db.entity.board.BoardCategory;
+import com.ssafy.db.entity.board.Code;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -13,34 +15,36 @@ import java.util.List;
 public class BoardRegisterPostReq {
     @ApiModelProperty
     String userId;
+
     @ApiModelProperty
-    int boardType;
+    BoardCategory boardType;
+
     @ApiModelProperty
     String title;
 
     @ApiModelProperty
-    String thumbnail_url;
+    String thumbnailUrl;
 
     @ApiModelProperty
     List<String> filePath;
 
     @ApiModelProperty
-    int colorType;
+    Code colorType;
 
     @ApiModelProperty
     String description;
 
     @ApiModelProperty
-    int gender;
+    Code gender;
 
     @ApiModelProperty
-    int hairType;
+    Code hairType;
 
     @ApiModelProperty
-    int neutralization;
+    Code neutralization;
 
     @ApiModelProperty
-    int weight;
+    Code weight;
 
     @ApiModelProperty
     String mbti;
