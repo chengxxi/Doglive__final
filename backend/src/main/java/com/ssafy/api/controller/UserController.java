@@ -74,6 +74,16 @@ public class UserController {
         return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Success"));
     }
 
-    
+    @GetMapping("/bookmark")
+    @ApiOperation(value = "사용자 북마크 목록", notes = "사용자 북마크 목록을 가져온다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<BoardListGetRes> findBookmarkList(){
+
+    }
 
 }
