@@ -3,8 +3,10 @@ package com.ssafy.db.repository.board;
 
 import com.ssafy.db.entity.board.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -13,4 +15,19 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Override
     Optional<Board> findById(Long boardId);
+
+    @Query(
+            value = "SELECT * FROM board b WHERE b.board_type = 1 or b.board_type = 2",
+            nativeQuery = true
+    )
+    Optional<List<Board>> findAdoptBoard();
+
+
+    @Query(
+            value = "SELECT * FROM board b WHERE b.board_type = 3 or b.board_type = 4",
+            nativeQuery = true
+    )
+    Optional<List<Board>> findFindBoard();
+
+
 }

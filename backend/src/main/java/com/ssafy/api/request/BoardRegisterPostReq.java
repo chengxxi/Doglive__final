@@ -17,7 +17,7 @@ public class BoardRegisterPostReq {
     String userId;
 
     @ApiModelProperty
-    BoardCategory boardType;
+    Long boardType;
 
     @ApiModelProperty
     String title;
@@ -29,22 +29,22 @@ public class BoardRegisterPostReq {
     List<String> filePath;
 
     @ApiModelProperty
-    Code colorType;
+    Long colorType;
 
     @ApiModelProperty
     String description;
 
     @ApiModelProperty
-    Code gender;
+    Long gender;
 
     @ApiModelProperty
-    Code hairType;
+    Long hairType;
 
     @ApiModelProperty
-    Code neutralization;
+    Long neutralization;
 
     @ApiModelProperty
-    Code weight;
+    Long weight;
 
     @ApiModelProperty
     String mbti;
