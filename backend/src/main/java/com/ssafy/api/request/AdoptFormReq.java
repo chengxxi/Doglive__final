@@ -19,5 +19,5 @@ public class AdoptFormReq {
     Long boardType;
 
     @ApiModelProperty
-    JSONString content;
+    Object content;
 }

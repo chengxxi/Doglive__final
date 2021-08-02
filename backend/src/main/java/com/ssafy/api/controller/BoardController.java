@@ -53,19 +53,6 @@ public class BoardController {
         return ResponseEntity.ok(BoardListGetRes.of(200, "Success", boardList, boardList.size()));
     }
 
-    @PostMapping("/application/{userId}")
-    @ApiOperation(value = "입양/임보 공고 목록", notes = "입양/입양 공고 목록을 가져온다")
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<? extends BaseResponseBody> insertAdoptForm(@PathVariable("userId") String id, @RequestBody @ApiParam(value="입양 신청서 정보", required = true) AdoptFormReq adoptFormReq){
-//        adoptService.insertAdoptForm(id, adoptApplicationPostReq);
-
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "입양 신청서가 정상적으로 등록되었습니다"));
-    }
 
     @GetMapping("/find")
     @ApiOperation(value = "실종/보호 공고 목록", notes = "입양/입양 공고 목록을 가져온다")
@@ -183,12 +170,11 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> insertAdoptForm(@RequestBody @ApiParam(value="공고 등록 정보", required = true) AdoptFormReq adoptFormReq){
+    public ResponseEntity<? extends BaseResponseBody> insertAdoptForm(@PathVariable("userId") String id, @RequestBody @ApiParam(value="입양신청 등록 정보", required = true) AdoptFormReq adoptFormReq){
 
-        boardService.insertBookmark(bookmarkReq);
+        adoptService.insertAdoptForm(id, adoptFormReq);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "입양신청서가 정상적으로 등록되었습니다"));
     }
-
 
 }
