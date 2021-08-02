@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 유기견 공고 게시물 정보를 담을 Board Entity
@@ -21,10 +22,6 @@ public class Board extends BaseEntity{
 
   @Column(name="user_id")
   private String userId;                //사용자 ID
-
-  @OneToOne(mappedBy = "board", fetch = FetchType.LAZY,
-          cascade = CascadeType.ALL)
-  private DogInformation dogInformation;                   // 유기견 ID
 
   @ManyToOne
   @JoinColumn(name="board_type")
@@ -40,11 +37,13 @@ public class Board extends BaseEntity{
   @Temporal(TemporalType.TIME)
   private java.util.Date regDate; // 게시글 등록 일자
 
-  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<BoardComment> boardComments;
-
-  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<BoardImage> boardImages;
-
+//  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval=true)
+//  private List<BoardComment> boardComments;
+//
+//  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval=true)
+//  private Set<BoardImage> boardImages;
+//
+//  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval=true)
+//  private Set<DogInformation> dogInformations;                   // 유기견 ID
 
 }
