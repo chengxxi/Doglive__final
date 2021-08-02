@@ -12,7 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@ApiModel("BookmarkListGetRequest")
+@ApiModel("BookmarkListGetResponse")
 public class BookmarkListGetRes extends BaseResponseBody {
     @ApiModelProperty
     List<Bookmark> bookmarkList;

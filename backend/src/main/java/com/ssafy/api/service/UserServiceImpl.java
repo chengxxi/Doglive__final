@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserUpdatePutReq;
+import com.ssafy.db.entity.auth.Bookmark;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.auth.UserToken;
@@ -19,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @Service("userService")
@@ -41,6 +43,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     UserTokenRepositorySupport userTokenRepositorySupport;
+
+    @Autowired
+    BookmarkRepository bookmarkRepository;
 
     @Override
     public User createUser(String access_Token, String refresh_Token, HashMap<String, Object> userInfo) {
@@ -141,6 +146,11 @@ public class UserServiceImpl implements UserService{
         }
         return false;
 
+    }
+
+    @Override
+    public List<Bookmark> getBookmarkList(String id) {
+        List<Bookmark> bookmarList = BookmarkRepository
     }
 
 
