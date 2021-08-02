@@ -2,9 +2,11 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserUpdatePutReq;
+import com.ssafy.api.response.BoardListGetRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.User;
+import com.ssafy.db.entity.board.Board;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 /**
  * 사용자 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -70,5 +74,6 @@ public class UserController {
         return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Success"));
     }
 
+    
 
 }
