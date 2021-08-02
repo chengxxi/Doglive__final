@@ -45,8 +45,13 @@ server:
 spa:
   default-file: /dist/index.html
 
-
+profileImg:
+  path: C:\Users\multicampus\Desktop\ssafy\공통프로젝트\Doglive\profile_imgs\
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2MB
   security:
     user:
       name: "ssafy"
