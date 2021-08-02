@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService{
         if(getUserById(id)!=null){
             User user = userRepositorySupport.findUserById(id).get();
 
-            Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUser(user);
+            Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
             if(userProfile.isPresent()) {
                 userProfileRepository.delete(userProfile.get());
             }

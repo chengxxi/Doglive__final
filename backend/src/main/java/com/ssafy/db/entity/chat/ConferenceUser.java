@@ -23,6 +23,5 @@ public class ConferenceUser extends BaseEntity {
     @Column(name="user_id")
     private String userId;          // 사용자 id
 
-
 }
 
