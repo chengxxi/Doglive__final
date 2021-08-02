@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 사용자 관련 API 요청 처리를 위한 컨트롤러 정의.
+ * 유기동물 게시판 API 요청 처리를 위한 컨트롤러 정의.
  */
 @CrossOrigin(origins={"*"}, maxAge=6000)
-@Api(value = "입양/임보 API", tags = {"Board"})
+@Api(value = "유기동물 정보 게시판 API", tags = {"Board"})
 @RestController
 @RequestMapping("/api/v1/board")
 public class BoardController {
