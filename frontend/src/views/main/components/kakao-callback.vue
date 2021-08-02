@@ -8,6 +8,7 @@
 </style>
 
 <script>
+import $axios from 'axios'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
@@ -28,8 +29,9 @@ export default {
         const refreshToken = result.data.user.refreshToken
 
         // accessToken을 통해 userInfo 받아오기 + store에 저장
-        store.dispatch('root/requestUserInfo', { accessToken : accessToken, refreshToken : refreshToken })
-         .then(function(result){
+        // store.dispatch('root/requestUserInfo', { accessToken : accessToken, refreshToken : refreshToken })
+        $axios.post('http://localhost:8080/kakao/login', { accessToken : accessToken, refreshToken : refreshToken })
+        .then(function(result){
             console.log(result)
             store.commit('root/setAccessToken', result.data.user.Token.accessToken)
             store.commit('root/setRefreshToken', result.data.user.Token.refreshToken)

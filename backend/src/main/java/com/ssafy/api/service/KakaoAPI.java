@@ -113,7 +113,7 @@ public class KakaoAPI {
             email = kakao_account.getAsJsonObject().get("email").getAsString();
             profileImageUrl = kakao_account.getAsJsonObject().get("profile").getAsJsonObject().get("profile_image_url").getAsString();
             name = kakao_account.getAsJsonObject().get("profile").getAsJsonObject().get("nickname").getAsString();
-            phoneNumber = kakao_account.getAsJsonObject().get("phoneNumber").getAsString();
+            phoneNumber = kakao_account.getAsJsonObject().get("birthday").getAsString();
             birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
 
             userInfo.put("accessToken", accessToken);

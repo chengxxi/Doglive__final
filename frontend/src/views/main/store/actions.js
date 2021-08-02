@@ -11,6 +11,7 @@ export function requestAccessToken({ state }, payload){
 export function requestUserInfo({ state }, payload){
   const url = '/kakao/login'
   let body = payload
+  console.log(body)
   return $axios.post(url, body)
 }
 

@@ -37,7 +37,8 @@ public class KakaoController {
 
     // accessToken을 통해 사용자 정보를 받아오는 메소드
     @RequestMapping(value="/login")
-    public ResponseEntity<UserLoginPostRes> login(@RequestBody HashMap<String, Object> Token, HttpSession session) throws URISyntaxException {
+    public ResponseEntity<UserLoginPostRes> login(@RequestBody HashMap<String, Object> Token, HttpSession session) {
+        System.out.println(Token.toString());
         // Token 정보를 <String, 객체>로 생성
         String accessToken = (String) Token.get("accessToken");
         String refreshToken = (String) Token.get("refreshToken");

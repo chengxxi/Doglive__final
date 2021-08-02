@@ -47,7 +47,7 @@
                 trigger="hover"
                 v-model="state.showUserModal">
                 <table :style="{margin: '0 auto'}">
-                  <tr v-for="(path, key, index) in userMenu" v-bind:key="index">
+                  <tr v-for="(path, key, index) in state.userMenu" v-bind:key="index">
                     <td><a :href="path">{{ key }}</a></td>
                   </tr>
                 </table>
@@ -123,8 +123,8 @@
 </style>
 
 <script>
-import { reactive } from 'vue';
-import { useStore, useStore } from 'vuex';
+import { computed, reactive } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 export default {
@@ -137,7 +137,7 @@ export default {
   },
   setup() {
     const router = useRouter()
-    const useStore = useStore()
+    const store = useStore()
 
     const notLoggedIn = {
       '로그인': '/login',
@@ -149,13 +149,14 @@ export default {
     const state = reactive({
       showHiddenMenu: 'none',
       showUserModal: false,
-      userMenu : function(){
-        if(store.getters['root/accessToken'] == null)
-          return notLoggedIn;
+      userMenu: computed(() => {
+        if(store.getters['root/getAccessToken'] == null)
+          return notLoggedIn
         else
-          return loggedIn;
-      }
+          return loggedIn
+      }),
     })
+
 
     const clickLogo = function() {
       router.push({name : 'Main'}) // vue-router.js 밑에 정의해둔 메인페이지 경로로 이동
@@ -170,7 +171,7 @@ export default {
         state.showHiddenMenu = 'none'
     }
 
-    return { state, clickLogo, changeUserModal, changeDisplay, notLoggedIn, loggedIn }
+    return { state, clickLogo, changeUserModal, changeDisplay }
   },
 }
 </script>
