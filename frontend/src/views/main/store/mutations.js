@@ -7,3 +7,7 @@ export function setLoginUserInfo (state, loginUserInfo) {
 export function setCurrentPath (state, currentPath) {
   state.currentPath = currentPath
 }
+
+export function setCurrentPathParam (state, currentPathParam) {
+  state.currentPathParam = currentPathParam
+}

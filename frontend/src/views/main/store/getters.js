@@ -9,3 +9,8 @@ export function getLoginUserInfo(state) {
 export function getCurrentPath(state) {
   return state.currentPath
 }
+
+// 현재 Current Path Param 가져오기
+export function getCurrentPathParam(state) {
+  return state.currentPathParam
+}
