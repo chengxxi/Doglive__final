@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="main-body">
   <div>
 
     <video controls width="250" :key="state.recordUrl">
@@ -48,6 +48,13 @@
 </template>
 
 <style>
+.main-body{
+  display: flex;
+  width: 100%;
+  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
+  margin-right: 10%;
+  margin: 0 auto;
+}
 </style>
 
 <script>
@@ -68,7 +75,7 @@ export default {
 
       // 채팅용 객체
       chatString: '',
-      chatArray: ["안녕", "반가워"],
+      chatArray: [],
 
       // 오픈비두 연결용 객체
       conferenceId: '',

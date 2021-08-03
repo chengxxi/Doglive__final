@@ -21,9 +21,6 @@ module.exports = {
       '/upload': {
         target: 'https://localhost:8443/'
       },
-      '/conference': {
-        target: 'https://localhost:8443/'
-      },
     },
     historyApiFallback: true,
     hot: true
