@@ -17,6 +17,12 @@ public class UserProfileRepositorySupport {
 
     QUserProfile qUser = QUserProfile.userProfile;
 
+//    public Optional<UserProfile> findUserById(Long id){
+//        UserProfile userProfile = jpaQueryFactory.select(qUser).from(qUser)
+//                .where(qUser.id.eq(id)).fetchOne();
+//        if(userProfile == null) return Optional.empty();
+//        return Optional.ofNullable(userProfile);
+//    }
     public Optional<UserProfile> findUserByUserId(User userId) {
         UserProfile user = jpaQueryFactory.select(qUser).from(qUser)
                 .where(qUser.userId.eq(userId)).fetchOne();
