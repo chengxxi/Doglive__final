@@ -26,6 +26,8 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
 
     public final StringPath address = createString("address");
 
+    public final QCode age;
+
     public final QBoard boardId;
 
     public final QCode colorType;
@@ -41,7 +43,7 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
 
     public final StringPath mbti = createString("mbti");
 
-    public final QCode neutralization;
+    public final BooleanPath neutralization = createBoolean("neutralization");
 
     public final QCode weight;
 
@@ -63,11 +65,11 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
 
     public QDogInformation(Class<? extends DogInformation> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.age = inits.isInitialized("age") ? new QCode(forProperty("age")) : null;
         this.boardId = inits.isInitialized("boardId") ? new QBoard(forProperty("boardId"), inits.get("boardId")) : null;
         this.colorType = inits.isInitialized("colorType") ? new QCode(forProperty("colorType")) : null;
         this.gender = inits.isInitialized("gender") ? new QCode(forProperty("gender")) : null;
         this.hairType = inits.isInitialized("hairType") ? new QCode(forProperty("hairType")) : null;
-        this.neutralization = inits.isInitialized("neutralization") ? new QCode(forProperty("neutralization")) : null;
         this.weight = inits.isInitialized("weight") ? new QCode(forProperty("weight")) : null;
     }
 
