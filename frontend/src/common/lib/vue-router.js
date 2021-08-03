@@ -4,7 +4,9 @@ import Login from '@/views/main/components/login-dialog.vue'
 import Logout from '@/views/main/components/logout-dialog.vue'
 import Mypage from '@/views/user/mypage.vue'
 import KakaoCallback from '@/views/main/components/kakao-callback.vue'
-
+import AdoptDetail from '@/views/adopt/adopt-detail.vue'
+import AdoptDetailTest from '@/views/adopt/adopt-detail-test.vue'
+import Adopt from '@/views/adopt/adopt.vue'
 const routes = [
   {
     path: '/',
@@ -53,6 +55,21 @@ const routes = [
         component: () => import("@/views/user/components/user-apply-result-list.vue"),
       },
     ]
+  },
+  {
+    path: '/adopt',
+    name: 'Adopt',
+    component: Adopt
+  },
+  {
+    path: '/adopt/detail',
+    name: 'AdoptDetail',
+    component : AdoptDetail
+  },
+  {
+    path: '/adopt/detail-test',
+    name: 'AdoptDetailTest',
+    component : AdoptDetailTest
   }
 ]
 
