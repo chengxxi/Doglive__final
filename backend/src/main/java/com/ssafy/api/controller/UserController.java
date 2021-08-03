@@ -5,6 +5,7 @@ import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.api.response.BoardListGetRes;
 import com.ssafy.api.response.BookmarkListGetRes;
 import com.ssafy.api.response.CounselingHistoryListGetRes;
+import com.ssafy.api.response.UserProfileGetRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.Bookmark;
@@ -121,7 +122,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<CounselingHistoryListGetRes> findApplicants(@PathVariable("id") String id){
+    public ResponseEntity<UserProfileGetRes> findApplicants(@PathVariable("id") String id){
         List<CounselingHistory> applicantList = userService.getApplicantList(id);
         List<UserProfile> userProfileList = new ArrayList<>();
 
@@ -133,9 +134,9 @@ public class UserController {
         System.out.println(userProfileList);
 
         if(applicantList.size() == 0){
-            return ResponseEntity.ok(CounselingHistoryListGetRes.of(404,"신청자가 없습니다.",null,0));
+            return ResponseEntity.ok(UserProfileGetRes.of(404,"신청자가 없습니다.",null,0));
         }
-        return ResponseEntity.ok(CounselingHistoryListGetRes.of(200,"Success",applicantList,applicantList.size()));
+        return ResponseEntity.ok(UserProfileGetRes.of(200,"Success",userProfileList,userProfileList.size()));
     }
 
 
