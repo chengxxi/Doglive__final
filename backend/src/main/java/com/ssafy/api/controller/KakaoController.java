@@ -4,6 +4,10 @@ import com.ssafy.api.response.UserLoginPostRes;
 import com.ssafy.api.service.KakaoAPI;
 import com.ssafy.api.service.UserService;
 import com.ssafy.db.entity.auth.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.http.client.methods.HttpHead;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +25,7 @@ import java.util.HashMap;
 import static java.util.Objects.isNull;
 
 @CrossOrigin(origins={"*"}, maxAge=6000)
+@Api(value = "카카오 API", tags = {"Kakao"})
 @RestController
 @RequestMapping("/kakao")
 public class KakaoController {
@@ -29,15 +34,27 @@ public class KakaoController {
     @Autowired
     UserService userService;
 
-    // code를 통해 accessToken을 받아오는 메소드
     @GetMapping(value = "/oauth")
+    @ApiOperation(value = "code를 통해 accessToken 획득", notes = "Kakao 인증서버에 code를 넘겨주어 accessToken, refreshToken을 발급받는다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
     public ResponseEntity<UserLoginPostRes> kakaoConnect(@RequestParam("code") String code, HttpSession session) {
         HashMap<String,Object> Token = kakaoAPI.getAccessToken(code);
         return ResponseEntity.ok(UserLoginPostRes.of(200,"Success", Token));
     }
 
-    // accessToken을 통해 사용자 정보를 받아오는 메소드
-    @RequestMapping(value="/login")
+    @PostMapping(value="/login")
+    @ApiOperation(value = "accessToken을 통해 사용자 정보 조회", notes = "Kakao 인증서버에 accessToken을 넘겨주어 userInfo, userProfile을 받아온다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
     public ResponseEntity<UserLoginPostRes> login(@RequestBody HashMap<String, Object> Token, HttpSession session) {
         System.out.println(Token.toString());
         // Token 정보를 <String, 객체>로 생성
@@ -68,7 +85,14 @@ public class KakaoController {
         return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", userObject));
     }
 
-    @RequestMapping(value="/logout")
+    @ApiOperation(value = "카카오 계정 로그아웃", notes = "Kakao 인증서버에 accessToken을 넘겨주어 로그인된 카카오 계정을 로그아웃 시킨다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    @GetMapping(value="/logout")
     public ResponseEntity<String> logout(@CookieValue(value="accessToken", required = false) Cookie access_Token){
         if(access_Token == null)
             return ResponseEntity.ok("토큰이 유효하지 않습니다.");
