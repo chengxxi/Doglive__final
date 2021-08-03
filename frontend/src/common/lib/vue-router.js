@@ -61,6 +61,7 @@ const router = createRouter({
   routes,
 })
 
+// URL이 변경되기전 거쳐가는 함수
 router.beforeEach(function(to, from, next){
   next()
 })

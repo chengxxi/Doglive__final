@@ -40,6 +40,7 @@
                 </ul>
             </li>
             <li>
+              <a href="#" v-if="isCookie">안녕하세요</a>
               <!-- User 아이콘에 마우스 hover했을 때 나올 popover 정의 -->
               <el-popover
                 placement="bottom"
@@ -47,7 +48,7 @@
                 trigger="hover"
                 v-model="state.showUserModal">
                 <table :style="{margin: '0 auto'}">
-                  <tr v-for="(path, key, index) in state.userMenu" v-bind:key="index">
+                  <tr v-for="(path, key, index) in userMenu" v-bind:key="index">
                     <td><a :href="path">{{ key }}</a></td>
                   </tr>
                 </table>
@@ -123,7 +124,7 @@
 </style>
 
 <script>
-import { computed, reactive } from 'vue';
+import { computed, reactive, watchEffect, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import Cookies from 'universal-cookie';
@@ -136,9 +137,13 @@ export default {
         default: '70px'
       },
   },
+
   setup() {
+    const store = useStore()
     const router = useRouter()
     const cookies = new Cookies()
+
+    console.log(cookies.get('loginUserInfo'))
 
     const notLoggedIn = {
       '로그인': '/login',
@@ -150,14 +155,15 @@ export default {
     const state = reactive({
       showHiddenMenu: 'none',
       showUserModal: false,
-      userMenu: computed(() => {
-        if(cookies.get('refreshToken') == undefined)
-          return notLoggedIn
-        else
-          return loggedIn
-      }),
     })
+    let userMenu = ref()
 
+    watchEffect(() => {
+        if(!Object.keys(store.getters['root/getLoginUserInfo']).length)
+          userMenu = notLoggedIn
+        else
+          userMenu = loggedIn
+    })
 
     const clickLogo = function() {
       router.push({name : 'Main'}) // vue-router.js 밑에 정의해둔 메인페이지 경로로 이동
@@ -172,7 +178,7 @@ export default {
         state.showHiddenMenu = 'none'
     }
 
-    return { state, clickLogo, changeUserModal, changeDisplay }
+    return { state, clickLogo, changeUserModal, changeDisplay, userMenu }
   },
 }
 </script>

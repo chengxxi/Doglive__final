@@ -36,7 +36,10 @@ export default {
             console.log(result)
             cookies.set('accessToken', result.data.user.Token.accessToken, { path : '/', sameSite : 'strict' })
             cookies.set('refreshToken', result.data.user.Token.refreshToken, { path : '/', sameSite : 'strict' })
-            cookies.set('loginUserInfo', result.data.user.userInfo, { path : '/', sameSite : 'strict' })
+            console.log(result.data.user.userInfo)
+            console.log("store1 : " + store.getters['root/getLoginUserInfo'])
+            store.commit('root/setLoginUserInfo', result.data.user.userInfo);
+            console.log("store2 : " + store.getters['root/getLoginUserInfo'])
             alert("로그인 되었습니다.")
 
             router.push({name : 'Main'}) // Main으로 redirect

@@ -20,7 +20,7 @@ public class UserToken {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id = null;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name="user_id")
   private User userId;    // 사용자의 Kakao Id
 
