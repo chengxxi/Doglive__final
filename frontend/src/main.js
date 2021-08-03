@@ -10,6 +10,7 @@ import i18n from './common/lib/i18n'
 import router from './common/lib/vue-router'
 
 import 'element-plus/packages/theme-chalk/src/base.scss'
+import VueAlertify from 'vue-alertify';
 
 // Element UI Components [시작]
 import {
@@ -183,6 +184,72 @@ const components = [
   ElUpload,
 ]
 
+//fort-awesome
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faSearch,
+  faStar as fasStar,
+  faCommentDots,
+  faHome,
+  faPhone,
+  faUser,
+  faChevronRight,
+  faBuilding,
+  faMapMarkedAlt,
+  faMapMarker,
+  faEnvelope,
+  faSpinner,
+  faUnlock,
+  faUserShield,
+  faSignOutAlt,
+  faUserCircle,
+  faUserEdit,
+  faEraser,
+  faAngleLeft,
+  faPaperclip,
+  faKey,
+  faImage,
+  faUpload,
+  faSchool,
+  faInfoCircle,
+  faSignInAlt,
+  faUserPlus,
+
+} from '@fortawesome/free-solid-svg-icons';
+import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+library.add(
+  faSearch,
+  fasStar,
+  farStar,
+  faCommentDots,
+  faHome,
+  faPhone,
+  faUser,
+  faChevronRight,
+  faBuilding,
+  faMapMarkedAlt,
+  faMapMarker,
+  faEnvelope,
+  faSpinner,
+  faUnlock,
+  faUserShield,
+  faSignOutAlt,
+  faUserCircle,
+  faUserEdit,
+  faEraser,
+  faAngleLeft,
+  faPaperclip,
+  faKey,
+  faImage,
+  faUpload,
+  faSchool,
+  faInfoCircle,
+  faSignInAlt,
+  faUserPlus,
+);
+
 const plugins = [
   ElInfiniteScroll,
   ElLoading,
@@ -200,6 +267,8 @@ app.use(VueAxios, axios)
 app.use(store)
 app.use(i18n)
 app.use(router)
+app.component('font-awesome-icon', FontAwesomeIcon);
+
 
 components.forEach(component => {
   app.component(component.name, component)
