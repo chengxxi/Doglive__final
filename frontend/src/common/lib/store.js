@@ -6,6 +6,6 @@ export default createStore({
   modules: { root },
   // store를 localStorage에 저장하기 위한 플러그인
   plugins : [
-    createPersistedState
+    createPersistedState()
   ],
 });
