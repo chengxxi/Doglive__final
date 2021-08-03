@@ -11,7 +11,9 @@ import com.ssafy.db.entity.auth.UserToken;
 import com.ssafy.db.repository.auth.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import springfox.documentation.service.OpenIdConnectScheme;
 
+import javax.swing.text.html.Option;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -121,6 +123,18 @@ public class UserServiceImpl implements UserService{
         }
         return false;
 
+    }
+
+    @Override
+    public String getUserName(String id) {
+        User user = getUserById(id);
+        if(user==null) return null;
+
+        Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user);
+        if(userProfile.isPresent()){
+            return userProfile.get().getName();
+        }
+        return null;
     }
 
 
