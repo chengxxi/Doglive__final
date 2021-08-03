@@ -9,6 +9,7 @@
 <script>
 import $axios from 'axios'
 import Cookies from 'universal-cookie'
+import { parse, stringify } from 'flatted'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
@@ -36,9 +37,8 @@ export default {
             console.log(result)
             cookies.set('accessToken', result.data.user.Token.accessToken, { path : '/', sameSite : 'strict' })
             cookies.set('refreshToken', result.data.user.Token.refreshToken, { path : '/', sameSite : 'strict' })
-            console.log(result.data.user.userInfo)
-            console.log("store1 : " + store.getters['root/getLoginUserInfo'])
-            store.commit('root/setLoginUserInfo', result.data.user.userInfo);
+            console.log(parse(stringify(result.data.user.userInfo)))
+            store.commit('root/setLoginUserInfo', parse(stringify(result.data.user.userInfo)))
             console.log("store2 : " + store.getters['root/getLoginUserInfo'])
             alert("로그인 되었습니다.")
 

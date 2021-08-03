@@ -159,7 +159,7 @@ export default {
     let userMenu = ref()
 
     watchEffect(() => {
-        if(!Object.keys(store.getters['root/getLoginUserInfo']).length)
+        if(store.getters['root/getLoginUserInfo'] === null)
           userMenu = notLoggedIn
         else
           userMenu = loggedIn

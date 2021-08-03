@@ -1,6 +1,6 @@
 // 저장소
 
 export default {
-  loginUserInfo: {},
+  loginUserInfo: null,
   currentPath : {},
 }
