@@ -41,7 +41,10 @@ public class BoardRegisterPostReq {
     Long hairType;
 
     @ApiModelProperty
-    Long neutralization;
+    Long age;
+
+    @ApiModelProperty
+    boolean neutralization;
 
     @ApiModelProperty
     Long weight;
