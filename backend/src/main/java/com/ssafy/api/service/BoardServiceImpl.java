@@ -113,8 +113,12 @@ public class BoardServiceImpl implements  BoardService{
         Code weight = getCode(boardRegisterPostReq.getWeight());
         if(weight!=null) dogInformation.setWeight(weight);
 
-        Code neutralization = getCode(boardRegisterPostReq.getNeutralization());
-        if(neutralization!=null) dogInformation.setNeutralization(neutralization);
+
+        Code age= getCode(boardRegisterPostReq.getAge());
+        if(age!=null) dogInformation.setAge(age);
+
+        dogInformation.setNeutralization(boardRegisterPostReq.isNeutralization());
+
 
         dogInformationRepository.save(dogInformation);
 
@@ -198,8 +202,10 @@ public class BoardServiceImpl implements  BoardService{
         Code weight = getCode(boardRegisterPostReq.getWeight());
         if(weight!=null) dogInformation.setWeight(weight);
 
-        Code neutralization = getCode(boardRegisterPostReq.getNeutralization());
-        if(neutralization!=null) dogInformation.setNeutralization(neutralization);
+        Code age= getCode(boardRegisterPostReq.getAge());
+        if(age!=null) dogInformation.setAge(age);
+
+        dogInformation.setNeutralization(boardRegisterPostReq.isNeutralization());
 
         dogInformationRepository.save(dogInformation);
 

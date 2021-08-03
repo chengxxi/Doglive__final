@@ -28,8 +28,10 @@ public class DogInformation extends BaseEntity {
   private String mbti;                    // 강아지 MBTI
 
   @ManyToOne
-  @JoinColumn(name="neutralization")
-  private Code neutralization;            // 강아지 중성화 여부
+  @JoinColumn(name="age_type")
+  private Code age;
+
+  private boolean neutralization;            // 강아지 중성화 여부
 
   @ManyToOne
   @JoinColumn(name="color_type")
