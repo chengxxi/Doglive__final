@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 
 import com.ssafy.api.request.AdoptFormReq;
+import com.ssafy.api.request.BoardDetailGetReq;
 import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.request.BookmarkReq;
 import com.ssafy.api.response.BoardDetailGetRes;
@@ -9,6 +10,7 @@ import com.ssafy.api.response.BoardListGetRes;
 import com.ssafy.api.service.AdoptService;
 import com.ssafy.api.service.BoardService;
 import com.ssafy.api.service.FindService;
+import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.Bookmark;
 import com.ssafy.db.entity.board.Board;
@@ -16,6 +18,7 @@ import com.ssafy.db.entity.board.BoardComment;
 import com.ssafy.db.entity.board.BoardImage;
 import com.ssafy.db.entity.board.DogInformation;
 import io.swagger.annotations.*;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +33,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/board")
 public class BoardController {
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     BoardService boardService;
@@ -117,13 +123,18 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardDetailGetRes> boardDetail(@PathVariable("boardId") String id){
+    public ResponseEntity<BoardDetailGetRes> boardDetail(@PathVariable("boardId") String id, @RequestBody @ApiParam(value="공고 상세정보 접근", required = true) BoardDetailGetReq boardDetailGetReq){
+        boolean isOwner = false;
+
         Board board = boardService.getBoardByBoardId(Long.parseLong(id));
         DogInformation dogInformation = boardService.getDogInformationByBoard(board);
         List<BoardComment> boardComments = boardService.getBoardCommentsByBoard(board);
         List<BoardImage> boardImages = boardService.getBoardImagesByBoard(board);
 
-        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", board, dogInformation, boardImages, boardComments));
+        String userName = userService.getUserName(id);
+        System.out.println(userName);
+        if(board.getUserId()==boardDetailGetReq.getUserId()) isOwner = true;
+        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isOwner, userName, board, dogInformation, boardImages, boardComments));
     }
 
 

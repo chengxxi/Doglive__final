@@ -16,5 +16,6 @@ public interface UserService {
     User getUserById(String Id);
     UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq, MultipartFile multipartFile);
     boolean deleteUser(String id);
+    String getUserName(String id);
     List<Bookmark> getBookmarkList(String id);
 }

@@ -16,6 +16,13 @@ import java.util.List;
 @Setter
 @ApiModel("BoardDetailGetRes")
 public class BoardDetailGetRes extends BaseResponseBody {
+
+    @ApiModelProperty
+    boolean isOwner;
+
+    @ApiModelProperty
+    String userName;
+
     @ApiModelProperty
     Board board;
 
@@ -29,7 +36,7 @@ public class BoardDetailGetRes extends BaseResponseBody {
     List<BoardComment> boardCommentList;
 
 
-    public static BoardDetailGetRes of(Integer statusCode, String message, Board board, DogInformation dogInformation, List<BoardImage> boardImageList, List<BoardComment> boardComments) {
+    public static BoardDetailGetRes of(Integer statusCode, String message, boolean isOwner, String userName, Board board, DogInformation dogInformation, List<BoardImage> boardImageList, List<BoardComment> boardComments) {
         BoardDetailGetRes res = new BoardDetailGetRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
