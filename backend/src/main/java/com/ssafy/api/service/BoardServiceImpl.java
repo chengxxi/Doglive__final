@@ -244,6 +244,16 @@ public class BoardServiceImpl implements  BoardService{
         return null;
     }
 
+    /* userId에 따라 BoardList 출력 */
+    @Override
+    public List<Board> getBoardListByUserId(String id) {
+        Optional<List<Board>> boardList = boardRepository.findBoardsByUserId(id);
+        if(boardList.isPresent()){
+            return boardList.get();
+        }
+        return null;
+    }
+
     /* Board로 DogInformtaion 찾기 */
     @Override
     public DogInformation getDogInformationByBoard(Board board) {
