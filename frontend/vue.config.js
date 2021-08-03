@@ -17,7 +17,8 @@ module.exports = {
     hot: true
   },
   transpileDependencies: [
-    'element-plus'
+    'element-plus',
+    'vuex-persist',
   ],
   lintOnSave: false,
   outputDir: '../backend/src/main/resources/dist'

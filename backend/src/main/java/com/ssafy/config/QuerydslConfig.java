@@ -14,8 +14,8 @@ public class QuerydslConfig {
     @PersistenceContext(unitName = "authEntityManager")
     EntityManager authEntityManager;
 
-    @PersistenceContext(unitName = "boardEntityManager")
-    EntityManager boardEntityManager;
+//    @PersistenceContext(unitName = "boardEntityManager")
+//    EntityManager boardEntityManager;
 
     @PersistenceContext(unitName = "chatEntityManager")
     EntityManager chatEntityManager;
@@ -28,10 +28,10 @@ public class QuerydslConfig {
         return new JPAQueryFactory(authEntityManager);
     }
 
-    @Bean(name="boardQueryFactory")
-    public JPAQueryFactory boardQueryFactory() {
-        return new JPAQueryFactory(boardEntityManager);
-    }
+//    @Bean(name="boardQueryFactory")
+//    public JPAQueryFactory boardQueryFactory() {
+//        return new JPAQueryFactory(boardEntityManager);
+//    }
 
     @Bean(name="chatQueryFactory")
     public JPAQueryFactory chatQueryFactory() {
