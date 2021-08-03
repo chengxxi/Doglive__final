@@ -34,6 +34,8 @@ public class QCounselingHistory extends EntityPathBase<CounselingHistory> {
 
     public final StringPath result = createString("result");
 
+    public final StringPath writer = createString("writer");
+
     public QCounselingHistory(String variable) {
         this(CounselingHistory.class, forVariable(variable), INITS);
     }
