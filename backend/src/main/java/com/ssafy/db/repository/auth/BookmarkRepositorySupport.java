@@ -7,6 +7,7 @@ import com.ssafy.db.entity.auth.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,4 +25,6 @@ public class BookmarkRepositorySupport {
         if(bookmark == null)    return Optional.empty();
         return Optional.ofNullable(bookmark);
     }
+
+
 }

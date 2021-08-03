@@ -1,9 +1,5 @@
 package com.ssafy.api.service;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.db.entity.auth.Bookmark;
 import com.ssafy.db.entity.auth.User;
@@ -46,6 +42,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     BookmarkRepository bookmarkRepository;
+
+    @Autowired
+    BookmarkRepositorySupport bookmarkRepositorySupport;
 
     @Override
     public User createUser(String access_Token, String refresh_Token, HashMap<String, Object> userInfo) {
@@ -96,6 +95,7 @@ public class UserServiceImpl implements UserService{
         return null;
 
     }
+
 
     @Value("${profileImg.path}")
     private String uploadFolder;
@@ -150,7 +150,18 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<Bookmark> getBookmarkList(String id) {
-        List<Bookmark> bookmarList = BookmarkRepository
+        Optional<User> user = userRepository.findUserById(id);
+        if(user.isPresent()) {
+            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
+            if (userProfile.isPresent()) {
+                Optional<List<Bookmark>> bookmarkList = bookmarkRepository.findBookmarksByUserId(userProfile.get());
+                if (bookmarkList.isPresent()) {
+                    return bookmarkList.get();
+                }
+            }
+
+        }
+        return null;
     }
 
 

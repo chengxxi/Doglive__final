@@ -47,11 +47,11 @@ public class UserProfile implements Serializable {
   private String phoneNumber;
 
 
-  @OneToMany(mappedBy = "applicantId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<CounselingHistory> counselingHistories;
-
-  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<Bookmark> bookmarks;
+//  @OneToMany(mappedBy = "applicantId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+//  private List<CounselingHistory> counselingHistories;
+//
+//  @OneToMany(mappedBy = "userId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+//  private List<Bookmark> bookmarks;
 
 
 }

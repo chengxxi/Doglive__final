@@ -3,8 +3,10 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.api.response.BoardListGetRes;
+import com.ssafy.api.response.BookmarkListGetRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
+import com.ssafy.db.entity.auth.Bookmark;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.board.Board;
 import io.swagger.annotations.*;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 사용자 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -74,7 +77,7 @@ public class UserController {
         return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Success"));
     }
 
-    @GetMapping("/bookmark")
+    @GetMapping("/bookmark/{id}")
     @ApiOperation(value = "사용자 북마크 목록", notes = "사용자 북마크 목록을 가져온다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -82,8 +85,26 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardListGetRes> findBookmarkList(){
+    public ResponseEntity<BookmarkListGetRes> findBookmarkList(@PathVariable("id") String id){
+        System.out.println("조회시작");
+        List<Bookmark> bookmarkList = userService.getBookmarkList(id);
+        System.out.println("리스트 : " + bookmarkList);
 
+        return ResponseEntity.ok(BookmarkListGetRes.of(200, "Success", bookmarkList, bookmarkList.size()));
     }
+
+//    @GetMapping("/myboard/{id}")
+//    @ApiOperation(value = "사용자 작성글 목록", notes = "사용자가 작성한 글만 가져온다")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public ResponseEntity<BoardListGetRes> findMyBoardList(@PathVariable("id") String id){
+//        List<Board> boardList = userService.getBookmarkList(id);
+//        System.out.println("리스트 : " + bookmarkList);
+//        return ResponseEntity.ok(BookmarkListGetRes.of(200, "Success", bookmarkList, bookmarkList.size()));
+//    }
 
 }
