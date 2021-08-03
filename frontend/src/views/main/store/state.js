@@ -21,6 +21,7 @@ export default {
     title: '',
     address: '',
     mbti: '',
+    description : '',
     colorType : {},
     gender: {},
     hairType: {},
