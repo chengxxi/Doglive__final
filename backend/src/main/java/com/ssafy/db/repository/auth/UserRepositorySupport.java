@@ -22,7 +22,7 @@ public class UserRepositorySupport {
     public Optional<User> findUserById(String id) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
                 .where(qUser.id.eq(id)).fetchOne();
-        if(user == null) return Optional.empty();
+        if(user==null) return Optional.empty();
         return Optional.ofNullable(user);
     }
 }
