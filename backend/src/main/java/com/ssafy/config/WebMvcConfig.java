@@ -1,5 +1,6 @@
 package com.ssafy.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import javax.servlet.Filter;
 
@@ -30,30 +32,40 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return source;
     }
 
+    @Value("C:\\Users\\multicampus\\Desktop\\ssafy\\공통프로젝트\\Doglive\\profile_imgs\\")
+    private String profileUploadFolder;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    		registry.addResourceHandler("/resources/**")
-    				.addResourceLocations("/WEB-INF/resources/");
-    		
-    		registry.addResourceHandler("swagger-ui.html")
-    				.addResourceLocations("classpath:/META-INF/resources/");
+        WebMvcConfigurer.super.addResourceHandlers(registry);
 
-    		registry.addResourceHandler("/webjars/**")
-    				.addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/profile_imgs/**")
+                .addResourceLocations("file:///" + profileUploadFolder)
+                .resourceChain(true)
+                .addResolver(new PathResourceResolver());
+
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/WEB-INF/resources/");
     		
-    		/*
-    		 * 
-    		 * Front-end에서 참조하는 URL을 /dist로 매핑
-    		 * 
-    		 */
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    		
+        /*
+    	 *
+    	 * Front-end에서 참조하는 URL을 /dist로 매핑
+    	 *
+    	 */
         registry.addResourceHandler("/css/**")
-        			.addResourceLocations("classpath:/dist/css/");
-        	registry.addResourceHandler("/fonts/**")
-        			.addResourceLocations("classpath:/dist/fonts/");
+                .addResourceLocations("classpath:/dist/css/");
+        registry.addResourceHandler("/fonts/**")
+                .addResourceLocations("classpath:/dist/fonts/");
         registry.addResourceHandler("/icons/**")
 				.addResourceLocations("classpath:/dist/icons/");
         registry.addResourceHandler("/img/**")
-			.addResourceLocations("classpath:/dist/img/");
+			    .addResourceLocations("classpath:/dist/img/");
         registry.addResourceHandler("/js/**")
 				.addResourceLocations("classpath:/dist/js/");
     }

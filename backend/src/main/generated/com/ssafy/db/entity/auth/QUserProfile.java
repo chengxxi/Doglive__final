@@ -22,10 +22,6 @@ public class QUserProfile extends EntityPathBase<UserProfile> {
 
     public static final QUserProfile userProfile = new QUserProfile("userProfile");
 
-    public final ListPath<Bookmark, QBookmark> bookmarks = this.<Bookmark, QBookmark>createList("bookmarks", Bookmark.class, QBookmark.class, PathInits.DIRECT2);
-
-    public final ListPath<CounselingHistory, QCounselingHistory> counselingHistories = this.<CounselingHistory, QCounselingHistory>createList("counselingHistories", CounselingHistory.class, QCounselingHistory.class, PathInits.DIRECT2);
-
     public final StringPath email = createString("email");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
