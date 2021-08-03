@@ -9,6 +9,7 @@
 <script>
 import $axios from 'axios'
 import Cookies from 'universal-cookie'
+import safeJsonStringify from 'safe-json-stringify'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
@@ -20,7 +21,7 @@ export default {
       const cookies = new Cookies()
 
       // URL에서 code를 뽑아오는 코드
-      const code = store.getters['root/getCurrentPath'].query.code;
+      const code = store.getters['root/getCurrentPathParam'].code;
 
       // code를 이용하여 AccessToken 받아온 후,
       store.dispatch('root/requestAccessToken', code)
@@ -30,18 +31,14 @@ export default {
         const refreshToken = result.data.user.refreshToken
 
         // accessToken을 통해 userInfo 받아오기 + store에 저장
-        // store.dispatch('root/requestUserInfo', { accessToken : accessToken, refreshToken : refreshToken })
         $axios.post('http://localhost:8080/kakao/login', { accessToken : accessToken, refreshToken : refreshToken })
         .then(function(result){
             console.log(result)
             cookies.set('accessToken', result.data.user.Token.accessToken, { path : '/', sameSite : 'strict' })
             cookies.set('refreshToken', result.data.user.Token.refreshToken, { path : '/', sameSite : 'strict' })
-            console.log(result.data.user.userInfo)
-            console.log("store1 : " + store.getters['root/getLoginUserInfo'])
-            store.commit('root/setLoginUserInfo', result.data.user.userInfo);
-            console.log("store2 : " + store.getters['root/getLoginUserInfo'])
-            alert("로그인 되었습니다.")
+            store.commit('root/setLoginUserInfo', result.data.user.userInfo.userid)
 
+           alert("로그인 되었습니다.")
             router.push({name : 'Main'}) // Main으로 redirect
          }).catch(function(err){
            console.log(err)
@@ -51,7 +48,7 @@ export default {
         alert("로그인에 실패하였습니다.")
       });
 
-      // router.push({name : 'Main'}) // Main으로 redirect
+      router.push({name : 'Main'}) // Main으로 redirect
     }
 }
 </script>

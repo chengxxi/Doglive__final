@@ -48,7 +48,7 @@
                 trigger="hover"
                 v-model="state.showUserModal">
                 <table :style="{margin: '0 auto'}">
-                  <tr v-for="(path, key, index) in userMenu" v-bind:key="index">
+                  <tr v-for="(path, key, index) in state.userMenu" v-bind:key="index">
                     <td><a :href="path">{{ key }}</a></td>
                   </tr>
                 </table>
@@ -155,14 +155,12 @@ export default {
     const state = reactive({
       showHiddenMenu: 'none',
       showUserModal: false,
-    })
-    let userMenu = ref()
-
-    watchEffect(() => {
-        if(!Object.keys(store.getters['root/getLoginUserInfo']).length)
-          userMenu = notLoggedIn
+      userMenu: computed(()=> {
+        if(store.getters['root/getLoginUserInfo'] === null)
+          return notLoggedIn
         else
-          userMenu = loggedIn
+          return loggedIn
+      })
     })
 
     const clickLogo = function() {
@@ -178,7 +176,7 @@ export default {
         state.showHiddenMenu = 'none'
     }
 
-    return { state, clickLogo, changeUserModal, changeDisplay, userMenu }
+    return { state, clickLogo, changeUserModal, changeDisplay }
   },
 }
 </script>

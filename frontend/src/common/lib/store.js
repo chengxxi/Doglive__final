@@ -1,11 +1,13 @@
 import { createStore } from "vuex";
 import root from '@/views/main/store'
-import createPersistedState from 'vuex-persistedstate'
+import VuexPersistence from "vuex-persist";
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+  supportCircular: true,
+});
 
 export default createStore({
   modules: { root },
-  // store를 localStorage에 저장하기 위한 플러그인
-  plugins : [
-    createPersistedState()
-  ],
+  plugins: [ vuexLocal.plugin ],
 });

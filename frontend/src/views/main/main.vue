@@ -32,7 +32,9 @@ export default {
     const router = useRouter()
 
     router.afterEach((to, from, next) => {
-      store.commit('root/setCurrentPath', to)
+      store.commit('root/setCurrentPath', to.path)
+      store.commit('root/setCurrentPathParam', to.query)
+      console.log(to)
     })
   }
 }

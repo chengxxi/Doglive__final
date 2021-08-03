@@ -22,7 +22,7 @@ export default {
       // cookie 삭제
       cookies.remove('accessToken', { path : '/', sameSite : 'strict' })
       cookies.remove('refreshToken', { path : '/', sameSite : 'strict' })
-      store.commit('root/setLoginUserInfo', {});
+      store.commit('root/setLoginUserInfo', null);
       router.push({name : 'Main'})
     })
     .catch(function(err){
