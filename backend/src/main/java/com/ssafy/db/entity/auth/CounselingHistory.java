@@ -1,7 +1,5 @@
 package com.ssafy.db.entity.auth;
 
-import com.ssafy.db.entity.board.Board;
-import com.ssafy.db.entity.board.BoardCategory;
 import com.ssafy.db.entity.chat.ChatMessage;
 import com.ssafy.db.entity.chat.ChatRoom;
 import lombok.Data;

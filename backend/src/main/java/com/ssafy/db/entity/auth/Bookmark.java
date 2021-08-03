@@ -1,6 +1,5 @@
 package com.ssafy.db.entity.auth;
 
-import com.ssafy.db.entity.board.Board;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

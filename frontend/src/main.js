@@ -10,6 +10,7 @@ import i18n from './common/lib/i18n'
 import router from './common/lib/vue-router'
 
 import 'element-plus/packages/theme-chalk/src/base.scss'
+import { WebRTC } from 'vue-webrtc'
 
 // Element UI Components [시작]
 import {
@@ -200,6 +201,7 @@ app.use(VueAxios, axios)
 app.use(store)
 app.use(i18n)
 app.use(router)
+app.use(WebRTC)
 
 components.forEach(component => {
   app.component(component.name, component)

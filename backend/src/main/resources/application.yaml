@@ -35,13 +35,25 @@ server:
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
-  port: 8080
+  port: 8443
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:keystore/ssafy.p12
+    key-store-password: doglivedoggi
+    key-alias: SSAFY
+#    trust-store: classpath:keystore/ssafy.cer
+#    trust-store-password: doglivedoggi
   servlet:
     contextPath: /
     encoding:
       charset: UTF-8
       enabled: true
       force: true
+http-server:
+  http:
+    port: 8080
+
 spa:
   default-file: /dist/index.html
 
@@ -84,7 +96,7 @@ spring:
   jpa:
     show-sql : true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
@@ -99,8 +111,6 @@ spring:
   resources:
     add-mappings: false
     static-locations: classpath:/dist/
-
-
 
   datasource:
     hikari:

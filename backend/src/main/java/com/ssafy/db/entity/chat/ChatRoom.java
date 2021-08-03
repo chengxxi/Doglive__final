@@ -1,6 +1,5 @@
 package com.ssafy.db.entity.chat;
 import com.ssafy.db.entity.auth.CounselingHistory;
-import com.ssafy.db.entity.board.BoardImage;
 import lombok.Getter;
 import lombok.Setter;
 
