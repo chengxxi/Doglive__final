@@ -7,6 +7,7 @@ import com.ssafy.api.response.BookmarkListGetRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.Bookmark;
+import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.board.Board;
 import io.swagger.annotations.*;
@@ -92,6 +93,20 @@ public class UserController {
 
         return ResponseEntity.ok(BookmarkListGetRes.of(200, "Success", bookmarkList, bookmarkList.size()));
     }
+
+    @GetMapping("/counseling/{id}")
+    @ApiOperation(value = "입양 상담 신청 결과 조회", notes = "사용자의 입양 신청 조회 결과를 가지고온다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findCounselingResults(@PathVariable("id") String id){
+        List<CounselingHistory> counselingHistoryList = userService.getCounselingResult(id);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200,"Success"));
+    }
+
 
 
 }

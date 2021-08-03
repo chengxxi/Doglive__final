@@ -177,15 +177,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public CounselingHistory getCounselingResult(String id) {
+    public List<CounselingHistory> getCounselingResult(String id) {
         Optional<User> user = userRepository.findUserById(id);
 
         if(user.isPresent()){
             Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
             if(userProfile.isPresent()){
-                Optional<CounselingHistory> history = counselingHistoryRepository.findCounselingHistoryByApplicantId(userProfile.get());
-                if(history.isPresent()){
-                    return history.get();
+                Optional<List<CounselingHistory>> resultList = counselingHistoryRepository.findCounselingHistoriesByApplicantId(userProfile.get());
+                if(resultList.isPresent()){
+                    return resultList.get();
                 }
             }
         }

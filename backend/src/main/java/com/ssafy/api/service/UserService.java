@@ -19,5 +19,5 @@ public interface UserService {
     boolean deleteUser(String id);
     String getUserName(String id);
     List<Bookmark> getBookmarkList(String id);
-    CounselingHistory getCounselingResult(String id);
+    List<CounselingHistory> getCounselingResult(String id);
 }
