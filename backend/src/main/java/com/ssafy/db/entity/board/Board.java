@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 유기견 공고 게시물 정보를 담을 Board Entity
+ * 유기견 공고 게시물 정보를 담을 Board Entity.
  */
 
 @Entity

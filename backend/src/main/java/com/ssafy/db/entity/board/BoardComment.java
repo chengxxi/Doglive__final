@@ -9,7 +9,7 @@ import org.checkerframework.checker.compilermsgs.qual.CompilerMessageKey;
 import javax.persistence.*;
 
 /**
- * 공고 별 댓글을 저장할 Board Comment Entity
+ * 공고 별 댓글을 저장할 Board Comment Entity.
  */
 @Entity
 @Table(name="board_comment", schema = "board")

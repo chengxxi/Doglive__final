@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * 게시판 타입을 저장할 Board Entity
+ * 게시판 타입을 저장할 Board Entity.
  */
 @Entity
 @Table(name="board_category", schema = "board")

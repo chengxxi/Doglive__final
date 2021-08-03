@@ -7,6 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * Code Entity.
+ */
+
 @Entity
 @Table(name="code", schema = "board")
 @Getter

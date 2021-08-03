@@ -8,7 +8,7 @@ import org.checkerframework.common.aliasing.qual.MaybeAliased;
 import javax.persistence.*;
 
 /**
- * 게시판 이미지 관련 Entity
+ * 게시판 이미지 관련 Entity.
  */
 @Entity
 @Table(name="board_image", schema = "board")
