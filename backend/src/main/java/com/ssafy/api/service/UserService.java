@@ -20,4 +20,5 @@ public interface UserService {
     String getUserName(String id);
     List<Bookmark> getBookmarkList(String id);
     List<CounselingHistory> getCounselingResult(String id);
+    List<CounselingHistory> getApplicantList(String id);
 }

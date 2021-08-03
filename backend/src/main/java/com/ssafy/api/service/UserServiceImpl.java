@@ -192,4 +192,13 @@ public class UserServiceImpl implements UserService{
         return null;
     }
 
+    @Override
+    public List<CounselingHistory> getApplicantList(String id) {
+        Optional<List<CounselingHistory>> applicantList = counselingHistoryRepository.findCounselingHistoriesByWriter(id);
+        if(applicantList.isPresent()){
+            return applicantList.get();
+        }
+        return null;
+    }
+
 }

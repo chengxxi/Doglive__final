@@ -10,6 +10,7 @@ import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.Bookmark;
 import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.User;
+import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.board.Board;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,6 +111,31 @@ public class UserController {
             return ResponseEntity.ok(CounselingHistoryListGetRes.of(404,"신청 내역이 없습니다.",null,0));
         }
         return ResponseEntity.ok(CounselingHistoryListGetRes.of(200,"Success",counselingHistoryList,counselingHistoryList.size()));
+    }
+
+    @GetMapping("/applicant/{id}")
+    @ApiOperation(value = "상담 신청자 목록 조회", notes = "작성자 아이디에 따라 상담 신청자 목록을 불러온다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<CounselingHistoryListGetRes> findApplicants(@PathVariable("id") String id){
+        List<CounselingHistory> applicantList = userService.getApplicantList(id);
+        List<UserProfile> userProfileList = new ArrayList<>();
+
+        for (CounselingHistory counselingHistory: applicantList) {
+            UserProfile userProfile = counselingHistory.getApplicantId();
+            userProfileList.add(userProfile);
+        }
+
+        System.out.println(userProfileList);
+
+        if(applicantList.size() == 0){
+            return ResponseEntity.ok(CounselingHistoryListGetRes.of(404,"신청자가 없습니다.",null,0));
+        }
+        return ResponseEntity.ok(CounselingHistoryListGetRes.of(200,"Success",applicantList,applicantList.size()));
     }
 
 
