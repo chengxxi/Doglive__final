@@ -1,36 +1,40 @@
 <template>
   <div class="main-body main-padding">
-    <el-page-header @back="goBack" content="{{state.board.title}}">
-    </el-page-header>
+    <bread-crumb></bread-crumb>
 
+    <p>{{state.board.title}}</p>
 
 
     <el-card class="box-card">
       <el-row :gutter="20">
 
-          <el-col :span="6">
+          <el-col :span="8">
               <el-avatar shape="square" :size="300" :src="require('@/assets/images/mbti_isfp.png')" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}"/>
           </el-col>
-          <el-col :span="18">
-              <el-descriptions class="margin-top" title="Vertical list without border" :column="4" direction="vertical">
-                <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-                <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-                <el-descriptions-item label="Place" :span="2">Suzhou</el-descriptions-item>
-                <el-descriptions-item label="Remarks">
-                  <el-tag size="small">School</el-tag>
+          <el-col :span="16">
+              <el-descriptions class="margin-top" title="이름도 지어줘야겠다" :column="3" :size="size">
+                <template slot="extra">
+                  <el-button type="primary" size="small">Operation</el-button>
+                </template>
+                <el-descriptions-item label="성별/중성화여부">{{state.board.gender.name}}/{{state.board.neutralization.name}}</el-descriptions-item>
+                <el-descriptions-item label="추정나이" :span="2">{{state.board.ageType.name}}</el-descriptions-item>
+                <el-descriptions-item label="임보주소">{{state.board.address}}</el-descriptions-item>
+                <el-descriptions-item label="MBTI" >
+                  <el-tag size="small">{{state.board.mbti}}</el-tag>
                 </el-descriptions-item>
-                <el-descriptions-item label="Address">No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province</el-descriptions-item>
               </el-descriptions>
+
           </el-col>
 
       </el-row>
     </el-card>
 
+    {{state.board.description}}
   </div>
 </template>
 
 
-<style scoped>
+<style>
 .main-body{
   width: 100%;
   margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
@@ -101,8 +105,8 @@ export default {
         console.log('breadcrumb')
         store.commit('root/setBreadcrumbInfo', {
           isHome : false,
-          title: 'Adopt',
-          subTitle: '입양 공고 상세 페이지'
+          title: '입양/임보',
+          subTitle: '입양/임보 동물 정보'
         })
       })
 

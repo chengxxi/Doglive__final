@@ -31,6 +31,7 @@ export function setBoardDetail(state, payload){
   state.board.ageType = payload.ageType;
   state.board.regDate = payload.regDate;
   state.board.fileList = payload.fileList;
+  state.board.description = payload.description;
   state.board.isOwner = payload.isOwner;
   state.board.thumbnailUrl = payload.thumbnailUrl;
 }

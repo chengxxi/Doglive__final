@@ -64,7 +64,8 @@ export default {
           ageType : result.data.dogInformation.ageType,
           regDate : result.data.board.regDate,
           fileList : result.data.boardImageList,
-          isOwner : result.data.isOwner
+          isOwner : result.data.isOwner,
+          description : result.data.board.description
         }
 
         store.commit('root/setBoardDetail', boardDetail)
