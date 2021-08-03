@@ -35,5 +35,8 @@ public class CounselingHistory {
   @Column(length = 10)
   private String result;            //입양 신청 결과
 
+  @Column(name="writer")
+  private String writer;            // 입양글 작성자
+
 
 }

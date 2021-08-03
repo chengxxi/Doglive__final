@@ -1,10 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserUpdatePutReq;
-import com.ssafy.db.entity.auth.Bookmark;
-import com.ssafy.db.entity.auth.User;
-import com.ssafy.db.entity.auth.UserProfile;
-import com.ssafy.db.entity.auth.UserToken;
+import com.ssafy.db.entity.auth.*;
 import com.ssafy.db.repository.auth.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +31,6 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserProfileRepositorySupport userProfileRepositorySupport;
 
-
     @Autowired
     UserTokenRepository userTokenRepository;
 
@@ -46,6 +42,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     BookmarkRepositorySupport bookmarkRepositorySupport;
+
+    @Autowired
+    CounselingHistoryRepository counselingHistoryRepository;
 
     @Override
     public User createUser(String access_Token, String refresh_Token, HashMap<String, Object> userInfo) {
@@ -173,6 +172,31 @@ public class UserServiceImpl implements UserService{
                 }
             }
 
+        }
+        return null;
+    }
+
+    @Override
+    public List<CounselingHistory> getCounselingResult(String id) {
+        Optional<User> user = userRepository.findUserById(id);
+
+        if(user.isPresent()){
+            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
+            if(userProfile.isPresent()){
+                Optional<List<CounselingHistory>> resultList = counselingHistoryRepository.findCounselingHistoriesByApplicantId(userProfile.get());
+                if(resultList.isPresent()){
+                    return resultList.get();
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<CounselingHistory> getApplicantList(String id) {
+        Optional<List<CounselingHistory>> applicantList = counselingHistoryRepository.findCounselingHistoriesByWriter(id);
+        if(applicantList.isPresent()){
+            return applicantList.get();
         }
         return null;
     }
