@@ -75,12 +75,12 @@
   width: 60% !important;
   min-width: 150px;
 }
-/* element-ui에서 제공해주는 내부 클래스를 변경하려면 ::v-deep 선택자 붙여주기 */
-::v-deep .el-date-editor.el-input{
+/* element-ui에서 제공해주는 내부 클래스를 변경하려면 :deep(선택자) 붙여주기 */
+:deep(.el-date-editor.el-input){
   width: 60% !important;
   min-width: 150px;
 }
-::v-deep .el-form-item__error{
+:deep(.el-form-item__error){
   left: 20%;
 }
 /* 수정하기 버튼 */

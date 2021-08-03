@@ -136,7 +136,6 @@ public class UserServiceImpl implements UserService{
         System.out.println("탈퇴할 아이디: " + id);
         if(getUserById(id)!=null){
             User user = userRepositorySupport.findUserById(id).get();
-
             Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
             if(userProfile.isPresent()) {
                 userProfileRepository.delete(userProfile.get());
@@ -146,7 +145,6 @@ public class UserServiceImpl implements UserService{
             return true;
         }
         return false;
-
     }
 
     @Override

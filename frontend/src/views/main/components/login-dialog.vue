@@ -58,37 +58,16 @@
 </style>
 
 <script>
-import axios from 'axios' // 서버로부터 받은 kakao url에 요청보내기 위한 axios
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-
 export default {
   name: 'login-dialog',
   setup() {
-    const store = new useStore()
-    const router = new useRouter()
 
     // 카카오 로그인
     const loginWithKakao = function(){
-      store.dispatch('root/requestLogin')
-      .then(function(result){
-        console.log(result.data)
-        openKakaoLogin(result.data) // 카카오 로그인 창 OPEN & 로그인
-      })
-      .catch(function(err){
-        console.log('로그인 실패' + err);
-      })
+      Kakao.Auth.authorize({
+        redirectUri: 'http://localhost:8080/kakao/callback'
+      });
     }
-
-    const openKakaoLogin = function(url){
-
-      console.log(url)
-      window.location.replace(url)
-
-      
-
-    }
-
     return { loginWithKakao }
   }
 }
