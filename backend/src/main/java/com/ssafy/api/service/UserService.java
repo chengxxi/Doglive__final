@@ -3,6 +3,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.db.entity.auth.Bookmark;
+import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,4 +19,5 @@ public interface UserService {
     boolean deleteUser(String id);
     String getUserName(String id);
     List<Bookmark> getBookmarkList(String id);
+    CounselingHistory getCounselingResult(String id);
 }
