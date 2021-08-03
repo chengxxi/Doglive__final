@@ -66,7 +66,7 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
     public QDogInformation(Class<? extends DogInformation> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.age = inits.isInitialized("age") ? new QCode(forProperty("age")) : null;
-        this.boardId = inits.isInitialized("boardId") ? new QBoard(forProperty("boardId")) : null;
+        this.boardId = inits.isInitialized("boardId") ? new QBoard(forProperty("boardId"), inits.get("boardId")) : null;
         this.colorType = inits.isInitialized("colorType") ? new QCode(forProperty("colorType")) : null;
         this.gender = inits.isInitialized("gender") ? new QCode(forProperty("gender")) : null;
         this.hairType = inits.isInitialized("hairType") ? new QCode(forProperty("hairType")) : null;

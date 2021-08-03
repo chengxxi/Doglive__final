@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /**
- * 강아지 정보 Entity
+ * 강아지 정보 Entity.
  */
 @Entity
 @Table(name="dog_information", schema = "board")

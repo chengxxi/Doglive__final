@@ -9,6 +9,7 @@ import com.ssafy.db.repository.auth.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -147,6 +148,20 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public String getUserName(String id) {
+        User user = getUserById(id);
+        if (user == null) return null;
+
+        Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user);
+        if (userProfile.isPresent()) {
+            return userProfile.get().getName();
+
+        }
+
+        return null;
+    }
+
+    @Override
     public List<Bookmark> getBookmarkList(String id) {
         Optional<User> user = userRepository.findUserById(id);
         if(user.isPresent()) {
@@ -161,6 +176,5 @@ public class UserServiceImpl implements UserService{
         }
         return null;
     }
-
 
 }

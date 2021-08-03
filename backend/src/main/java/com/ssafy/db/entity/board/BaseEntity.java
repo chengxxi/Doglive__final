@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * BaseEntity ( Entity 간 공통 컬럼 정의. )
+ * BaseEntity ( Entity 간 공통 컬럼 정의. ).
  */
 @Getter
 @Setter
