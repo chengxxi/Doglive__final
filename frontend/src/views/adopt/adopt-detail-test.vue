@@ -1,5 +1,7 @@
 <template>
   <div class="main-body main-padding">
+    <el-page-header @back="goBack" content="입양 공고 목록">
+    </el-page-header>
     <bread-crumb></bread-crumb>
     <div>
       <el-button :plain="true" @click="readData">9번 보드 읽기</el-button>
@@ -66,7 +68,7 @@ export default {
         }
 
         store.commit('root/setBoardDetail', boardDetail)
-        successMessage()
+
         router.push({name : 'AdoptDetail'})
 
       }).catch(function(err){
@@ -74,13 +76,6 @@ export default {
       });
     }
 
-
-    const successMessage = function() {
-      this.$message({
-        message : '성공적으로 조회되었습니다.',
-        type : 'success'
-      })
-    }
 
     onMounted(() => {
       console.log('breadcrumb')
@@ -91,7 +86,7 @@ export default {
       })
     })
 
-    return { readData, successMessage }
+    return { readData }
 
   }
 }
