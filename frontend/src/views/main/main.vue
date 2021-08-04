@@ -9,6 +9,7 @@
 </template>
 
 <style>
+
   @import "https://unpkg.com/element-plus/lib/theme-chalk/index.css";
   @import './main.css';
   @import '../../common/css/common.css';
@@ -16,10 +17,15 @@
 </style>
 
 <script>
+// for bootstrap 5
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
 import MainHeader from './components/main-header'
 import MainFooter from './components/main-footer'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+
+
 
 export default {
   name: 'main',
