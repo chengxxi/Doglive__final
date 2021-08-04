@@ -6,6 +6,9 @@
     <div>
       <el-button :plain="true" @click="readData">9번 보드 읽기</el-button>
     </div>
+    <div>
+      <el-button :plain="true" @click="goRegister">글 작성하기</el-button>
+    </div>
   </div>
 </template>
 
@@ -77,6 +80,10 @@ export default {
       });
     }
 
+    const goRegister = function(){
+      router.push({name : 'AdoptRegister'})
+    }
+
 
     onMounted(() => {
       console.log('breadcrumb')
@@ -87,7 +94,7 @@ export default {
       })
     })
 
-    return { readData }
+    return { readData, goRegister }
 
   }
 }

@@ -11,11 +11,11 @@
           </el-col>
           <el-col :span="12">
             <div class="dog-info-box" style="margin-right:50px;">
-
+<el-tag class="mb-1" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">{{state.board.boardType.name}}</el-tag>
               <div class="vertical-center row">
     <div class="col-md-9">
 <span :style="{'font-size':'30pt', 'font-weight':'700', }">{{state.board.title}}</span>
-                <el-tag class="m-3" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">임보</el-tag>
+
 
     </div>
     <div class="col-md-3 ms-auto">
@@ -50,7 +50,7 @@
                         <el-popover
                             placement="bottom"
                             width="200"
-                            trigger="click"
+                            trigger="hover"
                             >
                             <div class="content" >
 
@@ -342,7 +342,7 @@ export default {
           .then(function(result){
             console.log('deleteBookmark!!!!!!');
             store.commit('root/setIsbookmarked', false)
-            alert('관심지역이 해제되었습니다');
+            alert('북마크가 해제되었습니다');
           }).catch(function(err){
             console.log(err)
           });
@@ -355,7 +355,7 @@ export default {
           .then(function(result){
             console.log('insertBookmark!!!!!!');
             store.commit('root/setIsbookmarked', true)
-            alert('관심지역이 등록되었습니다');
+            alert('북마크가 등록되었습니다');
           }).catch(function(err){
             console.log(err)
           });
