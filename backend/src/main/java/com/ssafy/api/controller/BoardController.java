@@ -161,7 +161,7 @@ public class BoardController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "북마크가 정상적으로 등록되었습니다"));
     }
 
-    @DeleteMapping("/bookmark")
+    @DeleteMapping("/bookmark/{userId}/{boardId}")
     @ApiOperation(value = "게시글 북마크 삭제", notes = "게시글을 북마크에서 삭제한다.")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
@@ -169,8 +169,13 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> deleteBookmark(@RequestBody @ApiParam(value="북마크 정보", required = true) BookmarkReq bookmarkReq){
-        Bookmark bookmark = boardService.deleteBookmark(bookmarkReq);
+    public ResponseEntity<? extends BaseResponseBody> deleteBookmark(@PathVariable("boardId") String boardId, @PathVariable("userId") String userId){
+
+        BookmarkReq req = new BookmarkReq();
+        req.setBoardId(Long.parseLong(boardId));
+        req.setUserId(userId);
+
+        Bookmark bookmark = boardService.deleteBookmark(req);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "북마크가 정상적으로 삭제되었습니다"));
     }
