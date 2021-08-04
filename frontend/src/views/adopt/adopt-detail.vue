@@ -4,9 +4,9 @@
 
 
     <el-card class="box-card "  shadow="hover">
-      <el-row class="vertical-center" :gutter="20" >
+      <el-row class="vertical-center" :gutter="20" style="margin-top:35px;" >
 
-          <el-col :span="12">
+          <el-col :span="12" style="margin-left:50px;">
               <img class="dog-thumbnail" :src="require('@/assets/images/mbti_isfp.png')"/>
           </el-col>
           <el-col :span="12">
