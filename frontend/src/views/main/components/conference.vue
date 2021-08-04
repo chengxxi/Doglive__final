@@ -18,20 +18,17 @@
 		</el-card>
 	</div>
 
-	<div id="session" v-if="session" class="main-body">
-		<el-header id="session-header">
-			<h1 id="session-title">{{ mySessionId }}</h1>
-			<el-button type="button" id="buttonLeaveSession" @click="leaveSession">Leave Session</el-button>
-		</el-header>
-		<el-main id="video-container" width="60%">
-			<user-video :stream-manager="publisher"/>
-			<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
-		</el-main>
-		<el-aside width="30%">
-      채팅창!
-      <chat class="chat" :session="session" :stream-manager=''/>
-		</el-aside>
-	</div>
+	<el-row v-if="session" class="main-body">
+      <el-col id="video-container" width="70%">
+        <h1 id="session-title">{{ mySessionId }}</h1>
+        <el-button type="button" id="buttonLeaveSession" @click="leaveSession">Leave Session</el-button>
+        <user-video :stream-manager="publisher"/>
+        <user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
+      </el-col>
+      <el-col width="30%">
+        <conferenceChat class="chat" :session="session" :client-data="myUserName"/>
+      </el-col>
+	</el-row>
 </template>
 <style scoped>
 /* 페이지 만들 때, 이 구조가 기준이 됩니다! (양옆 여백 10%) */
@@ -78,7 +75,7 @@
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideo from '../../conferences/UserVideo.vue';
-import Chat from '../../conferences/chat.vue';
+import ConferenceChat from '../../conferences/conferenceChat.vue';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 const OPENVIDU_SERVER_URL = 'https://i5a501.p.ssafy.io';
@@ -86,7 +83,7 @@ const OPENVIDU_SERVER_SECRET = 'doglivedoggi';
 export default {
 	name: 'Conference',
 	components: {
-		UserVideo, Chat,
+		UserVideo, ConferenceChat,
 	},
 	data () {
 		return {

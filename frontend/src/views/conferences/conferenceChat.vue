@@ -1,7 +1,9 @@
 <template>
   <div class="chat-main">
-    <div v-for="chat in state.chatArray" :key="chat" class="chatlog">
-      {{chat}}
+    <div class="chatlog">
+      <div v-for="chat in state.chatArray" :key="chat">
+        {{chat}}
+      </div>
     </div>
     <el-input
       class='chatinput'
@@ -14,14 +16,14 @@
 
 <style scoped>
 .chatlog {
-  width: 50%;
+  width: 100%;
   height: 400px;
   background-color: white;
-  border: 3px solid pink;
+  border: 3px solid #755744;
   padding: 9px;
 }
 .chatinput {
-  width: 50%;
+  width: 100%;
   height: 15%;
   text-align: left;
   padding-left: 15px;
@@ -31,14 +33,14 @@
 <script>
 import { onBeforeMount, reactive } from 'vue';
 export default {
-  name: 'Chat',
+  name: 'ConferenceChat',
   props:{
-    session:Object
+    session:Object,
+    clientData: Object,
   },
   setup(props) {
     const state = reactive({
       session: undefined,
-      publisher: undefined,
       subscribers:[],
       myUserName: '',
       chatArray: [],
@@ -53,15 +55,19 @@ export default {
       state.session.on('signal:chatSend', (event) => {
         console.log('arrive chat')
         console.log(event.data)
-        console.log()
+        console.log('After arrive chat ')
+        state.chatArray.push(event.data)
       })
     })
 
     const sendMessage = function() {
       console.log('sendMessage > 사용자가 enter 쳤다')
       console.log(state.chatString)
+      state.myUserName = props.clientData
+      console.log(state.myUserName)
+      const msg = '[' + state.myUserName+'] > ' + state.chatString
       state.session.signal({
-        data:state.chatString,
+        data:msg,
         to:[],
         type: 'chatSend'
       })
