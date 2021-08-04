@@ -24,3 +24,8 @@ export function getBreadCrumbInfo(state) {
 export function getBoardDetail(state) {
   return state.board
 }
+
+//북마크 정보 가져오자
+export function getIsbookmarked(state) {
+  return state.board.isbookmarked
+}

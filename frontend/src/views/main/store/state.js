@@ -46,5 +46,6 @@ export default {
     readCount: {},
     fileList: [],
     isOwner: false,
+    isbookmarked : false,
   },
 }

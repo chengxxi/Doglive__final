@@ -2,35 +2,51 @@
   <div class="main-body main-padding">
     <bread-crumb></bread-crumb>
 
-    <p>{{state.board.title}}</p>
 
+    <el-card class="box-card "  shadow="hover">
+      <el-row class="vertical-center" :gutter="20" style="margin-top:35px;" >
 
-    <el-card class="box-card" shadow="hover">
-      <el-row :gutter="20">
-
-          <el-col :span="12">
-              <img class="dog-thumbnail" :style="{'max-width' : '100%'}" :src="require('@/assets/images/mbti_isfp.png')"/>
+          <el-col :span="12" style="margin-left:50px;">
+              <img class="dog-thumbnail" :src="require('@/assets/images/mbti_isfp.png')"/>
           </el-col>
           <el-col :span="12">
             <div class="dog-info-box" style="margin-right:50px;">
-              <div class="vertical-center">
-                <span :style="{'font-size':'30pt', 'font-weight':'700', }">김강쥐</span>
+
+              <div class="vertical-center row">
+    <div class="col-md-9">
+<span :style="{'font-size':'30pt', 'font-weight':'700', }">{{state.board.title}}</span>
                 <el-tag class="m-3" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">임보</el-tag>
-              </div>
-              <el-divider class="mt-4 mb-4"/>
+
+    </div>
+    <div class="col-md-3 ms-auto">
+
+<div class="align-self-center vertical-center" style="text-align: center;">
+ <font-awesome-icon
+                        :icon="[ state.board.isbookmarked  ? 'fas' : 'far', 'star']"
+                        @click="clickBookmark()"
+                        aria-hidden="true"
+                        style="color: rgb(255, 226, 95); font-size: 25px; cursor: pointer;"
+                        class=" scale-up-5"
+                      >
+                      </font-awesome-icon>
+
+
+                      <img @click="kakaoShare" style="margin-left:15px" src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png" width="40"/>
+                    </div>
+    </div>
+  </div>
+
+      <el-divider class="mt-4 mb-4"/>
 
             <el-descriptions class="margin-top mt-3" :column="1" :size="size">
-
-                <el-descriptions-item label="성별/중성화여부">암컷 / 중성화 O
-
-                </el-descriptions-item>
-                <el-descriptions-item label="연령" >Puppy(~6개월)</el-descriptions-item>
-                <el-descriptions-item label="무게" >소(8kg 미만)</el-descriptions-item>
-                <el-descriptions-item label="견종" >단모</el-descriptions-item>
-                <el-descriptions-item label="현재주소">경기도 의왕시</el-descriptions-item>
+                <el-descriptions-item label="성별/중성화여부">{{state.board.gender.name}} / {{state.board.neutralization ? '중성화 O' : '중성화 X'  }} </el-descriptions-item>
+                <el-descriptions-item label="연령" >{{state.board.ageType.name}}</el-descriptions-item>
+                <el-descriptions-item label="무게" >{{state.board.weight.name}}</el-descriptions-item>
+                <el-descriptions-item label="견종" >{{state.board.hairType.name}}</el-descriptions-item>
+                <el-descriptions-item label="현재위치">{{state.board.address}}</el-descriptions-item>
                 <el-descriptions-item label="MBTI" >
 
-                    <el-tag color="#E9CDA4" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">ISTP</el-tag>
+                    <el-tag color="#E9CDA4" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">{{state.board.mbti}}</el-tag>
                         <el-popover
                             placement="bottom"
                             width="200"
@@ -86,19 +102,16 @@
 <div class="mt-2">
 
 
-<el-divider/>
-
-  <el-tag color="#C4C4C4" class="m-3" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">활동적</el-tag>
-<el-tag color="#C4C4C4" class="m-3" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">유순한</el-tag>
-<el-tag color="#C4C4C4" class="m-3" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">독립적인</el-tag>
-<el-tag color="#C4C4C4" class="m-3"  effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">낯가리는</el-tag>
-
-
 </div>
               <el-divider class="mt-4 mb-5"/>
 
           <div >
-                <el-button :style="{'width':'100%'}">상담 신청</el-button>
+                <div v-if="!state.board.isOwner">
+                  <el-button :style="{'width':'100%'}">상담 신청</el-button>
+                </div>
+                <div v-if="state.board.isOwner">
+                  <el-button :style="{'width':'100%'}">공고 수정</el-button>
+                </div>
               </div>
 
 
@@ -109,7 +122,9 @@
 
 
       </el-row>
-
+  <div class="box">
+    {{state.board.description}}
+  </div>
       <el-divider/>
 
 
@@ -124,29 +139,7 @@
     </el-card>
 
 
-  <div class="box">
 
-      <h3>김강쥐를 소개합니다</h3>
-      <div class="content">
-               소개글입니다 소개글 어쩌고 🐶 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-      </div>
-
-
-    </div>
 
   </div>
 </template>
@@ -174,7 +167,7 @@ h3 {
 }
 
 .dog-thumbnail {
-  width: 100%;
+  width: 90%;
 	height: auto;
     margin-right : 20px;
   margin : 10px;
@@ -241,7 +234,9 @@ h3 {
 
 .box {
   margin-top : 30px;
-  margin-bottom : 30px;
+  margin-bottom : 40px;
+  margin-left:50px;
+  margin-right:50px;
   padding : 40px;
   background-color: #F9F0E7;
 }
@@ -266,14 +261,13 @@ h3 {
 
 
 <script>
-
+import $axios from 'axios'
 import BreadCrumb from './components/bread-crumb.vue'
 import { computed, reactive, onMounted } from 'vue';
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router';
 
 import Popper from "vue3-popper";
-
 
 export default {
   name : 'AdoptDetail',
@@ -283,6 +277,7 @@ export default {
   },
   data() {
     return {
+
         isPopoverVisible: false,
         popoverOptions: {
           animation: "scale-fade",
@@ -293,10 +288,14 @@ export default {
       }
   },
   setup(){
+      Kakao.init('2c046ed5f7ec0f72bdf74502a7ccb16c');
       const store = new useStore()
       const router = new useRouter()
 
       const state = reactive({
+        isBookmarked : computed(()=>{
+          return store.getters['root/getIsbookmarked']
+        }),
         board : computed(()=>{
           console.log(store.getters['root/getBoardDetail'])
           return store.getters['root/getBoardDetail']
@@ -305,6 +304,62 @@ export default {
 
       const goBack = function(){
         router.push({name : 'AdoptDetailTest'})
+      }
+
+      const kakaoShare = function(){
+
+        Kakao.Link.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: state.board.title,
+            description: state.board.description,
+            imageUrl:
+              'http://mud-kage.kakao.co.kr/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+            link: {
+              mobileWebUrl: window.location.href,
+              androidExecutionParams: 'test',
+            },
+          },
+          buttons: [
+            {
+              title: '독립으로 이동',
+              link: {
+                mobileWebUrl: 'https://developers.kakao.com',
+              },
+            },
+          ]
+        });
+      }
+
+
+      const clickBookmark = function(){
+        const isBookmarked = store.getters['root/getIsbookmarked'];
+
+        console.log('북마크 등록 ', isBookmarked);
+        if(isBookmarked){
+
+          $axios.delete('/api/v1/board/bookmark/'+store.getters['root/getLoginUserInfo'].userId+'/'+state.board.boardId)
+          .then(function(result){
+            console.log('deleteBookmark!!!!!!');
+            store.commit('root/setIsbookmarked', false)
+            alert('관심지역이 해제되었습니다');
+          }).catch(function(err){
+            console.log(err)
+          });
+
+        }else{
+          $axios.post('/api/v1/board/bookmark', {
+            userId : store.getters['root/getLoginUserInfo'].userId,
+            boardId : state.board.boardId
+          })
+          .then(function(result){
+            console.log('insertBookmark!!!!!!');
+            store.commit('root/setIsbookmarked', true)
+            alert('관심지역이 등록되었습니다');
+          }).catch(function(err){
+            console.log(err)
+          });
+        }
       }
 
       onMounted(() => {
@@ -319,7 +374,7 @@ export default {
       })
 
 
-      return { state, goBack }
+      return { state, goBack, clickBookmark , kakaoShare}
   }
 }
 </script>
