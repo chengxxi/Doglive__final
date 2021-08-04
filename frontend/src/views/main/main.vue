@@ -9,6 +9,7 @@
 </template>
 
 <style>
+
   @import "https://unpkg.com/element-plus/lib/theme-chalk/index.css";
   @import './main.css';
   @import '../../common/css/common.css';
@@ -16,14 +17,29 @@
 </style>
 
 <script>
+// for bootstrap 5
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
 import MainHeader from './components/main-header'
 import MainFooter from './components/main-footer'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'main',
   components: {
     MainHeader,
     MainFooter,
+  },
+  setup(){
+    const store = useStore()
+    const router = useRouter()
+
+    router.afterEach((to, from, next) => {
+      store.commit('root/setCurrentPath', to.path)
+      store.commit('root/setCurrentPathParam', to.query)
+      console.log(to)
+    })
   }
 }
 </script>

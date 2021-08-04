@@ -1,41 +1,37 @@
 <template>
-  <div class="main-body">
-      <div id="main-container" class="container">
-		<div id="join" v-if="!session">
-			<div id="img-div"><img src="resources/images/openvidu_grey_bg_transp_cropped.png" /></div>
-			<div id="join-dialog" class="jumbotron vertical-center">
-				<h1>Join a video session</h1>
-				<div class="form-group">
-					<p>
-						<label>Participant</label>
-						<input v-model="myUserName" class="form-control" type="text" required>
-					</p>
-					<p>
-						<label>Session</label>
-						<input v-model="mySessionId" class="form-control" type="text" required>
-					</p>
-					<p class="text-center">
-						<button class="btn btn-lg btn-success" @click="joinSession()">Join!</button>
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<div id="session" v-if="session">
-			<div id="session-header">
-				<h1 id="session-title">{{ mySessionId }}</h1>
-				<input class="btn btn-large btn-danger" type="button" id="buttonLeaveSession" @click="leaveSession" value="Leave session">
-			</div>
-			<div id="main-video" class="col-md-6">
-				<user-video :stream-manager="mainStreamManager"/>
-			</div>
-			<div id="video-container" class="col-md-6">
-				<user-video :stream-manager="publisher" @click.native="updateMainVideoStreamManager(publisher)"/>
-				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub" @click.native="updateMainVideoStreamManager(sub)"/>
-			</div>
-		</div>
+  <div id="join" v-if="!session" class="main-body">
+		<el-card class = "con-join-wrapper" >
+			<h1>Join a video session</h1>
+			<el-form>
+				<p>
+          <el-label>Participant</el-label>
+          <el-input v-model="myUserName" type="text" required/>
+				</p>
+				<p>
+					<el-label>Session</el-label>
+          <el-input v-model="mySessionId" type="text" required/>
+				</p>
+				<p class="text-center">
+					<el-button class="joinBtn" @click="joinSession()">Join!</el-button>
+				</p>
+			</el-form>
+		</el-card>
 	</div>
-  </div>
+
+	<div id="session" v-if="session" class="main-body">
+		<el-header id="session-header">
+			<h1 id="session-title">{{ mySessionId }}</h1>
+			<el-button type="button" id="buttonLeaveSession" @click="leaveSession">Leave Session</el-button>
+		</el-header>
+		<el-main id="video-container" width="60%">
+			<user-video :stream-manager="publisher"/>
+			<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
+		</el-main>
+		<el-aside width="30%">
+      채팅창!
+      <chat class="chat" :session="session" :stream-manager=''/>
+		</el-aside>
+	</div>
 </template>
 <style scoped>
 /* 페이지 만들 때, 이 구조가 기준이 됩니다! (양옆 여백 10%) */
@@ -46,34 +42,34 @@
   margin-right: 10%;
   margin: 0 auto;
 }
-.login-wrapper{
+.con-join-wrapper{
   width: 400px;
   height: 400px;
   margin: auto;
   text-align: center;
 }
-.login-wrapper .login-title{
+.con-join-wrapper .login-title{
   height: 20px;
   font-size: 1.125rem;
   font-weight: 600;
   padding-bottom: 10px;
   border-bottom: solid 1px rgb(212, 212, 212);;
 }
-.login-wrapper .login-content{
+.con-join-wrapper .login-content{
   height: calc(100% - 70px); /* el-card padding(40px) + login-title(30px) */
   padding-top: 2%;
 }
-.login-wrapper .button-group{
+.con-join-wrapper .button-group{
   width: 300px;
   padding-top: 25px;
   margin: 0 auto;
 }
-.login-wrapper .comment{
+.con-join-wrapper .comment{
   display: block;
   margin-bottom: 10px;
   /* text-align: left; */
 }
-.login-wrapper .loginBtn{
+.con-join-wrapper .joinBtn{
   cursor: pointer;
 }
 </style>
@@ -82,14 +78,15 @@
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideo from '../../conferences/UserVideo.vue';
+import Chat from '../../conferences/chat.vue';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-const OPENVIDU_SERVER_URL = "https://i5a501.p.ssafy.io";
-const OPENVIDU_SERVER_SECRET = "doglivedoggi";
+const OPENVIDU_SERVER_URL = 'https://i5a501.p.ssafy.io';
+const OPENVIDU_SERVER_SECRET = 'doglivedoggi';
 export default {
-	name: 'App',
+	name: 'Conference',
 	components: {
-		UserVideo,
+		UserVideo, Chat,
 	},
 	data () {
 		return {
@@ -162,10 +159,6 @@ export default {
 			this.subscribers = [];
 			this.OV = undefined;
 			window.removeEventListener('beforeunload', this.leaveSession);
-		},
-		updateMainVideoStreamManager (stream) {
-			if (this.mainStreamManager === stream) return;
-			this.mainStreamManager = stream;
 		},
 		/**
 		 * --------------------------
