@@ -18,6 +18,7 @@
     "bootstrap": "^5.0.2",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.44",
+    "element-ui": "^2.15.5",
     "flatted": "^3.2.2",
     "node-sass": "^6.0.0",
     "roboto-fontface": "*",
