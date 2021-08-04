@@ -23,6 +23,11 @@
         <el-col id="video-container" :span="16">
           <h1 id="session-title">{{ mySessionId }}</h1>
           <el-button type="button" id="buttonLeaveSession" @click="leaveSession">Leave Session</el-button>
+
+          <el-button v-if="videoEnabled" type="info" icon="el-icon-camera-solid" @click="turnCamera" ></el-button>
+          <el-button v-else type="danger" icon="el-icon-turn-off" @click="turnCamera" ></el-button>
+          <el-button v-if="audioEnabled" type="info" icon="el-icon-microphone" @click="turnAudio"></el-button>
+          <el-button v-else type="danger" icon="el-icon-turn-off-microphone" @click="turnAudio" ></el-button>
           <user-video :stream-manager="publisher"/>
           <user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
         </el-col>
@@ -105,6 +110,8 @@ export default {
 			subscribers: [],
 			mySessionId: 'SessionA',
 			myUserName: 'Participant' + Math.floor(Math.random() * 100),
+      videoEnabled: true,
+      audioEnabled: true,
 		}
 	},
 	methods: {
@@ -140,8 +147,8 @@ export default {
 						let publisher = this.OV.initPublisher(undefined, {
 							audioSource: undefined, // The source of audio. If undefined default microphone
 							videoSource: undefined, // The source of video. If undefined default webcam
-							publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
-							publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
+							publishAudio: this.audioEnabled,  	// Whether you want to start publishing with your audio unmuted or not
+							publishVideo: this.videoEnabled,  	// Whether you want to start publishing with your video enabled or not
 							resolution: '640x480',  // The resolution of your video
 							frameRate: 30,			// The frame rate of your video
 							insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
@@ -224,6 +231,26 @@ export default {
 					.catch(error => reject(error.response));
 			});
 		},
+
+    turnCamera() {
+      console.log('변경 전 > : '+ this.videoEnabled)
+      this.videoEnabled = !this.videoEnabled
+      console.log('변경 후 > : '+ this.videoEnabled)
+
+      console.log('카메라 상태 변경 버튼 클릭 > ')
+      this.publisher.publishVideo(this.videoEnabled);
+
+    },
+
+    turnAudio() {
+      console.log('변경 전 > : '+ this.audioEnabled)
+      this.audioEnabled = !this.audioEnabled
+      console.log('변경 후 > : '+ this.audioEnabled)
+
+      console.log('오디오 상태 변경 버튼 클릭 > ')
+      this.publisher.publishAudio(this.audioEnabled);
+
+    }
 	}
 }
 </script>
