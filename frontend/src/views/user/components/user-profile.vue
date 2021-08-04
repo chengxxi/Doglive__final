@@ -39,6 +39,11 @@
         </el-form>
         <div class="button-group">
           <el-button class="updateBtn" @click="updateProfile">수정하기</el-button>
+          <el-popconfirm title="정말로 탈퇴하시겠습니까?" @confirm="userDelete">
+            <template #reference>
+              <el-button type="danger">탈퇴하기</el-button>
+            </template>
+          </el-popconfirm>
         </div>
       </div>
     </div>
@@ -92,14 +97,23 @@
   border-color: #D7AEA4;
   font-weight: 600;
 }
+
 </style>
 
 <script>
-import { reactive } from 'vue';
+import $axios from 'axios';
+import { computed, reactive, watchEffect, ref } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import Cookies from 'universal-cookie';
 
 export default {
   name: 'user-profile',
   setup() {
+    const store = new useStore();
+    const router = new useRouter()
+    const cookies = new Cookies()
+
     const formData = reactive({
       nickname: '호두맘',
       email: 'ssafy@ssafy.com',
@@ -110,7 +124,32 @@ export default {
     const updateProfile = function(){
       console.log("프로필 업데이트")
     }
-    return { updateProfile, formData }
+    const userDelete = function(){
+      const userId = store.getters['root/getLoginUserInfo'].userId;
+      
+      $axios.delete('/api/v1/users/' + userId)
+      .then(function(result){
+        // Request Header에 cookie를 담아서 전송 ({withCredentials: true} 설정을 통해 Cookie를 헤더에 담아서 전송 가능.)
+        store.dispatch('root/requestKakaoLogout', {withCredentials: true})
+        .then(function(result){
+          alert("탈퇴가 완료 되었습니다.")
+          // cookie 삭제
+          cookies.remove('accessToken', { path : '/', sameSite : 'strict' })
+          cookies.remove('refreshToken', { path : '/', sameSite : 'strict' })
+          store.commit('root/setLoginUserInfo', null);
+          router.push({name : 'Main'})
+        })
+        .catch(function(err){
+          alert("탈퇴에 실패하였습니다.")
+          router.push({name : 'Main'})
+        })
+      }).catch(function(err){
+        alert("탈퇴에 실패하였습니다.")
+        console.log(err)
+      });
+    }
+    return { updateProfile, userDelete, formData }
   }
 }
 </script>
+

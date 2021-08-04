@@ -2,7 +2,7 @@
 
 // 현재 로그인 된 UserInfo 가져오기
 export function getLoginUserInfo(state) {
-  console.log(state.loginUserInfo)
+  console.log("state 내용 : " + state.loginUserInfo)
   return state.loginUserInfo
 }
 

@@ -2,6 +2,7 @@
 
 export function setLoginUserInfo (state, loginUserInfo) {
   state.loginUserInfo.userId = loginUserInfo;
+
 }
 
 export function setCurrentPath (state, currentPath) {

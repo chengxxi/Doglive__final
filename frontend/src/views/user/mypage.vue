@@ -20,12 +20,14 @@
 <script>
 import UserProfile from './components/user-profile.vue'
 import SideNavi from './components/user-side-navi.vue'
+import UserPost from './components/user-post-list.vue'
 
 export default {
   name: 'mypage',
   components: {
     SideNavi,
     UserProfile,
+
   },
   setup() {
 
