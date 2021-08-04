@@ -11,7 +11,7 @@
           </el-col>
           <el-col :span="12">
             <div class="dog-info-box" style="margin-right:50px;">
-<el-tag class="mb-2" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">{{state.board.boardType.name}}</el-tag>
+<el-tag class="mb-3" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">{{state.board.boardType.name}}</el-tag>
               <div class="vertical-center row">
     <div class="col-md-9">
 <span :style="{'font-size':'30pt', 'font-weight':'700', }">{{state.board.title}}</span>
@@ -46,7 +46,7 @@
                 <el-descriptions-item label="현재위치">{{state.board.address}}</el-descriptions-item>
                 <el-descriptions-item label="MBTI" >
 
-                    <el-tag color="#E9CDA4" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">{{state.board.mbti}}</el-tag>
+                    <el-tag color="#E9CDA4" effect="dark" style="font-weight:700; color: #606266;" :style="{'border' : 'none'}">{{state.board.mbti}}</el-tag>
                         <el-popover
                             placement="bottom"
                             width="200"
@@ -99,17 +99,14 @@
                 </el-descriptions-item>
 
               </el-descriptions>
-<div class="mt-2">
 
-
-</div>
-              <el-divider class="mt-4 mb-5"/>
+              <el-divider class="mb-3"/>
 
           <div >
-                <div v-if="!state.board.isOwner">
-                  <el-button class="m-2" style="width:100%; background : #755744;">상담 신청</el-button>
-                </div>
                 <div v-if="state.board.isOwner">
+                  <el-button style="width:100%; background : #755744;">상담 신청</el-button>
+                </div>
+                <div v-if="!state.board.isOwner">
                   <el-row>
                     <el-col :span="12"><el-button class="m-2" style="width:100%;   background : #755744;">공고 수정</el-button></el-col>
                     <el-col :span="12"><el-button class="m-2" style="width:100%;   background : #C4C4C4;">공고 삭제</el-button></el-col>
@@ -133,9 +130,12 @@
 
 
       <div class="dog-image-box">
-          <el-carousel :interval="4000" type="card" height="300px">
+          <el-carousel :interval="4000" type="card" height="500px">
             <el-carousel-item v-for="item in 6" :key="item">
-              <img src="{{item}}"/>
+              <img style="  width: 100%;
+	height: auto;
+
+" :src="require('@/assets/images/mbti_infj.png')"/>
             </el-carousel-item>
           </el-carousel>
       </div>
