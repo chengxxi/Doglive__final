@@ -29,8 +29,8 @@ public interface BoardService {
     /* Board로 BoardImage 찾기 */
     List<BoardImage> getBoardImagesByBoard(Board board);
 
-//    /* userId로 Board 목록 조회 */
-//    List<Board> getBoardListByUserId(String id);
+    /* userId로 Board 목록 조회 */
+    List<Board> getBoardListByUserId(String id);
 
     /* Board로 DogInformtaion 찾기 */
     DogInformation getDogInformationByBoard(Board board);
