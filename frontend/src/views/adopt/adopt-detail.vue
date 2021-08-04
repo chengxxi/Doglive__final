@@ -5,49 +5,99 @@
     <p>{{state.board.title}}</p>
 
 
-    <el-card class="box-card">
+    <el-card class="box-card" shadow="hover">
       <el-row :gutter="20">
 
           <el-col :span="12">
               <img class="dog-thumbnail" :style="{'max-width' : '100%'}" :src="require('@/assets/images/mbti_isfp.png')"/>
           </el-col>
           <el-col :span="12">
-            <div class="dog-info-box">
+            <div class="dog-info-box" style="margin-right:50px;">
               <div class="vertical-center">
                 <span :style="{'font-size':'30pt', 'font-weight':'700', }">김강쥐</span>
-                <el-tag class="m-3" color="#D7AEA4" effect="dark" size="large" :style="{'border' : 'none'}">임보</el-tag>
+                <el-tag class="m-3" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">임보</el-tag>
               </div>
+              <el-divider class="mt-4 mb-4"/>
 
-            <el-descriptions class="margin-top mt-3"  :column="1" :size="size">
+            <el-descriptions class="margin-top mt-3" :column="1" :size="size">
 
                 <el-descriptions-item label="성별/중성화여부">암컷 / 중성화 O
 
                 </el-descriptions-item>
                 <el-descriptions-item label="연령" >Puppy(~6개월)</el-descriptions-item>
-                <el-descriptions-item label="무게" >Puppy(~6개월)</el-descriptions-item>
-                <el-descriptions-item label="털색" >Puppy(~6개월)</el-descriptions-item>
+                <el-descriptions-item label="무게" >소(8kg 미만)</el-descriptions-item>
+                <el-descriptions-item label="견종" >단모</el-descriptions-item>
                 <el-descriptions-item label="현재주소">경기도 의왕시</el-descriptions-item>
                 <el-descriptions-item label="MBTI" >
 
-                    <el-tag color="#C4C4C4" effect="dark" size="small" :style="{'border' : 'none'}">ISTP</el-tag>
+                    <el-tag color="#E9CDA4" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">ISTP</el-tag>
                         <el-popover
                             placement="bottom"
-                            title="Title"
                             width="200"
                             trigger="click"
                             >
-                            dfsfasfsadf
+                            <div class="content" >
+
+                              <h3 style="font-weight:700;">강아지 MBTI 해석하기</h3>
+                             <hr>
+
+                              <table class="table table-borderless">
+<thead>
+    <tr style="text-align:center;">
+      <th scope="col"><h5 style="font-weight:700; color:#606266;">활동성향</h5></th>
+      <th scope="col"><h5 style="font-weight:700; color:#606266;">순종성향</h5></th>
+      <th scope="col"><h5 style="font-weight:700; color:#606266;">적응성향</h5></th>
+      <th scope="col"><h5 style="font-weight:700; color:#606266;">관계성향</h5></th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr>
+<td><el-tag class="m-3" color="#D7AFA4" effect="dark" size="large" :style="{'border' : 'none'}">E</el-tag>에너지 (E) Energetic
+</td>
+      <td><el-tag class="m-3" color="#E9CDA4" effect="dark" size="large" :style="{'border' : 'none'}">S</el-tag>충성심 강한 (S) Supportive
+                                  </td>
+      <td><el-tag class="m-3" color="#B4D9A7" effect="dark" size="large" :style="{'border' : 'none'}">P</el-tag>신중한 (P) Prudent
+                                  </td>
+      <td><el-tag class="m-3" color="#87CEDC" effect="dark" size="large" :style="{'border' : 'none'}">F</el-tag>관계지향  (F) Friendly
+                                 </td>
+    </tr>
+    <tr>
+<td><el-tag class="m-3" color="#FFFFFF" style="border: 3px solid #D7AFA4; color: #606266;" effect="dark" size="large" >I</el-tag>침착한 (I) Introversion
+                                  </td>
+      <td><el-tag class="m-3" color="#FFFFFF" style="border: 3px solid #E9CDA4; color: #606266;" effect="dark" size="large">N</el-tag>영리한 (N) Naughty
+</td>
+      <td><el-tag class="m-3" color="#FFFFFF" style="border: 3px solid #B4D9A7; color: #606266;" effect="dark" size="large">J</el-tag>친화적인 (J) Jolly
+</td>
+      <td><el-tag class="m-3" color="#FFFFFF" style="border: 3px solid #87CEDC; color: #606266;" effect="dark" size="large">T</el-tag>독립지향 (T) independenT
+</td>
+    </tr>
+  </tbody>
+</table>
+                            </div>
+
+
                             <template #reference>
-                              <i class="el-icon-question"/>
+                              <i class="el-icon-question" style="margin-left : 10px;"/>
                             </template>
                         </el-popover>
                 </el-descriptions-item>
 
               </el-descriptions>
+<div class="mt-2">
 
 
+<el-divider/>
 
-              <div class="mt-3">
+  <el-tag color="#C4C4C4" class="m-3" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">활동적</el-tag>
+<el-tag color="#C4C4C4" class="m-3" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">유순한</el-tag>
+<el-tag color="#C4C4C4" class="m-3" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">독립적인</el-tag>
+<el-tag color="#C4C4C4" class="m-3"  effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">낯가리는</el-tag>
+
+
+</div>
+              <el-divider class="mt-4 mb-5"/>
+
+          <div >
                 <el-button :style="{'width':'100%'}">상담 신청</el-button>
               </div>
 
@@ -60,7 +110,7 @@
 
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
 
       <div class="dog-image-box">
@@ -118,7 +168,6 @@ h3 {
 
 }
 
-
 :deep(.el-descriptions__title) {
     font-size: 30pt;
     font-weight: 700;
@@ -134,7 +183,7 @@ h3 {
 
 .dog-info-box{
   width:100%;
-  margin-right:20px;
+  margin-right:30px;
   margin:10px;
   padding-right:20px;
 }
@@ -142,11 +191,13 @@ h3 {
 :deep(.el-descriptions__label) {
   display: inline-block;
   width:150px;
+   font-weight:500;
 }
 
 
 :deep(.el-descriptions__content){
   display: inline-block;
+   font-weight:500;
 
 }
 :deep(.el-button){
