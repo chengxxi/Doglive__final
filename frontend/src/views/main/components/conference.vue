@@ -18,17 +18,21 @@
 		</el-card>
 	</div>
 
-	<el-row v-if="session" class="main-body">
-      <el-col id="video-container" width="70%">
-        <h1 id="session-title">{{ mySessionId }}</h1>
-        <el-button type="button" id="buttonLeaveSession" @click="leaveSession">Leave Session</el-button>
-        <user-video :stream-manager="publisher"/>
-        <user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
-      </el-col>
-      <el-col width="30%">
-        <conferenceChat class="chat" :session="session" :client-data="myUserName"/>
-      </el-col>
-	</el-row>
+  <div v-if="session" class="main-body">
+    <el-row class="main-body">
+        <el-col id="video-container" :span="16">
+          <h1 id="session-title">{{ mySessionId }}</h1>
+          <el-button type="button" id="buttonLeaveSession" @click="leaveSession">Leave Session</el-button>
+          <user-video :stream-manager="publisher"/>
+          <user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
+        </el-col>
+        <el-col :span="6" class= "con-col-wrapper">
+          <el-card class="con-chat-wrapper">
+            <conferenceChat class="chat" :session="session" :client-data="myUserName"/>
+          </el-card>
+        </el-col>
+    </el-row>
+  </div>
 </template>
 <style scoped>
 /* 페이지 만들 때, 이 구조가 기준이 됩니다! (양옆 여백 10%) */
@@ -38,6 +42,13 @@
   margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
   margin-right: 10%;
   margin: 0 auto;
+}
+.con-col-wrapper {
+  align-content: center;
+}
+.con-chat-wrapper{
+  align-content: center;
+  margin: auto;
 }
 .con-join-wrapper{
   width: 400px;

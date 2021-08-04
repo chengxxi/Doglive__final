@@ -8,7 +8,7 @@
     <el-input
       class='chatinput'
       type='text'
-      v-model='chatString'
+      v-model='state.chatString'
       @keyup.enter='sendMessage'
     />
   </div>
