@@ -18,42 +18,27 @@ public class QChatRoom extends EntityPathBase<ChatRoom> {
 
     private static final long serialVersionUID = 349544935L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QChatRoom chatRoom = new QChatRoom("chatRoom");
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final ListPath<ChatMessage, QChatMessage> chatMessages = this.<ChatMessage, QChatMessage>createList("chatMessages", ChatMessage.class, QChatMessage.class, PathInits.DIRECT2);
-
-    public final ListPath<ChatRoomJoin, QChatRoomJoin> chatRoomJoins = this.<ChatRoomJoin, QChatRoomJoin>createList("chatRoomJoins", ChatRoomJoin.class, QChatRoomJoin.class, PathInits.DIRECT2);
-
-    public final QConference conference;
-
-    public final NumberPath<Long> counselingId = createNumber("counselingId", Long.class);
-
     //inherited
     public final NumberPath<Long> id = _super.id;
 
+    public final ListPath<ChatMessage, QChatMessage> messages = this.<ChatMessage, QChatMessage>createList("messages", ChatMessage.class, QChatMessage.class, PathInits.DIRECT2);
+
+    public final StringPath name = createString("name");
+
     public QChatRoom(String variable) {
-        this(ChatRoom.class, forVariable(variable), INITS);
+        super(ChatRoom.class, forVariable(variable));
     }
 
     public QChatRoom(Path<? extends ChatRoom> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QChatRoom(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QChatRoom(PathMetadata metadata, PathInits inits) {
-        this(ChatRoom.class, metadata, inits);
-    }
-
-    public QChatRoom(Class<? extends ChatRoom> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.conference = inits.isInitialized("conference") ? new QConference(forProperty("conference"), inits.get("conference")) : null;
+        super(ChatRoom.class, metadata);
     }
 
 }

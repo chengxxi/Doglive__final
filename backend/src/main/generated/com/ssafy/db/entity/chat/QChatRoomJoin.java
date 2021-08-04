@@ -49,7 +49,7 @@ public class QChatRoomJoin extends EntityPathBase<ChatRoomJoin> {
 
     public QChatRoomJoin(Class<? extends ChatRoomJoin> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.roomId = inits.isInitialized("roomId") ? new QChatRoom(forProperty("roomId"), inits.get("roomId")) : null;
+        this.roomId = inits.isInitialized("roomId") ? new QChatRoom(forProperty("roomId")) : null;
     }
 
 }

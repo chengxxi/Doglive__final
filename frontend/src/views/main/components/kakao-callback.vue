@@ -9,7 +9,6 @@
 <script>
 import $axios from 'axios'
 import Cookies from 'universal-cookie'
-import safeJsonStringify from 'safe-json-stringify'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 

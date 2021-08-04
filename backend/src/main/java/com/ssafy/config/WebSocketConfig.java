@@ -29,4 +29,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.setApplicationDestinationPrefixes("/pub"); // 메시지 요청을 처리할 주소의 prefix (웹 소켓용)
         registry.enableSimpleBroker("/sub"); // 채팅방 구독 요청을 처리할 주소의 prefix (웹 소켓용)
     }
+
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        WebSocketMessageBrokerConfigurer.super.configureClientInboundChannel(registration);
+    }
 }

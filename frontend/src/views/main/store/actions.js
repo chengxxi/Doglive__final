@@ -20,3 +20,10 @@ export function requestKakaoLogout({ state }){
   const url = '/kakao/logout'
   return $axios.get(url)
 }
+
+// 채팅방 생성 요청
+export function createChatRoom({ state }, payload){
+  const url = '/chatroom'
+  let roomName = payload
+  return $axios.post(url, roomName)
+}
