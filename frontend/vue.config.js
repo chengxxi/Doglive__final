@@ -6,7 +6,7 @@ module.exports = {
     compress: true,
     disableHostCheck: true,
     https: false,
-    port: 8080,
+    port: 8081,
     open: true,
     proxy: {
       '/api/v1': {
