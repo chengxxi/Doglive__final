@@ -7,11 +7,11 @@
       <el-row class="vertical-center" :gutter="20" style="margin-top:35px;" >
 
           <el-col :span="12" style="margin-left:50px;">
-              <img class="dog-thumbnail" :src="require('@/assets/images/mbti_isfp.png')"/>
+              <img class="dog-thumbnail" :src="require('@/assets/images/banner1.png')"/>
           </el-col>
           <el-col :span="12">
             <div class="dog-info-box" style="margin-right:50px;">
-<el-tag class="mb-1" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">{{state.board.boardType.name}}</el-tag>
+<el-tag class="mb-2" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">{{state.board.boardType.name}}</el-tag>
               <div class="vertical-center row">
     <div class="col-md-9">
 <span :style="{'font-size':'30pt', 'font-weight':'700', }">{{state.board.title}}</span>
@@ -25,13 +25,13 @@
                         :icon="[ state.board.isbookmarked  ? 'fas' : 'far', 'star']"
                         @click="clickBookmark()"
                         aria-hidden="true"
-                        style="color: rgb(255, 226, 95); font-size: 25px; cursor: pointer;"
-                        class=" scale-up-5"
+                        style="color: rgb(255, 226, 95); font-size: 40px; cursor: pointer;"
+
                       >
                       </font-awesome-icon>
 
 
-                      <img @click="kakaoShare" style="margin-left:15px" src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png" width="40"/>
+                      <img @click="kakaoShare" style="margin-left:15px; cursor: pointer;" src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png" width="40"/>
                     </div>
     </div>
   </div>
@@ -93,7 +93,7 @@
 
 
                             <template #reference>
-                              <i class="el-icon-question" style="margin-left : 10px;"/>
+                              <i class="el-icon-question" style="margin-left : 10px; cursor: pointer;"/>
                             </template>
                         </el-popover>
                 </el-descriptions-item>
@@ -161,6 +161,10 @@ h3 {
 
 }
 
+:deep(.el-descriptions){
+  font-size:13pt;
+  font-weight:500;
+}
 :deep(.el-descriptions__title) {
     font-size: 30pt;
     font-weight: 700;
@@ -173,6 +177,8 @@ h3 {
   margin : 10px;
 
 }
+
+
 
 .dog-info-box{
   width:100%;
@@ -194,6 +200,7 @@ h3 {
 
 }
 :deep(.el-button){
+  font-size:15pt;
   font-family: NEXONLv1Gothic;
   font-weight: 700;
   background : #755744;

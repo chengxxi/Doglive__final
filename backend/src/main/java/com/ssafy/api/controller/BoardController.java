@@ -136,7 +136,7 @@ public class BoardController {
 
         String writer = userService.getUserName(board.getUserId());
         System.out.println(writer);
-        if(board.getUserId()==userId) isOwner = true;
+        if(board.getUserId().equals(userId)) isOwner = true;
         return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isOwner, writer, board, dogInformation, boardImages, boardComments));
     }
 
