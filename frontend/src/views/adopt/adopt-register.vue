@@ -2,15 +2,23 @@
 <div class="main-body main-padding">
     <bread-crumb></bread-crumb>
     <el-card class="box-card mt-5 mb-5 p-5"  shadow="hover">
-    <h5 class="mt-1 mb-3">강아지의 기본정보를 입력해주세요</h5>
+    <h5 class="mt-1 mb-3" style="font-weight:600">강아지의 기본정보를 입력해주세요</h5>
       <el-divider />
-    <el-form label-position="left"   :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-  <el-form-item label="제목" prop="name">
-    <el-input v-model="ruleForm.name"></el-input>
-  </el-form-item>
-    <el-form-item label="강아지 이름" prop="name">
-    <el-input v-model="ruleForm.name"></el-input>
-  </el-form-item>
+    <el-form label-position="left"   :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="제목" prop="name" >
+            <el-input v-model="ruleForm.name"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="강아지 이름" prop="name">
+            <el-input v-model="ruleForm.name"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+
   <el-form-item label="연령대" prop="region">
     <el-select v-model="ruleForm.region" placeholder="Puppy(~ 6개월)">
       <el-option label="Puppy(~ 6개월)" value="4"></el-option>
@@ -51,7 +59,7 @@
 
 
 
-  <h5 class="mb-3" style="margin-top:70px;">강아지의 성격을 소개해주세요</h5>
+  <h5 class="mb-3" style="margin-top:70px; font-weight:600">강아지의 성격을 소개해주세요</h5>
   <el-divider />
    <el-form-item label="활동성향" prop="resource">
     <el-radio-group v-model="ruleForm.resource">
@@ -62,7 +70,7 @@
                 >
                    <h6 style="font-weight:600">에너지 Energetic</h6>활동적, 즉흥적인
                 <template #reference>
-                  <el-radio label="에너지있는"></el-radio>
+                  <el-radio-button label="에너지있는"></el-radio-button>
                 </template>
               </el-popover>
 <el-popover
@@ -72,21 +80,21 @@
                 >
                    <h6  style="font-weight:600">침착한 Introversion</h6>차분한, 일관적인
                 <template #reference>
-                  <el-radio label="침착한"></el-radio>
+                  <el-radio-button label="침착한"></el-radio-button>
                 </template>
               </el-popover>
     </el-radio-group>
   </el-form-item>
-  <el-form-item label="활동성향" prop="resource">
+  <el-form-item label="순종성향" prop="resource">
     <el-radio-group v-model="ruleForm.resource">
       <el-popover
                 placement="bottom"
                 width="200"
                 trigger="hover"
                 >
-                   <h6 style="font-weight:600">에너지 Energetic</h6>활동적, 즉흥적인
+                   <h6 style="font-weight:600">충성심 강한 Supportive</h6>유순한, 성실한
                 <template #reference>
-                  <el-radio label="에너지있는"></el-radio>
+                  <el-radio-button label="충성심 강한"></el-radio-button>
                 </template>
               </el-popover>
 <el-popover
@@ -94,23 +102,23 @@
                 width="200"
                 trigger="hover"
                 >
-                   <h6  style="font-weight:600">침착한 Introversion</h6>차분한, 일관적인
+                   <h6  style="font-weight:600">영리한 Naughty</h6>재치한, 똑똑한
                 <template #reference>
-                  <el-radio label="침착한"></el-radio>
+                  <el-radio-button label="영리한"></el-radio-button>
                 </template>
               </el-popover>
     </el-radio-group>
   </el-form-item>
-  <el-form-item label="활동성향" prop="resource">
+  <el-form-item label="관계성향" prop="resource">
     <el-radio-group v-model="ruleForm.resource">
       <el-popover
                 placement="bottom"
                 width="200"
                 trigger="hover"
                 >
-                   <h6 style="font-weight:600">에너지 Energetic</h6>활동적, 즉흥적인
+                   <h6 style="font-weight:600">관계지향 Friendly</h6>반려인 바라기
                 <template #reference>
-                  <el-radio label="에너지있는"></el-radio>
+                  <el-radio-button label="의존적인"></el-radio-button>
                 </template>
               </el-popover>
 <el-popover
@@ -118,24 +126,24 @@
                 width="200"
                 trigger="hover"
                 >
-                   <h6  style="font-weight:600">침착한 Introversion</h6>차분한, 일관적인
+                   <h6  style="font-weight:600">독립지향 independenT</h6>스스로 행동하는
                 <template #reference>
-                  <el-radio label="침착한"></el-radio>
+                  <el-radio-button label="독립적인"></el-radio-button>
                 </template>
               </el-popover>
     </el-radio-group>
   </el-form-item>
-  <el-form-item label="활동성향" prop="resource">
+  <el-form-item label="적응성향" prop="resource">
     <el-radio-group v-model="ruleForm.resource">
       <el-popover
                 placement="bottom"
                 width="200"
                 trigger="hover"
                 >
-                   <h6 style="font-weight:600">에너지 Energetic</h6>활동적, 즉흥적인
+                  <h6 style="font-weight:600">신중한 Prudent</h6>낯가리는, 조심스러운
 
                 <template #reference>
-                  <el-radio label="에너지있는"></el-radio>
+                  <el-radio-button label="낯가리는"></el-radio-button>
                 </template>
               </el-popover>
 <el-popover
@@ -143,18 +151,16 @@
                 width="200"
                 trigger="hover"
                 >
-                   <h6  style="font-weight:600">침착한 Introversion</h6>차분한, 일관적인
+                  <h6 style="font-weight:600">친화적인 Jolly</h6>모든 것에 호기심 가득한
                 <template #reference>
-                  <el-radio label="침착한"></el-radio>
+                  <el-radio-button label="친화적인"></el-radio-button>
 <i class="el-icon-question"/>
                 </template>
               </el-popover>
     </el-radio-group>
   </el-form-item>
-  <el-form-item>
-    <el-button type="primary" @click="submitForm('ruleForm')">작성</el-button>
+<el-button type="primary" @click="submitForm('ruleForm')">작성</el-button>
     <el-button @click="resetForm('ruleForm')">초기화</el-button>
-  </el-form-item>
 </el-form>
     </el-card>
 </div>
@@ -259,4 +265,9 @@ export default {
 </script>
 
 <style scoped>
+
+:deep(.el-form-item__label){
+  font-size:12pt;
+  font-weight:500;
+}
 </style>
