@@ -39,13 +39,13 @@ export default {
     // 웹 소켓 통신 Connect
     const connect = function(){
       const url = "http://localhost:8080/chat-server"
-      socket = new SockJS(url, { transports: ['websocket']})
+      socket = new SockJS(url, { transports: ['websocket', 'xhr-streaming', 'xhr-polling']})
       client = Stomp.over(socket)
 
       console.log("소켓 연결을 시도합니다.")
       console.log(socket)
       console.log(client)
-      client.connect({}
+      client.connect({withCredentials : true}
       ,frame => {
         console.log("연결 성공 : ", frame)
       }
@@ -54,7 +54,6 @@ export default {
       })
     }
 
-    // 소켓통신 요청
     connect()
 
     return {}
