@@ -3,6 +3,7 @@
 </template>
 
 <script>
+
 import Main from './views/main/main.vue'
 
 export default {
