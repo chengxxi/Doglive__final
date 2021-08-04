@@ -1,7 +1,7 @@
 <template>
   <div class="main-body main-padding">
     <side-navi></side-navi>
-    <user-profile></user-profile>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -21,13 +21,15 @@
 import UserProfile from './components/user-profile.vue'
 import SideNavi from './components/user-side-navi.vue'
 import UserPost from './components/user-post-list.vue'
+import Bookmark from './components/user-bookmark.vue'
 
 export default {
   name: 'mypage',
   components: {
     SideNavi,
     UserProfile,
-
+    UserPost,
+    Bookmark
   },
   setup() {
 

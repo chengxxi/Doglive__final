@@ -1,5 +1,6 @@
 // 비동기 API
 import $axios from 'axios'
+import { getLoginUserInfo } from './getters'
 
 // Kakao 서버로 받은 code로 AccessToken 가져오기
 export function requestAccessToken({ state }, payload){
@@ -19,4 +20,13 @@ export function requestUserInfo({ state }, payload){
 export function requestKakaoLogout({ state }){
   const url = '/kakao/logout'
   return $axios.get(url)
+}
+
+export function requestBookmarkList({ state },payload){
+  const userId = getLoginUserInfo.userId;
+  const url = '/api/v1/users/bookmark/' + userId;
+  let body = payload;
+  console.log(body);
+  return $axios.get(url)
+
 }

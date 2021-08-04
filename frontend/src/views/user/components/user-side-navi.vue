@@ -77,7 +77,7 @@ export default {
 
   setup() {
     const store = new useStore();
-
+    const router = new useRouter();
     const state = reactive({
       // showContent : false,
       userInfo: computed(()=> {
