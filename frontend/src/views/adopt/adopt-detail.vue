@@ -14,23 +14,21 @@
           <el-col :span="12">
             <div class="dog-info-box" style="margin-right:50px;">
               <div class="vertical-center">
-                <span :style="{'font-size':'30pt', 'font-weight':'700', }">김강쥐</span>
+                <span :style="{'font-size':'30pt', 'font-weight':'700', }">{{state.board.title}}</span>
                 <el-tag class="m-3" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">임보</el-tag>
               </div>
               <el-divider class="mt-4 mb-4"/>
 
             <el-descriptions class="margin-top mt-3" :column="1" :size="size">
 
-                <el-descriptions-item label="성별/중성화여부">암컷 / 중성화 O
-
-                </el-descriptions-item>
-                <el-descriptions-item label="연령" >Puppy(~6개월)</el-descriptions-item>
-                <el-descriptions-item label="무게" >소(8kg 미만)</el-descriptions-item>
-                <el-descriptions-item label="견종" >단모</el-descriptions-item>
-                <el-descriptions-item label="현재주소">경기도 의왕시</el-descriptions-item>
+                <el-descriptions-item label="성별/중성화여부">{{state.board.gender.name}} / {{state.board.neutralization.name}}</el-descriptions-item>
+                <el-descriptions-item label="연령" >{{state.board.ageType.name}}</el-descriptions-item>
+                <el-descriptions-item label="무게" >{{state.board.weight.name}}</el-descriptions-item>
+                <el-descriptions-item label="견종" >{{state.board.hairType.name}}</el-descriptions-item>
+                <el-descriptions-item label="현재주소">{{state.board.address}}</el-descriptions-item>
                 <el-descriptions-item label="MBTI" >
 
-                    <el-tag color="#E9CDA4" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">ISTP</el-tag>
+                    <el-tag color="#E9CDA4" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">{{state.board.mbti}}</el-tag>
                         <el-popover
                             placement="bottom"
                             width="200"
@@ -86,14 +84,6 @@
 <div class="mt-2">
 
 
-<el-divider/>
-
-  <el-tag color="#C4C4C4" class="m-3" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">활동적</el-tag>
-<el-tag color="#C4C4C4" class="m-3" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">유순한</el-tag>
-<el-tag color="#C4C4C4" class="m-3" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">독립적인</el-tag>
-<el-tag color="#C4C4C4" class="m-3"  effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">낯가리는</el-tag>
-
-
 </div>
               <el-divider class="mt-4 mb-5"/>
 
@@ -128,21 +118,7 @@
 
       <h3>김강쥐를 소개합니다</h3>
       <div class="content">
-               소개글입니다 소개글 어쩌고 🐶 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
-       어ㅓ쩌꺼 조조저쩌쩌구 저쩌ㅉ꾸 저저ㅉ꾸 <br>
+              {{state.board.description}}
       </div>
 
 
