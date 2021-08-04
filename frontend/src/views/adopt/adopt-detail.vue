@@ -107,10 +107,14 @@
 
           <div >
                 <div v-if="!state.board.isOwner">
-                  <el-button :style="{'width':'100%'}">상담 신청</el-button>
+                  <el-button class="m-2" style="width:100%; background : #755744;">상담 신청</el-button>
                 </div>
                 <div v-if="state.board.isOwner">
-                  <el-button :style="{'width':'100%'}">공고 수정</el-button>
+                  <el-row>
+                    <el-col :span="12"><el-button class="m-2" style="width:100%;   background : #755744;">공고 수정</el-button></el-col>
+                    <el-col :span="12"><el-button class="m-2" style="width:100%;   background : #C4C4C4;">공고 삭제</el-button></el-col>
+                  </el-row>
+
                 </div>
               </div>
 
@@ -203,7 +207,6 @@ h3 {
   font-size:15pt;
   font-family: NEXONLv1Gothic;
   font-weight: 700;
-  background : #755744;
   color : #F9F0E7;
 
 }
