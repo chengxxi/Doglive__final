@@ -77,6 +77,7 @@ const routes = [
       },
     ]
   },
+  {
     path: '/adopt',
     name: 'Adopt',
     component: Adopt
@@ -96,6 +97,7 @@ const routes = [
     name: 'AdoptRegister',
     component : AdoptRegister
   }
+
 ]
 
 const router = createRouter({
