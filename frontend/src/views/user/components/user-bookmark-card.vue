@@ -12,7 +12,7 @@
                         @click="clickBookmark()"
                         aria-hidden="true"
                         style="color: rgb(255, 226, 95); font-size: 25px; cursor: pointer;"
-                        class=" scale-up-5"
+                        class="scale-up-5"
                       >
                 </font-awesome-icon>
             </div>
@@ -48,8 +48,12 @@
     display: block;
   }
   .title{
-      display: inline-block;
-      margin :auto;
+      display: flex;
+     justify-content: space-between;
+  }
+  .scale-up-5{
+      margin-top : 5px;
+
   }
 
 

@@ -31,6 +31,7 @@ const routes = [
   },
   {
     path: '/mypage',
+    redirect : '/mypage/profile',
     name: 'Mypage',
     component: Mypage,
     children: [
