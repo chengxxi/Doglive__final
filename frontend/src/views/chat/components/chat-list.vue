@@ -1,27 +1,26 @@
 <template>
   <table :style="{width : 300, height: 500}" v-for="(item, index) in state.roomList" :key="index">
     <tr>
-      <th>채팅방 이름</th>
-    </tr>
-    <tr>
       <td>{{ item.name }}</td>
       <td><button @click="enterRoom(item.id)">입장</button></td>
     </tr>
   </table>
   <div :style="{width: 500, height: 500, margin: auto}">
-    <button @click="createRoom">채팅방생성</button>
+    <el-button type="text" @click="open">채팅방생성</el-button>
   </div>
 </template>
 
 <style scoped>
+@import url("//unpkg.com/element-ui@2.15.5/lib/theme-chalk/index.css");
 </style>
 
 <script>
 import { reactive } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-
+import { ElMessage, ElMessageBox } from 'element-plus'
 export default {
+
   name: 'chat-list',
   setup () {
     const store = useStore()
@@ -30,8 +29,8 @@ export default {
       roomList: [],
     })
 
-    const createRoom = function(){
-      store.dispatch('root/createChatRoom', "chat1")
+    const createRoom = function(value){
+      store.dispatch('root/createChatRoom', value)
       .then(function(result){
         console.log("채팅방 생성완료!")
       })
@@ -45,6 +44,24 @@ export default {
       router.push({name: 'chat-detail', params: {roomId : id}})
     }
 
+    const open = function(){
+      ElMessageBox.prompt('Please input your e-mail', 'Tip', {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+      }).then(({value}) => {
+        createRoom(value) // 채팅방 생성
+        ElMessage({
+          type:'success',
+          message: '채팅방 이름 : ' + value
+        })
+      }).catch(()=>{
+        ElMessage({
+          type:'info',
+          message: '채팅방 생성되지 않았습니다.'
+        })
+      })
+    }
+
     store.dispatch('root/requestChatRoomList')
     .then(function(result){
       console.log(result.data)
@@ -53,7 +70,7 @@ export default {
     .catch(function(err){
       console.log(err)
     })
-    return { state, createRoom, enterRoom }
+    return { state, createRoom, enterRoom, open }
   }
 }
 </script>

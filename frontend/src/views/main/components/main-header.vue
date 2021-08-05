@@ -40,7 +40,6 @@
                 </ul>
             </li>
             <li>
-              <a href="#" v-if="isCookie">안녕하세요</a>
               <!-- User 아이콘에 마우스 hover했을 때 나올 popover 정의 -->
               <el-popover
                 placement="bottom"
