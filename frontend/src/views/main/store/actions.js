@@ -23,10 +23,8 @@ export function requestKakaoLogout({ state }){
 }
 
 export function requestBookmarkList({ state },payload){
-  const userId = getLoginUserInfo.userId;
-  const url = '/api/v1/users/bookmark/' + userId;
+  const url = '/api/v1/users/bookmark/' + payload;
   let body = payload;
   console.log(body);
   return $axios.get(url)
-
 }

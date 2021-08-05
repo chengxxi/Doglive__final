@@ -5,14 +5,7 @@
           <h3>북마크</h3>
         </div>
         <div class="mypage-content">
-          <el-table :data="tableData" height="250" style="width: 100%">
-            <el-table-column prop="date" label="Date" width="180">
-            </el-table-column>
-            <el-table-column prop="userId" label="UserId" width="120">
-            </el-table-column>
-            <el-table-column prop="title" label="Title">
-            </el-table-column>
-          </el-table>
+          <bookmark-card :card="state.tableData"></bookmark-card>
         </div>
       </div>
     </div>
@@ -39,18 +32,36 @@
 
 <script>
 import $axios from 'axios';
+import { computed, reactive, onMounted } from 'vue';
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router';
+import BookmarkCard from './user-bookmark-card.vue'
 
 export default {
   name: 'user-bookmark',
+  components:{
+    BookmarkCard,
+  },
+  
   setup() {
-    return {
-        tableData: [{
-          date: '2016-05-03',
-          userId: 'Tom',
-          title: 'No. 189, Grove St, Los Angeles'
-        }]
-      }
+    const store = new useStore()
+    const router = new useRouter()
+    const state = reactive({
+     tableData : [],
+    })
 
+    const userId = store.getters['root/getLoginUserInfo'].userId;
+
+    store.dispatch('root/requestBookmarkList', userId)
+      .then(function(result){
+        console.log("check : " + result)
+        state.tableData = result.data.boardList;
+      }).catch(function(err){
+        console.log(err)
+      });
+
+    return { state }
+   
   }
 }
 </script>
