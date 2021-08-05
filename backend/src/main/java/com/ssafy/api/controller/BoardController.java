@@ -31,7 +31,7 @@ import java.util.List;
 @CrossOrigin(origins={"*"}, maxAge=6000)
 @Api(value = "유기동물 정보 게시판 API", tags = {"Board"})
 @RestController
-@RequestMapping("/board")
+@RequestMapping("/api/v1/board")
 public class BoardController {
 
     @Autowired

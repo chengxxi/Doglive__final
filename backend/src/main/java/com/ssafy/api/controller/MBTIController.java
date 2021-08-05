@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins={"*"}, maxAge=6000)
 @Api(value = "유기견 MBTI Test API", tags = {"Board"})
 @RestController
-@RequestMapping("/mbti")
+@RequestMapping("/api/v1/mbti")
 public class MBTIController {
 
     //MBTI Test별 결과값을 저장해 놓을 DB가 필요하넹

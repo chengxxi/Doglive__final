@@ -27,7 +27,7 @@ import static java.util.Objects.isNull;
 @CrossOrigin(origins={"*"}, maxAge=6000)
 @Api(value = "카카오 API", tags = {"Kakao"})
 @RestController
-@RequestMapping("/kakao")
+@RequestMapping("/api/v1/kakao")
 public class KakaoController {
     @Autowired
     private KakaoAPI kakaoAPI;

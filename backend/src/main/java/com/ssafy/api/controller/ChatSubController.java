@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/chatroom")
+@RequestMapping("/api/v1/chatroom")
 public class ChatSubController {
 
     @Autowired
