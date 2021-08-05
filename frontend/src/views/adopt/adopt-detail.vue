@@ -305,7 +305,8 @@ export default {
       }
   },
   setup(){
-      Kakao.init('2c046ed5f7ec0f72bdf74502a7ccb16c');
+    if(!Kakao.isInitialized()){
+      Kakao.init('2c046ed5f7ec0f72bdf74502a7ccb16c');}
       const store = new useStore()
       const router = new useRouter()
 
