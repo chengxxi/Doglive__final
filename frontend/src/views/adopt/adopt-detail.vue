@@ -108,10 +108,10 @@
               <el-divider class="mb-3"/>
 
           <div >
-                <div v-if="state.board.isOwner">
+                <div v-if="!state.board.isOwner">
                   <el-button style="width:100%; background : #755744;">상담 신청</el-button>
                 </div>
-                <div v-if="!state.board.isOwner">
+                <div v-if="state.board.isOwner">
                   <el-row>
                     <el-col :span="12"><el-button class="m-2" style="width:100%;   background : #755744;">공고 수정</el-button></el-col>
                     <el-col :span="12"><el-button class="m-2" style="width:100%;   background : #C4C4C4;">공고 삭제</el-button></el-col>
@@ -310,6 +310,9 @@ export default {
       const router = new useRouter()
 
       const state = reactive({
+        userId : computed(()=>{
+           return store.getters['root/getLoginUserInfo'].userId
+        }),
         isBookmarked : computed(()=>{
           return store.getters['root/getIsbookmarked']
         }),
@@ -352,7 +355,12 @@ export default {
       const clickBookmark = function(){
         const isBookmarked = store.getters['root/getIsbookmarked'];
 
-        console.log('북마크 등록 ', isBookmarked);
+        if(state.userId===null) {
+          alert("로그인을 진행해주세요!")
+        router.push({ name : 'Login'})
+        }
+        else{
+          console.log('북마크 등록 ', isBookmarked);
         if(isBookmarked){
 
           $axios.delete('/board/bookmark/'+store.getters['root/getLoginUserInfo'].userId+'/'+state.board.boardId)
@@ -377,6 +385,8 @@ export default {
             console.log(err)
           });
         }
+        }
+
       }
 
       onMounted(() => {
