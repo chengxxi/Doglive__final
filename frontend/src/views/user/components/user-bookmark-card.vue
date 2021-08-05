@@ -83,7 +83,7 @@ export default {
       card :{
           type: String
       }
- 
+
   },
   setup () {
       Kakao.init('2c046ed5f7ec0f72bdf74502a7ccb16c');
@@ -106,7 +106,7 @@ export default {
         console.log('북마크 등록 ', isBookmarked);
         if(isBookmarked){
 
-          $axios.delete('/api/v1/board/bookmark/'+store.getters['root/getLoginUserInfo'].userId+'/'+state.board.boardId)
+          $axios.delete('/board/bookmark/'+store.getters['root/getLoginUserInfo'].userId+'/'+state.board.boardId)
           .then(function(result){
             console.log('deleteBookmark!!!!!!');
             store.commit('root/setIsbookmarked', false)
@@ -116,7 +116,7 @@ export default {
           });
 
         }else{
-          $axios.post('/api/v1/board/bookmark', {
+          $axios.post('/board/bookmark', {
             userId : store.getters['root/getLoginUserInfo'].userId,
             boardId : state.board.boardId
           })

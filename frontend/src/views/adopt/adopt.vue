@@ -2,7 +2,13 @@
   <div class="main-body main-padding">
     <h1 class="title">입양하기 게시물</h1>
     <p>입양을 기다리는 아이들</p> <!-- 상세 문구 수정 필요 -->
+<div>
+      <el-button :plain="true" @click="readData">13번 보드 읽기</el-button>
+    </div>
 
+    <div>
+      <el-button :plain="true" @click="goRegister">글 작성하기</el-button>
+    </div>
     <el-space wrap>
       <!-- 입양 공고 Filter -->
       <AdoptFilter/>
@@ -79,6 +85,11 @@ import AdoptFilter from './components/adopt-filter.vue'
 import AdoptList from './components/adopt-list.vue'
 
 import { defineComponent, ref } from 'vue';
+import $axios from 'axios'
+
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { onMounted } from 'vue';
 
 
 export default {
@@ -92,9 +103,63 @@ export default {
     const dialogVisible = ref(false);
     const dialogVisible2 = ref(false);
 
+const store = new useStore()
+    const router = new useRouter()
+
+    const readData = function() {
+
+      const userid = store.getters['root/getLoginUserInfo'].userId
+
+      $axios.get('/board/13/'+userid)
+      .then(function(result){
+        console.log(result)
+
+        const boardDetail = {
+          boardId : result.data.board.id,
+          boardType : result.data.board.type,
+          thumbnailUrl : result.data.board.thumbnailUrl,
+          title : result.data.board.title,
+          address : result.data.dogInformation.address,
+          mbti : result.data.dogInformation.mbti,
+          colorType : result.data.dogInformation.colorType,
+          gender : result.data.dogInformation.gender,
+          hairType : result.data.dogInformation.hairType,
+          neutralization : result.data.dogInformation.neutralization,
+          writer : result.data.writer,
+          weight : result.data.dogInformation.weight,
+          ageType : result.data.dogInformation.ageType,
+          regDate : result.data.board.regDate,
+          fileList : result.data.boardImageList,
+          isOwner : result.data.owner,
+          description : result.data.dogInformation.description
+        }
+
+        store.commit('root/setBoardDetail', boardDetail)
+
+        router.push({name : 'AdoptDetail'})
+
+      }).catch(function(err){
+        console.log(err)
+      });
+    }
+
+    const goRegister = function(){
+      router.push({name : 'AdoptRegister'})
+    }
+
+
+    onMounted(() => {
+      console.log('breadcrumb')
+      store.commit('root/setBreadcrumbInfo', {
+        isHome : false,
+        title: 'Adopt',
+        subTitle: '입양 공고 목록'
+      })
+    })
+
     return {
       dialogVisible,
-      dialogVisible2
+      dialogVisible2,readData, goRegister
     }
   },
 

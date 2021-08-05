@@ -1,40 +1,36 @@
 <template>
   <div>
-    <main class="content">
-      <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/' }"><font-awesome-icon :icon="['fas', 'home']"/></el-breadcrumb-item>
-        <el-breadcrumb-item>{{ state.breadCrumbInfo.title }}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{ state.breadCrumbInfo.subTitle }}</el-breadcrumb-item>
-      </el-breadcrumb>
-  </main>
+  <!-- <el-row> -->
+
+    <AdoptCard />
+      <!-- v-for="(card, idx) in cards"
+      :key="idx"
+      :card="card"
+    /> -->
+
+  <!-- </el-row> -->
+
+
   </div>
 </template>
 
+
+
+<style scoped>
+
+
+</style>
+
+
+
 <script>
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-import { computed, reactive } from 'vue';
+import AdoptCard from "@/views/adopt/components/adopt-card";
 
 export default {
-  name : 'BreadCrumb',
-  setup(){
-      const store = new useStore()
-      const router = new useRouter()
+  name: 'adopt-list',
+  components: { AdoptCard },
+  setup () {
 
-
-      const state = reactive({
-        breadCrumbInfo : computed(()=>{
-          console.log(store.getters['root/getBreadCrumbInfo'])
-          return store.getters['root/getBreadCrumbInfo']
-        })
-      })
-
-      return {state}
   }
 }
 </script>
-
-
-<style>
-
-</style>

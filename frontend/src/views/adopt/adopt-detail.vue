@@ -7,7 +7,7 @@
       <el-row class="vertical-center" :gutter="20" style="margin-top:35px;" >
 
           <el-col :span="12" style="margin-left:50px;">
-              <img class="dog-thumbnail" :src="require('@/assets/images/banner1.png')"/>
+              <img class="dog-thumbnail" :src="require('@/assets/images/mbti_isfp.png')"/>
           </el-col>
           <el-col :span="12">
             <div class="dog-info-box" style="margin-right:50px;">
@@ -150,6 +150,7 @@
 
 
 <style scoped>
+
 .main-body{
   width: 100%;
   margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
@@ -349,7 +350,7 @@ export default {
         console.log('북마크 등록 ', isBookmarked);
         if(isBookmarked){
 
-          $axios.delete('/api/v1/board/bookmark/'+store.getters['root/getLoginUserInfo'].userId+'/'+state.board.boardId)
+          $axios.delete('/board/bookmark/'+store.getters['root/getLoginUserInfo'].userId+'/'+state.board.boardId)
           .then(function(result){
             console.log('deleteBookmark!!!!!!');
             store.commit('root/setIsbookmarked', false)
@@ -359,7 +360,7 @@ export default {
           });
 
         }else{
-          $axios.post('/api/v1/board/bookmark', {
+          $axios.post('/board/bookmark', {
             userId : store.getters['root/getLoginUserInfo'].userId,
             boardId : state.board.boardId
           })
