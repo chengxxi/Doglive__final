@@ -7,6 +7,8 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+
 
 import java.nio.charset.Charset;
 
@@ -29,4 +31,5 @@ public class GroupCallApplication {
         characterEncodingFilter.setForceEncoding(true);
         return characterEncodingFilter;
     }
+
 }

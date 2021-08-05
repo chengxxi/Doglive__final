@@ -13,7 +13,7 @@
               <a href="#" @mouseover="changeDisplay('over')">독립</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
                     <li><a href="#">About 독립</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="/conference">Contact</a></li>
                 </ul>
             </li>
             <li>

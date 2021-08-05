@@ -1,5 +1,8 @@
 package com.ssafy.db.entity.community;
 
+import com.ssafy.db.entity.auth.UserProfile;
+import com.ssafy.db.entity.community.CommunityComment;
+import com.ssafy.db.entity.community.CommunityImage;
 import lombok.Getter;
 import lombok.Setter;
 

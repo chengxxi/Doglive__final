@@ -1,4 +1,6 @@
 package com.ssafy.db.entity.chat;
+
+import com.ssafy.db.entity.auth.CounselingHistory;
 import lombok.Getter;
 import lombok.Setter;
 
