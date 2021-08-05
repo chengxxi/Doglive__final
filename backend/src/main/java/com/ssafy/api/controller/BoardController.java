@@ -74,7 +74,7 @@ public class BoardController {
     }
 
     @PostMapping()
-    @ApiOperation(value = "게시판 공고 등록", notes = "게시판 공고를 삭제한다")
+    @ApiOperation(value = "게시판 공고 등록", notes = "게시판 공고를 등록한다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),

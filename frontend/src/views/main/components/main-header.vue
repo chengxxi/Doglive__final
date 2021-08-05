@@ -65,6 +65,7 @@
 </template>
 
 <style scoped>
+
 .main-header{
   z-index: 1; /* 헤더 맨위 고정 */
   position: fixed;

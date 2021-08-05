@@ -4,8 +4,9 @@
     </el-page-header>
     <bread-crumb></bread-crumb>
     <div>
-      <el-button :plain="true" @click="readData">9번 보드 읽기</el-button>
+      <el-button :plain="true" @click="readData">13번 보드 읽기</el-button>
     </div>
+
     <div>
       <el-button :plain="true" @click="goRegister">글 작성하기</el-button>
     </div>
@@ -47,7 +48,7 @@ export default {
 
       const userid = store.getters['root/getLoginUserInfo'].userId
 
-      $axios.get('/api/v1/board/9/'+userid)
+      $axios.get('/api/v1/board/13/'+userid)
       .then(function(result){
         console.log(result)
 

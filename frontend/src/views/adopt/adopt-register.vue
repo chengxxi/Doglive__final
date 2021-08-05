@@ -1,68 +1,113 @@
 <template>
 <div class="main-body main-padding">
-    <bread-crumb></bread-crumb>
-    <el-card class="box-card mt-5 mb-5 p-5"  shadow="hover">
-    <h5 class="mt-1 mb-3" style="font-weight:600">강아지의 기본정보를 입력해주세요</h5>
+    <bread-crumb ></bread-crumb>
+    <el-card class="box-card mt-5 mb-5 p-5"   style="margin:100px;">
+
+
+    <el-form  style="margin-left:50px; margin-right:50px;" label-position="left"   :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
+ <h5 class="mt-1 mb-3" style="font-weight:600">📑 기본정보를 입력해주세요</h5>
       <el-divider />
-    <el-form label-position="left"   :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
-      <el-row>
+      <el-row class="mt-3 mb-3">
+          <el-form-item label="제목" prop="title" style="width:100%">
+            <el-input v-model="ruleForm.title"></el-input>
+          </el-form-item>
+    </el-row>
+     <el-row >
         <el-col :span="12">
-          <el-form-item label="제목" prop="name" >
+                    <el-form-item label="강아지 이름" prop="name" style="width:95%">
             <el-input v-model="ruleForm.name"></el-input>
           </el-form-item>
+
         </el-col>
         <el-col :span="12">
-          <el-form-item label="강아지 이름" prop="name">
-            <el-input v-model="ruleForm.name"></el-input>
-          </el-form-item>
+          <el-form-item label="현재 주소" prop="address" >
+    <el-input placeholder="ㅇㅇ시 ㅇㅇ구" v-model="ruleForm.address"></el-input>
+  </el-form-item>
+
         </el-col>
       </el-row>
 
-
-  <el-form-item label="연령대" prop="region">
-    <el-select v-model="ruleForm.region" placeholder="Puppy(~ 6개월)">
-      <el-option label="Puppy(~ 6개월)" value="4"></el-option>
-      <el-option label="Junior(7개월 ~ 2살)" value="5"></el-option>
-      <el-option label="Adult(3살 ~ 8살)" value="6"></el-option>
-      <el-option label="Senior(9살 ~)" value="7"></el-option>
+<el-row class="mt-3 mb-3">
+        <el-col :span="12">
+  <el-form-item label="연령대" prop="age">
+    <el-select v-model="ruleForm.age" placeholder="Puppy(~ 6개월)">
+      <el-option label="Puppy(~ 6개월)" value='4'></el-option>
+      <el-option label="Junior(7개월 ~ 2살)" value='5'></el-option>
+      <el-option label="Adult(3살 ~ 8살)" value='6'></el-option>
+      <el-option label="Senior(9살 ~)" value='7'></el-option>
     </el-select>
   </el-form-item>
-    <el-form-item label="크기" prop="region">
-    <el-select v-model="ruleForm.region" placeholder="소(8kg 미만)">
-      <el-option label="소(8kg 미만)" value="1"></el-option>
-      <el-option label="중(8kg-18kg 미만)" value="2"></el-option>
-      <el-option label="대(18kg 이상)" value="3"></el-option>
+  </el-col>
+  <el-col :span="12">
+  <el-form-item label="크기" prop="size">
+    <el-select v-model="ruleForm.size" placeholder="소(8kg 미만)">
+      <el-option label="소(8kg 미만)" value='1'></el-option>
+      <el-option label="중(8kg-18kg 미만)" value='2'></el-option>
+      <el-option label="대(18kg 이상)" value='3'></el-option>
     </el-select>
   </el-form-item>
-  <el-form-item label="성별" prop="resource">
-    <el-radio-group v-model="ruleForm.resource">
+   </el-col>
+   </el-row>
+   <el-row>
+   <el-col :span="12">
+  <el-form-item label="컬러" prop="color">
+    <el-select v-model="ruleForm.color" placeholder="Bright(밝은))">
+      <el-option label="Bright(밝은)" value='12'></el-option>
+      <el-option label="Middle(중간)" value='13'></el-option>
+      <el-option label="Dark(어두운)" value='14'></el-option>
+    </el-select>
+  </el-form-item>
+  </el-col>
+<el-col :span="12">
+  <el-form-item label="공고 타입" prop="type">
+    <el-select v-model="ruleForm.type" placeholder="입양">
+      <el-option label="입양" value='1'></el-option>
+      <el-option label="임보" value='2'></el-option>
+    </el-select>
+  </el-form-item>
+  </el-col>
+   </el-row>
+<el-row class="mt-3 mb-3">
+        <el-col :span="8">
+  <el-form-item label="성별" prop="gender">
+    <el-radio-group v-model="ruleForm.gender">
       <el-radio label="남"></el-radio>
       <el-radio label="여"></el-radio>
     </el-radio-group>
   </el-form-item>
-  <el-form-item label="털 길이" prop="resource">
-    <el-radio-group v-model="ruleForm.resource">
+    </el-col>
+  <el-col :span="8">
+  <el-form-item label="헤어 타입" prop="hair">
+    <el-radio-group v-model="ruleForm.hair">
       <el-radio label="장모"></el-radio>
       <el-radio label="단모"></el-radio>
     </el-radio-group>
   </el-form-item>
-  <el-form-item label="중성화 여부" prop="resource">
-    <el-switch v-model="ruleForm.resource"></el-switch>
+     </el-col>
+<el-col :span="8">
+    <el-form-item label="중성화 여부" prop="neutralization">
+      <el-radio-group v-model="ruleForm.neutralization">
+      <el-radio label="중성화 O"></el-radio>
+      <el-radio label="중성화 X"></el-radio>
+    </el-radio-group>
   </el-form-item>
-<el-form-item label="현재 주소" prop="name">
-    <el-input placeholder="ㅇㅇ시 ㅇㅇ구" v-model="ruleForm.name"></el-input>
+   </el-col>
+    </el-row>
+
+     <el-row class="mt-3 mb-3">
+  <el-form-item label="부가 설명" prop="desc" >
+    <el-input type="textarea" :rows="7"   maxlength="1000"
+  show-word-limit v-model="ruleForm.desc"></el-input>
   </el-form-item>
-
-  <el-form-item label="부가 설명" prop="desc">
-    <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-  </el-form-item>
+  </el-row>
 
 
-
-  <h5 class="mb-3" style="margin-top:70px; font-weight:600">강아지의 성격을 소개해주세요</h5>
+  <h5 class="mb-3" style="margin-top:100px; font-weight:600">🐶 성격을 소개해주세요</h5>
   <el-divider />
-   <el-form-item label="활동성향" prop="resource">
-    <el-radio-group v-model="ruleForm.resource">
+  <el-row class="mt-3 mb-3">
+        <el-col :span="12">
+   <el-form-item label="활동성향" prop="energy">
+    <el-radio-group v-model="ruleForm.energy">
       <el-popover
                 placement="bottom"
                 width="200"
@@ -85,8 +130,9 @@
               </el-popover>
     </el-radio-group>
   </el-form-item>
-  <el-form-item label="순종성향" prop="resource">
-    <el-radio-group v-model="ruleForm.resource">
+        </el-col>    <el-col :span="12">
+  <el-form-item label="순종성향" prop="obedience">
+    <el-radio-group v-model="ruleForm.obedience">
       <el-popover
                 placement="bottom"
                 width="200"
@@ -109,8 +155,12 @@
               </el-popover>
     </el-radio-group>
   </el-form-item>
-  <el-form-item label="관계성향" prop="resource">
-    <el-radio-group v-model="ruleForm.resource">
+  </el-col>
+    </el-row>
+    <el-row>
+    <el-col :span="12">
+  <el-form-item label="관계성향" prop="relationship">
+    <el-radio-group v-model="ruleForm.relationship">
       <el-popover
                 placement="bottom"
                 width="200"
@@ -133,8 +183,10 @@
               </el-popover>
     </el-radio-group>
   </el-form-item>
-  <el-form-item label="적응성향" prop="resource">
-    <el-radio-group v-model="ruleForm.resource">
+   </el-col>
+    <el-col :span="12">
+  <el-form-item label="적응성향" prop="adaptability">
+    <el-radio-group v-model="ruleForm.adaptability">
       <el-popover
                 placement="bottom"
                 width="200"
@@ -159,9 +211,15 @@
               </el-popover>
     </el-radio-group>
   </el-form-item>
+  </el-col>
+    </el-row>
+    <el-row  class="mt-5" style=" display: flex;
+  justify-content: center;">
 <el-button type="primary" @click="submitForm('ruleForm')">작성</el-button>
     <el-button @click="resetForm('ruleForm')">초기화</el-button>
+    </el-row>
 </el-form>
+
     </el-card>
 </div>
 </template>
@@ -181,49 +239,110 @@ export default {
   data(){
      return {
         ruleForm: {
+          type : '',
+          title: '',
           name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: '',
-          dialogImageUrl: '',
-        dialogVisible: false,
+          gender: '',
+          hair: '',
+          color : '',
+          age :'',
+          size : '',
+          neutralization: '',
+          address: '',
+          desc : '',
+          energy : '',
+          obedience : '',
+          relationship : '',
+          adaptability : '',
         disabled: false
         },
         rules: {
+          type : [
+             { required: true, message: '공고 타입을 선택해주세요', trigger: 'blur' },
+          ],
+          title: [
+             { required: true, message: '제목을 입력해주세요.', trigger: 'blur' },
+             { min: 3, max: 20, message: '3글자 이상, 20글자 이하로 입력해주세요.', trigger: 'blur' }
+          ],
           name: [
-            { required: true, message: 'Please input Activity name', trigger: 'blur' },
-            { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
+             { required: true, message: '이름을 입력해주세요.', trigger: 'blur' },
+             { min: 1, max: 10, message: '10글자 이하로 입력해주세요.', trigger: 'blur' }
           ],
-          region: [
-            { required: true, message: 'Please select Activity zone', trigger: 'change' }
+          gender: [
+             { required: true, message: '성별을 선택해주세요', trigger: 'blur' },
           ],
-          date1: [
-            { type: 'date', required: true, message: 'Please pick a date', trigger: 'change' }
+          hair:  [
+             { required: true, message: '헤어타입을 선택해주세요', trigger: 'blur' },
           ],
-          date2: [
-            { type: 'date', required: true, message: 'Please pick a time', trigger: 'change' }
+          color :  [
+             { required: true, message: '컬러타입을 선택해주세요', trigger: 'blur' },
           ],
-          type: [
-            { type: 'array', required: true, message: 'Please select at least one activity type', trigger: 'change' }
+          age :[
+             { required: true, message: '연령대를 선택해주세요', trigger: 'blur' },
           ],
-          resource: [
-            { required: true, message: 'Please select activity resource', trigger: 'change' }
+          size : [
+             { required: true, message: '크기를 선택해주세요', trigger: 'blur' },
           ],
-          desc: [
-            { required: true, message: 'Please input activity form', trigger: 'blur' }
-          ]
+          neutralization: [
+             { required: true, message: '중성화여부를 선택해주세요', trigger: 'blur' },
+          ],
+          address: [
+             { required: true, message: '현재 강아지의 위치를 입력해주세요', trigger: 'blur' },
+             { min: 3, max: 20, message: '3글자 이상, 20글자 이하로 입력해주세요.', trigger: 'blur' }
+          ],
+          desc :  [
+             { required: true, message: '설명을 입력해주세요 (소개글, 특이사항 등)', trigger: 'blur' },
+             { min: 50, max: 1000, message: '50글자 이상, 1000글자 이하로 입력해주세요.', trigger: 'blur' }
+          ],
+          energy : [
+             { required: true, message: '활동성향을 관찰 후 선택해주세요', trigger: 'blur' },
+          ],
+          obedience : [
+             { required: true, message: '순종성향을 관찰 후 선택해주세요', trigger: 'blur' },
+          ],
+          relationship :  [
+             { required: true, message: '관계성향을 관찰 후 선택해주세요', trigger: 'blur' },
+          ],
+          adaptability : [
+             { required: true, message: '적응성향을 관찰 후 선택해주세요', trigger: 'blur' },
+          ],
+
         }
       };
   },
+
      methods: {
       submitForm(formName) {
+        const mbti = [this.ruleForm.energy == "에너지있는" ? 'E' : 'I']
+        + [this.ruleForm.obedience == "충성심 강한" ? 'S' : 'N']
+        + [this.ruleForm.relationship == "의존적인" ? 'F' : 'T']
+        + [this.ruleForm.adaptability == "친화적인" ? 'J' : 'P'];
+
+        const data = {
+          thumbnailUrl : '',
+          filePath : [],
+          dongName : this.state.name,
+          boardType : Number(this.ruleForm.type),
+          userId : this.state.userId.userId,
+          mbti : mbti,
+          title : this.ruleForm.title,
+          description : this.ruleForm.desc,
+          colorType :  Number(this.ruleForm.color),
+          hairType : this.ruleForm.hair == "단모" ? 10 : 11 ,
+          gender :  this.ruleForm.gender == "여" ? 8 : 9 ,
+          age :  Number(this.ruleForm.age),
+          neutralization : this.ruleForm.hair == "중성화 O" ? true : false ,
+          weight :  Number(this.ruleForm.size),
+          address : this.ruleForm.address
+
+        }
+        console.log(data)
+
         this.$refs[formName].validate((valid) => {
           if (valid) {
             alert('submit!');
+            this.registerData(data)
+            console.log(this.ruleForm)
           } else {
             console.log('error submit!!');
             return false;
@@ -249,6 +368,25 @@ export default {
       const store = new useStore()
       const router = new useRouter()
 
+     const state = reactive({
+        userId : computed(()=>{
+          return store.getters['root/getLoginUserInfo']
+        }),
+      })
+
+
+
+    const registerData = function(data) {
+      store.dispatch('root/requestRegisterBoard', data)
+      .then(function(result){
+        alert('공고 등록 성공')
+        console.log('등록 성공')
+        router.push({name : 'AdoptDetailTest'})
+      }).catch(function(err){
+        console.log(err)
+      })
+    }
+
     onMounted(() => {
         console.log('breadcrumb')
         store.commit('root/setBreadcrumbInfo', {
@@ -260,11 +398,67 @@ export default {
 
       })
 
+    return { state, registerData}
   }
 }
 </script>
 
 <style scoped>
+
+:deep(.el-radio__inner:hover){
+  border-color: #755744;
+}
+:deep(.el-radio__input.is-checked+.el-radio__label) {
+    color: #755744;
+}
+
+:deep(.el-radio__input.is-checked .el-radio__inner){
+ border-color: #755744;
+    background-color: #755744;
+}
+:deep(.el-button){
+  font-weight:600;
+}
+:deep(.el-button:hover){
+
+color: #F9F0E7;
+    border-color: #755744;
+    background-color: #755744;
+}
+
+:deep(.el-input__inner:focus){
+    border: 1px solid #755744;
+}
+
+:deep(.el-textarea__inner:focus){
+    border: 1px solid #755744;
+}
+
+:deep(.el-radio-button__inner:hover){
+  color: #D7AEA4;
+}
+:deep(.el-button--primary){
+      color: #755744;
+    border-color: #F9F0E7;
+    background-color: #F9F0E7;
+
+}
+:deep(.el-radio-button__orig-radio:checked+.el-radio-button__inner){
+    border-color: #755744;
+    background-color: #755744;
+    box-shadow: -1px 0 0 0 #755744;
+}
+
+:deep(.el-select-dropdown__item.selected){
+  color: #755744;
+}
+:deep(.el-select .el-input.is-focus .el-input__inner){
+ border-color: #755744;
+}
+:deep(.el-switch.is-checked .el-switch__core ){
+  border-color: #755744;
+    background-color: #755744;
+}
 
 :deep(.el-form-item__label){
   font-size:12pt;

@@ -20,6 +20,9 @@ public class BoardRegisterPostReq {
     Long boardType;
 
     @ApiModelProperty
+    String dogName;
+
+    @ApiModelProperty
     String title;
 
     @ApiModelProperty
