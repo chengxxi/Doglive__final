@@ -6,7 +6,7 @@
           <bread-crumb></bread-crumb>
 
 <div style="margin-top:60px; margin-left:60px;">
-<h3>dd{{state.board.title}}</h3></div>
+<h3>{{state.board.title}}</h3></div>
 
 
       <el-row class="vertical-center" :gutter="20" style="margin-top:10px;" >
