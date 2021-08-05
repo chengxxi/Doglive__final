@@ -9,29 +9,23 @@
 </template>
 
 <style>
-
+  @import "https://unpkg.com/element-plus/lib/theme-chalk/index.css";
   @import './main.css';
   @import '../../common/css/common.css';
   @import '../../common/css/element-plus.css';
 </style>
 
 <script>
-// for bootstrap 5
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
 import MainHeader from './components/main-header'
 import MainFooter from './components/main-footer'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import 'element-ui/lib/theme-chalk/index.css';
-
 
 export default {
   name: 'main',
   components: {
     MainHeader,
     MainFooter,
-
   },
   setup(){
     const store = useStore()
