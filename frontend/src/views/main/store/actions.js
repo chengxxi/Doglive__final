@@ -1,5 +1,6 @@
 // 비동기 API
 import $axios from 'axios'
+import { getLoginUserInfo } from './getters'
 
 // Kakao 서버로 받은 code로 AccessToken 가져오기
 export function requestAccessToken({ state }, payload){
@@ -31,6 +32,20 @@ export function createChatRoom({ state }, payload){
 // 채팅방 목록 요청
 export function requestChatRoomList({ state }){
   const url = '/chatroom'
+  return $axios.get(url)
+}
+
+// 사용자 북마크 리스트를 불러오기
+export function requestBookmarkList({ state },payload){
+  const url = '/api/v1/users/bookmark/' + payload;
+  let body = payload;
+  return $axios.get(url)
+}
+
+// 사용자가 작성한 글 리스트 불러오기
+export function requestUserPostList({ state },payload){
+  const url = '/api/v1/board/myboard/' + payload;
+  let body = payload;
   return $axios.get(url)
 }
 

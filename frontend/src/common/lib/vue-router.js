@@ -5,7 +5,9 @@ import Logout from '@/views/main/components/logout-dialog.vue'
 import Mypage from '@/views/user/mypage.vue'
 import Chat from '@/views/chat/chat.vue'
 import KakaoCallback from '@/views/main/components/kakao-callback.vue'
-
+import AdoptDetail from '@/views/adopt/adopt-detail.vue'
+import AdoptDetailTest from '@/views/adopt/adopt-detail-test.vue'
+import Adopt from '@/views/adopt/adopt.vue'
 const routes = [
   {
     path: '/',
@@ -30,6 +32,7 @@ const routes = [
   },
   {
     path: '/mypage',
+    redirect : '/mypage/profile',
     name: 'Mypage',
     component: Mypage,
     children: [
@@ -42,6 +45,11 @@ const routes = [
         path: "mypost",
         name: "mypage-mypost",
         component: () => import("@/views/user/components/user-post-list.vue"),
+      },
+      {
+        path: "bookmark",
+        name: "mypage-bookmark",
+        component: () => import("@/views/user/components/user-bookmark.vue"),
       },
       {
         path: "applyList",
@@ -73,6 +81,21 @@ const routes = [
       },
     ]
   },
+  {
+    path: '/adopt',
+    name: 'Adopt',
+    component: Adopt
+  },
+  {
+    path: '/adopt/detail',
+    name: 'AdoptDetail',
+    component : AdoptDetail
+  },
+  {
+    path: '/adopt/detail-test',
+    name: 'AdoptDetailTest',
+    component : AdoptDetailTest
+  }
 ]
 
 const router = createRouter({

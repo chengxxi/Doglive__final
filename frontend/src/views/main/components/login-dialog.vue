@@ -61,9 +61,11 @@
 export default {
   name: 'login-dialog',
   setup() {
-
+      Kakao.init('8a6da8dccc17d0706c19f099353a04ca');
     // 카카오 로그인
     const loginWithKakao = function(){
+
+
       Kakao.Auth.authorize({
         redirectUri: 'http://localhost:8080/kakao/callback'
       });

@@ -23,6 +23,7 @@ export default {
       cookies.remove('accessToken', { path : '/', sameSite : 'strict' })
       cookies.remove('refreshToken', { path : '/', sameSite : 'strict' })
       store.commit('root/setLoginUserInfo', null);
+      store.commit('root/setBoardDetail', null);
       router.push({name : 'Main'})
     })
     .catch(function(err){

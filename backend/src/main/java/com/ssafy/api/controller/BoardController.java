@@ -115,7 +115,7 @@ public class BoardController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "공고가 정상적으로 수정되었습니다"));
     }
 
-    @GetMapping("/{boardId}")
+    @GetMapping("/{boardId}/{userId}")
     @ApiOperation(value = "게시판 공고 상세 글 정보", notes = "게시판 공고 상세 정보를 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
@@ -123,18 +123,21 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardDetailGetRes> boardDetail(@PathVariable("boardId") String id, @RequestBody @ApiParam(value="공고 상세정보 접근", required = true) BoardDetailGetReq boardDetailGetReq){
+    public ResponseEntity<BoardDetailGetRes> boardDetail(@PathVariable("boardId") String boardId, @PathVariable("userId") String userId){
         boolean isOwner = false;
+        System.out.println(boardId);
+        System.out.println(userId);
+        Board board = boardService.getBoardByBoardId(Long.parseLong(boardId));
 
-        Board board = boardService.getBoardByBoardId(Long.parseLong(id));
+
         DogInformation dogInformation = boardService.getDogInformationByBoard(board);
         List<BoardComment> boardComments = boardService.getBoardCommentsByBoard(board);
         List<BoardImage> boardImages = boardService.getBoardImagesByBoard(board);
 
-        String userName = userService.getUserName(id);
-        System.out.println(userName);
-        if(board.getUserId()==boardDetailGetReq.getUserId()) isOwner = true;
-        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isOwner, userName, board, dogInformation, boardImages, boardComments));
+        String writer = userService.getUserName(board.getUserId());
+        System.out.println(writer);
+        if(board.getUserId()==userId) isOwner = true;
+        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isOwner, writer, board, dogInformation, boardImages, boardComments));
     }
 
 
@@ -158,7 +161,7 @@ public class BoardController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "북마크가 정상적으로 등록되었습니다"));
     }
 
-    @DeleteMapping("/bookmark")
+    @DeleteMapping("/bookmark/{userId}/{boardId}")
     @ApiOperation(value = "게시글 북마크 삭제", notes = "게시글을 북마크에서 삭제한다.")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
@@ -166,8 +169,13 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> deleteBookmark(@RequestBody @ApiParam(value="북마크 정보", required = true) BookmarkReq bookmarkReq){
-        Bookmark bookmark = boardService.deleteBookmark(bookmarkReq);
+    public ResponseEntity<? extends BaseResponseBody> deleteBookmark(@PathVariable("boardId") String boardId, @PathVariable("userId") String userId){
+
+        BookmarkReq req = new BookmarkReq();
+        req.setBoardId(Long.parseLong(boardId));
+        req.setUserId(userId);
+
+        Bookmark bookmark = boardService.deleteBookmark(req);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "북마크가 정상적으로 삭제되었습니다"));
     }

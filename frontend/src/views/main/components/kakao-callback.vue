@@ -36,7 +36,7 @@ export default {
             cookies.set('accessToken', result.data.user.Token.accessToken, { path : '/', sameSite : 'strict' })
             cookies.set('refreshToken', result.data.user.Token.refreshToken, { path : '/', sameSite : 'strict' })
             store.commit('root/setLoginUserInfo', result.data.user.userInfo.userid)
-
+            console.log("userid:" , result.data.user.userInfo.userid)
            alert("로그인 되었습니다.")
             router.push({name : 'Main'}) // Main으로 redirect
          }).catch(function(err){

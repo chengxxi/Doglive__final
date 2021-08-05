@@ -156,7 +156,7 @@ export default {
       showHiddenMenu: 'none',
       showUserModal: false,
       userMenu: computed(()=> {
-        if(store.getters['root/getLoginUserInfo'] === null)
+        if(store.getters['root/getLoginUserInfo'].userId === null)
           return notLoggedIn
         else
           return loggedIn

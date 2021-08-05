@@ -6,6 +6,7 @@ import com.ssafy.api.response.BoardListGetRes;
 import com.ssafy.api.response.BookmarkListGetRes;
 import com.ssafy.api.response.CounselingHistoryListGetRes;
 import com.ssafy.api.response.UserProfileGetRes;
+import com.ssafy.api.service.BoardService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.Bookmark;
@@ -36,6 +37,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    BoardService boardService;
 
     @GetMapping("present/{userId}")
     @ApiOperation(value = "존재하는 회원 확인", notes = "해당 userID를 사용하는 사용자가 있는지 확인한다.")
@@ -90,12 +94,14 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BookmarkListGetRes> findBookmarkList(@PathVariable("id") String id){
-        System.out.println("조회시작");
+    public ResponseEntity<BoardListGetRes> findBookmarkList(@PathVariable("id") String id){
         List<Bookmark> bookmarkList = userService.getBookmarkList(id);
-        System.out.println("리스트 : " + bookmarkList);
+        List<Board> boardList = new ArrayList<>();
 
-        return ResponseEntity.ok(BookmarkListGetRes.of(200, "Success", bookmarkList, bookmarkList.size()));
+        for (Bookmark bookmark: bookmarkList) {
+            boardList.add(boardService.getBoardByBoardId(bookmark.getBoardId()));
+        }
+        return ResponseEntity.ok(BoardListGetRes.of(200, "Success", boardList, boardList.size()));
     }
 
     @GetMapping("/counseling/{id}")

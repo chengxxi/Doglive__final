@@ -2,10 +2,10 @@
   <div class="mypage-body">
       <div class="hide-on-small">
         <div class="menu-title">
-          <h3>작성글 목록</h3>
+          <h3>북마크</h3>
         </div>
         <div class="mypage-content">
-          <posting-card :card="state.tableData"></posting-card>
+          <bookmark-card :card="state.tableData"></bookmark-card>
         </div>
       </div>
     </div>
@@ -35,22 +35,24 @@ import $axios from 'axios';
 import { computed, reactive, onMounted } from 'vue';
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router';
-import PostingCard from './user-post-list-card.vue'
+import BookmarkCard from './user-bookmark-card.vue'
 
 export default {
-  name: 'user-post-list',
-  components :{
-    PostingCard
+  name: 'user-bookmark',
+  components:{
+    BookmarkCard,
   },
+  
   setup() {
     const store = new useStore()
     const router = new useRouter()
     const state = reactive({
      tableData : [],
     })
+
     const userId = store.getters['root/getLoginUserInfo'].userId;
 
-    store.dispatch('root/requestUserPostList', userId)
+    store.dispatch('root/requestBookmarkList', userId)
       .then(function(result){
         console.log("check : " + result)
         state.tableData = result.data.boardList;
@@ -58,7 +60,8 @@ export default {
         console.log(err)
       });
 
-      return { state }
+    return { state }
+   
   }
 }
 </script>
