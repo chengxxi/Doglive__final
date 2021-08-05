@@ -8,6 +8,8 @@
     <p>입양을 기다리는 아이들</p> <!-- 상세 문구 수정 필요 -->
     </div>
 <div>
+
+  <el-button :plain="true" @click="readData9" round>테스트용 : 9번 보드 읽기</el-button>
       <el-button :plain="true" @click="readData" round>테스트용 : 13번 보드 읽기</el-button>
 
        <el-button type="outline-primary" @click="goRegister" round>입양 공고 작성하기</el-button>
@@ -157,6 +159,46 @@ const store = new useStore()
       });
     }
 
+    const readData9 = function() {
+
+      const userid = store.getters['root/getLoginUserInfo'].userId
+
+      $axios.get('/board/9/'+userid)
+      .then(function(result){
+        console.log(result)
+
+        const boardDetail = {
+          boardId : result.data.board.id,
+          boardType : result.data.board.type,
+          thumbnailUrl : result.data.board.thumbnailUrl,
+          title : result.data.board.title,
+          address : result.data.dogInformation.address,
+          mbti : result.data.dogInformation.mbti,
+          colorType : result.data.dogInformation.colorType,
+          gender : result.data.dogInformation.gender,
+          hairType : result.data.dogInformation.hairType,
+          neutralization : result.data.dogInformation.neutralization,
+          writer : result.data.writer,
+          weight : result.data.dogInformation.weight,
+          ageType : result.data.dogInformation.ageType,
+          regDate : result.data.board.regDate,
+          fileList : result.data.boardImageList,
+          isOwner : result.data.owner,
+          description : result.data.dogInformation.description,
+          dogName : result.data.dogInformation.dogName
+        }
+
+        store.commit('root/setBoardDetail', boardDetail)
+
+        router.push({name : 'AdoptDetail'})
+
+      }).catch(function(err){
+        alert("로그인을 진행해주세요!")
+        router.push({ name : 'Login'})
+        console.log(err)
+      });
+    }
+
     const goRegister = function(){
       router.push({name : 'AdoptRegister'})
     }
@@ -173,7 +215,7 @@ const store = new useStore()
 
     return {
       dialogVisible,
-      dialogVisible2,readData, goRegister
+      dialogVisible2,readData, goRegister, readData9
     }
   },
 

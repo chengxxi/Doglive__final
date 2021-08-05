@@ -331,9 +331,9 @@ export default {
             title: state.board.title,
             description: state.board.description,
             imageUrl:
-              'http://mud-kage.kakao.co.kr/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+              '@/assets/images/mbti_isfp.png',
             link: {
-              mobileWebUrl: window.location.href,
+              mobileWebUrl: 'http://i5a501.p.ssafy.io/',
               androidExecutionParams: 'test',
             },
           },
@@ -341,7 +341,7 @@ export default {
             {
               title: '독립으로 이동',
               link: {
-                mobileWebUrl: 'https://developers.kakao.com',
+                mobileWebUrl: 'http://i5a501.p.ssafy.io/',
               },
             },
           ]
