@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
+@RequestMapping("/chatroom")
 public class ChatSubController {
 
     @Autowired
@@ -33,7 +35,7 @@ public class ChatSubController {
     }
 
     // 채팅방 생성 요청
-    @PostMapping(value="/chatroom")
+    @PostMapping(value="")
     public ChatRoom createChatRoom(@RequestBody String name){
         ChatRoom newChatRoom = new ChatRoom();
         newChatRoom.setName(name);
@@ -41,13 +43,13 @@ public class ChatSubController {
     }
 
     // 전체 채팅방 목록 조회
-    @GetMapping(value="/chatroom")
+    @GetMapping(value="")
     public List<ChatRoom> getAllChatRooms(){
         return chatRoomRepository.findAll();
     }
 
     // 특정 유저의 전체 채팅방 목록 조회
-    @GetMapping(value="/chatroom/user/{userId}")
+    @GetMapping(value="/user/{userId}")
     public List<ChatRoom> getAllChatRoomsByUserId(@PathVariable("userId") Long userId){
         // 1. 특정 유저의 userId가 현재 요청하는 사람의 userId와 일치하는지 확인
 
@@ -58,7 +60,7 @@ public class ChatSubController {
     }
 
     // 특정 채팅방의 채팅목록 조회
-    @GetMapping(value="/chatroom/{roomId}")
+    @GetMapping(value="/{roomId}")
     public ResponseEntity getAllChatMessages(@PathVariable("roomId") Long roomId){
         ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElse(null);
 
