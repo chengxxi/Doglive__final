@@ -103,7 +103,6 @@ a {
 
 <script>
 import { reactive } from 'vue'
-import { useStore } from 'vuex'
 
 export default {
   name: 'main-footer',
