@@ -7,15 +7,15 @@
       <el-row class="vertical-center" :gutter="20" style="margin-top:35px;" >
 
           <el-col :span="12" style="margin-left:50px;">
-              <img class="dog-thumbnail" :src="require('@/assets/images/mbti_isfp.png')"/>
+              <img class="dog-thumbnail" :src="require('@/assets/images/banner1.png')"/>
           </el-col>
           <el-col :span="12">
             <div class="dog-info-box" style="margin-right:50px;">
-
+<el-tag class="mb-3" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">{{state.board.boardType.name}}</el-tag>
               <div class="vertical-center row">
     <div class="col-md-9">
 <span :style="{'font-size':'30pt', 'font-weight':'700', }">{{state.board.title}}</span>
-                <el-tag class="m-3" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">임보</el-tag>
+
 
     </div>
     <div class="col-md-3 ms-auto">
@@ -25,13 +25,13 @@
                         :icon="[ state.board.isbookmarked  ? 'fas' : 'far', 'star']"
                         @click="clickBookmark()"
                         aria-hidden="true"
-                        style="color: rgb(255, 226, 95); font-size: 25px; cursor: pointer;"
-                        class=" scale-up-5"
+                        style="color: rgb(255, 226, 95); font-size: 40px; cursor: pointer;"
+
                       >
                       </font-awesome-icon>
 
 
-                      <img @click="kakaoShare" style="margin-left:15px" src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png" width="40"/>
+                      <img @click="kakaoShare" style="margin-left:15px; cursor: pointer;" src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png" width="40"/>
                     </div>
     </div>
   </div>
@@ -46,11 +46,11 @@
                 <el-descriptions-item label="현재위치">{{state.board.address}}</el-descriptions-item>
                 <el-descriptions-item label="MBTI" >
 
-                    <el-tag color="#E9CDA4" effect="dark" style="font-weight:700; color: #606266;" size="small" :style="{'border' : 'none'}">{{state.board.mbti}}</el-tag>
+                    <el-tag color="#E9CDA4" effect="dark" style="font-weight:700; color: #606266;" :style="{'border' : 'none'}">{{state.board.mbti}}</el-tag>
                         <el-popover
                             placement="bottom"
                             width="200"
-                            trigger="click"
+                            trigger="hover"
                             >
                             <div class="content" >
 
@@ -93,24 +93,25 @@
 
 
                             <template #reference>
-                              <i class="el-icon-question" style="margin-left : 10px;"/>
+                              <i class="el-icon-question" style="margin-left : 10px; cursor: pointer;"/>
                             </template>
                         </el-popover>
                 </el-descriptions-item>
 
               </el-descriptions>
-<div class="mt-2">
 
-
-</div>
-              <el-divider class="mt-4 mb-5"/>
+              <el-divider class="mb-3"/>
 
           <div >
-                <div v-if="!state.board.isOwner">
-                  <el-button :style="{'width':'100%'}">상담 신청</el-button>
-                </div>
                 <div v-if="state.board.isOwner">
-                  <el-button :style="{'width':'100%'}">공고 수정</el-button>
+                  <el-button style="width:100%; background : #755744;">상담 신청</el-button>
+                </div>
+                <div v-if="!state.board.isOwner">
+                  <el-row>
+                    <el-col :span="12"><el-button class="m-2" style="width:100%;   background : #755744;">공고 수정</el-button></el-col>
+                    <el-col :span="12"><el-button class="m-2" style="width:100%;   background : #C4C4C4;">공고 삭제</el-button></el-col>
+                  </el-row>
+
                 </div>
               </div>
 
@@ -129,9 +130,12 @@
 
 
       <div class="dog-image-box">
-          <el-carousel :interval="4000" type="card" height="300px">
+          <el-carousel :interval="4000" type="card" height="500px">
             <el-carousel-item v-for="item in 6" :key="item">
-              <img src="{{item}}"/>
+              <img style="  width: 100%;
+	height: auto;
+
+" :src="require('@/assets/images/mbti_infj.png')"/>
             </el-carousel-item>
           </el-carousel>
       </div>
@@ -161,6 +165,10 @@ h3 {
 
 }
 
+:deep(.el-descriptions){
+  font-size:13pt;
+  font-weight:500;
+}
 :deep(.el-descriptions__title) {
     font-size: 30pt;
     font-weight: 700;
@@ -173,6 +181,8 @@ h3 {
   margin : 10px;
 
 }
+
+
 
 .dog-info-box{
   width:100%;
@@ -194,9 +204,9 @@ h3 {
 
 }
 :deep(.el-button){
+  font-size:15pt;
   font-family: NEXONLv1Gothic;
   font-weight: 700;
-  background : #755744;
   color : #F9F0E7;
 
 }
@@ -261,6 +271,7 @@ h3 {
 
 
 <script>
+
 import $axios from 'axios'
 import BreadCrumb from './components/bread-crumb.vue'
 import { computed, reactive, onMounted } from 'vue';
@@ -342,7 +353,7 @@ export default {
           .then(function(result){
             console.log('deleteBookmark!!!!!!');
             store.commit('root/setIsbookmarked', false)
-            alert('관심지역이 해제되었습니다');
+            alert('북마크가 해제되었습니다');
           }).catch(function(err){
             console.log(err)
           });
@@ -355,7 +366,7 @@ export default {
           .then(function(result){
             console.log('insertBookmark!!!!!!');
             store.commit('root/setIsbookmarked', true)
-            alert('관심지역이 등록되었습니다');
+            alert('북마크가 등록되었습니다');
           }).catch(function(err){
             console.log(err)
           });

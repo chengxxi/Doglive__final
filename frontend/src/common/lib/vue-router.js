@@ -8,6 +8,8 @@ import KakaoCallback from '@/views/main/components/kakao-callback.vue'
 import AdoptDetail from '@/views/adopt/adopt-detail.vue'
 import AdoptDetailTest from '@/views/adopt/adopt-detail-test.vue'
 import Adopt from '@/views/adopt/adopt.vue'
+import AdoptRegister from '@/views/adopt/adopt-register.vue'
+
 const routes = [
   {
     path: '/',
@@ -95,7 +97,13 @@ const routes = [
     path: '/adopt/detail-test',
     name: 'AdoptDetailTest',
     component : AdoptDetailTest
+  },
+  {
+    path: '/adopt/register',
+    name: 'AdoptRegister',
+    component : AdoptRegister
   }
+
 ]
 
 const router = createRouter({

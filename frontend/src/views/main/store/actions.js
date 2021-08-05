@@ -49,3 +49,10 @@ export function requestUserPostList({ state },payload){
   return $axios.get(url)
 }
 
+
+// 게시판 공고 등록
+export function requestRegisterBoard({state}, payload){
+  const url = "/api/v1/board"
+  console.log(payload)
+  return $axios.post(url, payload)
+}

@@ -4,6 +4,7 @@
 export function setIsbookmarked(state, isbookmarked){
   state.board.isbookmarked = isbookmarked;
 }
+
 export function setLoginUserInfo (state, loginUserInfo) {
   state.loginUserInfo.userId = loginUserInfo;
 

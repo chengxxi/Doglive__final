@@ -74,7 +74,7 @@ public class BoardController {
     }
 
     @PostMapping()
-    @ApiOperation(value = "게시판 공고 등록", notes = "게시판 공고를 삭제한다")
+    @ApiOperation(value = "게시판 공고 등록", notes = "게시판 공고를 등록한다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -136,7 +136,8 @@ public class BoardController {
 
         String writer = userService.getUserName(board.getUserId());
         System.out.println(writer);
-        if(board.getUserId()==userId) isOwner = true;
+        if(board.getUserId().equals(userId)) isOwner = true;
+        System.out.println(userId+" "+board.getUserId());
         return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isOwner, writer, board, dogInformation, boardImages, boardComments));
     }
 
