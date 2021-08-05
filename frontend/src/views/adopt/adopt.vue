@@ -28,7 +28,7 @@
           </template>
         </el-dialog>
         <!-- 임시 코드 (끝) -->
-
+<AdoptFilter/>
     </div>
 
     <div>
@@ -36,7 +36,7 @@
     </div>
     <el-space wrap>
       <!-- 입양 공고 Filter -->
-      <AdoptFilter/>
+
 
 
 

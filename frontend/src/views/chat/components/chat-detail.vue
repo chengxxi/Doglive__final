@@ -51,7 +51,7 @@ export default {
 
     // 웹 소켓 통신 Connect
     const connect = function(){
-      const url = "http://localhost:8080/chat-server"
+      const url = "https://localhost:8443/chat-server"
       socket = new SockJS(url, { transports: ['websocket', 'xhr-streaming', 'xhr-polling']})
       client = Stomp.over(socket)
 
