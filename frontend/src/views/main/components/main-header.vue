@@ -28,7 +28,7 @@
             <li>
               <a href="#" @mouseover="changeDisplay('over')">실종/보호</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
-                    <li><a href="#">찾아주세요</a></li>
+                    <li><a href="/adopt/detail-test">찾아주세요</a></li>
                     <li><a href="#">보호하고 있어요</a></li>
                 </ul>
             </li>
@@ -40,7 +40,7 @@
                 </ul>
             </li>
             <li>
-              <a href="#" v-if="isCookie">안녕하세요</a>
+
               <!-- User 아이콘에 마우스 hover했을 때 나올 popover 정의 -->
               <el-popover
                 placement="bottom"
@@ -65,6 +65,7 @@
 </template>
 
 <style scoped>
+
 .main-header{
   z-index: 1; /* 헤더 맨위 고정 */
   position: fixed;
@@ -156,7 +157,7 @@ export default {
       showHiddenMenu: 'none',
       showUserModal: false,
       userMenu: computed(()=> {
-        if(store.getters['root/getLoginUserInfo'] === null)
+        if(store.getters['root/getLoginUserInfo'].userId === null)
           return notLoggedIn
         else
           return loggedIn

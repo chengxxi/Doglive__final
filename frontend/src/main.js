@@ -10,6 +10,7 @@ import i18n from './common/lib/i18n'
 import router from './common/lib/vue-router'
 
 import 'element-plus/packages/theme-chalk/src/base.scss'
+import VueAlertify from 'vue-alertify';
 
 // Element UI Components [시작]
 import {
@@ -41,6 +42,8 @@ import {
   ElDatePicker,
   ElDialog,
   ElDivider,
+  ElDescriptions,
+  ElDescriptionsItem,
   ElDrawer,
   ElDropdown,
   ElDropdownItem,
@@ -129,6 +132,8 @@ const components = [
   ElDatePicker,
   ElDialog,
   ElDivider,
+  ElDescriptionsItem,
+  ElDescriptions,
   ElDrawer,
   ElDropdown,
   ElDropdownItem,
@@ -183,6 +188,72 @@ const components = [
   ElUpload,
 ]
 
+//fort-awesome
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faSearch,
+  faStar as fasStar,
+  faCommentDots,
+  faHome,
+  faPhone,
+  faUser,
+  faChevronRight,
+  faBuilding,
+  faMapMarkedAlt,
+  faMapMarker,
+  faEnvelope,
+  faSpinner,
+  faUnlock,
+  faUserShield,
+  faSignOutAlt,
+  faUserCircle,
+  faUserEdit,
+  faEraser,
+  faAngleLeft,
+  faPaperclip,
+  faKey,
+  faImage,
+  faUpload,
+  faSchool,
+  faInfoCircle,
+  faSignInAlt,
+  faUserPlus,
+
+} from '@fortawesome/free-solid-svg-icons';
+import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+library.add(
+  faSearch,
+  fasStar,
+  farStar,
+  faCommentDots,
+  faHome,
+  faPhone,
+  faUser,
+  faChevronRight,
+  faBuilding,
+  faMapMarkedAlt,
+  faMapMarker,
+  faEnvelope,
+  faSpinner,
+  faUnlock,
+  faUserShield,
+  faSignOutAlt,
+  faUserCircle,
+  faUserEdit,
+  faEraser,
+  faAngleLeft,
+  faPaperclip,
+  faKey,
+  faImage,
+  faUpload,
+  faSchool,
+  faInfoCircle,
+  faSignInAlt,
+  faUserPlus,
+);
+
 const plugins = [
   ElInfiniteScroll,
   ElLoading,
@@ -200,6 +271,8 @@ app.use(VueAxios, axios)
 app.use(store)
 app.use(i18n)
 app.use(router)
+app.component('font-awesome-icon', FontAwesomeIcon);
+
 
 components.forEach(component => {
   app.component(component.name, component)
@@ -210,7 +283,6 @@ plugins.forEach(plugin => {
 })
 
 /* Kakao javascript Key 설정 */
-window.Kakao.init('8a6da8dccc17d0706c19f099353a04ca');
-// window.Kakao.init('2c046ed5f7ec0f72bdf74502a7ccb16c');
+
 
 app.mount('#app')

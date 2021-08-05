@@ -5,6 +5,10 @@ import Logout from '@/views/main/components/logout-dialog.vue'
 import Mypage from '@/views/user/mypage.vue'
 import Chat from '@/views/chat/chat.vue'
 import KakaoCallback from '@/views/main/components/kakao-callback.vue'
+import AdoptDetail from '@/views/adopt/adopt-detail.vue'
+import AdoptDetailTest from '@/views/adopt/adopt-detail-test.vue'
+import Adopt from '@/views/adopt/adopt.vue'
+import AdoptRegister from '@/views/adopt/adopt-register.vue'
 
 const routes = [
   {
@@ -73,6 +77,25 @@ const routes = [
       },
     ]
   },
+    path: '/adopt',
+    name: 'Adopt',
+    component: Adopt
+  },
+  {
+    path: '/adopt/detail',
+    name: 'AdoptDetail',
+    component : AdoptDetail
+  },
+  {
+    path: '/adopt/detail-test',
+    name: 'AdoptDetailTest',
+    component : AdoptDetailTest
+  },
+  {
+    path: '/adopt/register',
+    name: 'AdoptRegister',
+    component : AdoptRegister
+  }
 ]
 
 const router = createRouter({

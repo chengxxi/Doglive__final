@@ -100,7 +100,10 @@ public class BoardServiceImpl implements  BoardService{
         dogInformation.setDescription(boardRegisterPostReq.getDescription());
         dogInformation.setMbti(boardRegisterPostReq.getMbti());
         dogInformation.setAddress(boardRegisterPostReq.getAddress());
+        dogInformation.setDogName(boardRegisterPostReq.getDogName());
 
+
+        System.out.println();
         Code gender = getCode(boardRegisterPostReq.getGender());
         if(gender!=null) dogInformation.setGender(gender);
 
@@ -186,6 +189,7 @@ public class BoardServiceImpl implements  BoardService{
 
 
         dogInformation.setBoardId(board);
+        dogInformation.setDogName(boardRegisterPostReq.getDogName());
         dogInformation.setDescription(boardRegisterPostReq.getDescription());
         dogInformation.setMbti(boardRegisterPostReq.getMbti());
         dogInformation.setAddress(boardRegisterPostReq.getAddress());
