@@ -37,14 +37,14 @@ export function requestChatRoomList({ state }){
 
 // 사용자 북마크 리스트를 불러오기
 export function requestBookmarkList({ state },payload){
-  const url = '/api/v1/users/bookmark/' + payload;
+  const url = '/users/bookmark/' + payload;
   let body = payload;
   return $axios.get(url)
 }
 
 // 사용자가 작성한 글 리스트 불러오기
 export function requestUserPostList({ state },payload){
-  const url = '/api/v1/board/myboard/' + payload;
+  const url = '/board/myboard/' + payload;
   let body = payload;
   return $axios.get(url)
 }
@@ -52,7 +52,7 @@ export function requestUserPostList({ state },payload){
 
 // 게시판 공고 등록
 export function requestRegisterBoard({state}, payload){
-  const url = "/api/v1/board"
+  const url = "/board"
   console.log(payload)
   return $axios.post(url, payload)
 }

@@ -1,35 +1,40 @@
 <template>
   <div>
-  <!-- <el-row> -->
-    <h1>adopt cards로 구성된 전체 list</h1>
-
-    <AdoptCard />
-      <!-- v-for="(card, idx) in cards"
-      :key="idx"
-      :card="card"
-    /> -->
-
-  <!-- </el-row> -->
+    <main class="content">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item :to="{ path: '/' }"><font-awesome-icon :icon="['fas', 'home']"/></el-breadcrumb-item>
+        <el-breadcrumb-item>{{ state.breadCrumbInfo.title }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ state.breadCrumbInfo.subTitle }}</el-breadcrumb-item>
+      </el-breadcrumb>
+  </main>
   </div>
 </template>
 
-
-
-<style scoped>
-
-
-</style>
-
-
-
 <script>
-import AdoptCard from "@/views/adopt/components/adopt-card";
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { computed, reactive } from 'vue';
 
 export default {
-  name: 'adopt-list',
-  components: { AdoptCard },
-  setup () {
+  name : 'BreadCrumb',
+  setup(){
+      const store = new useStore()
+      const router = new useRouter()
 
+
+      const state = reactive({
+        breadCrumbInfo : computed(()=>{
+          console.log(store.getters['root/getBreadCrumbInfo'])
+          return store.getters['root/getBreadCrumbInfo']
+        })
+      })
+
+      return {state}
   }
 }
 </script>
+
+
+<style>
+
+</style>

@@ -20,7 +20,6 @@
     "element-plus": "^1.0.2-beta.44",
     "element-ui": "^2.15.5",
     "flatted": "^3.2.2",
-    "element-ui": "^2.15.5",
     "node-sass": "^6.0.0",
     "openvidu-browser": "^2.19.0",
     "roboto-fontface": "*",

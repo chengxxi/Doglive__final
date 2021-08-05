@@ -30,7 +30,7 @@ export default {
         const refreshToken = result.data.user.refreshToken
 
         // accessToken을 통해 userInfo 받아오기 + store에 저장
-        $axios.post('http://localhost:8080/kakao/login', { accessToken : accessToken, refreshToken : refreshToken })
+        $axios.post('/kakao/login', { accessToken : accessToken, refreshToken : refreshToken })
         .then(function(result){
             console.log(result)
             cookies.set('accessToken', result.data.user.Token.accessToken, { path : '/', sameSite : 'strict' })
