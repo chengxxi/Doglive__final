@@ -94,7 +94,7 @@ import UserVideo from '../../conferences/UserVideo.vue';
 import ConferenceChat from '../../conferences/conferenceChat.vue';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-const OPENVIDU_SERVER_URL = 'https://i5a501.p.ssafy.io';
+const OPENVIDU_SERVER_URL = 'https://i5a501.p.ssafy.io:3000';
 const OPENVIDU_SERVER_SECRET = 'doglivedoggi';
 export default {
 	name: 'Conference',

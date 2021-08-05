@@ -151,6 +151,8 @@ const store = new useStore()
         router.push({name : 'AdoptDetail'})
 
       }).catch(function(err){
+        alert("로그인을 진행해주세요!")
+        router.push({ name : 'Login'})
         console.log(err)
       });
     }
