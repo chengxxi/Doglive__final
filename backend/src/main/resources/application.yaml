@@ -34,7 +34,7 @@ server:
   address: localhost
   compression:
     enabled: true
-    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+  mime-types: application/json,application/xml,text/xml,text/plain,application/javascript,text/css,text/html,text/event-stream
   port: 8443
   ssl:
     enabled: true
@@ -68,6 +68,7 @@ spring:
     user:
       name: "ssafy"
       password: "ssafy"
+
   oauth2:
     client:
       registration:

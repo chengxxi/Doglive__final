@@ -6,6 +6,11 @@ import Mypage from '@/views/user/mypage.vue'
 import Conference from '@/views/main/components/conference.vue'
 import KakaoCallback from '@/views/main/components/kakao-callback.vue'
 import Conferenceroom from '@/views/conferences/conferenceroom.vue'
+import Chat from '@/views/chat/chat.vue'
+import AdoptDetail from '@/views/adopt/adopt-detail.vue'
+import AdoptDetailTest from '@/views/adopt/adopt-detail-test.vue'
+import Adopt from '@/views/adopt/adopt.vue'
+import AdoptRegister from '@/views/adopt/adopt-register.vue'
 
 const routes = [
   {
@@ -41,6 +46,7 @@ const routes = [
   },
   {
     path: '/mypage',
+    redirect : '/mypage/profile',
     name: 'Mypage',
     component: Mypage,
     children: [
@@ -55,6 +61,11 @@ const routes = [
         component: () => import("@/views/user/components/user-post-list.vue"),
       },
       {
+        path: "bookmark",
+        name: "mypage-bookmark",
+        component: () => import("@/views/user/components/user-bookmark.vue"),
+      },
+      {
         path: "applyList",
         name: "mypage-apply-list",
         component: () => import("@/views/user/components/user-apply-list.vue"),
@@ -65,7 +76,46 @@ const routes = [
         component: () => import("@/views/user/components/user-apply-result-list.vue"),
       },
     ]
+  },
+  {
+    path : '/chat',
+    redirect : '/chat/rooms',
+    name: 'Chat',
+    component : Chat,
+    children: [
+      {
+        path: "rooms",
+        name: "chat-list",
+        component: () => import("@/views/chat/components/chat-list.vue"),
+      },
+      {
+        path: "room",
+        name: "chat-detail",
+        component: () => import("@/views/chat/components/chat-detail.vue"),
+      },
+    ]
+  },
+  {
+    path: '/adopt',
+    name: 'Adopt',
+    component: Adopt
+  },
+  {
+    path: '/adopt/detail',
+    name: 'AdoptDetail',
+    component : AdoptDetail
+  },
+  {
+    path: '/adopt/detail-test',
+    name: 'AdoptDetailTest',
+    component : AdoptDetailTest
+  },
+  {
+    path: '/adopt/register',
+    name: 'AdoptRegister',
+    component : AdoptRegister
   }
+
 ]
 
 const router = createRouter({

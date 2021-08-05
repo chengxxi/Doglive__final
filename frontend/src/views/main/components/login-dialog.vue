@@ -1,17 +1,19 @@
 <template>
-  <div class="main-body">
-      <el-card class="login-wrapper"
+  <div class="main-body  vertical-center">
+      <el-card class="login-wrapper p-3"
         body-style="height: inherit">
-        <div class="login-content">
-          <div class="login-title">
-            <span>간편 로그인</span>
-          </div>
-          <div class="button-group">
-            <img width="200" :src="require('@/assets/images/mbti_isfp.png')"/>
-            <span class="comment">카카오 아이디로 간편하게 로그인!
-            </span>
-            <img class="loginBtn" @click="loginWithKakao" :src="require('@/assets/images/kakao_login_medium_wide.png')"/>
-          </div>
+
+          <div class="login-content mt-3">
+            <div class="login-title vertical-center " style=" display: flex;
+  justify-content: center;">
+              <h5 class=" mb-4">간편 로그인</h5>
+            </div>
+            <div class="button-group mb-2">
+              <img width="200" :src="require('@/assets/images/mbti_isfp.png')"/>
+              <h6 class="mt-3 comment" style="font-size:10pt;">카카오 아이디로 간편하게 시작하세요 🐾
+              </h6>
+              <img class="loginBtn" @click="loginWithKakao" :src="require('@/assets/images/kakao_login_medium_wide.png')"/>
+            </div>
         </div>
       </el-card>
   </div>
@@ -26,8 +28,8 @@
   margin: 0 auto;
 }
 .login-wrapper{
-  width: 400px;
-  height: 400px;
+  width: 500px;
+
   margin: auto;
   text-align: center;
 }
@@ -61,9 +63,11 @@
 export default {
   name: 'login-dialog',
   setup() {
-
+      Kakao.init('8a6da8dccc17d0706c19f099353a04ca');
     // 카카오 로그인
     const loginWithKakao = function(){
+
+
       Kakao.Auth.authorize({
         redirectUri: 'http://localhost:8080/kakao/callback'
       });

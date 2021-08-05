@@ -17,9 +17,9 @@
             <i class="el-icon-user-solid"></i>
             <span>회원정보</span>
           </template>
-          <el-menu-item index="1-1">- 내 프로필</el-menu-item>
-          <el-menu-item index="1-2">- 내가 쓴 글 보기</el-menu-item>
-          <el-menu-item index="1-2">- 회원탈퇴</el-menu-item>
+          <el-menu-item index="1-1" @click="clickProfile">- 내 프로필</el-menu-item>
+          <el-menu-item index="1-2" @click="clickMyPost">- 내가 쓴 글 보기</el-menu-item>
+          <el-menu-item index="1-3" @click="clickBookmark">- 북마크</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template #title>
@@ -66,9 +66,25 @@
 </style>
 
 <script>
+import $axios from 'axios';
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { ElMessageBox } from 'element-plus';
+import { computed, reactive, watchEffect, ref } from 'vue';
+
 export default {
   name: 'main-footer',
+
   setup() {
+    const store = new useStore();
+    const router = new useRouter();
+    const state = reactive({
+      // showContent : false,
+      userInfo: computed(()=> {
+        this.userId = store.getters['root/getLoginUserInfo'].userId;
+        return store.getters['root/getLoginUserInfo'].userId;
+      })
+    })
     const openedMenu = ['1', '2']; // 처음 화면에 들어왔을 때, open할 메뉴의 index 저장
     const handleOpen = function(key, keyPath){
       console.log(key, keyPath);
@@ -76,7 +92,18 @@ export default {
     const handleClose = function(key, keyPath){
       console.log(key, keyPath);
     }
-    return {handleOpen, handleClose, openedMenu}
+    const clickProfile = function(){
+      router.push({name: 'mypage-profile'})
+    }
+    const clickMyPost = function(){
+      router.push({name: 'mypage-mypost'})
+    }
+    const clickBookmark = function(){
+      router.push({name: 'mypage-bookmark'})
+    }
+    
+   
+    return {handleOpen, handleClose, clickProfile, clickMyPost, clickBookmark, state, openedMenu}
   }
 }
 </script>

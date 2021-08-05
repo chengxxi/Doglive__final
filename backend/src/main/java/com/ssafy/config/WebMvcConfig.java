@@ -20,12 +20,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("*");
-        configuration.addAllowedOriginPattern("*");
+        // configuration.addAllowedOrigin("*");
+        configuration.addAllowedOriginPattern("*"); // CORS 해결을 위한 설정 (고정)
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         // configuration.addExposedHeader(JwtTokenUtil.HEADER_STRING);
-        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(true); // CORS 해결을 위한 설정 (고정)
         configuration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

@@ -34,6 +34,8 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
 
     public final StringPath description = createString("description");
 
+    public final StringPath dogName = createString("dogName");
+
     public final QCode gender;
 
     public final QCode hairType;
