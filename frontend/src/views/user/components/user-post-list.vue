@@ -5,7 +5,7 @@
           <h3>작성글 목록</h3>
         </div>
         <div class="mypage-content">
-          <posting-card></posting-card>
+          <posting-card :card="state.tableData"></posting-card>
         </div>
       </div>
     </div>
@@ -43,7 +43,8 @@ export default {
     PostingCard
   },
   setup() {
-  
+    const store = new useStore()
+    const router = new useRouter()
     const state = reactive({
      tableData : [],
     })
