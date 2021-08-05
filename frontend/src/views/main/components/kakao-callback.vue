@@ -32,6 +32,7 @@ export default {
         // accessToken을 통해 userInfo 받아오기 + store에 저장
         $axios.post('/kakao/login', { accessToken : accessToken, refreshToken : refreshToken })
         .then(function(result){
+
             console.log(result)
             cookies.set('accessToken', result.data.user.Token.accessToken, { path : '/', sameSite : 'strict' })
             cookies.set('refreshToken', result.data.user.Token.refreshToken, { path : '/', sameSite : 'strict' })
@@ -39,10 +40,12 @@ export default {
             console.log("userid:" , result.data.user.userInfo.userid)
            alert("로그인 되었습니다.")
             router.push({name : 'Main'}) // Main으로 redirect
+
          }).catch(function(err){
            console.log(err)
            alert("로그인에 실패하였습니다.")
          });
+
       }).catch(function(err){
         alert("로그인에 실패하였습니다.")
       });

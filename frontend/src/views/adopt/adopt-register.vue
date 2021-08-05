@@ -1,7 +1,7 @@
 <template>
 <div class="main-body main-padding">
     <bread-crumb ></bread-crumb>
-    <el-card class="box-card mt-5 mb-5 p-5"   style="margin:100px;">
+    <el-card class="box-card mt-5 mb-5 p-5"   style="margin:100px; ">
 
 
     <el-form  style="margin-left:50px; margin-right:50px;" label-position="left"   :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">

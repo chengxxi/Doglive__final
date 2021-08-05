@@ -145,7 +145,7 @@ export default {
       value_size: [],
       value_age: [],
 
-      showFilter: false,
+      showFilter: true,
 
     }
   }

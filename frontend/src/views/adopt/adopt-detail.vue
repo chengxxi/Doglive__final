@@ -1,10 +1,15 @@
 <template>
   <div class="main-body main-padding">
-    <bread-crumb></bread-crumb>
-
 
     <el-card class="box-card "  shadow="hover">
-      <el-row class="vertical-center" :gutter="20" style="margin-top:35px;" >
+
+          <bread-crumb></bread-crumb>
+
+<div style="margin-top:60px; margin-left:60px;">
+<h3>dd{{state.board.title}}</h3></div>
+
+
+      <el-row class="vertical-center" :gutter="20" style="margin-top:10px;" >
 
           <el-col :span="12" style="margin-left:50px;">
               <img class="dog-thumbnail" :src="require('@/assets/images/mbti_isfp.png')"/>
@@ -14,7 +19,7 @@
 <el-tag class="mb-3" color="#D7AEA4" effect="dark" size="large" style="border:none; border-radius: 30px; font-size:14pt;">{{state.board.boardType.name}}</el-tag>
               <div class="vertical-center row">
     <div class="col-md-9">
-<span :style="{'font-size':'30pt', 'font-weight':'700', }">{{state.board.title}}</span>
+<span :style="{'font-size':'30pt', 'font-weight':'700', }">{{state.board.dogName}}</span>
 
 
     </div>

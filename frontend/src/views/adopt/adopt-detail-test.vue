@@ -1,15 +1,17 @@
 <template>
   <div class="main-body main-padding">
-    <el-page-header @back="goBack" content="입양 공고 목록">
-    </el-page-header>
-    <bread-crumb></bread-crumb>
-    <div>
+     <el-card class="box-card " style="width:100%" shadow="hover">
+
+          <bread-crumb></bread-crumb>
+
+    <div style="margin-top:100px">
       <el-button :plain="true" @click="readData">13번 보드 읽기</el-button>
     </div>
 
     <div>
       <el-button :plain="true" @click="goRegister">글 작성하기</el-button>
     </div>
+     </el-card>
   </div>
 </template>
 
@@ -69,7 +71,8 @@ export default {
           regDate : result.data.board.regDate,
           fileList : result.data.boardImageList,
           isOwner : result.data.owner,
-          description : result.data.dogInformation.description
+          description : result.data.dogInformation.description,
+          dogName : result.data.dogInformation.dogName
         }
 
         store.commit('root/setBoardDetail', boardDetail)

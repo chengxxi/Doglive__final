@@ -40,4 +40,5 @@ export function setBoardDetail(state, payload){
   state.board.description = payload.description;
   state.board.isOwner = payload.isOwner;
   state.board.thumbnailUrl = payload.thumbnailUrl;
+  state.board.dogName = payload.dogName;
 }

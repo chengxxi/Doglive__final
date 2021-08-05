@@ -26,6 +26,7 @@ export default {
     // detail, update, delete
     boardId: 1,
     boardType: 1,
+    dogName: '',
     thumbnailUrl : '',
     title: '',
     address: '',

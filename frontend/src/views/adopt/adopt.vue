@@ -1,20 +1,18 @@
 <template>
   <div class="main-body main-padding">
-    <h1 class="title">입양하기 게시물</h1>
+     <el-card class="box-card " style="width:100%" shadow="hover">
+       <bread-crumb></bread-crumb>
+
+    <div style="margin-top:50px">
+        <h1 class="title">입양하기 게시물</h1>
     <p>입양을 기다리는 아이들</p> <!-- 상세 문구 수정 필요 -->
+    </div>
 <div>
-      <el-button :plain="true" @click="readData">13번 보드 읽기</el-button>
-    </div>
+      <el-button :plain="true" @click="readData" round>테스트용 : 13번 보드 읽기</el-button>
 
-    <div>
-      <el-button :plain="true" @click="goRegister">글 작성하기</el-button>
-    </div>
-    <el-space wrap>
-      <!-- 입양 공고 Filter -->
-      <AdoptFilter/>
+       <el-button type="outline-primary" @click="goRegister" round>입양 공고 작성하기</el-button>
 
-      <!-- 내 MBTI와 맞는 강아지 찾기 버튼 -->
-      <div class="MBTIbtn">
+
         <el-button type="outline-primary" @click="dialogVisible = true" round>나와 맞는 강아지 찾기</el-button>
         <!-- MBTI 기능 연계가 완료되면 사라질 코드 -->
         <el-dialog
@@ -30,11 +28,21 @@
           </template>
         </el-dialog>
         <!-- 임시 코드 (끝) -->
-      </div>
+
+    </div>
+
+    <div>
+
+    </div>
+    <el-space wrap>
+      <!-- 입양 공고 Filter -->
+      <AdoptFilter/>
+
+
 
       <!-- 입양 공고 작성하기 버튼 -->
       <div class="newAdoptbtn">
-        <el-button type="outline-primary" @click="dialogVisible2 = true" round>입양 공고 작성하기</el-button>
+
         <!-- 공고 작성 기능 연계가 완료되면 사라질 코드 -->
         <el-dialog
           title="Notice"
@@ -58,6 +66,8 @@
 
 
     <AdoptList/>
+
+     </el-card>
 
   </div>
 </template>
@@ -83,7 +93,7 @@
 <script>
 import AdoptFilter from './components/adopt-filter.vue'
 import AdoptList from './components/adopt-list.vue'
-
+import BreadCrumb from './components/bread-crumb.vue'
 import { defineComponent, ref } from 'vue';
 import $axios from 'axios'
 
@@ -97,6 +107,7 @@ export default {
   components: {
     AdoptFilter,
     AdoptList,
+    BreadCrumb
   },
 
   setup() {
@@ -131,7 +142,8 @@ const store = new useStore()
           regDate : result.data.board.regDate,
           fileList : result.data.boardImageList,
           isOwner : result.data.owner,
-          description : result.data.dogInformation.description
+          description : result.data.dogInformation.description,
+          dogName : result.data.dogInformation.dogName
         }
 
         store.commit('root/setBoardDetail', boardDetail)
