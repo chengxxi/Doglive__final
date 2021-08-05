@@ -23,6 +23,31 @@ export default {
       cookies.remove('accessToken', { path : '/', sameSite : 'strict' })
       cookies.remove('refreshToken', { path : '/', sameSite : 'strict' })
       store.commit('root/setLoginUserInfo', null);
+      const boardDetail = {
+          boardId: 1,
+    boardType: 1,
+    dogName: '',
+    thumbnailUrl : '',
+    title: '',
+    address: '',
+    mbti: '',
+    description : '',
+    colorType : {},
+    gender: {},
+    hairType: {},
+    neutralization: {},
+    userName: '',
+    weight : {},
+    ageType : {},
+    regDate: {},
+    readCount: {},
+    fileList: [],
+    isOwner: false,
+    isbookmarked : false,
+        }
+
+        store.commit('root/setBoardDetail', boardDetail)
+
       router.push({name : 'Main'})
     })
     .catch(function(err){

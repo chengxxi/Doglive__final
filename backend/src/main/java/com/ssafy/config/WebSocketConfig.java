@@ -18,7 +18,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     // Web Socket 통신을 연결할 End-Point를 지정해주는 메소드
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry){
-        registry.addEndpoint("/chat-server").setAllowedOriginPatterns("*").withSockJS(); // WebSocket을 지원하지 않는 브라우저에는 SockJS 지원
+        registry.addEndpoint("/api/v1/chat-server").setAllowedOriginPatterns("*").withSockJS(); // WebSocket을 지원하지 않는 브라우저에는 SockJS 지원
     }
 
     @Override
