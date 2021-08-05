@@ -13,7 +13,7 @@ import lombok.Setter;
 public class UserRes extends BaseResponseBody {
     @ApiModelProperty
     UserProfile userProfile;
-    
+
     public static UserRes of(UserProfile userProfile){
         UserRes res = new UserRes();
         res.setUserProfile(userProfile);

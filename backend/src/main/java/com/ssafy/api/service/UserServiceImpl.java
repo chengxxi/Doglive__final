@@ -131,6 +131,19 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserProfile getUserProfile(String id) {
+        Optional<User> user = userRepositorySupport.findUserById(id);
+        if(user.isPresent()) {
+            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
+            if(userProfile.isPresent()){
+                return userProfile.get();
+            }
+        }
+        return null;
+
+    }
+
+    @Override
     public boolean deleteUser(String id) {
         System.out.println("탈퇴할 아이디: " + id);
         if(getUserById(id)!=null){
