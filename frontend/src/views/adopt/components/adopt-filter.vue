@@ -1,12 +1,12 @@
 <template>
-  <div class="filter-wrapper">
+  <span class="filter-wrapper">
     <el-button @click="showFilter = !showFilter" circle>
       <i class="el-icon-s-operation"></i>
     </el-button>
 
-    <div v-show="showFilter" class="select-wrapper">
+    <div v-show="showFilter" class="select-wrapper" :gutter="20">
       <!-- Filter Options -->
-      <el-select v-model="value_color" multiple clearable placeholder="색상">
+      <el-select v-model="value_color" multiple clearable placeholder="색상" :span="4">
         <el-option
           v-for="color in options_color"
           :key="color.value"
@@ -15,7 +15,7 @@
         </el-option>
       </el-select>
 
-      <el-select v-model="value_gender" multiple clearable placeholder="성별">
+      <el-select v-model="value_gender" multiple clearable placeholder="성별" :span="4">
         <el-option
           v-for="gender in options_gender"
           :key="gender.value"
@@ -24,7 +24,7 @@
         </el-option>
       </el-select>
 
-      <el-select v-model="value_size" multiple clearable placeholder="크기">
+      <el-select v-model="value_size" multiple clearable placeholder="크기" :span="4">
         <el-option
           v-for="size in options_size"
           :key="size.value"
@@ -33,7 +33,7 @@
         </el-option>
       </el-select>
 
-      <el-select v-model="value_age" multiple clearable placeholder="연령">
+      <el-select v-model="value_age" multiple clearable placeholder="연령" :span="4">
         <el-option
           v-for="age in options_age"
           :key="age.value"
@@ -43,31 +43,39 @@
       </el-select>
     </div>
 
-  </div>
+  </span>
 </template>
 
 
 <style scoped>
 .filter-wrapper {
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .select-wrapper {
-  display: table;
-  table-layout: fixed;
-  margin-top: 20px;
-  width: 100%;
+  /* display: table; */
+  /* display: flex; */
+  /* table-layout: fixed; */
+  align-items: center;
+  /* margin-top: 20px; */
+  /* width: 100%; */
+  border-radius: 1rem;
+  /* background-color: #D7AEA4; */
+  background-color: rgba(249, 240, 231, 0.6);
 }
 
 .el-select {
-  margin-left: 20px;
-  margin-bottom: 10px;
+  margin-left: 20px; /* 선택지 간 좌우 간격 */
+  margin-bottom: 10px; /* 상하 간격 10px */
+  margin-top: 10px;
 }
 
 .el-button {
   margin-top: 20px;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
-
 
 
 </style>

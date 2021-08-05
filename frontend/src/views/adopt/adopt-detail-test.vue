@@ -48,7 +48,7 @@ export default {
 
       const userid = store.getters['root/getLoginUserInfo'].userId
 
-      $axios.get('/api/v1/board/13/'+userid)
+      $axios.get('/board/13/'+userid)
       .then(function(result){
         console.log(result)
 
