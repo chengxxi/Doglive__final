@@ -55,7 +55,7 @@ public class QConference extends EntityPathBase<Conference> {
 
     public QConference(Class<? extends Conference> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.chatRoom = inits.isInitialized("chatRoom") ? new QChatRoom(forProperty("chatRoom"), inits.get("chatRoom")) : null;
+        this.chatRoom = inits.isInitialized("chatRoom") ? new QChatRoom(forProperty("chatRoom")) : null;
     }
 
 }

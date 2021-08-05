@@ -3,6 +3,7 @@ import Main from '@/views/main/components/main-content.vue'
 import Login from '@/views/main/components/login-dialog.vue'
 import Logout from '@/views/main/components/logout-dialog.vue'
 import Mypage from '@/views/user/mypage.vue'
+import Chat from '@/views/chat/chat.vue'
 import KakaoCallback from '@/views/main/components/kakao-callback.vue'
 
 const routes = [
@@ -53,7 +54,25 @@ const routes = [
         component: () => import("@/views/user/components/user-apply-result-list.vue"),
       },
     ]
-  }
+  },
+  {
+    path : '/chat',
+    redirect : '/chat/rooms',
+    name: 'Chat',
+    component : Chat,
+    children: [
+      {
+        path: "rooms",
+        name: "chat-list",
+        component: () => import("@/views/chat/components/chat-list.vue"),
+      },
+      {
+        path: "room",
+        name: "chat-detail",
+        component: () => import("@/views/chat/components/chat-detail.vue"),
+      },
+    ]
+  },
 ]
 
 const router = createRouter({

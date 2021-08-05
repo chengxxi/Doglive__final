@@ -10,11 +10,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
 
-
+    Optional<ChatRoom> findById(Long id);
 
 }
