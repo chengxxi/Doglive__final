@@ -1,10 +1,11 @@
 <template>
 <div class="main-body main-padding">
-    <bread-crumb ></bread-crumb>
-    <el-card class="box-card mt-5 mb-5 p-5"   style="margin:100px; ">
 
+    <el-card class="box-card"  style="width:100%; height:auto;  border:none;" shadow="hover" >
+<bread-crumb ></bread-crumb>
 
-    <el-form  style="margin-left:50px; margin-right:50px;" label-position="left"   :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
+<div>
+    <el-form  style=" margin:100px;" label-position="left"   :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
  <h5 class="mt-1 mb-3" style="font-weight:600">📑 기본정보를 입력해주세요</h5>
       <el-divider />
       <el-row class="mt-3 mb-3">
@@ -219,8 +220,9 @@
     <el-button @click="resetForm('ruleForm')">초기화</el-button>
     </el-row>
 </el-form>
-
+</div>
     </el-card>
+
 </div>
 </template>
 
@@ -405,6 +407,7 @@ export default {
 
 <style scoped>
 
+
 :deep(.el-radio__inner:hover){
   border-color: #755744;
 }
@@ -437,6 +440,8 @@ color: #F9F0E7;
 :deep(.el-radio-button__inner:hover){
   color: #D7AEA4;
 }
+
+
 :deep(.el-button--primary){
       color: #755744;
     border-color: #F9F0E7;
@@ -464,4 +469,6 @@ color: #F9F0E7;
   font-size:12pt;
   font-weight:500;
 }
+
+
 </style>
