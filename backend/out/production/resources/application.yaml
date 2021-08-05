@@ -34,14 +34,26 @@ server:
   address: localhost
   compression:
     enabled: true
-    mime-types: application/json,application/xml,text/xml,text/plain,application/javascript,text/css,text/html,text/event-stream
-  port: 8080
+  mime-types: application/json,application/xml,text/xml,text/plain,application/javascript,text/css,text/html,text/event-stream
+  port: 8443
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:keystore/ssafy.p12
+    key-store-password: doglivedoggi
+    key-alias: ssafy
+#    trust-store: classpath:keystore/ssafy.p12
+#    trust-store-password: doglivedoggi
   servlet:
-    contextPath: /
+    contextPath: /api/v1
     encoding:
       charset: UTF-8
       enabled: true
       force: true
+http-server:
+  http:
+    port: 8080
+
 spa:
   default-file: /dist/index.html
 
@@ -105,8 +117,6 @@ spring:
   resources:
     add-mappings: false
     static-locations: classpath:/dist/
-
-
 
   datasource:
     hikari:

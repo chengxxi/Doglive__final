@@ -45,7 +45,7 @@ server:
 #    trust-store: classpath:keystore/ssafy.p12
 #    trust-store-password: doglivedoggi
   servlet:
-    contextPath: /
+    contextPath: /api/v1
     encoding:
       charset: UTF-8
       enabled: true
