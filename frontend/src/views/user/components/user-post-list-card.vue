@@ -5,7 +5,14 @@
           <h3>작성글 목록</h3>
         </div>
         <div class="mypage-content">
-          <posting-card></posting-card>
+          <el-table :data="tableData" height="250" style="width: 100%">
+            <el-table-column prop="date" label="Date" width="180">
+            </el-table-column>
+            <el-table-column prop="userId" label="UserId" width="120">
+            </el-table-column>
+            <el-table-column prop="title" label="Title">
+            </el-table-column>
+          </el-table>
         </div>
       </div>
     </div>
@@ -32,32 +39,20 @@
 
 <script>
 import $axios from 'axios';
-import { computed, reactive, onMounted } from 'vue';
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router';
-import PostingCard from './user-post-list-card.vue'
 
 export default {
   name: 'user-post-list',
-  components :{
-    PostingCard
-  },
   setup() {
-  
-    const state = reactive({
-     tableData : [],
-    })
-    const userId = store.getters['root/getLoginUserInfo'].userId;
+    return {
+        tableData: [{
+          date: '2016-05-03',
+          userId: 'Tom',
+          title: 'No. 189, Grove St, Los Angeles'
+        }]
+      }
+    
+    
 
-    store.dispatch('root/requestUserPostList', userId)
-      .then(function(result){
-        console.log("check : " + result)
-        state.tableData = result.data.boardList;
-      }).catch(function(err){
-        console.log(err)
-      });
-
-      return { state }
   }
 }
 </script>
