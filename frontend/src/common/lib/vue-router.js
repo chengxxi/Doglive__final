@@ -57,8 +57,21 @@ const routes = [
   },
   {
     path : '/chat',
+    redirect : '/chat/rooms',
     name: 'Chat',
     component : Chat,
+    children: [
+      {
+        path: "rooms",
+        name: "chat-list",
+        component: () => import("@/views/chat/components/chat-list.vue"),
+      },
+      {
+        path: "room",
+        name: "chat-detail",
+        component: () => import("@/views/chat/components/chat-detail.vue"),
+      },
+    ]
   },
 ]
 

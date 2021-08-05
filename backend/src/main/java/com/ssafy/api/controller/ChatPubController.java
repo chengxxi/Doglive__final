@@ -28,9 +28,7 @@ public class ChatPubController {
     // 요청경로 = "/pub/chat/join"
     @MessageMapping("/chat/join")
     public void join(ChatMessagePayload message){
-        System.out.println("입장");
         message.setMessage(message.getUserId() + "님이 입장하셨습니다.");
-        System.out.println("구독");
         template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 

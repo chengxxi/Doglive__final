@@ -27,3 +27,10 @@ export function createChatRoom({ state }, payload){
   let roomName = payload
   return $axios.post(url, roomName)
 }
+
+// 채팅방 목록 요청
+export function requestChatRoomList({ state }){
+  const url = '/chatroom'
+  return $axios.get(url)
+}
+

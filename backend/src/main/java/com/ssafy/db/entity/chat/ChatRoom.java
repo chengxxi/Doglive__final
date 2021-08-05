@@ -31,7 +31,7 @@ public class ChatRoom extends BaseEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "chatRoom", fetch = FetchType.EAGER)
     private List<ChatMessage> messages = new ArrayList<>();
 
     public ChatRoom() {}
