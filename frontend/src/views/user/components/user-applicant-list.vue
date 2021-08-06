@@ -2,10 +2,10 @@
     <div class="mypage-body">
       <div class="hide-on-small">
         <div class="menu-title">
-          <h5>상담 신청 결과</h5>
+          <h5>신청자 목록 보기</h5>
         </div>
         <div class="mypage-content">
-          <apply-result></apply-result>
+          <applicant-item></applicant-item>
         </div>
       </div>
     </div>
@@ -37,11 +37,12 @@
 </style>
 
 <script>
-import ApplyResult from './user-bookmark-card.vue';
+import ApplicantItem from './user-bookmark-card.vue';
+
 export default {
-  name: 'user-apply-result-list',
-  components :{
-    ApplyResult,
+  name: 'user-apply-list',
+  components:{
+    ApplicantItem,
   },
   setup () {
 

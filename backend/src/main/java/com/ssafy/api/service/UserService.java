@@ -15,7 +15,9 @@ import java.util.Optional;
 public interface UserService {
     User createUser(String access_Token, String refresh_Token, HashMap<String, Object> userInfo);
     User getUserById(String Id);
-    UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq, MultipartFile multipartFile);
+//    UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq, MultipartFile multipartFile);
+    UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq);
+    UserProfile getUserProfile(String id);
     boolean deleteUser(String id);
     String getUserName(String id);
     List<Bookmark> getBookmarkList(String id);

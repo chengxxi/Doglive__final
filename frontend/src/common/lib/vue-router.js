@@ -66,9 +66,9 @@ const routes = [
         component: () => import("@/views/user/components/user-bookmark.vue"),
       },
       {
-        path: "applyList",
-        name: "mypage-apply-list",
-        component: () => import("@/views/user/components/user-apply-list.vue"),
+        path: "applicantList",
+        name: "mypage-applicant-list",
+        component: () => import("@/views/user/components/user-applicant-list.vue"),
       },
       {
         path: "applyResultList",

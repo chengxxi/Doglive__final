@@ -2,21 +2,21 @@
   <div class="mypage-body">
     <div class="hide-on-small">
       <div class="menu-title">
-        <h3>내 프로필</h3>
+        <h5>내 프로필</h5>
       </div>
       <div class="mypage-content">
         <!-- 사용자 프로필 이미지 -->
         <div class="image-wrapper">
           <el-avatar shape="circle" :size="200" :src="require('@/assets/images/profile-image.jpg')" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}"/>
+          <!-- <el-avatar shape="circle" :size="200" :src="formData.userProfile.imageURL" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}" style="background-size:cover;"/> -->
         </div>
 
         <!-- 사용자 프로필 정보 -->
         <el-form class="userinfo-wrapper" :model="formData" label-width="120px" label-position="right">
         <el-form-item
-          prop="nickname"
           label="닉네임"
           :rules="{ required: true, message: '닉네임을 입력해주세요', trigger: 'change' }">
-        <el-input v-model="formData.nickname"></el-input>
+        <el-input v-model="formData.userProfile.name"></el-input>
         </el-form-item>
         <el-form-item
           label="Email"
@@ -24,17 +24,17 @@
             { required: true, message: 'Please input email address', trigger: 'change' },
             { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
           ]">
-        <el-input v-model="formData.email" disabled></el-input>
+        <el-input v-model="formData.userProfile.email" disabled></el-input>
         </el-form-item>
         <el-form-item
           label="생년월일"
           :rules="{ required: true, message: 'Please input email address', trigger: 'change' }">
-        <el-date-picker type="date" v-model="formData.birth" disabled></el-date-picker>
+        <el-date-picker type="date" v-model="formData.userProfile.birth" disabled></el-date-picker>
         </el-form-item>
         <el-form-item
           label="Phone"
           :rules="{ required: true, message: 'Please input email address', trigger: 'change' }">
-        <el-input v-model="formData.phone" disabled></el-input>
+        <el-input v-model="formData.userProfile.phone" disabled></el-input>
         </el-form-item>
         </el-form>
         <div class="button-group">
@@ -56,8 +56,8 @@
   width: calc(100% - 240px);
   height: 100%;
 }
-.mypage-body .menu-title{
-  width: inherit;
+.mypage-body .menu-title {
+  text-align: left;
   padding-top: 10px;
   padding-bottom: 10px;
   border-bottom: solid 1px rgb(212, 212, 212);
@@ -109,25 +109,50 @@ import Cookies from 'universal-cookie';
 
 export default {
   name: 'user-profile',
+  
   setup() {
     const store = new useStore();
     const router = new useRouter()
     const cookies = new Cookies()
-
+    
     const formData = reactive({
-      nickname: '호두맘',
-      email: 'ssafy@ssafy.com',
-      birth: '1998-06-26',
-      phone: '010-1234-1234',
+        userProfile : computed(() => {
+          return store.getters["root/getUpdateUserInfo"];
+        }
+      )
      })
 
+    const userId = store.getters['root/getLoginUserInfo'].userId;
+    store.dispatch('root/requestUserProfile', userId)
+      .then(function(result){
+        const Profile = {
+          imageURL : result.data.userProfile.profileImageUrl,
+          name : result.data.userProfile.name,
+          email :  result.data.userProfile.email,
+          birth : '1997' + result.data.userProfile.phoneNumber,
+          phone : '010-1234-1234',
+        }
+        store.commit('root/setProfile',Profile)
+        console.log(result.data)
+      }).catch(function(err){
+        console.log(err)
+      });
+
+
+
     const updateProfile = function(){
-      console.log("프로필 업데이트")
+      console.log("프로필 업데이트" + formData.userProfile)
+      store.dispatch('root/changeUserInfo', {userId :userId, data :formData.userProfile})
+      .then(function(result){
+        alert("수정이 완료되었습니다!")
+        router.push({name : 'Mypage'})
+      }).catch(function(err){
+        console.log(err)
+      });
     }
+
     const userDelete = function(){
-      const userId = store.getters['root/getLoginUserInfo'].userId;
-      
-      $axios.delete('/api/v1/users/' + userId)
+      $axios.delete('/users/' + userId)
       .then(function(result){
         // Request Header에 cookie를 담아서 전송 ({withCredentials: true} 설정을 통해 Cookie를 헤더에 담아서 전송 가능.)
         store.dispatch('root/requestKakaoLogout', {withCredentials: true})
@@ -137,10 +162,6 @@ export default {
           cookies.remove('accessToken', { path : '/', sameSite : 'strict' })
           cookies.remove('refreshToken', { path : '/', sameSite : 'strict' })
           store.commit('root/setLoginUserInfo', null);
-          router.push({name : 'Main'})
-        })
-        .catch(function(err){
-          alert("탈퇴에 실패하였습니다.")
           router.push({name : 'Main'})
         })
       }).catch(function(err){

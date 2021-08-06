@@ -2,7 +2,7 @@
   <div class="mypage-body">
       <div class="hide-on-small">
         <div class="menu-title">
-          <h3>작성글 목록</h3>
+          <h5>작성글 목록</h5>
         </div>
         <div class="mypage-content">
           <posting-card :card="state.tableData"></posting-card>

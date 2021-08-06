@@ -42,3 +42,10 @@ export function setBoardDetail(state, payload){
   state.board.thumbnailUrl = payload.thumbnailUrl;
   state.board.dogName = payload.dogName;
 }
+export function setProfile(state, payload){
+  state.userProfile.imgURL = payload.imgURL;
+  state.userProfile.name = payload.name;
+  state.userProfile.email = payload.email;
+  state.userProfile.birth = payload.birth;
+  state.userProfile.phone = payload.phone;
+}

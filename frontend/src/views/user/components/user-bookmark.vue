@@ -2,7 +2,7 @@
   <div class="mypage-body">
       <div class="hide-on-small">
         <div class="menu-title">
-          <h3>북마크</h3>
+          <h5>북마크</h5>
         </div>
         <div class="mypage-content">
           <bookmark-card :card="state.tableData"></bookmark-card>
@@ -17,8 +17,14 @@
   width: calc(100% - 240px);
   height: 100%;
 }
-.mypage-body .menu-title{
+/* .mypage-body .menu-title{
   width: inherit;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px rgb(212, 212, 212);
+} */
+.mypage-body .menu-title {
+  text-align: left;
   padding-top: 10px;
   padding-bottom: 10px;
   border-bottom: solid 1px rgb(212, 212, 212);

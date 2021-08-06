@@ -2,7 +2,7 @@
 
 // 현재 로그인 된 UserInfo 가져오기
 export function getLoginUserInfo(state) {
-  console.log("state 내용 : " + state.loginUserInfo)
+  console.log("state 내용 : " + state)
   return state.loginUserInfo
 }
 
@@ -28,4 +28,8 @@ export function getBoardDetail(state) {
 //북마크 정보 가져오자
 export function getIsbookmarked(state) {
   return state.board.isbookmarked
+}
+// 변경할 사용자의 정보 가져오기
+export function getUpdateUserInfo(state){
+  return state.userProfile
 }

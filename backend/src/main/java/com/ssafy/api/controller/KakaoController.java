@@ -44,6 +44,7 @@ public class KakaoController {
     })
     public ResponseEntity<UserLoginPostRes> kakaoConnect(@RequestParam("code") String code, HttpSession session) {
         HashMap<String,Object> Token = kakaoAPI.getAccessToken(code);
+        System.out.println(Token);
         return ResponseEntity.ok(UserLoginPostRes.of(200,"Success", Token));
     }
 

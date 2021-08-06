@@ -2,12 +2,10 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserUpdatePutReq;
-import com.ssafy.api.response.BoardListGetRes;
-import com.ssafy.api.response.BookmarkListGetRes;
-import com.ssafy.api.response.CounselingHistoryListGetRes;
-import com.ssafy.api.response.UserProfileGetRes;
+import com.ssafy.api.response.*;
 import com.ssafy.api.service.BoardService;
 import com.ssafy.api.service.UserService;
+import com.ssafy.common.auth.KakaoUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.Bookmark;
 import com.ssafy.db.entity.auth.CounselingHistory;
@@ -56,6 +54,20 @@ public class UserController {
         return ResponseEntity.status(409).body(BaseResponseBody.of(409, "이미 존재하는 사용자 ID입니다."));
     }
 
+//    @PutMapping("/{id}")
+//    @ApiOperation(value = "회원 정보 수정", notes = "DB에 저장된 회원정보를 새로운 값으로 수정한다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 409, message = "이미 존재하는 유저"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public ResponseEntity<? extends BaseResponseBody> updateUser(@PathVariable("id") String id, @RequestParam("profileImgUrl") MultipartFile multipartFile, @RequestBody @ApiParam(value="회원정보수정", required = true) UserUpdatePutReq userUpdatePutReq){
+//        userService.updateUserProfile(id, userUpdatePutReq, multipartFile);
+//        return ResponseEntity.status(200).body(BaseResponseBody.of(200,"Success"));
+//    }
+
     @PutMapping("/{id}")
     @ApiOperation(value = "회원 정보 수정", notes = "DB에 저장된 회원정보를 새로운 값으로 수정한다.")
     @ApiResponses({
@@ -65,8 +77,8 @@ public class UserController {
             @ApiResponse(code = 409, message = "이미 존재하는 유저"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> updateUser(@PathVariable("id") String id, @RequestParam("profileImgUrl") MultipartFile multipartFile, @RequestBody @ApiParam(value="회원정보수정", required = true) UserUpdatePutReq userUpdatePutReq){
-        userService.updateUserProfile(id, userUpdatePutReq, multipartFile);
+    public ResponseEntity<? extends BaseResponseBody> updateUser(@PathVariable("id") String id,  @RequestBody @ApiParam(value="회원정보수정", required = true) UserUpdatePutReq userUpdatePutReq){
+        userService.updateUserProfile(id, userUpdatePutReq);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200,"Success"));
     }
 
@@ -145,6 +157,36 @@ public class UserController {
         return ResponseEntity.ok(UserProfileGetRes.of(200,"Success",userProfileList,userProfileList.size()));
     }
 
+//    @GetMapping("/me")
+//    @ApiOperation(value = "회원 본인 정보 조회", notes = "로그인한 회원 본인의 정보를 응답한다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public ResponseEntity<UserRes> getUserInfo(@ApiIgnore Authentication authentication) {
+//        KakaoUserDetails userDetails = (KakaoUserDetails) authentication.getDetails();
+//        String userId = userDetails.getUsername();
+//        UserProfile userProfile = userService.getUserProfile(userId);
+//
+//        return ResponseEntity.status(200).body(UserRes.of(userProfile));
+//    }
 
+    @GetMapping("/{id}")
+    @ApiOperation(value = "회원 본인 정보 조회", notes = "로그인한 회원 본인의 정보를 응답한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<UserRes> getUserInfo(@PathVariable("id") String id) {
+        UserProfile userProfile = userService.getUserProfile(id);
+        if(userProfile == null){
+            return null;
+        }
+        return ResponseEntity.ok(UserRes.of(200,"Success",userProfile));
+    }
 
 }
