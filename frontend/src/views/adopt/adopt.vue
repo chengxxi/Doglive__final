@@ -74,7 +74,7 @@
 import AdoptFilter from "./components/adopt-filter.vue";
 import AdoptList from "./components/adopt-list.vue";
 import BreadCrumb from "./components/bread-crumb.vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, reactive, computed, ref } from "vue";
 import $axios from "axios";
 
 import { useStore } from "vuex";
