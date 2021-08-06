@@ -228,7 +228,7 @@
 
 <script>
 import $axios from "axios";
-import BreadCrumb from "./components/bread-crumb.vue";
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -441,7 +441,7 @@ export default {
         .then(function(result) {
           alert("공고 등록 성공");
           console.log("등록 성공");
-          router.push({ name: "Adopt" });
+          router.push({ name: "AdoptDetailTest" });
         })
         .catch(function(err) {
           console.log(err);
