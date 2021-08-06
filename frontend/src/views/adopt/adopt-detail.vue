@@ -101,14 +101,15 @@
                               순종성향
                             </h5>
                           </th>
+
                           <th scope="col">
                             <h5 style="font-weight:700; color:#606266;">
-                              적응성향
+                              관계성향
                             </h5>
                           </th>
                           <th scope="col">
                             <h5 style="font-weight:700; color:#606266;">
-                              관계성향
+                              적응성향
                             </h5>
                           </th>
                         </tr>
@@ -121,7 +122,7 @@
                               color="#D7AFA4"
                               effect="dark"
                               size="large"
-                              :style="{ border: 'none' }"
+                              :style="{ border: '3px solid #D7AFA4' }"
                               >E</el-tag
                             >에너지 (E) Energetic
                           </td>
@@ -131,9 +132,20 @@
                               color="#E9CDA4"
                               effect="dark"
                               size="large"
-                              :style="{ border: 'none' }"
+                              :style="{ border: '3px solid #E9CDA4' }"
                               >S</el-tag
                             >충성심 강한 (S) Supportive
+                          </td>
+
+                          <td>
+                            <el-tag
+                              class="m-3"
+                              color="#87CEDC"
+                              effect="dark"
+                              size="large"
+                              :style="{ border: '3px solid #87CEDC' }"
+                              >F</el-tag
+                            >관계지향 (F) Friendly
                           </td>
                           <td>
                             <el-tag
@@ -141,19 +153,9 @@
                               color="#B4D9A7"
                               effect="dark"
                               size="large"
-                              :style="{ border: 'none' }"
+                              :style="{ border: '3px solid #B4D9A7' }"
                               >P</el-tag
                             >신중한 (P) Prudent
-                          </td>
-                          <td>
-                            <el-tag
-                              class="m-3"
-                              color="#87CEDC"
-                              effect="dark"
-                              size="large"
-                              :style="{ border: 'none' }"
-                              >F</el-tag
-                            >관계지향 (F) Friendly
                           </td>
                         </tr>
                         <tr>
@@ -177,16 +179,7 @@
                               >N</el-tag
                             >영리한 (N) Naughty
                           </td>
-                          <td>
-                            <el-tag
-                              class="m-3"
-                              color="#FFFFFF"
-                              style="border: 3px solid #B4D9A7; color: #606266;"
-                              effect="dark"
-                              size="large"
-                              >J</el-tag
-                            >친화적인 (J) Jolly
-                          </td>
+
                           <td>
                             <el-tag
                               class="m-3"
@@ -196,6 +189,16 @@
                               size="large"
                               >T</el-tag
                             >독립지향 (T) independenT
+                          </td>
+                          <td>
+                            <el-tag
+                              class="m-3"
+                              color="#FFFFFF"
+                              style="border: 3px solid #B4D9A7; color: #606266;"
+                              effect="dark"
+                              size="large"
+                              >J</el-tag
+                            >친화적인 (J) Jolly
                           </td>
                         </tr>
                       </tbody>
