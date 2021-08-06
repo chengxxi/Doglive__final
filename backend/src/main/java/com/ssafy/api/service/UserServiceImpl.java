@@ -3,6 +3,7 @@ package com.ssafy.api.service;
 import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.db.entity.auth.*;
 import com.ssafy.db.repository.auth.*;
+import com.ssafy.db.repository.board.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,11 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     CounselingHistoryRepository counselingHistoryRepository;
+
+    @Autowired
+    BoardRepository boardRepository;
+
+
 
     @Override
     public User createUser(String access_Token, String refresh_Token, HashMap<String, Object> userInfo) {
@@ -161,6 +167,13 @@ public class UserServiceImpl implements UserService{
             Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
             if(userProfile.isPresent()) {
                 Optional<UserToken> userToken = userTokenRepository.findByUserId(user);
+                Optional<List<Bookmark>> bookmarkList = bookmarkRepository.findBookmarksByUserId(userProfile.get());
+                if(bookmarkList.isPresent()){
+//                    for (Bookmark bookmark:
+//                         ) {
+//
+//                    }
+                }
                 if(userToken.isPresent()){
                     userTokenRepository.delete(userToken.get());
                 }
