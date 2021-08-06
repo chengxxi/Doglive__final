@@ -87,7 +87,7 @@
 <br><br>
 
 ### 🎨 와이어프레임
-⚠ 많은 페이지가 존재하는 관계로 일부만 README.md에 업로드하고 나머지는 첨부하겠습니다. [📁 와이어프레임 보러가기](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/tree/master/documents/Wireframe)
+⚠ 많은 페이지가 존재하는 관계로 일부만 README.md에 업로드하고 나머지는 첨부하겠습니다. [📁 와이어프레임 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/tree/master/documents/Wireframe)
 
 ▪ 메인 페이지
 ![image](/uploads/b02b3b5667b4df8da7b5b4624322df58/image.png)
@@ -102,7 +102,7 @@
 <br><br>
 
 ### 📖 스토리보드
-⚠ 많은 페이지가 존재하는 관계로 일부만 README.md에 업로드하고 나머지는 첨부하겠습니다. [📁 스토리보드 보러가기](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/blob/master/documents/Storyboard/DogLive_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)
+⚠ 많은 페이지가 존재하는 관계로 일부만 README.md에 업로드하고 나머지는 첨부하겠습니다. [📁 스토리보드 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/master/documents/Storyboard/DogLive_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)
 
 ▪ 메인 페이지 관련
 ![image](/uploads/b05419eb1d5ef9983fc1768b8b995be1/image.png)
@@ -139,7 +139,7 @@
 ### Frontend
 
 #### ✨ 프론트 디자인
-#### [💜 프론트 디자인 보기](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/wikis/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%94%94%EC%9E%90%EC%9D%B8)
+#### [💜 프론트 디자인 보기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/wikis/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%94%94%EC%9E%90%EC%9D%B8)
 
 #### ✨ 프론트 구현 메인 페이지
 - header, footer, carousel 등 구현  
@@ -228,8 +228,8 @@ DB 데이터 .삭제 확인
 <br><br>
 
 ## 🥜 개발 문서
-#### [ 🧾 기능명세서 ](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/blob/master/documents/function/DogLive_%EA%B8%B0%EB%8A%A5%EB%AA%85%EC%84%B8%EC%84%9C.pdf)
-#### [ 📑 Wiki 보러 가기 ](https://lab.ssafy.com/s05-webmobile1-sub2/S05P12A501/-/wikis/home)
+#### [ 🧾 기능명세서 ](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/master/documents/function/DogLive_%EA%B8%B0%EB%8A%A5%EB%AA%85%EC%84%B8%EC%84%9C.pdf)
+#### [ 📑 Wiki 보러 가기 ](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/wikis/home)
 
 
 <br><br><br><br>
