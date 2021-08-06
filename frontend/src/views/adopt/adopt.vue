@@ -124,9 +124,8 @@ export default {
       state,
       dialogVisible,
       dialogVisible2,
-      readData,
-      goRegister,
-      readData9
+
+      goRegister
     };
   }
 };
