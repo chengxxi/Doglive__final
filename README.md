@@ -7,6 +7,10 @@
 ▶ 조다운, 이상현, 이영주, 최혜원, 한승희 </b>
 <br><br><br><br>
 
+#### 🔗 [독립 즐기러가기](http://i5a501.p.ssafy.io/)
+#### 💛☝ 해당 문서와 함께 ➡ [사용방법 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/master/README_1.0.md)
+<br>
+
 ## 🗂 Content
 1. [🔈 프로젝트 소개](#-프로젝트-소개)
     <br>
