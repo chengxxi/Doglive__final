@@ -11,11 +11,14 @@ import lombok.Setter;
 @Setter
 @ApiModel("UserResponse")
 public class UserRes extends BaseResponseBody {
+
     @ApiModelProperty
     UserProfile userProfile;
 
-    public static UserRes of(UserProfile userProfile){
+    public static UserRes of(Integer statusCode, String message, UserProfile userProfile){
         UserRes res = new UserRes();
+        res.setStatusCode(statusCode);
+        res.setMessage(message);
         res.setUserProfile(userProfile);
         return res;
     }

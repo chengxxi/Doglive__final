@@ -4,6 +4,14 @@ export default {
   loginUserInfo: {
     userId : '',
   },
+  
+  userProfile:{
+    imageURL: '',
+    name: '',
+    email: '',
+    birth: '',
+    phone: '',
+  },
 
   writeList : {
 

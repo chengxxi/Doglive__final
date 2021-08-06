@@ -54,6 +54,20 @@ public class UserController {
         return ResponseEntity.status(409).body(BaseResponseBody.of(409, "이미 존재하는 사용자 ID입니다."));
     }
 
+//    @PutMapping("/{id}")
+//    @ApiOperation(value = "회원 정보 수정", notes = "DB에 저장된 회원정보를 새로운 값으로 수정한다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 409, message = "이미 존재하는 유저"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public ResponseEntity<? extends BaseResponseBody> updateUser(@PathVariable("id") String id, @RequestParam("profileImgUrl") MultipartFile multipartFile, @RequestBody @ApiParam(value="회원정보수정", required = true) UserUpdatePutReq userUpdatePutReq){
+//        userService.updateUserProfile(id, userUpdatePutReq, multipartFile);
+//        return ResponseEntity.status(200).body(BaseResponseBody.of(200,"Success"));
+//    }
+
     @PutMapping("/{id}")
     @ApiOperation(value = "회원 정보 수정", notes = "DB에 저장된 회원정보를 새로운 값으로 수정한다.")
     @ApiResponses({
@@ -63,8 +77,8 @@ public class UserController {
             @ApiResponse(code = 409, message = "이미 존재하는 유저"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> updateUser(@PathVariable("id") String id, @RequestParam("profileImgUrl") MultipartFile multipartFile, @RequestBody @ApiParam(value="회원정보수정", required = true) UserUpdatePutReq userUpdatePutReq){
-        userService.updateUserProfile(id, userUpdatePutReq, multipartFile);
+    public ResponseEntity<? extends BaseResponseBody> updateUser(@PathVariable("id") String id,  @RequestBody @ApiParam(value="회원정보수정", required = true) UserUpdatePutReq userUpdatePutReq){
+        userService.updateUserProfile(id, userUpdatePutReq);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200,"Success"));
     }
 
@@ -172,7 +186,7 @@ public class UserController {
         if(userProfile == null){
             return null;
         }
-        return ResponseEntity.status(200).body(UserRes.of(userProfile));
+        return ResponseEntity.ok(UserRes.of(200,"Success",userProfile));
     }
 
 }

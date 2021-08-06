@@ -56,3 +56,17 @@ export function requestRegisterBoard({state}, payload){
   console.log(payload)
   return $axios.post(url, payload)
 }
+
+// 사용자 프로필 정보 가져오기
+export function requestUserProfile({state}, payload){
+  const url = "/users/" + payload;
+  return $axios.get(url);
+}
+
+// 사용자 프로필 수정
+export function changeUserInfo({state}, payload){
+  const userId = payload.userId;
+  console.log(payload.data);
+  const url = "/users/" + userId;
+  return $axios.put(url,payload.data);
+}

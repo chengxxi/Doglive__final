@@ -2,7 +2,7 @@
   <div class="side-navi">
     <div class="hide-on-small">
       <div class="menu-title">
-        <h3>마이페이지</h3>
+        <h5>마이페이지</h5>
       </div>
       <!-- 사용자 정보 -->
       <el-menu
@@ -26,8 +26,8 @@
             <i class="el-icon-chat-line-square"></i>
             <span>입양/임시보호</span>
           </template>
-          <el-menu-item index="2-1">- 상담 신청 결과</el-menu-item>
-          <el-menu-item index="2-2">- 신청자 목록 보기</el-menu-item>
+          <el-menu-item index="2-1" @click="clickApplyResult">- 상담 신청 결과</el-menu-item>
+          <el-menu-item index="2-2" @click="clickApplicant">- 신청자 목록 보기</el-menu-item>
         </el-submenu>
       </el-menu>
     </div>
@@ -45,7 +45,6 @@
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
-  border-top: solid 1px rgb(212, 212, 212);
   border-bottom: solid 1px rgb(212, 212, 212);
 }
 .side-navi .menu-list {
@@ -101,9 +100,15 @@ export default {
     const clickBookmark = function(){
       router.push({name: 'mypage-bookmark'})
     }
+    const clickApplicant = function(){
+      router.push({name: 'mypage-applicant-list'})
+    }
+    const clickApplyResult = function(){
+      router.push({name: 'mypage-result-list'})
+    }
     
    
-    return {handleOpen, handleClose, clickProfile, clickMyPost, clickBookmark, state, openedMenu}
+    return {handleOpen, handleClose, clickProfile, clickMyPost, clickBookmark, clickApplicant, clickApplyResult, state, openedMenu}
   }
 }
 </script>

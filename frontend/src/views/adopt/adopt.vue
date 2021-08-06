@@ -114,7 +114,7 @@ export default {
     const dialogVisible = ref(false);
     const dialogVisible2 = ref(false);
 
-const store = new useStore()
+    const store = new useStore()
     const router = new useRouter()
 
     const readData = function() {

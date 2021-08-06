@@ -29,3 +29,7 @@ export function getBoardDetail(state) {
 export function getIsbookmarked(state) {
   return state.board.isbookmarked
 }
+// 변경할 사용자의 정보 가져오기
+export function getUpdateUserInfo(state){
+  return state.userProfile
+}
