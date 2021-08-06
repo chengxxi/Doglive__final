@@ -7,6 +7,7 @@
         v-for="(card, idx) in state.boardList"
         :key="idx"
         :card="card"
+        @click="readDetail(card.boardId)"
       />
     </el-row>
   </div>
@@ -56,12 +57,50 @@ export default {
       const userid = store.getters["root/getLoginUserInfo"].userId;
 
       $axios
-        .get("/api/v1/board/adopt")
+        .get("/board/adopt")
         .then(function(result) {
           console.log(result);
           console.log(result.data.boardList);
 
           state.boardList = result.data.boardList;
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
+
+    const readDetail = function(id) {
+      const userid = store.getters["root/getLoginUserInfo"].userId;
+
+      $axios
+        .get("/board/" + id + "/" + userid)
+        .then(function(result) {
+          console.log(result);
+
+          const boardDetail = {
+            boardId: result.data.board.id,
+            boardType: result.data.board.type,
+            thumbnailUrl: result.data.board.thumbnailUrl,
+            title: result.data.board.title,
+            address: result.data.dogInformation.address,
+            mbti: result.data.dogInformation.mbti,
+            colorType: result.data.dogInformation.colorType,
+            gender: result.data.dogInformation.gender,
+            hairType: result.data.dogInformation.hairType,
+            neutralization: result.data.dogInformation.neutralization,
+            writer: result.data.writer,
+            weight: result.data.dogInformation.weight,
+            ageType: result.data.dogInformation.ageType,
+            regDate: result.data.board.regDate,
+            fileList: result.data.boardImageList,
+            isOwner: result.data.owner,
+            description: result.data.dogInformation.description,
+            dogName: result.data.dogInformation.dogName
+          };
+
+          store.commit("root/setBoardDetail", boardDetail);
+
+          router.push({ name: "AdoptDetail" });
         })
         .catch(function(err) {
           console.log(err);
@@ -90,7 +129,7 @@ export default {
       readData();
     });
 
-    return { state, readData, goRegister };
+    return { state, readData, readDetail, goRegister };
   }
 };
 </script>
