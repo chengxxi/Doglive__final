@@ -383,7 +383,7 @@ export default {
       const data = {
         thumbnailUrl: "",
         filePath: [],
-        dogName: this.state.name,
+        dogName: this.ruleForm.name,
         boardType: Number(this.ruleForm.type),
         userId: this.state.userId.userId,
         mbti: mbti,
