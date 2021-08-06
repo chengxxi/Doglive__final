@@ -393,7 +393,8 @@ export default {
         hairType: this.ruleForm.hair == "단모" ? 10 : 11,
         gender: this.ruleForm.gender == "여" ? 8 : 9,
         age: Number(this.ruleForm.age),
-        neutralization: this.ruleForm.hair == "중성화 O" ? true : false,
+        neutralization:
+          this.ruleForm.neutralization == "중성화 O" ? true : false,
         weight: Number(this.ruleForm.size),
         address: this.ruleForm.address
       };
