@@ -90,7 +90,7 @@ export default {
             neutralization: result.data.dogInformation.neutralization,
             writer: result.data.writer,
             weight: result.data.dogInformation.weight,
-            ageType: result.data.dogInformation.ageType,
+            ageType: result.data.dogInformation.age,
             regDate: result.data.board.regDate,
             fileList: result.data.boardImageList,
             isOwner: result.data.owner,
