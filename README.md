@@ -8,7 +8,7 @@
 <br><br><br><br>
 
 #### 🔗 [독립 Version 0.1.0 즐기러가기](http://i5a501.p.ssafy.io/)
-#### 💛☝ 해당 문서와 함께 ➡ [사용방법 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/master/README_1.0.md)
+#### 💛☝ 해당 문서와 함께 ➡ [사용방법 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.1.0/README_0.1.0.md )
 <br>
 
 ## 🗂 Content
