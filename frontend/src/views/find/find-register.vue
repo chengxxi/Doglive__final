@@ -77,8 +77,8 @@
             <el-col :span="12">
               <el-form-item label="공고 타입" prop="type">
                 <el-select v-model="ruleForm.type" placeholder="입양">
-                  <el-option label="실종" value="1"></el-option>
-                  <el-option label="보호" value="2"></el-option>
+                  <el-option label="실종" value="3"></el-option>
+                  <el-option label="보호" value="4"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
