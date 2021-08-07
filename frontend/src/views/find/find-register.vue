@@ -158,10 +158,6 @@ export default {
         neutralization: "",
         address: "",
         desc: "",
-        energy: "",
-        obedience: "",
-        relationship: "",
-        adaptability: "",
         disabled: false
       },
       rules: {
@@ -223,7 +219,7 @@ export default {
         address: [
           {
             required: true,
-            message: "현재 강아지의 위치를 입력해주세요",
+            message: "실종/보호 장소를 입력해주세요",
             trigger: "blur"
           },
           {
@@ -245,34 +241,6 @@ export default {
             message: "50글자 이상, 1000글자 이하로 입력해주세요.",
             trigger: "blur"
           }
-        ],
-        energy: [
-          {
-            required: true,
-            message: "활동성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        obedience: [
-          {
-            required: true,
-            message: "순종성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        relationship: [
-          {
-            required: true,
-            message: "관계성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        adaptability: [
-          {
-            required: true,
-            message: "적응성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
         ]
       }
     };
@@ -280,19 +248,13 @@ export default {
 
   methods: {
     submitForm(formName) {
-      const mbti =
-        [this.ruleForm.energy == "에너지있는" ? "E" : "I"] +
-        [this.ruleForm.obedience == "충성심 강한" ? "S" : "N"] +
-        [this.ruleForm.relationship == "의존적인" ? "F" : "T"] +
-        [this.ruleForm.adaptability == "친화적인" ? "J" : "P"];
-
       const data = {
         thumbnailUrl: "",
         filePath: [],
         dogName: this.ruleForm.name,
         boardType: Number(this.ruleForm.type),
         userId: this.state.userId.userId,
-        mbti: mbti,
+        mbti: "",
         title: this.ruleForm.title,
         description: this.ruleForm.desc,
         colorType: Number(this.ruleForm.color),
