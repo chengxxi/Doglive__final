@@ -17,8 +17,18 @@
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
             <el-tag
+              v-if="state.board.boardId == 1"
               class="mb-3"
-              color="#D7AEA4"
+              color="#D7AFA4"
+              effect="dark"
+              size="large"
+              style="border:none; border-radius: 30px; font-size:14pt;"
+              >{{ state.board.boardType.name }}</el-tag
+            >
+            <el-tag
+              v-if="state.board.boardId != 1"
+              class="mb-3"
+              color="#E9CDA4"
               effect="dark"
               size="large"
               style="border:none; border-radius: 30px; font-size:14pt;"
@@ -140,20 +150,20 @@
                           <td>
                             <el-tag
                               class="m-3"
-                              color="#87CEDC"
+                              color="#B4D9A7"
                               effect="dark"
                               size="large"
-                              :style="{ border: '3px solid #87CEDC' }"
+                              :style="{ border: '3px solid #B4D9A7' }"
                               >F</el-tag
                             >관계지향 (F) Friendly
                           </td>
                           <td>
                             <el-tag
                               class="m-3"
-                              color="#B4D9A7"
+                              color="#87CEDC"
                               effect="dark"
                               size="large"
-                              :style="{ border: '3px solid #B4D9A7' }"
+                              :style="{ border: '3px solid #87CEDC' }"
                               >P</el-tag
                             >신중한 (P) Prudent
                           </td>
@@ -184,7 +194,7 @@
                             <el-tag
                               class="m-3"
                               color="#FFFFFF"
-                              style="border: 3px solid #87CEDC; color: #606266;"
+                              style="border: 3px solid #B4D9A7; color: #606266;"
                               effect="dark"
                               size="large"
                               >T</el-tag
@@ -194,7 +204,7 @@
                             <el-tag
                               class="m-3"
                               color="#FFFFFF"
-                              style="border: 3px solid #B4D9A7; color: #606266;"
+                              style="border: 3px solid #87CEDC; color: #606266;"
                               effect="dark"
                               size="large"
                               >J</el-tag
@@ -223,7 +233,7 @@
                   >상담 신청</el-button
                 >
               </div>
-              <div v-if="!state.board.isOwner">
+              <div v-if="state.board.isOwner">
                 <el-row>
                   <el-col :span="12"
                     ><el-button

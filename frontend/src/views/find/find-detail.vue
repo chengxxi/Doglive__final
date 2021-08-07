@@ -17,8 +17,18 @@
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
             <el-tag
+              v-if="state.board.boardId == 3"
               class="mb-3"
-              color="#D7AEA4"
+              color="#B4D9A7"
+              effect="dark"
+              size="large"
+              style="border:none; border-radius: 30px; font-size:14pt;"
+              >{{ state.board.boardType.name }}</el-tag
+            >
+            <el-tag
+              v-if="state.board.boardId != 3"
+              class="mb-3"
+              color="#87CEDC"
               effect="dark"
               size="large"
               style="border:none; border-radius: 30px; font-size:14pt;"
@@ -84,7 +94,7 @@
                   >채팅 보내기</el-button
                 >
               </div>
-              <div v-if="!state.board.isOwner">
+              <div v-if="state.board.isOwner">
                 <el-row>
                   <el-col :span="12"
                     ><el-button
