@@ -125,6 +125,7 @@ public class BoardController {
     })
     public ResponseEntity<BoardDetailGetRes> boardDetail(@PathVariable("boardId") String boardId, @PathVariable("userId") String userId){
         boolean isOwner = false;
+
         System.out.println(boardId);
         System.out.println(userId);
         Board board = boardService.getBoardByBoardId(Long.parseLong(boardId));
@@ -135,8 +136,10 @@ public class BoardController {
         List<BoardImage> boardImages = boardService.getBoardImagesByBoard(board);
 
         String writer = userService.getUserName(board.getUserId());
-        System.out.println(writer);
         if(board.getUserId().equals(userId)) isOwner = true;
+
+        System.out.println(writer);
+
         System.out.println(userId+" "+board.getUserId());
         return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isOwner, writer, board, dogInformation, boardImages, boardComments));
     }

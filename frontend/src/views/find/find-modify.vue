@@ -317,7 +317,7 @@ export default {
         .then(function(result) {
           createToast("공고가 수정되었어요 📜🐾", {
             hideProgressBar: "true",
-            timeout: 4000,
+            timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#7eaa72",
             position: "bottom-right",
@@ -328,9 +328,9 @@ export default {
           router.push({ name: "Adopt" });
         })
         .catch(function(err) {
-          createToast("공고 수정에 실패했어요 💬💦", {
+          createToast("공고 수정에 실패했어요 😱💦", {
             hideProgressBar: "true",
-            timeout: 4000,
+            timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
             position: "bottom-right",

@@ -17,7 +17,7 @@
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
             <el-tag
-              v-if="state.board.boardId == 3"
+              v-if="state.board.boardId.id == 3"
               class="mb-3"
               color="#B4D9A7"
               effect="dark"
@@ -26,7 +26,7 @@
               >{{ state.board.boardType.name }}</el-tag
             >
             <el-tag
-              v-if="state.board.boardId != 3"
+              v-if="state.board.boardId.id != 3"
               class="mb-3"
               color="#87CEDC"
               effect="dark"
@@ -308,7 +308,7 @@ export default {
         .then(function(result) {
           createToast("공고가 삭제되었어요 💨💨", {
             hideProgressBar: "true",
-            timeout: 4000,
+            timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#7eaa72",
             position: "bottom-right",
@@ -318,9 +318,9 @@ export default {
           router.push({ name: "Adopt" });
         })
         .catch(function(err) {
-          createToast("공고 삭제에 실패했어요 💬💦", {
+          createToast("공고 삭제에 실패했어요 😱💦", {
             hideProgressBar: "true",
-            timeout: 4000,
+            timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
             position: "bottom-right",
@@ -358,9 +358,9 @@ export default {
       const isBookmarked = store.getters["root/getIsbookmarked"];
 
       if (state.userId === null) {
-        createToast("로그인 먼저 진행해주세요❕❗", {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
           hideProgressBar: "true",
-          timeout: 4000,
+          timeout: 4500,
           showIcon: "true",
           toastBackgroundColor: "#c49d83",
           position: "bottom-right",
@@ -383,7 +383,7 @@ export default {
               store.commit("root/setIsbookmarked", false);
               createToast("북마크가 해제되었어요 💨💨", {
                 hideProgressBar: "true",
-                timeout: 4000,
+                timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#7eaa72",
                 position: "bottom-right",
@@ -392,9 +392,9 @@ export default {
               });
             })
             .catch(function(err) {
-              createToast("북마크 해제에 실패했어요 💬💦", {
+              createToast("북마크 해제에 실패했어요 😱💦", {
                 hideProgressBar: "true",
-                timeout: 4000,
+                timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#c49d83",
                 position: "bottom-right",
@@ -414,7 +414,7 @@ export default {
               store.commit("root/setIsbookmarked", true);
               createToast("북마크가 등록되었어요 🐾💌", {
                 hideProgressBar: "true",
-                timeout: 4000,
+                timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#7eaa72",
                 position: "bottom-right",
@@ -423,9 +423,9 @@ export default {
               });
             })
             .catch(function(err) {
-              createToast("북마크 등록에 실패했어요 💬💦", {
+              createToast("북마크 등록에 실패했어요 😱💦", {
                 hideProgressBar: "true",
-                timeout: 4000,
+                timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#c49d83",
                 position: "bottom-right",
@@ -439,9 +439,9 @@ export default {
     };
 
     const goChat = function(id) {
-      createToast("지금은 공사중🔨이에요 👀", {
+      createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
         hideProgressBar: "true",
-        timeout: 4000,
+        timeout: 4500,
         showIcon: "true",
         toastBackgroundColor: "#c49d83",
         position: "bottom-right",
