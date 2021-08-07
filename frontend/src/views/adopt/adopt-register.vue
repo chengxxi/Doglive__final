@@ -234,6 +234,8 @@ import BreadCrumb from "./components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "AdoptReigster",
@@ -442,11 +444,28 @@ export default {
       store
         .dispatch("root/requestRegisterBoard", data)
         .then(function(result) {
-          alert("공고 등록 성공");
+          createToast("공고가 등록되었어요 📜🐾", {
+            hideProgressBar: "true",
+            timeout: 4000,
+            showIcon: "true",
+            toastBackgroundColor: "#D7AFA4",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "success"
+          });
           console.log("등록 성공");
           router.push({ name: "Adopt" });
         })
         .catch(function(err) {
+          createToast("공고 등록에 실패했어요 💬💦", {
+            hideProgressBar: "true",
+            timeout: 4000,
+            showIcon: "true",
+            toastBackgroundColor: "#D7AFA4",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "fail"
+          });
           console.log(err);
         });
     };

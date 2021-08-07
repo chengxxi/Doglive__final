@@ -233,13 +233,13 @@ import BreadCrumb from "./components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import VueAlertify from "vue-alertify";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "AdoptModify",
   components: {
-    BreadCrumb,
-    VueAlertify
+    BreadCrumb
   },
   data() {
     return {
@@ -411,6 +411,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.modifyData(data);
+
           console.log(this.ruleForm);
         } else {
           console.log("error submit!!");
@@ -455,11 +456,28 @@ export default {
           data: data
         })
         .then(function(result) {
-          alert("공고 수정 성공");
+          createToast("공고가 수정되었어요 📜🐾", {
+            hideProgressBar: "true",
+            timeout: 4000,
+            showIcon: "true",
+            toastBackgroundColor: "#D7AFA4",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "success"
+          });
           console.log("수정 성공");
           router.push({ name: "Adopt" });
         })
         .catch(function(err) {
+          createToast("공고 수정에 실패했어요 💬💦", {
+            hideProgressBar: "true",
+            timeout: 4000,
+            showIcon: "true",
+            toastBackgroundColor: "#D7AFA4",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "fail"
+          });
           console.log(err);
         });
     };

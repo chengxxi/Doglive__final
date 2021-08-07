@@ -445,6 +445,15 @@ export default {
           router.push({ name: "Adopt" });
         })
         .catch(function(err) {
+          createToast("공고 삭제에 실패했어요 💬💦", {
+            hideProgressBar: "true",
+            timeout: 4000,
+            showIcon: "true",
+            toastBackgroundColor: "#D7AFA4",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "fail"
+          });
           console.log(err);
         });
     };
@@ -502,6 +511,15 @@ export default {
               });
             })
             .catch(function(err) {
+              createToast("북마크 해제에 실패했어요 💬💦", {
+                hideProgressBar: "true",
+                timeout: 4000,
+                showIcon: "true",
+                toastBackgroundColor: "#D7AFA4",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "fail"
+              });
               console.log(err);
             });
         } else {
@@ -524,6 +542,15 @@ export default {
               });
             })
             .catch(function(err) {
+              createToast("북마크 등록에 실패했어요 💬💦", {
+                hideProgressBar: "true",
+                timeout: 4000,
+                showIcon: "true",
+                toastBackgroundColor: "#D7AFA4",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "fail"
+              });
               console.log(err);
             });
         }
