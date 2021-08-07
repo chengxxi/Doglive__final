@@ -233,26 +233,81 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="적응성향" prop="adaptability">
-                <el-radio-group v-model="ruleForm.adaptability">
-                  <el-popover placement="bottom" width="200" trigger="hover">
-                    <h6 style="font-weight:600">신중한 Prudent</h6>
-                    낯가리는, 조심스러운
+                <div>
+                  <el-radio-group v-model="ruleForm.adaptability">
+                    <el-popover placement="bottom" width="200" trigger="hover">
+                      <h6 style="font-weight:600">신중한 Prudent</h6>
+                      낯가리는, 조심스러운
 
-                    <template #reference>
-                      <el-radio-button label="낯가리는"></el-radio-button>
-                    </template>
-                  </el-popover>
-                  <el-popover placement="bottom" width="200" trigger="hover">
-                    <h6 style="font-weight:600">친화적인 Jolly</h6>
-                    모든 것에 호기심 가득한
-                    <template #reference>
-                      <el-radio-button label="친화적인"></el-radio-button>
-                      <i class="el-icon-question" />
-                    </template>
-                  </el-popover>
-                </el-radio-group>
+                      <template #reference>
+                        <el-radio-button label="낯가리는"></el-radio-button>
+                      </template>
+                    </el-popover>
+                    <el-popover placement="bottom" width="200" trigger="hover">
+                      <h6 style="font-weight:600">친화적인 Jolly</h6>
+                      모든 것에 호기심 가득한
+                      <template #reference>
+                        <el-radio-button label="친화적인"></el-radio-button>
+                        <i class="el-icon-question" />
+                      </template>
+                    </el-popover>
+                  </el-radio-group>
+                </div>
               </el-form-item>
             </el-col>
+          </el-row>
+          <div class="mb-3" style="margin-top:100px;"></div>
+          <span style="font-size: 1.25rem; font-weight:600">
+            📷 사진을 업로드 해주세요
+          </span>
+          <span> (최대 5장)</span>
+          <el-divider />
+          <el-row>
+            <el-upload
+              action="#"
+              list-type="picture-card"
+              :auto-upload="false"
+              limit="5"
+              on-exceed=""
+            >
+              <template #default>
+                <i class="el-icon-plus"></i>
+              </template>
+              <template #file="{file}">
+                <div>
+                  <img
+                    class="el-upload-list__item-thumbnail"
+                    :src="file.url"
+                    alt=""
+                  />
+                  <span class="el-upload-list__item-actions">
+                    <span
+                      class="el-upload-list__item-preview"
+                      @click="handlePictureCardPreview(file)"
+                    >
+                      <i class="el-icon-zoom-in"></i>
+                    </span>
+                    <span
+                      v-if="!disabled"
+                      class="el-upload-list__item-delete"
+                      @click="handleDownload(file)"
+                    >
+                      <i class="el-icon-download"></i>
+                    </span>
+                    <span
+                      v-if="!disabled"
+                      class="el-upload-list__item-delete"
+                      @click="handleRemove(file)"
+                    >
+                      <i class="el-icon-delete"></i>
+                    </span>
+                  </span>
+                </div>
+              </template>
+            </el-upload>
+            <el-dialog v-model="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt="" />
+            </el-dialog>
           </el-row>
           <el-row
             class="mt-5"
@@ -302,6 +357,9 @@ export default {
         obedience: "",
         relationship: "",
         adaptability: "",
+        disabled: false,
+        dialogImageUrl: "",
+        dialogVisible: false,
         disabled: false
       },
       rules: {

@@ -254,6 +254,59 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <div class="mb-3" style="margin-top:100px;"></div>
+          <span style="font-size: 1.25rem; font-weight:600">
+            📷 사진을 업로드 해주세요
+          </span>
+          <span> (최대 5장)</span>
+          <el-divider />
+          <el-row>
+            <el-upload
+              action="#"
+              list-type="picture-card"
+              :auto-upload="false"
+              limit="5"
+              on-exceed=""
+            >
+              <template #default>
+                <i class="el-icon-plus"></i>
+              </template>
+              <template #file="{file}">
+                <div>
+                  <img
+                    class="el-upload-list__item-thumbnail"
+                    :src="file.url"
+                    alt=""
+                  />
+                  <span class="el-upload-list__item-actions">
+                    <span
+                      class="el-upload-list__item-preview"
+                      @click="handlePictureCardPreview(file)"
+                    >
+                      <i class="el-icon-zoom-in"></i>
+                    </span>
+                    <span
+                      v-if="!disabled"
+                      class="el-upload-list__item-delete"
+                      @click="handleDownload(file)"
+                    >
+                      <i class="el-icon-download"></i>
+                    </span>
+                    <span
+                      v-if="!disabled"
+                      class="el-upload-list__item-delete"
+                      @click="handleRemove(file)"
+                    >
+                      <i class="el-icon-delete"></i>
+                    </span>
+                  </span>
+                </div>
+              </template>
+            </el-upload>
+            <el-dialog v-model="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt="" />
+            </el-dialog>
+          </el-row>
           <el-row
             class="mt-5"
             style=" display: flex;
