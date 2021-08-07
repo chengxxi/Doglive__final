@@ -223,12 +223,13 @@
                   >상담 신청</el-button
                 >
               </div>
-              <div v-if="state.board.isOwner">
+              <div v-if="!state.board.isOwner">
                 <el-row>
                   <el-col :span="12"
                     ><el-button
                       class="m-2"
                       style="width:100%;   background : #755744;"
+                      @click="goModify(state.board.boardId)"
                       >공고 수정</el-button
                     ></el-col
                   >
@@ -236,6 +237,7 @@
                     ><el-button
                       class="m-2"
                       style="width:100%;   background : #C4C4C4;"
+                      @click="doDelete(state.board.boardId)"
                       >공고 삭제</el-button
                     ></el-col
                   >
@@ -382,14 +384,14 @@ import BreadCrumb from "./components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-
-import Popper from "vue3-popper";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "AdoptDetail",
   components: {
     BreadCrumb,
-    Popper
+    createToast
   },
   data() {
     return {
@@ -422,8 +424,29 @@ export default {
       })
     });
 
-    const goBack = function() {
-      router.push({ name: "AdoptDetailTest" });
+    const goModify = function(id) {
+      console.log(id, "go modify");
+      router.push({ name: "AdoptModify" });
+    };
+
+    const doDelete = function(id) {
+      store
+        .dispatch("root/requestDeleteBoard", id)
+        .then(function(result) {
+          createToast("공고가 삭제되었어요 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4000,
+            showIcon: "true",
+            toastBackgroundColor: "#D7AFA4",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "success"
+          });
+          router.push({ name: "Adopt" });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     };
 
     const kakaoShare = function() {
@@ -468,7 +491,15 @@ export default {
             .then(function(result) {
               console.log("deleteBookmark!!!!!!");
               store.commit("root/setIsbookmarked", false);
-              alert("북마크가 해제되었습니다");
+              createToast("북마크가 해제되었어요 💨💨", {
+                hideProgressBar: "true",
+                timeout: 4000,
+                showIcon: "true",
+                toastBackgroundColor: "#D7AFA4",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "success"
+              });
             })
             .catch(function(err) {
               console.log(err);
@@ -482,7 +513,15 @@ export default {
             .then(function(result) {
               console.log("insertBookmark!!!!!!");
               store.commit("root/setIsbookmarked", true);
-              alert("북마크가 등록되었습니다");
+              createToast("북마크가 등록되었어요 🐾💌", {
+                hideProgressBar: "true",
+                timeout: 4000,
+                showIcon: "true",
+                toastBackgroundColor: "#D7AFA4",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "success"
+              });
             })
             .catch(function(err) {
               console.log(err);
@@ -500,7 +539,7 @@ export default {
       });
     });
 
-    return { state, goBack, clickBookmark, kakaoShare };
+    return { state, clickBookmark, kakaoShare, doDelete, goModify };
   }
 };
 </script>

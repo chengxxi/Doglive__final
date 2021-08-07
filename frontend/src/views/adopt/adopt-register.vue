@@ -65,10 +65,12 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="컬러" prop="color">
-                <el-select v-model="ruleForm.color" placeholder="Bright(밝은))">
-                  <el-option label="Bright(밝은)" value="12"></el-option>
-                  <el-option label="Middle(중간)" value="13"></el-option>
-                  <el-option label="Dark(어두운)" value="14"></el-option>
+                <el-select v-model="ruleForm.color" placeholder="White">
+                  <el-option label="White" value="12"></el-option>
+                  <el-option label="Beige" value="13"></el-option>
+                  <el-option label="Gray" value="14"></el-option>
+                  <el-option label="Brown" value="15"></el-option>
+                  <el-option label="Black" value="16"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -91,7 +93,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="헤어 타입" prop="hair">
+              <el-form-item label="품종" prop="hair">
                 <el-radio-group v-model="ruleForm.hair">
                   <el-radio label="장모"></el-radio>
                   <el-radio label="단모"></el-radio>
