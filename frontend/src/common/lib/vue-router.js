@@ -12,6 +12,9 @@ import AdoptDetailTest from "@/views/adopt/adopt-detail-test.vue";
 import Adopt from "@/views/adopt/adopt.vue";
 import AdoptRegister from "@/views/adopt/adopt-register.vue";
 import AdoptModify from "@/views/adopt/adopt-modify.vue";
+import FindDetail from "@/views/find/find-detail.vue";
+import FindRegister from "@/views/find/find-register.vue";
+import FindModify from "@/views/find/find-modify.vue";
 
 const routes = [
   {
@@ -122,6 +125,21 @@ const routes = [
     path: "/adopt/modify",
     name: "AdoptModify",
     component: AdoptModify
+  },
+  {
+    path: "/find/detail",
+    name: "FindDetail",
+    component: FindDetail
+  },
+  {
+    path: "/find/register",
+    name: "FindRegister",
+    component: FindRegister
+  },
+  {
+    path: "/find/modify",
+    name: "FindModify",
+    component: FindModify
   }
 ];
 
