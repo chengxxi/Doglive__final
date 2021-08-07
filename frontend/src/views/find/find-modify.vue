@@ -112,14 +112,14 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="공고 타입" prop="type">
-                <el-select v-model="ruleForm.type" placeholder="입양">
+                <el-select v-model="ruleForm.type" placeholder="실종">
                   <el-option
-                    label="입양"
-                    value="{ id: 1, name: '입양' }"
+                    label="실종"
+                    value="{ id: 3, name: '실종' }"
                   ></el-option>
                   <el-option
                     label="임보"
-                    value="{ id: 2, name: '임보' }"
+                    value="{ id: 4, name: '보호' }"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -129,16 +129,16 @@
             <el-col :span="12">
               <el-form-item label="성별" prop="gender">
                 <el-radio-group v-model="ruleForm.gender">
-                  <el-radio label="남"></el-radio>
-                  <el-radio label="여"></el-radio>
+                  <el-radio label="남" border></el-radio>
+                  <el-radio label="여" border></el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="품종" prop="hair">
                 <el-radio-group v-model="ruleForm.hair">
-                  <el-radio label="장모"></el-radio>
-                  <el-radio label="단모"></el-radio>
+                  <el-radio label="장모" border></el-radio>
+                  <el-radio label="단모" border></el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -460,14 +460,32 @@ export default {
 :deep(.el-radio__inner:hover) {
   border-color: #755744;
 }
+:deep(.el-radio.is-bordered.is-checked) {
+  border-color: #755744;
+  background-color: #f9f0e7;
+  color: #755744;
+  font-weight: 600;
+}
+
+li.el-select-dropdown__item.selected {
+  color: #755744;
+  font-weight: 700;
+}
+
+:deep(.el-radio__inner) {
+  display: none;
+}
 :deep(.el-radio__input.is-checked + .el-radio__label) {
+  border-color: #755744;
   color: #755744;
 }
 
 :deep(.el-radio__input.is-checked .el-radio__inner) {
   border-color: #755744;
   background-color: #755744;
+  background: #755744;
 }
+
 :deep(.el-button) {
   font-weight: 600;
 }

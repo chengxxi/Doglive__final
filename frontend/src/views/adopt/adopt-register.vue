@@ -129,24 +129,24 @@
             <el-col :span="8">
               <el-form-item label="성별" prop="gender">
                 <el-radio-group v-model="ruleForm.gender">
-                  <el-radio label="남"></el-radio>
-                  <el-radio label="여"></el-radio>
+                  <el-radio label="남" border></el-radio>
+                  <el-radio label="여" border></el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="품종" prop="hair">
                 <el-radio-group v-model="ruleForm.hair">
-                  <el-radio label="장모"></el-radio>
-                  <el-radio label="단모"></el-radio>
+                  <el-radio label="장모" border></el-radio>
+                  <el-radio label="단모" border></el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="중성화 여부" prop="neutralization">
                 <el-radio-group v-model="ruleForm.neutralization">
-                  <el-radio label="중성화 O"></el-radio>
-                  <el-radio label="중성화 X"></el-radio>
+                  <el-radio label="중성화 O" border></el-radio>
+                  <el-radio label="중성화 X" border></el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -168,22 +168,23 @@
             🐶 성격을 소개해주세요
           </h5>
           <el-divider />
+
           <el-row class="mt-3 mb-3">
             <el-col :span="12">
               <el-form-item label="활동성향" prop="energy">
                 <el-radio-group v-model="ruleForm.energy">
-                  <el-popover placement="bottom" width="200" trigger="hover">
+                  <el-popover placement="top" width="200" trigger="hover">
                     <h6 style="font-weight:600">에너지 Energetic</h6>
                     활동적, 즉흥적인
                     <template #reference>
-                      <el-radio-button label="에너지있는"></el-radio-button>
+                      <el-radio label="에너지있는" border></el-radio>
                     </template>
                   </el-popover>
-                  <el-popover placement="bottom" width="200" trigger="hover">
+                  <el-popover placement="top" width="200" trigger="hover">
                     <h6 style="font-weight:600">침착한 Introversion</h6>
                     차분한, 일관적인
                     <template #reference>
-                      <el-radio-button label="침착한"></el-radio-button>
+                      <el-radio label="침착한" border></el-radio>
                     </template>
                   </el-popover>
                 </el-radio-group>
@@ -192,18 +193,18 @@
             <el-col :span="12">
               <el-form-item label="순종성향" prop="obedience">
                 <el-radio-group v-model="ruleForm.obedience">
-                  <el-popover placement="bottom" width="200" trigger="hover">
+                  <el-popover placement="top" width="200" trigger="hover">
                     <h6 style="font-weight:600">충성심 강한 Supportive</h6>
                     유순한, 성실한
                     <template #reference>
-                      <el-radio-button label="충성심 강한"></el-radio-button>
+                      <el-radio label="충성심 강한" border></el-radio>
                     </template>
                   </el-popover>
-                  <el-popover placement="bottom" width="200" trigger="hover">
+                  <el-popover placement="top" width="200" trigger="hover">
                     <h6 style="font-weight:600">영리한 Naughty</h6>
                     재치한, 똑똑한
                     <template #reference>
-                      <el-radio-button label="영리한"></el-radio-button>
+                      <el-radio label="영리한" border></el-radio>
                     </template>
                   </el-popover>
                 </el-radio-group>
@@ -218,14 +219,14 @@
                     <h6 style="font-weight:600">관계지향 Friendly</h6>
                     반려인 바라기
                     <template #reference>
-                      <el-radio-button label="의존적인"></el-radio-button>
+                      <el-radio label="의존적인" border></el-radio>
                     </template>
                   </el-popover>
                   <el-popover placement="bottom" width="200" trigger="hover">
                     <h6 style="font-weight:600">독립지향 independenT</h6>
                     스스로 행동하는
                     <template #reference>
-                      <el-radio-button label="독립적인"></el-radio-button>
+                      <el-radio label="독립적인" border></el-radio>
                     </template>
                   </el-popover>
                 </el-radio-group>
@@ -240,15 +241,14 @@
                       낯가리는, 조심스러운
 
                       <template #reference>
-                        <el-radio-button label="낯가리는"></el-radio-button>
+                        <el-radio label="낯가리는" border></el-radio>
                       </template>
                     </el-popover>
                     <el-popover placement="bottom" width="200" trigger="hover">
                       <h6 style="font-weight:600">친화적인 Jolly</h6>
                       모든 것에 호기심 가득한
                       <template #reference>
-                        <el-radio-button label="친화적인"></el-radio-button>
-                        <i class="el-icon-question" />
+                        <el-radio label="친화적인" border></el-radio>
                       </template>
                     </el-popover>
                   </el-radio-group>
@@ -586,15 +586,40 @@ export default {
 <style scoped>
 :deep(.el-radio__inner:hover) {
   border-color: #755744;
+  color: #755744;
+}
+
+:deep(.el-radio.is-bordered.is-checked) {
+  border-color: #755744;
+  background-color: #f9f0e7;
+  color: #755744;
+  font-weight: 600;
+}
+
+li.el-select-dropdown__item.selected {
+  color: #755744;
+  font-weight: 700;
+}
+
+:deep(.el-radio__inner) {
+  display: none;
 }
 :deep(.el-radio__input.is-checked + .el-radio__label) {
+  border-color: #755744;
   color: #755744;
 }
 
 :deep(.el-radio__input.is-checked .el-radio__inner) {
   border-color: #755744;
   background-color: #755744;
+  background: #755744;
 }
+
+:deep(.el-radio) {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 :deep(.el-button) {
   font-weight: 600;
 }
