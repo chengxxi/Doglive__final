@@ -17,7 +17,7 @@
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
             <el-tag
-              v-if="state.board.boardId.id == 3"
+              v-if="state.board.boardType.id == 3"
               class="mb-3"
               color="#B4D9A7"
               effect="dark"
@@ -26,7 +26,7 @@
               >{{ state.board.boardType.name }}</el-tag
             >
             <el-tag
-              v-if="state.board.boardId.id != 3"
+              v-if="state.board.boardType.id != 3"
               class="mb-3"
               color="#87CEDC"
               effect="dark"
