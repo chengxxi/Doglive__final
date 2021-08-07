@@ -335,7 +335,7 @@ export default {
             toastBackgroundColor: "#c49d83",
             position: "bottom-right",
             transition: "bounce",
-            type: "waring"
+            type: "warning"
           });
           console.log(err);
         });
