@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-    <el-col :span="6" v-for="(o, idx) in card" :key="idx"> <!-- :offset="index > 0 ? 2 : 0" -->
+    <el-col :span="6" v-for="(o, idx) in card" :key="idx"> 
       <el-card :body-style="{ padding: '10px' }" style="margin: 10px !important;" shadow="hover">
         <img :src="require('@/assets/images/logo2.png')" class="image" />
         <div style="padding: 14px;">
@@ -18,7 +18,7 @@
             </div>
           <div class="bottom">
             <p>{{o.title}}</p>
-            <el-button type="text" class="button">글 보러가기</el-button>
+            <el-button type="text" class="button" @click="readDetail(o.id)" >글 보러가기</el-button>
           </div>
         </div>
       </el-card>
@@ -61,7 +61,7 @@
 
 <script>
 import $axios from 'axios'
-import { computed, reactive, onMounted } from 'vue';
+import { onBeforeMount, onMounted, reactive, computed } from "vue";
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router';
 
@@ -91,6 +91,7 @@ export default {
       const router = new useRouter()
 
       const state = reactive({
+        boardList: [],
         isBookmarked : computed(()=>{
           return store.getters['root/getIsbookmarked']
         }),
@@ -130,7 +131,45 @@ export default {
         }
       }
 
-      return { state, clickBookmark}
+      const readDetail = function(id) {
+      const userid = store.getters["root/getLoginUserInfo"].userId;
+
+      $axios
+        .get("/board/" + id + "/" + userid)
+        .then(function(result) {
+          console.log(result);
+
+          const boardDetail = {
+            boardId: result.data.board.id,
+            boardType: result.data.board.type,
+            thumbnailUrl: result.data.board.thumbnailUrl,
+            title: result.data.board.title,
+            address: result.data.dogInformation.address,
+            mbti: result.data.dogInformation.mbti,
+            colorType: result.data.dogInformation.colorType,
+            gender: result.data.dogInformation.gender,
+            hairType: result.data.dogInformation.hairType,
+            neutralization: result.data.dogInformation.neutralization,
+            writer: result.data.writer,
+            weight: result.data.dogInformation.weight,
+            ageType: result.data.dogInformation.age,
+            regDate: result.data.board.regDate,
+            fileList: result.data.boardImageList,
+            isOwner: result.data.owner,
+            description: result.data.dogInformation.description,
+            dogName: result.data.dogInformation.dogName
+          };
+
+          store.commit("root/setBoardDetail", boardDetail);
+
+          router.push({ name: "AdoptDetail" });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
+
+      return { state, clickBookmark, readDetail}
 
   }
 }
