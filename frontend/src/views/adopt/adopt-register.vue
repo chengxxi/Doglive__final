@@ -287,26 +287,21 @@ export default {
   data() {
     return {
       ruleForm: {
-        type: this.state.board.boardType,
-        title: this.state.board.title,
-        name: this.state.board.dogName,
-        gender: this.state.board.gender.name,
-        hair: this.state.board.hairType,
-        color: this.state.board.colorType,
-        age: this.state.board.ageType,
-        size: this.state.board.weight,
-        neutralization:
-          this.state.board.neutralization == true ? "중성화 O" : "중성화 X",
-        address: this.state.board.address,
-        desc: this.state.board.description,
-        energy:
-          this.state.board.mbti.indexOf("E") == 0 ? "에너지있는" : "침착한",
-        obedience:
-          this.state.board.mbti.indexOf("S") == 1 ? "충성심 강한" : "영리한",
-        relationship:
-          this.state.board.mbti.indexOf("F") == 2 ? "의존적인" : "독립적인",
-        adaptability:
-          this.state.board.mbti.indexOf("P") == 3 ? "낯가리는" : "친화적인",
+        type: "",
+        title: "",
+        name: "",
+        gender: "",
+        hair: "",
+        color: "",
+        age: "",
+        size: "",
+        neutralization: "",
+        address: "",
+        desc: "",
+        energy: "",
+        obedience: "",
+        relationship: "",
+        adaptability: "",
         disabled: false
       },
       rules: {
