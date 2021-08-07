@@ -16,7 +16,7 @@ export default {
   writeList: {},
 
   bookmark: {
-    TableData: []
+    TableData: [],
   },
 
   currentPath: "", // 현재 경로의 Path 파트 ex) /login?code=1234 에서 '/login'
