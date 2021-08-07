@@ -9,6 +9,10 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Board 등록 시 요청 Req
+ */
+
 @Getter
 @Setter
 @ApiModel("BoardRegisterPostReq")
