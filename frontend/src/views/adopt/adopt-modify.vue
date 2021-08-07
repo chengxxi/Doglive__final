@@ -45,19 +45,40 @@
             <el-col :span="12">
               <el-form-item label="연령대" prop="age">
                 <el-select v-model="ruleForm.age" placeholder="Puppy(~ 6개월)">
-                  <el-option label="Puppy(~ 6개월)" value="4"></el-option>
-                  <el-option label="Junior(7개월 ~ 2살)" value="5"></el-option>
-                  <el-option label="Adult(3살 ~ 8살)" value="6"></el-option>
-                  <el-option label="Senior(9살 ~)" value="7"></el-option>
+                  <el-option
+                    label="Puppy(~ 6개월)"
+                    value="{ id: 4, name: 'Puppy(~ 6개월)' }"
+                  ></el-option>
+                  <el-option
+                    label="Junior(7개월 ~ 2살)"
+                    value="{ id: 5, name: 'Junior(7개월 ~ 2살)' }"
+                  ></el-option>
+                  <el-option
+                    label="Adult(3살 ~ 8살)"
+                    value="{ id: 6, name: 'Adult(3살 ~ 8살)' }"
+                  ></el-option>
+                  <el-option
+                    label="Senior(9살 ~)"
+                    value="{ id: 7, name: 'Senior(9살 ~)' }"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="크기" prop="size">
                 <el-select v-model="ruleForm.size" placeholder="소(8kg 미만)">
-                  <el-option label="소(8kg 미만)" value="1"></el-option>
-                  <el-option label="중(8kg-18kg 미만)" value="2"></el-option>
-                  <el-option label="대(18kg 이상)" value="3"></el-option>
+                  <el-option
+                    label="소(8kg 미만)"
+                    value="{ id: 1, name: '소(8kg 미만)' }"
+                  ></el-option>
+                  <el-option
+                    label="중(8kg-18kg 미만)"
+                    value="{ id: 2, name: '중(8kg-18kg 미만)' }"
+                  ></el-option>
+                  <el-option
+                    label="대(18kg 이상)"
+                    value="{ id: 3, name: '대(18kg 이상)' }"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -66,19 +87,40 @@
             <el-col :span="12">
               <el-form-item label="컬러" prop="color">
                 <el-select v-model="ruleForm.color" placeholder="White">
-                  <el-option label="White" value="12"></el-option>
-                  <el-option label="Beige" value="13"></el-option>
-                  <el-option label="Gray" value="14"></el-option>
-                  <el-option label="Brown" value="15"></el-option>
-                  <el-option label="Black" value="16"></el-option>
+                  <el-option
+                    label="White"
+                    value="{ id: 12, name: 'White' }"
+                  ></el-option>
+                  <el-option
+                    label="Beige"
+                    value="{ id: 13, name: 'Beige' }"
+                  ></el-option>
+                  <el-option
+                    label="Gray"
+                    value="{ id: 14, name: 'Gray' }"
+                  ></el-option>
+                  <el-option
+                    label="Brown"
+                    value="{ id: 15, name: 'Brown' }"
+                  ></el-option>
+                  <el-option
+                    label="Black"
+                    value="{ id: 16, name: 'Black' }"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="공고 타입" prop="type">
                 <el-select v-model="ruleForm.type" placeholder="입양">
-                  <el-option label="입양" value="1"></el-option>
-                  <el-option label="임보" value="2"></el-option>
+                  <el-option
+                    label="입양"
+                    value="{ id: 1, name: '입양' }"
+                  ></el-option>
+                  <el-option
+                    label="임보"
+                    value="{ id: 2, name: '임보' }"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -244,14 +286,14 @@ export default {
   data() {
     return {
       ruleForm: {
-        type: this.state.board.boardType.id,
+        type: this.state.board.boardType,
         title: this.state.board.title,
         name: this.state.board.dogName,
         gender: this.state.board.gender.name,
-        hair: this.state.board.hairType.name,
-        color: this.state.board.colorType.id,
-        age: this.state.board.ageType.id,
-        size: this.state.board.weight.id,
+        hair: this.state.board.hairType,
+        color: this.state.board.colorType,
+        age: this.state.board.ageType,
+        size: this.state.board.weight,
         neutralization:
           this.state.board.neutralization == true ? "중성화 O" : "중성화 X",
         address: this.state.board.address,
@@ -392,18 +434,18 @@ export default {
         thumbnailUrl: "",
         filePath: [],
         dogName: this.ruleForm.name,
-        boardType: Number(this.ruleForm.type),
+        boardType: Number(this.ruleForm.type.id),
         userId: this.state.userId.userId,
         mbti: mbti,
         title: this.ruleForm.title,
         description: this.ruleForm.desc,
-        colorType: Number(this.ruleForm.color),
+        colorType: Number(this.ruleForm.color.id),
         hairType: this.ruleForm.hair == "단모" ? 10 : 11,
         gender: this.ruleForm.gender == "여" ? 8 : 9,
-        age: Number(this.ruleForm.age),
+        age: Number(this.ruleForm.age.id),
         neutralization:
           this.ruleForm.neutralization == "중성화 O" ? true : false,
-        weight: Number(this.ruleForm.size),
+        weight: Number(this.ruleForm.size.id),
         address: this.ruleForm.address
       };
       console.log(data);
