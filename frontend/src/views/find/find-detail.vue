@@ -90,7 +90,9 @@
 
             <div>
               <div v-if="!state.board.isOwner">
-                <el-button style="width:100%; background : #755744;"
+                <el-button
+                  style="width:100%; background : #755744;"
+                  @click="goChat(state.board.boardId)"
                   >채팅 보내기</el-button
                 >
               </div>
@@ -308,7 +310,7 @@ export default {
             hideProgressBar: "true",
             timeout: 4000,
             showIcon: "true",
-            toastBackgroundColor: "#D7AFA4",
+            toastBackgroundColor: "#7eaa72",
             position: "bottom-right",
             transition: "bounce",
             type: "success"
@@ -320,10 +322,10 @@ export default {
             hideProgressBar: "true",
             timeout: 4000,
             showIcon: "true",
-            toastBackgroundColor: "#D7AFA4",
+            toastBackgroundColor: "#c49d83",
             position: "bottom-right",
             transition: "bounce",
-            type: "fail"
+            type: "waring"
           });
           console.log(err);
         });
@@ -356,7 +358,15 @@ export default {
       const isBookmarked = store.getters["root/getIsbookmarked"];
 
       if (state.userId === null) {
-        alert("로그인을 진행해주세요!");
+        createToast("로그인 먼저 진행해주세요❕❗", {
+          hideProgressBar: "true",
+          timeout: 4000,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-right",
+          transition: "bounce",
+          type: "warning"
+        });
         router.push({ name: "Login" });
       } else {
         console.log("북마크 등록 ", isBookmarked);
@@ -375,7 +385,7 @@ export default {
                 hideProgressBar: "true",
                 timeout: 4000,
                 showIcon: "true",
-                toastBackgroundColor: "#D7AFA4",
+                toastBackgroundColor: "#7eaa72",
                 position: "bottom-right",
                 transition: "bounce",
                 type: "success"
@@ -386,10 +396,10 @@ export default {
                 hideProgressBar: "true",
                 timeout: 4000,
                 showIcon: "true",
-                toastBackgroundColor: "#D7AFA4",
+                toastBackgroundColor: "#c49d83",
                 position: "bottom-right",
                 transition: "bounce",
-                type: "fail"
+                type: "waring"
               });
               console.log(err);
             });
@@ -406,7 +416,7 @@ export default {
                 hideProgressBar: "true",
                 timeout: 4000,
                 showIcon: "true",
-                toastBackgroundColor: "#D7AFA4",
+                toastBackgroundColor: "#7eaa72",
                 position: "bottom-right",
                 transition: "bounce",
                 type: "success"
@@ -417,15 +427,27 @@ export default {
                 hideProgressBar: "true",
                 timeout: 4000,
                 showIcon: "true",
-                toastBackgroundColor: "#D7AFA4",
+                toastBackgroundColor: "#c49d83",
                 position: "bottom-right",
                 transition: "bounce",
-                type: "fail"
+                type: "waring"
               });
               console.log(err);
             });
         }
       }
+    };
+
+    const goChat = function(id) {
+      createToast("지금은 공사중🔨이에요 👀", {
+        hideProgressBar: "true",
+        timeout: 4000,
+        showIcon: "true",
+        toastBackgroundColor: "#c49d83",
+        position: "bottom-right",
+        transition: "bounce",
+        type: "warning"
+      });
     };
 
     onMounted(() => {
@@ -437,7 +459,7 @@ export default {
       });
     });
 
-    return { state, clickBookmark, kakaoShare, doDelete, goModify };
+    return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify };
   }
 };
 </script>

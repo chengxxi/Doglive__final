@@ -406,7 +406,6 @@ export default {
 
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
           this.registerData(data);
           console.log(this.ruleForm);
         } else {
@@ -448,7 +447,7 @@ export default {
             hideProgressBar: "true",
             timeout: 4000,
             showIcon: "true",
-            toastBackgroundColor: "#D7AFA4",
+            toastBackgroundColor: "#7eaa72",
             position: "bottom-right",
             transition: "bounce",
             type: "success"
@@ -461,10 +460,10 @@ export default {
             hideProgressBar: "true",
             timeout: 4000,
             showIcon: "true",
-            toastBackgroundColor: "#D7AFA4",
+            toastBackgroundColor: "#c49d83",
             position: "bottom-right",
             transition: "bounce",
-            type: "fail"
+            type: "waring"
           });
           console.log(err);
         });
