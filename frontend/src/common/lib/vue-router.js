@@ -3,9 +3,8 @@ import Main from '@/views/main/components/main-content.vue'
 import Login from '@/views/main/components/login-dialog.vue'
 import Logout from '@/views/main/components/logout-dialog.vue'
 import Mypage from '@/views/user/mypage.vue'
-import Conference from '@/views/main/components/conference.vue'
+import Conference from '@/views/conferences/conference.vue'
 import KakaoCallback from '@/views/main/components/kakao-callback.vue'
-import Conferenceroom from '@/views/conferences/conferenceroom.vue'
 import Chat from '@/views/chat/chat.vue'
 import AdoptDetail from '@/views/adopt/adopt-detail.vue'
 import AdoptDetailTest from '@/views/adopt/adopt-detail-test.vue'
@@ -23,11 +22,6 @@ const routes = [
     path: '/conference',
     name: 'conference',
     component: Conference,
-  },
-  {
-    path: '/conference/room',
-    name: 'conferenceroom',
-    component: Conferenceroom,
   },
   {
     path: '/login',

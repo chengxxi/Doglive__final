@@ -1,72 +1,54 @@
 <template>
-  <div id="join" v-if="!session" class="main-body">
-    <el-card class="con-join-wrapper">
+  <div id='join' v-if='!session' class='main-body'>
+    <el-card class='con-join-wrapper'>
       <h1>Join a video session</h1>
       <el-form>
         <p>
           <el-label>Participant</el-label>
-          <el-input v-model="myUserName" type="text" required />
+          <el-input v-model='myUserName' type='text' required />
         </p>
         <p>
           <el-label>Session</el-label>
-          <el-input v-model="mySessionId" type="text" required />
+          <el-input v-model='mySessionId' type='text' required />
         </p>
-        <p class="text-center">
-          <el-button class="joinBtn" @click="joinSession()">Join!</el-button>
+        <p class='text-center'>
+          <el-button class='joinBtn' @click='joinSession()'>Join!</el-button>
         </p>
       </el-form>
     </el-card>
   </div>
 
-  <div v-if="session" class="main-body">
-    <el-row class="main-body">
-      <el-col id="video-container" :span="16">
-        <h1 id="session-title">{{ mySessionId }}</h1>
-        <el-button type="button" id="buttonLeaveSession" @click="leaveSession"
-          >Leave Session</el-button
-        >
+  <div v-if='session' class='main-body'>
+    <el-card class="card-el" shadow="hover">
+      <el-row>
+        <el-col :span="2"> <pre> </pre></el-col>
+        <el-col id='video-container' :span='14'>
+          <h1 id='session-title'>{{ mySessionId }}</h1>
+          <el-button type='button' id='buttonLeaveSession' @click='leaveSession'>Leave Session</el-button>
 
-        <el-button
-          v-if="videoEnabled"
-          type="info"
-          icon="el-icon-camera-solid"
-          @click="turnCamera"
-        ></el-button>
-        <el-button
-          v-else
-          type="danger"
-          icon="el-icon-turn-off"
-          @click="turnCamera"
-        ></el-button>
-        <el-button
-          v-if="audioEnabled"
-          type="info"
-          icon="el-icon-microphone"
-          @click="turnAudio"
-        ></el-button>
-        <el-button
-          v-else
-          type="danger"
-          icon="el-icon-turn-off-microphone"
-          @click="turnAudio"
-        ></el-button>
-        <user-video :stream-manager="publisher" />
-        <user-video
-          v-for="sub in subscribers"
-          :key="sub.stream.connection.connectionId"
-          :stream-manager="sub"
-        />
-      </el-col>
-      <el-col :span="6" class="con-col-wrapper">
-        <el-card class="con-chat-wrapper">
-          <conferenceChat
-            class="chat"
-            :session="session"
-            :client-data="myUserName"
+          <el-button v-if='videoEnabled' type='info' icon='el-icon-camera-solid' @click='turnCamera'/>
+          <el-button v-else type='danger' icon='el-icon-turn-off' @click='turnCamera'/>
+          <el-button v-if='audioEnabled' type='info' icon='el-icon-microphone' @click='turnAudio' />
+          <el-button v-else type='danger' icon='el-icon-turn-off-microphone' @click='turnAudio' />
+          <user-video :stream-manager='publisher' />
+          <user-video
+            v-for='sub in subscribers'
+            :key='sub.stream.connection.connectionId'
+            :stream-manager='sub'
           />
-        </el-card>
-      </el-col>
-    </el-row>
+        </el-col>
+        <el-col :span='6' class='con-col-wrapper'>
+          <el-card class='con-chat-wrapper'>
+            <conferenceChat
+              class='chat'
+              :session='session'
+              :client-data='myUserName'
+            />
+          </el-card>
+        </el-col>
+        <el-col :span="2"/>
+      </el-row>
+    </el-card>
   </div>
 </template>
 <style scoped>
@@ -78,8 +60,17 @@
   margin-right: 10%;
   margin: 0 auto;
 }
+.card-el {
+  height: 700px;
+  width: 100%;
+  align-items: center;
+}
+.video-container {
+  align-items: center;
+}
 .con-col-wrapper {
   align-content: center;
+  height: 100%;
 }
 .con-chat-wrapper {
   align-content: center;
@@ -91,43 +82,19 @@
   margin: auto;
   text-align: center;
 }
-.con-join-wrapper .login-title {
-  height: 20px;
-  font-size: 1.125rem;
-  font-weight: 600;
-  padding-bottom: 10px;
-  border-bottom: solid 1px rgb(212, 212, 212);
-}
-.con-join-wrapper .login-content {
-  height: calc(100% - 70px); /* el-card padding(40px) + login-title(30px) */
-  padding-top: 2%;
-}
-.con-join-wrapper .button-group {
-  width: 300px;
-  padding-top: 25px;
-  margin: 0 auto;
-}
-.con-join-wrapper .comment {
-  display: block;
-  margin-bottom: 10px;
-  /* text-align: left; */
-}
-.con-join-wrapper .joinBtn {
-  cursor: pointer;
-}
 </style>
 
 <script>
-import axios from "axios";
-import { OpenVidu } from "openvidu-browser";
-import UserVideo from "../../conferences/UserVideo.vue";
-import ConferenceChat from "../../conferences/conferenceChat.vue";
+import axios from 'axios';
+import { OpenVidu } from 'openvidu-browser';
+import UserVideo from './components/UserVideo.vue';
+import ConferenceChat from './components/conferenceChat.vue';
 
-axios.defaults.headers.post["Content-Type"] = "application/json";
-const OPENVIDU_SERVER_URL = "https://i5a501.p.ssafy.io:4443";
-const OPENVIDU_SERVER_SECRET = "doglivedoggi";
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+const OPENVIDU_SERVER_URL = 'https://i5a501.p.ssafy.io:4443';
+const OPENVIDU_SERVER_SECRET = 'doglivedoggi';
 export default {
-  name: "Conference",
+  name: 'Conference',
   components: {
     UserVideo,
     ConferenceChat
@@ -139,33 +106,38 @@ export default {
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
-      mySessionId: "SessionA",
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      mySessionId: 'SessionA',
+      myUserName: 'Participant' + Math.floor(Math.random() * 100),
       videoEnabled: true,
       audioEnabled: true
     };
   },
   methods: {
     joinSession() {
+      // mySessionId : 채팅방 있는 두 명의 사용자 ID 합친 것 (26자리 숫자 || 앞자리 어떤 채팅방인지 + 26자리 숫자 => 27자리 숫자)
+      // myUserName : 현재 유저의 카카오톡 고유 아이디로 지정
+
+      // 먼저 화상회의 개설 (DB에 저장)
+
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
       // --- Init a session ---
       this.session = this.OV.initSession();
       // --- Specify the actions when events take place in the session ---
       // On every new Stream received...
-      this.session.on("streamCreated", ({ stream }) => {
+      this.session.on('streamCreated', ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
       });
       // On every Stream destroyed...
-      this.session.on("streamDestroyed", ({ stream }) => {
+      this.session.on('streamDestroyed', ({ stream }) => {
         const index = this.subscribers.indexOf(stream.streamManager, 0);
         if (index >= 0) {
           this.subscribers.splice(index, 1);
         }
       });
       // On every asynchronous exception...
-      this.session.on("exception", ({ exception }) => {
+      this.session.on('exception', ({ exception }) => {
         console.warn(exception);
       });
       // --- Connect to the session with a valid user token ---
@@ -181,9 +153,9 @@ export default {
               videoSource: undefined, // The source of video. If undefined default webcam
               publishAudio: this.audioEnabled, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: this.videoEnabled, // Whether you want to start publishing with your video enabled or not
-              resolution: "640x480", // The resolution of your video
+              resolution: '640x480', // The resolution of your video
               frameRate: 30, // The frame rate of your video
-              insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
+              insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
               mirror: false // Whether to mirror your local video or not
             });
             this.mainStreamManager = publisher;
@@ -193,13 +165,13 @@ export default {
           })
           .catch(error => {
             console.log(
-              "There was an error connecting to the session:",
+              'There was an error connecting to the session:',
               error.code,
               error.message
             );
           });
       });
-      window.addEventListener("beforeunload", this.leaveSession);
+      window.addEventListener('beforeunload', this.leaveSession);
     },
     leaveSession() {
       // --- Leave the session by calling 'disconnect' method over the Session object ---
@@ -209,7 +181,7 @@ export default {
       this.publisher = undefined;
       this.subscribers = [];
       this.OV = undefined;
-      window.removeEventListener("beforeunload", this.leaveSession);
+      window.removeEventListener('beforeunload', this.leaveSession);
     },
     /**
      * --------------------------
@@ -238,7 +210,7 @@ export default {
             }),
             {
               auth: {
-                username: "OPENVIDUAPP",
+                username: 'OPENVIDUAPP',
                 password: OPENVIDU_SERVER_SECRET
               }
             }
@@ -254,7 +226,7 @@ export default {
               );
               if (
                 window.confirm(
-                  `No connection to OpenVidu Server. This may be a certificate error at ${OPENVIDU_SERVER_URL}\n\nClick OK to navigate and accept it. If no certificate warning is shown, then check that your OpenVidu Server is up and running at "${OPENVIDU_SERVER_URL}"`
+                  `No connection to OpenVidu Server. This may be a certificate error at ${OPENVIDU_SERVER_URL}\n\nClick OK to navigate and accept it. If no certificate warning is shown, then check that your OpenVidu Server is up and running at '${OPENVIDU_SERVER_URL}'`
                 )
               ) {
                 location.assign(`${OPENVIDU_SERVER_URL}/accept-certificate`);
@@ -273,7 +245,7 @@ export default {
             {},
             {
               auth: {
-                username: "OPENVIDUAPP",
+                username: 'OPENVIDUAPP',
                 password: OPENVIDU_SERVER_SECRET
               }
             }
@@ -285,20 +257,20 @@ export default {
     },
 
     turnCamera() {
-      console.log("변경 전 > : " + this.videoEnabled);
+      console.log('변경 전 > : ' + this.videoEnabled);
       this.videoEnabled = !this.videoEnabled;
-      console.log("변경 후 > : " + this.videoEnabled);
+      console.log('변경 후 > : ' + this.videoEnabled);
 
-      console.log("카메라 상태 변경 버튼 클릭 > ");
+      console.log('카메라 상태 변경 버튼 클릭 > ');
       this.publisher.publishVideo(this.videoEnabled);
     },
 
     turnAudio() {
-      console.log("변경 전 > : " + this.audioEnabled);
+      console.log('변경 전 > : ' + this.audioEnabled);
       this.audioEnabled = !this.audioEnabled;
-      console.log("변경 후 > : " + this.audioEnabled);
+      console.log('변경 후 > : ' + this.audioEnabled);
 
-      console.log("오디오 상태 변경 버튼 클릭 > ");
+      console.log('오디오 상태 변경 버튼 클릭 > ');
       this.publisher.publishAudio(this.audioEnabled);
     }
   }
