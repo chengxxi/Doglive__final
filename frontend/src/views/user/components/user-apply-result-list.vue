@@ -30,14 +30,14 @@
   border-bottom: solid 1px rgb(212, 212, 212);
 }
 .mypage-body .mypage-content {
-  padding-top: 60px;
+  padding-top: 40px;
   text-align: center;
   margin: 0 auto;
 }
 </style>
 
 <script>
-import ApplyResult from './user-bookmark-card.vue';
+import ApplyResult from './user-apply-result-item.vue';
 export default {
   name: 'user-apply-result-list',
   components :{

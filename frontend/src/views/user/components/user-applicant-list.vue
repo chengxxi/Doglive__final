@@ -30,17 +30,17 @@
   border-bottom: solid 1px rgb(212, 212, 212);
 }
 .mypage-body .mypage-content {
-  padding-top: 60px;
+  padding-top: 40px;
   text-align: center;
   margin: 0 auto;
 }
 </style>
 
 <script>
-import ApplicantItem from './user-bookmark-card.vue';
+import ApplicantItem from './user-applicant-item.vue';
 
 export default {
-  name: 'user-apply-list',
+  name: 'user-applicant-list',
   components:{
     ApplicantItem,
   },
