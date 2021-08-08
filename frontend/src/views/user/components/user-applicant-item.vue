@@ -1,14 +1,11 @@
 <template>
   <el-row :gutter="20">
-    <el-col :span="12">
+    <el-col :span="12" v-for="(o, idx) in applicant" :key="idx">
       <div class="grid-content bg-beige">
         <div class="image">
           <el-avatar shape="circle" :size="70" :src="require('@/assets/images/profile-image.jpg')" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}"/>
         </div>
-        <!-- <div class="image">
-          <img src="require('@/assets/images/profile-image.jpg')" >
-        </div> -->
-        <div class="apply-content"><p>분류 : 입양</p> <p>이름 : 최혜원</p></div>
+        <div class="apply-content"><p>분류 : 입양</p> <p>이름 : {{o.name}}</p></div>
         
         <div class="icon">
           <font-awesome-icon
@@ -38,14 +35,7 @@
         </div>
       </div>
     </el-col>
-    <el-col :span="12">
-      <div class="grid-content bg-beige">
-      </div>
-    </el-col>
-    <el-col :span="12">
-      <div class="grid-content bg-beige">
-      </div>
-    </el-col>
+
   </el-row>
 </template>
 
@@ -103,6 +93,12 @@
 <script>
 export default {
   name: 'user-applicant-item',
+  props:{
+      applicant :{
+          type: String
+      }
+
+  },
   setup () {
 
   }

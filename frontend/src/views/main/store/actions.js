@@ -49,6 +49,20 @@ export function requestUserPostList({ state }, payload) {
   return $axios.get(url);
 }
 
+// 신청자 리스트 불러오기
+export function requestApplicant({ state }, payload) {
+  const url = "/users/applicant/" + payload;
+  let body = payload;
+  return $axios.get(url);
+}
+
+// 신청 결과 리스트 불러오기
+export function requestApplyResult({ state }, payload) {
+  const url = "/users/counseling/" + payload;
+  let body = payload;
+  return $axios.get(url);
+}
+
 // 게시판 공고 등록
 export function requestRegisterBoard({ state }, payload) {
   const url = "/board";

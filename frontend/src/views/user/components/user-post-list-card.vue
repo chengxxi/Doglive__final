@@ -6,7 +6,7 @@
         <img :src="require('@/assets/images/logo2.png')" class="image" />
         <div style="padding: 14px;">
           <!-- 입양/임보 구분 -->
-          <div class="type"><el-tag style="mini">{{o.type.name}}</el-tag></div>
+          <el-tag class="type" style="mini">{{o.type.name}}</el-tag>
           <div class="cardtitle"><p>{{o.title}}</p></div>
           <div class="bottom">
             <div class="detail"><el-button type="text" class="button" @click="readDetail(o.id)" >글 보러가기</el-button></div>
