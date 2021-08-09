@@ -21,14 +21,14 @@ public class ConferenceController {
      *
      * @return 응답코드
      */
-    @PostMapping("/")
-    @ApiOperation(value = "화상회의 초기정보 세팅", notes = "화상회의 고유 ID, 참여자 정보를 세팅한다.")
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "성공"),
-            @ApiResponse(code = 404, message = "회의정보 세팅 실패")
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<? extends BaseResponseBody> registerConference(@RequestBody @ApiParam(value = "회의실 등록 정보", required = true) ) {
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "화상회의가 정상적으로 등록되었습니다"));
-    }
+//    @PostMapping("/")
+//    @ApiOperation(value = "화상회의 초기정보 세팅", notes = "화상회의 고유 ID, 참여자 정보를 세팅한다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 204, message = "성공"),
+//            @ApiResponse(code = 404, message = "회의정보 세팅 실패")
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public ResponseEntity<? extends BaseResponseBody> registerConference(@RequestBody @ApiParam(value = "회의실 등록 정보", required = true) ) {
+//        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "화상회의가 정상적으로 등록되었습니다"));
+//    }
 }
