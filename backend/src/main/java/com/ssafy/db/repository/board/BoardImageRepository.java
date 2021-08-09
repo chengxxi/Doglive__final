@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -18,4 +19,6 @@ import java.util.Optional;
 public interface BoardImageRepository extends JpaRepository<BoardImage, Long> {
 
     Optional<List<BoardImage>> findBoardImagesByBoardId(Board board);
+    @Transactional
+    Optional<List<BoardImage>> deleteBoardImagesByBoardId(Board board);
 }

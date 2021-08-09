@@ -47,5 +47,5 @@ export function setProfile(state, payload){
   state.userProfile.name = payload.name;
   state.userProfile.email = payload.email;
   state.userProfile.birth = payload.birth;
-  state.userProfile.phone = payload.phone;
+  state.userProfile.phoneNumber = payload.phoneNumber;
 }

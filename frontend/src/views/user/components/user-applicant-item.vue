@@ -5,7 +5,7 @@
         <div class="image">
           <el-avatar shape="circle" :size="70" :src="require('@/assets/images/profile-image.jpg')" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}"/>
         </div>
-        <div class="apply-content"><p>분류 : 입양</p> <p>이름 : {{o.name}}</p></div>
+        <div class="apply-content"><p>이름 : {{o.name}}</p><p>{{o.phoneNumber}}</p></div>
         
         <div class="icon">
           <font-awesome-icon

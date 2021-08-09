@@ -9,6 +9,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,6 +45,9 @@ public class UserProfile implements Serializable {
 
   @Column(length = 13, name="phone_number")
   private String phoneNumber;
+
+  @Column(length = 30)
+  private String birth;
 
 
 //  @OneToMany(mappedBy = "applicantId", cascade = {CascadeType.ALL}, orphanRemoval=true)
