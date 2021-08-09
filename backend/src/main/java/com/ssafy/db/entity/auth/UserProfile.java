@@ -1,6 +1,5 @@
 package com.ssafy.db.entity.auth;
 
-import com.ssafy.db.entity.chat.*;
 import com.ssafy.db.entity.community.Community;
 import com.ssafy.db.entity.community.CommunityComment;
 import lombok.Data;

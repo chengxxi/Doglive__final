@@ -2,6 +2,7 @@ package com.ssafy.db.repository.board;
 
 
 import com.ssafy.db.entity.board.Board;
+import com.ssafy.db.entity.board.BoardCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.expression.spel.ast.OpInc;
@@ -32,6 +33,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     )
     Optional<List<Board>> findFindBoard();
 
+    Optional<List<Board>> findBoardsByType(BoardCategory boardCategory);
 
 
 }

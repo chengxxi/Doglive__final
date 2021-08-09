@@ -47,7 +47,7 @@ public class BoardController {
     FindService findService;
 
     @GetMapping("/adopt")
-    @ApiOperation(value = "입양/임보 공고 목록", notes = "입양/입양 공고 목록을 가져온다")
+    @ApiOperation(value = "입양/임보 공고 목록", notes = "입양/임보 공고 목록을 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -61,7 +61,7 @@ public class BoardController {
 
 
     @GetMapping("/find")
-    @ApiOperation(value = "실종/보호 공고 목록", notes = "입양/입양 공고 목록을 가져온다")
+    @ApiOperation(value = "실종/보호 공고 목록", notes = "실종/보호 공고 목록을 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -130,7 +130,12 @@ public class BoardController {
         System.out.println(userId);
         Board board = boardService.getBoardByBoardId(Long.parseLong(boardId));
 
-
+        // 공고 -> 실종 / 보호 (유사공고 찾기)
+        List<Board> listSimilar = null;
+        if(board.getType().getId() > 2) {
+            listSimilar = findService.getBoardSimilarListByBoard(board);
+            System.out.println("글 상세 보기 : listSimilar >>> " + listSimilar);
+        }
         DogInformation dogInformation = boardService.getDogInformationByBoard(board);
         List<BoardComment> boardComments = boardService.getBoardCommentsByBoard(board);
         List<BoardImage> boardImages = boardService.getBoardImagesByBoard(board);
@@ -141,7 +146,7 @@ public class BoardController {
         System.out.println(writer);
 
         System.out.println(userId+" "+board.getUserId());
-        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isOwner, writer, board, dogInformation, boardImages, boardComments));
+        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isOwner, writer, board, dogInformation, boardImages, boardComments, listSimilar));
     }
 
 
