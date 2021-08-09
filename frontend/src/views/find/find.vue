@@ -10,9 +10,9 @@
 
       </div>
       <div>
-        <el-button type="outline-primary" @click="goRegister" round
-          >실종 공고 작성하기</el-button
-        >
+        <el-button type="outline-primary" @click="goRegister" round>
+          실종 공고 작성하기
+        </el-button>
 
         <!-- 실종 공고 Filter -->
         <FindFilter />
