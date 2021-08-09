@@ -24,7 +24,7 @@
             { required: true, message: 'Please input email address', trigger: 'change' },
             { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
           ]">
-        <el-input v-model="formData.userProfile.email" disabled></el-input>
+        <el-input v-model="formData.userProfile.email"></el-input>
         </el-form-item>
         <el-form-item
           label="생년월일"
@@ -34,7 +34,7 @@
         <el-form-item
           label="Phone"
           :rules="{ required: true, message: 'Please input email address', trigger: 'change' }">
-        <el-input v-model="formData.userProfile.phone" disabled></el-input>
+        <el-input v-model="formData.userProfile.phone"></el-input>
         </el-form-item>
         </el-form>
         <div class="button-group">
@@ -130,7 +130,7 @@ export default {
           name : result.data.userProfile.name,
           email :  result.data.userProfile.email,
           birth : '1997' + result.data.userProfile.phoneNumber,
-          phone : '010-1234-1234',
+          phone : '',
         }
         store.commit('root/setProfile',Profile)
         console.log(result.data)
