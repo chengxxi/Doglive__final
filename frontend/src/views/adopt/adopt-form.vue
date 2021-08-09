@@ -11,90 +11,78 @@
         <el-form
           style=" margin:100px;"
           label-position="left"
-          :model="ruleForm"
-          :rules="rules"
+          :model="state.form"
+          :rules="state.rules"
           ref="ruleForm"
-          label-width="120px"
+          class="mt-5"
         >
-          <div style="margin-bottom:50px;">
-            <h2 class="mt-1 mb-3" style="font-weight:600;">
-              ✍ 입양 신청서 작성
-            </h2>
-          </div>
           <h4 class="mt-1 mb-3" style="font-weight:600;">
-            기본 인적 사항
+            🙋‍♀️ 기본 인적 사항
           </h4>
           <el-divider />
+
           <el-row class="mt-3 mb-3">
-            <el-col :span="8">
-              <el-form-item label="공고 제목" prop="title" style="width:95%">
-                <el-input v-model="ruleForm.title" disabled></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item
-                label="강아지 이름"
-                prop="dogName"
-                style="width:95%"
-              >
-                <el-input v-model="ruleForm.dogName" disabled></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="공고 타입" prop="type" style="width:100%">
-                <el-input v-model="ruleForm.boardType" disabled></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item label="신청자 이름" prop="name" style="width:95%">
+            <el-col>
+              <el-form-item label="신청자 이름" prop="name" style="width:100%">
                 <el-input
-                  v-model="ruleForm.name"
+                  v-model="state.form.name"
                   placeholder="조다운"
                 ></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
-              <el-form-item label="이메일 주소" prop="email" style="width:100%">
-                <el-input
-                  v-model="ruleForm.email"
-                  placeholder="ssafy@ssafy.com"
-                ></el-input>
-              </el-form-item>
-              <el-button>인증</el-button>
-            </el-col>
           </el-row>
           <el-row class="mt-3 mb-3">
             <el-col :span="12">
-              <el-form-item label="핸드폰 번호" prop="email" style="width:95%">
+              <el-form-item label="이메일 주소" prop="email" style="width:95%">
                 <el-input
-                  v-model="ruleForm.phone"
+                  v-model="state.form.email"
+                  placeholder="ssafy@ssafy.com"
+                >
+                  <template #append
+                    ><el-button @click="clickEmailCheck"
+                      >인증</el-button
+                    ></template
+                  >
+                </el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="연락처" prop="phone" style="width:100%">
+                <el-input
+                  v-model="state.form.phone"
                   placeholder="010-0000-0000"
                 ></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item label="직업" prop="job" style="width:95%">
+          </el-row>
+
+          <el-row class="mt-3 mb-3">
+            <el-col :span="12">
+              <el-form-item label="직업/직장명" prop="job" style="width:95%">
                 <el-input
-                  v-model="ruleForm.job"
+                  v-model="state.form.job"
                   placeholder="개발자"
                 ></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="12">
               <el-form-item label="나이" prop="age" style="width:100%">
-                <el-input v-model="ruleForm.age" placeholder="25"></el-input>
+                <el-input v-model="state.form.ge" placeholder="25"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row class="mt-3 mb-3">
-            <el-col :span="18">
-              <el-form-item label="거주지" prop="sido" style="width:95%">
+            <el-col>
+              <el-form-item
+                label="거주지"
+                prop="sido"
+                style="width:100%"
+                label-width="25%"
+              >
                 <el-select
-                  v-model="state.selectedSidoCode"
+                  v-model="state.form.sido"
                   placeholder="시/도"
-                  :change="gugunList()"
+                  :change="gugunList(state.form.sido)"
                 >
                   <el-option
                     v-for="(sido, idx) in state.sidoList"
@@ -105,7 +93,7 @@
                   </el-option>
                 </el-select>
                 <el-select
-                  v-model="selectedGugunCode"
+                  v-model="state.form.gugun"
                   style="margin-left: 20px;"
                   placeholder="구/군"
                 >
@@ -119,16 +107,268 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item label="결혼여부" prop="gender">
-                <el-radio-group v-model="ruleForm.gender">
-                  <el-radio label="O" border></el-radio>
-                  <el-radio label="X" border></el-radio>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col :span="12">
+              <el-form-item
+                label="결혼여부"
+                prop="isMarried"
+                style="width:100%"
+                label-width="50%"
+              >
+                <el-radio-group v-model="state.form.gender">
+                  <el-radio label="Yes" border></el-radio>
+                  <el-radio label="No" border></el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item
+                label="성별"
+                prop="gender"
+                style="width:100%"
+                label-width="50%"
+              >
+                <el-radio-group v-model="state.form.gender">
+                  <el-radio label="남" border></el-radio>
+                  <el-radio label="여" border></el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row class="mt-3 mb-3"> </el-row>
+          <div style="margin-top:100px;">
+            <h4 class="mt-1 mb-3" style="font-weight:600; ">
+              ✍ 입양 관련 설문
+            </h4>
+          </div>
+          <el-divider />
+          <el-row class="mt-3 mb-3">
+            <el-col :span="24">
+              <el-form-item label="공고 제목" prop="title" style="width:100%">
+                <el-input v-model="state.board.title" disabled></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col :span="12">
+              <el-form-item
+                label="강아지 이름"
+                prop="dogName"
+                style="width:95%"
+              >
+                <el-input v-model="state.board.dogName" disabled></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="공고 타입" prop="type" style="width:100%">
+                <el-input
+                  v-model="state.board.boardType.name"
+                  disabled
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q1"
+                prop="answer1"
+                style="width:100%"
+                label-width="70%"
+              >
+                <el-radio-group v-model="state.form.answer1">
+                  <el-radio label="Yes" border></el-radio>
+                  <el-radio label="No" border></el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row v-if="state.form.answer1 === 'Yes'" class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q1sub"
+                prop="answer1sub"
+                style="width:100%"
+              >
+                <el-input
+                  v-model="state.form.answer1sub"
+                  type="textarea"
+                  :rows="3"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q2"
+                prop="answer2"
+                style="width:100%"
+                label-width="70%"
+              >
+                <el-radio-group v-model="state.form.answer2">
+                  <el-radio label="Yes" border></el-radio>
+                  <el-radio label="No" border></el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row v-if="state.form.answer2 === 'Yes'" class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q2sub"
+                prop="answer2sub"
+                style="width:100%"
+              >
+                <el-input
+                  v-model="state.form.answer2sub"
+                  type="textarea"
+                  :rows="3"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q3"
+                prop="answer3"
+                style="width:100%"
+                label-width="70%"
+              >
+                <el-input-number
+                  v-model="state.form.answer3"
+                  :min="1"
+                  :max="10"
+                ></el-input-number>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q3sub"
+                prop="answer3sub"
+                style="width:100%"
+                label-width="70%"
+              >
+                <el-radio-group v-model="state.form.answer3sub">
+                  <el-radio label="동의" border></el-radio>
+                  <el-radio label="일부동의" border></el-radio>
+                  <el-radio label="반대" border></el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q4"
+                prop="answer4"
+                style="width:100%"
+                label-width="70%"
+              >
+                <el-select v-model="state.form.answer4" placeholder="거주형태">
+                  <el-option label="아파트" value="아파트"></el-option>
+                  <el-option label="단독주택" value="단독주택"></el-option>
+                  <el-option label="빌라" value="빌라"></el-option>
+                  <el-option label="원룸" value="원룸"></el-option>
+                  <el-option label="기타" value="기타"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q5"
+                prop="answer5"
+                style="width:100%"
+                label-width="70%"
+              >
+                <el-radio-group v-model="state.form.answer5">
+                  <el-radio label="Yes" border></el-radio>
+                  <el-radio label="No" border></el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q6"
+                prop="answer6"
+                style="width:100%"
+                label-width="70%"
+              >
+                <el-radio-group v-model="state.form.answer6">
+                  <el-radio label="Yes" border></el-radio>
+                  <el-radio label="No" border></el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q7"
+                prop="answer7"
+                style="width:100%"
+              >
+                <el-input
+                  v-model="state.form.answer7"
+                  type="textarea"
+                  :rows="4"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q8"
+                prop="answer8"
+                style="width:100%"
+              >
+                <el-input
+                  v-model="state.form.answer8"
+                  type="textarea"
+                  :rows="4"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q9"
+                prop="answer9"
+                style="width:100%"
+              >
+                <el-input
+                  v-model="state.form.answer9"
+                  type="textarea"
+                  :rows="4"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col>
+              <el-form-item
+                :label="state.question.q10"
+                prop="answer10"
+                style="width:100%"
+              >
+                <el-input
+                  v-model="state.form.answer10"
+                  type="textarea"
+                  :rows="4"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
           <el-row
             class="mt-5"
             style=" display: flex;
@@ -144,7 +384,6 @@
 </template>
 
 <script>
-import $axios from "axios";
 import BreadCrumb from "./components/bread-crumb.vue";
 import { computed, reactive, onMounted, watch } from "vue";
 import { useStore } from "vuex";
@@ -157,28 +396,7 @@ export default {
   components: {
     BreadCrumb
   },
-  data() {
-    return {
-      ruleForm: {
-        boardType: this.state.board.boardType.name,
-        title: this.state.board.title,
-        dogName: this.state.board.dogName,
-        email: "",
-        name: this.state.userIn,
-        phone: "",
-        age: "",
-        sido: "",
-        gugun: "",
-        job: "",
-        isMarried: "",
-        quesition1_1: "",
-        question1_2: "",
-        question2_1: "",
-        quesiont2_2: ""
-      },
-      rules: {}
-    };
-  },
+
   setup() {
     const store = new useStore();
     const router = new useRouter();
@@ -192,9 +410,220 @@ export default {
         return store.getters["root/getLoginUserInfo"];
       }),
       sidoList: [],
-      gugunList: [],
-      selectedSidoCode: "",
-      selectedDongCode: ""
+      gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }],
+      form: {
+        email: "",
+        name: "",
+        phone: "",
+        gender: "",
+        age: "",
+        sido: "",
+        gugun: "",
+        job: "",
+
+        isMarried: "",
+
+        answer1: "",
+        answer1sub: "",
+        answer2: "",
+        answer2sub: "",
+        answer3: 0,
+        answer3sub: "",
+        answer4: "",
+        answer5: false,
+        answer6: "",
+        answer7: "",
+        answer8: "",
+        answer9: ""
+      },
+      question: {
+        q1: "이전에 반려동물을 키우신 적이 있으신가요?",
+        q1sub:
+          "만일 있으시다면 어떤 종류의 동물인지, 얼마나 오래 키우셨는지, 지금은 어떻게 되었는지 적어주세요.",
+        q2: "현재 집에서 다른 동물을 키우고 계십니까?",
+        q2sub:
+          "만일 있으시다면 각 동물의 종류, 성별, 중성화 여부를 기재해주세요.",
+        q3: "귀하의 가족은 모두 몇 명인가요?",
+        q3sub: "입양 결정에 가족 모두 동의하십니까?",
+        q4: "거주하고 계신 주택 형태를 선택해 주세요.",
+        q5: "화상회의를 통한 입양상담과 부가적인 주거환경 확인에 동의하시나요?",
+        q6:
+          "반려동물을 입양하시려면, 중성화 수술 시행에도 동의하셔야 합니다. 이에 동의하십니까?",
+
+        q7:
+          " 키우던 반려동물을 개인 사정으로 포기한 경험이 있으신가요? 이유는 무엇인가요?",
+        q8: "입양을 원하시는 가장 큰 이유는 무엇인가요?",
+        q9:
+          "앞으로 결혼, 임신, 출산 등 가족의 변화가 있는 경우 반려동물의 거취문제에 대해 어떻게 생각하십니까?",
+        q10:
+          "그 외에 입양 신청에 관해 덧붙이고자 하시는 말씀이 있으시면 적어주시기 바랍니다."
+      },
+      rules: {
+        //유효성 검사
+        email: [
+          {
+            required: true,
+            message: "이메일을 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        name: [
+          {
+            required: true,
+            message: "이름을 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        phone: [
+          {
+            required: true,
+            message: "연락처를 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        gender: [
+          {
+            required: true,
+            message: "성별을 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        age: [
+          {
+            required: true,
+            message: "나이를 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        sido: [
+          {
+            required: true,
+            message: "주소지를 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        gugun: [
+          {
+            required: true,
+            message: "주소지를 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        isMarried: [
+          {
+            required: true,
+            message: "결혼 여부를 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        job: [
+          {
+            required: true,
+            message: "직업을 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        answer1: [
+          {
+            required: true,
+            message: "답변을 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        answer2: [
+          {
+            required: true,
+            message: "답변을 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        answer3: [
+          {
+            required: true,
+            message: "답변을 입력해주세요.",
+            trigger: "blur"
+          }
+        ],
+        answer3sub: [
+          {
+            required: true,
+            message: "답변을 입력해주세요.",
+            trigger: "blur"
+          }
+        ],
+        answer4: [
+          {
+            required: true,
+            message: "답변을 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        answer5: [
+          {
+            required: true,
+            message: "답변을 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        answer6: [
+          {
+            required: true,
+            message: "답변을 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        answer7: [
+          {
+            required: true,
+            message: "답변을 입력해주세요.",
+            trigger: "change"
+          },
+          {
+            min: 10,
+            message: "5글자 이상 작성해주세요.",
+            trigger: "blur"
+          },
+          {
+            max: 500,
+            message: "500글자 이하로 작성해주세요.",
+            trigger: "blur"
+          }
+        ],
+        answer8: [
+          {
+            required: true,
+            message: "답변을 입력해주세요.",
+            trigger: "change"
+          },
+          {
+            min: 10,
+            message: "5글자 이상 작성해주세요.",
+            trigger: "blur"
+          },
+          {
+            max: 500,
+            message: "500글자 이하로 작성해주세요.",
+            trigger: "blur"
+          }
+        ],
+        answer9: [
+          {
+            required: true,
+            message: "답변을 입력해주세요.",
+            trigger: "change"
+          },
+          {
+            min: 10,
+            message: "5글자 이상 작성해주세요.",
+            trigger: "blur"
+          },
+          {
+            max: 500,
+            message: "500글자 이하로 작성해주세요.",
+            trigger: "blur"
+          }
+        ]
+      }
     });
 
     store
@@ -207,12 +636,26 @@ export default {
         console.log(error);
       });
 
-    const gugunList = function() {
-      console.log(state.selectedSidoCode);
+    const clickEmailCheck = function() {
+      createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
+        hideProgressBar: "true",
+        timeout: 4500,
+        showIcon: "true",
+        toastBackgroundColor: "#c49d83",
+        position: "bottom-right",
+        transition: "bounce",
+        type: "warning"
+      });
+    };
+
+    const gugunList = function(selectedSidoCode) {
+      console.log(selectedSidoCode);
+
       store
-        .dispatch("root/requestGugunCodeList", state.selectedSidoCode)
+        .dispatch("root/requestGugunCodeList", selectedSidoCode)
         .then(function(result) {
           console.log("call : guguncode");
+
           state.gugunList = result.data.gugunList;
         })
         .catch(function(error) {
@@ -230,7 +673,7 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state, gugunList };
+    return { state, gugunList, clickEmailCheck };
   }
 };
 </script>
@@ -325,5 +768,16 @@ li.el-select-dropdown__item.selected {
   margin-bottom: 40px;
   padding: 40px;
   background-color: #faf4ef;
+}
+
+:deep(.el-input.is-disabled .el-input__inner) {
+  background-color: #f9f0e7;
+  border-color: #f9f0e7;
+  color: #616161;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
 }
 </style>
