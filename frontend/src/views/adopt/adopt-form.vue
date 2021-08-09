@@ -16,56 +16,111 @@
           ref="ruleForm"
           label-width="120px"
         >
+          <div style="margin-bottom:50px;">
+            <h2 class="mt-1 mb-3" style="font-weight:600;">
+              ✍ 입양 신청서 작성
+            </h2>
+          </div>
           <h4 class="mt-1 mb-3" style="font-weight:600;">
-            ✍ 입양 신청서 작성
+            기본 인적 사항
           </h4>
-
+          <el-divider />
           <el-row class="mt-3 mb-3">
-            <el-col :span="12">
+            <el-col :span="8">
               <el-form-item label="공고 제목" prop="title" style="width:95%">
                 <el-input v-model="ruleForm.title" disabled></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="8">
               <el-form-item
                 label="강아지 이름"
                 prop="dogName"
-                style="width:100%"
+                style="width:95%"
               >
                 <el-input v-model="ruleForm.dogName" disabled></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item label="이름" prop="name" style="width:95%">
-                <el-input v-model="ruleForm.name"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="이메일주소" prop="email" style="width:100%">
-                <el-input v-model="ruleForm.email"></el-input>
+            <el-col :span="8">
+              <el-form-item label="공고 타입" prop="type" style="width:100%">
+                <el-input v-model="ruleForm.boardType" disabled></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row class="mt-3 mb-3">
-            <el-col :span="8">
-              <el-form-item label="전화번호" prop="age" style="width:100%">
-                <el-input-number
-                  v-model="ruleForm.age"
-                  :step="5"
-                ></el-input-number>
+            <el-col :span="12">
+              <el-form-item label="신청자 이름" prop="name" style="width:95%">
+                <el-input
+                  v-model="ruleForm.name"
+                  placeholder="조다운"
+                ></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="12">
+              <el-form-item label="이메일 주소" prop="email" style="width:100%">
+                <el-input
+                  v-model="ruleForm.email"
+                  placeholder="ssafy@ssafy.com"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col :span="12">
+              <el-form-item label="핸드폰 번호" prop="email" style="width:95%">
+                <el-input
+                  v-model="ruleForm.phone"
+                  placeholder="010-0000-0000"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="직업" prop="job" style="width:95%">
+                <el-input
+                  v-model="ruleForm.job"
+                  placeholder="개발자"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
               <el-form-item label="나이" prop="age" style="width:100%">
-                <el-input-number
-                  v-model="ruleForm.age"
-                  :step="5"
-                ></el-input-number>
+                <el-input v-model="ruleForm.age" placeholder="25"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+          </el-row>
+          <el-row class="mt-3 mb-3">
+            <el-col :span="18">
+              <el-form-item label="거주지" prop="sido" style="width:95%">
+                <el-select
+                  v-model="state.selectedSidoCode"
+                  multiple
+                  placeholder="시/도"
+                >
+                  <el-option
+                    v-for="(sido, idx) in state.sidoList"
+                    :key="idx"
+                    :label="sido.name"
+                    :value="sido.id"
+                  >
+                  </el-option>
+                </el-select>
+                <el-select
+                  v-model="selectedGugunCode"
+                  multiple
+                  collapse-tags
+                  style="margin-left: 20px;"
+                  placeholder="구/군"
+                >
+                  <el-option
+                    v-for="(gugun, idx) in state.gugunList"
+                    :key="idx"
+                    :label="gugun.name"
+                    :value="gugun.id"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
               <el-form-item label="결혼여부" prop="gender">
                 <el-radio-group v-model="ruleForm.gender">
                   <el-radio label="O" border></el-radio>
@@ -74,15 +129,14 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <el-row class="mt-3 mb-3"> </el-row>
           <el-row
             class="mt-5"
             style=" display: flex;
   justify-content: center;"
           >
-            <el-button type="primary" @click="submitForm('ruleForm')"
-              >작성</el-button
-            >
-            <el-button @click="resetForm('ruleForm')">초기화</el-button>
+            <el-button type="primary">작성</el-button>
+            <el-button>초기화</el-button>
           </el-row>
         </el-form>
       </div>
@@ -107,187 +161,25 @@ export default {
   data() {
     return {
       ruleForm: {
-        type: "",
+        boardType: this.state.board.boardType.name,
         title: this.state.board.title,
         dogName: this.state.board.dogName,
         email: "",
-        name: "",
-        gender: "",
-        hair: "",
-        color: "",
-        age: 25,
-        size: "",
-        neutralization: "",
-        address: "",
-        desc: "",
-        energy: "",
-        obedience: "",
-        relationship: "",
-        adaptability: "",
-        disabled: false,
-        dialogImageUrl: "",
-        dialogVisible: false,
-        disabled: false
+        name: this.state.userIn,
+        phone: "",
+        age: "",
+        sido: "",
+        gugun: "",
+        job: "",
+        isMarried: "",
+        quesition1_1: "",
+        question1_2: "",
+        question2_1: "",
+        quesiont2_2: ""
       },
-      rules: {
-        type: [
-          {
-            required: true,
-            message: "공고 타입을 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        name: [
-          { required: true, message: "이름을 입력해주세요.", trigger: "blur" },
-          {
-            min: 1,
-            max: 10,
-            message: "10글자 이하로 입력해주세요.",
-            trigger: "blur"
-          }
-        ],
-        gender: [
-          { required: true, message: "성별을 선택해주세요", trigger: "blur" }
-        ],
-        hair: [
-          {
-            required: true,
-            message: "헤어타입을 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        color: [
-          {
-            required: true,
-            message: "컬러타입을 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        age: [
-          { required: true, message: "연령대를 선택해주세요", trigger: "blur" }
-        ],
-        size: [
-          { required: true, message: "크기를 선택해주세요", trigger: "blur" }
-        ],
-        neutralization: [
-          {
-            required: true,
-            message: "중성화여부를 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        address: [
-          {
-            required: true,
-            message: "현재 강아지의 위치를 입력해주세요",
-            trigger: "blur"
-          },
-          {
-            min: 3,
-            max: 20,
-            message: "3글자 이상, 20글자 이하로 입력해주세요.",
-            trigger: "blur"
-          }
-        ],
-        desc: [
-          {
-            required: true,
-            message: "설명을 입력해주세요 (소개글, 특이사항 등)",
-            trigger: "blur"
-          },
-          {
-            min: 50,
-            max: 1000,
-            message: "50글자 이상, 1000글자 이하로 입력해주세요.",
-            trigger: "blur"
-          }
-        ],
-        energy: [
-          {
-            required: true,
-            message: "활동성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        obedience: [
-          {
-            required: true,
-            message: "순종성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        relationship: [
-          {
-            required: true,
-            message: "관계성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        adaptability: [
-          {
-            required: true,
-            message: "적응성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ]
-      }
+      rules: {}
     };
   },
-
-  methods: {
-    submitForm(formName) {
-      const mbti =
-        [this.ruleForm.energy == "에너지있는" ? "E" : "I"] +
-        [this.ruleForm.obedience == "충성심 강한" ? "S" : "N"] +
-        [this.ruleForm.relationship == "의존적인" ? "F" : "T"] +
-        [this.ruleForm.adaptability == "친화적인" ? "J" : "P"];
-
-      const data = {
-        thumbnailUrl: "",
-        filePath: [],
-        email: "",
-        dogName: this.ruleForm.name,
-        boardType: Number(this.ruleForm.type.id),
-        userId: this.state.userId.userId,
-        mbti: mbti,
-        title: this.ruleForm.title,
-        description: this.ruleForm.desc,
-        colorType: Number(this.ruleForm.color.id),
-        hairType: this.ruleForm.hair == "단모" ? 10 : 11,
-        gender: this.ruleForm.gender == "여" ? 8 : 9,
-        age: Number(this.ruleForm.age.id),
-        neutralization:
-          this.ruleForm.neutralization == "중성화 O" ? true : false,
-        weight: Number(this.ruleForm.size.id),
-        address: this.ruleForm.address
-      };
-      console.log(data);
-
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.registerData(data);
-          console.log(this.ruleForm);
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    },
-    handleRemove(file) {
-      console.log(file);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
-    handleDownload(file) {
-      console.log(file);
-    }
-  },
-
   setup() {
     const store = new useStore();
     const router = new useRouter();
@@ -297,38 +189,34 @@ export default {
         console.log(store.getters["root/getBoardDetail"]);
         return store.getters["root/getBoardDetail"];
       }),
-      userId: computed(() => {
+      userInfo: computed(() => {
         return store.getters["root/getLoginUserInfo"];
-      })
+      }),
+      sidoList: [],
+      gugunList: [],
+      selectedSidoCode: "",
+      selectedDongCode: ""
     });
 
-    const registerData = function(data) {
+    store
+      .dispatch("root/requestSidoCodeList")
+      .then(function(result) {
+        console.log("call : sidocode");
+        state.sidoList = result.data.sidoList;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    const gugunList = function() {
       store
-        .dispatch("root/requestRegisterBoard", data)
+        .dispatch("root/requestGugunCodeList", selectedSidoCode)
         .then(function(result) {
-          createToast("공고가 등록되었어요 📜🐾", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
-            transition: "bounce",
-            type: "success"
-          });
-          console.log("등록 성공");
-          router.push({ name: "Adopt" });
+          console.log("call : guguncode");
+          state.gugunList = result.data.gugunList;
         })
-        .catch(function(err) {
-          createToast("공고 등록에 실패했어요 💬💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
-            transition: "bounce",
-            type: "warning"
-          });
-          console.log(err);
+        .catch(function(error) {
+          console.log(error);
         });
     };
 
@@ -342,7 +230,7 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state, registerData };
+    return { state, gugunList };
   }
 };
 </script>

@@ -97,3 +97,13 @@ export function changeUserInfo({ state }, payload) {
   const url = "/users/" + userId;
   return $axios.put(url, payload.data);
 }
+
+export function requestSidoCodeList({ state }, payload) {
+  const url = "/board/sido";
+  return $axios.get(url);
+}
+
+export function requestGugunCodeList({ state }, payload) {
+  const url = "/board/gugun/" + payload;
+  return $axios.get(url);
+}
