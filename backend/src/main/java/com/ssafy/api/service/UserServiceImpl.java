@@ -143,6 +143,8 @@ public class UserServiceImpl implements UserService{
 
         Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
         userProfile.get().setName(userUpdatePutReq.getName());
+        userProfile.get().setEmail(userUpdatePutReq.getEmail());
+        userProfile.get().setPhoneNumber(userUpdatePutReq.getPhoneNumber());
         userProfileRepository.save(userProfile.get());
         return userProfile.get();
     }
