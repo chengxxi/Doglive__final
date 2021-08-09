@@ -128,6 +128,11 @@ const routes = [
     component: AdoptModify
   },
   {
+    path: '/find',
+    name: 'Find',
+    component: Find
+  },
+  {
     path: '/find/detail',
     name: 'FindDetail',
     component: FindDetail
