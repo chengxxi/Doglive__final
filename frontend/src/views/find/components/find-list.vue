@@ -32,7 +32,7 @@ import { useRouter } from 'vue-router';
 import { onBeforeMount, onMounted, reactive, computed } from 'vue';
 
 export default {
-  name: 'find-list;,
+  name: 'find-list',
   components: { FindCard },
 
   setup() {

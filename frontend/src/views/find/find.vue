@@ -61,8 +61,8 @@
 import FindFilter from './components/find-filter.vue';
 import FindList from './components/find-list.vue';
 import BreadCrumb from './components/bread-crumb.vue';
-import { defineComponent, reactive, computed, ref } from 'vue';
-import $axios from 'axios';
+import { reactive, computed, ref } from 'vue'; // defineComponent
+// import $axios from 'axios';
 
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
