@@ -58,18 +58,18 @@
 </style>
 
 <script>
-import FindFilter from "./components/find-filter.vue";
-import FindList from "./components/find-list.vue";
-import BreadCrumb from "./components/bread-crumb.vue";
-import { defineComponent, reactive, computed, ref } from "vue";
-import $axios from "axios";
+import FindFilter from './components/find-filter.vue';
+import FindList from './components/find-list.vue';
+import BreadCrumb from './components/bread-crumb.vue';
+import { defineComponent, reactive, computed, ref } from 'vue';
+import $axios from 'axios';
 
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { onMounted } from "vue";
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
 
 export default {
-  name: "find",
+  name: 'find',
   components: {
     FindFilter,
     FindList,
@@ -85,25 +85,25 @@ export default {
 
     const state = reactive({
       userId: computed(() => {
-        return store.getters["root/getLoginUserInfo"].userId;
+        return store.getters['root/getLoginUserInfo'].userId;
       })
     });
 
     const goRegister = function() {
       if (state.userId === null) {
-        alert("로그인을 진행해주세요!");
-        router.push({ name: "Login" });
+        alert('로그인을 진행해주세요!');
+        router.push({ name: 'Login' });
       } else {
-        router.push({ name: "FindRegister" });
+        router.push({ name: 'FindRegister' });
       }
     };
 
     onMounted(() => {
-      console.log("breadcrumb");
-      store.commit("root/setBreadcrumbInfo", {
+      console.log('breadcrumb');
+      store.commit('root/setBreadcrumbInfo', {
         isHome: false,
-        title: "실종/보호",
-        subTitle: "실종/보호 공고 목록"
+        title: '실종/보호',
+        subTitle: '실종/보호 공고 목록'
       });
     });
 
