@@ -1,5 +1,5 @@
 <template>
-  <div class="main-body main-padding row justify-content-center">
+  <div>
     <el-row>
 
       <FindCard

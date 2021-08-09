@@ -134,11 +134,11 @@ h3 {
   background-color: #ffffff;
 }
 
-.el-card__body {
+/* .el-card__body {
   display: flex;
   align-items: center;
   margin-right: auto;
-}
+} */
 </style>
 
 <script>

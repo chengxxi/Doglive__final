@@ -41,6 +41,16 @@
           :value="age.value">
         </el-option>
       </el-select>
+
+      <el-select v-model="value_breed" multiple clearable placeholder="품종" :span="4">
+        <el-option
+          v-for="breed in options_breed"
+          :key="breed.value"
+          :label="breed.label"
+          :value="breed.value">
+        </el-option>
+      </el-select>
+
     </div>
 
   </span>
@@ -139,11 +149,20 @@ export default {
         value: 'senior',
         label: 'senior'
       }],
+      // Breed Option
+      options_breed: [{
+        value: '1',
+        label: '1'
+      }, {
+        value: '2',
+        label: '2'
+      }],
 
       value_color: [],
       value_gender: [],
       value_size: [],
       value_age: [],
+      value_breed: [],
 
       showFilter: true,
 

@@ -71,7 +71,7 @@
 </style>
 
 <script>
-import AdoptFilter from "./components/adopt-filter.vue";
+import AdoptFilter from './components/adopt-filter.vue';
 import AdoptList from "./components/adopt-list.vue";
 import BreadCrumb from "./components/bread-crumb.vue";
 import { defineComponent, reactive, computed, ref } from "vue";
