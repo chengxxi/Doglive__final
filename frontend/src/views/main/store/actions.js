@@ -107,3 +107,8 @@ export function requestGugunCodeList({ state }, payload) {
   const url = "/board/gugun/" + payload;
   return $axios.get(url);
 }
+
+export function registerAdoptForm({ state }, payload) {
+  const url = "/form/" + payload.userId;
+  return $axios.post(url, payload.data);
+}

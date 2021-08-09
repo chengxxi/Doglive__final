@@ -67,7 +67,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="나이" prop="age" style="width:100%">
-                <el-input v-model="state.form.ge" placeholder="25"></el-input>
+                <el-input v-model="state.form.age" placeholder="25"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -374,8 +374,13 @@
             style=" display: flex;
   justify-content: center;"
           >
-            <el-button type="primary">제출</el-button>
-            <el-button>초기화</el-button>
+            <el-button
+              type="primary"
+              v-model="state.buttonVisible"
+              @click="submitAdoptForm"
+              :disabled="state.form.disabled"
+              >제출</el-button
+            >
           </el-row>
         </el-form>
       </div>
@@ -385,7 +390,7 @@
 
 <script>
 import BreadCrumb from "./components/bread-crumb.vue";
-import { computed, reactive, onMounted, watch } from "vue";
+import { computed, reactive, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { createToast } from "mosha-vue-toastify";
@@ -400,6 +405,7 @@ export default {
   setup() {
     const store = new useStore();
     const router = new useRouter();
+    const ruleForm = ref(null);
 
     const state = reactive({
       board: computed(() => {
@@ -434,7 +440,8 @@ export default {
         answer6: "",
         answer7: "",
         answer8: "",
-        answer9: ""
+        answer9: "",
+        disabled: true
       },
       question: {
         q1: "1. 이전에 반려동물을 키우신 적이 있으신가요?",
@@ -624,7 +631,20 @@ export default {
             trigger: "change"
           }
         ]
-      }
+      },
+      buttonVisible: computed(() => {
+        //유효성 검사 후 조건 충족시 신청 폼 제출 버튼 활성화
+
+        if (ruleForm.value == null) return; //값이 없다면 (null) return
+
+        ruleForm.value.validate(valid => {
+          if (valid) {
+            state.form.disabled = false; //버튼 활성화
+          } else {
+            state.form.disabled = true; //버튼 비활성화
+          }
+        });
+      })
     });
 
     store
@@ -646,6 +666,53 @@ export default {
         position: "bottom-right",
         transition: "bounce",
         type: "warning"
+      });
+    };
+
+    const submitAdoptForm = function() {
+      ruleForm.value.validate(valid => {
+        if (valid) {
+          const data = {
+            userId: state.userInfo.userId,
+            data: {
+              boardId: state.board.boardId,
+              boardType: state.board.boardType.name,
+              dogName: state.board.dogName,
+              content: state.form
+            }
+          };
+
+          console.log("submit");
+          store
+            .dispatch("root/registerAdoptForm", data)
+            .then(function(result) {
+              createToast("입양 신청서가 제출 되었어요 📬🐾", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "success"
+              });
+
+              //1.채팅방으로 이동하는 로직 구현(?)
+              //2. 마이페이지 제출 확인 페이지로 이동
+              console.log(result);
+            })
+            .catch(function(error) {
+              createToast("입양 신청서 제출에 실패했어요 💬💦", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "warning"
+              });
+              console.log(error);
+            });
+        }
       });
     };
 
@@ -674,7 +741,7 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state, gugunList, clickEmailCheck };
+    return { state, gugunList, clickEmailCheck, submitAdoptForm };
   }
 };
 </script>
