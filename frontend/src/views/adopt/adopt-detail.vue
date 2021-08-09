@@ -587,6 +587,8 @@ export default {
         transition: "bounce",
         type: "warning"
       });
+
+      router.push({ name: "AdoptForm" });
     };
 
     onMounted(() => {
