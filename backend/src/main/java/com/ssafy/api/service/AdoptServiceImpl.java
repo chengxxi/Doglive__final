@@ -39,8 +39,6 @@ public class AdoptServiceImpl implements AdoptService{
     @Autowired
     BoardRepository boardRepository;
 
-    @Autowired
-    BoardRepositorySupport boardRepositorySupport;
 
     /* 입양임보 게시물 전체 목록 불러오기 */
     @Override
