@@ -111,22 +111,20 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="공고 타입" prop="type">
-                <el-select v-model="ruleForm.type" placeholder="입양">
-                  <el-option
-                    label="입양"
-                    value="{ id: 1, name: '입양' }"
-                  ></el-option>
-                  <el-option
-                    label="임보"
-                    value="{ id: 2, name: '임보' }"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
+              <el-select v-model="ruleForm.type" placeholder="실종">
+                <el-option
+                  label="실종"
+                  value="{ id: 3, name: '실종' }"
+                ></el-option>
+                <el-option
+                  label="임보"
+                  value="{ id: 4, name: '보호' }"
+                ></el-option>
+              </el-select>
             </el-col>
           </el-row>
           <el-row class="mt-3 mb-3">
-            <el-col :span="8">
+            <el-col :span="12">
               <el-form-item label="성별" prop="gender">
                 <el-radio-group v-model="ruleForm.gender">
                   <el-radio label="남" border></el-radio>
@@ -134,7 +132,7 @@
                 </el-radio-group>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="12">
               <el-form-item label="품종" prop="hair">
                 <el-radio-group v-model="ruleForm.hair">
                   <el-radio label="장모" border></el-radio>
@@ -142,16 +140,7 @@
                 </el-radio-group>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
-              <el-form-item label="중성화 여부" prop="neutralization">
-                <el-radio-group v-model="ruleForm.neutralization">
-                  <el-radio label="중성화 O" border></el-radio>
-                  <el-radio label="중성화 X" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
           </el-row>
-
           <el-row class="mt-3 mb-3">
             <el-form-item label="부가 설명" prop="desc">
               <el-input
@@ -162,99 +151,6 @@
                 v-model="ruleForm.desc"
               ></el-input>
             </el-form-item>
-          </el-row>
-
-          <h5 class="mb-3" style="margin-top:100px; font-weight:600">
-            🐶 성격을 소개해주세요
-          </h5>
-          <el-divider />
-
-          <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item label="활동성향" prop="energy">
-                <el-radio-group v-model="ruleForm.energy">
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">에너지 Energetic</h6>
-                    활동적, 즉흥적인
-                    <template #reference>
-                      <el-radio label="에너지있는" border></el-radio>
-                    </template>
-                  </el-popover>
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">침착한 Introversion</h6>
-                    차분한, 일관적인
-                    <template #reference>
-                      <el-radio label="침착한" border></el-radio>
-                    </template>
-                  </el-popover>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="순종성향" prop="obedience">
-                <el-radio-group v-model="ruleForm.obedience">
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">충성심 강한 Supportive</h6>
-                    유순한, 성실한
-                    <template #reference>
-                      <el-radio label="충성심 강한" border></el-radio>
-                    </template>
-                  </el-popover>
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">영리한 Naughty</h6>
-                    재치한, 똑똑한
-                    <template #reference>
-                      <el-radio label="영리한" border></el-radio>
-                    </template>
-                  </el-popover>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="관계성향" prop="relationship">
-                <el-radio-group v-model="ruleForm.relationship">
-                  <el-popover placement="bottom" width="200" trigger="hover">
-                    <h6 style="font-weight:600">관계지향 Friendly</h6>
-                    반려인 바라기
-                    <template #reference>
-                      <el-radio label="의존적인" border></el-radio>
-                    </template>
-                  </el-popover>
-                  <el-popover placement="bottom" width="200" trigger="hover">
-                    <h6 style="font-weight:600">독립지향 independenT</h6>
-                    스스로 행동하는
-                    <template #reference>
-                      <el-radio label="독립적인" border></el-radio>
-                    </template>
-                  </el-popover>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="적응성향" prop="adaptability">
-                <div>
-                  <el-radio-group v-model="ruleForm.adaptability">
-                    <el-popover placement="bottom" width="200" trigger="hover">
-                      <h6 style="font-weight:600">신중한 Prudent</h6>
-                      낯가리는, 조심스러운
-
-                      <template #reference>
-                        <el-radio label="낯가리는" border></el-radio>
-                      </template>
-                    </el-popover>
-                    <el-popover placement="bottom" width="200" trigger="hover">
-                      <h6 style="font-weight:600">친화적인 Jolly</h6>
-                      모든 것에 호기심 가득한
-                      <template #reference>
-                        <el-radio label="친화적인" border></el-radio>
-                      </template>
-                    </el-popover>
-                  </el-radio-group>
-                </div>
-              </el-form-item>
-            </el-col>
           </el-row>
           <div class="mb-3" style="margin-top:100px;"></div>
           <span style="font-size: 1.25rem; font-weight:600">
@@ -335,7 +231,7 @@ import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
 
 export default {
-  name: "AdoptReigster",
+  name: "FindReigster",
   components: {
     BreadCrumb
   },
@@ -353,13 +249,6 @@ export default {
         neutralization: "",
         address: "",
         desc: "",
-        energy: "",
-        obedience: "",
-        relationship: "",
-        adaptability: "",
-        disabled: false,
-        dialogImageUrl: "",
-        dialogVisible: false,
         disabled: false
       },
       rules: {
@@ -394,7 +283,7 @@ export default {
         hair: [
           {
             required: true,
-            message: "헤어타입을 선택해주세요",
+            message: "품종을 선택해주세요",
             trigger: "blur"
           }
         ],
@@ -421,7 +310,7 @@ export default {
         address: [
           {
             required: true,
-            message: "현재 강아지의 위치를 입력해주세요",
+            message: "실종/보호 장소를 입력해주세요",
             trigger: "blur"
           },
           {
@@ -443,34 +332,6 @@ export default {
             message: "50글자 이상, 1000글자 이하로 입력해주세요.",
             trigger: "blur"
           }
-        ],
-        energy: [
-          {
-            required: true,
-            message: "활동성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        obedience: [
-          {
-            required: true,
-            message: "순종성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        relationship: [
-          {
-            required: true,
-            message: "관계성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        adaptability: [
-          {
-            required: true,
-            message: "적응성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
         ]
       }
     };
@@ -478,12 +339,6 @@ export default {
 
   methods: {
     submitForm(formName) {
-      const mbti =
-        [this.ruleForm.energy == "에너지있는" ? "E" : "I"] +
-        [this.ruleForm.obedience == "충성심 강한" ? "S" : "N"] +
-        [this.ruleForm.relationship == "의존적인" ? "F" : "T"] +
-        [this.ruleForm.adaptability == "친화적인" ? "J" : "P"];
-
       const data = {
         thumbnailUrl: "",
         filePath: [],
@@ -556,7 +411,7 @@ export default {
           router.push({ name: "Adopt" });
         })
         .catch(function(err) {
-          createToast("공고 등록에 실패했어요 💬💦", {
+          createToast("공고 등록에 실패했어요 😱💦", {
             hideProgressBar: "true",
             timeout: 4500,
             showIcon: "true",
@@ -573,8 +428,8 @@ export default {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: "입양/임보",
-        subTitle: "입양/임보 공고 작성"
+        title: "실종/보호",
+        subTitle: "실종/보호 공고 작성"
       });
     });
 
@@ -586,9 +441,7 @@ export default {
 <style scoped>
 :deep(.el-radio__inner:hover) {
   border-color: #755744;
-  color: #755744;
 }
-
 :deep(.el-radio.is-bordered.is-checked) {
   border-color: #755744;
   background-color: #f9f0e7;
@@ -614,12 +467,6 @@ li.el-select-dropdown__item.selected {
   background-color: #755744;
   background: #755744;
 }
-
-:deep(.el-radio) {
-  margin-left: 0px;
-  margin-right: 0px;
-}
-
 :deep(.el-button) {
   font-weight: 600;
 }

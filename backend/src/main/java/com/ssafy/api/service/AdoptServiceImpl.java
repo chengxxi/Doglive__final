@@ -70,6 +70,7 @@ public class AdoptServiceImpl implements AdoptService{
 
         counselingHistory.setBoardId(adoptFormReq.getBoardId());
         counselingHistory.setBoardType(adoptFormReq.getBoardType());
+        counselingHistory.setDogName(adoptFormReq.getDogName());
         counselingHistory.setContent(content.toString());
         counselingHistory.setResult("대기");
 

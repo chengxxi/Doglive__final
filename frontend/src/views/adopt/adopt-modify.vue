@@ -45,19 +45,40 @@
             <el-col :span="12">
               <el-form-item label="연령대" prop="age">
                 <el-select v-model="ruleForm.age" placeholder="Puppy(~ 6개월)">
-                  <el-option label="Puppy(~ 6개월)" value="4"></el-option>
-                  <el-option label="Junior(7개월 ~ 2살)" value="5"></el-option>
-                  <el-option label="Adult(3살 ~ 8살)" value="6"></el-option>
-                  <el-option label="Senior(9살 ~)" value="7"></el-option>
+                  <el-option
+                    label="Puppy(~ 6개월)"
+                    value="{ id: 4, name: 'Puppy(~ 6개월)' }"
+                  ></el-option>
+                  <el-option
+                    label="Junior(7개월 ~ 2살)"
+                    value="{ id: 5, name: 'Junior(7개월 ~ 2살)' }"
+                  ></el-option>
+                  <el-option
+                    label="Adult(3살 ~ 8살)"
+                    value="{ id: 6, name: 'Adult(3살 ~ 8살)' }"
+                  ></el-option>
+                  <el-option
+                    label="Senior(9살 ~)"
+                    value="{ id: 7, name: 'Senior(9살 ~)' }"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="크기" prop="size">
                 <el-select v-model="ruleForm.size" placeholder="소(8kg 미만)">
-                  <el-option label="소(8kg 미만)" value="1"></el-option>
-                  <el-option label="중(8kg-18kg 미만)" value="2"></el-option>
-                  <el-option label="대(18kg 이상)" value="3"></el-option>
+                  <el-option
+                    label="소(8kg 미만)"
+                    value="{ id: 1, name: '소(8kg 미만)' }"
+                  ></el-option>
+                  <el-option
+                    label="중(8kg-18kg 미만)"
+                    value="{ id: 2, name: '중(8kg-18kg 미만)' }"
+                  ></el-option>
+                  <el-option
+                    label="대(18kg 이상)"
+                    value="{ id: 3, name: '대(18kg 이상)' }"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -65,18 +86,41 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="컬러" prop="color">
-                <el-select v-model="ruleForm.color" placeholder="Bright(밝은))">
-                  <el-option label="Bright(밝은)" value="12"></el-option>
-                  <el-option label="Middle(중간)" value="13"></el-option>
-                  <el-option label="Dark(어두운)" value="14"></el-option>
+                <el-select v-model="ruleForm.color" placeholder="White">
+                  <el-option
+                    label="White"
+                    value="{ id: 12, name: 'White' }"
+                  ></el-option>
+                  <el-option
+                    label="Beige"
+                    value="{ id: 13, name: 'Beige' }"
+                  ></el-option>
+                  <el-option
+                    label="Gray"
+                    value="{ id: 14, name: 'Gray' }"
+                  ></el-option>
+                  <el-option
+                    label="Brown"
+                    value="{ id: 15, name: 'Brown' }"
+                  ></el-option>
+                  <el-option
+                    label="Black"
+                    value="{ id: 16, name: 'Black' }"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="공고 타입" prop="type">
                 <el-select v-model="ruleForm.type" placeholder="입양">
-                  <el-option label="입양" value="1"></el-option>
-                  <el-option label="임보" value="2"></el-option>
+                  <el-option
+                    label="입양"
+                    value="{ id: 1, name: '입양' }"
+                  ></el-option>
+                  <el-option
+                    label="임보"
+                    value="{ id: 2, name: '임보' }"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -85,24 +129,24 @@
             <el-col :span="8">
               <el-form-item label="성별" prop="gender">
                 <el-radio-group v-model="ruleForm.gender">
-                  <el-radio label="남"></el-radio>
-                  <el-radio label="여"></el-radio>
+                  <el-radio label="남" border></el-radio>
+                  <el-radio label="여" border></el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="헤어 타입" prop="hair">
+              <el-form-item label="품종" prop="hair">
                 <el-radio-group v-model="ruleForm.hair">
-                  <el-radio label="장모"></el-radio>
-                  <el-radio label="단모"></el-radio>
+                  <el-radio label="장모" border></el-radio>
+                  <el-radio label="단모" border></el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="중성화 여부" prop="neutralization">
                 <el-radio-group v-model="ruleForm.neutralization">
-                  <el-radio label="중성화 O"></el-radio>
-                  <el-radio label="중성화 X"></el-radio>
+                  <el-radio label="중성화 O" border></el-radio>
+                  <el-radio label="중성화 X" border></el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -128,18 +172,18 @@
             <el-col :span="12">
               <el-form-item label="활동성향" prop="energy">
                 <el-radio-group v-model="ruleForm.energy">
-                  <el-popover placement="bottom" width="200" trigger="hover">
+                  <el-popover placement="top" width="200" trigger="hover">
                     <h6 style="font-weight:600">에너지 Energetic</h6>
                     활동적, 즉흥적인
                     <template #reference>
-                      <el-radio-button label="에너지있는"></el-radio-button>
+                      <el-radio label="에너지있는" border></el-radio>
                     </template>
                   </el-popover>
-                  <el-popover placement="bottom" width="200" trigger="hover">
+                  <el-popover placement="top" width="200" trigger="hover">
                     <h6 style="font-weight:600">침착한 Introversion</h6>
                     차분한, 일관적인
                     <template #reference>
-                      <el-radio-button label="침착한"></el-radio-button>
+                      <el-radio label="침착한" border></el-radio>
                     </template>
                   </el-popover>
                 </el-radio-group>
@@ -148,18 +192,18 @@
             <el-col :span="12">
               <el-form-item label="순종성향" prop="obedience">
                 <el-radio-group v-model="ruleForm.obedience">
-                  <el-popover placement="bottom" width="200" trigger="hover">
+                  <el-popover placement="top" width="200" trigger="hover">
                     <h6 style="font-weight:600">충성심 강한 Supportive</h6>
                     유순한, 성실한
                     <template #reference>
-                      <el-radio-button label="충성심 강한"></el-radio-button>
+                      <el-radio label="충성심 강한" border></el-radio>
                     </template>
                   </el-popover>
-                  <el-popover placement="bottom" width="200" trigger="hover">
+                  <el-popover placement="top" width="200" trigger="hover">
                     <h6 style="font-weight:600">영리한 Naughty</h6>
                     재치한, 똑똑한
                     <template #reference>
-                      <el-radio-button label="영리한"></el-radio-button>
+                      <el-radio label="영리한" border></el-radio>
                     </template>
                   </el-popover>
                 </el-radio-group>
@@ -174,14 +218,14 @@
                     <h6 style="font-weight:600">관계지향 Friendly</h6>
                     반려인 바라기
                     <template #reference>
-                      <el-radio-button label="의존적인"></el-radio-button>
+                      <el-radio label="의존적인" border></el-radio>
                     </template>
                   </el-popover>
                   <el-popover placement="bottom" width="200" trigger="hover">
                     <h6 style="font-weight:600">독립지향 independenT</h6>
                     스스로 행동하는
                     <template #reference>
-                      <el-radio-button label="독립적인"></el-radio-button>
+                      <el-radio label="독립적인" border></el-radio>
                     </template>
                   </el-popover>
                 </el-radio-group>
@@ -195,14 +239,14 @@
                     낯가리는, 조심스러운
 
                     <template #reference>
-                      <el-radio-button label="낯가리는"></el-radio-button>
+                      <el-radio label="낯가리는" border></el-radio>
                     </template>
                   </el-popover>
                   <el-popover placement="bottom" width="200" trigger="hover">
                     <h6 style="font-weight:600">친화적인 Jolly</h6>
                     모든 것에 호기심 가득한
                     <template #reference>
-                      <el-radio-button label="친화적인"></el-radio-button>
+                      <el-radio label="친화적인" border></el-radio>
                       <i class="el-icon-question" />
                     </template>
                   </el-popover>
@@ -210,13 +254,66 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <div class="mb-3" style="margin-top:100px;"></div>
+          <span style="font-size: 1.25rem; font-weight:600">
+            📷 사진을 업로드 해주세요
+          </span>
+          <span> (최대 5장)</span>
+          <el-divider />
+          <el-row>
+            <el-upload
+              action="#"
+              list-type="picture-card"
+              :auto-upload="false"
+              limit="5"
+              on-exceed=""
+            >
+              <template #default>
+                <i class="el-icon-plus"></i>
+              </template>
+              <template #file="{file}">
+                <div>
+                  <img
+                    class="el-upload-list__item-thumbnail"
+                    :src="file.url"
+                    alt=""
+                  />
+                  <span class="el-upload-list__item-actions">
+                    <span
+                      class="el-upload-list__item-preview"
+                      @click="handlePictureCardPreview(file)"
+                    >
+                      <i class="el-icon-zoom-in"></i>
+                    </span>
+                    <span
+                      v-if="!disabled"
+                      class="el-upload-list__item-delete"
+                      @click="handleDownload(file)"
+                    >
+                      <i class="el-icon-download"></i>
+                    </span>
+                    <span
+                      v-if="!disabled"
+                      class="el-upload-list__item-delete"
+                      @click="handleRemove(file)"
+                    >
+                      <i class="el-icon-delete"></i>
+                    </span>
+                  </span>
+                </div>
+              </template>
+            </el-upload>
+            <el-dialog v-model="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt="" />
+            </el-dialog>
+          </el-row>
           <el-row
             class="mt-5"
             style=" display: flex;
   justify-content: center;"
           >
             <el-button type="primary" @click="submitForm('ruleForm')"
-              >작성</el-button
+              >수정</el-button
             >
             <el-button @click="resetForm('ruleForm')">초기화</el-button>
           </el-row>
@@ -227,35 +324,41 @@
 </template>
 
 <script>
-import $axios from "axios";
-import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
+import BreadCrumb from "./components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
-  name: "AdoptReigster",
+  name: "AdoptModify",
   components: {
     BreadCrumb
   },
   data() {
     return {
       ruleForm: {
-        type: "",
-        title: "",
-        name: "",
-        gender: "",
-        hair: "",
-        color: "",
-        age: "",
-        size: "",
-        neutralization: "",
-        address: "",
-        desc: "",
-        energy: "",
-        obedience: "",
-        relationship: "",
-        adaptability: "",
+        type: this.state.board.boardType,
+        title: this.state.board.title,
+        name: this.state.board.dogName,
+        gender: this.state.board.gender.name,
+        hair: this.state.board.hairType,
+        color: this.state.board.colorType,
+        age: this.state.board.ageType,
+        size: this.state.board.weight,
+        neutralization:
+          this.state.board.neutralization == true ? "중성화 O" : "중성화 X",
+        address: this.state.board.address,
+        desc: this.state.board.description,
+        energy:
+          this.state.board.mbti.indexOf("E") == 0 ? "에너지있는" : "침착한",
+        obedience:
+          this.state.board.mbti.indexOf("S") == 1 ? "충성심 강한" : "영리한",
+        relationship:
+          this.state.board.mbti.indexOf("F") == 2 ? "의존적인" : "독립적인",
+        adaptability:
+          this.state.board.mbti.indexOf("P") == 3 ? "낯가리는" : "친화적인",
         disabled: false
       },
       rules: {
@@ -290,7 +393,7 @@ export default {
         hair: [
           {
             required: true,
-            message: "헤어타입을 선택해주세요",
+            message: "품종을 선택해주세요",
             trigger: "blur"
           }
         ],
@@ -384,26 +487,26 @@ export default {
         thumbnailUrl: "",
         filePath: [],
         dogName: this.ruleForm.name,
-        boardType: Number(this.ruleForm.type),
+        boardType: Number(this.ruleForm.type.id),
         userId: this.state.userId.userId,
         mbti: mbti,
         title: this.ruleForm.title,
         description: this.ruleForm.desc,
-        colorType: Number(this.ruleForm.color),
+        colorType: Number(this.ruleForm.color.id),
         hairType: this.ruleForm.hair == "단모" ? 10 : 11,
         gender: this.ruleForm.gender == "여" ? 8 : 9,
-        age: Number(this.ruleForm.age),
+        age: Number(this.ruleForm.age.id),
         neutralization:
           this.ruleForm.neutralization == "중성화 O" ? true : false,
-        weight: Number(this.ruleForm.size),
+        weight: Number(this.ruleForm.size.id),
         address: this.ruleForm.address
       };
       console.log(data);
 
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
-          this.registerData(data);
+          this.modifyData(data);
+
           console.log(this.ruleForm);
         } else {
           console.log("error submit!!");
@@ -431,20 +534,45 @@ export default {
     const router = new useRouter();
 
     const state = reactive({
+      board: computed(() => {
+        console.log(store.getters["root/getBoardDetail"]);
+        return store.getters["root/getBoardDetail"];
+      }),
+
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"];
       })
     });
 
-    const registerData = function(data) {
+    const modifyData = function(data) {
       store
-        .dispatch("root/requestRegisterBoard", data)
+        .dispatch("root/requestModifyBoard", {
+          boardId: state.board.boardId,
+          data: data
+        })
         .then(function(result) {
-          alert("공고 등록 성공");
-          console.log("등록 성공");
-          router.push({ name: "AdoptDetailTest" });
+          createToast("공고가 수정되었어요 📜🐾", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#7eaa72",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "success"
+          });
+          console.log("수정 성공");
+          router.push({ name: "Adopt" });
         })
         .catch(function(err) {
+          createToast("공고 수정에 실패했어요 😱💦", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "warning"
+          });
           console.log(err);
         });
     };
@@ -454,11 +582,11 @@ export default {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "입양/임보",
-        subTitle: "입양/임보 공고 작성"
+        subTitle: "입양/임보 공고 수정"
       });
     });
 
-    return { state, registerData };
+    return { state, modifyData };
   }
 };
 </script>
@@ -467,13 +595,30 @@ export default {
 :deep(.el-radio__inner:hover) {
   border-color: #755744;
 }
+:deep(.el-radio.is-bordered.is-checked) {
+  border-color: #755744;
+  background-color: #f9f0e7;
+  color: #755744;
+  font-weight: 600;
+}
+
+li.el-select-dropdown__item.selected {
+  color: #755744;
+  font-weight: 700;
+}
+
+:deep(.el-radio__inner) {
+  display: none;
+}
 :deep(.el-radio__input.is-checked + .el-radio__label) {
+  border-color: #755744;
   color: #755744;
 }
 
 :deep(.el-radio__input.is-checked .el-radio__inner) {
   border-color: #755744;
   background-color: #755744;
+  background: #755744;
 }
 :deep(.el-button) {
   font-weight: 600;

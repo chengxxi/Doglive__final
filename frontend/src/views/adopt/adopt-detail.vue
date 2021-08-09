@@ -1,6 +1,6 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " shadow="hover">
+    <el-card class="box-card " shadow="hover" style="border:none;">
       <bread-crumb></bread-crumb>
 
       <div style="margin-top:60px; margin-left:60px;">
@@ -17,8 +17,18 @@
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
             <el-tag
+              v-if="state.board.boardType.id == 1"
               class="mb-3"
-              color="#D7AEA4"
+              color="#D7AFA4"
+              effect="dark"
+              size="large"
+              style="border:none; border-radius: 30px; font-size:14pt;"
+              >{{ state.board.boardType.name }}</el-tag
+            >
+            <el-tag
+              v-if="state.board.boardType.id != 1"
+              class="mb-3"
+              color="#E9CDA4"
               effect="dark"
               size="large"
               style="border:none; border-radius: 30px; font-size:14pt;"
@@ -101,14 +111,15 @@
                               순종성향
                             </h5>
                           </th>
+
                           <th scope="col">
                             <h5 style="font-weight:700; color:#606266;">
-                              적응성향
+                              관계성향
                             </h5>
                           </th>
                           <th scope="col">
                             <h5 style="font-weight:700; color:#606266;">
-                              관계성향
+                              적응성향
                             </h5>
                           </th>
                         </tr>
@@ -121,7 +132,7 @@
                               color="#D7AFA4"
                               effect="dark"
                               size="large"
-                              :style="{ border: 'none' }"
+                              :style="{ border: '3px solid #D7AFA4' }"
                               >E</el-tag
                             >에너지 (E) Energetic
                           </td>
@@ -131,19 +142,20 @@
                               color="#E9CDA4"
                               effect="dark"
                               size="large"
-                              :style="{ border: 'none' }"
+                              :style="{ border: '3px solid #E9CDA4' }"
                               >S</el-tag
                             >충성심 강한 (S) Supportive
                           </td>
+
                           <td>
                             <el-tag
                               class="m-3"
                               color="#B4D9A7"
                               effect="dark"
                               size="large"
-                              :style="{ border: 'none' }"
-                              >P</el-tag
-                            >신중한 (P) Prudent
+                              :style="{ border: '3px solid #B4D9A7' }"
+                              >F</el-tag
+                            >관계지향 (F) Friendly
                           </td>
                           <td>
                             <el-tag
@@ -151,9 +163,9 @@
                               color="#87CEDC"
                               effect="dark"
                               size="large"
-                              :style="{ border: 'none' }"
-                              >F</el-tag
-                            >관계지향 (F) Friendly
+                              :style="{ border: '3px solid #87CEDC' }"
+                              >P</el-tag
+                            >신중한 (P) Prudent
                           </td>
                         </tr>
                         <tr>
@@ -177,6 +189,7 @@
                               >N</el-tag
                             >영리한 (N) Naughty
                           </td>
+
                           <td>
                             <el-tag
                               class="m-3"
@@ -184,8 +197,8 @@
                               style="border: 3px solid #B4D9A7; color: #606266;"
                               effect="dark"
                               size="large"
-                              >J</el-tag
-                            >친화적인 (J) Jolly
+                              >T</el-tag
+                            >독립지향 (T) independenT
                           </td>
                           <td>
                             <el-tag
@@ -194,8 +207,8 @@
                               style="border: 3px solid #87CEDC; color: #606266;"
                               effect="dark"
                               size="large"
-                              >T</el-tag
-                            >독립지향 (T) independenT
+                              >J</el-tag
+                            >친화적인 (J) Jolly
                           </td>
                         </tr>
                       </tbody>
@@ -216,7 +229,9 @@
 
             <div>
               <div v-if="!state.board.isOwner">
-                <el-button style="width:100%; background : #755744;"
+                <el-button
+                  style="width:100%; background : #755744;"
+                  @click="goChat(state.board.boardId)"
                   >상담 신청</el-button
                 >
               </div>
@@ -226,6 +241,7 @@
                     ><el-button
                       class="m-2"
                       style="width:100%;   background : #755744;"
+                      @click="goModify(state.board.boardId)"
                       >공고 수정</el-button
                     ></el-col
                   >
@@ -233,6 +249,7 @@
                     ><el-button
                       class="m-2"
                       style="width:100%;   background : #C4C4C4;"
+                      @click="doDelete(state.board.boardId)"
                       >공고 삭제</el-button
                     ></el-col
                   >
@@ -379,14 +396,14 @@ import BreadCrumb from "./components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-
-import Popper from "vue3-popper";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "AdoptDetail",
   components: {
     BreadCrumb,
-    Popper
+    createToast
   },
   data() {
     return {
@@ -401,7 +418,7 @@ export default {
   },
   setup() {
     if (!Kakao.isInitialized()) {
-      Kakao.init("2c046ed5f7ec0f72bdf74502a7ccb16c");
+      Kakao.init("d0106aa9ba1feb9c379bbb82194695fe");
     }
     const store = new useStore();
     const router = new useRouter();
@@ -419,8 +436,38 @@ export default {
       })
     });
 
-    const goBack = function() {
-      router.push({ name: "AdoptDetailTest" });
+    const goModify = function(id) {
+      console.log(id, "go modify");
+      router.push({ name: "AdoptModify" });
+    };
+
+    const doDelete = function(id) {
+      store
+        .dispatch("root/requestDeleteBoard", id)
+        .then(function(result) {
+          createToast("공고가 삭제되었어요 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#7eaa72",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "success"
+          });
+          router.push({ name: "Adopt" });
+        })
+        .catch(function(err) {
+          createToast("공고 삭제에 실패했어요 😱💦", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "warning"
+          });
+          console.log(err);
+        });
     };
 
     const kakaoShare = function() {
@@ -450,7 +497,15 @@ export default {
       const isBookmarked = store.getters["root/getIsbookmarked"];
 
       if (state.userId === null) {
-        alert("로그인을 진행해주세요!");
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-right",
+          transition: "bounce",
+          type: "warning"
+        });
         router.push({ name: "Login" });
       } else {
         console.log("북마크 등록 ", isBookmarked);
@@ -465,9 +520,26 @@ export default {
             .then(function(result) {
               console.log("deleteBookmark!!!!!!");
               store.commit("root/setIsbookmarked", false);
-              alert("북마크가 해제되었습니다");
+              createToast("북마크가 해제되었어요 💨💨", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "success"
+              });
             })
             .catch(function(err) {
+              createToast("북마크 해제에 실패했어요 😱💦", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#c49d83",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "warning"
+              });
               console.log(err);
             });
         } else {
@@ -479,13 +551,42 @@ export default {
             .then(function(result) {
               console.log("insertBookmark!!!!!!");
               store.commit("root/setIsbookmarked", true);
-              alert("북마크가 등록되었습니다");
+              createToast("북마크가 등록되었어요 🐾💌", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "success"
+              });
             })
             .catch(function(err) {
+              createToast("북마크 등록에 실패했어요 😱💦", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#c49d83",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "warning"
+              });
               console.log(err);
             });
         }
       }
+    };
+
+    const goChat = function(id) {
+      createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
+        hideProgressBar: "true",
+        timeout: 4500,
+        showIcon: "true",
+        toastBackgroundColor: "#c49d83",
+        position: "bottom-right",
+        transition: "bounce",
+        type: "warning"
+      });
     };
 
     onMounted(() => {
@@ -497,7 +598,7 @@ export default {
       });
     });
 
-    return { state, goBack, clickBookmark, kakaoShare };
+    return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify };
   }
 };
 </script>

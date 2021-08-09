@@ -125,6 +125,7 @@ public class BoardController {
     })
     public ResponseEntity<BoardDetailGetRes> boardDetail(@PathVariable("boardId") String boardId, @PathVariable("userId") String userId){
         boolean isOwner = false;
+
         System.out.println(boardId);
         System.out.println(userId);
         Board board = boardService.getBoardByBoardId(Long.parseLong(boardId));
@@ -135,8 +136,10 @@ public class BoardController {
         List<BoardImage> boardImages = boardService.getBoardImagesByBoard(board);
 
         String writer = userService.getUserName(board.getUserId());
-        System.out.println(writer);
         if(board.getUserId().equals(userId)) isOwner = true;
+
+        System.out.println(writer);
+
         System.out.println(userId+" "+board.getUserId());
         return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isOwner, writer, board, dogInformation, boardImages, boardComments));
     }
@@ -182,20 +185,7 @@ public class BoardController {
     }
 
 
-    @PostMapping("/adoptform/{userId}")
-    @ApiOperation(value = "입양신청서 등록", notes = "입양신청서를 작성하고 저장한다")
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<? extends BaseResponseBody> insertAdoptForm(@PathVariable("userId") String id, @RequestBody @ApiParam(value="입양신청 등록 정보", required = true) AdoptFormReq adoptFormReq){
 
-        adoptService.insertAdoptForm(id, adoptFormReq);
-
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "입양신청서가 정상적으로 등록되었습니다"));
-    }
 
     @GetMapping("/myboard/{id}")
     @ApiOperation(value = "사용자 작성글 목록", notes = "사용자가 작성한 글만 가져온다")
