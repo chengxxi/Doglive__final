@@ -9,7 +9,7 @@ import axios from './common/lib/axios'
 import i18n from './common/lib/i18n'
 import router from './common/lib/vue-router'
 
-import 'element-plus/packages/theme-chalk/src/base.scss'
+// import 'element-plus/packages/theme-chalk/src/base.scss'
 
 // Element UI Components [시작]
 import {

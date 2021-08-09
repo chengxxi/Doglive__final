@@ -24,12 +24,14 @@ public class QChatMessage extends EntityPathBase<ChatMessage> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final QChatRoom chatRoom;
-
     //inherited
     public final NumberPath<Long> id = _super.id;
 
     public final StringPath message = createString("message");
+
+    public final QChatRoom roomId;
+
+    public final DateTimePath<java.time.LocalDateTime> sendTimeAt = createDateTime("sendTimeAt", java.time.LocalDateTime.class);
 
     public final StringPath userId = createString("userId");
 
@@ -51,7 +53,7 @@ public class QChatMessage extends EntityPathBase<ChatMessage> {
 
     public QChatMessage(Class<? extends ChatMessage> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.chatRoom = inits.isInitialized("chatRoom") ? new QChatRoom(forProperty("chatRoom")) : null;
+        this.roomId = inits.isInitialized("roomId") ? new QChatRoom(forProperty("roomId")) : null;
     }
 
 }

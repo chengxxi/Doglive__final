@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul v-for="(item, index) in state.recvList" v-bind:key="index">
-      <li>{{ item.userId + " - " + item.message }}</li>
+      <li>{{ item.userId + " - " + item.chatMessage }}</li>
     </ul>
   </div>
   <br>
@@ -24,7 +24,7 @@ export default {
   name: 'chat-detail',
   setup () {
     const store = useStore()
-    const userId = Math.floor(Math.random() * (10000 - 1) + 1);
+    const userId = store.getters['root/getLoginUserInfo'];
     let socket, client
 
     const state = reactive({
@@ -32,25 +32,56 @@ export default {
       content: '',
     })
 
-    const sendMessage = function(){
-      client.send('/pub/chat/message', JSON.stringify({roomId: 1, message: state.content, userId: userId}, {} ))
-      state.content = ''
+    /* Methods*/
+
+    // 이전 채팅방 로그 가져오기
+    function fetchMessageLogs(){
+       store.dispatch('root/requestChatMessageList', {roomId: 1, withCredentials: true})
+        .then(function(result){
+          console.log(result.data.messageList)
+          for(var i = 0; i < result.data.messageList.length; i++){
+            state.recvList.push(result.data.messageList[i])
+          }
+          return true;
+        })
+        .catch(function(err){
+          return false;
+        })
     }
 
-    const onConnected = function(){
-      // 특정 채팅방 입장 요청
-      const data = JSON.stringify({ userId: userId, roomId: 1, message: "join" });
-      client.send("/pub/chat/join", data, {})
+    // 채팅방 입장 요청 + 메시지 받아오기
+    function fetchJoin(){
+      console.log("fetchJoin 함수 호출!")
+      // 1. 채팅방 입장 요청
+      // const data = JSON.stringify({ userId: userId, roomId: 1, chatMessage: "join" });
+      // client.send("/pub/chat/join", data, {})
 
-      // 특정 채팅방에서 메시지 받아오기
+      // 2. 채팅방에서 메시지 받아오기
       client.subscribe("/sub/chat/room/" + 1, function(result){
         console.log(JSON.parse(result.body))
         state.recvList.push(JSON.parse(result.body))
       })
     }
 
+    // Input에 입력한 메세지 전송
+    function sendMessage(){
+      client.send('/pub/chat/message', JSON.stringify({roomId: 1, chatMessage: state.content, userId: userId}, {} ))
+      state.content = ''
+    }
+
+    // 웹 소켓 연결 성공 시, 콜백 함수
+    async function onConnected(){
+      console.log("onConnected 함수 호출!")
+      var load = await fetchMessageLogs()
+
+      if(!load){
+        console.log("로딩중...")
+      }
+      fetchJoin()
+    }
+
     // 웹 소켓 통신 Connect
-    const connect = function(){
+    function connect(){
       const url = "http://localhost:8080/chat-server"
       socket = new SockJS(url, { transports: ['websocket', 'xhr-streaming', 'xhr-polling']})
       client = Stomp.over(socket)

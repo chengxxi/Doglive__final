@@ -1,4 +1,5 @@
 package com.ssafy.db.entity.chat;
+import com.ssafy.api.request.ChatMessagePostReq;
 import com.ssafy.db.entity.auth.UserProfile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import org.checkerframework.checker.compilermsgs.qual.CompilerMessageKey;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,21 +18,23 @@ import java.util.Date;
 @Table(name="chat_message", schema = "chat")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ChatMessage extends BaseEntity {
 
     @Column(name="user_id")
     private String userId;          //채팅을 보낸 사용자 ID
 
     @ManyToOne
-    @JoinColumn(nullable = false)
-    private ChatRoom chatRoom;            //채팅방 ID
+    @JoinColumn(name="room_id", nullable = false)
+    private ChatRoom roomId;            //채팅방 ID
 
     @Column(columnDefinition = "TEXT")
     private String message;         //채팅 Message 데이터
 
-//    @Temporal(TemporalType.TIME)
-//    private java.util.Date time;    //채팅 보낸 시간
+    @Column
+    private LocalDateTime sendTimeAt;    //채팅 보낸 시간
 
+    public ChatMessage(){
+        LocalDateTime now = LocalDateTime.now();
+        sendTimeAt = now;
+    }
 }

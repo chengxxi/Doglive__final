@@ -62,14 +62,17 @@ export default {
       })
     }
 
-    store.dispatch('root/requestChatRoomList')
+    // 현재 로그인한 유저의 userId 쿠키를 헤더에 포함하여 전송
+    store.dispatch('root/requestChatRoomList', {withCredentials: true})
     .then(function(result){
-      console.log(result.data)
-      state.roomList = result.data
+      console.log(result.data.chatRoomList)
+      state.roomList = result.data.chatRoomList
     })
     .catch(function(err){
       console.log(err)
     })
+
+
     return { state, createRoom, enterRoom, open }
   }
 }

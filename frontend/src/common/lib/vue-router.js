@@ -5,6 +5,7 @@ import Logout from '@/views/main/components/logout-dialog.vue'
 import Mypage from '@/views/user/mypage.vue'
 import Chat from '@/views/chat/chat.vue'
 import KakaoCallback from '@/views/main/components/kakao-callback.vue'
+import { useStore } from 'vuex'
 
 const routes = [
   {
@@ -60,6 +61,7 @@ const routes = [
     redirect : '/chat/rooms',
     name: 'Chat',
     component : Chat,
+    // meta: {requiresAuth : true},
     children: [
       {
         path: "rooms",
@@ -82,7 +84,18 @@ const router = createRouter({
 
 // URL이 변경되기전 거쳐가는 함수
 router.beforeEach(function(to, from, next){
-  next()
+  const store = useStore()
+  console.log(store)
+
+  if(to.matched.some(record => record.meta.requiresAuth)){ // 로그인이 필요한 페이지라면
+    // if(store.getters["root/getLoginUserInfo"].userId === null){ // 현재 로그인된 상태인지 확인
+    //   next({ path: '/', query: {redirect: to.fullPath}})
+    // }else{
+    //   next()
+    // }
+  }else{
+    next()
+  }
 })
 
 export default router
