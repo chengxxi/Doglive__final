@@ -3,6 +3,8 @@ package com.ssafy.db.repository.board;
 
 import com.ssafy.db.entity.board.Board;
 import com.ssafy.db.entity.board.BoardCategory;
+import com.ssafy.db.entity.board.Code;
+import com.ssafy.db.entity.board.DogInformation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.expression.spel.ast.OpInc;
@@ -33,7 +35,14 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     )
     Optional<List<Board>> findFindBoard();
 
-    Optional<List<Board>> findBoardsByType(BoardCategory boardCategory);
+    @Query(
+            value = "SELECT b.id, b.reg_date, b.thumbnail_url, b.title, b.user_id, b.board_type FROM board b LEFT JOIN dog_information d "
+                    +"ON b.id = d.board_id "
+                    +"WHERE b.board_type = :boardCategory "
+                    +"AND d.gender = :gender",
+            nativeQuery = true
+    )
+    Optional<List<Board>> findBoardsByType(BoardCategory boardCategory, Code gender);
 
 
 }
