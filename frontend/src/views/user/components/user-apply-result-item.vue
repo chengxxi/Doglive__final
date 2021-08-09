@@ -9,7 +9,7 @@
               size="medium"
               style="border:none; border-radius: 30px; font-size:10pt;">{{o.result}}</el-tag>
         </div>
-        <div class="apply-content"><p>분류 : 입양</p><p>글제목: 우리강쥐를 입양하세요!</p></div>
+        <div class="apply-content"><p>분류 : {{o.boardType}}</p><p>강아지 이름 : {{o.dogName}}</p></div>
         <div class="icon">
           <font-awesome-icon
                         icon="file"
@@ -93,41 +93,6 @@ export default {
 
         })
       })
- 
-
-    // $axios
-    //     .get("/board/" + result.data. + "/" + userid)
-    //     .then(function(result) {
-    //       console.log(result);
-
-    //       const boardDetail = {
-    //         boardId: result.data.board.id,
-    //         boardType: result.data.board.type,
-    //         thumbnailUrl: result.data.board.thumbnailUrl,
-    //         title: result.data.board.title,
-    //         address: result.data.dogInformation.address,
-    //         mbti: result.data.dogInformation.mbti,
-    //         colorType: result.data.dogInformation.colorType,
-    //         gender: result.data.dogInformation.gender,
-    //         hairType: result.data.dogInformation.hairType,
-    //         neutralization: result.data.dogInformation.neutralization,
-    //         writer: result.data.writer,
-    //         weight: result.data.dogInformation.weight,
-    //         ageType: result.data.dogInformation.age,
-    //         regDate: result.data.board.regDate,
-    //         fileList: result.data.boardImageList,
-    //         isOwner: result.data.owner,
-    //         description: result.data.dogInformation.description,
-    //         dogName: result.data.dogInformation.dogName
-    //       };
-
-    //       store.commit("root/setBoardDetail", boardDetail);
-
-    //       router.push({ name: "AdoptDetail" });
-    //     })
-    //     .catch(function(err) {
-    //       console.log(err);
-    //     });
 
   }
 }

@@ -10,7 +10,7 @@ export default {
     name: "",
     email: "",
     birth: "",
-    phone: ""
+    phoneNumber: ""
   },
 
   writeList: {},

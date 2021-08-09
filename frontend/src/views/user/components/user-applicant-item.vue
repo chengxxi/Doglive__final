@@ -5,7 +5,7 @@
         <div class="image">
           <el-avatar shape="circle" :size="70" :src="require('@/assets/images/profile-image.jpg')" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}"/>
         </div>
-        <div class="apply-content"><p>분류 : 입양</p> <p>이름 : {{o.name}}</p></div>
+        <div class="apply-content"><p>이름 : {{o.applicantId.name}}</p><p>{{o.applicantId.phoneNumber}}</p></div>
         
         <div class="icon">
           <font-awesome-icon
@@ -26,12 +26,14 @@
               color="#D7AFA4"
               effect="dark"
               size="medium"
-              style="border:none; border-radius: 30px; font-size:7pt; display:block; margin-bottom: 5px">승인</el-tag>
+              style="border:none; border-radius: 30px; font-size:7pt; display:block; margin-bottom: 5px"
+              @click="clickAccept(o.id)">승인</el-tag>
           <el-tag
               color="#BDBDBD"
               effect="dark"
               size="medium"
-              style="border:none; border-radius: 30px; font-size:7pt; display:block;">거절</el-tag>
+              style="border:none; border-radius: 30px; font-size:7pt; display:block;"
+              @click="clickReject(o.id)">거절</el-tag>
         </div>
       </div>
     </el-col>
@@ -92,10 +94,12 @@
 </style>
 
 <script>
-import $axios from 'axios'
 import { onBeforeMount, onMounted, reactive, computed } from "vue";
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router';
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
+
 export default {
   name: 'user-applicant-item',
   props:{
@@ -116,6 +120,44 @@ export default {
 
         })
       })
+
+    const clickAccept = function(id){
+      store.dispatch('root/changeResult', {id : id, status : { result : '승인'}})
+      .then(function(result){
+        createToast("신청 결과가 등록되었습니다 💨💨", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "success"
+            });
+        router.push({name : 'mypage-result-list'})
+      }).catch(function(err){
+        console.log(err)
+      });
+    }
+
+    const clickReject = function(id){
+      store.dispatch('root/changeResult', {id : id,  status : { result : '거절'} })
+      .then(function(result){
+        createToast("신청 결과가 등록되었습니다 💨💨", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "success"
+            });
+        router.push({name : 'mypage-result-list'})
+      }).catch(function(err){
+        console.log(err)
+      });
+    }
+
+    return {state, clickAccept, clickReject}
 
   }
 }

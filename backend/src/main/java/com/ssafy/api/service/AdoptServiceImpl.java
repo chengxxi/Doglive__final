@@ -4,6 +4,7 @@ package com.ssafy.api.service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafy.api.request.AdoptFormReq;
+import com.ssafy.api.request.StatusUpdatePutReq;
 import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
@@ -81,7 +82,19 @@ public class AdoptServiceImpl implements AdoptService{
         return counselingHistory;
     }
 
+    /* 입양 신청 결과 수정 */
+    @Override
+    public CounselingHistory updateStatus(Long id, StatusUpdatePutReq statusUpdatePutReq) {
+        Optional<CounselingHistory> counselingHistory = counselingHistoryRepository.findCounselingHistoryById(id);
+        System.out.println("89: " + counselingHistory.get());
+       if(counselingHistory.isPresent()){
+           counselingHistory.get().setResult(statusUpdatePutReq.getResult());
+           counselingHistoryRepository.save(counselingHistory.get());
 
+           return counselingHistory.get();
+       }
+       return null;
+    }
 
 
 }
