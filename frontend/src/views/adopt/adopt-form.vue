@@ -62,6 +62,7 @@
                   placeholder="ssafy@ssafy.com"
                 ></el-input>
               </el-form-item>
+              <el-button>인증</el-button>
             </el-col>
           </el-row>
           <el-row class="mt-3 mb-3">
@@ -92,8 +93,8 @@
               <el-form-item label="거주지" prop="sido" style="width:95%">
                 <el-select
                   v-model="state.selectedSidoCode"
-                  multiple
                   placeholder="시/도"
+                  :change="gugunList()"
                 >
                   <el-option
                     v-for="(sido, idx) in state.sidoList"
@@ -105,8 +106,6 @@
                 </el-select>
                 <el-select
                   v-model="selectedGugunCode"
-                  multiple
-                  collapse-tags
                   style="margin-left: 20px;"
                   placeholder="구/군"
                 >
@@ -147,7 +146,7 @@
 <script>
 import $axios from "axios";
 import BreadCrumb from "./components/bread-crumb.vue";
-import { computed, reactive, onMounted } from "vue";
+import { computed, reactive, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { createToast } from "mosha-vue-toastify";
@@ -209,8 +208,9 @@ export default {
       });
 
     const gugunList = function() {
+      console.log(state.selectedSidoCode);
       store
-        .dispatch("root/requestGugunCodeList", selectedSidoCode)
+        .dispatch("root/requestGugunCodeList", state.selectedSidoCode)
         .then(function(result) {
           console.log("call : guguncode");
           state.gugunList = result.data.gugunList;
