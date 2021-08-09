@@ -97,3 +97,10 @@ export function changeUserInfo({ state }, payload) {
   const url = "/users/" + userId;
   return $axios.put(url, payload.data);
 }
+
+// 신청결과 수정
+export function changeResult({state}, payload){
+  const id = payload.id;
+  const url = "/adopt/" + id;
+  return $axios.put(url, payload.status) 
+}

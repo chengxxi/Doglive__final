@@ -1,6 +1,8 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.AdoptFormReq;
+
+import com.ssafy.api.request.StatusUpdatePutReq;
 import com.ssafy.api.service.AdoptService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import io.swagger.annotations.*;
@@ -33,5 +35,21 @@ public class AdoptController {
         adoptService.insertAdoptForm(id, adoptFormReq);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "입양신청서가 정상적으로 등록되었습니다"));
+    }
+
+    @PutMapping("/{id}")
+    @ApiOperation(value = "신청서 현황 수정", notes = "신청서 현황을 수정한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 409, message = "이미 존재하는 유저"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> updateStatus(@PathVariable("id") Long id,  @RequestBody @ApiParam(value="신청현황수정", required = true) StatusUpdatePutReq statusUpdatePutReq){
+        System.out.println(statusUpdatePutReq.getResult());
+        adoptService.updateStatus(id, statusUpdatePutReq);
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200,"입양 신청서 결과가 정상적으로 수정되었습니다."));
     }
 }

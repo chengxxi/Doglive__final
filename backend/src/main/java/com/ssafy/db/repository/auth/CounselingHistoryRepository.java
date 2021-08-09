@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Repository
 public interface CounselingHistoryRepository extends JpaRepository<CounselingHistory, Long> {
+    Optional<CounselingHistory> findCounselingHistoryById(Long id);
 
     Optional<CounselingHistory> findCounselingHistoryByApplicantId(UserProfile userProfile);
 

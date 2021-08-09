@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.AdoptFormReq;
+import com.ssafy.api.request.StatusUpdatePutReq;
 import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.board.Board;
 
@@ -11,5 +12,7 @@ public interface AdoptService {
     List<Board> getAdoptBoardList();
 
     CounselingHistory insertAdoptForm(String userId, AdoptFormReq adoptFormReq);
+
+    CounselingHistory updateStatus(Long id, StatusUpdatePutReq statusUpdatePutReq);
 
 }
