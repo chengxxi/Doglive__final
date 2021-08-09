@@ -9,6 +9,8 @@ import $axios from "axios";
 import Cookies from "universal-cookie";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "kakao-callback",
