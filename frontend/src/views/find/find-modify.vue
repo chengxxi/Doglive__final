@@ -149,7 +149,6 @@
                 type="textarea"
                 :rows="7"
                 maxlength="1000"
-                show-word-limit
                 v-model="ruleForm.desc"
               ></el-input>
             </el-form-item>
