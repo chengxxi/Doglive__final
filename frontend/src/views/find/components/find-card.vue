@@ -4,10 +4,10 @@
     :body-style="{ padding: '10px' }"
     style="margin: 10px !important;"
     shadow="hover"
-    class="el-col-5"
+    class="el-col-4"
   >
     <img :src="require('@/assets/images/logo2.png')" class="image" />
-    <div style="padding: 14px;">
+    <div> <!--  style="padding: 14px;"  -->
       <!-- <span><el-tag color="#D7AFA4">{{ card.boardType }}</el-tag></span> -->
       <div class="bottom">
         <p>{{ card.title }}</p>

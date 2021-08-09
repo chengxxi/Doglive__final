@@ -18,24 +18,8 @@
         <FindFilter />
       </div>
 
-      <div></div>
-      <el-space wrap>
-        <!-- 실종 공고 작성하기 버튼 -->
-        <div class="newFindbtn">
-          <!-- 공고 작성 기능 연계가 완료되면 사라질 코드 -->
-          <el-dialog title="Notice" v-model="dialogVisible2" width="30%">
-            <span>준비 중인 기능입니다.</span>
-            <template #footer>
-              <span class="dialog-footer">
-                <el-button @click="dialogVisible2 = false">Close</el-button>
-              </span>
-            </template>
-          </el-dialog>
-          <!-- 임시 코드 (끝) -->
-        </div>
-      </el-space>
-
       <FindList />
+
     </el-card>
   </div>
 </template>
