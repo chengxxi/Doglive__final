@@ -29,8 +29,8 @@
             <li>
               <a href="#" @mouseover="changeDisplay('over')">실종/보호</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
-                    <li><a href="/adopt">찾아주세요</a></li>
-                    <li><a href="/adopt">보호하고 있어요</a></li>
+                    <li><a href="/find">찾아주세요</a></li>
+                    <li><a href="/find">보호하고 있어요</a></li>
                 </ul>
             </li>
             <li>
