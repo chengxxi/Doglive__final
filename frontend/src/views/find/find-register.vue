@@ -3,7 +3,7 @@
     <el-card
       class="box-card"
       style="width:100%; height:auto;  border:none;"
-      shadow="hover"
+      shadow="none"
     >
       <bread-crumb></bread-crumb>
 
