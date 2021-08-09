@@ -115,7 +115,7 @@ export default {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: "Adopt",
+        title: "입양/임보",
         subTitle: "입양 공고 목록"
       });
     });

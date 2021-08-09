@@ -5,6 +5,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+
+/**
+ * Bookmark 저장 시 요청 Req
+ */
+
+
 @Getter
 @Setter
 @ApiModel("BookmarkInsertPostReq")

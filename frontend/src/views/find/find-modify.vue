@@ -112,21 +112,21 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="공고 타입" prop="type">
-                <el-select v-model="ruleForm.type" placeholder="입양">
+                <el-select v-model="ruleForm.type" placeholder="실종">
                   <el-option
-                    label="입양"
-                    value="{ id: 1, name: '입양' }"
+                    label="실종"
+                    value="{ id: 3, name: '실종' }"
                   ></el-option>
                   <el-option
                     label="임보"
-                    value="{ id: 2, name: '임보' }"
+                    value="{ id: 4, name: '보호' }"
                   ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row class="mt-3 mb-3">
-            <el-col :span="8">
+            <el-col :span="12">
               <el-form-item label="성별" prop="gender">
                 <el-radio-group v-model="ruleForm.gender">
                   <el-radio label="남" border></el-radio>
@@ -134,7 +134,7 @@
                 </el-radio-group>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="12">
               <el-form-item label="품종" prop="hair">
                 <el-radio-group v-model="ruleForm.hair">
                   <el-radio label="장모" border></el-radio>
@@ -142,16 +142,7 @@
                 </el-radio-group>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
-              <el-form-item label="중성화 여부" prop="neutralization">
-                <el-radio-group v-model="ruleForm.neutralization">
-                  <el-radio label="중성화 O" border></el-radio>
-                  <el-radio label="중성화 X" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
           </el-row>
-
           <el-row class="mt-3 mb-3">
             <el-form-item label="부가 설명" prop="desc">
               <el-input
@@ -162,99 +153,6 @@
                 v-model="ruleForm.desc"
               ></el-input>
             </el-form-item>
-          </el-row>
-
-          <h5 class="mb-3" style="margin-top:100px; font-weight:600">
-            🐶 성격을 소개해주세요
-          </h5>
-          <el-divider />
-
-          <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item label="활동성향" prop="energy">
-                <el-radio-group v-model="ruleForm.energy">
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">에너지 Energetic</h6>
-                    활동적, 즉흥적인
-                    <template #reference>
-                      <el-radio label="에너지있는" border></el-radio>
-                    </template>
-                  </el-popover>
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">침착한 Introversion</h6>
-                    차분한, 일관적인
-                    <template #reference>
-                      <el-radio label="침착한" border></el-radio>
-                    </template>
-                  </el-popover>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="순종성향" prop="obedience">
-                <el-radio-group v-model="ruleForm.obedience">
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">충성심 강한 Supportive</h6>
-                    유순한, 성실한
-                    <template #reference>
-                      <el-radio label="충성심 강한" border></el-radio>
-                    </template>
-                  </el-popover>
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">영리한 Naughty</h6>
-                    재치한, 똑똑한
-                    <template #reference>
-                      <el-radio label="영리한" border></el-radio>
-                    </template>
-                  </el-popover>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="관계성향" prop="relationship">
-                <el-radio-group v-model="ruleForm.relationship">
-                  <el-popover placement="bottom" width="200" trigger="hover">
-                    <h6 style="font-weight:600">관계지향 Friendly</h6>
-                    반려인 바라기
-                    <template #reference>
-                      <el-radio label="의존적인" border></el-radio>
-                    </template>
-                  </el-popover>
-                  <el-popover placement="bottom" width="200" trigger="hover">
-                    <h6 style="font-weight:600">독립지향 independenT</h6>
-                    스스로 행동하는
-                    <template #reference>
-                      <el-radio label="독립적인" border></el-radio>
-                    </template>
-                  </el-popover>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="적응성향" prop="adaptability">
-                <div>
-                  <el-radio-group v-model="ruleForm.adaptability">
-                    <el-popover placement="bottom" width="200" trigger="hover">
-                      <h6 style="font-weight:600">신중한 Prudent</h6>
-                      낯가리는, 조심스러운
-
-                      <template #reference>
-                        <el-radio label="낯가리는" border></el-radio>
-                      </template>
-                    </el-popover>
-                    <el-popover placement="bottom" width="200" trigger="hover">
-                      <h6 style="font-weight:600">친화적인 Jolly</h6>
-                      모든 것에 호기심 가득한
-                      <template #reference>
-                        <el-radio label="친화적인" border></el-radio>
-                      </template>
-                    </el-popover>
-                  </el-radio-group>
-                </div>
-              </el-form-item>
-            </el-col>
           </el-row>
           <div class="mb-3" style="margin-top:100px;"></div>
           <span style="font-size: 1.25rem; font-weight:600">
@@ -315,7 +213,7 @@
   justify-content: center;"
           >
             <el-button type="primary" @click="submitForm('ruleForm')"
-              >작성</el-button
+              >수정</el-button
             >
             <el-button @click="resetForm('ruleForm')">초기화</el-button>
           </el-row>
@@ -326,7 +224,6 @@
 </template>
 
 <script>
-import $axios from "axios";
 import BreadCrumb from "./components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
@@ -335,31 +232,33 @@ import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
 
 export default {
-  name: "AdoptReigster",
+  name: "FindModify",
   components: {
     BreadCrumb
   },
   data() {
     return {
       ruleForm: {
-        type: "",
-        title: "",
-        name: "",
-        gender: "",
-        hair: "",
-        color: "",
-        age: "",
-        size: "",
-        neutralization: "",
-        address: "",
-        desc: "",
-        energy: "",
-        obedience: "",
-        relationship: "",
-        adaptability: "",
-        disabled: false,
-        dialogImageUrl: "",
-        dialogVisible: false,
+        type: this.state.board.boardType,
+        title: this.state.board.title,
+        name: this.state.board.dogName,
+        gender: this.state.board.gender.name,
+        hair: this.state.board.hairType,
+        color: this.state.board.colorType,
+        age: this.state.board.ageType,
+        size: this.state.board.weight,
+        neutralization:
+          this.state.board.neutralization == true ? "중성화 O" : "중성화 X",
+        address: this.state.board.address,
+        desc: this.state.board.description,
+        energy:
+          this.state.board.mbti.indexOf("E") == 0 ? "에너지있는" : "침착한",
+        obedience:
+          this.state.board.mbti.indexOf("S") == 1 ? "충성심 강한" : "영리한",
+        relationship:
+          this.state.board.mbti.indexOf("F") == 2 ? "의존적인" : "독립적인",
+        adaptability:
+          this.state.board.mbti.indexOf("P") == 3 ? "낯가리는" : "친화적인",
         disabled: false
       },
       rules: {
@@ -421,7 +320,7 @@ export default {
         address: [
           {
             required: true,
-            message: "현재 강아지의 위치를 입력해주세요",
+            message: "실종/보호 장소를 입력해주세요",
             trigger: "blur"
           },
           {
@@ -443,34 +342,6 @@ export default {
             message: "50글자 이상, 1000글자 이하로 입력해주세요.",
             trigger: "blur"
           }
-        ],
-        energy: [
-          {
-            required: true,
-            message: "활동성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        obedience: [
-          {
-            required: true,
-            message: "순종성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        relationship: [
-          {
-            required: true,
-            message: "관계성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
-        ],
-        adaptability: [
-          {
-            required: true,
-            message: "적응성향을 관찰 후 선택해주세요",
-            trigger: "blur"
-          }
         ]
       }
     };
@@ -478,12 +349,6 @@ export default {
 
   methods: {
     submitForm(formName) {
-      const mbti =
-        [this.ruleForm.energy == "에너지있는" ? "E" : "I"] +
-        [this.ruleForm.obedience == "충성심 강한" ? "S" : "N"] +
-        [this.ruleForm.relationship == "의존적인" ? "F" : "T"] +
-        [this.ruleForm.adaptability == "친화적인" ? "J" : "P"];
-
       const data = {
         thumbnailUrl: "",
         filePath: [],
@@ -506,7 +371,7 @@ export default {
 
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.registerData(data);
+          this.modifyData(data);
           console.log(this.ruleForm);
         } else {
           console.log("error submit!!");
@@ -534,16 +399,24 @@ export default {
     const router = new useRouter();
 
     const state = reactive({
+      board: computed(() => {
+        console.log(store.getters["root/getBoardDetail"]);
+        return store.getters["root/getBoardDetail"];
+      }),
+
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"];
       })
     });
 
-    const registerData = function(data) {
+    const modifyData = function(data) {
       store
-        .dispatch("root/requestRegisterBoard", data)
+        .dispatch("root/requestModifyBoard", {
+          boardId: state.board.boardId,
+          data: data
+        })
         .then(function(result) {
-          createToast("공고가 등록되었어요 📜🐾", {
+          createToast("공고가 수정되었어요 📜🐾", {
             hideProgressBar: "true",
             timeout: 4500,
             showIcon: "true",
@@ -552,11 +425,11 @@ export default {
             transition: "bounce",
             type: "success"
           });
-          console.log("등록 성공");
+          console.log("수정 성공");
           router.push({ name: "Adopt" });
         })
         .catch(function(err) {
-          createToast("공고 등록에 실패했어요 💬💦", {
+          createToast("공고 수정에 실패했어요 😱💦", {
             hideProgressBar: "true",
             timeout: 4500,
             showIcon: "true",
@@ -573,12 +446,12 @@ export default {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: "입양/임보",
-        subTitle: "입양/임보 공고 작성"
+        title: "실종/보호",
+        subTitle: "실종/보호 공고 수정"
       });
     });
 
-    return { state, registerData };
+    return { state, modifyData };
   }
 };
 </script>
@@ -586,9 +459,7 @@ export default {
 <style scoped>
 :deep(.el-radio__inner:hover) {
   border-color: #755744;
-  color: #755744;
 }
-
 :deep(.el-radio.is-bordered.is-checked) {
   border-color: #755744;
   background-color: #f9f0e7;
@@ -613,11 +484,6 @@ li.el-select-dropdown__item.selected {
   border-color: #755744;
   background-color: #755744;
   background: #755744;
-}
-
-:deep(.el-radio) {
-  margin-left: 0px;
-  margin-right: 0px;
 }
 
 :deep(.el-button) {

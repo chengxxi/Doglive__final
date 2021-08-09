@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.auth;
 
+import com.ssafy.db.entity.board.Code;
 import com.ssafy.db.entity.chat.ChatMessage;
 import com.ssafy.db.entity.chat.ChatRoom;
 import lombok.Data;
@@ -30,7 +31,9 @@ public class CounselingHistory {
   private Long boardId;             //입양 공고 아이디
 
   @Column(name="board_type")
-  private Long boardType;           //입양 공고 타입
+  private String boardType;           //입양 공고 타입
+
+  private String dogName;           //강아지네임
 
   private String content;           //입양 신청 설문 내용
 
