@@ -2,7 +2,7 @@
 ## 💛☝ 독립 Version 0.1.0 가이드 문서 ➡ [🔗서비스 가이드 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.1.0/README_0.1.0.md )
 <br><br>
 
-<br><br><br>
+<br><br>
 
 ## 🐶 독립 Dog-Live (獨立)
 ![image](/uploads/6c3aa15683a7052f3a1ca8af110407c6/image.png)
