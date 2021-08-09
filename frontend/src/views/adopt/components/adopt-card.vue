@@ -143,12 +143,12 @@ h3 {
 </style>
 
 <script>
-import AdoptDetail from "../adopt-detail.vue";
+// import AdoptDetail from '../adopt-detail.vue';
 
 export default {
-  name: "adopt-card",
+  name: 'adopt-card',
   components: {
-    AdoptDetail
+    // AdoptDetail
   },
   props: {
     card: Object
