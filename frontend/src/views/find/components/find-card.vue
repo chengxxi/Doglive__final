@@ -7,7 +7,6 @@
     class="el-col-5"
   >
     <img :src="require('@/assets/images/logo2.png')" class="image" />
-    <!-- <img :src="require('https://placedog.net/200/200?random')" class="image"> -->
     <div style="padding: 14px;">
       <!-- <span><el-tag color="#D7AFA4">{{ card.boardType }}</el-tag></span> -->
       <div class="bottom">
@@ -143,13 +142,8 @@ h3 {
 </style>
 
 <script>
-// import AdoptDetail from '../adopt-detail.vue';
-
 export default {
-  name: 'adopt-card',
-  components: {
-    // AdoptDetail
-  },
+  name: 'find-card',
   props: {
     card: Object
   }
