@@ -90,6 +90,41 @@
             </div>
           </div>
 
+          <h4 class="mt-1 mb-3" style="font-weight:600">
+            🚥 입양 자격 확인
+          </h4>
+          <div class="box" style=" margin-bottom:60px;">
+            <h5 style="font-weight:600;">
+              다음의 경우에는 입양이 어렵습니다.
+            </h5>
+            <div style="margin-left:20px; margin-top:20px;">
+              <h6>
+                <font-awesome-icon :icon="['fas', 'check']" />
+                가정으로의 입양이 아닌 경우 ( 예 : 공장, 회사, 식당 등 )
+              </h6>
+              <h6>
+                <font-awesome-icon :icon="['fas', 'check']" />
+                미성년자의 입양 신청
+              </h6>
+              <h6>
+                <font-awesome-icon :icon="['fas', 'check']" />
+                가족 구성원 전체의 동의를 얻지 않은 경우
+              </h6>
+              <h6>
+                <font-awesome-icon :icon="['fas', 'check']" />
+                가족 구성원 중 동물에 대한 알레르기로 치료를 받고 있거나
+                동물에게 위해가 될 수 있는 정신 질환을 가진 경우
+              </h6>
+              <h6>
+                <font-awesome-icon :icon="['fas', 'check']" />
+                미취학 아동의 자녀가 3명 이상인 경우
+              </h6>
+              <h6>
+                <font-awesome-icon :icon="['fas', 'check']" />
+                70세 이상 혼자 거주하고 있는 경우
+              </h6>
+            </div>
+          </div>
           <el-row
             class="mt-5"
             style=" display: flex;
