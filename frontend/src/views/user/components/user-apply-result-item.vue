@@ -9,10 +9,10 @@
               size="medium"
               style="border:none; border-radius: 30px; font-size:10pt;">{{o.result}}</el-tag>
         </div>
-        <div class="apply-content"><p>글제목: 우리강쥐를 입양하세요</p></div>
+        <div class="apply-content"><p>분류 : 입양</p><p>글제목: 우리강쥐를 입양하세요!</p></div>
         <div class="icon">
           <font-awesome-icon
-                        icon="eraser"
+                        icon="file"
                         aria-hidden="true"
                         style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:20px"
                         class="scale-up-5">
@@ -52,20 +52,17 @@
     margin-right: 20px;
   }
   .apply-content{
+    text-align:left;
     vertical-align: middle; 
     margin-right: 20px;
   }
   .apply-content p{
+    text-align: left;
     margin: 5px 0 5px 0;
   }
-  .button{
-    float : right;
-    vertical-align: middle; 
-
-  }
   .icon{
-    float : right;
-
+    text-align: right;
+    margin-left:20px;
   }
 </style>
 
@@ -87,8 +84,16 @@ export default {
     const store = new useStore()
     const router = new useRouter()
     const userid = store.getters["root/getLoginUserInfo"].userId;
-    console.log("result")
-    console.log(result)
+
+    const state = reactive({
+        boardList: [],
+        board : computed(()=>{
+          console.log(store.getters['root/getBoardDetail'])
+          return store.getters['root/getBoardDetail']
+
+        })
+      })
+ 
 
     // $axios
     //     .get("/board/" + result.data. + "/" + userid)

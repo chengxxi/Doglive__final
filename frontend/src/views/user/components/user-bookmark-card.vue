@@ -19,7 +19,7 @@
             <p class="cardtitle">{{o.title}}</p>
             <div class="bottom">
               <el-button type="text" class="button" @click="readDetail(o.id)" >글 보러가기</el-button>
-              <el-button type="danger" icon="el-icon-delete" @click="clickBookmark(o.id)"  style="size: 30%;" circle></el-button>
+              <el-button type="danger" icon="el-icon-delete" @click="clickBookmark(o.id)"  style="size: small;" circle></el-button>
             </div>
         </div>
       </el-card>
@@ -37,7 +37,6 @@
   .bottom {
     margin-top: 13px;
     line-height: 12px;
-    display: inline-block;
     justify-content: space-between;
     float :right;
 
@@ -64,7 +63,7 @@
   .title{
       display: flex;
      justify-content: space-between;
-     margin-top:3px;
+     margin-top:10px;
   }
   .scale-up-5{
       margin-top : 5px;

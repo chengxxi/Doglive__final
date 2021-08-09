@@ -22,6 +22,7 @@
 
 <style scoped>
   .type{
+    margin-top:10px;
     float : left;
   }
   .bottom {

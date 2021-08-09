@@ -9,13 +9,13 @@
         
         <div class="icon">
           <font-awesome-icon
-                        icon="eraser"
+                        icon="file"
                         aria-hidden="true"
                         style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:20px"
                         class="scale-up-5">
           </font-awesome-icon>
           <font-awesome-icon
-                        icon="eraser"
+                        icon="comments"
                         aria-hidden="true"
                         style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-top: 10px;"
                         class="scale-up-5">
@@ -71,26 +71,31 @@
     margin-right: 20px;
   }
   .apply-content{
-    float : left;
     vertical-align: middle; 
     margin-right: 20px;
   }
   .apply-content p{
+    text-align: left;
     margin: 5px 0 5px 0;
   }
   .button{
-    float : right;
+    text-align: right;
     vertical-align: middle; 
 
   }
   .icon{
-    float : right;
+    text-align: right;
     margin-right: 20px;
+    margin-left:30px;
 
   }
 </style>
 
 <script>
+import $axios from 'axios'
+import { onBeforeMount, onMounted, reactive, computed } from "vue";
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router';
 export default {
   name: 'user-applicant-item',
   props:{
@@ -100,6 +105,17 @@ export default {
 
   },
   setup () {
+    const store = new useStore()
+    const router = new useRouter()
+    const userid = store.getters["root/getLoginUserInfo"].userId;
+    const state = reactive({
+        boardList: [],
+        board : computed(()=>{
+          console.log(store.getters['root/getBoardDetail'])
+          return store.getters['root/getBoardDetail']
+
+        })
+      })
 
   }
 }
