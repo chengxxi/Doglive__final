@@ -75,7 +75,5 @@ public class MBTIController {
         return ResponseEntity.ok(MBTIDetailGetRes.of(200, "Success", mbti));
     }
 
-    /* MBTI 같은 동물 리턴하는 메소드 */
-
 
 }
