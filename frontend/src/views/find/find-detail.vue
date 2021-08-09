@@ -279,7 +279,7 @@ export default {
   },
   setup() {
     if (!Kakao.isInitialized()) {
-      Kakao.init("2c046ed5f7ec0f72bdf74502a7ccb16c");
+      Kakao.init("6b6db1abf1494d99829a0aceb281502f");
     }
     const store = new useStore();
     const router = new useRouter();
