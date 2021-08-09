@@ -60,7 +60,7 @@ export default {
 
     store.dispatch('root/requestBookmarkList', userId)
       .then(function(result){
-        console.log("check : " + result)
+        console.log(result.data)
         state.tableData = result.data.boardList;
       }).catch(function(err){
         console.log(err)

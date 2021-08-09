@@ -5,7 +5,7 @@
           <h5>상담 신청 결과</h5>
         </div>
         <div class="mypage-content">
-          <apply-result></apply-result>
+          <apply-result :result="state.ApplyResult"></apply-result>
         </div>
       </div>
     </div>
@@ -30,21 +30,42 @@
   border-bottom: solid 1px rgb(212, 212, 212);
 }
 .mypage-body .mypage-content {
-  padding-top: 60px;
+  padding-top: 40px;
   text-align: center;
   margin: 0 auto;
 }
 </style>
 
 <script>
-import ApplyResult from './user-bookmark-card.vue';
+import $axios from 'axios';
+import { computed, reactive, onMounted } from 'vue';
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router';
+import ApplyResult from './user-apply-result-item.vue';
 export default {
   name: 'user-apply-result-list',
   components :{
     ApplyResult,
   },
   setup () {
+    const store = new useStore()
+    const router = new useRouter()
+    const state = reactive({
+      ApplyResult : [],
+      boardData : [],
+    })
+    const userId = store.getters['root/getLoginUserInfo'].userId;
 
+    store.dispatch('root/requestApplyResult', userId)
+      .then(function(result){
+        console.log(result.data)
+        state.ApplyResult = result.data.counselingHistoryList;
+      }).catch(function(err){
+        console.log(err)
+      });
+
+ 
+    return { state }
   }
 }
 </script>
