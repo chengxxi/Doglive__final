@@ -167,10 +167,14 @@ public class KakaoAPI {
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             userid = element.getAsJsonObject().get("id").getAsString();
-            email = kakao_account.getAsJsonObject().get("email").getAsString();
+            if(kakao_account.getAsJsonObject().get("email")==null){
+                userInfo.put("email" , null);
+            }else{
+                userInfo.put("email" , kakao_account.getAsJsonObject().get("email").getAsString());
+            }
 
             userInfo.put("userid", userid);
-            userInfo.put("email" , email);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
