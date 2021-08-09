@@ -86,7 +86,7 @@
 // import { reactive } from "vue";
 
 export default {
-  name: 'adopt-filter',
+  name: 'find-filter',
   data() {
     return {
       // Color Option
