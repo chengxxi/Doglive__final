@@ -125,6 +125,7 @@ public class BoardController {
     })
     public ResponseEntity<BoardDetailGetRes> boardDetail(@PathVariable("boardId") String boardId, @PathVariable("userId") String userId){
         boolean isOwner = false;
+        boolean isBookmarked = false;
 
         System.out.println(boardId);
         System.out.println(userId);
@@ -140,8 +141,20 @@ public class BoardController {
 
         System.out.println(writer);
 
-        System.out.println(userId+" "+board.getUserId());
-        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isOwner, writer, board, dogInformation, boardImages, boardComments));
+
+        List<Bookmark> userBookmarks = userService.getBookmarkList(userId);
+
+        if(userBookmarks!=null){
+            for(Bookmark bookmark : userBookmarks){
+                if(bookmark.getBoardId()==Long.parseLong(boardId)){
+                    isBookmarked = true;
+                    break;
+                }
+            }
+        }
+
+        System.out.println("북마크체크"+isBookmarked+" "+userId+" "+board.getUserId());
+        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner, writer, board, dogInformation, boardImages, boardComments));
     }
 
 

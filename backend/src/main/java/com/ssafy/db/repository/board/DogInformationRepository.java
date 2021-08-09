@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -17,5 +18,7 @@ import java.util.Optional;
 public interface DogInformationRepository extends JpaRepository<DogInformation, Long> {
 
     Optional<DogInformation> findDogInformationByBoardId(Board board);
+
+    Optional<List<DogInformation>> findDogInformationsByMbti(String mbti);
 
 }

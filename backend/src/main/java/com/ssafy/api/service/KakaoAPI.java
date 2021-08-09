@@ -120,13 +120,13 @@ public class KakaoAPI {
             userInfo.put("profileImageUrl", profileImageUrl);
             userInfo.put("name", name);
 
-            if(!email.isJsonNull()){
+            if(email!=null){
                 userInfo.put("email", email.getAsString());
             }
-            if(!phoneNumber.isJsonNull()){
+            if(phoneNumber!=null){
                 userInfo.put("phoneNumber", phoneNumber.getAsString());
             }
-            if(!birthday.isJsonNull()){
+            if(birthday!=null){
                 userInfo.put("birthday", birthday.getAsString());
             }
 
@@ -179,7 +179,7 @@ public class KakaoAPI {
 
 
             userInfo.put("userid", userid);
-            if(!email.isJsonNull()){
+            if(email!=null){
                 userInfo.put("email" , email.getAsString());
             }
 
