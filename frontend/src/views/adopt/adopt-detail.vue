@@ -418,7 +418,7 @@ export default {
   },
   setup() {
     if (!Kakao.isInitialized()) {
-      Kakao.init("6b6db1abf1494d99829a0aceb281502f");
+      Kakao.init("d0106aa9ba1feb9c379bbb82194695fe");
     }
     const store = new useStore();
     const router = new useRouter();

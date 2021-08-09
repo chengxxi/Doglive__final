@@ -32,7 +32,7 @@ public class KakaoAPI {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=f4c6ef3414193da426ed5d863808c7d4");
+            sb.append("&client_id=bacd72f58ac01490602415c683ad8c05");
             sb.append("&redirect_uri=http://localhost:8080/kakao/callback");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
@@ -75,11 +75,8 @@ public class KakaoAPI {
         String accessToken = access_Token;
         String refreshToken = refresh_Token;
         String userid="";
-        String email = "";
         String profileImageUrl = "";
         String name = "";
-        String phoneNumber = "";
-        String birthday = "";
 
         // 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
@@ -110,20 +107,31 @@ public class KakaoAPI {
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             userid = element.getAsJsonObject().get("id").getAsString();
-            email = kakao_account.getAsJsonObject().get("email").getAsString();
             profileImageUrl = kakao_account.getAsJsonObject().get("profile").getAsJsonObject().get("profile_image_url").getAsString();
             name = kakao_account.getAsJsonObject().get("profile").getAsJsonObject().get("nickname").getAsString();
-            phoneNumber = kakao_account.getAsJsonObject().get("birthday").getAsString();
-            birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
+
+            JsonElement email = kakao_account.getAsJsonObject().get("email");
+            JsonElement phoneNumber = kakao_account.getAsJsonObject().get("birthday");
+            JsonElement birthday = kakao_account.getAsJsonObject().get("birthday");
 
             userInfo.put("accessToken", accessToken);
             userInfo.put("refreshToken", refreshToken);
             userInfo.put("userid", userid);
-            userInfo.put("email", email);
             userInfo.put("profileImageUrl", profileImageUrl);
             userInfo.put("name", name);
-            userInfo.put("phoneNumber", phoneNumber);
-            userInfo.put("birthday", birthday);
+
+            if(!email.isJsonNull()){
+                userInfo.put("email", email.getAsString());
+            }
+            if(!phoneNumber.isJsonNull()){
+                userInfo.put("phoneNumber", phoneNumber.getAsString());
+            }
+            if(!birthday.isJsonNull()){
+                userInfo.put("birthday", birthday.getAsString());
+            }
+
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -134,7 +142,7 @@ public class KakaoAPI {
     // UserInfo를 받아오는 메소드(userId, email)
     public HashMap<String, Object> getUserInfo(String accessToken, String refreshToken){
         String userid="";
-        String email = "";
+        JsonElement email;
 
         // 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
@@ -167,13 +175,14 @@ public class KakaoAPI {
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             userid = element.getAsJsonObject().get("id").getAsString();
-            if(kakao_account.getAsJsonObject().get("email")==null){
-                userInfo.put("email" , null);
-            }else{
-                userInfo.put("email" , kakao_account.getAsJsonObject().get("email").getAsString());
-            }
+            email = kakao_account.getAsJsonObject().get("email");
+
 
             userInfo.put("userid", userid);
+            if(!email.isJsonNull()){
+                userInfo.put("email" , email.getAsString());
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();

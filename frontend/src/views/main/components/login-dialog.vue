@@ -70,7 +70,7 @@ export default {
   name: "login-dialog",
   setup() {
     if (!Kakao.isInitialized()) {
-      Kakao.init("f4c6ef3414193da426ed5d863808c7d4");
+      Kakao.init("bacd72f58ac01490602415c683ad8c05");
     }
     // 카카오 로그인
     const loginWithKakao = function() {
