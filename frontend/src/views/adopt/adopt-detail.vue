@@ -578,17 +578,7 @@ export default {
     };
 
     const goChat = function(id) {
-      createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
-        hideProgressBar: "true",
-        timeout: 4500,
-        showIcon: "true",
-        toastBackgroundColor: "#c49d83",
-        position: "bottom-right",
-        transition: "bounce",
-        type: "warning"
-      });
-
-      router.push({ name: "AdoptForm" });
+      router.push({ name: "AdoptFormConfirm" });
     };
 
     onMounted(() => {
@@ -598,6 +588,7 @@ export default {
         title: "입양/임보",
         subTitle: "입양/임보 동물 정보"
       });
+      window.scrollTo(0, 0);
     });
 
     return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify };

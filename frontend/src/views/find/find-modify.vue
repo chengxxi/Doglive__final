@@ -449,6 +449,7 @@ export default {
         title: "실종/보호",
         subTitle: "실종/보호 공고 수정"
       });
+      window.scrollTo(0, 0);
     });
 
     return { state, modifyData };

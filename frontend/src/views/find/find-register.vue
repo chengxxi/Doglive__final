@@ -431,6 +431,7 @@ export default {
         title: "실종/보호",
         subTitle: "실종/보호 공고 작성"
       });
+      window.scrollTo(0, 0);
     });
 
     return { state, registerData };

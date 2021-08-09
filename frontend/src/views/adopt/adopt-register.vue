@@ -576,6 +576,7 @@ export default {
         title: "입양/임보",
         subTitle: "입양/임보 공고 작성"
       });
+      window.scrollTo(0, 0);
     });
 
     return { state, registerData };

@@ -457,6 +457,7 @@ export default {
         title: "실종/보호",
         subTitle: "실종/보호 동물 정보"
       });
+      window.scrollTo(0, 0);
     });
 
     return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify };
