@@ -2,8 +2,10 @@
   <div class="box">
     <!-- style="margin-left:30px; margin:right:30px; display: flex; justify-content: center;" -->
     <h3 class="description">
-      나와 맞는 성향의 강아지 찾기 테스트
+      🐕 나와 맞는 성향의 강아지 찾기 테스트 🐾
     </h3>
+    <p>원하는 강아지 성향 기반 MBTI 테스트를 통해 </p>
+    <!-- 상세 소개 내용 수정 필요 -->
   </div>
 
 </template>
