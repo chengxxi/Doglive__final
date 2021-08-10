@@ -79,7 +79,7 @@
               <el-descriptions-item label="컬러">{{
                 state.board.colorType.name
               }}</el-descriptions-item>
-              <el-descriptions-item label="헤어타입">{{
+              <el-descriptions-item label="품종">{{
                 state.board.hairType.name
               }}</el-descriptions-item>
               <el-descriptions-item label="현재위치">{{

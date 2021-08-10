@@ -51,7 +51,7 @@ public class FindServiceImpl implements FindService {
                     data.setAge(dogInformation.get().getAge());
                     data.setNeutralization(dogInformation.get().isNeutralization());
                     data.setColorType(dogInformation.get().getColorType());
-                    data.setColorType(dogInformation.get().getHairType());
+                    data.setHairType(dogInformation.get().getHairType());
                     data.setWeight(dogInformation.get().getWeight());
 
                     //필요 정보 파싱해서 리스트에 add하기
