@@ -16,6 +16,7 @@ import Find from '@/views/find/find.vue';
 import FindDetail from '@/views/find/find-detail.vue';
 import FindRegister from '@/views/find/find-register.vue';
 import FindModify from '@/views/find/find-modify.vue';
+import MBTI from '@/views/mbti/mbti.vue';
 
 const routes = [
   {
@@ -151,7 +152,12 @@ const routes = [
     path: '/find/modify',
     name: 'FindModify',
     component: FindModify
-  }
+  },
+  {
+    path: '/mbti',
+    name: 'MBTI',
+    component: MBTI
+  },
 ];
 
 const router = createRouter({
