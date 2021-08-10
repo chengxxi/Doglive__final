@@ -5,8 +5,10 @@ import com.ssafy.db.entity.community.CommunityComment;
 import com.ssafy.db.entity.community.CommunityImage;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,6 +18,7 @@ import java.util.List;
 @Table(name="community", schema = "community")
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 public class Community extends BaseEntity {
 
     @Column(name="user_id")
@@ -27,15 +30,17 @@ public class Community extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String description;               // 게시글 내용
 
-    @Column(name="reg_date")
-    @Temporal(TemporalType.TIME)
-    private java.util.Date regDate;  // 게시글 작성 시간
+    @Column(length = 10)
+    private String category;                  // 게시글 종류
 
-    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-    private List<CommunityComment> communityComments;
+    @Column(name="reg_date", columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
+    private LocalDateTime regDate;
 
-    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-    private List<CommunityImage> communityImages;
+//    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+//    private List<CommunityComment> communityComments;
+//
+//    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+//    private List<CommunityImage> communityImages;
 
 }
 

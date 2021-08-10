@@ -16,6 +16,7 @@ import AdoptForm from "@/views/adopt/adopt-form.vue";
 import FindDetail from "@/views/find/find-detail.vue";
 import FindRegister from "@/views/find/find-register.vue";
 import FindModify from "@/views/find/find-modify.vue";
+import Community from "@/views/community/community.vue";
 
 const routes = [
   {
@@ -146,6 +147,18 @@ const routes = [
     path: "/find/modify",
     name: "FindModify",
     component: FindModify
+  },
+  {
+    path: "/community",
+    name: "Community",
+    component: Community,
+    children: [
+      {
+        path: "list",
+        name: "community-board-list",
+        component: () => import("@/views/community/components/community-board-list.vue")
+      },
+    ]
   }
 ];
 

@@ -17,4 +17,7 @@ public class CommunityRegisterPostReq {
 
     @ApiModelProperty
     String description;
+
+    @ApiModelProperty
+    String category;
 }

@@ -25,4 +25,7 @@ public interface CommunityService {
     /* CommunityBoard로 CommunityComment 전부 지우기 */
     void deleteAllCommunityCommentsByCommunity(Community community);
 
+    /* community 모든 게시글 출력 */
+    List<Community> communityList();
+
 }

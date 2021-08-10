@@ -90,6 +90,12 @@ export function requestUserProfile({ state }, payload) {
   return $axios.get(url);
 }
 
+// 커뮤니티 게시글 목록 가져오기
+export function requestCommunityBoardList({state}){
+  const url = "/community/list"
+  return $axios.get(url);
+}
+
 // 사용자 프로필 수정
 export function changeUserInfo({ state }, payload) {
   const userId = payload.userId;

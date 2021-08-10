@@ -36,6 +36,7 @@ public class CommunityServiceImpl implements  CommunityService{
         community.setUserId(communityRegisterPostReq.getUserId());
         community.setTitle(communityRegisterPostReq.getTitle());
         community.setDescription(communityRegisterPostReq.getDescription());
+        community.setCategory(communityRegisterPostReq.getCategory());
 
         communityRepository.save(community);
 
@@ -92,5 +93,16 @@ public class CommunityServiceImpl implements  CommunityService{
                 communityCommentRepository.delete(communityComment);
             }
         }
+    }
+
+    /* 커뮤니티 게시글 전체 목록 불러오기 */
+    @Override
+    public List<Community> communityList(){
+        List<Community> communityList = communityRepository.findAll();
+        System.out.println(communityList);
+//        if(communityList.size()!=0){
+//            return communityList;
+//        }
+        return communityList;
     }
 }
