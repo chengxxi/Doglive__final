@@ -73,6 +73,11 @@ public class ChatServiceImpl implements ChatService{
     }
 
     @Override
+    public ChatMessageRead saveRead(ChatMessageRead read) {
+        return chatMessageReadRepository.save(read);
+    }
+
+    @Override
     public List<ChatMessage> getChatMessageList(ChatRoom roomId, String userId) {
         // 채팅방에 입장했을 때, 이전 채팅 기록을 불러오는 메소드
         List<ChatMessage> messageList = chatMessageRepository.findAllByRoomId(roomId).orElse(null);
@@ -100,6 +105,16 @@ public class ChatServiceImpl implements ChatService{
             nameList.add(userService.getUserName(roomList.get(i).getUserId()));
         }
         return nameList;
+    }
+
+    @Override
+    public List<String> getUserIdList(ChatRoom roomId) {
+        List<ChatRoomJoin> roomList = chatRoomJoinRepository.findChatRoomJoinsByRoomId(roomId).orElse(null);
+        List<String> idList = new ArrayList<>();
+        for(int i = 0; i < roomList.size(); i++){
+            idList.add(roomList.get(i).getUserId());
+        }
+        return idList;
     }
 
     @Override

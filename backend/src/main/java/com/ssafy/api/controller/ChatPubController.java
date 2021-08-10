@@ -7,10 +7,13 @@ import com.ssafy.api.service.UserService;
 import com.ssafy.db.entity.chat.ChatMessage;
 
 import com.ssafy.db.entity.chat.ChatMessageRead;
+import com.ssafy.db.entity.chat.ChatRoom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 @Controller
 public class ChatPubController {
@@ -40,8 +43,22 @@ public class ChatPubController {
     // 요청경로 = "/pub/chat/message"
     @MessageMapping("/chat/message")
     public void message(ChatMessagePostReq req){
-        ChatMessage msg = chatService.saveChatMessage(req);
+        ChatMessage msg = chatService.saveChatMessage(req); // chat_message 테이블에 메세지 저장
+        ChatRoom chatRoom = chatService.getChatRoomInfo(req.getRoomId());
 
+        List<String> idList = chatService.getUserIdList(chatRoom);
+        for(int i = 0 ; i < idList.size(); i++){
+            ChatMessageRead read = new ChatMessageRead();
+            read.setMessageId(msg);
+            read.setUserId(idList.get(i));
+            read.setRoomId(chatRoom);
+
+            if(req.getUserId().equals(idList.get(i))) // 자신이 보낸 메세지면 True (읽음 처리)
+                read.setRead(true);
+            else
+                read.setRead(false);
+            chatService.saveRead(read);
+        }
 
         // username을 담은 객체로 변경하여 send
         ChatMessageGetRes message = new ChatMessageGetRes();

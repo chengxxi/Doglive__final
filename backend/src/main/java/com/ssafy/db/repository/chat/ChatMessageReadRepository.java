@@ -25,6 +25,7 @@ public interface ChatMessageReadRepository extends JpaRepository<ChatMessageRead
     )
     Optional<List<ChatMessageRead>> findChatMessageReadsByRoomIdAndUserId(ChatRoom roomId, String userId);
 
+
     @Transactional
     @Query(
             value = "UPDATE chat_message_read SET isRead = true WHERE room_id = :roomId and isRead = false and user_id = :userId",
