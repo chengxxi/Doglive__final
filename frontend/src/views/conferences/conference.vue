@@ -26,8 +26,8 @@
           <h1 id='session-title'>{{ mySessionId }}</h1>
           <el-button type='button' id='buttonLeaveSession' @click='leaveSession'>Leave Session</el-button>
 
-          <el-button v-if='videoEnabled' type='info' icon='el-icon-camera-solid' @click='turnCamera'/>
-          <el-button v-else type='danger' icon='el-icon-turn-off' @click='turnCamera'/>
+          <el-button v-if='videoEnabled' type='info' icon='el-icon-video-camera' @click='turnCamera'/>
+          <el-button v-else type='danger' icon='el-icon-loading' @click='turnCamera'/>
           <el-button v-if='audioEnabled' type='info' icon='el-icon-microphone' @click='turnAudio' />
           <el-button v-else type='danger' icon='el-icon-turn-off-microphone' @click='turnAudio' />
           <user-video :stream-manager='publisher' />
@@ -91,7 +91,7 @@ import UserVideo from './components/UserVideo.vue';
 import ConferenceChat from './components/conferenceChat.vue';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-const OPENVIDU_SERVER_URL = 'https://i5a501.p.ssafy.io:4443';
+const OPENVIDU_SERVER_URL = 'https://i5a501.p.ssafy.io';
 const OPENVIDU_SERVER_SECRET = 'doglivedoggi';
 export default {
   name: 'Conference',
