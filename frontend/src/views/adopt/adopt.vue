@@ -52,16 +52,16 @@
 </style>
 
 <script>
-import AdoptFilter from './components/adopt-filter.vue';
-import AdoptList from './components/adopt-list.vue';
-import BreadCrumb from './components/bread-crumb.vue';
-import { reactive, computed, onMounted } from 'vue'; // ㄱㄷㄹ
-// import $axios from 'axios';
+import AdoptFilter from './components/adopt-filter.vue'
+import AdoptList from './components/adopt-list.vue'
+import BreadCrumb from './components/bread-crumb.vue'
+import { reactive, computed, onMounted } from 'vue'; // ref
+// import $axios from 'axios'
 
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
-import { createToast } from "mosha-vue-toastify";
-import "mosha-vue-toastify/dist/style.css";
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { createToast } from 'mosha-vue-toastify'
+import 'mosha-vue-toastify/dist/style.css'
 
 
 
@@ -103,7 +103,7 @@ export default {
           transition: 'bounce',
           type: 'warning'
         });
-        router.push({ name: 'Login' });
+        router.push({ name: 'MBTI' });
 
       // else 사용자 테스트 결과가 있으면 필터링
     };
