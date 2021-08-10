@@ -16,16 +16,16 @@
         <el-button type="outline-primary" @click="dialogVisible = true" round
           >나와 맞는 강아지 찾기</el-button
         >
-        <!-- MBTI 기능 연계가 완료되면 사라질 코드 -->
-        <el-dialog title="Notice" v-model="dialogVisible" width="30%">
-          <span>준비 중인 기능입니다.</span>
-          <template #footer>
-            <span class="dialog-footer">
-              <el-button @click="dialogVisible = false">Close</el-button>
-            </span>
-          </template>
-        </el-dialog>
-        <!-- 임시 코드 (끝) -->
+          <!-- MBTI 기능 연계가 완료되면 사라질 코드 -->
+          <el-dialog title="Notice" v-model="dialogVisible" width="30%">
+            <span>준비 중인 기능입니다.</span>
+            <template #footer>
+              <span class="dialog-footer">
+                <el-button @click="dialogVisible = false">Close</el-button>
+              </span>
+            </template>
+          </el-dialog>
+          <!-- 임시 코드 (끝) -->
         <AdoptFilter />
       </div>
 
@@ -71,7 +71,7 @@
 </style>
 
 <script>
-import AdoptFilter from "./components/adopt-filter.vue";
+import AdoptFilter from './components/adopt-filter.vue';
 import AdoptList from "./components/adopt-list.vue";
 import BreadCrumb from "./components/bread-crumb.vue";
 import { defineComponent, reactive, computed, ref } from "vue";

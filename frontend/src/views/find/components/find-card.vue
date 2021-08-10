@@ -4,11 +4,10 @@
     :body-style="{ padding: '10px' }"
     style="margin: 10px !important;"
     shadow="hover"
-    class="el-col-5"
+    class="el-col-4"
   >
     <img :src="require('@/assets/images/logo2.png')" class="image" />
-    <!-- <img :src="require('https://placedog.net/200/200?random')" class="image"> -->
-    <div style="padding: 14px;">
+    <div> <!--  style="padding: 14px;"  -->
       <!-- <span><el-tag color="#D7AFA4">{{ card.boardType }}</el-tag></span> -->
       <div class="bottom">
         <p>{{ card.title }}</p>
@@ -135,21 +134,16 @@ h3 {
   background-color: #ffffff;
 }
 
-.el-card__body {
+/* .el-card__body {
   display: flex;
   align-items: center;
   margin-right: auto;
-}
+} */
 </style>
 
 <script>
-// import AdoptDetail from '../adopt-detail.vue';
-
 export default {
-  name: 'adopt-card',
-  components: {
-    // AdoptDetail
-  },
+  name: 'find-card',
   props: {
     card: Object
   }
