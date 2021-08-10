@@ -13,19 +13,4 @@ import java.util.Optional;
 @Repository
 public class BoardRepositorySupport {
 
-    @Autowired
-    private JPAQueryFactory jpaQueryFactory;
-    QBoard qBoard = QBoard.board;
-    QDogInformation qDogInformation = QDogInformation.dogInformation;
-
-    public Optional<List<Board>> findByBoardsByOption() {
-        List<Board> boardList = jpaQueryFactory
-                .select(qBoard)
-                .from(qBoard)
-//                .join(qDogInformation).on(qBoard.id.eq(qDogInformation.boardId.id))
-                .fetch();
-
-        if(boardList == null) return Optional.empty();
-        return Optional.ofNullable(boardList);
-    }
 }

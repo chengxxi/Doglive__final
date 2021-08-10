@@ -35,6 +35,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     )
     Optional<List<Board>> findFindBoard();
 
+    // AND d.gugun_code LIKE ':두자리수%',
+    // AND d.sort = :sort
     @Query(
             value = "SELECT b.id, b.reg_date, b.thumbnail_url, b.title, b.user_id, b.board_type FROM board b LEFT JOIN dog_information d "
                     +"ON b.id = d.board_id "
