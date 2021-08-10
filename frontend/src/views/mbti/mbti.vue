@@ -1,6 +1,6 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " style="width:100%; border:none;" shadow="hover">
+    <el-card class="box-card " style="width:100%; border:none;">
       <div style="margin-top:50px">
         <h1 class="title">나와 맞는 강아지 찾기</h1>
         <p>강아지 성향 기반 MBTI를 통한 나와 맞는 성향의 강아지 찾기</p>

@@ -1,6 +1,6 @@
 <template>
   <div class='main-body main-padding'>
-    <el-card class='box-card ' style='width:100%; border:none;' shadow='hover'>
+    <el-card class='box-card ' style='width:100%; border:none;'>
       <bread-crumb></bread-crumb>
 
       <div style='margin-top:50px'>
