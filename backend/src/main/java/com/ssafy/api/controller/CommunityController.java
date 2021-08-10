@@ -76,6 +76,6 @@ public class CommunityController {
         List<Community> communityList = communityService.communityList();
         return ResponseEntity.ok(CommunityListGetRes.of(200, "Success", communityList, communityList.size()));
     }
-    
+
     
 }

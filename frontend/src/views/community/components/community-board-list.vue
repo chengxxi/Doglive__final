@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
-      <div class="button-group">
+      <div class="button-group" v-if="item.userId==state.userId">
           <el-button-group>
             <el-button type="info" plain icon="el-icon-edit" size="mini"></el-button>
             <el-button type="info" plain icon="el-icon-delete" size="mini"></el-button>
@@ -52,7 +52,7 @@
 <style scoped>
 .board{
   border:1px solid lightgray;
-  margin-bottom: 5%;
+  margin: 5%;
 }
 .button-group{
   text-align:right;
@@ -120,10 +120,6 @@ export default {
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       }),
-      community: computed(() => {
-        console.log(store.getters["root/getCommunityBoard"]);
-        return store.getters["root/getCommunityBoard"];
-      })
     });
    
 
