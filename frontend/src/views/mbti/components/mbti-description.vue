@@ -29,7 +29,7 @@
 
 .box {
   margin-top: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   margin-left: 50px;
   margin-right: 50px;
   padding: 40px;

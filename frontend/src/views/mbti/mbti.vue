@@ -13,7 +13,7 @@
       <!-- if 사용자가 아직 테스트 전이면 -->
       <MbtiQuestion />
       <!-- if 사용자의 테스트 결과가 있으면 -->
-      <MbtiResult />
+      <!-- <MbtiResult /> -->
 
     </el-card>
   </div>
@@ -42,14 +42,14 @@
 <script>
 import MbtiDescription from './components/mbti-description.vue'
 import MbtiQuestion from './components/mbti-question.vue'
-import MbtiResult from './components/mbti-result.vue'
+// import MbtiResult from './components/mbti-result.vue'
 
 export default {
-  name: 'find',
+  name: 'mbti',
   components: {
     MbtiDescription,
     MbtiQuestion,
-    MbtiResult
+    // MbtiResult
   },
 }
 </script>
