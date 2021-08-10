@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-row>
-
       <FindCard
         v-for="(card, idx) in state.boardList"
         :key="idx"
@@ -110,12 +109,12 @@ export default {
     };
 
     onMounted(() => {
-      // console.log('breadcrumb')
       store.commit('root/setBreadcrumbInfo', {
         isHome: false,
         title: 'Find',
         subTitle: '실종 공고 목록'
       });
+      window.scrollTo(0, 0);
     });
 
     onBeforeMount(() => {
