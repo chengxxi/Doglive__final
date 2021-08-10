@@ -6,16 +6,27 @@ module.exports = {
     compress: true,
     disableHostCheck: true,
     https: false,
-    port: 8081,
+    port: 8080,
     open: true,
+
     proxy: {
       '/api/v1': {
         target: 'http://localhost:8080/'
-      }
+      },
+      // '/webjars': {
+      //   target: 'https://localhost:8443/'
+      // },
+      // '/group-call': {
+      //   target: 'https://localhost:8443/'
+      // },
+      // '/upload': {
+      //   target: 'https://localhost:8443/'
+      // },
     },
     historyApiFallback: true,
     hot: true
   },
+
   transpileDependencies: [
     'element-plus',
     'vuex-persist',

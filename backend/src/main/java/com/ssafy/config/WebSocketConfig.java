@@ -1,11 +1,8 @@
 package com.ssafy.config;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -21,7 +18,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     // Web Socket 통신을 연결할 End-Point를 지정해주는 메소드
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry){
-        registry.addEndpoint("/chat-server").setAllowedOriginPatterns("*").withSockJS(); // WebSocket을 지원하지 않는 브라우저에는 SockJS 지원
+        registry.addEndpoint("/api/v1/chat-server").setAllowedOriginPatterns("*").withSockJS(); // WebSocket을 지원하지 않는 브라우저에는 SockJS 지원
     }
 
     @Override

@@ -1,0 +1,34 @@
+<template>
+<div v-if="streamManager">
+	<ov-video :stream-manager="streamManager"/>
+	<div><p>{{ state.clientData }}</p></div>
+</div>
+</template>
+
+<script>
+import { reactive, computed } from 'vue';
+import OvVideo from './OvVideo.vue';
+export default {
+	name: 'UserVideo',
+	components: {
+		OvVideo,
+	},
+  props: {
+		streamManager: Object,
+	},
+
+  setup(props) {
+    const state = reactive({
+      clientData: computed(() => {
+        console.log('UserVide.vue > props')
+        const {connection} = props.streamManager.stream;
+        console.log('UserVideo.vue > connection.data 🔽')
+        console.log(JSON.parse(connection.data))
+        return JSON.parse(connection.data).clientData;
+      }),
+    })
+
+    return {state}
+  }
+};
+</script>

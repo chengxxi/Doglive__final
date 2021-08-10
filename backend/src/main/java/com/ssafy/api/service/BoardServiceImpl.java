@@ -100,7 +100,10 @@ public class BoardServiceImpl implements  BoardService{
         dogInformation.setDescription(boardRegisterPostReq.getDescription());
         dogInformation.setMbti(boardRegisterPostReq.getMbti());
         dogInformation.setAddress(boardRegisterPostReq.getAddress());
+        dogInformation.setDogName(boardRegisterPostReq.getDogName());
 
+
+        System.out.println();
         Code gender = getCode(boardRegisterPostReq.getGender());
         if(gender!=null) dogInformation.setGender(gender);
 
@@ -186,6 +189,7 @@ public class BoardServiceImpl implements  BoardService{
 
 
         dogInformation.setBoardId(board);
+        dogInformation.setDogName(boardRegisterPostReq.getDogName());
         dogInformation.setDescription(boardRegisterPostReq.getDescription());
         dogInformation.setMbti(boardRegisterPostReq.getMbti());
         dogInformation.setAddress(boardRegisterPostReq.getAddress());
@@ -241,6 +245,16 @@ public class BoardServiceImpl implements  BoardService{
         Optional<List<BoardImage>> boardImageList = boardImageRepository.findBoardImagesByBoardId(board);
 
         if(boardImageList.isPresent()) return boardImageList.get();
+        return null;
+    }
+
+    /* userId에 따라 BoardList 출력 */
+    @Override
+    public List<Board> getBoardListByUserId(String id) {
+        Optional<List<Board>> boardList = boardRepository.findBoardsByUserId(id);
+        if(boardList.isPresent()){
+            return boardList.get();
+        }
         return null;
     }
 

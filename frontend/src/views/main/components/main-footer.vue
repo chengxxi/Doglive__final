@@ -1,15 +1,15 @@
 <template>
   <el-row
-    class="main-footer">
-    <div class="contents">
+    class="main-footer   vertical-center">
+    <div class="contents ">
       <ul>
         <li class="img_area"><img :src="require('@/assets/images/logo2.png')" style="height: 3rem; !important" /></li>
 
-        <li><h5><a href="#">오시는 길</a></h5></li>
-        <li><h5>|</h5></li>
-        <li><h5><a href="#">문의처</a></h5></li>
-        <li><h5>|</h5></li>
-        <li><h5><a href="#">SNS</a></h5></li>
+        <li class="  vertical-center"><h6><a href="#">오시는 길</a></h6></li>
+        <li class="  vertical-center"><h6>|</h6></li>
+        <li class="  vertical-center"><h6><a href="#">문의처</a></h6></li>
+        <li class="  vertical-center"><h6>|</h6></li>
+        <li class="  vertical-center"><h6><a href="#">SNS</a></h6></li>
 
       </ul>
     </div>
@@ -103,7 +103,6 @@ a {
 
 <script>
 import { reactive } from 'vue'
-import { useStore } from 'vuex'
 
 export default {
   name: 'main-footer',

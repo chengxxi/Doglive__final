@@ -11,6 +11,6 @@ import lombok.Setter;
 public class UserUpdatePutReq {
     @ApiModelProperty
     String name;
-    @ApiModelProperty
-    String profile_image_url;
+//    @ApiModelProperty
+//    String profile_image_url;
 }

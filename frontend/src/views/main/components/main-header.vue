@@ -13,30 +13,31 @@
               <a href="#" @mouseover="changeDisplay('over')">독립</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
                     <li><a href="#">About 독립</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="/conference">화상회의 구현중</a></li>
+                    <li><a href="/chat">채팅 구현중</a></li>
                 </ul>
             </li>
             <li>
               <a href="#" @mouseover="changeDisplay('over')">입양/임보</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
-                  <li><a href="#">입양하기</a></li>
-                  <li><a href="#">임시보호하기</a></li>
-                  <li><a href="#">입양 사전 설문</a></li>
-                  <li><a href="#">나와 맞는 강아지 MBTI</a></li>
+                  <li><a href="/adopt">입양하기</a></li>
+                  <li><a href="/adopt">임시보호하기</a></li>
+                  <li><a href="/adopt">입양 사전 설문</a></li>
+                  <li><a href="/adopt">나와 맞는 강아지 MBTI</a></li>
                 </ul>
             </li>
             <li>
               <a href="#" @mouseover="changeDisplay('over')">실종/보호</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
-                    <li><a href="#">찾아주세요</a></li>
-                    <li><a href="#">보호하고 있어요</a></li>
+                    <li><a href="/adopt">찾아주세요</a></li>
+                    <li><a href="/adopt">보호하고 있어요</a></li>
                 </ul>
             </li>
             <li>
               <a href="#" @mouseover="changeDisplay('over')">커뮤니티</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
-                  <li><a href="#">게시글 구경하기</a></li>
-                  <li><a href="#">내 피드 확인하기</a></li>
+                  <li><a href="/adopt">게시글 구경하기</a></li>
+                  <li><a href="/adopt">내 피드 확인하기</a></li>
                 </ul>
             </li>
             <li>
@@ -64,6 +65,7 @@
 </template>
 
 <style scoped>
+
 .main-header{
   z-index: 1; /* 헤더 맨위 고정 */
   position: fixed;
@@ -155,7 +157,7 @@ export default {
       showHiddenMenu: 'none',
       showUserModal: false,
       userMenu: computed(()=> {
-        if(store.getters['root/getLoginUserInfo'] === null)
+        if(store.getters['root/getLoginUserInfo'].userId === null)
           return notLoggedIn
         else
           return loggedIn

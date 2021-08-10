@@ -82,7 +82,8 @@ export default {
 
     // 웹 소켓 통신 Connect
     function connect(){
-      const url = "http://localhost:8080/chat-server"
+      const url = "http://i5a501.p.ssafy.io/api/v1/chat-server"
+      // [배포용] const url = "http://i5a501.p.ssafy.io/api/v1/chat-server"
       socket = new SockJS(url, { transports: ['websocket', 'xhr-streaming', 'xhr-polling']})
       client = Stomp.over(socket)
 

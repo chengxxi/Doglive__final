@@ -27,7 +27,7 @@ import static java.util.Objects.isNull;
 @CrossOrigin(origins={"*"}, maxAge=6000)
 @Api(value = "카카오 API", tags = {"Kakao"})
 @RestController
-@RequestMapping("/kakao")
+@RequestMapping("/api/v1/kakao")
 public class KakaoController {
     @Autowired
     private KakaoAPI kakaoAPI;
@@ -44,6 +44,7 @@ public class KakaoController {
     })
     public ResponseEntity<UserLoginPostRes> kakaoConnect(@RequestParam("code") String code, HttpSession session) {
         HashMap<String,Object> Token = kakaoAPI.getAccessToken(code);
+        System.out.println(Token);
         return ResponseEntity.ok(UserLoginPostRes.of(200,"Success", Token));
     }
 

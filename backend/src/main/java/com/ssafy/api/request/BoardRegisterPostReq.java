@@ -9,6 +9,10 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Board 등록 시 요청 Req
+ */
+
 @Getter
 @Setter
 @ApiModel("BoardRegisterPostReq")
@@ -18,6 +22,9 @@ public class BoardRegisterPostReq {
 
     @ApiModelProperty
     Long boardType;
+
+    @ApiModelProperty
+    String dogName;
 
     @ApiModelProperty
     String title;

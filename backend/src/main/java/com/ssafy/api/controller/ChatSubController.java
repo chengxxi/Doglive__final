@@ -7,6 +7,7 @@ import com.ssafy.api.response.ChatRoomGetRes;
 import com.ssafy.api.response.ChatRoomListGetRes;
 import com.ssafy.api.service.ChatService;
 import com.ssafy.db.entity.chat.ChatMessage;
+
 import com.ssafy.db.entity.chat.ChatRoom;
 import com.ssafy.db.entity.chat.ChatRoomJoin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ import javax.servlet.http.Cookie;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
+@RequestMapping("/api/v1/chatroom")
 public class ChatSubController {
 
     @Autowired
@@ -32,13 +35,13 @@ public class ChatSubController {
     }
 
     // 채팅방 생성 요청
-    @PostMapping(value="/chatroom")
+    @PostMapping(value="")
     public ChatRoom createChatRoom(@RequestBody String name){
         return chatService.createChatRoom(name);
     }
 
     // 특정 유저의 전체 채팅방 목록 조회
-    @GetMapping(value="/chatroom")
+    @GetMapping(value="")
     public ResponseEntity getAllChatRoomsByUserId(@CookieValue("userId") Cookie userIdCookie){
         String userId = userIdCookie.getValue();
         System.out.println("userId : " + userId);
@@ -63,7 +66,7 @@ public class ChatSubController {
     }
 
     // 특정 채팅방의 채팅 목록 조회
-    @GetMapping(value="/chatroom/{roomId}/messages")
+    @GetMapping(value="/{roomId}/messages")
     public ResponseEntity getAllChatMessages(@CookieValue("userId") Cookie userIdCookie, @PathVariable("roomId") Long roomId){
         String userId = userIdCookie.getValue();
         List<ChatMessage> messageList = chatService.getChatMessageList(chatService.getChatRoomInfo(roomId), userId);

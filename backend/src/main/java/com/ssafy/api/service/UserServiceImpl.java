@@ -1,11 +1,9 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserUpdatePutReq;
-import com.ssafy.db.entity.auth.Bookmark;
-import com.ssafy.db.entity.auth.User;
-import com.ssafy.db.entity.auth.UserProfile;
-import com.ssafy.db.entity.auth.UserToken;
+import com.ssafy.db.entity.auth.*;
 import com.ssafy.db.repository.auth.*;
+import com.ssafy.db.repository.board.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -34,7 +32,6 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserProfileRepositorySupport userProfileRepositorySupport;
 
-
     @Autowired
     UserTokenRepository userTokenRepository;
 
@@ -46,6 +43,14 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     BookmarkRepositorySupport bookmarkRepositorySupport;
+
+    @Autowired
+    CounselingHistoryRepository counselingHistoryRepository;
+
+    @Autowired
+    BoardRepository boardRepository;
+
+
 
     @Override
     public User createUser(String access_Token, String refresh_Token, HashMap<String, Object> userInfo) {
@@ -101,46 +106,79 @@ public class UserServiceImpl implements UserService{
     @Value("${profileImg.path}")
     private String uploadFolder;
 
+//    @Override
+//    public UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq, MultipartFile multipartFile) {
+//        User user = userRepositorySupport.findUserById(id).get();
+//        Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
+//
+//        String imageFileName = user.getId() + "_" + multipartFile.getOriginalFilename();
+//        Path imageFilePath = Paths.get(uploadFolder + imageFileName);
+//
+//        // 파일이 업로드 되었는지 확인
+//        if(multipartFile.getSize() != 0){
+//            try{
+//                // 이미 프로필 사진이 있는 경우
+//                if(userProfile.get().getProfileImageUrl()!=null){
+//                    File file = new File(uploadFolder + userProfile.get().getProfileImageUrl());
+//                    file.delete();
+//                }
+//                Files.write(imageFilePath, multipartFile.getBytes());
+//                System.out.println("File Path: " + imageFilePath);
+//            } catch(Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        userProfile.get().setName(userUpdatePutReq.getName());
+//        userProfile.get().setProfileImageUrl(imageFileName);
+//        userProfileRepository.save(userProfile.get());
+//
+//        return userProfile.get();
+//    }
+
     @Override
-    public UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq, MultipartFile multipartFile) {
+    public UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq) {
         User user = userRepositorySupport.findUserById(id).get();
+        System.out.println(user + " " + userUpdatePutReq);
+
         Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
-
-        String imageFileName = user.getId() + "_" + multipartFile.getOriginalFilename();
-        Path imageFilePath = Paths.get(uploadFolder + imageFileName);
-
-        // 파일이 업로드 되었는지 확인
-        if(multipartFile.getSize() != 0){
-            try{
-                // 이미 프로필 사진이 있는 경우
-                if(userProfile.get().getProfileImageUrl()!=null){
-                    File file = new File(uploadFolder + userProfile.get().getProfileImageUrl());
-                    file.delete();
-                }
-                Files.write(imageFilePath, multipartFile.getBytes());
-                System.out.println("File Path: " + imageFilePath);
-            } catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-
         userProfile.get().setName(userUpdatePutReq.getName());
-        userProfile.get().setProfileImageUrl(imageFileName);
         userProfileRepository.save(userProfile.get());
-
         return userProfile.get();
     }
 
     @Override
+    public UserProfile getUserProfile(String id) {
+        Optional<User> user = userRepositorySupport.findUserById(id);
+        if(user.isPresent()) {
+            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
+            if(userProfile.isPresent()){
+                return userProfile.get();
+            }
+        }
+        return null;
+
+    }
+
+    @Override
     public boolean deleteUser(String id) {
-        System.out.println("탈퇴할 아이디: " + id);
         if(getUserById(id)!=null){
             User user = userRepositorySupport.findUserById(id).get();
             Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
             if(userProfile.isPresent()) {
+                Optional<UserToken> userToken = userTokenRepository.findByUserId(user);
+                Optional<List<Bookmark>> bookmarkList = bookmarkRepository.findBookmarksByUserId(userProfile.get());
+                if(bookmarkList.isPresent()){
+//                    for (Bookmark bookmark:
+//                         ) {
+//
+//                    }
+                }
+                if(userToken.isPresent()){
+                    userTokenRepository.delete(userToken.get());
+                }
                 userProfileRepository.delete(userProfile.get());
             }
-
             userRepository.delete(user);
             return true;
         }
@@ -173,6 +211,31 @@ public class UserServiceImpl implements UserService{
                 }
             }
 
+        }
+        return null;
+    }
+
+    @Override
+    public List<CounselingHistory> getCounselingResult(String id) {
+        Optional<User> user = userRepository.findUserById(id);
+
+        if(user.isPresent()){
+            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
+            if(userProfile.isPresent()){
+                Optional<List<CounselingHistory>> resultList = counselingHistoryRepository.findCounselingHistoriesByApplicantId(userProfile.get());
+                if(resultList.isPresent()){
+                    return resultList.get();
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<CounselingHistory> getApplicantList(String id) {
+        Optional<List<CounselingHistory>> applicantList = counselingHistoryRepository.findCounselingHistoriesByWriter(id);
+        if(applicantList.isPresent()){
+            return applicantList.get();
         }
         return null;
     }
