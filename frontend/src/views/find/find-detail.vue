@@ -438,6 +438,39 @@ export default {
       }
     };
 
+    $axios
+      .get("/board/" + state.board.boardId + "/" + state.userId)
+      .then(function(result) {
+        console.log(result);
+
+        const boardDetail = {
+          boardId: result.data.board.id,
+          boardType: result.data.board.type,
+          thumbnailUrl: result.data.board.thumbnailUrl,
+          title: result.data.board.title,
+          address: result.data.dogInformation.address,
+          mbti: result.data.dogInformation.mbti,
+          colorType: result.data.dogInformation.colorType,
+          gender: result.data.dogInformation.gender,
+          hairType: result.data.dogInformation.hairType,
+          neutralization: result.data.dogInformation.neutralization,
+          writer: result.data.writer,
+          weight: result.data.dogInformation.weight,
+          ageType: result.data.dogInformation.age,
+          regDate: result.data.board.regDate,
+          fileList: result.data.boardImageList,
+          isOwner: result.data.owner,
+          description: result.data.dogInformation.description,
+          dogName: result.data.dogInformation.dogName,
+          isBookmarked: result.data.bookmarked
+        };
+
+        store.commit("root/setBoardDetail", boardDetail);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+
     const goChat = function(id) {
       createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
         hideProgressBar: "true",
@@ -457,6 +490,7 @@ export default {
         title: "실종/보호",
         subTitle: "실종/보호 동물 정보"
       });
+      window.scrollTo(0, 0);
     });
 
     return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify };

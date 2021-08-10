@@ -40,8 +40,6 @@ public class AdoptServiceImpl implements AdoptService{
     @Autowired
     BoardRepository boardRepository;
 
-    @Autowired
-    BoardRepositorySupport boardRepositorySupport;
 
     /* 입양임보 게시물 전체 목록 불러오기 */
     @Override
@@ -59,22 +57,20 @@ public class AdoptServiceImpl implements AdoptService{
         CounselingHistory counselingHistory = new CounselingHistory();
 
         JsonParser parser = new JsonParser();
-        JsonElement content = parser.parse(adoptFormReq.getContent().toString());
+        System.out.println(adoptFormReq.getContent());
 
-        Optional<User> user = userRepository.findUserById(userId);
-        if(user.isPresent()) {
-            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
-            if (userProfile.isPresent()) {
-                counselingHistory.setApplicantId(userProfile.get());
-            }
+        UserProfile userProfile = findByUserId(userId);
+        if(userProfile!=null) {
+            counselingHistory.setApplicantId(userProfile);
         }
 
-        counselingHistory.setBoardId(adoptFormReq.getBoardId());
+        Long boardId = adoptFormReq.getBoardId();
+        counselingHistory.setBoardId(boardId);
         counselingHistory.setBoardType(adoptFormReq.getBoardType());
         counselingHistory.setDogName(adoptFormReq.getDogName());
-        counselingHistory.setContent(content.toString());
+        counselingHistory.setContent(adoptFormReq.getContent().toString());
         counselingHistory.setResult("대기");
-
+        counselingHistory.setWriter(boardRepository.findById(boardId).get().getUserId());
 
         counselingHistoryRepository.save(counselingHistory);
 
@@ -82,18 +78,49 @@ public class AdoptServiceImpl implements AdoptService{
         return counselingHistory;
     }
 
+
     /* 입양 신청 결과 수정 */
     @Override
     public CounselingHistory updateStatus(Long id, StatusUpdatePutReq statusUpdatePutReq) {
         Optional<CounselingHistory> counselingHistory = counselingHistoryRepository.findCounselingHistoryById(id);
         System.out.println("89: " + counselingHistory.get());
-       if(counselingHistory.isPresent()){
-           counselingHistory.get().setResult(statusUpdatePutReq.getResult());
-           counselingHistoryRepository.save(counselingHistory.get());
+        if (counselingHistory.isPresent()) {
+            counselingHistory.get().setResult(statusUpdatePutReq.getResult());
+            counselingHistoryRepository.save(counselingHistory.get());
 
-           return counselingHistory.get();
-       }
-       return null;
+            return counselingHistory.get();
+        }
+        return null;
+    }
+
+    @Override
+    public UserProfile findByUserId(String userId) {
+        Optional<User> user = userRepository.findUserById(userId);
+        if(user.isPresent()) {
+            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
+            if (userProfile.isPresent()) {
+                return userProfile.get();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean canAdoptForm(String userId, Long boardId) {
+
+        UserProfile userProfile = findByUserId(userId);
+        if(userProfile!=null) {
+            Optional<CounselingHistory> counselingHistories =
+                    counselingHistoryRepository.
+                            findCounselingHistoryByApplicantIdAndBoardId(userProfile, boardId);
+
+            if(counselingHistories.isPresent()){
+                 return false;
+            }
+        }
+
+        return true;
+
     }
 
 

@@ -30,8 +30,6 @@ public class BoardServiceImpl implements  BoardService{
     @Autowired
     BoardRepository boardRepository;
 
-    @Autowired
-    BoardRepositorySupport boardRepositorySupport;
 
     @Autowired
     BoardCommentRepository boardCommentRepository;
@@ -61,6 +59,12 @@ public class BoardServiceImpl implements  BoardService{
 
     @Autowired
     CounselingHistoryRepository counselingHistoryRepository;
+
+    @Autowired
+    GugunRepository gugunRepository;
+
+    @Autowired
+    SidoRepository sidoRepository;
 
 
     /* 유기동물 관련 게시물 작성하기 */
@@ -358,6 +362,22 @@ public class BoardServiceImpl implements  BoardService{
         }
 
         return null;
+    }
+
+    @Override
+    public List<Gugun> getGugunListBySido(Long sido) {
+
+        Optional<List<Gugun>> gugunList = gugunRepository.findGugunsBySidoCode(sido);
+        if(gugunList.isPresent()){
+            return gugunList.get();
+        }
+        return null;
+    }
+
+
+    @Override
+    public List<Sido> getSidoList() {
+        return sidoRepository.findAll();
     }
 
 

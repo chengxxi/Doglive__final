@@ -3,7 +3,6 @@ package com.ssafy.api.service;
 
 import com.ssafy.db.entity.board.Board;
 import com.ssafy.db.repository.board.BoardRepository;
-import com.ssafy.db.repository.board.BoardRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +13,6 @@ import java.util.Optional;
 public class FindServiceImpl implements FindService {
     @Autowired
     BoardRepository boardRepository;
-
-    @Autowired
-    BoardRepositorySupport boardRepositorySupport;
 
     /* 실종보호 게시물 전체 목록 보기 */
     @Override

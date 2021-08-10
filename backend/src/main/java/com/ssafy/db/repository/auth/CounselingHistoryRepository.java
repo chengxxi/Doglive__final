@@ -28,4 +28,7 @@ public interface CounselingHistoryRepository extends JpaRepository<CounselingHis
 
     @Transactional
     Optional<List<CounselingHistory>> deleteCounselingHistoriesByWriter(String id);
+
+    Optional<CounselingHistory> findCounselingHistoryByApplicantIdAndBoardId(UserProfile userProfile, Long boardId);
+
 }
