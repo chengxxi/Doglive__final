@@ -105,13 +105,12 @@ export function changeUserInfo({ state }, payload) {
   return $axios.put(url, payload.data);
 }
 
-<<<<<<< HEAD
 // 신청결과 수정
-export function changeResult({state}, payload){
+export function changeResult({ state }, payload) {
   const id = payload.id;
   const url = "/adopt/" + id;
-  return $axios.put(url, payload.status) 
-=======
+  return $axios.put(url, payload.status);
+}
 //시도코드 리스트
 export function requestSidoCodeList({ state }, payload) {
   const url = "/board/sido";
@@ -134,5 +133,4 @@ export function registerAdoptForm({ state }, payload) {
 export function existedForm({ state }, payload) {
   const url = "/adopt/check/" + payload.userId + "/" + payload.boardId;
   return $axios.get(url);
->>>>>>> feat-24/adoptform
 }
