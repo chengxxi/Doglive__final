@@ -1,7 +1,7 @@
 <template>
-  <div class="box" style="margin-left:30px; margin:right:30px; display: flex; justify-content: center;">
-    <h3  style="font-weight:005; background-color:#fbe997">
-      <!-- class="mt-1 mb-3" -->
+  <div class="box">
+    <!-- style="margin-left:30px; margin:right:30px; display: flex; justify-content: center;" -->
+    <h3 class="description">
       나와 맞는 성향의 강아지 찾기 테스트
     </h3>
   </div>
@@ -32,6 +32,13 @@
   padding: 40px;
   background-color: #f9f0e7;
 }
+
+.description {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+
 </style>
 
 <script>
