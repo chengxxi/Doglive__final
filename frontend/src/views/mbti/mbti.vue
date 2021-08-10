@@ -2,13 +2,14 @@
   <div class="main-body main-padding">
     <el-card class="box-card " style="width:100%; border:none;" shadow="hover">
       <div style="margin-top:50px">
-        <h1 class="title">실종/보호 게시물</h1>
-        <p>실종/보호 아이들</p>
+        <h1 class="title">강아지 MBTI 테스트</h1>
+        <p>나와 맞는 성향의 강아지 찾기</p>
+        <!-- 상세 문구 수정 필요 -->
 
       </div>
 
-      <MBTIdescription />
-      <MBTIquestion />
+      <MbtiDescription />
+      <MbtiQuestion />
 
     </el-card>
   </div>
@@ -35,14 +36,14 @@
 
 
 <script>
-import MBTIdescription from './components/mbti-description.vue';
-import MBTIquestion from './components/mbti-question.vue';
+import MbtiDescription from './components/mbti-description.vue';
+import MbtiQuestion from './components/mbti-question.vue';
 
 export default {
   name: 'find',
   components: {
-    MBTIdescription,
-    MBTIquestion,
+    MbtiDescription,
+    MbtiQuestion,
   },
 }
 </script>
