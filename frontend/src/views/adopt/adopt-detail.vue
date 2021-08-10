@@ -590,9 +590,60 @@ export default {
         });
         router.push({ name: "Login" });
       } else {
-        router.push({ name: "AdoptFormConfirm" });
+        store
+          .dispatch("root/existedForm", {
+            userId: state.userId,
+            boardId: state.board.boardId
+          })
+          .then(function(result) {
+            router.push({ name: "AdoptFormConfirm" });
+          })
+          .catch(function(err) {
+            createToast("이미 신청서를 작성했던 공고입니다 💬💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-right",
+              transition: "bounce",
+              type: "warning"
+            });
+          });
       }
     };
+
+    $axios
+      .get("/board/" + state.board.boardId + "/" + state.userId)
+      .then(function(result) {
+        console.log(result);
+
+        const boardDetail = {
+          boardId: result.data.board.id,
+          boardType: result.data.board.type,
+          thumbnailUrl: result.data.board.thumbnailUrl,
+          title: result.data.board.title,
+          address: result.data.dogInformation.address,
+          mbti: result.data.dogInformation.mbti,
+          colorType: result.data.dogInformation.colorType,
+          gender: result.data.dogInformation.gender,
+          hairType: result.data.dogInformation.hairType,
+          neutralization: result.data.dogInformation.neutralization,
+          writer: result.data.writer,
+          weight: result.data.dogInformation.weight,
+          ageType: result.data.dogInformation.age,
+          regDate: result.data.board.regDate,
+          fileList: result.data.boardImageList,
+          isOwner: result.data.owner,
+          description: result.data.dogInformation.description,
+          dogName: result.data.dogInformation.dogName,
+          isBookmarked: result.data.bookmarked
+        };
+
+        store.commit("root/setBoardDetail", boardDetail);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
 
     onMounted(() => {
       console.log("breadcrumb");

@@ -407,7 +407,7 @@ export default {
             type: "success"
           });
           console.log("등록 성공");
-          router.push({ name: "Adopt" });
+          router.push({ name: "AdoptDetail" });
         })
         .catch(function(err) {
           createToast("공고 등록에 실패했어요 😱💦", {

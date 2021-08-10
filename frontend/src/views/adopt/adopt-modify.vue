@@ -560,7 +560,7 @@ export default {
             type: "success"
           });
           console.log("수정 성공");
-          router.push({ name: "Adopt" });
+          router.push({ name: "AdoptDetail" });
         })
         .catch(function(err) {
           createToast("공고 수정에 실패했어요 😱💦", {

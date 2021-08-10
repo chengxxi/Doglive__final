@@ -14,6 +14,7 @@ import AdoptRegister from "@/views/adopt/adopt-register.vue";
 import AdoptModify from "@/views/adopt/adopt-modify.vue";
 import AdoptForm from "@/views/adopt/adopt-form.vue";
 import AdoptFormConfirm from "@/views/adopt/adopt-form-confirm.vue";
+import AdoptFormReview from "@/views/adopt/adopt-form-review.vue";
 import FindDetail from "@/views/find/find-detail.vue";
 import FindRegister from "@/views/find/find-register.vue";
 import FindModify from "@/views/find/find-modify.vue";
@@ -132,6 +133,11 @@ const routes = [
     path: "/adopt/form/confirm",
     name: "AdoptFormConfirm",
     component: AdoptFormConfirm
+  },
+  {
+    path: "/adopt/form/review",
+    name: "AdoptFormReview",
+    component: AdoptFormReview
   },
   {
     path: "/adopt/modify",
