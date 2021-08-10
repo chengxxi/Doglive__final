@@ -1,8 +1,11 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.AdoptFormReq;
+import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.service.AdoptService;
+import com.ssafy.api.service.BoardService;
 import com.ssafy.common.model.response.BaseResponseBody;
+import com.ssafy.db.entity.board.Board;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,7 @@ public class AdoptController {
     @Autowired
     AdoptService adoptService;
 
+
     @PostMapping("/form/{userId}")
     @ApiOperation(value = "입양신청서 등록", notes = "입양신청서를 작성하고 저장한다")
     @ApiResponses({
@@ -33,5 +37,20 @@ public class AdoptController {
         adoptService.insertAdoptForm(id, adoptFormReq);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "입양신청서가 정상적으로 등록되었습니다"));
+    }
+
+    @GetMapping("/check/{userId}/{boardId}")
+    @ApiOperation(value = "입양신청서 작성 여부 확인", notes = "해당 게시물에 대한 진행중인 입양신청 데이터가 있는지 확인한다.")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> CheckAdoptBoard(@PathVariable("userId") String userId, @PathVariable("boardId") Long boardId){
+
+        if(adoptService.canAdoptForm(userId, boardId))
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "입양 신청이 가능합니다."));
+        return ResponseEntity.status(409).body(BaseResponseBody.of(409, "이미 작성한 신청폼이 있습니다."));
     }
 }

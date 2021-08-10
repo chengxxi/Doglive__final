@@ -35,6 +35,7 @@ public class CounselingHistory {
 
   private String dogName;           //강아지네임
 
+  @Column(columnDefinition = "LONGTEXT")
   private String content;           //입양 신청 설문 내용
 
   @Column(length = 10)

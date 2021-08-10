@@ -56,22 +56,20 @@ public class AdoptServiceImpl implements AdoptService{
         CounselingHistory counselingHistory = new CounselingHistory();
 
         JsonParser parser = new JsonParser();
-        JsonElement content = parser.parse(adoptFormReq.getContent().toString());
+        System.out.println(adoptFormReq.getContent());
 
-        Optional<User> user = userRepository.findUserById(userId);
-        if(user.isPresent()) {
-            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
-            if (userProfile.isPresent()) {
-                counselingHistory.setApplicantId(userProfile.get());
-            }
+        UserProfile userProfile = findByUserId(userId);
+        if(userProfile!=null) {
+            counselingHistory.setApplicantId(userProfile);
         }
 
-        counselingHistory.setBoardId(adoptFormReq.getBoardId());
+        Long boardId = adoptFormReq.getBoardId();
+        counselingHistory.setBoardId(boardId);
         counselingHistory.setBoardType(adoptFormReq.getBoardType());
         counselingHistory.setDogName(adoptFormReq.getDogName());
-        counselingHistory.setContent(content.toString());
+        counselingHistory.setContent(adoptFormReq.getContent().toString());
         counselingHistory.setResult("대기");
-
+        counselingHistory.setWriter(boardRepository.findById(boardId).get().getUserId());
 
         counselingHistoryRepository.save(counselingHistory);
 
@@ -79,7 +77,34 @@ public class AdoptServiceImpl implements AdoptService{
         return counselingHistory;
     }
 
+    @Override
+    public UserProfile findByUserId(String userId) {
+        Optional<User> user = userRepository.findUserById(userId);
+        if(user.isPresent()) {
+            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
+            if (userProfile.isPresent()) {
+                return userProfile.get();
+            }
+        }
+        return null;
+    }
 
+    @Override
+    public boolean canAdoptForm(String userId, Long boardId) {
+
+        UserProfile userProfile = findByUserId(userId);
+        if(userProfile!=null) {
+            Optional<CounselingHistory> counselingHistories =
+                    counselingHistoryRepository.
+                            findCounselingHistoryByApplicantIdAndBoardId(userProfile, boardId);
+
+            if(counselingHistories.isPresent()){
+                 return false;
+            }
+        }
+
+        return true;
+    }
 
 
 }

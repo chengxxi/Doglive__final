@@ -20,4 +20,6 @@ public interface CounselingHistoryRepository extends JpaRepository<CounselingHis
     Optional<List<CounselingHistory>> findCounselingHistoriesByApplicantId(UserProfile userProfile);
 
     Optional<List<CounselingHistory>> findCounselingHistoriesByWriter(String id);
+
+    Optional<CounselingHistory> findCounselingHistoryByApplicantIdAndBoardId(UserProfile userProfile, Long boardId);
 }
