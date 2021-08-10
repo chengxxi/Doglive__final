@@ -1,24 +1,17 @@
 package com.ssafy.api.controller;
 
 
-import com.ssafy.api.request.AdoptFormReq;
-import com.ssafy.api.request.BoardDetailGetReq;
 import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.request.BookmarkReq;
-import com.ssafy.api.response.BoardDetailGetRes;
-import com.ssafy.api.response.BoardListGetRes;
+import com.ssafy.api.response.*;
 import com.ssafy.api.service.AdoptService;
 import com.ssafy.api.service.BoardService;
 import com.ssafy.api.service.FindService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.Bookmark;
-import com.ssafy.db.entity.board.Board;
-import com.ssafy.db.entity.board.BoardComment;
-import com.ssafy.db.entity.board.BoardImage;
-import com.ssafy.db.entity.board.DogInformation;
+import com.ssafy.db.entity.board.*;
 import io.swagger.annotations.*;
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,9 +47,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardListGetRes> adoptBoardList(){
-        List<Board> boardList = adoptService.getAdoptBoardList();
-        return ResponseEntity.ok(BoardListGetRes.of(200, "Success", boardList, boardList.size()));
+    public ResponseEntity<BoardDetailListGetRes> adoptBoardList(){
+        List<BoardListData> boardList = adoptService.getAdoptBoardList();
+        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", boardList, boardList.size()));
     }
 
 
@@ -68,9 +61,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardListGetRes> findBoardList(){
-        List<Board> boardList = findService.getFindBoardList();
-        return ResponseEntity.ok(BoardListGetRes.of(200, "Success", boardList, boardList.size()));
+    public ResponseEntity<BoardDetailListGetRes> findBoardList(){
+        List<BoardListData> boardList = findService.getFindBoardList();
+        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", boardList, boardList.size()));
     }
 
     @PostMapping()
@@ -211,6 +204,36 @@ public class BoardController {
     public ResponseEntity<BoardListGetRes> findMyBoardList(@PathVariable("id") String id){
         List<Board> boardList = boardService.getBoardListByUserId(id);
         return ResponseEntity.ok(BoardListGetRes.of(200, "Success", boardList, boardList.size()));
+    }
+
+    @GetMapping("/sido")
+    @ApiOperation(value = "시/도 코드 리스트", notes = "시/도 코드 정보를 가져온다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<SidoCodeGetRes> findSidoList(){
+
+        List<Sido> sidoList = boardService.getSidoList();
+
+        return ResponseEntity.ok(SidoCodeGetRes.of(200, "Success", sidoList));
+    }
+
+
+    @GetMapping("/gugun/{sido}")
+    @ApiOperation(value = "구/군 코드 리스트", notes = "구/군 코드 정보를 가져온다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<GugunCodeGetRes> findGugunList(@PathVariable("sido") String sido){
+
+        List<Gugun> gugunList = boardService.getGugunListBySido(Long.parseLong(sido));
+        return ResponseEntity.ok(GugunCodeGetRes.of(200, "Success",gugunList));
     }
 
 }

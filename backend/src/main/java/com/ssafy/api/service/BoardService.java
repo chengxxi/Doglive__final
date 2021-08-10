@@ -53,4 +53,8 @@ public interface BoardService {
     /* 북마크 존재하면 찾기 */
     Bookmark getBookmark(BookmarkReq bookmarkReq);
 
+    List<Gugun> getGugunListBySido(Long sido);
+
+    List<Sido> getSidoList();
+
 }
