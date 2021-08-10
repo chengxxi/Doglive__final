@@ -4,10 +4,10 @@
       <!-- <AdoptCard /> -->
 
       <AdoptCard
-        v-for="(card, idx) in state.boardList"
-        :key="idx"
-        :card="card"
-        @click="readDetail(card.id)"
+        v-for='(card, idx) in state.boardList'
+        :key='idx'
+        :card='card'
+        @click='readDetail(card.id)'
       />
     </el-row>
   </div>
@@ -26,14 +26,14 @@
 </style>
 
 <script>
-import $axios from "axios";
-import AdoptCard from "@/views/adopt/components/adopt-card";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { onBeforeMount, onMounted, reactive, computed } from "vue";
+import $axios from 'axios';
+import AdoptCard from '@/views/adopt/components/adopt-card';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import { onBeforeMount, onMounted, reactive, computed } from 'vue';
 
 export default {
-  name: "adopt-list",
+  name: 'adopt-list',
   components: { AdoptCard },
   // props: {
   //   // boardList: Object,
@@ -49,15 +49,16 @@ export default {
     const state = reactive({
       boardList: [],
       userId: computed(() => {
-        return store.getters["root/getLoginUserInfo"].userId;
+        return store.getters['root/getLoginUserInfo'].userId;
       })
     });
 
     const readData = function() {
-      const userid = store.getters["root/getLoginUserInfo"].userId;
+      const userid = store.getters['root/getLoginUserInfo'].userId;
+      console.log(userid)
 
       $axios
-        .get("/board/adopt")
+        .get('/board/adopt')
         .then(function(result) {
           console.log(result);
           console.log(result.data.boardList);
@@ -70,10 +71,10 @@ export default {
     };
 
     const readDetail = function(id) {
-      const userid = store.getters["root/getLoginUserInfo"].userId;
+      const userid = store.getters['root/getLoginUserInfo'].userId;
 
       $axios
-        .get("/board/" + id + "/" + userid)
+        .get('/board/' + id + '/' + userid)
         .then(function(result) {
           console.log(result);
 
@@ -99,9 +100,9 @@ export default {
             isBookmarked: result.data.bookmarked
           };
 
-          store.commit("root/setBoardDetail", boardDetail);
+          store.commit('root/setBoardDetail', boardDetail);
 
-          router.push({ name: "AdoptDetail" });
+          router.push({ name: 'AdoptDetail' });
         })
         .catch(function(err) {
           console.log(err);
@@ -110,19 +111,19 @@ export default {
 
     const goRegister = function() {
       if (state.userId === null) {
-        alert("로그인해주세요");
-        router.push({ name: "Login" });
+        alert('로그인해주세요');
+        router.push({ name: 'Login' });
       } else {
-        router.push({ name: "AdoptRegister" });
+        router.push({ name: 'AdoptRegister' });
       }
     };
 
     onMounted(() => {
       // console.log('breadcrumb')
-      store.commit("root/setBreadcrumbInfo", {
+      store.commit('root/setBreadcrumbInfo', {
         isHome: false,
-        title: "Adopt",
-        subTitle: "입양 공고 목록"
+        title: 'Adopt',
+        subTitle: '입양 공고 목록'
       });
     });
 
