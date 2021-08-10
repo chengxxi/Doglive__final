@@ -5,10 +5,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafy.api.request.AdoptFormReq;
 import com.ssafy.api.request.StatusUpdatePutReq;
+import com.ssafy.api.response.BoardListData;
 import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.board.Board;
+import com.ssafy.db.entity.board.DogInformation;
 import com.ssafy.db.repository.auth.CounselingHistoryRepository;
 import com.ssafy.db.repository.auth.UserProfileRepository;
 import com.ssafy.db.repository.auth.UserRepository;
@@ -21,6 +23,7 @@ import org.h2.util.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,14 +43,53 @@ public class AdoptServiceImpl implements AdoptService{
     @Autowired
     BoardRepository boardRepository;
 
+    @Autowired
+    DogInformationRepository dogInformationRepository;
+
 
     /* 입양임보 게시물 전체 목록 불러오기 */
     @Override
-    public List<Board> getAdoptBoardList() {
-        Optional<List<Board>> boardList = boardRepository.findAdoptBoard();
-        if(boardList.isPresent()) return boardList.get();
+    public List<BoardListData> getAdoptBoardList() {
+        List<BoardListData> adoptList = new ArrayList<>();
 
-        return null;
+
+
+
+        Optional<List<Board>> boardList = boardRepository.findAdoptBoard();
+
+
+        if(boardList.isPresent()) {
+            for (Board board : boardList.get()){
+
+                BoardListData data = new BoardListData(); //게시판 목록에서 필요한 정보들
+
+                data.setBoardId(board.getId());
+                data.setUserId(board.getUserId());
+                data.setType(board.getType());
+                data.setTitle(board.getTitle());
+                data.setThumbnailUrl(board.getThumbnailUrl());
+                data.setRegDate(board.getRegDate());
+
+
+                Optional<DogInformation> dogInformation = dogInformationRepository.findDogInformationByBoardId(board);
+
+                if(dogInformation.isPresent()){
+                    data.setGender(dogInformation.get().getGender());
+                    data.setDogName(dogInformation.get().getDogName());
+                    data.setMbti(dogInformation.get().getMbti());
+                    data.setAge(dogInformation.get().getAge());
+                    data.setNeutralization(dogInformation.get().isNeutralization());
+                    data.setColorType(dogInformation.get().getColorType());
+                    data.setColorType(dogInformation.get().getHairType());
+                    data.setWeight(dogInformation.get().getWeight());
+
+                    //필요 정보 파싱해서 리스트에 add하기
+                    adoptList.add(data);
+                }
+            }
+        }
+
+        return adoptList;
     }
 
     /* 입양신청서 작성하기 */

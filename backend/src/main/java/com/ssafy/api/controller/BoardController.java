@@ -3,10 +3,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.request.BookmarkReq;
-import com.ssafy.api.response.GugunCodeGetRes;
-import com.ssafy.api.response.SidoCodeGetRes;
-import com.ssafy.api.response.BoardDetailGetRes;
-import com.ssafy.api.response.BoardListGetRes;
+import com.ssafy.api.response.*;
 import com.ssafy.api.service.AdoptService;
 import com.ssafy.api.service.BoardService;
 import com.ssafy.api.service.FindService;
@@ -50,9 +47,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardListGetRes> adoptBoardList(){
-        List<Board> boardList = adoptService.getAdoptBoardList();
-        return ResponseEntity.ok(BoardListGetRes.of(200, "Success", boardList, boardList.size()));
+    public ResponseEntity<BoardDetailListGetRes> adoptBoardList(){
+        List<BoardListData> boardList = adoptService.getAdoptBoardList();
+        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", boardList, boardList.size()));
     }
 
 
@@ -64,9 +61,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardListGetRes> findBoardList(){
-        List<Board> boardList = findService.getFindBoardList();
-        return ResponseEntity.ok(BoardListGetRes.of(200, "Success", boardList, boardList.size()));
+    public ResponseEntity<BoardDetailListGetRes> findBoardList(){
+        List<BoardListData> boardList = findService.getFindBoardList();
+        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", boardList, boardList.size()));
     }
 
     @PostMapping()
