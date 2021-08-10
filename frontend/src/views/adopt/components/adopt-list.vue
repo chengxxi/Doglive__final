@@ -1,8 +1,6 @@
 <template>
   <div>
     <el-row>
-      <!-- <AdoptCard /> -->
-
       <AdoptCard
         v-for='(card, idx) in state.boardList'
         :key='idx'
@@ -35,13 +33,7 @@ import { onBeforeMount, onMounted, reactive, computed } from 'vue';
 export default {
   name: 'adopt-list',
   components: { AdoptCard },
-  // props: {
-  //   // boardList: Object,
-  //   // title: String,
-  //   // boardType: String,
-  //   cards: Array,
 
-  // },
 
   setup() {
     const store = new useStore();
@@ -119,12 +111,12 @@ export default {
     };
 
     onMounted(() => {
-      // console.log('breadcrumb')
       store.commit('root/setBreadcrumbInfo', {
         isHome: false,
         title: 'Adopt',
         subTitle: '입양 공고 목록'
       });
+      window.scrollTo(0, 0);
     });
 
     onBeforeMount(() => {
