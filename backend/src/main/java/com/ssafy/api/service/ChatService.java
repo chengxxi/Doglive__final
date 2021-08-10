@@ -34,4 +34,6 @@ public interface ChatService {
     /* 채팅방에서 읽지않은 메세지의 개수 가져오기 */
     int getUnReadMessage(ChatRoom roomId, String userId);
 
+    /* 채팅을 전송할 때 메시지 읽음 여부 저장하기 -> 보내는 사람은 true(1), 받는 사람은 false(0)*/
+
 }

@@ -15,6 +15,9 @@ import java.util.Optional;
 @Repository
 public interface ChatMessageReadRepository extends JpaRepository<ChatMessageRead, Long> {
 
+    /* 메시지를 전송할 때, ChatMeesageRead에 Insert 하기 */
+
+
     /* 현재 user가 채팅방에서 읽지않은 메시지의 개수 가져오기 */
     @Query(
             value = "SELECT * FROM chat_message_read WHERE room_id = :roomId and isRead = false GROUP BY user_id = :userId",
