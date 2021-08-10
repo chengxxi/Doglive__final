@@ -9,7 +9,11 @@
       </div>
 
       <MbtiDescription />
+
+      <!-- if 사용자가 아직 테스트 전이면 -->
       <MbtiQuestion />
+      <!-- if 사용자의 테스트 결과가 있으면 -->
+      <MbtiResult />
 
     </el-card>
   </div>
@@ -20,7 +24,7 @@
 /* 페이지 만들 때, 이 구조가 기준이 됩니다! (양옆 여백 10%, 위 여백 50px) */
 .main-body {
   width: 100%;
-  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
+  margin-left: 10%;
   margin-right: 10%;
 }
 .main-padding {
@@ -36,14 +40,16 @@
 
 
 <script>
-import MbtiDescription from './components/mbti-description.vue';
-import MbtiQuestion from './components/mbti-question.vue';
+import MbtiDescription from './components/mbti-description.vue'
+import MbtiQuestion from './components/mbti-question.vue'
+import MbtiResult from './components/mbti-result.vue'
 
 export default {
   name: 'find',
   components: {
     MbtiDescription,
     MbtiQuestion,
+    MbtiResult
   },
 }
 </script>
