@@ -29,11 +29,4 @@ public class ChatRoom extends BaseEntity {
         this.id = id;
         this.name = name;
     }
-
-    // @OneToMany(mappedBy = "chatRoom", fetch = FetchType.EAGER)
-    // private List<ChatMessage> messages = new ArrayList<>();
-
-//    public void addMessage(ChatMessage message){
-//        messages.add(message);
-//    }
 }

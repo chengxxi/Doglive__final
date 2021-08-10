@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul v-for="(item, index) in state.recvList" v-bind:key="index">
-      <li>{{ item.userId + " - " + item.chatMessage }}</li>
+      <li>{{ item.username + " - " + item.chatMessage }}</li>
     </ul>
   </div>
   <br>
@@ -38,7 +38,7 @@ export default {
     function fetchMessageLogs(){
        store.dispatch('root/requestChatMessageList', {roomId: 1, withCredentials: true})
         .then(function(result){
-          console.log(result.data.messageList)
+          console.log(result.data)
           for(var i = 0; i < result.data.messageList.length; i++){
             state.recvList.push(result.data.messageList[i])
           }
@@ -52,7 +52,7 @@ export default {
     // 채팅방 입장 요청 + 메시지 받아오기
     function fetchJoin(){
       console.log("fetchJoin 함수 호출!")
-      // 1. 채팅방 입장 요청
+      // 1. 채팅방 입장 메시지
       // const data = JSON.stringify({ userId: userId, roomId: 1, chatMessage: "join" });
       // client.send("/pub/chat/join", data, {})
 

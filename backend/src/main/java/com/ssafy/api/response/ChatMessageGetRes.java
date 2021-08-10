@@ -18,9 +18,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatMessageGetRes extends BaseResponseBody {
+public class ChatMessageGetRes {
 
     private String userId;
+
+    private String username;
 
     private String chatMessage;
 
@@ -32,15 +34,6 @@ public class ChatMessageGetRes extends BaseResponseBody {
         res.setUserId(message.getUserId());
         res.setChatMessage(message.getMessage());
         res.setSendTimeAt(message.getSendTimeAt());
-        return res;
-    }
-
-    public static ChatMessageGetRes of(Integer statusCode, String stateMessage, String userId, String chatMessage) {
-        ChatMessageGetRes res = new ChatMessageGetRes();
-        res.setStatusCode(statusCode);
-        res.setMessage(stateMessage);
-        res.setUserId(userId);
-        res.setChatMessage(chatMessage);
         return res;
     }
 }

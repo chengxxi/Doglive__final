@@ -3,6 +3,8 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.ChatMessagePostReq;
 import com.ssafy.api.response.ChatMessageGetRes;
 import com.ssafy.api.service.ChatService;
+import com.ssafy.api.service.UserService;
+import com.ssafy.db.entity.chat.ChatMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -16,6 +18,9 @@ public class ChatPubController {
 
     @Autowired
     private ChatService chatService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     public ChatPubController(SimpMessagingTemplate template){
@@ -32,9 +37,16 @@ public class ChatPubController {
 
     // 요청경로 = "/pub/chat/message"
     @MessageMapping("/chat/message")
-    public void message(ChatMessagePostReq message){
-        chatService.saveChatMessage(message);
-        template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+    public void message(ChatMessagePostReq req){
+        ChatMessage msg = chatService.saveChatMessage(req);
+
+        // username을 담은 객체로 변경하여 send
+        ChatMessageGetRes message = new ChatMessageGetRes();
+        message.setUserId(msg.getUserId());
+        message.setUsername(userService.getUserName(msg.getUserId()));
+        message.setChatMessage(msg.getMessage());
+        message.setSendTimeAt(msg.getSendTimeAt());
+        template.convertAndSend("/sub/chat/room/" + req.getRoomId(), message);
     }
 
 }

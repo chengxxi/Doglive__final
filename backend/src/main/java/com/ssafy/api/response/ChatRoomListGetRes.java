@@ -18,9 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 public class ChatRoomListGetRes extends BaseResponseBody {
 
-    private List<ChatRoom> chatRoomList;
+    private List<ChatRoomGetRes> chatRoomList;
 
-    public static ChatRoomListGetRes of(Integer statusCode, String message, List<ChatRoom> chatRoomList){
+    public static ChatRoomListGetRes of(Integer statusCode, String message, List<ChatRoomGetRes> chatRoomList){
         ChatRoomListGetRes res = new ChatRoomListGetRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);

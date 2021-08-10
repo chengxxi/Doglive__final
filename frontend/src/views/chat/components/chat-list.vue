@@ -1,7 +1,8 @@
 <template>
   <table :style="{width : 300, height: 500}" v-for="(item, index) in state.roomList" :key="index">
     <tr>
-      <td>{{ item.name }}</td>
+      <td>{{ item.chatRoom.name }}</td>
+      <td>{{ item.userNameList }}</td>
       <td><button @click="enterRoom(item.id)">입장</button></td>
     </tr>
   </table>
@@ -66,7 +67,14 @@ export default {
     store.dispatch('root/requestChatRoomList', {withCredentials: true})
     .then(function(result){
       console.log(result.data.chatRoomList)
-      state.roomList = result.data.chatRoomList
+      var chatRoomList = result.data.chatRoomList
+      for(var i = 0; i < chatRoomList.length; i++){
+        state.roomList.push({
+          chatRoom : chatRoomList[i].chatRoom,
+          userNameList : chatRoomList[i].userNameList
+        })
+      }
+      console.log(state.roomList)
     })
     .catch(function(err){
       console.log(err)

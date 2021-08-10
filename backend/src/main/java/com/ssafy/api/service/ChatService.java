@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.ChatMessagePostReq;
+import com.ssafy.api.response.ChatMessageGetRes;
 import com.ssafy.db.entity.chat.ChatMessage;
 import com.ssafy.db.entity.chat.ChatRoom;
 import com.ssafy.db.entity.chat.ChatRoomJoin;
@@ -22,5 +23,15 @@ public interface ChatService {
     ChatMessage saveChatMessage(ChatMessagePostReq message);
 
     /* 회원이 Join 중인 채팅방의 메세지 기록 가져오기 */
-    List<ChatMessage> getChatMessageList(ChatRoom roomId);
+    List<ChatMessage> getChatMessageList(ChatRoom roomId, String userId);
+
+    /* 회원이 Join 중인 채팅방의 메세지 기록 가져오기 (userName을 담는 로직 추가)*/
+    List<ChatMessageGetRes> getChatMessageListWithUserName(List<ChatMessage> messageList);
+
+    /* 채팅방 안에 있는 회원의 id와 닉네임 가져오기 */
+    List<String> getUserNameList(ChatRoom roomId);
+
+    /* 채팅방에서 읽지않은 메세지의 개수 가져오기 */
+    int getUnReadMessage(ChatRoom roomId, String userId);
+
 }
