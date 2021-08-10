@@ -21,7 +21,7 @@
               <a href="#" @mouseover="changeDisplay('over')">입양/임보</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
                   <li><a href="/adopt">입양/임시보호</a></li>
-                  <li><a href="/adopt">입양 사전 설문</a></li>
+                  <li><a href="/adopt/form">입양 사전 설문</a></li>
                   <li><a href="/mbti">나와 맞는 강아지 MBTI</a></li>
                 </ul>
             </li>
