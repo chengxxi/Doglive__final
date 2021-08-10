@@ -5,7 +5,7 @@
         v-for='(card, idx) in state.boardList'
         :key='idx'
         :card='card'
-        @click='readDetail(card.id)'
+        @click='readDetail(card.boardId)'
       />
     </el-row>
   </div>
