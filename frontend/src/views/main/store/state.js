@@ -29,6 +29,19 @@ export default {
   },
 
   board: {
+    // list
+    list: [],
+    limit: 12,
+    offset: 0,
+    searchWord: "",
+
+    // pagination
+    listRowCount: 12,
+    pageLinkCount: 12,
+    currentPageIndex: 1,
+
+    totalListItemCount: 0,
+
     // detail, update, delete
     boardId: 0,
     boardType: {},

@@ -134,3 +134,19 @@ export function existedForm({ state }, payload) {
   const url = "/adopt/check/" + payload.userId + "/" + payload.boardId;
   return $axios.get(url);
 }
+
+//입양,임보 게시판 목록 가져오기
+export function requestAdoptList({ state }, payload) {
+  const url = "/adopt";
+  return $axios.get(url, {
+    params: {
+      page: state.board.offset,
+      size: state.board.limit,
+      searchWord: payload.searchWord,
+      age: payload.age,
+      weight: payload.weight,
+      boardType: payload.boardType,
+      gender: payload.gender
+    }
+  });
+}
