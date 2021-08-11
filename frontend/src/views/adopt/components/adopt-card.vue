@@ -31,8 +31,7 @@
       style="margin-top:5px; display:flex; display: flex;
   justify-content: center;"
     >
-      <img :src="require('@/assets/images/mbti_isfp.png')" class="image" />
-      <!-- <img :src="require('https://placedog.net/200/200?random')" class="image"> -->
+      <img src="https://placedog.net/500/500?random" class="image" />
     </el-row>
 
     <el-row
@@ -60,7 +59,7 @@
 <style scoped>
 .image {
   width: 90%;
-  max-height: 300px;
+  height: 250px;
 }
 
 * {
