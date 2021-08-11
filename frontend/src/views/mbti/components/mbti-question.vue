@@ -1,9 +1,9 @@
 <template>
 <div class="block">
   <div class="question">
-    <span class="demonstration">
+    <p class="demonstration">
       다른 강아지들과 어울리는 데 시간이 좀 걸려요.
-    </span>
+    </p>
 
     <el-rate
       v-model="value"
@@ -14,9 +14,9 @@
   </div>
 
   <div class="question">
-    <span class="demonstration">
+    <p class="demonstration">
       내가 원하는 것을 얻기 위해 때로는 불쌍한 척을 해요.
-    </span>
+    </p>
 
     <el-radio-group v-model="radio" class="rating">
       <el-radio-button :label="1" size="medium">매우 아니다</el-radio-button> <!-- 매우 아니다 -->
@@ -28,18 +28,20 @@
   </div>
 
   <div class="question">
-    <span class="demonstration">
-      쉽게 흥분하는 일은 거의 없어요.
-    </span>
+    <p class="demonstration">
+      혼날 때, 한껏 주눅들어 있어요.
+    </p>
 
-    <el-radio-group v-model="radio2" clearable class="rating">
-      <el-radio label="" class="radioBtn" size="medium"></el-radio> <!-- 매우 아니다 -->
-      <el-radio label="" class="radioBtn" size="small"></el-radio> <!-- 조금 아니다 -->
-      <el-radio label="" class="radioBtn" size="mini"></el-radio> <!-- 보통이다 -->
-      <el-radio label="" class="radioBtn" size="small"></el-radio> <!-- 조금 그렇다 -->
-      <el-radio label="" class="radioBtn" size="medium"></el-radio> <!-- 매우 그렇다 -->
+    <el-radio-group v-model="radio3" clearable class="rating">
+      <el-radio-button :label="1" class="radioBtn"></el-radio-button> <!-- 매우 아니다 -->
+      <el-radio-button :label="2" class="radioBtn"></el-radio-button> <!-- 조금 아니다 -->
+      <el-radio-button :label="3" class="radioBtn"></el-radio-button> <!-- 보통이다 -->
+      <el-radio-button :label="4" class="radioBtn"></el-radio-button> <!-- 조금 그렇다 -->
+      <el-radio-button :label="5" class="radioBtn"></el-radio-button> <!-- 매우 그렇다 -->
     </el-radio-group>
   </div>
+
+
 
 
 </div>
@@ -71,10 +73,11 @@
 
 .question {
   font-weight: 500;
+  margin-bottom: 40px;
 }
 
 .demonstration {
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 .rating {
@@ -87,25 +90,25 @@
   height: 1.25em;
   appearance: none;
   /* font-size: 3rem; */
-  border: 2px solid darkblue;
+  border: 2px solid salmon;
   border-radius: 50%;
   margin: 0 10px;
 }
 
-/* radio 안에 체크하는 원 삭제 */
-:deep(.el-radio__inner) {
+
+/* radio 안에 체크하는 원 부분 삭제 */
+:deep(.el-radio-button__inner) {
   display: none;
 }
-:deep(.el-radio__input.is-checked + .el-radio__label) {
+/* :deep(.el-radio-button.is-checked) {
   border-color: #755744;
   color: #755744;
-}
+} */
 
-:deep(.el-radio__input.is-checked .el-radio__inner) {
-  border-color: #755744;
-  background-color: #755744;
-  background: #755744;
-}
+
+/* radio btn styling */
+
+
 
 
 </style>
@@ -124,6 +127,7 @@ export default {
       // same as { 2: 'icon-rate-face-1', 4: { value: 'icon-rate-face-2', excluded: true }, 5: 'icon-rate-face-3' }
       radio: ref(3),
       radio2: ref(null),
+      radio3: ref(null),
     };
   },
 }
