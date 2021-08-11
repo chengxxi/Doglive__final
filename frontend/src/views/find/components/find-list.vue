@@ -1,16 +1,14 @@
 <template>
-  <!-- <AdoptCard /> -->
-  <span v-for="(card, idx) in state.boardList" :key="idx">
-    <el-col :span="6">
-      <AdoptCard
+  <div>
+    <el-row>
+      <FindCard
+        v-for="(card, idx) in state.boardList"
+        :key="idx"
         :card="card"
-        @click="readDetail(card.boardId.id)"
-        style="margin:20px;"
+        @click="readDetail(card.id)"
       />
-    </el-col>
-
-    <div v-if="idx % 4 == 0"></div>
-  </span>
+    </el-row>
+  </div>
 </template>
 
 <style scoped>
@@ -26,21 +24,15 @@
 </style>
 
 <script>
-import $axios from "axios";
-import AdoptCard from "@/views/adopt/components/adopt-card";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { onBeforeMount, onMounted, reactive, computed } from "vue";
+import $axios from 'axios';
+import FindCard from '@/views/find/components/find-card';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import { onBeforeMount, onMounted, reactive, computed } from 'vue';
 
 export default {
-  name: "adopt-list",
-  components: { AdoptCard },
-  // props: {
-  //   // boardList: Object,
-  //   // title: String,
-  //   // boardType: String,
-  //   // cards: Array,
-  // },
+  name: 'find-list',
+  components: { FindCard },
 
   setup() {
     const store = new useStore();
@@ -48,21 +40,21 @@ export default {
     const state = reactive({
       boardList: [],
       userId: computed(() => {
-        return store.getters["root/getLoginUserInfo"].userId;
+        return store.getters['root/getLoginUserInfo'].userId;
       })
     });
 
     const readData = function() {
-      const userid = store.getters["root/getLoginUserInfo"].userId;
-      console.log(userid);
+      const userid = store.getters['root/getLoginUserInfo'].userId;
+      console.log(userid)
 
       $axios
-        .get("/board/adopt?searchWord=")
+        .get('/board/find')
         .then(function(result) {
           console.log(result);
           console.log(result.data.boardList);
 
-          state.boardList = result.data.boardList.content;
+          state.boardList = result.data.boardList;
         })
         .catch(function(err) {
           console.log(err);
@@ -70,10 +62,10 @@ export default {
     };
 
     const readDetail = function(id) {
-      const userid = store.getters["root/getLoginUserInfo"].userId;
+      const userid = store.getters['root/getLoginUserInfo'].userId;
 
       $axios
-        .get("/board/" + id + "/" + userid)
+        .get('board/' + id + '/' + userid)
         .then(function(result) {
           console.log(result);
 
@@ -86,7 +78,7 @@ export default {
             mbti: result.data.dogInformation.mbti,
             colorType: result.data.dogInformation.colorType,
             gender: result.data.dogInformation.gender,
-            dogType: result.data.dogInformation.dogType,
+            hairType: result.data.dogInformation.hairType,
             neutralization: result.data.dogInformation.neutralization,
             writer: result.data.writer,
             weight: result.data.dogInformation.weight,
@@ -95,13 +87,12 @@ export default {
             fileList: result.data.boardImageList,
             isOwner: result.data.owner,
             description: result.data.dogInformation.description,
-            dogName: result.data.dogInformation.dogName,
-            isBookmarked: result.data.bookmarked
+            dogName: result.data.dogInformation.dogName
           };
 
-          store.commit("root/setBoardDetail", boardDetail);
+          store.commit('root/setBoardDetail', boardDetail);
 
-          router.push({ name: "AdoptDetail" });
+          router.push({ name: 'FindDetail' });
         })
         .catch(function(err) {
           console.log(err);
@@ -110,18 +101,18 @@ export default {
 
     const goRegister = function() {
       if (state.userId === null) {
-        alert("로그인해주세요");
-        router.push({ name: "Login" });
+        alert('로그인 해주세요');
+        router.push({ name: 'Login' });
       } else {
-        router.push({ name: "AdoptRegister" });
+        router.push({ name: 'FindRegister' });
       }
     };
 
     onMounted(() => {
-      store.commit("root/setBreadcrumbInfo", {
+      store.commit('root/setBreadcrumbInfo', {
         isHome: false,
-        title: "Adopt",
-        subTitle: "입양 공고 목록"
+        title: 'Find',
+        subTitle: '실종 공고 목록'
       });
       window.scrollTo(0, 0);
     });

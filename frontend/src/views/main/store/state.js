@@ -16,7 +16,7 @@ export default {
   writeList: {},
 
   bookmark: {
-    TableData: [],
+    TableData: []
   },
 
   currentPath: "", // 현재 경로의 Path 파트 ex) /login?code=1234 에서 '/login'
@@ -29,6 +29,19 @@ export default {
   },
 
   board: {
+    // list
+    list: [],
+    limit: 12,
+    offset: 0,
+    searchWord: "",
+
+    // pagination
+    listRowCount: 12,
+    pageLinkCount: 12,
+    currentPageIndex: 1,
+
+    totalListItemCount: 0,
+
     // detail, update, delete
     boardId: 0,
     boardType: {},
@@ -40,7 +53,7 @@ export default {
     description: "",
     colorType: {},
     gender: {},
-    hairType: {},
+    dogType: {},
     neutralization: false,
     userName: true,
     weight: {},

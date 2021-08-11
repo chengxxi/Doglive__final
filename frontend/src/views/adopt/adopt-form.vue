@@ -631,7 +631,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "warning"
           });
@@ -673,7 +673,7 @@ export default {
         timeout: 4500,
         showIcon: "true",
         toastBackgroundColor: "#c49d83",
-        position: "bottom-right",
+        position: "bottom-left",
         transition: "bounce",
         type: "warning"
       });
@@ -688,7 +688,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "success"
           });
@@ -704,7 +704,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "warning"
           });

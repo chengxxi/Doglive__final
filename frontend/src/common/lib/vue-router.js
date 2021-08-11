@@ -9,16 +9,17 @@ import KakaoCallback from "@/views/main/components/kakao-callback.vue";
 import Conferenceroom from "@/views/conferences/conferenceroom.vue";
 import Chat from "@/views/chat/chat.vue";
 import AdoptDetail from "@/views/adopt/adopt-detail.vue";
-import AdoptDetailTest from "@/views/adopt/adopt-detail-test.vue";
 import Adopt from "@/views/adopt/adopt.vue";
 import AdoptRegister from "@/views/adopt/adopt-register.vue";
 import AdoptModify from "@/views/adopt/adopt-modify.vue";
 import AdoptForm from "@/views/adopt/adopt-form.vue";
 import AdoptFormConfirm from "@/views/adopt/adopt-form-confirm.vue";
 import AdoptFormReview from "@/views/adopt/adopt-form-review.vue";
+import Find from "@/views/find/find.vue";
 import FindDetail from "@/views/find/find-detail.vue";
 import FindRegister from "@/views/find/find-register.vue";
 import FindModify from "@/views/find/find-modify.vue";
+import MBTI from "@/views/mbti/mbti.vue";
 
 
 const routes = [
@@ -117,11 +118,6 @@ const routes = [
     component: AdoptDetail
   },
   {
-    path: "/adopt/detail-test",
-    name: "AdoptDetailTest",
-    component: AdoptDetailTest
-  },
-  {
     path: "/adopt/register",
     name: "AdoptRegister",
     component: AdoptRegister
@@ -147,6 +143,21 @@ const routes = [
     component: AdoptModify
   },
   {
+    path: "/adopt/form/confirm",
+    name: "AdoptFormConfirm",
+    component: AdoptFormConfirm
+  },
+  {
+    path: "/adopt/form/review",
+    name: "AdoptFormReview",
+    component: AdoptFormReview
+  },
+  {
+    path: "/find",
+    name: "Find",
+    component: Find
+  },
+  {
     path: "/find/detail",
     name: "FindDetail",
     component: FindDetail
@@ -160,6 +171,11 @@ const routes = [
     path: "/find/modify",
     name: "FindModify",
     component: FindModify
+  },
+  {
+    path: "/mbti",
+    name: "MBTI",
+    component: MBTI
   }
 ];
 
