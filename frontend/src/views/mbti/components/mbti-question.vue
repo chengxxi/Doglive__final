@@ -9,11 +9,11 @@
     <el-radio-item>
       <el-radio-group v-model="radio1" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
-        <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
-        <el-radio-button label="50" class="radioBtn-sm"></el-radio-button> <!-- 보통이다 -->
-        <el-radio-button label="75" class="radioBtn-md-rt"></el-radio-button> <!-- 조금 그렇다 -->
-        <el-radio-button label="100" class="radioBtn-lg-rt"></el-radio-button> <!-- 매우 그렇다 -->
+        <el-radio label="0" class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
+        <el-radio label="25" class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
+        <el-radio label="50" class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
+        <el-radio label="75" class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
+        <el-radio label="100" class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
         <span style="color: #c58676; font-weight: 530;">좋아요</span>
       </el-radio-group>
     </el-radio-item>
@@ -27,11 +27,11 @@
     <el-radio-item>
       <el-radio-group v-model="radio2" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
-        <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
-        <el-radio-button label="50" class="radioBtn-sm"></el-radio-button> <!-- 보통이다 -->
-        <el-radio-button label="75" class="radioBtn-md-rt"></el-radio-button> <!-- 조금 그렇다 -->
-        <el-radio-button label="100" class="radioBtn-lg-rt"></el-radio-button> <!-- 매우 그렇다 -->
+        <el-radio label="0" class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
+        <el-radio label="25" class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
+        <el-radio label="50" class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
+        <el-radio label="75" class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
+        <el-radio label="100" class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
         <span style="color: #c58676; font-weight: 530;">좋아요</span>
       </el-radio-group>
     </el-radio-item>
@@ -46,11 +46,11 @@
     <el-radio-item>
       <el-radio-group v-model="radio3" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
-        <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
-        <el-radio-button label="50" class="radioBtn-sm"></el-radio-button> <!-- 보통이다 -->
-        <el-radio-button label="75" class="radioBtn-md-rt"></el-radio-button> <!-- 조금 그렇다 -->
-        <el-radio-button label="100" class="radioBtn-lg-rt"></el-radio-button> <!-- 매우 그렇다 -->
+        <el-radio label="0" class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
+        <el-radio label="25" class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
+        <el-radio label="50" class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
+        <el-radio label="75" class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
+        <el-radio label="100" class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
         <span style="color: #c58676; font-weight: 530;">좋아요</span>
       </el-radio-group>
     </el-radio-item>
@@ -64,11 +64,11 @@
     <el-radio-item>
       <el-radio-group v-model="radio4" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
-        <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
-        <el-radio-button label="50" class="radioBtn-sm"></el-radio-button> <!-- 보통이다 -->
-        <el-radio-button label="75" class="radioBtn-md-rt"></el-radio-button> <!-- 조금 그렇다 -->
-        <el-radio-button label="100" class="radioBtn-lg-rt"></el-radio-button> <!-- 매우 그렇다 -->
+        <el-radio label="0" class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
+        <el-radio label="25" class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
+        <el-radio label="50" class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
+        <el-radio label="75" class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
+        <el-radio label="100" class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
         <span style="color: #c58676; font-weight: 530;">좋아요</span>
       </el-radio-group>
     </el-radio-item>
@@ -82,34 +82,16 @@
     <el-radio-item>
       <el-radio-group v-model="radio5" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
-        <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
-        <el-radio-button label="50" class="radioBtn-sm"></el-radio-button> <!-- 보통이다 -->
-        <el-radio-button label="75" class="radioBtn-md-rt"></el-radio-button> <!-- 조금 그렇다 -->
-        <el-radio-button label="100" class="radioBtn-lg-rt"></el-radio-button> <!-- 매우 그렇다 -->
+        <el-radio class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
+        <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
+        <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
+        <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
+        <el-radio class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
         <span style="color: #c58676; font-weight: 530;">좋아요</span>
       </el-radio-group>
     </el-radio-item>
   </div> <!-- question 1 -->
 
-
-
-
- <div class="question"> <!-- question 1 -->
-    <p class="demonstration">
-      option test
-    </p>
-
-    <el-form-item v-model="radio6" class="rating">
-      <span style="color: #755744; font-weight: 530;">별로예요</span>
-      <el-radio class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
-      <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
-      <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
-      <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
-      <el-radio class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
-      <span style="color: #c58676; font-weight: 530;">좋아요</span>
-    </el-form-item>
-  </div> <!-- question 1 -->
 
 
 </div>
@@ -173,6 +155,7 @@
   border-radius: 50%;
   margin: 0 25px;
 }
+
 .radioBtn-lg-lf:checked {
   width: 2.5rem;
   height: 2.5rem;
@@ -219,15 +202,18 @@
 
 
 /* radio 안에 체크하는 원 부분 삭제 */
-:deep(.el-radio-button__inner) {
+:deep(.el-radio__inner) {
   display: none;
+  outline: none;
+  border: none;
+  visibility: hidden;
 }
 
 :deep(.el-radio__inner) {
   display: none;
 }
 
-:deep(el-radio-button__original-radio) {
+:deep(el-radio__original-radio) {
   appearance: none;
   display: none;
 }
