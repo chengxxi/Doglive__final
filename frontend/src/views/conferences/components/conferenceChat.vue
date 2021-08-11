@@ -1,7 +1,7 @@
 <template>
   <div class="chat-main">
-    <el-scrollbar class="chatlog">
-      <div v-for="chat in state.chatArray" :key="chat">
+    <el-scrollbar class="chatlog" dropzone="true">
+      <div v-for="chat in state.chatArray" :key="chat" class="chatContent">
         {{chat}}
       </div>
     </el-scrollbar>
@@ -15,9 +15,6 @@
 </template>
 
 <style scoped>
-el-radio-button{
-  disabled:true;
-}
 .chat-main {
   border: 2px solid #755744;
 }
@@ -26,6 +23,7 @@ el-radio-button{
   height: 400px;
   background-color: white;
   padding: 9px;
+  overflow: auto;
 }
 :deep(.el-divider) {
   margin-bottom: 2px;
@@ -35,6 +33,9 @@ el-radio-button{
   padding: 5px 5px;
   width: 100%;
   height: 15%;
+  text-align: left;
+}
+.chatContent {
   text-align: left;
 }
 /* textarea 우측 하단 /// 안보이게 + 스크롤 기능 O + 스크롤바 X */
