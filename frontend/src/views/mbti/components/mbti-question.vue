@@ -1,5 +1,6 @@
 <template>
-  <div class="block">
+<div class="block">
+  <div class="question">
     <span class="demonstration">
       다른 강아지들과 어울리는 데 시간이 좀 걸려요.
     </span>
@@ -15,6 +16,36 @@
     </el-rate>
   </div>
 
+  <div class="question">
+    <span class="demonstration">
+      내가 원하는 것을 얻기 위해 때로는 불쌍한 척을 해요.
+    </span>
+
+    <el-radio-group v-model="radio" class="rating">
+      <el-radio-button :label="1" size="medium">매우 아니다</el-radio-button> <!-- 매우 아니다 -->
+      <el-radio-button :label="2" size="small">조금 아니다</el-radio-button> <!-- 조금 아니다 -->
+      <el-radio-button :label="3" size="mini">보통이다</el-radio-button> <!-- 보통이다 -->
+      <el-radio-button :label="4" size="small">조금 그렇다</el-radio-button> <!-- 조금 그렇다 -->
+      <el-radio-button :label="5" size="medium">매우 그렇다</el-radio-button> <!-- 매우 그렇다 -->
+    </el-radio-group>
+  </div>
+
+  <div class="question">
+    <span class="demonstration">
+      쉽게 흥분하는 일은 거의 없어요.
+    </span>
+
+    <el-radio-group v-model="radio2" class="rating">
+      <el-radio-button :value="1" size="medium" class="radioBtn"></el-radio-button> <!-- 매우 아니다 -->
+      <el-radio-button :value="2" size="small" class="radioBtn"></el-radio-button> <!-- 조금 아니다 -->
+      <el-radio-button :label="3" size="mini" class="radioBtn"></el-radio-button> <!-- 보통이다 -->
+      <el-radio-button :label="4" size="small" class="radioBtn"></el-radio-button> <!-- 조금 그렇다 -->
+      <el-radio-button :label="5" size="medium" class="radioBtn"></el-radio-button> <!-- 매우 그렇다 -->
+    </el-radio-group>
+  </div>
+
+
+</div>
 </template>
 
 <style scoped>
@@ -41,12 +72,28 @@
   padding: 40px;
 }
 
+.question {
+  font-weight: 500;
+}
+
 .demonstration {
   font-size: 1rem;
 }
 
 .rating {
   font-size: 2rem;
+}
+
+.radioBtn {
+  content: '';
+  /* width: 1.25em;
+  height: 1.25em; */
+  appearance: none;
+  font-size: 3rem;
+  border: 2px solid darkblue;
+  border-radius: 50%;
+  margin: 0 10px;
+
 }
 
 </style>
@@ -63,6 +110,8 @@ export default {
       // same as { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
       // iconClasses: ref(['icon-rate-face-1', 'icon-rate-face-2', 'icon-rate-face-3'])
       // same as { 2: 'icon-rate-face-1', 4: { value: 'icon-rate-face-2', excluded: true }, 5: 'icon-rate-face-3' }
+      radio: ref(3),
+      radio2: ref(3),
     };
   },
 }
