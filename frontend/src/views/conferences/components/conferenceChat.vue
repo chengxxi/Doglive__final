@@ -1,13 +1,13 @@
 <template>
   <div class="chat-main">
-    <div class="chatlog">
+    <el-scrollbar class="chatlog">
       <div v-for="chat in state.chatArray" :key="chat">
         {{chat}}
       </div>
-    </div>
-    <el-input
+    </el-scrollbar>
+    <el-divider>🐶</el-divider>
+    <textarea
       class='chatinput'
-      type='text'
       v-model='state.chatString'
       @keyup.enter='sendMessage'
     />
@@ -15,18 +15,36 @@
 </template>
 
 <style scoped>
+.chat-main {
+  border: 2px solid #755744;
+}
 .chatlog {
   width: 100%;
   height: 400px;
   background-color: white;
-  border: 3px solid #755744;
   padding: 9px;
 }
+:deep(.el-divider) {
+  margin-bottom: 2px;
+}
 .chatinput {
+  outline-color: orangered;
+  padding: 5px 5px;
   width: 100%;
   height: 15%;
   text-align: left;
-  padding-left: 15px;
+}
+/* textarea 우측 하단 /// 안보이게 + 스크롤 기능 O + 스크롤바 X */
+textarea {
+  border: none;
+  outline: none;
+  -ms-overflow-style: none;
+  resize: none;
+}
+textarea::-webkit-scrollbar {
+  display: none;
+}textarea:focus {
+  outline: none;
 }
 </style>
 

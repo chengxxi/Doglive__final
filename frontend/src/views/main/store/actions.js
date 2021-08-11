@@ -70,3 +70,10 @@ export function changeUserInfo({state}, payload){
   const url = "/users/" + userId;
   return $axios.put(url,payload.data);
 }
+
+// 화상회의 개설
+export function createConference({state}, payload) {
+  const url='/conference';
+  console.log(payload.data);
+  return $axios.post(url, payload.data);
+}
