@@ -46,6 +46,7 @@ export default {
               path: "/",
               sameSite: "strict"
             });
+            cookies.set('userId', result.data.user.userInfo.userid, { path : '/', sameSite : 'strict' })
             store.commit(
               "root/setLoginUserInfo",
               result.data.user.userInfo.userid

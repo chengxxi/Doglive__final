@@ -38,3 +38,8 @@ export function getUpdateUserInfo(state) {
 export function getBoardList(state) {
   return state.board.list;
 }
+
+// 채팅방 정보 여부 가져오기
+export function getChat(state) {
+  return state.chat
+}

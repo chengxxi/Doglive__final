@@ -48,3 +48,19 @@ export function setProfile(state, payload) {
   state.userProfile.birth = payload.birth;
   state.userProfile.phoneNumber = payload.phoneNumber;
 }
+
+export function setChatOpen(state, payload){
+  state.chat.open = payload
+}
+
+export function setChatTitle(state, payload){
+  state.chat.title = payload
+}
+
+export function setChatRoomId(state, payload){
+  state.chat.roomId = payload
+}
+
+export function setChatMenu(state, payload){
+  state.chat.menu = payload
+}

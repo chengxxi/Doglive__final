@@ -1,19 +1,20 @@
-package com.ssafy.db.entity.chat;
+package com.ssafy.api.request;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class ChatMessagePayload {
+public class ChatMessagePostReq {
 
     private String userId;
 
-    private String message;
-
     private Long roomId;
+
+    private String chatMessage;
+
 }

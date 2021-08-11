@@ -22,6 +22,7 @@ export default {
         // cookie 삭제
         cookies.remove("accessToken", { path: "/", sameSite: "strict" });
         cookies.remove("refreshToken", { path: "/", sameSite: "strict" });
+        cookies.remove('userId', { path : '/', sameSite : 'strict' })
         store.commit("root/setLoginUserInfo", null);
         const boardDetail = {
           boardId: 1,
@@ -47,6 +48,7 @@ export default {
         };
 
         store.commit("root/setBoardDetail", boardDetail);
+        store.commit("root/setChatOpen", false);
 
         createToast(
           {

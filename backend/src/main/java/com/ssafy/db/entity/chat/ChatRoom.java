@@ -1,12 +1,9 @@
 package com.ssafy.db.entity.chat;
-
-import com.ssafy.db.entity.auth.CounselingHistory;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -16,29 +13,17 @@ import java.util.List;
 @Table(name="chat_room", schema = "chat")
 @Getter
 @Setter
+@NoArgsConstructor
 public class ChatRoom extends BaseEntity {
 
 //    @Column(name="counseling_id")
 //    private Long counselingId;   //상담신청 아이디 연결
 
-//    @OneToOne(mappedBy = "chatRoom", fetch = FetchType.LAZY,
-//            cascade = CascadeType.ALL)
-//    private Conference conference;
-
-//    @OneToMany(mappedBy = "roomId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-//    private List<ChatRoomJoin> chatRoomJoins;
-
-//    @OneToMany(mappedBy = "roomId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-//    private List<ChatMessage> chatMessages;
-
+    @Column
     private String name;
 
-    @OneToMany(mappedBy = "chatRoom", fetch = FetchType.EAGER)
-    private List<ChatMessage> messages = new ArrayList<>();
-
-    public ChatRoom() {}
-
-    public void addMessage(ChatMessage message){
-        messages.add(message);
+    public ChatRoom(Long id, String name){
+        this.id = id;
+        this.name = name;
     }
 }
