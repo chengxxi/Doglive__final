@@ -95,6 +95,22 @@
 
 
 
+ <div class="question"> <!-- question 1 -->
+    <p class="demonstration">
+      option test
+    </p>
+
+    <el-form-item v-model="radio6" class="rating">
+      <span style="color: #755744; font-weight: 530;">별로예요</span>
+      <el-radio label="0" class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
+      <el-radio label="25" class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
+      <el-radio label="50" class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
+      <el-radio label="75" class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
+      <el-radio label="100" class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
+      <span style="color: #c58676; font-weight: 530;">좋아요</span>
+    </el-form-item>
+  </div> <!-- question 1 -->
+
 
 </div>
 </template>
@@ -151,20 +167,17 @@
 }
 
 .radioBtn-lg-lf {
-  /* appearance: none; */
   width: 2.5rem;
   height: 2.5rem;
   border: 2px solid #755744;
   border-radius: 50%;
   margin: 0 25px;
 }
-.radioBtn-lg-lf:checked {
-  /* appearance: none; */
+.radioBtn-lg-lf:checkeds {
   width: 2.5rem;
   height: 2.5rem;
   border: 2px solid #755744;
   background-color: #755744;
-  visibility: visible;
   border-radius: 50%;
   margin: 0 25px;
 }
@@ -208,10 +221,11 @@
 :deep(.el-radio-button__inner) {
   display: none;
 }
-/* :deep(.el-radio-button.is-checked) {
-  border-color: #755744;
-  color: #755744;
-} */
+
+:deep(.el-radio__inner) {
+  display: none;
+}
+
 :deep(.el-radio__input.is-checked + .el-radio__label) {
   border-color: #755744;
   color: #755744;
@@ -224,8 +238,6 @@
 }
 
 
-
-/* radio btn styling */
 
 
 
@@ -244,6 +256,7 @@ export default {
       radio3: ref(null),
       radio4: ref(null),
       radio5: ref(null),
+      radio6: ref(null),
     }
   },
 }
