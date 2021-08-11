@@ -1,13 +1,12 @@
 <template>
 
-  <div class="chat-wrapper" :class="{enter : chat.open, leave : !chat.open}">
+  <div class="chat-wrapper" :class="{enter : chat.open, leave : !chat.open}" v-if="chat.open">
     <ChatList v-if="chat.menu == 0"/>
     <ChatDetail v-else-if="chat.menu == 1"/>
   </div>
   <div class="chat-background">
     <i class="el-icon-chat-dot-round chat-button" @click="changeOpen"/>
   </div>
-
 
 </template>
 

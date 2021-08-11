@@ -18,7 +18,7 @@
 <script>
 import { computed, reactive } from 'vue'
 export default {
-  name: 'chat-card',
+  name: 'chat-message',
 
   props: {
     message: Object,
