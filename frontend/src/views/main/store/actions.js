@@ -102,6 +102,12 @@ export function requestMyCommunity({state}, payload){
   return $axios.get(url);
 }
 
+// 커뮤니티 게시글 삭제
+export function requestDeleteCommunity({state}, payload){
+  const url = "/community/" + payload
+  return $axios.delete(url);
+}
+
 // 사용자 프로필 수정
 export function changeUserInfo({ state }, payload) {
   const userId = payload.userId;

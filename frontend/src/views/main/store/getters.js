@@ -33,3 +33,8 @@ export function getIsbookmarked(state) {
 export function getUpdateUserInfo(state){
   return state.userProfile
 }
+
+// 현재 커뮤니티 글 가져오기
+export function getCommunityBoard(state){
+  return state.community;
+}

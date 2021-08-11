@@ -1,10 +1,14 @@
 <template>
   <div>
+    <div style="text-align:right;">
+        <el-button type="outline-primary" round @click="goRegister"
+        >글 작성하기</el-button>
+      </div>
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
       <div class="button-group" v-if="item.userId==state.userId">
           <el-button-group>
             <el-button type="info" plain icon="el-icon-edit" size="mini"></el-button>
-            <el-button type="info" plain icon="el-icon-delete" size="mini"></el-button>
+            <el-button type="info" plain icon="el-icon-delete" size="mini" @click="deleteCommunity(item.id)"></el-button>
           </el-button-group>
       </div>
       <div class="image">
@@ -32,7 +36,7 @@
             <el-tag
               v-if="item.category == '자유게시판'"
               class="mb-3"
-              color="#E9CDA4"
+              color="#A06565"
               effect="dark"
               size="large"
               style="border:none; border-radius: 30px; font-size:14pt;"
@@ -41,7 +45,7 @@
             <el-tag
               v-if="item.category == '나눔'"
               class="mb-3"
-              color="#E9CDA4"
+              color="#C9FD30"
               effect="dark"
               size="large"
               style="border:none; border-radius: 30px; font-size:14pt;"
@@ -124,13 +128,17 @@
 </style>
 
 <script>
-import $axios from "axios";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { onBeforeMount, onMounted, reactive, computed } from "vue";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "community-board-list",
+  components:{
+    createToast
+  },
   setup() {
     const store = new useStore();
     const router = new useRouter();
@@ -151,6 +159,51 @@ export default {
         console.log(err)
     });
 
+    const deleteCommunity = function(id){
+      store.dispatch("root/requestDeleteCommunity", id)
+      .then(function(result){
+        createToast("게시글이 삭제되었어요 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#7eaa72",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "success"
+          });
+          router.go(router.currentRoute)
+      })
+      .catch(function(err) {
+          createToast("게시글 삭제에 실패했어요 😱💦", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "warning"
+          });
+          console.log(err);
+        });
+    }
+
+    const goRegister = function() {
+      if (state.userId === null) {
+        createToast("로그인을 진행해주세요 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "success"
+          });
+          router.push({ name: "community-board-form" });
+      } else {
+        router.push({ name: "community-board-form" });
+      }
+    }
+
     
 
     onMounted(() => {
@@ -163,7 +216,7 @@ export default {
 
    
 
-    return { state };
+    return { state, deleteCommunity, goRegister };
   }
 }
 </script>

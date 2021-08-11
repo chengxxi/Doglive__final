@@ -106,7 +106,7 @@
   margin-top:2%;
 }
 .button-group{
-  display: inline-block;
+  float:right;
   margin-top:1%;
   margin-right:1%;
 }

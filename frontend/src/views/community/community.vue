@@ -6,11 +6,8 @@
         <h1 class="title">Community</h1>
         <p>강아지와 당신의 이야기</p>
       </div>
-      <div style="text-align:right;">
-        <el-button type="outline-primary"  round
-        >글 작성하기</el-button>
-      </div>
-      <community-board-list></community-board-list>
+
+      <router-view></router-view>
     </el-card>
     
   </div>
@@ -37,16 +34,34 @@
 </style>
 
 <script>
+import { defineComponent, reactive, computed, ref } from "vue";
+import $axios from "axios";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { onMounted } from "vue";
 import BreadCrumb from "./components/bread-crumb.vue";
 import CommunityBoardList from "./components/community-board-list.vue";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "community",
   components:{
       BreadCrumb,
-      CommunityBoardList
+      CommunityBoardList,
   },
   setup() {
+    const store = new useStore();
+    const router = new useRouter();
+    const state = reactive({
+      userId: computed(() => {
+        return store.getters["root/getLoginUserInfo"].userId;
+      })
+    });
+
+    
+
+    return {state}
 
 
   }

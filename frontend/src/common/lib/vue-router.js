@@ -168,8 +168,9 @@ const routes = [
     ]
   },
   {
-    path: "/community//mylist",
+    path: "/community/mylist",
     name: "MyCommunity",
+    component : MyCommunity,
     component: () => import("@/views/community/mycommunity.vue")
   },
 ];
