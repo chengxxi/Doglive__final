@@ -25,7 +25,7 @@
     </p>
 
     <el-radio-item>
-      <el-radio-group v-model="radio1" class="rating">
+      <el-radio-group v-model="radio2" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
         <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
         <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
@@ -44,7 +44,7 @@
     </p>
 
     <el-radio-item>
-      <el-radio-group v-model="radio1" class="rating">
+      <el-radio-group v-model="radio3" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
         <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
         <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
@@ -62,7 +62,7 @@
     </p>
 
     <el-radio-item>
-      <el-radio-group v-model="radio1" class="rating">
+      <el-radio-group v-model="radio4" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
         <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
         <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
@@ -80,7 +80,7 @@
     </p>
 
     <el-radio-item>
-      <el-radio-group v-model="radio1" class="rating">
+      <el-radio-group v-model="radio5" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
         <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
         <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
@@ -126,7 +126,6 @@
 .question {
   font-weight: 500;
   margin-bottom: 80px;
-  /* align-items: center; */
 }
 
 .demonstration {
@@ -152,6 +151,7 @@
 }
 
 .radioBtn-lg-lf {
+  /* appearance: none; */
   width: 2.5rem;
   height: 2.5rem;
   border: 2px solid #755744;
@@ -159,6 +159,7 @@
   margin: 0 25px;
 }
 .radioBtn-lg-lf:checked {
+  /* appearance: none; */
   width: 2.5rem;
   height: 2.5rem;
   border: 2px solid #755744;
@@ -167,8 +168,6 @@
   border-radius: 50%;
   margin: 0 25px;
 }
-
-
 
 .radioBtn-md-lf {
   width: 2rem;
@@ -213,6 +212,17 @@
   border-color: #755744;
   color: #755744;
 } */
+:deep(.el-radio__input.is-checked + .el-radio__label) {
+  border-color: #755744;
+  color: #755744;
+}
+
+:deep(.el-radio__input.is-checked .el-radio__inner) {
+  border-color: #755744;
+  background-color: #755744;
+  background: #755744;
+}
+
 
 
 /* radio btn styling */
@@ -230,7 +240,11 @@ export default {
   setup() {
     return {
       radio1: ref(null),
-    };
+      radio2: ref(null),
+      radio3: ref(null),
+      radio4: ref(null),
+      radio5: ref(null),
+    }
   },
 }
 </script>
