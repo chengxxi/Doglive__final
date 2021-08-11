@@ -104,7 +104,7 @@
 <style scoped>
 .main-body {
   width: 100%;
-  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
+  margin-left: 10%;
   margin-right: 10%;
 }
 .main-padding {
@@ -214,14 +214,13 @@ h3 {
 import AdoptFilter from "./components/adopt-filter.vue";
 import AdoptList from "./components/adopt-list.vue";
 import BreadCrumb from "./components/bread-crumb.vue";
-import { onBeforeMount, defineComponent, reactive, computed, ref } from "vue";
-import $axios from "axios";
-import { createToast } from "mosha-vue-toastify";
-import "mosha-vue-toastify/dist/style.css";
+import { reactive, computed, onMounted } from "vue"; // ref
+// import $axios from 'axios'
 
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { onMounted } from "vue";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "adoptlist",
@@ -298,9 +297,6 @@ export default {
     };
   },
   setup() {
-    const dialogVisible = ref(false);
-    const dialogVisible2 = ref(false);
-
     const store = new useStore();
     const router = new useRouter();
 
@@ -331,6 +327,21 @@ export default {
     const searchButton = function(data) {
       console.log(data);
     };
+    const goMBTI = function() {
+      // if 사용자가 아직 테스트 전이면
+      createToast("아직 테스트 결과가 없어요.", {
+        hideProgressBar: "true",
+        timeout: 4500,
+        showIcon: "true",
+        toastBackgroundColor: "#c49d83",
+        position: "bottom-right",
+        transition: "bounce",
+        type: "warning"
+      });
+      router.push({ name: "MBTI" });
+
+      // else 사용자 테스트 결과가 있으면 필터링
+    };
 
     onMounted(() => {
       console.log("breadcrumb");
@@ -343,10 +354,9 @@ export default {
 
     return {
       state,
-      dialogVisible,
-      dialogVisible2,
       searchButton,
-      goRegister
+      goRegister,
+      goMBTI
     };
   }
 };

@@ -2,8 +2,8 @@ package com.ssafy.api.response;
 
 
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.board.BoardListData;
 import com.ssafy.db.entity.board.DogInformation;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -27,7 +27,6 @@ public class BoardDetailListGetRes extends BaseResponseBody {
         res.setStatusCode(statusCode);
         res.setMessage(message);
         res.boardList = boardList;
-
         return res;
     }
 }

@@ -13,37 +13,7 @@ import java.time.LocalDateTime;
  */
 
 
-
 @Entity
-@SqlResultSetMapping(
-        name="BoardandDogMapping",
-        classes = @ConstructorResult(
-                targetClass = BoardListData.class,
-                columns = {
-                        @ColumnResult(name="id", type = Long.class),
-                        @ColumnResult(name="user_id", type = String.class),
-                        @ColumnResult(name="board_type", type = Long.class),
-                        @ColumnResult(name="title", type = String.class),
-                        @ColumnResult(name="thumbnail_url", type = String.class),
-                        @ColumnResult(name="reg_date", type = LocalDateTime.class),
-                        @ColumnResult(name="gender", type = Long.class),
-                        @ColumnResult(name="dog_name", type = String.class),
-                        @ColumnResult(name="mbti", type = String.class),
-                        @ColumnResult(name="age_type", type = Long.class),
-                        @ColumnResult(name="color_type", type = Long.class),
-                        @ColumnResult(name="dog_type", type = Long.class),
-                        @ColumnResult(name="weight", type = Long.class),
-                })
-)
-@NamedNativeQuery(
-        name="BoardAndDogwithPaging",
-        query="SELECT b.id, b.user_id, b.board_type, b.title, b.thumbnail_url, b.reg_date, d.gender, d.dog_name, d.mbti, d.age_type, d.color_type, d.dog_type, d.weight "
-                + "FROM board b LEFT JOIN dog_information d "
-                + "ON b.id = d.board_id "
-                + "WHERE b.board_type = :type1 OR b.board_type = :type2 "
-                + "ORDER BY b.reg_date DESC "
-        +"LIMIT :limit OFFSET :offset",
-        resultSetMapping="BoardandDogMapping")
 @Table(name="board", schema = "board")
 @Getter
 @Setter

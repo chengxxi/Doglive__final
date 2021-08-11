@@ -1,7 +1,9 @@
 package com.ssafy.api.controller;
 
 
+
 import com.ssafy.api.request.BoardParamDto;
+
 import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.request.BookmarkReq;
 import com.ssafy.api.response.*;
@@ -12,7 +14,9 @@ import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.Bookmark;
 import com.ssafy.db.entity.board.*;
+
 import com.ssafy.db.repository.board.BoardRepository;
+
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -74,7 +78,6 @@ public class BoardController {
             Page<DogInformation> resultFilterList = adoptService.filterAdoptBoardList(pageable, boardType, weight, age, gender, searchWord);
             return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", resultFilterList));
 
-
     }
 
 
@@ -86,9 +89,11 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
+
     public ResponseEntity<BoardDetailListGetRes> findBoardList(@PageableDefault(size = 12, sort = "regDate", direction = Sort.Direction.DESC) Pageable pageable){
 
         return null;
+
     }
 
     @PostMapping()
@@ -260,7 +265,5 @@ public class BoardController {
         List<Gugun> gugunList = boardService.getGugunListBySido(Long.parseLong(sido));
         return ResponseEntity.ok(GugunCodeGetRes.of(200, "Success",gugunList));
     }
-
-
 
 }

@@ -56,20 +56,14 @@
 }
 
 .select-wrapper {
-  /* display: table; */
-  /* display: flex; */
-  /* table-layout: fixed; */
   align-items: center;
-  /* margin-top: 20px; */
-  /* width: 100%; */
   border-radius: 1rem;
-  /* background-color: #D7AEA4; */
   background-color: rgba(249, 240, 231, 0.6);
 }
 
 .el-select {
-  margin-left: 20px; /* 선택지 간 좌우 간격 */
-  margin-bottom: 10px; /* 상하 간격 10px */
+  margin-left: 20px;
+  margin-bottom: 10px;
   margin-top: 10px;
 }
 
@@ -81,8 +75,6 @@
 </style>
 
 <script>
-// import { reactive } from "vue";
-
 export default {
   name: "adopt-filter",
   data() {

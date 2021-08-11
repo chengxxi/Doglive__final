@@ -3,15 +3,14 @@ package com.ssafy.api.service;
 
 import com.google.gson.JsonParser;
 import com.ssafy.api.request.AdoptFormReq;
-import com.ssafy.api.request.BoardParamDto;
+
 import com.ssafy.api.request.StatusUpdatePutReq;
-import com.ssafy.api.response.BoardDetailListGetRes;
-import com.ssafy.db.entity.board.BoardListData;
+
 import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.board.DogInformation;
-import com.ssafy.db.entity.board.SearchCondition;
+
 import com.ssafy.db.repository.auth.CounselingHistoryRepository;
 import com.ssafy.db.repository.auth.UserProfileRepository;
 import com.ssafy.db.repository.auth.UserRepository;
@@ -23,7 +22,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service("adoptService")
@@ -42,6 +40,7 @@ public class AdoptServiceImpl implements AdoptService{
     BoardRepository boardRepository;
 
     @Autowired
+
     DogInformationRepositorySupport dogInformationRepositorySupport;
 
     @Autowired

@@ -14,9 +14,11 @@ import AdoptModify from "@/views/adopt/adopt-modify.vue";
 import AdoptForm from "@/views/adopt/adopt-form.vue";
 import AdoptFormConfirm from "@/views/adopt/adopt-form-confirm.vue";
 import AdoptFormReview from "@/views/adopt/adopt-form-review.vue";
+import Find from "@/views/find/find.vue";
 import FindDetail from "@/views/find/find-detail.vue";
 import FindRegister from "@/views/find/find-register.vue";
 import FindModify from "@/views/find/find-modify.vue";
+import MBTI from "@/views/mbti/mbti.vue";
 
 const routes = [
   {
@@ -139,6 +141,21 @@ const routes = [
     component: AdoptModify
   },
   {
+    path: "/adopt/form/confirm",
+    name: "AdoptFormConfirm",
+    component: AdoptFormConfirm
+  },
+  {
+    path: "/adopt/form/review",
+    name: "AdoptFormReview",
+    component: AdoptFormReview
+  },
+  {
+    path: "/find",
+    name: "Find",
+    component: Find
+  },
+  {
     path: "/find/detail",
     name: "FindDetail",
     component: FindDetail
@@ -152,6 +169,11 @@ const routes = [
     path: "/find/modify",
     name: "FindModify",
     component: FindModify
+  },
+  {
+    path: "/mbti",
+    name: "MBTI",
+    component: MBTI
   }
 ];
 

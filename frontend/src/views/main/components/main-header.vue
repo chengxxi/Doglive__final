@@ -20,17 +20,15 @@
             <li>
               <a href="#" @mouseover="changeDisplay('over')">입양/임보</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
-                  <li><a href="/adopt">입양하기</a></li>
-                  <li><a href="/adopt">임시보호하기</a></li>
-                  <li><a href="/adopt">입양 사전 설문</a></li>
-                  <li><a href="/adopt">나와 맞는 강아지 MBTI</a></li>
+                  <li><a href="/adopt">입양/임시보호</a></li>
+                  <li><a href="/adopt/form">입양 사전 설문</a></li>
+                  <li><a href="/mbti">나와 맞는 강아지 MBTI</a></li>
                 </ul>
             </li>
             <li>
               <a href="#" @mouseover="changeDisplay('over')">실종/보호</a>
                 <ul class="depth1" :style="{display: state.showHiddenMenu}">
-                    <li><a href="/adopt">찾아주세요</a></li>
-                    <li><a href="/adopt">보호하고 있어요</a></li>
+                    <li><a href="/find">실종/보호</a></li>
                 </ul>
             </li>
             <li>
@@ -126,7 +124,7 @@
 </style>
 
 <script>
-import { computed, reactive, watchEffect, ref } from 'vue';
+import { computed, reactive, } from 'vue'; // watchEffect, ref
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import Cookies from 'universal-cookie';
@@ -172,7 +170,7 @@ export default {
       state.showUserModal=!state.showUserModal
     }
     const changeDisplay = function(mouse){
-      if(mouse === "over")
+      if(mouse === 'over')
         state.showHiddenMenu = 'block'
       else
         state.showHiddenMenu = 'none'

@@ -1,17 +1,12 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.AdoptFormReq;
-import com.ssafy.api.request.BoardParamDto;
 import com.ssafy.api.request.StatusUpdatePutReq;
-import com.ssafy.api.response.BoardDetailListGetRes;
-import com.ssafy.db.entity.board.BoardListData;
 import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.board.DogInformation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 public interface AdoptService {
 
@@ -28,9 +23,4 @@ public interface AdoptService {
     UserProfile findByUserId(String userId);
 
     boolean canAdoptForm(String userId, Long boardId); //입양신청서 작성한 적 있는지 체크
-
-
-
-
-
 }

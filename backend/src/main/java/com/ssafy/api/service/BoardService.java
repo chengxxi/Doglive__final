@@ -55,5 +55,4 @@ public interface BoardService {
 
     List<Sido> getSidoList();
 
-
 }
