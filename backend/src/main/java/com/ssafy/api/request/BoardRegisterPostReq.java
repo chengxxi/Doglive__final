@@ -45,7 +45,7 @@ public class BoardRegisterPostReq {
     Long gender;
 
     @ApiModelProperty
-    Long hairType;
+    Long dogType;
 
     @ApiModelProperty
     Long age;
@@ -61,5 +61,7 @@ public class BoardRegisterPostReq {
 
     @ApiModelProperty
     String address;
+
+
 
 }

@@ -110,6 +110,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        show_sql : true
+        format_sql : true
+        use_sql_comment: true
 
   mvc:
     throw-exception-if-no-handler-found: true

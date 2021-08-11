@@ -1,32 +1,28 @@
 package com.ssafy.api.service;
 
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafy.api.request.AdoptFormReq;
+
 import com.ssafy.api.request.StatusUpdatePutReq;
-import com.ssafy.api.response.BoardListData;
+
 import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
-import com.ssafy.db.entity.board.Board;
 import com.ssafy.db.entity.board.DogInformation;
+
 import com.ssafy.db.repository.auth.CounselingHistoryRepository;
 import com.ssafy.db.repository.auth.UserProfileRepository;
 import com.ssafy.db.repository.auth.UserRepository;
 import com.ssafy.db.repository.board.*;
 
-import io.micrometer.core.instrument.util.JsonUtils;
-import org.checkerframework.checker.nullness.Opt;
-import org.h2.util.json.JSONObject;
-import org.h2.util.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
 
 @Service("adoptService")
 public class AdoptServiceImpl implements AdoptService{
@@ -44,53 +40,61 @@ public class AdoptServiceImpl implements AdoptService{
     BoardRepository boardRepository;
 
     @Autowired
+
+    DogInformationRepositorySupport dogInformationRepositorySupport;
+
+    @Autowired
     DogInformationRepository dogInformationRepository;
 
+    @Autowired
+    BoardCategoryRepository boardCategoryRepository;
 
-    /* 입양임보 게시물 전체 목록 불러오기 */
+    @Autowired
+    CodeRepository codeRepository;
+
+    /* 입양임보 게시물 전체 목록 불러오기 (페이지네이션 적용) 기본 size는 12개 */
     @Override
-    public List<BoardListData> getAdoptBoardList() {
-        List<BoardListData> adoptList = new ArrayList<>();
+    public Page<DogInformation> getAdoptBoardListInit(Pageable pageable) {
+        Specification<DogInformation> spec = Specification
+                .where(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(Long.parseLong("1")).get()));
+        spec = spec.or(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(Long.parseLong("2")).get()));
 
-
-
-
-        Optional<List<Board>> boardList = boardRepository.findAdoptBoard();
-
-
-        if(boardList.isPresent()) {
-            for (Board board : boardList.get()){
-
-                BoardListData data = new BoardListData(); //게시판 목록에서 필요한 정보들
-
-                data.setBoardId(board.getId());
-                data.setUserId(board.getUserId());
-                data.setType(board.getType());
-                data.setTitle(board.getTitle());
-                data.setThumbnailUrl(board.getThumbnailUrl());
-                data.setRegDate(board.getRegDate());
-
-
-                Optional<DogInformation> dogInformation = dogInformationRepository.findDogInformationByBoardId(board);
-
-                if(dogInformation.isPresent()){
-                    data.setGender(dogInformation.get().getGender());
-                    data.setDogName(dogInformation.get().getDogName());
-                    data.setMbti(dogInformation.get().getMbti());
-                    data.setAge(dogInformation.get().getAge());
-                    data.setNeutralization(dogInformation.get().isNeutralization());
-                    data.setColorType(dogInformation.get().getColorType());
-                    data.setHairType(dogInformation.get().getHairType());
-                    data.setWeight(dogInformation.get().getWeight());
-
-                    //필요 정보 파싱해서 리스트에 add하기
-                    adoptList.add(data);
-                }
-            }
-        }
-
+        Page<DogInformation> adoptList = dogInformationRepository.findAll(spec, pageable);
         return adoptList;
     }
+
+
+    /* 입양임보 게시물 필터링해서 가져오기 */
+    @Override
+    public Page<DogInformation> filterAdoptBoardList(Pageable pageable, Long boardType, Long weight, Long age, Long gender, String searchWord) {
+
+        Specification<DogInformation> spec = Specification.where(DogInformationSpecification.likeDogName(searchWord));
+        System.out.println(age);
+        System.out.println(gender);
+        System.out.println(weight);
+        if(age!=null){
+            spec = spec.and(DogInformationSpecification.eqAge(codeRepository.findById(age).get()));
+        }
+        if(gender!=null){
+            spec = spec.and(DogInformationSpecification.eqGender(codeRepository.findById(gender).get()));
+        }
+        if(weight!=null){
+            spec = spec.and(DogInformationSpecification.eqWeight(codeRepository.findById(weight).get()));
+        }
+        if(boardType!=null){
+            spec = spec.and(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(boardType).get()));
+        }
+
+        return dogInformationRepository.
+                findAll(
+//                findAllByBoardId_TypeOrBoardId_Type(
+//                        boardCategoryRepository.findById(Long.parseLong("1")).get(),
+//                        boardCategoryRepository.findById(Long.parseLong("2")).get(),
+                        spec,
+                        pageable);
+
+    }
+
 
     /* 입양신청서 작성하기 */
     @Override

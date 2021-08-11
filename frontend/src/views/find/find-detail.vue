@@ -79,7 +79,7 @@
                 state.board.colorType.name
               }}</el-descriptions-item>
               <el-descriptions-item label="품종">{{
-                state.board.hairType.name
+                state.board.dogType.name
               }}</el-descriptions-item>
               <el-descriptions-item label="실종/보호장소">{{
                 state.board.address
@@ -452,7 +452,7 @@ export default {
           mbti: result.data.dogInformation.mbti,
           colorType: result.data.dogInformation.colorType,
           gender: result.data.dogInformation.gender,
-          hairType: result.data.dogInformation.hairType,
+          dogType: result.data.dogInformation.dogType.name,
           neutralization: result.data.dogInformation.neutralization,
           writer: result.data.writer,
           weight: result.data.dogInformation.weight,

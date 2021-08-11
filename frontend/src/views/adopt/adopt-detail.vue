@@ -80,11 +80,11 @@
                 state.board.colorType.name
               }}</el-descriptions-item>
               <el-descriptions-item label="품종">{{
-                state.board.hairType.name
+                state.board.dogType.name
               }}</el-descriptions-item>
-              <el-descriptions-item label="현재위치">{{
-                state.board.address
-              }}</el-descriptions-item>
+              <el-descriptions-item label="현재위치">
+                {{ state.board.address }}</el-descriptions-item
+              >
               <el-descriptions-item label="MBTI">
                 <el-tag
                   color="#E9CDA4"
@@ -450,7 +450,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "success"
           });
@@ -462,7 +462,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "warning"
           });
@@ -502,7 +502,7 @@ export default {
           timeout: 4500,
           showIcon: "true",
           toastBackgroundColor: "#c49d83",
-          position: "bottom-right",
+          position: "bottom-left",
           transition: "bounce",
           type: "warning"
         });
@@ -525,7 +525,7 @@ export default {
                 timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#7eaa72",
-                position: "bottom-right",
+                position: "bottom-left",
                 transition: "bounce",
                 type: "success"
               });
@@ -536,7 +536,7 @@ export default {
                 timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#c49d83",
-                position: "bottom-right",
+                position: "bottom-left",
                 transition: "bounce",
                 type: "warning"
               });
@@ -556,7 +556,7 @@ export default {
                 timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#7eaa72",
-                position: "bottom-right",
+                position: "bottom-left",
                 transition: "bounce",
                 type: "success"
               });
@@ -567,7 +567,7 @@ export default {
                 timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#c49d83",
-                position: "bottom-right",
+                position: "bottom-left",
                 transition: "bounce",
                 type: "warning"
               });
@@ -584,7 +584,7 @@ export default {
           timeout: 4500,
           showIcon: "true",
           toastBackgroundColor: "#c49d83",
-          position: "bottom-right",
+          position: "bottom-left",
           transition: "bounce",
           type: "warning"
         });
@@ -604,7 +604,7 @@ export default {
               timeout: 4500,
               showIcon: "true",
               toastBackgroundColor: "#c49d83",
-              position: "bottom-right",
+              position: "bottom-left",
               transition: "bounce",
               type: "warning"
             });
@@ -626,7 +626,7 @@ export default {
           mbti: result.data.dogInformation.mbti,
           colorType: result.data.dogInformation.colorType,
           gender: result.data.dogInformation.gender,
-          hairType: result.data.dogInformation.hairType,
+          dogType: result.data.dogInformation.dogType,
           neutralization: result.data.dogInformation.neutralization,
           writer: result.data.writer,
           weight: result.data.dogInformation.weight,

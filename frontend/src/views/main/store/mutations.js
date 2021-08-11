@@ -28,7 +28,7 @@ export function setBoardDetail(state, payload) {
   state.board.mbti = payload.mbti;
   state.board.colorType = payload.colorType;
   state.board.gender = payload.gender;
-  state.board.hairType = payload.hairType;
+  state.board.dogType = payload.dogType;
   state.board.neutralization = payload.neutralization;
   state.board.writer = payload.writer;
   state.board.weight = payload.weight;
