@@ -801,6 +801,10 @@ li.el-select-dropdown__item.selected {
   color: #d7aea4;
 }
 
+:deep(.el-textarea__inner) {
+  resize: none;
+}
+
 :deep(.el-button--primary) {
   color: #755744;
   border-color: #f9f0e7;

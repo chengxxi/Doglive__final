@@ -648,6 +648,10 @@ li.el-select-dropdown__item.selected {
   border: 1px solid #755744;
 }
 
+:deep(.el-textarea__inner) {
+  resize: none;
+}
+
 :deep(.el-radio-button__inner:hover) {
   color: #d7aea4;
 }

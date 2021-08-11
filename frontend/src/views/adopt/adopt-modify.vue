@@ -630,6 +630,10 @@ li.el-select-dropdown__item.selected {
   background-color: #755744;
 }
 
+:deep(.el-textarea__inner) {
+  resize: none;
+}
+
 :deep(.el-input__inner:focus) {
   border: 1px solid #755744;
 }
