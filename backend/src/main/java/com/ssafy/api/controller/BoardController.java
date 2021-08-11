@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 
+import com.ssafy.api.request.BoardParamDto;
 import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.request.BookmarkReq;
 import com.ssafy.api.response.*;
@@ -11,11 +12,18 @@ import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.Bookmark;
 import com.ssafy.db.entity.board.*;
+import com.ssafy.db.repository.board.BoardRepository;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +47,11 @@ public class BoardController {
     @Autowired
     FindService findService;
 
+    @Autowired
+    BoardRepository boardRepository;
+
+
+
     @GetMapping("/adopt")
     @ApiOperation(value = "입양/임보 공고 목록", notes = "입양/입양 공고 목록을 가져온다")
     @ApiResponses({
@@ -47,9 +60,21 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardDetailListGetRes> adoptBoardList(){
-        List<BoardListData> boardList = adoptService.getAdoptBoardList();
-        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", boardList, boardList.size()));
+    public ResponseEntity<BoardDetailListGetRes> adoptBoardList(@PageableDefault(size = 12) Pageable pageable,
+            Long boardType, Long weight, Long age, Long gender,
+            String searchWord
+    ){
+
+
+//        if(initFlag) {                                                  //초기 페이지 로딩일 경우
+//            resultList = adoptService.getAdoptBoardListInit(param);
+//            if(resultList==null) ResponseEntity.status(404).body(BaseResponseBody.of(404, "검색 결과가 없습니다."));
+//            resultCnt = adoptService.getAdoptBoardListInitCnt(param);
+
+            Page<DogInformation> resultFilterList = adoptService.filterAdoptBoardList(pageable, boardType, weight, age, gender, searchWord);
+            return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", resultFilterList));
+
+
     }
 
 
@@ -61,9 +86,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardDetailListGetRes> findBoardList(){
-        List<BoardListData> boardList = findService.getFindBoardList();
-        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", boardList, boardList.size()));
+    public ResponseEntity<BoardDetailListGetRes> findBoardList(@PageableDefault(size = 12, sort = "regDate", direction = Sort.Direction.DESC) Pageable pageable){
+
+        return null;
     }
 
     @PostMapping()
@@ -235,5 +260,7 @@ public class BoardController {
         List<Gugun> gugunList = boardService.getGugunListBySido(Long.parseLong(sido));
         return ResponseEntity.ok(GugunCodeGetRes.of(200, "Success",gugunList));
     }
+
+
 
 }

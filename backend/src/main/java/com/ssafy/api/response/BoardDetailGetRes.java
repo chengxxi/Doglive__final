@@ -12,6 +12,11 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * 유기동물 상세페이지에서 필요한 정보
+ */
+
+
 @Getter
 @Setter
 @ApiModel("BoardDetailGetRes")

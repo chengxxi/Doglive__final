@@ -8,7 +8,6 @@ import KakaoCallback from "@/views/main/components/kakao-callback.vue";
 import Conferenceroom from "@/views/conferences/conferenceroom.vue";
 import Chat from "@/views/chat/chat.vue";
 import AdoptDetail from "@/views/adopt/adopt-detail.vue";
-import AdoptDetailTest from "@/views/adopt/adopt-detail-test.vue";
 import Adopt from "@/views/adopt/adopt.vue";
 import AdoptRegister from "@/views/adopt/adopt-register.vue";
 import AdoptModify from "@/views/adopt/adopt-modify.vue";
@@ -113,11 +112,6 @@ const routes = [
     path: "/adopt/detail",
     name: "AdoptDetail",
     component: AdoptDetail
-  },
-  {
-    path: "/adopt/detail-test",
-    name: "AdoptDetailTest",
-    component: AdoptDetailTest
   },
   {
     path: "/adopt/register",

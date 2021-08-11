@@ -114,8 +114,8 @@ public class BoardServiceImpl implements  BoardService{
         Code colorType = getCode(boardRegisterPostReq.getColorType());
         if(colorType!=null) dogInformation.setColorType(colorType);
 
-        Code hairType = getCode(boardRegisterPostReq.getHairType());
-        if(hairType!=null) dogInformation.setHairType(hairType);
+        Code dogType = getCode(boardRegisterPostReq.getDogType());
+        if(dogType!=null) dogInformation.setDogType(dogType);
 
         Code weight = getCode(boardRegisterPostReq.getWeight());
         if(weight!=null) dogInformation.setWeight(weight);
@@ -197,15 +197,14 @@ public class BoardServiceImpl implements  BoardService{
         dogInformation.setDescription(boardRegisterPostReq.getDescription());
         dogInformation.setMbti(boardRegisterPostReq.getMbti());
         dogInformation.setAddress(boardRegisterPostReq.getAddress());
-
         Code gender = getCode(boardRegisterPostReq.getGender());
         if(gender!=null) dogInformation.setGender(gender);
 
         Code colorType = getCode(boardRegisterPostReq.getColorType());
         if(colorType!=null) dogInformation.setColorType(colorType);
 
-        Code hairType = getCode(boardRegisterPostReq.getHairType());
-        if(hairType!=null) dogInformation.setHairType(hairType);
+        Code dogType = getCode(boardRegisterPostReq.getDogType());
+        if(dogType!=null) dogInformation.setDogType(dogType);
 
         Code weight = getCode(boardRegisterPostReq.getWeight());
         if(weight!=null) dogInformation.setWeight(weight);

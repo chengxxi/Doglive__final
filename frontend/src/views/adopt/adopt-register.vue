@@ -135,8 +135,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="품종" prop="hair">
-                <el-radio-group v-model="ruleForm.hair">
+              <el-form-item label="품종" prop="dogType">
+                <el-radio-group v-model="ruleForm.dogType">
                   <el-radio label="장모" border></el-radio>
                   <el-radio label="단모" border></el-radio>
                 </el-radio-group>
@@ -345,7 +345,7 @@ export default {
         title: "",
         name: "",
         gender: "",
-        hair: "",
+        dogType: "",
         color: "",
         age: "",
         size: "",
@@ -390,7 +390,7 @@ export default {
         gender: [
           { required: true, message: "성별을 선택해주세요", trigger: "blur" }
         ],
-        hair: [
+        dogType: [
           {
             required: true,
             message: "헤어타입을 선택해주세요",
@@ -493,7 +493,7 @@ export default {
         title: this.ruleForm.title,
         description: this.ruleForm.desc,
         colorType: Number(this.ruleForm.color.id),
-        hairType: this.ruleForm.hair == "단모" ? 10 : 11,
+        dogType: this.ruleForm.dogType == "단모" ? 10 : 11,
         gender: this.ruleForm.gender == "여" ? 8 : 9,
         age: Number(this.ruleForm.age.id),
         neutralization:

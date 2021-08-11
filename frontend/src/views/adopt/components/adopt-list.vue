@@ -1,15 +1,12 @@
 <template>
   <div>
-    <el-row>
-      <!-- <AdoptCard /> -->
-
-      <AdoptCard
-        v-for="(card, idx) in state.boardList"
-        :key="idx"
-        :card="card"
-        @click="readDetail(card.id)"
-      />
-    </el-row>
+    <!-- <AdoptCard /> -->
+    <AdoptCard
+      v-for="(card, idx) in state.boardList"
+      :key="idx"
+      :card="card"
+      @click="readDetail(card.boardId)"
+    />
   </div>
 </template>
 
@@ -57,12 +54,12 @@ export default {
       const userid = store.getters["root/getLoginUserInfo"].userId;
 
       $axios
-        .get("/board/adopt")
+        .get("/board/adopt?page=1")
         .then(function(result) {
           console.log(result);
           console.log(result.data.boardList);
 
-          state.boardList = result.data.boardList;
+          state.boardList = result.data.boardList.content;
         })
         .catch(function(err) {
           console.log(err);
@@ -86,7 +83,7 @@ export default {
             mbti: result.data.dogInformation.mbti,
             colorType: result.data.dogInformation.colorType,
             gender: result.data.dogInformation.gender,
-            hairType: result.data.dogInformation.hairType,
+            dogType: result.data.dogInformation.dogType,
             neutralization: result.data.dogInformation.neutralization,
             writer: result.data.writer,
             weight: result.data.dogInformation.weight,

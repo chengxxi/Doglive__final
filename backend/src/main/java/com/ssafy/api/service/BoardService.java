@@ -1,10 +1,8 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.AdoptFormReq;
 import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.request.BookmarkReq;
 import com.ssafy.db.entity.auth.Bookmark;
-import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.board.*;
 
 import java.util.List;
@@ -56,5 +54,6 @@ public interface BoardService {
     List<Gugun> getGugunListBySido(Long sido);
 
     List<Sido> getSidoList();
+
 
 }

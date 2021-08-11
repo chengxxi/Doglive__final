@@ -1,26 +1,36 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.AdoptFormReq;
+import com.ssafy.api.request.BoardParamDto;
 import com.ssafy.api.request.StatusUpdatePutReq;
-import com.ssafy.api.response.BoardListData;
+import com.ssafy.api.response.BoardDetailListGetRes;
+import com.ssafy.db.entity.board.BoardListData;
 import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.UserProfile;
-import com.ssafy.db.entity.board.Board;
+import com.ssafy.db.entity.board.DogInformation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface AdoptService {
 
-    List<BoardListData> getAdoptBoardList();
+    Page<DogInformation> getAdoptBoardListInit(Pageable pageable); //전체 입양/임보 공고 리스트 불러오기
 
-    CounselingHistory insertAdoptForm(String userId, AdoptFormReq adoptFormReq);
+    Page<DogInformation> filterAdoptBoardList(Pageable pageable, Long boardType, Long weight, Long age, Long gender, String searchWord); //필터링 결과 리스트 불러오기
 
+
+
+    CounselingHistory insertAdoptForm(String userId, AdoptFormReq adoptFormReq); //입양신청서 폼 제출
 
     CounselingHistory updateStatus(Long id, StatusUpdatePutReq statusUpdatePutReq);
 
     UserProfile findByUserId(String userId);
 
-    boolean canAdoptForm(String userId, Long boardId);
+    boolean canAdoptForm(String userId, Long boardId); //입양신청서 작성한 적 있는지 체크
+
+
+
 
 
 }
