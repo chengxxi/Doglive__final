@@ -1,13 +1,16 @@
 <template>
-  <div>
-    <!-- <AdoptCard /> -->
-    <AdoptCard
-      v-for="(card, idx) in state.boardList"
-      :key="idx"
-      :card="card"
-      @click="readDetail(card.boardId)"
-    />
-  </div>
+  <!-- <AdoptCard /> -->
+  <span v-for="(card, idx) in state.boardList" :key="idx">
+    <el-col :span="6">
+      <AdoptCard
+        :card="card"
+        @click="readDetail(card.boardId.id)"
+        style="margin:20px;"
+      />
+    </el-col>
+
+    <div v-if="idx % 4 == 0"></div>
+  </span>
 </template>
 
 <style scoped>
@@ -36,8 +39,7 @@ export default {
   //   // boardList: Object,
   //   // title: String,
   //   // boardType: String,
-  //   cards: Array,
-
+  //   // cards: Array,
   // },
 
   setup() {
@@ -54,7 +56,7 @@ export default {
       const userid = store.getters["root/getLoginUserInfo"].userId;
 
       $axios
-        .get("/board/adopt?page=1")
+        .get("/board/adopt?searchWord=")
         .then(function(result) {
           console.log(result);
           console.log(result.data.boardList);

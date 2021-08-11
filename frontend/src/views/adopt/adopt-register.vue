@@ -547,7 +547,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "success"
           });
@@ -560,7 +560,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "warning"
           });
@@ -584,6 +584,16 @@ export default {
 </script>
 
 <style scoped>
+.main-body {
+  width: 100%;
+  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
+  margin-right: 10%;
+}
+.main-padding {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
 :deep(.el-radio__inner:hover) {
   border-color: #755744;
   color: #755744;

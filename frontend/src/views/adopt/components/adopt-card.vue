@@ -1,21 +1,20 @@
 <template>
   <!-- 개별 입양 공고 card -->
-  <el-card
-    :body-style="{ padding: '10px' }"
-    style="margin: 10px !important;"
-    shadow="hover"
-    class="el-col-5"
-  >
-    <img :src="require('@/assets/images/logo2.png')" class="image" />
-    <!-- <img :src="require('https://placedog.net/200/200?random')" class="image"> -->
-    <div style="padding: 14px;">
-      <!-- <span><el-tag color="#D7AFA4">{{ card.boardType }}</el-tag></span> -->
-      <div class="bottom">
-        <p>{{ card.title }}</p>
-        <!-- <p>{{ state.boardList.type }}</p> -->
-        <el-button type="text" class="button">Details</el-button>
-      </div>
-    </div>
+
+  <el-card>
+    <el-row>
+      <img :src="require('@/assets/images/logo2.png')" class="image" />
+      <!-- <img :src="require('https://placedog.net/200/200?random')" class="image"> -->
+    </el-row>
+    <el-row>
+      <div>{{ card.boardId.title }}</div>
+    </el-row>
+    <el-row>
+      <p>{{ card.boardId.dogName }}</p>
+      <p>{{ card.boardId.type.name }}</p>
+      <p>{{ card.mbti }}</p>
+      <p>{{ card.gender.name }}</p>
+    </el-row>
   </el-card>
 </template>
 

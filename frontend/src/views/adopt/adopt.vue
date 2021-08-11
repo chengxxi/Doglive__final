@@ -4,7 +4,7 @@
       <div>
         <bread-crumb></bread-crumb>
         <div style="margin-top:50px">
-          <h1 class="title">입양하기 게시물</h1>
+          <h1 class="title">입양/임보</h1>
           <p>입양을 기다리는 아이들</p>
           <!-- 상세 문구 수정 필요 -->
         </div>
@@ -101,7 +101,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .main-body {
   width: 100%;
   margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
@@ -214,8 +214,10 @@ h3 {
 import AdoptFilter from "./components/adopt-filter.vue";
 import AdoptList from "./components/adopt-list.vue";
 import BreadCrumb from "./components/bread-crumb.vue";
-import { defineComponent, reactive, computed, ref } from "vue";
+import { onBeforeMount, defineComponent, reactive, computed, ref } from "vue";
 import $axios from "axios";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -303,6 +305,7 @@ export default {
     const router = new useRouter();
 
     const state = reactive({
+      boardList: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       })
@@ -310,7 +313,15 @@ export default {
 
     const goRegister = function() {
       if (state.userId === null) {
-        alert("로그인을 진행해주세요!");
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
         router.push({ name: "Login" });
       } else {
         router.push({ name: "AdoptRegister" });

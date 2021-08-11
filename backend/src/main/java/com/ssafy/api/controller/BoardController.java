@@ -154,10 +154,10 @@ public class BoardController {
         List<BoardComment> boardComments = boardService.getBoardCommentsByBoard(board);
         List<BoardImage> boardImages = boardService.getBoardImagesByBoard(board);
 
-        String writer = userService.getUserName(board.getUserId());
-        if(board.getUserId().equals(userId)) isOwner = true;
 
-        System.out.println(writer);
+        if(userId!=null){
+            if(board.getUserId().equals(userId)) isOwner = true;
+        }
 
 
         List<Bookmark> userBookmarks = userService.getBookmarkList(userId);
@@ -172,7 +172,7 @@ public class BoardController {
         }
 
         System.out.println("북마크체크"+isBookmarked+" "+userId+" "+board.getUserId());
-        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner, writer, board, dogInformation, boardImages, boardComments));
+        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner,  board, dogInformation, boardImages, boardComments));
     }
 
 
