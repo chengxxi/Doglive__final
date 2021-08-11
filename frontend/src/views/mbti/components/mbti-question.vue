@@ -10,9 +10,6 @@
       :colors="colors"
       class="rating"
     >
-    <!-- :icon-classes="iconClasses"
-          void-icon-class="icon-rate-face-off" -->
-
     </el-rate>
   </div>
 
@@ -35,12 +32,12 @@
       쉽게 흥분하는 일은 거의 없어요.
     </span>
 
-    <el-radio-group v-model="radio2" class="rating">
-      <el-radio-button :value="1" size="medium" class="radioBtn"></el-radio-button> <!-- 매우 아니다 -->
-      <el-radio-button :value="2" size="small" class="radioBtn"></el-radio-button> <!-- 조금 아니다 -->
-      <el-radio-button :label="3" size="mini" class="radioBtn"></el-radio-button> <!-- 보통이다 -->
-      <el-radio-button :label="4" size="small" class="radioBtn"></el-radio-button> <!-- 조금 그렇다 -->
-      <el-radio-button :label="5" size="medium" class="radioBtn"></el-radio-button> <!-- 매우 그렇다 -->
+    <el-radio-group v-model="radio2" clearable class="rating">
+      <el-radio label="" class="radioBtn" size="medium"></el-radio> <!-- 매우 아니다 -->
+      <el-radio label="" class="radioBtn" size="small"></el-radio> <!-- 조금 아니다 -->
+      <el-radio label="" class="radioBtn" size="mini"></el-radio> <!-- 보통이다 -->
+      <el-radio label="" class="radioBtn" size="small"></el-radio> <!-- 조금 그렇다 -->
+      <el-radio label="" class="radioBtn" size="medium"></el-radio> <!-- 매우 그렇다 -->
     </el-radio-group>
   </div>
 
@@ -86,15 +83,30 @@
 
 .radioBtn {
   content: '';
-  /* width: 1.25em;
-  height: 1.25em; */
+  width: 1.25em;
+  height: 1.25em;
   appearance: none;
-  font-size: 3rem;
+  /* font-size: 3rem; */
   border: 2px solid darkblue;
   border-radius: 50%;
   margin: 0 10px;
-
 }
+
+/* radio 안에 체크하는 원 삭제 */
+:deep(.el-radio__inner) {
+  display: none;
+}
+:deep(.el-radio__input.is-checked + .el-radio__label) {
+  border-color: #755744;
+  color: #755744;
+}
+
+:deep(.el-radio__input.is-checked .el-radio__inner) {
+  border-color: #755744;
+  background-color: #755744;
+  background: #755744;
+}
+
 
 </style>
 
@@ -111,7 +123,7 @@ export default {
       // iconClasses: ref(['icon-rate-face-1', 'icon-rate-face-2', 'icon-rate-face-3'])
       // same as { 2: 'icon-rate-face-1', 4: { value: 'icon-rate-face-2', excluded: true }, 5: 'icon-rate-face-3' }
       radio: ref(3),
-      radio2: ref(3),
+      radio2: ref(null),
     };
   },
 }
