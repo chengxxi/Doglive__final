@@ -52,7 +52,6 @@ export default {
     const router = new useRouter()
     const state = reactive({
       ApplyResult : [],
-      boardData : [],
     })
     const userId = store.getters['root/getLoginUserInfo'].userId;
 

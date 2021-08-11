@@ -2,11 +2,14 @@ package com.ssafy.db.repository.board;
 
 
 import com.ssafy.db.entity.board.Board;
+import com.ssafy.db.entity.board.BoardCategory;
+import com.ssafy.db.entity.board.Code;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.expression.spel.ast.OpInc;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +18,8 @@ import java.util.Optional;
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
     Optional<List<Board>> findBoardsByUserId(String userId);
+    @Transactional
+    Optional<List<Board>> deleteBoardsByUserId(String userId);
 
     @Override
     Optional<Board> findById(Long boardId);
@@ -31,7 +36,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
             nativeQuery = true
     )
     Optional<List<Board>> findFindBoard();
-
-
-
+    
 }

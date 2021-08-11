@@ -1,5 +1,5 @@
 <template>
-  <div class="main-body main-padding row justify-content-center">
+  <div>
     <el-row>
       <!-- <AdoptCard /> -->
 
@@ -95,7 +95,8 @@ export default {
             fileList: result.data.boardImageList,
             isOwner: result.data.owner,
             description: result.data.dogInformation.description,
-            dogName: result.data.dogInformation.dogName
+            dogName: result.data.dogInformation.dogName,
+            isBookmarked: result.data.bookmarked
           };
 
           store.commit("root/setBoardDetail", boardDetail);

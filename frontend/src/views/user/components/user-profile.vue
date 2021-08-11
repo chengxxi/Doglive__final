@@ -24,17 +24,17 @@
             { required: true, message: 'Please input email address', trigger: 'change' },
             { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
           ]">
-        <el-input v-model="formData.userProfile.email" disabled></el-input>
+        <el-input v-model="formData.userProfile.email"></el-input>
         </el-form-item>
         <el-form-item
           label="생년월일"
           :rules="{ required: true, message: 'Please input email address', trigger: 'change' }">
-        <el-date-picker type="date" v-model="formData.userProfile.birth" disabled></el-date-picker>
+        <el-date-picker type="date" v-model="formData.userProfile.birth"></el-date-picker>
         </el-form-item>
         <el-form-item
-          label="Phone"
+          label="phoneNumber"
           :rules="{ required: true, message: 'Please input email address', trigger: 'change' }">
-        <el-input v-model="formData.userProfile.phone" disabled></el-input>
+        <el-input v-model="formData.userProfile.phoneNumber"></el-input>
         </el-form-item>
         </el-form>
         <div class="button-group">
@@ -102,10 +102,12 @@
 
 <script>
 import $axios from 'axios';
-import { computed, reactive, watchEffect, ref } from 'vue';
+import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import Cookies from 'universal-cookie';
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: 'user-profile',
@@ -129,8 +131,8 @@ export default {
           imageURL : result.data.userProfile.profileImageUrl,
           name : result.data.userProfile.name,
           email :  result.data.userProfile.email,
-          birth : '1997' + result.data.userProfile.phoneNumber,
-          phone : '010-1234-1234',
+          birth : result.data.userProfile.birth,
+          phoneNumber : result.data.userProfile.phoneNumber,
         }
         store.commit('root/setProfile',Profile)
         console.log(result.data)
@@ -141,10 +143,18 @@ export default {
 
 
     const updateProfile = function(){
-      console.log("프로필 업데이트" + formData.userProfile)
+      console.log(formData.userProfile)
       store.dispatch('root/changeUserInfo', {userId :userId, data :formData.userProfile})
       .then(function(result){
-        alert("수정이 완료되었습니다!")
+        createToast("프로필이 수정되었어요 💨💨", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-right",
+                transition: "bounce",
+                type: "success"
+            });
         router.push({name : 'Mypage'})
       }).catch(function(err){
         console.log(err)

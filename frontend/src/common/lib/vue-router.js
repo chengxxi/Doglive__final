@@ -13,6 +13,9 @@ import AdoptDetailTest from "@/views/adopt/adopt-detail-test.vue";
 import Adopt from "@/views/adopt/adopt.vue";
 import AdoptRegister from "@/views/adopt/adopt-register.vue";
 import AdoptModify from "@/views/adopt/adopt-modify.vue";
+import AdoptForm from "@/views/adopt/adopt-form.vue";
+import AdoptFormConfirm from "@/views/adopt/adopt-form-confirm.vue";
+import AdoptFormReview from "@/views/adopt/adopt-form-review.vue";
 import FindDetail from "@/views/find/find-detail.vue";
 import FindRegister from "@/views/find/find-register.vue";
 import FindModify from "@/views/find/find-modify.vue";
@@ -124,6 +127,21 @@ const routes = [
     component: AdoptRegister
   },
   {
+    path: "/adopt/form",
+    name: "AdoptForm",
+    component: AdoptForm
+  },
+  {
+    path: "/adopt/form/confirm",
+    name: "AdoptFormConfirm",
+    component: AdoptFormConfirm
+  },
+  {
+    path: "/adopt/form/review",
+    name: "AdoptFormReview",
+    component: AdoptFormReview
+  },
+  {
     path: "/adopt/modify",
     name: "AdoptModify",
     component: AdoptModify
@@ -152,15 +170,15 @@ const router = createRouter({
 
 // URL이 변경되기전 거쳐가는 함수
 router.beforeEach(function(to, from, next){
-  if(to.matched.some(record => record.meta.requiresAuth)){ // 로그인이 필요한 페이지라면
-    if(store.getters["root/getLoginUserInfo"].userId === null){ // 현재 로그인된 상태인지 확인
-      next({ path: '/', query: {redirect: to.fullPath}})
-    }else{
-      next()
-    }
-  }else{
-    next()
-  }
+  // if(to.matched.some(record => record.meta.requiresAuth)){ // 로그인이 필요한 페이지라면
+  //   if(store.getters["root/getLoginUserInfo"].userId === null){ // 현재 로그인된 상태인지 확인
+  //     next({ path: '/', query: {redirect: to.fullPath}})
+  //   }else{
+  //     next()
+  //   }
+  // }else{
+  //   next()
+  // }
 })
 
 export default router;

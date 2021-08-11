@@ -140,7 +140,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<UserProfileGetRes> findApplicants(@PathVariable("id") String id){
+    public ResponseEntity<CounselingHistoryListGetRes> findApplicants(@PathVariable("id") String id){
         List<CounselingHistory> applicantList = userService.getApplicantList(id);
         List<UserProfile> userProfileList = new ArrayList<>();
 
@@ -152,9 +152,9 @@ public class UserController {
         System.out.println(userProfileList);
 
         if(applicantList.size() == 0){
-            return ResponseEntity.ok(UserProfileGetRes.of(404,"신청자가 없습니다.",null,0));
+            return ResponseEntity.ok(CounselingHistoryListGetRes.of(404,"신청자가 없습니다.",null,0));
         }
-        return ResponseEntity.ok(UserProfileGetRes.of(200,"Success",userProfileList,userProfileList.size()));
+        return ResponseEntity.ok(CounselingHistoryListGetRes.of(200,"Success",applicantList,applicantList.size()));
     }
 
 //    @GetMapping("/me")

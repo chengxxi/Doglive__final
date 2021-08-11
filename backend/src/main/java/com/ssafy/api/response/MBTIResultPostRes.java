@@ -13,15 +13,19 @@ import java.util.List;
 @Getter
 @Setter
 @ApiModel("MBTIDetailGetRes")
-public class MBTIDetailGetRes extends BaseResponseBody {
+public class MBTIResultPostRes extends BaseResponseBody {
     @ApiModelProperty
     MBTI mbti;
 
-    public static MBTIDetailGetRes of(Integer statusCode, String message, MBTI mbti) {
-        MBTIDetailGetRes res = new MBTIDetailGetRes();
+    @ApiModelProperty
+    List<Board> matchedBoardList;
+
+    public static MBTIResultPostRes of(Integer statusCode, String message, MBTI mbti, List<Board> list) {
+        MBTIResultPostRes res = new MBTIResultPostRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
         res.setMbti(mbti);
+        res.setMatchedBoardList(list);
         return res;
     }
 }

@@ -3,7 +3,7 @@
     <el-card
       class="box-card"
       style="width:100%; height:auto;  border:none;"
-      shadow="hover"
+      shadow="none"
     >
       <bread-crumb></bread-crumb>
 
@@ -158,7 +158,6 @@
                 type="textarea"
                 :rows="7"
                 maxlength="1000"
-                show-word-limit
                 v-model="ruleForm.desc"
               ></el-input>
             </el-form-item>
@@ -553,7 +552,7 @@ export default {
             type: "success"
           });
           console.log("등록 성공");
-          router.push({ name: "Adopt" });
+          router.push({ name: "AdoptDetail" });
         })
         .catch(function(err) {
           createToast("공고 등록에 실패했어요 💬💦", {
@@ -576,6 +575,7 @@ export default {
         title: "입양/임보",
         subTitle: "입양/임보 공고 작성"
       });
+      window.scrollTo(0, 0);
     });
 
     return { state, registerData };

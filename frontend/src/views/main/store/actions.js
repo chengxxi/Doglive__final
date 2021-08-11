@@ -99,6 +99,13 @@ export function requestDeleteBoard({ state }, payload) {
   return $axios.delete(url);
 }
 
+//게시판 공고 읽기
+export function requestReadBoard({ state }, payload) {
+  const url = "/board/" + payload.boardId + "/" + payload.userId;
+  console.log(payload);
+  return $axios.get(url);
+}
+
 // 사용자 프로필 정보 가져오기
 export function requestUserProfile({ state }, payload) {
   const url = "/users/" + payload;
@@ -111,4 +118,34 @@ export function changeUserInfo({ state }, payload) {
   console.log(payload.data);
   const url = "/users/" + userId;
   return $axios.put(url, payload.data);
+}
+
+// 신청결과 수정
+export function changeResult({ state }, payload) {
+  const id = payload.id;
+  const url = "/adopt/" + id;
+  return $axios.put(url, payload.status);
+}
+//시도코드 리스트
+export function requestSidoCodeList({ state }, payload) {
+  const url = "/board/sido";
+  return $axios.get(url);
+}
+
+//시구군 코드 리스트
+export function requestGugunCodeList({ state }, payload) {
+  const url = "/board/gugun/" + payload;
+  return $axios.get(url);
+}
+
+//입양신청서 제출
+export function registerAdoptForm({ state }, payload) {
+  const url = "/adopt/form/" + payload.userId;
+  return $axios.post(url, payload.data);
+}
+
+//입양신청서 작성했는지 체크
+export function existedForm({ state }, payload) {
+  const url = "/adopt/check/" + payload.userId + "/" + payload.boardId;
+  return $axios.get(url);
 }

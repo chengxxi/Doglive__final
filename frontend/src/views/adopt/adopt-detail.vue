@@ -79,7 +79,7 @@
               <el-descriptions-item label="컬러">{{
                 state.board.colorType.name
               }}</el-descriptions-item>
-              <el-descriptions-item label="헤어타입">{{
+              <el-descriptions-item label="품종">{{
                 state.board.hairType.name
               }}</el-descriptions-item>
               <el-descriptions-item label="현재위치">{{
@@ -578,16 +578,72 @@ export default {
     };
 
     const goChat = function(id) {
-      createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
-        hideProgressBar: "true",
-        timeout: 4500,
-        showIcon: "true",
-        toastBackgroundColor: "#c49d83",
-        position: "bottom-right",
-        transition: "bounce",
-        type: "warning"
-      });
+      if (state.userId === null) {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-right",
+          transition: "bounce",
+          type: "warning"
+        });
+        router.push({ name: "Login" });
+      } else {
+        store
+          .dispatch("root/existedForm", {
+            userId: state.userId,
+            boardId: state.board.boardId
+          })
+          .then(function(result) {
+            router.push({ name: "AdoptFormConfirm" });
+          })
+          .catch(function(err) {
+            createToast("이미 신청서를 작성했던 공고입니다 💬💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-right",
+              transition: "bounce",
+              type: "warning"
+            });
+          });
+      }
     };
+
+    $axios
+      .get("/board/" + state.board.boardId + "/" + state.userId)
+      .then(function(result) {
+        console.log(result);
+
+        const boardDetail = {
+          boardId: result.data.board.id,
+          boardType: result.data.board.type,
+          thumbnailUrl: result.data.board.thumbnailUrl,
+          title: result.data.board.title,
+          address: result.data.dogInformation.address,
+          mbti: result.data.dogInformation.mbti,
+          colorType: result.data.dogInformation.colorType,
+          gender: result.data.dogInformation.gender,
+          hairType: result.data.dogInformation.hairType,
+          neutralization: result.data.dogInformation.neutralization,
+          writer: result.data.writer,
+          weight: result.data.dogInformation.weight,
+          ageType: result.data.dogInformation.age,
+          regDate: result.data.board.regDate,
+          fileList: result.data.boardImageList,
+          isOwner: result.data.owner,
+          description: result.data.dogInformation.description,
+          dogName: result.data.dogInformation.dogName,
+          isBookmarked: result.data.bookmarked
+        };
+
+        store.commit("root/setBoardDetail", boardDetail);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
 
     onMounted(() => {
       console.log("breadcrumb");
@@ -596,6 +652,7 @@ export default {
         title: "입양/임보",
         subTitle: "입양/임보 동물 정보"
       });
+      window.scrollTo(0, 0);
     });
 
     return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify };
