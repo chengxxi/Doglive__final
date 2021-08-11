@@ -2,9 +2,13 @@
   <div class="main-body main-padding">
     <el-card class="box-card " style="width:100%;" shadow="none">
       <bread-crumb></bread-crumb>
-      <div style="margin-top:50px">
+      <div style="margin-top:50px margin-left:1%;">
         <h1 class="title">Community</h1>
         <p>강아지와 당신의 이야기</p>
+      </div>
+      <div style="text-align:right;">
+        <el-button type="outline-primary"  round
+        >글 작성하기</el-button>
       </div>
       <community-board-list></community-board-list>
     </el-card>
@@ -14,9 +18,9 @@
 
 <style scoped>
 .main-body {
-  width: 60%;
-  margin-left: 20%; 
-  margin-right: 20%;
+  width: 90%;
+  margin-left: 25%; 
+  margin-right: 25%;
   margin-bottom : 50px
 }
 .main-padding {
@@ -27,15 +31,12 @@
   font-size: 2.5rem;
   font-weight: normal;
 }
+.el-button{
+  margin-right:1%;
+}
 </style>
 
 <script>
-
-import $axios from "axios";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { onMounted } from "vue";
-import { defineComponent, reactive, computed, ref } from "vue";
 import BreadCrumb from "./components/bread-crumb.vue";
 import CommunityBoardList from "./components/community-board-list.vue";
 
