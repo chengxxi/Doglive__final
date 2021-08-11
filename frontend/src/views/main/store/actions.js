@@ -29,10 +29,25 @@ export function createChatRoom({ state }, payload) {
   return $axios.post(url, roomName);
 }
 
+// 채팅방 입장 요청
+// export function enterChatRoom({ state }, payload){
+//   const url = '/chatroom'
+//   let roomName = payload
+//   return $axios.post(url, roomName)
+// }
+
 // 채팅방 목록 요청
 export function requestChatRoomList({ state }) {
   const url = "/chatroom";
   return $axios.get(url);
+}
+
+// 채팅방 이전 로그 목록 요청
+export function requestChatMessageList({ state }, payload){
+  console.log("payload : " + payload)
+  let roomId = payload.roomId;
+  const url = '/chatroom/' + roomId + '/messages/'
+  return $axios.get(url)
 }
 
 // 사용자 북마크 리스트를 불러오기

@@ -21,7 +21,7 @@ public class Conference extends BaseEntity{
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "chat_room_id", nullable = false)
-    private ChatRoom chatRoom;                // 채팅방 room Id
+    private ChatRoom roomId;                // 채팅방 room Id
 
     @Column(name="call_start_time")
     @Temporal(TemporalType.TIME)

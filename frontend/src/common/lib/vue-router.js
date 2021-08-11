@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useStore } from 'vuex'
 import Main from "@/views/main/components/main-content.vue";
 import Login from "@/views/main/components/login-dialog.vue";
 import Logout from "@/views/main/components/logout-dialog.vue";
@@ -20,12 +21,12 @@ import FindRegister from "@/views/find/find-register.vue";
 import FindModify from "@/views/find/find-modify.vue";
 import MBTI from "@/views/mbti/mbti.vue";
 
+
 const routes = [
   {
     path: "/",
     name: "Main",
     component: Main
-    // beforeEnter: requireAuth,
   },
   {
     path: "/conference",
@@ -88,10 +89,11 @@ const routes = [
     ]
   },
   {
-    path: "/chat",
-    redirect: "/chat/rooms",
-    name: "Chat",
-    component: Chat,
+    path : '/chat',
+    redirect : '/chat/rooms',
+    name: 'Chat',
+    component : Chat,
+    meta: { requiresAuth : true },
     children: [
       {
         path: "rooms",
@@ -183,8 +185,16 @@ const router = createRouter({
 });
 
 // URL이 변경되기전 거쳐가는 함수
-router.beforeEach(function(to, from, next) {
-  next();
-});
+router.beforeEach(function(to, from, next){
+  // if(to.matched.some(record => record.meta.requiresAuth)){ // 로그인이 필요한 페이지라면
+  //   if(store.getters["root/getLoginUserInfo"].userId === null){ // 현재 로그인된 상태인지 확인
+  //     next({ path: '/', query: {redirect: to.fullPath}})
+  //   }else{
+  //     next()
+  //   }
+  // }else{
+  //   next()
+  // }
+})
 
 export default router;
