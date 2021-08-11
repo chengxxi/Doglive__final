@@ -5,9 +5,10 @@
         >글 작성하기</el-button>
       </div>
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
-      <div class="button-group" v-if="item.userId==state.userId">
+      <!-- <div class="button-group" v-if="item.userId==state.userId"> -->
+        <div class="button-group">
           <el-button-group>
-            <el-button type="info" plain icon="el-icon-edit" size="mini"></el-button>
+            <el-button type="info" plain icon="el-icon-edit" size="mini" @click="updateCommunity(item.id)"></el-button>
             <el-button type="info" plain icon="el-icon-delete" size="mini" @click="deleteCommunity(item.id)"></el-button>
           </el-button-group>
       </div>
@@ -147,9 +148,8 @@ export default {
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       }),
-
     });
-   
+
 
     store.dispatch('root/requestCommunityBoardList')
       .then(function(result){
@@ -158,6 +158,24 @@ export default {
       }).catch(function(err){
         console.log(err)
     });
+
+
+    const updateCommunity = function(id){
+      store.dispatch("root/requestCommunityDetsil", id)
+      .then(function(result){
+        console.log(result)
+        const CommunityDetail = {
+          title : result.data.community.title,
+          category : result.data.community.category,
+          description : result.data.community.description,
+        }
+        store.commit("root/setCommunityBoard", CommunityDetail);
+        router.push({ name : "community-board-update"})
+      }).catch(function(err) {
+          console.log(err);
+        });
+      
+    }
 
     const deleteCommunity = function(id){
       store.dispatch("root/requestDeleteCommunity", id)
@@ -198,9 +216,9 @@ export default {
             transition: "bounce",
             type: "success"
           });
-          router.push({ name: "community-board-form" });
+          router.push({ name: "community-board-register" });
       } else {
-        router.push({ name: "community-board-form" });
+        router.push({ name: "community-board-register" });
       }
     }
 
@@ -216,7 +234,7 @@ export default {
 
    
 
-    return { state, deleteCommunity, goRegister };
+    return { state, deleteCommunity, goRegister, updateCommunity };
   }
 }
 </script>

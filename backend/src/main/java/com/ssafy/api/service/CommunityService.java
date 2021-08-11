@@ -19,6 +19,9 @@ public interface CommunityService {
     /* userId로 커뮤니티 글 찾기 */
     List<Community> getCommunityListByUserId(String userId);
 
+    /* Id로 커뮤니티 글 찾기 */
+    Community getCommunityById(Long id);
+
     /* CommunityBoard로 CommunityImage 전부 지우기 */
     void deleteAllCommunityImagesByCommunity(Community community);
 

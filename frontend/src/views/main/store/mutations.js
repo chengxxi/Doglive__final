@@ -48,3 +48,10 @@ export function setProfile(state, payload) {
   state.userProfile.birth = payload.birth;
   state.userProfile.phoneNumber = payload.phoneNumber;
 }
+
+export function setCommunityBoard(state, payload){
+  state.community.title = payload.title;
+  state.community.category = payload.category;
+  state.community.description = payload.description;
+
+}

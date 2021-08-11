@@ -17,5 +17,7 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
 
     Optional<List<Community>> findCommunitiesByUserId(String id);
 
+    Optional<Community> findCommunityById(Long id);
+
 }
 

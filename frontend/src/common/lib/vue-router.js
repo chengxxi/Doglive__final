@@ -162,8 +162,13 @@ const routes = [
       },
       {
         path: "register",
-        name: "community-board-form",
-        component: () => import("@/views/community/components/community-board-form.vue")
+        name: "community-board-register",
+        component: () => import("@/views/community/components/community-board-register.vue")
+      },
+      {
+        path: "update",
+        name: "community-board-update",
+        component: () => import("@/views/community/components/community-board-update.vue")
       },
     ]
   },

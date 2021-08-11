@@ -74,6 +74,16 @@ public class CommunityServiceImpl implements  CommunityService{
         return null;
     }
 
+    @Override
+    public Community getCommunityById(Long id) {
+        Optional<Community> community = communityRepository.findCommunityById(id);
+        if(community.isPresent()){
+            return community.get();
+        }
+        return null;
+    }
+
+
     /* CommunityBoard로 CommunityImage 전부 지우기 */
     @Override
     public void deleteAllCommunityImagesByCommunity(Community community) {

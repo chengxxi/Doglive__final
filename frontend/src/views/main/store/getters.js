@@ -2,7 +2,7 @@
 
 // 현재 로그인 된 UserInfo 가져오기
 export function getLoginUserInfo(state) {
-  console.log("state 내용 : " + state)
+  console.log(state)
   return state.loginUserInfo
 }
 
@@ -36,5 +36,6 @@ export function getUpdateUserInfo(state){
 
 // 현재 커뮤니티 글 가져오기
 export function getCommunityBoard(state){
+  console.log(state)
   return state.community;
 }

@@ -114,6 +114,18 @@ export function requestRegisterCommunity({state}, payload){
   return $axios.post(url, payload);
 }
 
+// 커뮤니티 게시글 수정
+export function requestUpdateCommunity({state}, payload){
+  const url = "/community/" + payload
+  return $axios.put(url);
+}
+
+// 커뮤니티 게시글 상세 정보 가져오기
+export function requestCommunityDetsil({state}, payload){
+  const url = "/community/detail/" + payload
+  return $axios.get(url);
+}
+
 // 사용자 프로필 수정
 export function changeUserInfo({ state }, payload) {
   const userId = payload.userId;

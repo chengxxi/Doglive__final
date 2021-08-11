@@ -92,7 +92,7 @@
           <el-divider />
           <el-row class="mb-3">
           <el-form-item label="내용" prop="description">
-            <el-input type="textarea" v-model="boardForm.description"></el-input>
+            <el-input type="textarea" v-model="boardForm.description" style="resize: none; white-space:pre;"></el-input>
           </el-form-item>
             
           </el-row>
@@ -182,7 +182,7 @@ import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
 
 export default {
-  name: "community-board-list",
+  name: "community-board-register",
   data(){
     return{
       boardForm:{
@@ -231,7 +231,6 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.registerData(data);
-          console.log(this.boardForm);
         } else {
           console.log("error submit!!");
           return false;
@@ -265,7 +264,6 @@ export default {
    
 
    const registerData = function(data) {
-     console.log(data);
       store
         .dispatch("root/requestRegisterCommunity", data)
         .then(function(result) {
