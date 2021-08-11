@@ -2,7 +2,7 @@
   <div class="main-body main-padding">
     <el-card class="box-card " style="width:100%;" shadow="none">
       <bread-crumb></bread-crumb>
-      <div style="margin-top:50px margin-left:1%;">
+      <div style="margin-top:2%; margin-left:1%;">
         <h1 class="title">Community</h1>
         <p>강아지와 당신의 이야기</p>
       </div>

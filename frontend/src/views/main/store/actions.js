@@ -96,6 +96,12 @@ export function requestCommunityBoardList({state}){
   return $axios.get(url);
 }
 
+// 사용자가 작성한 커뮤니티 게시글 목록 가져오기
+export function requestMyCommunity({state}, payload){
+  const url = "/community/" + payload
+  return $axios.get(url);
+}
+
 // 사용자 프로필 수정
 export function changeUserInfo({ state }, payload) {
   const userId = payload.userId;

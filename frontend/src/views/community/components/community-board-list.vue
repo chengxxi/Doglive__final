@@ -139,6 +139,7 @@ export default {
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       }),
+
     });
    
 
@@ -153,11 +154,10 @@ export default {
     
 
     onMounted(() => {
-      // console.log('breadcrumb')
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: "Adopt",
-        subTitle: "입양 공고 목록"
+        title: "Community",
+        subTitle: "게시글 구경하기"
       });
     });
 

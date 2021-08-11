@@ -17,6 +17,7 @@ import FindDetail from "@/views/find/find-detail.vue";
 import FindRegister from "@/views/find/find-register.vue";
 import FindModify from "@/views/find/find-modify.vue";
 import Community from "@/views/community/community.vue";
+import MyCommunity from "@/views/community/mycommunity.vue";
 
 const routes = [
   {
@@ -150,6 +151,7 @@ const routes = [
   },
   {
     path: "/community",
+    redirect: "/community/list",
     name: "Community",
     component: Community,
     children: [
@@ -158,8 +160,18 @@ const routes = [
         name: "community-board-list",
         component: () => import("@/views/community/components/community-board-list.vue")
       },
+      {
+        path: "register",
+        name: "community-board-form",
+        component: () => import("@/views/community/components/community-board-form.vue")
+      },
     ]
-  }
+  },
+  {
+    path: "/community//mylist",
+    name: "MyCommunity",
+    component: () => import("@/views/community/mycommunity.vue")
+  },
 ];
 
 const router = createRouter({

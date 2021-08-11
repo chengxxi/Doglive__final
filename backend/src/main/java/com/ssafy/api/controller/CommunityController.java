@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.CommunityRegisterPostReq;
+import com.ssafy.api.response.BoardListGetRes;
 import com.ssafy.api.response.CommunityListGetRes;
 import com.ssafy.api.service.CommunityService;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -74,6 +75,19 @@ public class CommunityController {
     })
     public ResponseEntity<CommunityListGetRes> communityBoardList(){
         List<Community> communityList = communityService.communityList();
+        return ResponseEntity.ok(CommunityListGetRes.of(200, "Success", communityList, communityList.size()));
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "사용자 작성글 목록", notes = "커뮤니티에 사용자가 작성한 글만 가져온다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<CommunityListGetRes> findCommunityList(@PathVariable("id") String id){
+        List<Community> communityList = communityService.getCommunityListByUserId(id);
         return ResponseEntity.ok(CommunityListGetRes.of(200, "Success", communityList, communityList.size()));
     }
 
