@@ -9,11 +9,11 @@
     <el-radio-item>
       <el-radio-group v-model="radio1" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio label="0" class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
-        <el-radio label="25" class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
-        <el-radio label="50" class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
-        <el-radio label="75" class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
-        <el-radio label="100" class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
+        <el-radio class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
+        <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
+        <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
+        <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
+        <el-radio class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
         <span style="color: #c58676; font-weight: 530;">좋아요</span>
       </el-radio-group>
     </el-radio-item>
@@ -27,11 +27,11 @@
     <el-radio-item>
       <el-radio-group v-model="radio2" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio label="0" class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
-        <el-radio label="25" class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
-        <el-radio label="50" class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
-        <el-radio label="75" class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
-        <el-radio label="100" class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
+        <el-radio class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
+        <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
+        <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
+        <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
+        <el-radio class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
         <span style="color: #c58676; font-weight: 530;">좋아요</span>
       </el-radio-group>
     </el-radio-item>
@@ -46,11 +46,11 @@
     <el-radio-item>
       <el-radio-group v-model="radio3" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio label="0" class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
-        <el-radio label="25" class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
-        <el-radio label="50" class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
-        <el-radio label="75" class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
-        <el-radio label="100" class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
+        <el-radio class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
+        <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
+        <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
+        <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
+        <el-radio class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
         <span style="color: #c58676; font-weight: 530;">좋아요</span>
       </el-radio-group>
     </el-radio-item>
@@ -64,11 +64,11 @@
     <el-radio-item>
       <el-radio-group v-model="radio4" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio label="0" class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
-        <el-radio label="25" class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
-        <el-radio label="50" class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
-        <el-radio label="75" class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
-        <el-radio label="100" class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
+        <el-radio class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
+        <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
+        <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
+        <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
+        <el-radio class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
         <span style="color: #c58676; font-weight: 530;">좋아요</span>
       </el-radio-group>
     </el-radio-item>
