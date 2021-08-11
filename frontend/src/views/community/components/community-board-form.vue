@@ -15,32 +15,20 @@
         </h5>
         <el-divider />
           <el-row class="mb-4">
-            <el-col :span="12">
-              <el-form-item label="제목" prop="title" style="width:95%">
-                <el-input :model="boardForm.title"></el-input>
+            <el-col :span="18">
+              <el-form-item label="제목" prop="title" style="margin-right:3%;">
+                <el-input v-model="boardForm.title"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
-              <el-form-item label="카테고리" prop="category" style="width:95%">
-                <el-select :model="boardForm.category" placeholder="입양일기">
-                    <el-option
-                      label="입양일기"
-                      value="입양일기"
-                    ></el-option>
-                    <el-option
-                      label="임보일기"
-                      value="임보일기"
-                    ></el-option>
-                    <el-option
-                      label="자유게시판"
-                      value="자유게시판"
-                    ></el-option>
-                    <el-option
-                      label="나눔"
-                      value="나눔"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
+            <el-col :span="6">
+              <el-form-item label="카테고리" prop="category">
+                <el-select v-model="boardForm.category" placeholder="입양일기">
+                  <el-option label="입양일기" value="입양일기"></el-option>
+                  <el-option label="임보일기" value="임보일기"></el-option>
+                  <el-option label="자유게시판" value="자유게시판"></el-option>
+                  <el-option label="나눔" value="나눔"></el-option>
+                </el-select>
+              </el-form-item>
             </el-col>
           </el-row>
 
@@ -103,15 +91,10 @@
           </span>
           <el-divider />
           <el-row class="mb-3">
-            <el-form-item prop="description">
-              <el-input
-                type="textarea"
-                :rows="7"
-                maxlength="1000"
-                show-word-limit
-                :model="boardForm.description"
-              ></el-input>
-            </el-form-item>
+          <el-form-item label="내용" prop="description">
+            <el-input type="textarea" v-model="boardForm.description"></el-input>
+          </el-form-item>
+            
           </el-row>
           
 
@@ -139,7 +122,6 @@ li.el-select-dropdown__item.selected {
   color: #755744;
   font-weight: 700;
 }
-
 
 :deep(.el-button) {
   font-weight: 600;
@@ -193,10 +175,11 @@ li.el-select-dropdown__item.selected {
 </style>
 
 <script>
-import $axios from "axios";
+import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { onBeforeMount, onMounted, reactive, computed } from "vue";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "community-board-list",
@@ -204,12 +187,57 @@ export default {
     return{
       boardForm:{
         category : "",
-        title : "냐냐냐ㅑㄴ",
+        title : "",
         description : "",
+      },
+      rules: {
+        category: [
+          {
+            required: true,
+            message: "게시글 카테고리를 선택해주세요",
+            trigger: "blur"
+          }
+        ],
+        title: [
+          { required: true, message: "제목을 입력해주세요.", trigger: "blur" },
+          {
+            min: 3,
+            max: 20,
+            message: "3글자 이상, 20글자 이하로 입력해주세요.",
+            trigger: "blur"
+          }
+        ],
+        description: [
+          { required: true, message: "내용을 입력해주세요.", trigger: "blur" },
+          {
+            min: 10,
+            max: 1000,
+            message: "10글자 이상, 1000글자 이하로 입력해주세요.",
+            trigger: "blur"
+          }
+        ]
       }
     }
   },
-  method:{
+  methods:{
+    submitForm(formName) {
+      const data = {
+        title: this.boardForm.title,
+        category : this.boardForm.category,
+        description: this.boardForm.description,
+      };
+      console.log(data);
+
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.registerData(data);
+          console.log(this.boardForm);
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
@@ -236,6 +264,37 @@ export default {
     });
    
 
+   const registerData = function(data) {
+     console.log(data);
+      store
+        .dispatch("root/requestRegisterCommunity", data)
+        .then(function(result) {
+          createToast("게시글이 등록되었어요 📜🐾", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#7eaa72",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "success"
+          });
+          console.log("등록 성공");
+          router.push({ name: "Community" });
+        })
+        .catch(function(err) {
+          createToast("게시글 등록에 실패했어요 💬💦", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "warning"
+          });
+          console.log(err);
+        });
+    };
+
 
     
 
@@ -249,7 +308,7 @@ export default {
 
    
 
-    return { state };
+    return { state , registerData};
   }
 }
 </script>

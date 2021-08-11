@@ -17,7 +17,7 @@
       <div class="tag">
         <el-tag
               v-if="item.category == '입양일기'"
-              class="mb-3"
+           
               color="#D7AFA4"
               effect="dark"
               size="large"
@@ -26,7 +26,7 @@
             >
             <el-tag
               v-if="item.category == '임보일기'"
-              class="mb-3"
+            
               color="#E9CDA4"
               effect="dark"
               size="large"
@@ -35,7 +35,7 @@
             >
             <el-tag
               v-if="item.category == '자유게시판'"
-              class="mb-3"
+             
               color="#A06565"
               effect="dark"
               size="large"
@@ -44,7 +44,7 @@
             >
             <el-tag
               v-if="item.category == '나눔'"
-              class="mb-3"
+             
               color="#C9FD30"
               effect="dark"
               size="large"
@@ -54,13 +54,13 @@
       </div>
       <div class="title">
         <span style="font-weight: bold;">
-          <!-- <font-awesome-icon
+          <font-awesome-icon
             icon="heart"
             aria-hidden="true"
             style="color: rgb(237, 0, 109); font-size: 3vmin; cursor: pointer; margin-top: 10px;"
             class="scale-up-5"
           >
-        </font-awesome-icon> -->
+        </font-awesome-icon>
         {{item.userId}}</span>
         <span class="boardtitle">{{item.title}}</span>
       </div>
@@ -90,13 +90,11 @@
 .image img {
   width: 70%;
 }
-.tag{
-  margin : 15px 0 55px 0;
-}
 .el-tag{
   margin-bottom: 2%;
 }
 .title{
+  margin-left:5%;
   text-align: left;
 }
 .title >span{
@@ -118,12 +116,14 @@
   vertical-align: middle; 
   margin-bottom: 0px;
 }
-
-.el-tag{
-  float:left;
-  margin-left: 5%;
-  margin-right : 10%;
+.tag{
+  margin-left:5%;
 }
+.tag >.el-tag{
+  margin-bottom: 0%;
+}
+
+
 
 </style>
 

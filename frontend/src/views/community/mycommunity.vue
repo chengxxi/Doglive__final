@@ -8,18 +8,18 @@
       </div>
       <el-row class="myboard" v-for="(item, index) in state.myBoardList" :key="index">
         <div class="button-group">
-            <el-button-group>
-              <el-button type="info" plain icon="el-icon-edit" size="mini"></el-button>
-              <el-button type="info" plain icon="el-icon-delete" size="mini"></el-button>
-            </el-button-group>
-        </div>
+          <el-button-group>
+            <el-button type="info" plain icon="el-icon-edit" size="mini"></el-button>
+            <el-button type="info" plain icon="el-icon-delete" size="mini" @click="deleteCommunity(item.id)"></el-button>
+          </el-button-group>
+      </div>
         <div class="image">
           <img :src="require('@/assets/images/mbti_isfp.png')" />
         </div>
         <div class="tag">
           <el-tag
                 v-if="item.category == '입양일기'"
-                class="mb-3"
+        
                 color="#D7AFA4"
                 effect="dark"
                 size="large"
@@ -28,7 +28,7 @@
               >
               <el-tag
                 v-if="item.category == '임보일기'"
-                class="mb-3"
+            
                 color="#E9CDA4"
                 effect="dark"
                 size="large"
@@ -37,7 +37,7 @@
               >
               <el-tag
                 v-if="item.category == '자유게시판'"
-                class="mb-3"
+        
                 color="#A06565"
                 effect="dark"
                 size="large"
@@ -46,7 +46,7 @@
               >
               <el-tag
                 v-if="item.category == '나눔'"
-                class="mb-3"
+         
                 color="#C9FD30"
                 effect="dark"
                 size="large"
@@ -106,7 +106,7 @@
   margin-top:2%;
 }
 .button-group{
-  float:right;
+  text-align:right;
   margin-top:1%;
   margin-right:1%;
 }
@@ -117,13 +117,11 @@
 .image img {
   width: 70%;
 }
-.tag{
-  margin : 15px 0 55px 0;
-}
 .el-tag{
-  margin-bottom: 2%;
+  margin-bottom: 5%;
 }
 .title{
+  margin-left:5%;
   text-align: left;
 }
 .title >span{
@@ -145,12 +143,10 @@
   vertical-align: middle; 
   margin-bottom: 0px;
 }
-
-.el-tag{
-  float:left;
-  margin-left: 5%;
-  margin-right : 10%;
+.tag{
+  margin-left:5%
 }
+
 </style>
 
 <script>
