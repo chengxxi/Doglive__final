@@ -15,6 +15,9 @@
 </template>
 
 <style scoped>
+el-radio-button{
+  disabled:true;
+}
 .chat-main {
   border: 2px solid #755744;
 }
