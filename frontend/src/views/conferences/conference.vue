@@ -153,13 +153,13 @@ export default {
       // state.mySessionId += props.userData.user2;
       state.mySessionId += '1842455905';
       state.mySessionId += '1842510887';
+      state.mySessionId = 'Session A';
       console.log('세션 아이디 : '+ state.mySessionId);
       // myUserName : 현재 유저의 카카오톡 고유 아이디로 지정
       state.myUserName = store.getters['root/getLoginUserInfo'].userId;
       console.log('로그인한 사용자 아이디 : ');
       console.log(state.myUserName)
       // 먼저 화상회의 개설 (DB에 저장)
-
       // --- Get an OpenVidu object ---
       state.OV = new OpenVidu();
       // --- Init a session ---

@@ -28,14 +28,10 @@ public class QConference extends EntityPathBase<Conference> {
 
     public final QChatRoom chatRoom;
 
-    public final ListPath<ConferenceHistory, QConferenceHistory> conferenceHistories = this.<ConferenceHistory, QConferenceHistory>createList("conferenceHistories", ConferenceHistory.class, QConferenceHistory.class, PathInits.DIRECT2);
-
     public final ListPath<ConferenceUser, QConferenceUser> conferenceUsers = this.<ConferenceUser, QConferenceUser>createList("conferenceUsers", ConferenceUser.class, QConferenceUser.class, PathInits.DIRECT2);
 
     //inherited
     public final NumberPath<Long> id = _super.id;
-
-    public final StringPath ownerId = createString("ownerId");
 
     public QConference(String variable) {
         this(Conference.class, forVariable(variable), INITS);
