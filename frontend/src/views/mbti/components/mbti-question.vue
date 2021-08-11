@@ -1,8 +1,9 @@
 <template>
 <div class="block">
+  <!-- 활동성향 질문 -->
   <div class="question"> <!-- question 1 -->
     <p class="demonstration">
-      혼날 때, 한껏 주눅들어 있어요.
+      내가 원하는 것을 얻기 위해 때로는 불쌍한 척을 해요.
     </p>
 
     <el-radio-item>
@@ -16,8 +17,81 @@
         <span style="color: #c58676; font-weight: 530;">좋아요</span>
       </el-radio-group>
     </el-radio-item>
-
   </div> <!-- question 1 -->
+
+  <div class="question"> <!-- question 1 -->
+    <p class="demonstration">
+      나는 잘 때를 제외하고 가만히 있는 것을 참지 못해요.
+    </p>
+
+    <el-radio-item>
+      <el-radio-group v-model="radio1" class="rating">
+        <span style="color: #755744; font-weight: 530;">별로예요</span>
+        <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
+        <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
+        <el-radio-button label="50" class="radioBtn-sm"></el-radio-button> <!-- 보통이다 -->
+        <el-radio-button label="75" class="radioBtn-md-rt"></el-radio-button> <!-- 조금 그렇다 -->
+        <el-radio-button label="100" class="radioBtn-lg-rt"></el-radio-button> <!-- 매우 그렇다 -->
+        <span style="color: #c58676; font-weight: 530;">좋아요</span>
+      </el-radio-group>
+    </el-radio-item>
+  </div> <!-- question 1 -->
+
+
+  <div class="question"> <!-- question 1 -->
+    <p class="demonstration">
+      저는 애정 표현에 매우 적극적이에요.
+    </p>
+
+    <el-radio-item>
+      <el-radio-group v-model="radio1" class="rating">
+        <span style="color: #755744; font-weight: 530;">별로예요</span>
+        <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
+        <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
+        <el-radio-button label="50" class="radioBtn-sm"></el-radio-button> <!-- 보통이다 -->
+        <el-radio-button label="75" class="radioBtn-md-rt"></el-radio-button> <!-- 조금 그렇다 -->
+        <el-radio-button label="100" class="radioBtn-lg-rt"></el-radio-button> <!-- 매우 그렇다 -->
+        <span style="color: #c58676; font-weight: 530;">좋아요</span>
+      </el-radio-group>
+    </el-radio-item>
+  </div> <!-- question 1 -->
+
+  <div class="question"> <!-- question 1 -->
+    <p class="demonstration">
+      처음 가 보는 익숙하지 않은 장소도 두렵지 않아요.
+    </p>
+
+    <el-radio-item>
+      <el-radio-group v-model="radio1" class="rating">
+        <span style="color: #755744; font-weight: 530;">별로예요</span>
+        <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
+        <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
+        <el-radio-button label="50" class="radioBtn-sm"></el-radio-button> <!-- 보통이다 -->
+        <el-radio-button label="75" class="radioBtn-md-rt"></el-radio-button> <!-- 조금 그렇다 -->
+        <el-radio-button label="100" class="radioBtn-lg-rt"></el-radio-button> <!-- 매우 그렇다 -->
+        <span style="color: #c58676; font-weight: 530;">좋아요</span>
+      </el-radio-group>
+    </el-radio-item>
+  </div> <!-- question 1 -->
+
+  <div class="question"> <!-- question 1 -->
+    <p class="demonstration">
+      모르는 사람과 같이 있는 시간은 견디기 힘들어요.
+    </p>
+
+    <el-radio-item>
+      <el-radio-group v-model="radio1" class="rating">
+        <span style="color: #755744; font-weight: 530;">별로예요</span>
+        <el-radio-button label="0" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
+        <el-radio-button label="25" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
+        <el-radio-button label="50" class="radioBtn-sm"></el-radio-button> <!-- 보통이다 -->
+        <el-radio-button label="75" class="radioBtn-md-rt"></el-radio-button> <!-- 조금 그렇다 -->
+        <el-radio-button label="100" class="radioBtn-lg-rt"></el-radio-button> <!-- 매우 그렇다 -->
+        <span style="color: #c58676; font-weight: 530;">좋아요</span>
+      </el-radio-group>
+    </el-radio-item>
+  </div> <!-- question 1 -->
+
 
 
 
@@ -51,7 +125,7 @@
 
 .question {
   font-weight: 500;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
   /* align-items: center; */
 }
 
@@ -61,7 +135,7 @@
   align-content: center;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .rating {
@@ -84,6 +158,17 @@
   border-radius: 50%;
   margin: 0 25px;
 }
+.radioBtn-lg-lf:checked {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid #755744;
+  background-color: #755744;
+  visibility: visible;
+  border-radius: 50%;
+  margin: 0 25px;
+}
+
+
 
 .radioBtn-md-lf {
   width: 2rem;
