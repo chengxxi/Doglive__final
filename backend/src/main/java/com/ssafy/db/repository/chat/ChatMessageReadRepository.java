@@ -6,6 +6,7 @@ import com.ssafy.db.entity.chat.ChatRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,17 +21,17 @@ public interface ChatMessageReadRepository extends JpaRepository<ChatMessageRead
 
     /* 현재 user가 채팅방에서 읽지않은 메시지의 개수 가져오기 */
     @Query(
-            value = "SELECT * FROM chat_message_read WHERE room_id = :roomId and isRead = false GROUP BY user_id = :userId",
+            value = "SELECT * FROM chat_message_read WHERE room_id = :roomId and is_read = false GROUP BY user_id = :userId",
             nativeQuery = true
     )
-    Optional<List<ChatMessageRead>> findChatMessageReadsByRoomIdAndUserId(ChatRoom roomId, String userId);
+    Optional<List<ChatMessageRead>> findChatMessageReadsByRoomIdAndUserId(@Param("roomId") ChatRoom roomId, @Param("userId") String userId);
 
 
     @Transactional
     @Query(
-            value = "UPDATE chat_message_read SET isRead = true WHERE room_id = :roomId and isRead = false and user_id = :userId",
+            value = "UPDATE chat_message_read SET is_read = true WHERE room_id = :roomId and is_read = false and user_id = :userId",
             nativeQuery = true
     )
-    void updateIsRead(ChatRoom roomId, String userId);
+    void updateIsRead(@Param("roomId") ChatRoom roomId, @Param("userId") String userId);
 
 }

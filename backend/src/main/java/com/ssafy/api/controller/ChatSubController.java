@@ -59,6 +59,8 @@ public class ChatSubController {
             chatRoom.setUserNameList(chatService.getUserNameList(roomId));
             chatRoom.setUnReadCount(chatService.getUnReadMessage(roomId, userId));
             chatRoomList.add(chatRoom);
+
+            System.out.println("안읽은 메세지 개수" + chatRoom.getUnReadCount());
         }
 
         System.out.println("검색된 채팅 방의 개수" + chatRoomList.size());

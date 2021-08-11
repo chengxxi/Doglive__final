@@ -23,7 +23,6 @@ const routes = [
     path: "/",
     name: "Main",
     component: Main
-    // beforeEnter: requireAuth,
   },
   {
     path: "/conference",
@@ -90,7 +89,7 @@ const routes = [
     redirect : '/chat/rooms',
     name: 'Chat',
     component : Chat,
-    // meta: {requiresAuth : true},
+    meta: { requiresAuth : true },
     children: [
       {
         path: "rooms",
@@ -154,11 +153,11 @@ const router = createRouter({
 // URL이 변경되기전 거쳐가는 함수
 router.beforeEach(function(to, from, next){
   if(to.matched.some(record => record.meta.requiresAuth)){ // 로그인이 필요한 페이지라면
-    // if(store.getters["root/getLoginUserInfo"].userId === null){ // 현재 로그인된 상태인지 확인
-    //   next({ path: '/', query: {redirect: to.fullPath}})
-    // }else{
-    //   next()
-    // }
+    if(store.getters["root/getLoginUserInfo"].userId === null){ // 현재 로그인된 상태인지 확인
+      next({ path: '/', query: {redirect: to.fullPath}})
+    }else{
+      next()
+    }
   }else{
     next()
   }

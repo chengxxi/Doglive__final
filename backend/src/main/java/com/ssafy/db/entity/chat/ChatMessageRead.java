@@ -25,6 +25,6 @@ public class ChatMessageRead extends BaseEntity {
     @JoinColumn(name="message_id", nullable = false)
     private ChatMessage messageId;
 
-    @Column(columnDefinition = "TINYINT(1) default false")
+    @Column(name="is_read", columnDefinition = "TINYINT(1) default false")
     private boolean isRead;
 }

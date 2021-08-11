@@ -1,42 +1,125 @@
 <template>
-  <div>
+  <div class="chat-header">
+    <i class="el-icon-arrow-left close-btn" @click="goBack"></i>
+    <i class="el-icon-close close-btn" @click="changeOpen"></i>
+  </div>
+  <div class="chat-body">
     <ul v-for="(item, index) in state.recvList" v-bind:key="index">
       <li>{{ item.username + " - " + item.chatMessage }}</li>
     </ul>
   </div>
-  <br>
-  <div>
-    <input v-model="state.content">
-    <button @click="sendMessage">전송</button>
+  <div class="chat-input">
+    <el-input type="textarea" v-model="state.content" @keyup.enter="sendMessage"></el-input>
+    <el-button class="send-btn" :class="{active : !state.activeButton}" @click="sendMessage">전송</el-button>
   </div>
 </template>
 
 <style scoped>
+.chat-header{
+  position: relative;
+  font-size: 20px;
+  width: 100%;
+  height: 60px;
+  padding: 20px;
+  color: rgb(250, 250, 250); /* font color */
+  background-color: rgb(215, 174, 164);
+  box-shadow: 0px 0px 10px 5px rgb(230, 230, 230);
+}
+.chat-body{
+  position: relative;
+  margin: 0;
+  padding: 10px;
+  overflow-y: scroll;
+}
+.chat-body::-webkit-scrollbar{
+  display: none;
+  overflow-y: scroll;
+}
+.chat-input {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
+}
+.send-btn{
+  display: inline-block;
+}
+/* 아무것도 입력하지 않았을 때 전송 버튼 비활성화 */
+.active{
+  cursor:not-allowed !important;
+  background-color: rgba(117, 87, 68, 0.2) !important;
+}
+:deep(.el-textarea){
+  display: inline-block;
+  width: 280px;
+  overflow: auto;
+}
+:deep(.el-textarea__inner){
+  width: 280px;
+  border-style: none;
+  padding-left: 0px;
+  padding-right: 10px;
+}
+:deep(.el-textarea__inner::-webkit-scrollbar){
+  display: none;
+}
+:deep(.el-button){
+  width: 60px;
+  margin-top: 20px;
+  color: white;
+  background-color: rgba(117, 87, 68, 0.8);
+}
+:deep(.el-button:hover) {
+  color: #f9f0e7;
+  border-color: #755744;
+  background-color: #755744;
+}
+.close-btn{
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
 </style>
 
 <script>
 import { useStore } from 'vuex'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 
 export default {
   name: 'chat-detail',
   setup () {
     const store = useStore()
     const userId = store.getters['root/getLoginUserInfo'].userId;
+    const roomId = store.getters['root/getChat'].roomId;
     let socket, client
 
     const state = reactive({
       recvList: [],
       content: '',
+      activeButton: computed(()=> {
+        if(state.content.length > 0)
+          return true
+        else
+          return false
+      }),
+    })
+
+    const chat = reactive({
+      open: computed(()=> store.getters['root/getChat'].open),
+      title: computed(()=> store.getters['root/getChat'].title),
+      isActive : false,
     })
 
     /* Methods*/
 
     // 이전 채팅방 로그 가져오기
     function fetchMessageLogs(){
-       store.dispatch('root/requestChatMessageList', {roomId: 1, withCredentials: true})
+       store.dispatch('root/requestChatMessageList', {roomId: roomId, withCredentials: true})
         .then(function(result){
           console.log(result.data)
           for(var i = 0; i < result.data.messageList.length; i++){
@@ -53,11 +136,11 @@ export default {
     function fetchJoin(){
       console.log("fetchJoin 함수 호출!")
       // 1. 채팅방 입장 메시지
-      // const data = JSON.stringify({ userId: userId, roomId: 1, chatMessage: "join" });
+      // const data = JSON.stringify({ userId: userId, roomId: roomId, chatMessage: "join" });
       // client.send("/pub/chat/join", data, {})
 
       // 2. 채팅방에서 메시지 받아오기
-      client.subscribe("/sub/chat/room/" + 1, function(result){
+      client.subscribe("/sub/chat/room/" + roomId, function(result){
         console.log(JSON.parse(result.body))
         state.recvList.push(JSON.parse(result.body))
       })
@@ -65,7 +148,10 @@ export default {
 
     // Input에 입력한 메세지 전송
     function sendMessage(){
-      client.send('/pub/chat/message', JSON.stringify({roomId: 1, chatMessage: state.content, userId: userId}, {} ))
+      if(!state.activeButton) // 입력하지 않은 상태로는 전송 불가
+        return
+
+      client.send('/pub/chat/message', JSON.stringify({roomId: roomId, chatMessage: state.content, userId: userId}, {} ))
       state.content = ''
     }
 
@@ -98,9 +184,20 @@ export default {
       })
     }
 
+    function changeOpen(){
+      store.commit('root/setChatOpen', !chat.open)
+      chat.isActive = true;
+    }
+
+    function goBack(){
+      store.commit('root/setChatMenu', 0)
+      store.commit('root/setChatTitle', '')
+      store.commit('root/setChatRoomId', '')
+    }
+
     connect()
 
-    return { sendMessage, state }
+    return { sendMessage, state, chat, changeOpen, goBack }
   }
 }
 </script>

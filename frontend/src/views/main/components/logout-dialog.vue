@@ -48,6 +48,7 @@ export default {
         };
 
         store.commit("root/setBoardDetail", boardDetail);
+        store.commit("root/setChatOpen", false);
 
         createToast(
           {

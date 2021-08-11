@@ -33,3 +33,8 @@ export function getIsbookmarked(state) {
 export function getUpdateUserInfo(state){
   return state.userProfile
 }
+
+// 채팅방 정보 여부 가져오기
+export function getChat(state) {
+  return state.chat
+}
