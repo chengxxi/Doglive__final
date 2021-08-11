@@ -5,25 +5,13 @@
       <AdoptCard
         :card="card"
         @click="readDetail(card.boardId.id)"
-        style="margin:20px;"
+        style="margin:10px; "
       />
     </el-col>
-
-    <div v-if="idx % 4 == 0"></div>
   </span>
 </template>
 
-<style scoped>
-.main-body {
-  width: 100%;
-  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
-  margin-right: 10%;
-}
-.main-padding {
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-</style>
+<style scoped></style>
 
 <script>
 import $axios from "axios";

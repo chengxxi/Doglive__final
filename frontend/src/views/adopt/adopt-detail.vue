@@ -1,39 +1,39 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " shadow="hover" style="border:none;">
+    <el-card class="box-card " shadow="none" style="border:none;">
       <bread-crumb></bread-crumb>
 
-      <div style="margin-top:60px; margin-left:60px;">
-        <h3>{{ state.board.title }}</h3>
-      </div>
+      <div style="margin-top:40px; margin-left:60px;"></div>
 
-      <el-row class="vertical-center" :gutter="20" style="margin-top:10px;">
+      <el-row class="vertical-center" :gutter="20">
         <el-col :span="12" style="margin-left:50px;">
           <img
             class="dog-thumbnail"
-            :src="require('@/assets/images/mbti_isfp.png')"
+            :src="require('@/assets/images/testbox.png')"
           />
         </el-col>
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
-            <el-tag
-              v-if="state.board.boardType.id == 1"
-              class="mb-3"
-              color="#D7AFA4"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:14pt;"
-              >{{ state.board.boardType.name }}</el-tag
-            >
-            <el-tag
-              v-if="state.board.boardType.id != 1"
-              class="mb-3"
-              color="#E9CDA4"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:14pt;"
-              >{{ state.board.boardType.name }}</el-tag
-            >
+            <el-row>
+              <el-tag
+                v-if="state.board.boardType.id == 1"
+                class="mb-3"
+                color="#D7AFA4"
+                effect="dark"
+                size="large"
+                style="border:none; border-radius: 30px; font-size:14pt; float:left;"
+                >{{ state.board.boardType.name }}</el-tag
+              >
+              <el-tag
+                v-if="state.board.boardType.id != 1"
+                class="mb-3"
+                color="#E9CDA4"
+                effect="dark"
+                size="large"
+                style="border:none; border-radius: 30px; font-size:14pt; float:left;"
+                >{{ state.board.boardType.name }}</el-tag
+              >
+            </el-row>
             <div class="vertical-center row">
               <div class="col-md-9">
                 <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
@@ -260,7 +260,15 @@
         </el-col>
       </el-row>
       <div class="box">
-        {{ state.board.description }}
+        <h4
+          class="mb-2
+        "
+        >
+          <b>{{ state.board.title }}</b>
+        </h4>
+        <div style="margin-top:20px; white-space:pre;">
+          {{ state.board.description }}
+        </div>
       </div>
       <el-divider />
 
@@ -650,7 +658,8 @@ export default {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "입양/임보",
-        subTitle: "입양/임보 동물 정보"
+        subTitle: "입양/임보 동물 정보",
+        path: "/adopt"
       });
       window.scrollTo(0, 0);
     });

@@ -3,11 +3,6 @@
     <el-card class="box-card " shadow="none" style="border:none;">
       <div>
         <bread-crumb></bread-crumb>
-        <div style="margin-top:50px">
-          <h1 class="title">입양/임보</h1>
-          <p>입양을 기다리는 아이들</p>
-          <!-- 상세 문구 수정 필요 -->
-        </div>
 
         <el-button type="outline-primary" @click="goRegister" round
           >글 작성하기</el-button
@@ -348,6 +343,7 @@ export default {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "입양/임보",
+        path: "/adopt",
         subTitle: "입양 공고 목록"
       });
     });

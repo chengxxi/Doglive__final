@@ -175,7 +175,8 @@ export default defineComponent({
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: "입양/임보 상담",
+        title: "입양/임보",
+        path: "/adopt",
         subTitle: "입양/임보 신청서 작성"
       });
       window.scrollTo(0, 0);

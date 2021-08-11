@@ -1,143 +1,72 @@
 <template>
   <!-- 개별 입양 공고 card -->
 
-  <el-card>
-    <el-row>
-      <img :src="require('@/assets/images/logo2.png')" class="image" />
+  <el-card shadow="hover" style="background-color:#f8f4f1;">
+    <el-row class="mt-2" style="margin-right:15px; margin-left:15px;">
+      <el-tag
+        class="mb-2"
+        color="#b3b3b3"
+        effect="dark"
+        size="small"
+        style="border:none; font-weight:700;   color:#FFFFFF;  float:left;"
+        >{{ card.mbti }}</el-tag
+      >
+      <el-tag
+        v-if="card.boardId.type.id == 1"
+        class="mb-2"
+        color="#D7AFA4"
+        effect="dark"
+        size="small"
+        style="border:none; font-weight:700; border-radius: 30px; color:#FFFFFF; float:right; "
+        >{{ card.boardId.type.name }}</el-tag
+      >
+      <el-tag
+        v-if="card.boardId.type.id != 1"
+        class="mb-2"
+        color="#E9CDA4"
+        effect="dark"
+        size="small"
+        style="border:none; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
+        >{{ card.boardId.type.name }}</el-tag
+      >
+    </el-row>
+    <el-row
+      style="display:flex; display: flex;
+  justify-content: center;"
+    >
+      <img :src="require('@/assets/images/mbti_isfp.png')" class="image" />
       <!-- <img :src="require('https://placedog.net/200/200?random')" class="image"> -->
     </el-row>
-    <el-row>
-      <div>{{ card.boardId.title }}</div>
-    </el-row>
-    <el-row>
-      <p>{{ card.boardId.dogName }}</p>
-      <p>{{ card.boardId.type.name }}</p>
-      <p>{{ card.mbti }}</p>
-      <p>{{ card.gender.name }}</p>
+
+    <el-row
+      style="margin-top:10px; margin-right:20px; margin-left:20px; vertical-align: middle; "
+    >
+      <h3 style="font-weight:800; float:right;" class="mb-0">
+        {{ card.dogName }}
+      </h3>
+      <p style="font-size:12px; margin-bottom:0px;">
+        {{ title }}
+      </p>
+
+      <p style="font-size:10px; margin-top:0px; color:#727272;">
+        {{ card.gender.name }} / {{ age }} / {{ weight }}
+      </p>
     </el-row>
   </el-card>
 </template>
 
 <style scoped>
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.button {
-  padding: 0;
-  min-height: auto;
-}
-
 .image {
-  width: 100%;
-  display: block;
-}
-
-.main-body {
-  width: 100%;
-  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
-  margin-right: 10%;
-}
-.main-padding {
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-h3 {
-  margin-block-start: 0px;
-}
-
-:deep(.el-descriptions__title) {
-  font-size: 30pt;
-  font-weight: 700;
-}
-
-.dog-thumbnail {
   width: 90%;
-  height: auto;
-  margin-right: 20px;
-  margin: 10px;
+  max-height: 300px;
 }
 
-.dog-info-box {
-  width: 100%;
-  margin-right: 30px;
-  margin: 10px;
-  padding-right: 20px;
+* {
+  color: #606266;
 }
 
-:deep(.el-descriptions__label) {
-  display: inline-block;
-  width: 150px;
-  font-weight: 500;
-}
-
-:deep(.el-descriptions__content) {
-  display: inline-block;
-  font-weight: 500;
-}
-:deep(.el-button) {
-  font-family: NEXONLv1Gothic;
-  font-weight: 700;
-  background: #755744;
-  color: #f9f0e7;
-}
-
-.dog-image-box {
-  margin: 30px;
-  padding: 10px;
-}
-
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 200px;
-  margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
-
-.el-col {
-  display: flex;
-
-  align-items: center;
-}
-
-.box-card {
-  margin-top: 20px;
-}
-
-.box {
-  margin-top: 30px;
-  margin-bottom: 40px;
-  margin-left: 50px;
-  margin-right: 50px;
-  padding: 40px;
-  background-color: #f9f0e7;
-}
-
-.content {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-}
-
-.el-card__body {
-  display: flex;
-  align-items: center;
-  margin-right: auto;
+:deep(.el-card__body) {
+  padding: 0px;
 }
 </style>
 
@@ -151,6 +80,16 @@ export default {
   },
   props: {
     card: Object
+  },
+  data() {
+    return {
+      age: this.card.age.name.split("(")[0],
+      weight: this.card.weight.name.split("(")[0],
+      title:
+        this.card.boardId.title.length <= 12
+          ? this.card.boardId.title
+          : this.card.boardId.title.substr(0, 10) + "..."
+    };
   }
 };
 </script>

@@ -49,18 +49,15 @@ export function setProfile(state, payload) {
   state.userProfile.phoneNumber = payload.phoneNumber;
 }
 
-export function setChatOpen(state, payload){
-  state.chat.open = payload
+export function setBoardList(state, payload) {
+  state.board.list = payload;
 }
 
-export function setChatTitle(state, payload){
-  state.chat.title = payload
+export function BoardTotalListItemCnt(state, count) {
+  state.board.totalListItemCount = count;
 }
 
-export function setChatRoomId(state, payload){
-  state.chat.roomId = payload
-}
-
-export function setChatMenu(state, payload){
-  state.chat.menu = payload
+export function BoardMovePage(state, index) {
+  state.board.offset = (index - 1) * state.board.listRowCount;
+  state.board.currentPageIndex = index;
 }
