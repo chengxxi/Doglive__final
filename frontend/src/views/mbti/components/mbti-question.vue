@@ -2,45 +2,18 @@
 <div class="block">
   <div class="question">
     <p class="demonstration">
-      다른 강아지들과 어울리는 데 시간이 좀 걸려요.
-    </p>
-
-    <el-rate
-      v-model="value"
-      :colors="colors"
-      class="rating"
-    >
-    </el-rate>
-  </div>
-
-  <div class="question">
-    <p class="demonstration">
-      내가 원하는 것을 얻기 위해 때로는 불쌍한 척을 해요.
-    </p>
-
-    <el-radio-group v-model="radio" class="rating">
-      <el-radio-button :label="1" class="radioBtn" size="medium">매우 아니다</el-radio-button> <!-- 매우 아니다 -->
-      <el-radio-button :label="2" size="small">조금 아니다</el-radio-button> <!-- 조금 아니다 -->
-      <el-radio-button :label="3" size="mini">보통이다</el-radio-button> <!-- 보통이다 -->
-      <el-radio-button :label="4" size="small">조금 그렇다</el-radio-button> <!-- 조금 그렇다 -->
-      <el-radio-button :label="5" size="medium">매우 그렇다</el-radio-button> <!-- 매우 그렇다 -->
-    </el-radio-group>
-  </div>
-
-  <div class="question">
-    <p class="demonstration">
       혼날 때, 한껏 주눅들어 있어요.
     </p>
 
     <el-radio-item class="align-items-center">
       <el-radio-group v-model="radio3" class="rating">
-        <span>비동의</span>
+        <span style="color: #755744; font-weight: 530;">별로예요</span>
         <el-radio-button :label="1" class="radioBtn-lg-lf"></el-radio-button> <!-- 매우 아니다 -->
         <el-radio-button :label="2" class="radioBtn-md-lf"></el-radio-button> <!-- 조금 아니다 -->
         <el-radio-button :label="3" class="radioBtn-sm"></el-radio-button> <!-- 보통이다 -->
         <el-radio-button :label="4" class="radioBtn-md-rt"></el-radio-button> <!-- 조금 그렇다 -->
         <el-radio-button :label="5" class="radioBtn-lg-rt"></el-radio-button> <!-- 매우 그렇다 -->
-        <span>동의</span>
+        <span style="color: #c58676; font-weight: 530;">좋아요</span>
       </el-radio-group>
     </el-radio-item>
 
@@ -162,11 +135,6 @@ export default {
   name: 'MbtiQuestion',
   setup() {
     return {
-      value: ref(null),
-      colors: ref(['#99A9BF', '#F7BA2A', '#FF9900']),
-      // same as { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
-      // iconClasses: ref(['icon-rate-face-1', 'icon-rate-face-2', 'icon-rate-face-3'])
-      // same as { 2: 'icon-rate-face-1', 4: { value: 'icon-rate-face-2', excluded: true }, 5: 'icon-rate-face-3' }
       radio: ref(null),
       radio2: ref(null),
       radio3: ref(null),
