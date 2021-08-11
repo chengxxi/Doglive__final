@@ -1,14 +1,13 @@
 <template>
   <!-- 개별 입양 공고 card -->
 
-  <el-card shadow="hover" style="background-color:#f8f4f1;">
-    <el-row class="mt-2" style="margin-right:15px; margin-left:15px;">
+  <el-card shadow="hover" style="background-color:#f9f4f0;">
+    <el-row style="margin-top:15px; margin-right:15px; margin-left:15px;">
       <el-tag
         class="mb-2"
-        color="#b3b3b3"
         effect="dark"
         size="small"
-        style="border:none; font-weight:700;   color:#FFFFFF;  float:left;"
+        style="height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;"
         >{{ card.mbti }}</el-tag
       >
       <el-tag
@@ -17,7 +16,7 @@
         color="#D7AFA4"
         effect="dark"
         size="small"
-        style="border:none; font-weight:700; border-radius: 30px; color:#FFFFFF; float:right; "
+        style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF; float:right; "
         >{{ card.boardId.type.name }}</el-tag
       >
       <el-tag
@@ -26,12 +25,12 @@
         color="#E9CDA4"
         effect="dark"
         size="small"
-        style="border:none; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
+        style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
         >{{ card.boardId.type.name }}</el-tag
       >
     </el-row>
     <el-row
-      style="display:flex; display: flex;
+      style="margin-top:5px; display:flex; display: flex;
   justify-content: center;"
     >
       <img :src="require('@/assets/images/mbti_isfp.png')" class="image" />
@@ -39,12 +38,12 @@
     </el-row>
 
     <el-row
-      style="margin-top:10px; margin-right:20px; margin-left:20px; vertical-align: middle; "
+      style="margin-top:10px; margin-right:15px; margin-left:15px; vertical-align: middle; "
     >
       <h3 style="font-weight:800; float:right;" class="mb-0">
         {{ card.dogName }}
       </h3>
-      <p style="font-size:12px; margin-bottom:0px;">
+      <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
         {{ title }}
       </p>
 
@@ -63,6 +62,7 @@
 
 * {
   color: #606266;
+  cursor: pointer;
 }
 
 :deep(.el-card__body) {
