@@ -69,13 +69,7 @@ public class BoardController {
             String searchWord
     ){
 
-
-//        if(initFlag) {                                                  //초기 페이지 로딩일 경우
-//            resultList = adoptService.getAdoptBoardListInit(param);
-//            if(resultList==null) ResponseEntity.status(404).body(BaseResponseBody.of(404, "검색 결과가 없습니다."));
-//            resultCnt = adoptService.getAdoptBoardListInitCnt(param);
-
-            Page<DogInformation> resultFilterList = adoptService.filterAdoptBoardList(pageable, boardType, weight, age, gender, searchWord);
+            Page<DogInformation> resultFilterList = adoptService.filterAdoptBoardList(pageable, boardType, weight, age, gender, searchWord.replace(" ",""));
             return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", resultFilterList));
 
     }
@@ -160,6 +154,7 @@ public class BoardController {
         List<BoardImage> boardImages = boardService.getBoardImagesByBoard(board);
 
 
+        String writer = userService.getUserName(board.getUserId());
         if(userId!=null){
             if(board.getUserId().equals(userId)) isOwner = true;
         }
@@ -177,7 +172,7 @@ public class BoardController {
         }
 
         System.out.println("북마크체크"+isBookmarked+" "+userId+" "+board.getUserId());
-        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner,  board, dogInformation, boardImages, boardComments));
+        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner,  writer, board, dogInformation, boardImages, boardComments));
     }
 
 

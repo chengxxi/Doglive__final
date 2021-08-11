@@ -1,6 +1,4 @@
 <template>
-  <!-- 개별 입양 공고 card -->
-
   <el-card shadow="hover" style="background-color:#f9f4f0;">
     <el-row style="margin-top:15px; margin-right:15px; margin-left:15px;">
       <el-tag
@@ -44,11 +42,16 @@
         {{ card.dogName }}
       </h3>
       <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
-        {{ title }}
+        {{
+          card.boardId.title.length < 12
+            ? card.boardId.title
+            : card.boardId.title.substr(0, 10) + "..."
+        }}
       </p>
 
       <p style="font-size:10px; margin-top:0px; color:#727272;">
-        {{ card.gender.name }} / {{ age }} / {{ weight }}
+        {{ card.gender.name }} / {{ card.age.name.split("(")[0] }} /
+        {{ card.weight.name.split("(")[0] }}
       </p>
     </el-row>
   </el-card>

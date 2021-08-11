@@ -8,7 +8,11 @@
           aria-label="Previous"
           @click="paginationChanged(startPageIndex - 1)"
         >
-          <span aria-hidden="true">이전</span>
+          <span aria-hidden="true">
+            <font-awesome-icon
+              :icon="['fas', 'angle-double-left']"
+            ></font-awesome-icon>
+          </span>
         </a>
       </li>
       <li
@@ -34,10 +38,10 @@
           aria-label="Next"
           @click="paginationChanged(endPageIndex + 1)"
         >
-          <span aria-hidden="true"
-            ><el-svg-icon>
-              <d-arrow-right />
-            </el-svg-icon>
+          <span aria-hidden="true">
+            <font-awesome-icon
+              :icon="['fas', 'angle-double-right']"
+            ></font-awesome-icon>
           </span>
         </a>
       </li>

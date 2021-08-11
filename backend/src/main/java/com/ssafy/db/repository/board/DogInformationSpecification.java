@@ -26,6 +26,17 @@ public class DogInformationSpecification {
         };
     }
 
+
+    public static Specification<DogInformation> likeTitle(final String keyword) {
+
+        return new Specification<DogInformation>() {
+            @Override
+            public Predicate toPredicate(Root<DogInformation> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.like(root.get("boardId").get("title"), "%" + keyword + "%");
+            }
+        };
+    }
+
     public static Specification<DogInformation> eqGender(final Code gender) {
         return new Specification<DogInformation>() {
             @Override
