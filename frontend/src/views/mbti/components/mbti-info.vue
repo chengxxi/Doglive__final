@@ -8,7 +8,8 @@
 
       </div>
 
-      <!-- 개별 유형 설명 페이지 -->
+      <!-- 개별 유형 설명 card -->
+      <MbtiResult />
 
     </div>
   </div>
@@ -37,11 +38,13 @@
 
 
 <script>
+import MbtiResult from './mbti-result.vue'
+
 
 export default {
   name: 'mbti-info',
   components: {
-
+    MbtiResult,
   },
 }
 </script>
