@@ -5,10 +5,7 @@
     <i class="el-icon-close close-btn" @click="changeOpen"></i>
     <div class="chat-subtitle">채팅을 통해 임보/입양을 상담해보세요</div>
   </div>
-  <div class="chat-body"
-     v-loading="chat.loading"
-    :element-loading-svg="svgInfo.path"
-    :element-loading-svg-view-box="svgInfo.viewBox">
+  <div class="chat-body">
     <ChatCard
       v-for="(card, idx) in state.roomList"
       :key="idx"
@@ -88,11 +85,9 @@ export default {
     const chat = reactive({
       open: computed(()=> store.getters['root/getChat'].open),
     })
-    const svgInfo = svg[0]
 
     // 채팅방에 입장할 때, chatRoom 정보를 넘겨줌
     const enterRoom = function(chatRoom){
-      console.log(chatRoom)
       store.commit('root/setChatMenu', 1); // chat-detail.vue로 이동
       store.commit('root/setChatRoomId', chatRoom.id);
       store.commit('root/setChatTitle', chatRoom.name);
@@ -101,7 +96,6 @@ export default {
     // 현재 로그인한 유저의 userId 쿠키를 헤더에 포함하여 전송
     store.dispatch('root/requestChatRoomList', {withCredentials: true})
     .then(function(result){
-      console.log(result.data.chatRoomList)
       var chatRoomList = result.data.chatRoomList
       for(var i = 0; i < chatRoomList.length; i++){
         state.roomList.push({
@@ -121,7 +115,7 @@ export default {
       store.commit('root/setChatOpen', !chat.open)
     }
 
-    return { state, chat, enterRoom, changeOpen, svgInfo }
+    return { state, chat, enterRoom, changeOpen }
   }
 }
 </script>
