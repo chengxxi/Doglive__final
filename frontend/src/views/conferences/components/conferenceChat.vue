@@ -1,5 +1,4 @@
 <template>
-  <div class="chat-main">
     <el-scrollbar class="chatlog" dropzone="true">
       <div v-for="chat in state.chatArray" :key="chat" class="chatContent">
         {{chat}}
@@ -11,16 +10,12 @@
       v-model='state.chatString'
       @keyup.enter='sendMessage'
     />
-  </div>
 </template>
 
 <style scoped>
-.chat-main {
-  border: 2px solid #755744;
-}
 .chatlog {
   width: 100%;
-  height: 400px;
+  height: calc(100% - 140px);
   background-color: white;
   padding: 9px;
   overflow: auto;
@@ -32,7 +27,7 @@
   outline-color: orangered;
   padding: 5px 5px;
   width: 100%;
-  height: 15%;
+  height: 70px;
   text-align: left;
 }
 .chatContent {
@@ -89,7 +84,7 @@ export default {
       console.log(state.myUserName)
       const msg = '[' + state.myUserName+'] > ' + state.chatString
       state.session.signal({
-        data:msg,
+        data: msg,
         to:[],
         type: 'chatSend'
       })

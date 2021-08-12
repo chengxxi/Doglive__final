@@ -22,6 +22,7 @@ const routes = [
     path: '/conference',
     name: 'conference',
     component: Conference,
+    meta : {requiredAuth : true}
   },
   {
     path: '/login',

@@ -219,6 +219,7 @@ import {
   faInfoCircle,
   faSignInAlt,
   faUserPlus,
+  faVideo,
 
 } from '@fortawesome/free-solid-svg-icons';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
@@ -253,6 +254,7 @@ library.add(
   faInfoCircle,
   faSignInAlt,
   faUserPlus,
+  faVideo
 );
 
 const plugins = [

@@ -23,8 +23,10 @@
       <el-row class="con-row-button">
         <!-- <h1 id='session-title'>{{ state.mySessionId }}</h1> -->
         <el-button type='button' id='buttonLeaveSession' @click='leaveSession'>Leave Session</el-button>
-        <el-button v-if='videoEnabled' type='info' icon='el-icon-video-camera' @click='turnCamera'/>
-        <el-button v-else type='danger' icon='el-icon-loading' @click='turnCamera'/>
+        <el-button v-if='videoEnabled' type='info' @click='turnCamera'>
+          <font-awesome-icon :icon="[ 'fas' , 'video']"/>
+        </el-button>
+        <el-button v-else type='danger' icon='el-icon-loading' @click='turnCamera'></el-button>
         <el-button v-if='audioEnabled' type='info' icon='el-icon-microphone' @click='turnAudio' />
         <el-button v-else type='danger' icon='el-icon-turn-off-microphone' @click='turnAudio' />
         <el-button v-if='chatEnabled' @click="turnChat" type="info" icon='el-icon-chat-round'/>
@@ -41,29 +43,47 @@
       <el-col id='video-container' :span='spanVideo'>
         <!-- 비디오 -->
         <el-row>
-          <el-col class="video-container" :span="12">
-            <user-video :stream-manager='publisher' />
+          <el-col class="video-container" :span="24/spanEachVideo" >
+            <user-video :stream-manager='publisher' :span-each-video='spanEachVideo'/>
           </el-col>
-          <el-col class="video-container" :span="12">
+          <el-col class="video-container" :span="24/spanEachVideo">
             <user-video
               v-for='sub in subscribers'
               :key='sub.stream.connection.connectionId'
               :stream-manager='sub'
+              :span-each-video='spanEachVideo'
             />
           </el-col>
         </el-row>
       </el-col>
-      <el-col :span='6' class='con-col-wrapper' v-if='!chatEnabled'>
-          <conferenceChat
-            class='chat'
-            :session='session'
-            :client-data='myUserName'
+      <el-col :span='4' class='con-col-wrapper' v-if='!chatEnabled'>
+        <div class="chat-main">
+          <div class="chat-header">
+            <i class="el-icon-arrow-right close-btn" @click="turnChat"></i>
+          </div>
+          <el-scrollbar class="chatlog" dropzone="true">
+            <div v-for="chat in chatArray" :key="chat" class="chatContent">
+              {{chat}}
+            </div>
+          </el-scrollbar>
+          <el-divider>🐶</el-divider>
+          <textarea
+            class='chatinput'
+            v-model='chatString'
+            @keyup.enter='sendMessage'
           />
+        </div>
       </el-col>
     </el-row>
     </el-main>
   </div>
 </template>
+<style>
+video {
+  width: 99%;
+  max-width: 1000px;
+}
+</style>
 <style scoped>
 /* 페이지 만들 때, 이 구조가 기준이 됩니다! (양옆 여백 10%) */
 .main-body {
@@ -84,20 +104,69 @@
 }
 .con-col-wrapper {
   align-content: center;
+  height: 65vh;
 }
 .con-chat-wrapper {
   align-content: center;
+  width: 100%;
   margin: auto;
-}
-video {
-	width: 100%;
-	height: auto;
 }
 .video-container {
   display: inline-block;
+  align-content: center;
+  margin : auto;
 }
 user-video {
-  width: 50%;
+  width: 50px;
+}
+.chat-main {
+  border: 2px solid #755744;
+  height: 100%;
+}
+.chat-header{
+  position: relative;
+  width: 100%;
+  height: 30px;
+  padding: 20px;
+  background-color: #F9F0E7;
+}
+.close-btn{
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.chatlog {
+  width: 100%;
+  height: calc(100% - 140px);
+  background-color: white;
+  padding: 9px;
+  overflow: auto;
+}
+:deep(.el-divider) {
+  margin-bottom: 2px;
+}
+.chatinput {
+  outline-color: orangered;
+  padding: 5px 5px;
+  width: 100%;
+  height: 70px;
+  text-align: left;
+}
+.chatContent {
+  text-align: left;
+}
+/* textarea 우측 하단 /// 안보이게 + 스크롤 기능 O + 스크롤바 X */
+textarea {
+  border: none;
+  outline: none;
+  -ms-overflow-style: none;
+  resize: none;
+}
+textarea::-webkit-scrollbar {
+  display: none;
+}textarea:focus {
+  outline: none;
 }
 </style>
 
@@ -105,7 +174,7 @@ user-video {
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideo from './components/UserVideo';
-import conferenceChat from './components/conferenceChat.vue';
+import { computed } from '@vue/runtime-core';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 const OPENVIDU_SERVER_URL = "https://i5a501.p.ssafy.io";
 const OPENVIDU_SERVER_SECRET = "doglivedoggi";
@@ -113,7 +182,6 @@ export default {
 	name: 'App',
 	components: {
 		UserVideo,
-    conferenceChat
 	},
 	data () {
 		return {
@@ -127,7 +195,23 @@ export default {
       videoEnabled: true,
       audioEnabled : true,
       chatEnabled : true,
+      chatArray: [],
+      chatString:'',
       spanVideo : 24,
+      spanEachVideo : computed(() => {
+        if(this.subscribers.length == 0) {
+          console.log('참가자 한명')
+          return 1;
+        }
+        else {
+          console.log('참여자 한 명 또 들어왔다~');
+          return 2;
+        }
+      }),
+      videoStyle : computed(() => {
+        if(this.spanEachVideo == 1) return true;
+        else return false;
+      })
 		}
 	},
   methods: {
@@ -276,6 +360,7 @@ export default {
       });
     },
 
+    // turn on / off
     turnCamera() {
       console.log('변경 전 > : ' + this.videoEnabled);
       this.videoEnabled = !this.videoEnabled;
@@ -299,7 +384,7 @@ export default {
       this.chatEnabled = !this.chatEnabled;
       console.log('변경 후 > : ' + this.chatEnabled);
       if(!this.chatEnabled) {
-        this.spanVideo = 18;
+        this.spanVideo = 20;
       }
       else {
         this.spanVideo = 24;
