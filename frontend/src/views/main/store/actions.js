@@ -43,11 +43,11 @@ export function requestChatRoomList({ state }) {
 }
 
 // 채팅방 이전 로그 목록 요청
-export function requestChatMessageList({ state }, payload){
-  console.log("payload : " + payload)
+export function requestChatMessageList({ state }, payload) {
+  console.log("payload : " + payload);
   let roomId = payload.roomId;
-  const url = '/chatroom/' + roomId + '/messages/'
-  return $axios.get(url)
+  const url = "/chatroom/" + roomId + "/messages/";
+  return $axios.get(url);
 }
 
 // 사용자 북마크 리스트를 불러오기
@@ -152,7 +152,7 @@ export function existedForm({ state }, payload) {
 
 //입양,임보 게시판 목록 가져오기
 export function requestAdoptList({ state }, payload) {
-  const url = "/adopt";
+  const url = "/board/adopt";
   return $axios.get(url, {
     params: {
       page: state.board.offset,

@@ -6,13 +6,14 @@
     </el-container>
     <main-footer :height="`70px`" />
   </el-container>
-  <chat/>
+  <chat />
 </template>
 
 <style>
 @import "./main.css";
 @import "../../common/css/common.css";
 @import "../../common/css/element-plus.css";
+@import "../../common/css/animation.css";
 </style>
 
 <script>
@@ -31,7 +32,7 @@ export default {
   components: {
     MainHeader,
     MainFooter,
-    Chat,
+    Chat
   },
   setup() {
     const store = useStore();

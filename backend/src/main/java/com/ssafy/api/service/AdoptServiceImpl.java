@@ -68,10 +68,15 @@ public class AdoptServiceImpl implements AdoptService{
     @Override
     public Page<DogInformation> filterAdoptBoardList(Pageable pageable, Long boardType, Long weight, Long age, Long gender, String searchWord) {
 
-        Specification<DogInformation> spec = Specification.where(DogInformationSpecification.likeDogName(searchWord));
-        System.out.println(age);
-        System.out.println(gender);
-        System.out.println(weight);
+        Specification<DogInformation> spec = Specification
+                .where(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(Long.parseLong("1")).get()));
+        spec = spec.or(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(Long.parseLong("2")).get()));
+
+
+        if(searchWord!=null){
+            spec = spec.and(DogInformationSpecification.likeDogName(searchWord));
+            spec = spec.or(DogInformationSpecification.likeTitle(searchWord));
+        }
         if(age!=null){
             spec = spec.and(DogInformationSpecification.eqAge(codeRepository.findById(age).get()));
         }
@@ -87,9 +92,6 @@ public class AdoptServiceImpl implements AdoptService{
 
         return dogInformationRepository.
                 findAll(
-//                findAllByBoardId_TypeOrBoardId_Type(
-//                        boardCategoryRepository.findById(Long.parseLong("1")).get(),
-//                        boardCategoryRepository.findById(Long.parseLong("2")).get(),
                         spec,
                         pageable);
 

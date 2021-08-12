@@ -9,7 +9,7 @@
         <el-col :span="12" style="margin-left:50px;">
           <img
             class="dog-thumbnail"
-            :src="require('@/assets/images/testbox.png')"
+            :src="require('@/assets/images/mbti_isfp.png')"
           />
         </el-col>
         <el-col :span="12">
@@ -46,6 +46,7 @@
                   style="text-align: center;"
                 >
                   <font-awesome-icon
+                    class="scale-up-2"
                     :icon="[state.board.isbookmarked ? 'fas' : 'far', 'star']"
                     @click="clickBookmark()"
                     aria-hidden="true"
@@ -55,6 +56,7 @@
 
                   <img
                     @click="kakaoShare"
+                    class="scale-up-2"
                     style="margin-left:15px; cursor: pointer;"
                     src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
                     width="40"

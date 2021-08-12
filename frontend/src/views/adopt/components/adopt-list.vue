@@ -1,6 +1,6 @@
 <template>
   <!-- <AdoptCard /> -->
-  <span v-for="(card, idx) in state.boardList" :key="idx">
+  <span v-for="(card, idx) in boardList" :key="idx">
     <el-col :span="6">
       <AdoptCard
         :card="card"
@@ -29,35 +29,20 @@ export default {
   //   // boardType: String,
   //   // cards: Array,
   // },
-
+  props: {
+    boardList: Array
+  },
   setup() {
     const store = new useStore();
     const router = new useRouter();
     const state = reactive({
-      boardList: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       })
     });
 
-    const readData = function() {
-      const userid = store.getters["root/getLoginUserInfo"].userId;
-      console.log(userid);
-
-      $axios
-        .get("/board/adopt?searchWord=")
-        .then(function(result) {
-          console.log(result);
-          console.log(result.data.boardList);
-
-          state.boardList = result.data.boardList.content;
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-    };
-
     const readDetail = function(id) {
+      console.log("read");
       const userid = store.getters["root/getLoginUserInfo"].userId;
 
       $axios
@@ -114,11 +99,7 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    onBeforeMount(() => {
-      readData();
-    });
-
-    return { state, readData, readDetail, goRegister };
+    return { state, readDetail, goRegister };
   }
 };
 </script>
