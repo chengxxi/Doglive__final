@@ -48,7 +48,7 @@ import MbtiIntro from './components/mbti-intro.vue'
 export default {
   name: 'mbti',
   components: {
-    MbtiIntro
+    MbtiIntro,
   },
 }
 </script>
