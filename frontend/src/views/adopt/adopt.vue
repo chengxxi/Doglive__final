@@ -3,10 +3,25 @@
     <div style="border:none; width:100%;">
       <div>
         <bread-crumb></bread-crumb>
+
+        <el-row>
+          <el-button
+            type="primary"
+            @click="goRegister"
+            style="float:right; margin-top:20px;  margin-right:5px; height:40px;"
+            class="scale-up-2"
+            >글 작성하기
+          </el-button>
+        </el-row>
         <el-collapse class="mt-4 mb-4">
-          <el-collapse-item title="입양 절차 안내" name="1">
+          <el-collapse-item name="1">
+            <template #title>
+              <h5 style="font-weight:600">입양 절차 안내</h5>
+              <i class="header-icon el-icon-info" />
+            </template>
+
             <div style="text-align:center;">
-              <h4 class="mt-4 mb-3" style="font-weight:600">
+              <h4 class="mt-4 mb-3" style="font-weight:600;">
                 🚥 입양 절차 및 유의사항
               </h4>
 
@@ -65,11 +80,13 @@
             <i class="el-icon-s-operation"></i>
           </el-button> -->
 
-          <el-row>
+          <el-row
+            style="background-color:#f9f0e7; margin-bottom:30px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
+          >
             <el-col :span="20">
               <el-row
                 v-show="showFilter"
-                style="height:50%;"
+                style="height:50%; "
                 class="select-wrapper"
                 :gutter="20"
               >
@@ -149,33 +166,34 @@
             </el-col>
             <el-col :span="4">
               <el-button
-                @click="readData"
-                style=" width:100%;   height:100%; float:right; margin-right:5px;"
+                @click="resetData"
+                type="warning"
+                style=" width:100%;  height:100%; float:right;  margin-right:5px;"
               >
-                검색
+                초기화
               </el-button>
               <el-button
                 @click="readData"
-                style=" width:100%; margin-top:20px; height:100%; float:right;  margin-right:5px;"
+                type="primary"
+                style=" width:100%;   height:100%; float:right; margin-right:5px;  margin-top:20px;  "
               >
-                초기화
+                검색
               </el-button>
             </el-col>
           </el-row>
         </span>
-        <el-row>
-          <el-button
-            type="outline-primary"
-            @click="goRegister"
-            style="float:right; margin-top:20px;  margin-right:5px; height:50px;"
-            >글 작성하기
-          </el-button>
-        </el-row>
       </div>
-      <el-row>
-        <AdoptList :boardList="state.boardList" />
-        <el-col :span="24" style="margin-top:20px;"> <Pagination /></el-col>
+      <el-row v-if="state.boardListCount == 0">
+        <el-empty
+          style="margin-top:80px; margin-bottom:50px;"
+          description="검색 결과가 없다개 💨"
+          image="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+        ></el-empty>
       </el-row>
+      <el-row v-if="state.boardListCount != 0">
+        <AdoptList :boardList="state.boardList" />
+      </el-row>
+      <el-col :span="24" style="margin-top:20px;"> <Pagination /></el-col>
     </div>
   </div>
 </template>
@@ -186,6 +204,7 @@ import AdoptList from "./components/adopt-list.vue";
 import Pagination from "./components/pagination.vue";
 import BreadCrumb from "./components/bread-crumb.vue";
 import { reactive, computed, onMounted } from "vue"; // ref
+
 // import $axios from 'axios'
 
 import { useStore } from "vuex";
@@ -372,25 +391,17 @@ export default {
           console.log("success search!");
           console.log(result);
           state.boardList = result.data.boardList.content;
-          state.boardListCount = result.data.totalElements;
+          state.boardListCount = result.data.boardList.totalElements;
           store.commit("root/setBoardList", result.data.boardList.content);
           store.commit(
             "root/setBoardTotalListItemCnt",
             result.data.totalElements
           );
-
-          if (state.boardListCount == 0) {
-            createToast("검색 결과가 없습니다💨", {
-              hideProgressBar: "true",
-              timeout: 4500,
-              showIcon: "true",
-              toastBackgroundColor: "#c49d83",
-              position: "bottom-left",
-              transition: "bounce",
-              type: "warning"
-            });
-          }
         });
+    };
+
+    const resetData = function() {
+      readData();
     };
 
     const goMBTI = function() {
@@ -430,6 +441,7 @@ export default {
         subTitle: "입양 공고 목록"
       });
       readData();
+      window.scrollTo(0, 0);
     });
 
     return {
@@ -437,13 +449,16 @@ export default {
       movePage,
       goRegister,
       goMBTI,
-      readData
+      readData,
+      resetData
     };
   }
 };
 </script>
 
 <style scoped>
+@import "../../common/css/animation.css";
+
 .main-body {
   width: 100%;
   margin-left: 10%;
@@ -455,10 +470,13 @@ export default {
 }
 
 :deep(.el-collapse-item__header) {
-  margin-left: 20px;
-  color: #606266;
+  border-radius: 30px;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: #f9f0e7;
   font-size: 15px;
   font-weight: 600;
+  background-color: #755744a2;
 }
 
 :deep(.el-button) {
@@ -475,10 +493,34 @@ export default {
   background-color: #755744;
 }
 
-:deep(.el-button:hover) {
-  color: #f9f0e7;
-  border-color: #755744;
-  background-color: #755744;
+:deep(.el-button--primary:hover) {
+  color: #755744;
+  border-color: #d7afa49c;
+  background-color: #d7afa49c;
+}
+
+:deep(.el-button--primary:focus) {
+  color: #755744;
+  border-color: #d7afa49c;
+  background-color: #d7afa49c;
+}
+
+:deep(.el-button--warning) {
+  color: #755744;
+  border-color: #f9f0e7;
+  background-color: #f9f0e7;
+}
+
+:deep(.el-button--warning:hover) {
+  color: #755744;
+  border-color: #d7afa49c;
+  background-color: #d7afa49c;
+}
+
+:deep(.el-button--warning:focus) {
+  color: #755744;
+  border-color: #d7afa49c;
+  background-color: #d7afa49c;
 }
 
 :deep(.el-input__inner) {

@@ -42,7 +42,7 @@
       </h3>
       <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
         {{
-          card.boardId.title.length < 12
+          card.boardId.title.length < 15
             ? card.boardId.title
             : card.boardId.title.substr(0, 10) + "..."
         }}
