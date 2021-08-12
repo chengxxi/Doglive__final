@@ -32,9 +32,6 @@ public class BoardDetailGetRes extends BaseResponseBody {
     String writer;
 
     @ApiModelProperty
-    Board board;
-
-    @ApiModelProperty
     DogInformation dogInformation;
 
     @ApiModelProperty
@@ -44,14 +41,13 @@ public class BoardDetailGetRes extends BaseResponseBody {
     List<BoardComment> boardCommentList;
 
 
-    public static BoardDetailGetRes of(Integer statusCode, String message, boolean isBookmarked, boolean isOwner, String writer,Board board, DogInformation dogInformation, List<BoardImage> boardImageList, List<BoardComment> boardComments) {
+    public static BoardDetailGetRes of(Integer statusCode, String message, boolean isBookmarked, boolean isOwner, String writer, DogInformation dogInformation, List<BoardImage> boardImageList, List<BoardComment> boardComments) {
         BoardDetailGetRes res = new BoardDetailGetRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
         res.setOwner(isOwner);
         res.setWriter(writer);
         res.setBookmarked(isBookmarked);
-        res.setBoard(board);
         res.setDogInformation(dogInformation);
         res.setBoardImageList(boardImageList);
         res.setBoardCommentList(boardComments);

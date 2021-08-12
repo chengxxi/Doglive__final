@@ -187,12 +187,13 @@ export function existedForm({ state }, payload) {
 }
 
 //입양,임보 게시판 목록 가져오기
-export function requestAdoptList({ state }, payload) {
+export function requestBoardList({ state }, payload) {
   const url = "/board/adopt";
   return $axios.get(url, {
     params: {
-      page: state.board.offset,
-      size: state.board.limit,
+      page: payload.page,
+      size: payload.size,
+      sort: payload.sort,
       searchWord: payload.searchWord,
       age: payload.age,
       weight: payload.weight,
@@ -200,4 +201,34 @@ export function requestAdoptList({ state }, payload) {
       gender: payload.gender
     }
   });
+}
+
+//강아지 품종 데이터 가져오기
+export function requestDogTypeList({ state }, payload) {
+  const url = "/board/dogType";
+
+  return $axios.get(url);
+}
+
+//실종,보호 게시판 검색 목록 가져오기
+export function requestFindBoardList({ state }, payload) {
+  const url = "/board/find";
+  return $axios.get(url, {
+    params: {
+      page: payload.page,
+      size: payload.size,
+      sort: payload.sort,
+      searchWord: payload.searchWord,
+      sido: payload.sido,
+      color: payload.color,
+      boardType: payload.boardType,
+      dogType: payload.dogType
+    }
+  });
+}
+
+//보드 디테일 정보 가졍괴
+export function reqestBoardDetail({ state }, payload) {
+  const url = "/board/" + payload.boardId + "/" + payload.userId;
+  return $axios.get(url);
 }

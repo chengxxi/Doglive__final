@@ -36,9 +36,11 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
 
     public final StringPath dogName = createString("dogName");
 
-    public final QCode dogType;
+    public final QDogType dogType;
 
     public final QCode gender;
+
+    public final QGugun gugun;
 
     //inherited
     public final NumberPath<Long> id = _super.id;
@@ -70,8 +72,9 @@ public class QDogInformation extends EntityPathBase<DogInformation> {
         this.age = inits.isInitialized("age") ? new QCode(forProperty("age")) : null;
         this.boardId = inits.isInitialized("boardId") ? new QBoard(forProperty("boardId"), inits.get("boardId")) : null;
         this.colorType = inits.isInitialized("colorType") ? new QCode(forProperty("colorType")) : null;
-        this.dogType = inits.isInitialized("dogType") ? new QCode(forProperty("dogType")) : null;
+        this.dogType = inits.isInitialized("dogType") ? new QDogType(forProperty("dogType")) : null;
         this.gender = inits.isInitialized("gender") ? new QCode(forProperty("gender")) : null;
+        this.gugun = inits.isInitialized("gugun") ? new QGugun(forProperty("gugun"), inits.get("gugun")) : null;
         this.weight = inits.isInitialized("weight") ? new QCode(forProperty("weight")) : null;
     }
 
