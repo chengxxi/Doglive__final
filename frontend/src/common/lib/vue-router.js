@@ -184,7 +184,7 @@ const routes = [
       {
         path: 'test',
         name: 'mbti-test',
-        component: () => import('@/views/chat/components/mbti-test.vue')
+        component: () => import('@/views/mbti/components/mbti-test.vue')
       }
     ]
   },
