@@ -6,32 +6,31 @@
 
         <el-row style="margin-right:5px; margin-top:20px; margin-bottom:15px;">
           <el-button
-            class="scale-up-2"
             type="primary"
             @click="goRegister"
             style="float:right; margin-top:20px;  margin-right:5px; height:40px;"
             >글 작성하기<i
               class="el-icon-circle-plus "
-              style="margin-left : 10px; cursor: pointer;"
+              style="margin-left : 10px;font-size:15px;  cursor: pointer;"
             />
+          </el-button>
+          <el-button
+            type="info"
+            @click="showFilter = !showFilter"
+            style="float:right; margin-top:20px; font-weight:600; margin-right:15px; height:40px;"
+          >
+            {{ showFilter ? " 필터 OFF " : " 필터 ON " }}
+            <i class="el-icon-s-operation"></i>
           </el-button>
         </el-row>
 
         <span class="filter-wrapper">
-          <!-- <el-button @click="showFilter = !showFilter" circle>
-            <i class="el-icon-s-operation"></i>
-          </el-button> -->
-
           <el-row
-            style="background-color:#f9f4f0; margin-bottom:30px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
+            v-show="showFilter"
+            style="background-color:#F9F8EC; margin-bottom:10px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
           >
             <el-col :span="20">
-              <el-row
-                v-show="showFilter"
-                style="height:50%; "
-                class="select-wrapper"
-                :gutter="20"
-              >
+              <el-row style="height:50%; " class="select-wrapper" :gutter="20">
                 <!-- Filter Options -->
                 <el-select
                   label="공고타입"
@@ -48,48 +47,47 @@
                   >
                   </el-option>
                 </el-select>
-
                 <el-select
-                  v-model="state.genderCode"
+                  v-model="state.colorCode"
                   clearable
                   placeholder="색상"
                   style="width:25%; padding-right:30px;"
                 >
                   <el-option
-                    v-for="gender in options_gender"
-                    :key="gender.value"
-                    :label="gender.label"
-                    :value="gender.value"
+                    v-for="color in options_color"
+                    :key="color.value"
+                    :label="color.label"
+                    :value="color.value"
                   >
                   </el-option>
                 </el-select>
 
                 <el-select
-                  v-model="state.weightCode"
+                  v-model="state.dogTypeCode"
                   clearable
-                  placeholder="크기"
+                  placeholder="품종"
                   style="width:25%;padding-right:30px;"
                 >
                   <el-option
-                    v-for="size in options_size"
-                    :key="size.value"
-                    :label="size.label"
-                    :value="size.value"
+                    v-for="dog in state.dogTypeList"
+                    :key="dog.id"
+                    :label="dog.name"
+                    :value="dog.id"
                   >
                   </el-option>
                 </el-select>
 
                 <el-select
-                  v-model="state.ageCode"
+                  v-model="state.sidoCode"
                   clearable
-                  placeholder="연령"
+                  placeholder="지역"
                   style="width:25%;padding-right:30px;"
                 >
                   <el-option
-                    v-for="age in options_age"
-                    :key="age.value"
-                    :label="age.label"
-                    :value="age.value"
+                    v-for="sido in state.sidoList"
+                    :key="sido.id"
+                    :label="sido.name"
+                    :value="sido.id"
                   >
                   </el-option>
                 </el-select>
@@ -99,7 +97,7 @@
                   style="width:100%; height:50%; padding-left:5px; padding-right:20px; margin-top:20px;"
                 >
                   <el-input
-                    placeholder="이름 또는 제목으로 검색 가능합니다"
+                    placeholder="상세주소 또는 제목으로 검색 가능합니다"
                     v-on:keyup.enter="readData"
                     v-model="state.searchWord"
                   ></el-input>
@@ -110,8 +108,7 @@
               <el-button
                 @click="resetData"
                 type="warning"
-                class="scale-up-2"
-                style=" width:100%;  height:100%; float:right;  margin-right:5px;"
+                style=" width:100%;  font-weight:600;  height:100%; float:right;  margin-right:5px;"
               >
                 초기화<i
                   class="el-icon-refresh "
@@ -121,8 +118,7 @@
               <el-button
                 @click="searchData"
                 type="primary"
-                class="scale-up-2"
-                style=" width:100%;   height:100%; float:right; margin-right:5px;  margin-top:20px;  "
+                style=" width:100%;  font-weight:600;  height:100%; float:right; margin-right:5px;  margin-top:20px;  "
               >
                 검색<i
                   class="el-icon-search "
@@ -215,60 +211,34 @@ export default {
         }
       ],
       // Gender Option
-      options_gender: [
+      options_color: [
         {
           value: "",
           label: "색상"
         },
         {
-          value: 8,
-          label: "여"
+          value: 12,
+          label: "White"
         },
         {
-          value: 9,
-          label: "남"
-        }
-      ],
-      // Size Option
-      options_size: [
-        {
-          value: "",
-          label: "지역"
+          value: 13,
+          label: "Beige"
         },
         {
-          value: 1,
-          label: "소(8kg 미만)"
+          value: 14,
+          label: "Gray"
         },
         {
-          value: 2,
-          label: "중(8kg-18kg 미만)"
+          value: 15,
+          label: "Brown"
         },
         {
-          value: 3,
-          label: "대(18kg 이상)"
-        }
-      ],
-      // Age Option
-      options_age: [
-        {
-          value: "",
-          label: "품종"
+          value: 16,
+          label: "Black"
         },
         {
-          value: 4,
-          label: "Puppy(~ 6개월)"
-        },
-        {
-          value: 5,
-          label: "Junior(7개월 ~ 2살)"
-        },
-        {
-          value: 6,
-          label: "Adult(3살 ~ 8살)"
-        },
-        {
-          value: 7,
-          label: "Senior(9살 ~)"
+          value: 17,
+          label: "기타"
         }
       ],
 
@@ -282,20 +252,21 @@ export default {
     const state = reactive({
       //검색용
       dogTypeList: [],
+      sidoList: [],
 
       boardList: [],
       boardListCount: 0,
       limit: 12,
       offset: 0,
       searchWord: "",
-      age: [],
-      weight: [],
+      sido: [],
+      color: [],
       boardType: [],
-      gender: [],
-      ageCode: "",
-      weightCode: "",
+      dogType: [],
+      sidoCode: "",
+      colorCode: "",
       boardTypeCode: "",
-      genderCode: "",
+      dogTypeCode: "",
       sort: "",
 
       //페이지네이션
@@ -325,30 +296,36 @@ export default {
       }
     };
 
+    //시도 리스트 가져오기
+    store
+      .dispatch("root/requestSidoCodeList")
+      .then(function(result) {
+        console.log("call : sidocode");
+        state.sidoList = result.data.sidoList;
+        state.sidoList.unshift({ id: "", name: "지역" });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
     //목록 정보 가져오기
     const readData = function() {
       store
-        .dispatch("root/requestBoardList", {
+        .dispatch("root/requestFindBoardList", {
           page: state.currentPageIndex,
           sort: state.sort,
           size: state.limit,
-          isAdopt: false,
           searchWord: state.searchWord,
-          age: state.ageCode,
-          gender: state.genderCode,
+          color: state.colorCode,
+          sido: state.sidoCode,
           boardType: state.boardTypeCode,
-          weight: state.weightCode
+          dogType: state.dogTypeCode
         })
         .then(function(result) {
           console.log("success search!");
           console.log(result);
           state.boardList = result.data.boardList.content;
           state.boardListCount = result.data.boardList.totalElements;
-          store.commit("root/setBoardList", result.data.boardList.content);
-          store.commit(
-            "root/setBoardTotalListItemCnt",
-            result.data.totalElements
-          );
         });
     };
     //필터 리셋
@@ -357,10 +334,10 @@ export default {
       state.boardListCount = 0;
       state.offset = 0;
       state.searchWord = "";
-      state.ageCode = "";
-      state.weightCode = "";
+      state.colorCode = "";
+      state.sidoCode = "";
       state.boardTypeCode = "";
-      state.genderCode = "";
+      state.dogTypeCode = "";
       state.sort = "";
 
       readData();
@@ -417,8 +394,10 @@ export default {
     //강아지 품종 데이터 읽어오기
     const readDogTypeList = function() {
       store.dispatch("root/requestDogTypeList").then(function(result) {
-        console.log(result);
+        console.log("dogType:", result);
         state.dogTypeList = result.data.dogTypeList;
+        state.dogTypeList.push({ id: 17, name: "기타" });
+        state.dogTypeList.unshift({ id: "", name: "품종" });
       });
     };
 
@@ -494,14 +473,16 @@ export default {
 
 :deep(.el-button--primary:hover) {
   color: #755744;
-  border-color: #d7afa49c;
-  background-color: #d7afa49c;
+  border-color: #b4d9a7;
+  font-weight: 600;
+  background-color: #b4d9a7bb;
 }
 
 :deep(.el-button--primary:focus) {
   color: #755744;
-  border-color: #d7afa49c;
-  background-color: #d7afa49c;
+  border-color: #b4d9a7bb;
+  font-weight: 600;
+  background-color: #b4d9a7bb;
 }
 
 :deep(.el-button--warning) {
@@ -512,14 +493,14 @@ export default {
 
 :deep(.el-button--warning:hover) {
   color: #755744;
-  border-color: #d7afa49c;
-  background-color: #d7afa49c;
+  border-color: #b4d9a7bb;
+  background-color: #b4d9a7bb;
 }
 
 :deep(.el-button--warning:focus) {
   color: #755744;
-  border-color: #d7afa49c;
-  background-color: #d7afa49c;
+  border-color: #b4d9a7bb;
+  background-color: #b4d9a7bb;
 }
 
 :deep(.el-select-dropdown__item.selected) {

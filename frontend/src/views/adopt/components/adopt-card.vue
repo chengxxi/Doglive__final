@@ -53,6 +53,7 @@
       >
         <i v-if="card.gender.name == '여'" class="el-icon-female " />
         <i v-if="card.gender.name == '남'" class="el-icon-male " /> /
+        <i v-if="card.gender.name == '기타'" class="el-icon-question" />
         {{ card.age.name.split("(")[0] }} /
         {{ card.weight.name.split("(")[0] }}
       </p>

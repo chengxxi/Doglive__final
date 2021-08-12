@@ -152,13 +152,12 @@ export function existedForm({ state }, payload) {
 
 //입양,임보 게시판 목록 가져오기
 export function requestBoardList({ state }, payload) {
-  const url = "/board";
+  const url = "/board/adopt";
   return $axios.get(url, {
     params: {
       page: payload.page,
       size: payload.size,
       sort: payload.sort,
-      isAdopt: payload.isAdopt,
       searchWord: payload.searchWord,
       age: payload.age,
       weight: payload.weight,
@@ -173,4 +172,21 @@ export function requestDogTypeList({ state }, payload) {
   const url = "/board/dogType";
 
   return $axios.get(url);
+}
+
+//실종,보호 게시판 검색 목록 가져오기
+export function requestFindBoardList({ state }, payload) {
+  const url = "/board/find";
+  return $axios.get(url, {
+    params: {
+      page: payload.page,
+      size: payload.size,
+      sort: payload.sort,
+      searchWord: payload.searchWord,
+      sido: payload.sido,
+      color: payload.color,
+      boardType: payload.boardType,
+      dogType: payload.dogType
+    }
+  });
 }

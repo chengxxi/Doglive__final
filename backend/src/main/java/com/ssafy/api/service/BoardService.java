@@ -11,9 +11,11 @@ import java.util.List;
 
 public interface BoardService {
 
-    /* 게시판 목록 가져오기 (필터링, 페이지네이션 추가) */
-    Page<DogInformation> filterBoardList(Pageable pageable, boolean isAdopt, Long boardType, Long weight, Long age, Long gender, String searchWord); //필터링 결과 리스트 불러오기
+    /* 입양임보 게시판 목록 가져오기 (필터링, 페이지네이션 추가) */
+    Page<DogInformation> filterBoardList(Pageable pageable, Long boardType, Long weight, Long age, Long gender, String searchWord); //필터링 결과 리스트 불러오기
 
+    /* 실종보호 게시판 목록 가져오기 (필터링, 페이지네이션 추가) */
+    Page<DogInformation> filterFindBoardList(Pageable pageable, Long boardType,  Long sido, Long color, Long dogType, String searchWord); //필터링 결과 리스트 불러오기
 
 
     /* 유기동물 관련 게시물 작성하기 */

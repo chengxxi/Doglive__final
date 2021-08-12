@@ -75,7 +75,7 @@ public class BoardServiceImpl implements  BoardService{
 
     /* 입양임보실종보호 게시물 필터링 및 페이지네이션해서 가져오기 */
     @Override
-    public Page<DogInformation> filterBoardList(Pageable pageable, boolean isAdopt, Long boardType, Long weight, Long age, Long gender, String searchWord) {
+    public Page<DogInformation> filterBoardList(Pageable pageable, Long boardType, Long weight, Long age, Long gender, String searchWord) {
 
         Specification<DogInformation> spec = Specification.where(DogInformationSpecification.likeDogName(searchWord));
         spec = spec.or(DogInformationSpecification.likeTitle(searchWord));
@@ -93,19 +93,11 @@ public class BoardServiceImpl implements  BoardService{
         if(boardType!=null){
             spec = spec.and(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(boardType).get()));
         }else{
-            if(isAdopt){
+
                 spec = spec.and( DogInformationSpecification.inType(
                         boardCategoryRepository.findById(Long.parseLong("1")).get(),
                         boardCategoryRepository.findById(Long.parseLong("2")).get()));
                 //adopt 페이지 게시물이면 1,2번 공고가 default로 출력되도록
-
-            }else{
-                spec = spec.and( DogInformationSpecification.inType(
-                        boardCategoryRepository.findById(Long.parseLong("3")).get(),
-                        boardCategoryRepository.findById(Long.parseLong("4")).get()));
-                //find 페이지 게시물이면 1,2번 공고가 default로 출력되도록
-            }
-
         }
 
         return dogInformationRepository.
@@ -115,6 +107,40 @@ public class BoardServiceImpl implements  BoardService{
 
     }
 
+    @Override
+    public Page<DogInformation> filterFindBoardList(Pageable pageable, Long boardType, Long sido, Long color, Long dogType, String searchWord) {
+
+
+        Specification<DogInformation> spec = Specification.where(DogInformationSpecification.likeAddress(searchWord));
+        spec = spec.or(DogInformationSpecification.likeTitle(searchWord));
+
+        //제목, 상세주소 검색
+
+        if(color!=null){
+            spec = spec.and(DogInformationSpecification.eqColor(codeRepository.findById(color).get()));
+        }
+        if(sido!=null){
+            spec = spec.and(DogInformationSpecification.eqSido(sidoRepository.findById(sido).get()));
+        }
+        if(dogType!=null){
+            spec = spec.and(DogInformationSpecification.eqDogType(dogTypeRepository.findById(dogType).get()));
+        }
+        if(boardType!=null){
+            spec = spec.and(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(boardType).get()));
+        }else{
+
+            spec = spec.and( DogInformationSpecification.inType(
+                    boardCategoryRepository.findById(Long.parseLong("3")).get(),
+                    boardCategoryRepository.findById(Long.parseLong("4")).get()));
+            //find 페이지 게시물이면 1,2번 공고가 default로 출력되도록
+        }
+
+        return dogInformationRepository.
+                findAll(
+                        spec,
+                        pageable);
+
+    }
 
 
     /* 유기동물 관련 게시물 작성하기 */
@@ -164,8 +190,12 @@ public class BoardServiceImpl implements  BoardService{
         Code colorType = getCode(boardRegisterPostReq.getColorType());
         if(colorType!=null) dogInformation.setColorType(colorType);
 
-        Code dogType = getCode(boardRegisterPostReq.getDogType());
-        if(dogType!=null) dogInformation.setDogType(dogType);
+        Optional<DogType> dogType = dogTypeRepository.findById(boardRegisterPostReq.getDogType());
+        if(dogType.isPresent()) {
+            if(dogType.get()!=null){
+                dogInformation.setDogType(dogType.get());
+            }
+        }
 
         Code weight = getCode(boardRegisterPostReq.getWeight());
         if(weight!=null) dogInformation.setWeight(weight);
@@ -253,8 +283,12 @@ public class BoardServiceImpl implements  BoardService{
         Code colorType = getCode(boardRegisterPostReq.getColorType());
         if(colorType!=null) dogInformation.setColorType(colorType);
 
-        Code dogType = getCode(boardRegisterPostReq.getDogType());
-        if(dogType!=null) dogInformation.setDogType(dogType);
+        Optional<DogType> dogType = dogTypeRepository.findById(boardRegisterPostReq.getDogType());
+        if(dogType.isPresent()) {
+            if(dogType.get()!=null){
+                dogInformation.setDogType(dogType.get());
+            }
+        }
 
         Code weight = getCode(boardRegisterPostReq.getWeight());
         if(weight!=null) dogInformation.setWeight(weight);

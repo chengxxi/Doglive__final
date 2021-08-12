@@ -41,13 +41,18 @@ public class DogInformation extends BaseEntity {
 
   @ManyToOne
   @JoinColumn(name="dog_type")
-  private Code dogType;                  // 강아지 품종
+  private DogType dogType;                  // 강아지 품종
 
   @ManyToOne
   @JoinColumn(name="weight")
   private Code weight;                    // 강아지 무게 (대(18KG이상) / 중(8-18KG)/ 소(8KG 미만))
 
-  private String address;
+  @Column(length = 30)
+  private String address;                 // 상세 주소
+
+  @ManyToOne
+  @JoinColumn(name="gugun")
+  private Gugun gugun;                    //구군 주소
 
   @Column(columnDefinition = "TEXT")
   private String description;             // 부가 설명

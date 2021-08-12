@@ -8,7 +8,7 @@
           <el-button
             type="primary"
             @click="goRegister"
-            style="float:right; margin-top:20px;  margin-right:5px; height:40px;"
+            style="float:right; margin-top:20px; font-weight:600;  margin-right:5px; height:40px;"
             >글 작성하기<i
               class="el-icon-circle-plus "
               style="margin-left : 10px; font-size:15px; cursor: pointer;"
@@ -24,6 +24,14 @@
           >
             <i class="el-icon-info " style=" cursor: pointer;"
           /></el-button>
+          <el-button
+            type="info"
+            @click="showFilter = !showFilter"
+            style="float:right; margin-top:20px; font-weight:600; margin-right:15px; height:40px;"
+          >
+            {{ showFilter ? " 필터 OFF " : " 필터 ON " }}
+            <i class="el-icon-s-operation"></i>
+          </el-button>
         </el-row>
 
         <div class="collapse" id="notice">
@@ -88,21 +96,16 @@
           </el-button> -->
 
           <el-row
+            v-show="showFilter"
             style="background-color:#f9f4f0; margin-bottom:10px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
           >
             <el-col :span="20">
-              <el-row
-                v-show="showFilter"
-                style="height:50%; "
-                class="select-wrapper"
-                :gutter="20"
-              >
+              <el-row style="height:50%; " class="select-wrapper" :gutter="20">
                 <!-- Filter Options -->
                 <el-select
-                  label="공고타입"
                   v-model="state.boardTypeCode"
                   clearable
-                  placeholder="공고타입"
+                  placeholder="분류"
                   style="width:25%; padding-left:15px;padding-right:30px;"
                 >
                   <el-option
@@ -113,7 +116,6 @@
                   >
                   </el-option>
                 </el-select>
-
                 <el-select
                   v-model="state.genderCode"
                   clearable
@@ -175,7 +177,7 @@
               <el-button
                 @click="resetData"
                 type="warning"
-                style=" width:100%;  height:100%; float:right;  margin-right:5px;"
+                style=" width:100%; font-weight:600;  height:100%; float:right;  margin-right:5px;"
               >
                 초기화<i
                   class="el-icon-refresh "
@@ -185,7 +187,7 @@
               <el-button
                 @click="searchData"
                 type="primary"
-                style=" width:100%;   height:100%; float:right; margin-right:5px;  margin-top:20px;  "
+                style=" width:100%; font-weight:600;   height:100%; float:right; margin-right:5px;  margin-top:20px;  "
               >
                 검색<i
                   class="el-icon-search "
@@ -410,11 +412,6 @@ export default {
           console.log(result);
           state.boardList = result.data.boardList.content;
           state.boardListCount = result.data.boardList.totalElements;
-          store.commit("root/setBoardList", result.data.boardList.content);
-          store.commit(
-            "root/setBoardTotalListItemCnt",
-            result.data.totalElements
-          );
         });
     };
 

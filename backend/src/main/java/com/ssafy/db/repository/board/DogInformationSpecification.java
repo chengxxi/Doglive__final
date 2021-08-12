@@ -1,9 +1,6 @@
 package com.ssafy.db.repository.board;
 
-import com.ssafy.db.entity.board.BoardCategory;
-import com.ssafy.db.entity.board.BoardComment;
-import com.ssafy.db.entity.board.Code;
-import com.ssafy.db.entity.board.DogInformation;
+import com.ssafy.db.entity.board.*;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -27,6 +24,16 @@ public class DogInformationSpecification {
         };
     }
 
+    public static Specification<DogInformation> likeAddress(final String keyword) {
+
+        return new Specification<DogInformation>() {
+            @Override
+            public Predicate toPredicate(Root<DogInformation> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.like(root.get("address"), "%" + keyword + "%");
+            }
+        };
+    }
+
 
     public static Specification<DogInformation> likeTitle(final String keyword) {
 
@@ -37,6 +44,45 @@ public class DogInformationSpecification {
             }
         };
     }
+
+    public static Specification<DogInformation> eqSido(final Sido sido) {
+        return new Specification<DogInformation>() {
+            @Override
+            public Predicate toPredicate(Root<DogInformation> root,
+                                         CriteriaQuery<?> query,
+                                         CriteriaBuilder cb) {
+                Predicate equalPredicate = cb.equal(root.get("gugun").get("sidoCode"), sido);
+                return equalPredicate;
+            }
+        };
+    }
+
+
+    public static Specification<DogInformation> eqDogType(final DogType dogType) {
+        return new Specification<DogInformation>() {
+            @Override
+            public Predicate toPredicate(Root<DogInformation> root,
+                                         CriteriaQuery<?> query,
+                                         CriteriaBuilder cb) {
+                Predicate equalPredicate = cb.equal(root.get("dogType"), dogType);
+                return equalPredicate;
+            }
+        };
+    }
+
+
+    public static Specification<DogInformation> eqColor(final Code color) {
+        return new Specification<DogInformation>() {
+            @Override
+            public Predicate toPredicate(Root<DogInformation> root,
+                                         CriteriaQuery<?> query,
+                                         CriteriaBuilder cb) {
+                Predicate equalPredicate = cb.equal(root.get("colorType"), color);
+                return equalPredicate;
+            }
+        };
+    }
+
 
     public static Specification<DogInformation> eqGender(final Code gender) {
         return new Specification<DogInformation>() {

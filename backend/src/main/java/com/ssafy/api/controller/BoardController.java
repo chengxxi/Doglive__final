@@ -56,8 +56,8 @@ public class BoardController {
 
 
 
-    @GetMapping("")
-    @ApiOperation(value = "입양/임보/실종/보호  공고 목록", notes = "입양/입양/실종/보호 공고 목록을 가져온다")
+    @GetMapping("/adopt")
+    @ApiOperation(value = "입양/임보 공고 목록", notes = "입양/임보 공고 목록을 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -70,7 +70,24 @@ public class BoardController {
             String searchWord
     ) {
 
-        Page<DogInformation> resultFilterList = boardService.filterBoardList(pageable, isAdopt, boardType, weight, age, gender, searchWord.replace(" ", ""));
+        Page<DogInformation> resultFilterList = boardService.filterBoardList(pageable, boardType, weight, age, gender, searchWord.replace(" ", ""));
+        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", resultFilterList));
+
+
+    }
+
+    @GetMapping("/find")
+    @ApiOperation(value = "실종/보호 공고 목록", notes = "실종/보호 공고 목록을 가져온다")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<BoardDetailListGetRes> findBoardList(@PageableDefault(size = 12) Pageable pageable, Long boardType, Long sido, Long color, Long dogType, String searchWord
+    ) {
+
+        Page<DogInformation> resultFilterList = boardService.filterFindBoardList(pageable, boardType, sido, color, dogType, searchWord.replace(" ", ""));
         return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", resultFilterList));
 
 
