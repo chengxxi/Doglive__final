@@ -20,6 +20,9 @@ import FindDetail from '@/views/find/find-detail.vue';
 import FindRegister from '@/views/find/find-register.vue';
 import FindModify from '@/views/find/find-modify.vue';
 import MBTI from '@/views/mbti/mbti.vue';
+import MBTItest from '@/views/mbti/components/mbti-test.vue';
+import MBTIinfo from '@/views/mbti/components/mbti-info.vue';
+
 
 const routes = [
   {
@@ -172,21 +175,31 @@ const routes = [
     component: FindModify
   },
   {
-    path: '/mbti',
+    path: '/mbti', // introduction page
     name: 'MBTI',
     component: MBTI,
-    children: [
-      {
-        path: 'intro',
-        name: 'mbti-intro',
-        component: () => import('@/views/mbti/components/mbti-intro.vue')
-      },
-      {
-        path: 'test',
-        name: 'mbti-test',
-        component: () => import('@/views/mbti/components/mbti-test.vue')
-      }
-    ]
+    // children: [
+    //   {
+    //     path: 'intro',
+    //     name: 'mbti-intro',
+    //     component: () => import('@/views/mbti/components/mbti-intro.vue')
+    //   },
+    //   {
+    //     path: 'test',
+    //     name: 'mbti-test',
+    //     component: () => import('@/views/mbti/components/mbti-test.vue')
+    //   }
+    // ]
+  },
+  {
+    path: '/mbti/test', // test page
+    name: 'MBTItest',
+    component: MBTItest
+  },
+  {
+    path: '/mbti/info', // information page
+    name: 'MBTIinfo',
+    component: MBTIinfo
   },
 
 ];
