@@ -116,12 +116,12 @@ export function requestRegisterCommunity({state}, payload){
 
 // 커뮤니티 게시글 수정
 export function requestUpdateCommunity({state}, payload){
-  const url = "/community/" + payload
-  return $axios.put(url);
+  const url = "/community/" + payload.communityId
+  return $axios.put(url,payload.data);
 }
 
 // 커뮤니티 게시글 상세 정보 가져오기
-export function requestCommunityDetsil({state}, payload){
+export function requestCommunityDetail({state}, payload){
   const url = "/community/detail/" + payload
   return $axios.get(url);
 }

@@ -57,8 +57,10 @@ public class CommunityServiceImpl implements  CommunityService{
     @Override
     public Community updateCommunityBoard(Long id, CommunityRegisterPostReq communityRegisterPostReq) {
         Optional<Community> community = communityRepository.findById(id);
+        System.out.println(communityRegisterPostReq);
         if(community.isPresent()){
             community.get().setTitle(communityRegisterPostReq.getTitle());
+            community.get().setCategory(communityRegisterPostReq.getCategory());
             community.get().setDescription(communityRegisterPostReq.getDescription());
             communityRepository.save(community.get());
         }

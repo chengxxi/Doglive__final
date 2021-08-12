@@ -20,6 +20,7 @@ export default {
   },
 
   community:{
+    communityId:"",
     title: "",
     category: "",
     description: ""

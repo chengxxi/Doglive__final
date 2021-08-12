@@ -50,6 +50,7 @@ export function setProfile(state, payload) {
 }
 
 export function setCommunityBoard(state, payload){
+  state.community.communityId = payload.communityId;
   state.community.title = payload.title;
   state.community.category = payload.category;
   state.community.description = payload.description;

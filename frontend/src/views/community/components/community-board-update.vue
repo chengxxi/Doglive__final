@@ -186,6 +186,7 @@ export default {
   data(){
     return{
       boardForm:{
+        communityId: this.state.community.communityId,
         category : this.state.community.category,
         title : this.state.community.title,
         description : this.state.community.description,
@@ -222,6 +223,7 @@ export default {
   methods:{
     submitForm(formName) {
       const data = {
+        communityId: this.boardForm.communityId,
         title: this.boardForm.title,
         category : this.boardForm.category,
         description: this.boardForm.description,
@@ -266,38 +268,10 @@ export default {
 
     });
 
-   const registerData = function(data) {
-      store
-        .dispatch("root/requestRegisterCommunity", data)
-        .then(function(result) {
-          createToast("게시글이 등록되었어요 📜🐾", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
-            transition: "bounce",
-            type: "success"
-          });
-          console.log("등록 성공");
-          router.push({ name: "Community" });
-        })
-        .catch(function(err) {
-          createToast("게시글 등록에 실패했어요 💬💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
-            transition: "bounce",
-            type: "warning"
-          });
-          console.log(err);
-        });
-    };
+
 
     const modifyData = function(data){
-      store.dispatch("root/requestUpdateCommunity", id)
+      store.dispatch("root/requestUpdateCommunity", {communityId : data.communityId, data: data })
       .then(function(result){
         createToast("게시글이 수정되었어요 📜🐾", {
             hideProgressBar: "true",
@@ -309,7 +283,7 @@ export default {
             type: "success"
           });
           console.log("수정 성공");
-          router.push({ name: "Adopt" });
+          router.push({ name: "Community" });
       })
     }
 
@@ -325,7 +299,7 @@ export default {
 
    
 
-    return { state , registerData, modifyData};
+    return { state , modifyData};
   }
 }
 </script>

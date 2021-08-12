@@ -5,8 +5,7 @@
         >글 작성하기</el-button>
       </div>
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
-      <!-- <div class="button-group" v-if="item.userId==state.userId"> -->
-        <div class="button-group">
+      <div class="button-group" v-if="item.userId==state.userId">
           <el-button-group>
             <el-button type="info" plain icon="el-icon-edit" size="mini" @click="updateCommunity(item.id)"></el-button>
             <el-button type="info" plain icon="el-icon-delete" size="mini" @click="deleteCommunity(item.id)"></el-button>
@@ -161,10 +160,11 @@ export default {
 
 
     const updateCommunity = function(id){
-      store.dispatch("root/requestCommunityDetsil", id)
+      store.dispatch("root/requestCommunityDetail", id)
       .then(function(result){
         console.log(result)
         const CommunityDetail = {
+          communityId : result.data.community.id,
           title : result.data.community.title,
           category : result.data.community.category,
           description : result.data.community.description,

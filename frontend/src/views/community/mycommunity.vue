@@ -7,12 +7,12 @@
         <p>강아지와 당신의 이야기</p>
       </div>
       <el-row class="myboard" v-for="(item, index) in state.myBoardList" :key="index">
-        <div class="button-group">
+        <!-- <div class="button-group">
           <el-button-group>
             <el-button type="info" plain icon="el-icon-edit" size="mini"></el-button>
             <el-button type="info" plain icon="el-icon-delete" size="mini" @click="deleteCommunity(item.id)"></el-button>
           </el-button-group>
-      </div>
+      </div> -->
         <div class="image">
           <img :src="require('@/assets/images/mbti_isfp.png')" />
         </div>
