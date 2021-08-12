@@ -61,7 +61,7 @@
           <div class="chat-header">
             <i class="el-icon-arrow-right close-btn" @click="turnChat"></i>
           </div>
-          <el-scrollbar class="chatlog" dropzone="true">
+          <el-scrollbar class="chatlog" dropzone="true" :ref="el => { if(el) divs = el}">
             <div v-for="chat in chatArray" :key="chat" class="chatContent">
               {{chat}}
             </div>
@@ -176,7 +176,7 @@ import { OpenVidu } from 'openvidu-browser';
 import UserVideo from './components/UserVideo';
 import { computed } from '@vue/runtime-core';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-const OPENVIDU_SERVER_URL = "https://i5a501.p.ssafy.io";
+const OPENVIDU_SERVER_URL = "https://i5a501.p.ssafy.io:8443";
 const OPENVIDU_SERVER_SECRET = "doglivedoggi";
 export default {
 	name: 'App',
@@ -218,7 +218,7 @@ export default {
     joinSession() {
       // mySessionId : 채팅방 있는 두 명의 사용자 ID 합친 것 (26자리 숫자 || 앞자리 어떤 채팅방인지 + 26자리 숫자 => 27자리 숫자)
       // myUserName : 현재 유저의 카카오톡 고유 아이디로 지정
-      this.myUserName = this.$store.dispatch('getLoginUserInfo');
+      this.myUserName = this.$store.state.loginUserInfo;
       console.log('로그인한 사용자 아이디 : ');
       console.log(this.myUserName)
       // 먼저 화상회의 개설 (DB에 저장)
@@ -360,6 +360,27 @@ export default {
       });
     },
 
+    sendMessage() {
+      console.log('sendMessage > 사용자가 enter 쳤다')
+      console.log(this.chatString)
+      console.log(this.myUserName)
+      const msg = {
+        userName : this.myUserName,
+        content : this.chatString
+      }
+      this.session.signal({
+        data: JSON.stringify(msg),
+        to:[],
+        type: 'chatSend'
+      })
+      .then(()=> {
+        console.log('Message successfully send❗')
+        this.chatString='';
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
     // turn on / off
     turnCamera() {
       console.log('변경 전 > : ' + this.videoEnabled);
@@ -390,7 +411,12 @@ export default {
         this.spanVideo = 24;
       }
       console.log('채팅창 표시 변경 버튼 클릭 > ');
-    }
+    },
+
+    // 스크롤 하단 고정
+    scrollToBottom(el){
+      el.value.scrollTop = 99999
+    },
   }
 };
 </script>

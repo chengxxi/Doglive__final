@@ -82,9 +82,12 @@ export default {
       console.log(state.chatString)
       state.myUserName = props.clientData
       console.log(state.myUserName)
-      const msg = '[' + state.myUserName+'] > ' + state.chatString
+      const msg = {
+        userName : state.myUserName,
+        content : state.chatString
+      }
       state.session.signal({
-        data: msg,
+        data: JSON.stringify(msg),
         to:[],
         type: 'chatSend'
       })
