@@ -20,6 +20,10 @@
   cursor: pointer;
   margin-bottom: 10px;
 }
+.box-card:hover{
+  background-color: rgb(248, 248, 248);
+}
+
 :deep(.el-card__body){
   height: inherit;
   padding: 15px;
