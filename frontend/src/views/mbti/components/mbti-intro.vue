@@ -19,8 +19,12 @@
 
   <div class="mbtiBtn">
       <!-- round option -->
-      <el-button class="goMbtiBtn">MBTI 테스트 하러 가기</el-button>
-      <el-button class="showMbtiBtn">독립 MBTI 테스트 유형 보기</el-button>
+      <a href="/mbti/test">
+        <el-button class="goMbtiBtn">MBTI 테스트 하러 가기</el-button>
+      </a>
+      <a href="/mbti/info">
+        <el-button class="showMbtiBtn">독립 MBTI 테스트 유형 보기</el-button>
+      </a>
 
     </div>
 
