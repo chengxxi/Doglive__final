@@ -52,51 +52,6 @@ public class AdoptServiceImpl implements AdoptService{
     @Autowired
     CodeRepository codeRepository;
 
-    /* 입양임보 게시물 전체 목록 불러오기 (페이지네이션 적용) 기본 size는 12개 */
-    @Override
-    public Page<DogInformation> getAdoptBoardListInit(Pageable pageable) {
-        Specification<DogInformation> spec = Specification
-                .where(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(Long.parseLong("1")).get()));
-        spec = spec.or(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(Long.parseLong("2")).get()));
-
-        Page<DogInformation> adoptList = dogInformationRepository.findAll(spec, pageable);
-        return adoptList;
-    }
-
-
-    /* 입양임보 게시물 필터링해서 가져오기 */
-    @Override
-    public Page<DogInformation> filterAdoptBoardList(Pageable pageable, Long boardType, Long weight, Long age, Long gender, String searchWord) {
-
-        Specification<DogInformation> spec = Specification.where(DogInformationSpecification.likeDogName(searchWord));
-        spec = spec.or(DogInformationSpecification.likeTitle(searchWord));
-
-
-        if(age!=null){
-            spec = spec.and(DogInformationSpecification.eqAge(codeRepository.findById(age).get()));
-        }
-        if(gender!=null){
-            spec = spec.and(DogInformationSpecification.eqGender(codeRepository.findById(gender).get()));
-        }
-        if(weight!=null){
-            spec = spec.and(DogInformationSpecification.eqWeight(codeRepository.findById(weight).get()));
-        }
-        if(boardType!=null){
-            spec = spec.and(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(boardType).get()));
-        }else{
-            spec = spec.and( DogInformationSpecification.inType(
-                    boardCategoryRepository.findById(Long.parseLong("1")).get(),
-                    boardCategoryRepository.findById(Long.parseLong("2")).get()));
-        }
-
-        return dogInformationRepository.
-                findAll(
-                        spec,
-                        pageable);
-
-    }
-
-
     /* 입양신청서 작성하기 */
     @Override
     public CounselingHistory insertAdoptForm(String userId, AdoptFormReq adoptFormReq) {

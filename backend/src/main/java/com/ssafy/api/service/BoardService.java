@@ -4,10 +4,17 @@ import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.request.BookmarkReq;
 import com.ssafy.db.entity.auth.Bookmark;
 import com.ssafy.db.entity.board.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface BoardService {
+
+    /* 게시판 목록 가져오기 (필터링, 페이지네이션 추가) */
+    Page<DogInformation> filterBoardList(Pageable pageable, boolean isAdopt, Long boardType, Long weight, Long age, Long gender, String searchWord); //필터링 결과 리스트 불러오기
+
+
 
     /* 유기동물 관련 게시물 작성하기 */
     Board registerBoard(BoardRegisterPostReq boardRegisterPostReq);
@@ -54,5 +61,7 @@ public interface BoardService {
     List<Gugun> getGugunListBySido(Long sido);
 
     List<Sido> getSidoList();
+
+    List<DogType> getDogTypeList();
 
 }

@@ -56,8 +56,8 @@ public class BoardController {
 
 
 
-    @GetMapping("/adopt")
-    @ApiOperation(value = "입양/임보 공고 목록", notes = "입양/입양 공고 목록을 가져온다")
+    @GetMapping("")
+    @ApiOperation(value = "입양/임보/실종/보호  공고 목록", notes = "입양/입양/실종/보호 공고 목록을 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -65,30 +65,17 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<BoardDetailListGetRes> adoptBoardList(@PageableDefault(size = 12) Pageable pageable,
+            boolean isAdopt,
             Long boardType, Long weight, Long age, Long gender,
             String searchWord
-    ){
+    ) {
 
-            Page<DogInformation> resultFilterList = adoptService.filterAdoptBoardList(pageable, boardType, weight, age, gender, searchWord.replace(" ",""));
-            return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", resultFilterList));
+        Page<DogInformation> resultFilterList = boardService.filterBoardList(pageable, isAdopt, boardType, weight, age, gender, searchWord.replace(" ", ""));
+        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", resultFilterList));
+
 
     }
 
-
-    @GetMapping("/find")
-    @ApiOperation(value = "실종/보호 공고 목록", notes = "입양/입양 공고 목록을 가져온다")
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-
-    public ResponseEntity<BoardDetailListGetRes> findBoardList(@PageableDefault(size = 12, sort = "regDate", direction = Sort.Direction.DESC) Pageable pageable){
-
-        return null;
-
-    }
 
     @PostMapping()
     @ApiOperation(value = "게시판 공고 등록", notes = "게시판 공고를 등록한다")
@@ -259,6 +246,20 @@ public class BoardController {
 
         List<Gugun> gugunList = boardService.getGugunListBySido(Long.parseLong(sido));
         return ResponseEntity.ok(GugunCodeGetRes.of(200, "Success",gugunList));
+    }
+
+    @GetMapping("/dogType")
+    @ApiOperation(value = "강아지 품종 코드 리스트", notes = "강아지 품종 코드 정보를 가져온다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<DogTypeGetRes> findDogTypeList(){
+
+        List<DogType> dogTypeList = boardService.getDogTypeList();
+        return ResponseEntity.ok(DogTypeGetRes.of(200, "Success", dogTypeList));
     }
 
 }

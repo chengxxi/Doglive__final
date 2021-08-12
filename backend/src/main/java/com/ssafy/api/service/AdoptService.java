@@ -10,10 +10,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface AdoptService {
 
-    Page<DogInformation> getAdoptBoardListInit(Pageable pageable); //전체 입양/임보 공고 리스트 불러오기
-
-    Page<DogInformation> filterAdoptBoardList(Pageable pageable, Long boardType, Long weight, Long age, Long gender, String searchWord); //필터링 결과 리스트 불러오기
-
 
 
     CounselingHistory insertAdoptForm(String userId, AdoptFormReq adoptFormReq); //입양신청서 폼 제출
