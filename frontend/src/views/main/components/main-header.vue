@@ -32,8 +32,8 @@
           <li>
             <a href="#" @mouseover="changeDisplay('over')">커뮤니티</a>
             <ul class="depth1" :style="{ display: state.showHiddenMenu }">
-              <li><a href="/adopt">게시글 구경하기</a></li>
-              <li><a href="/adopt">내 피드 확인하기</a></li>
+              <li><a href="/community">게시글 구경하기</a></li>
+              <li><a href="/community/list">내 피드 확인하기</a></li>
             </ul>
           </li>
           <li>

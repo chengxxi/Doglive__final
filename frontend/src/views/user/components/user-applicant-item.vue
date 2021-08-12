@@ -133,7 +133,7 @@ export default {
                 transition: "bounce",
                 type: "success"
             });
-        router.push({name : 'mypage-result-list'})
+        router.push({name : 'mypage-applicant-list'})
       }).catch(function(err){
         console.log(err)
       });
@@ -151,7 +151,7 @@ export default {
                 transition: "bounce",
                 type: "success"
             });
-        router.push({name : 'mypage-result-list'})
+        router.push({name : 'mypage-applicant-list'})
       }).catch(function(err){
         console.log(err)
       });

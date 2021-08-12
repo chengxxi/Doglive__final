@@ -1,5 +1,6 @@
 package com.ssafy.db.repository.community;
 
+import com.ssafy.db.entity.community.Community;
 import com.ssafy.db.entity.community.CommunityImage;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,9 +10,13 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CommunityImageRepository extends JpaRepository<CommunityImage, Long> {
+
+    Optional<List<CommunityImage>> findCommunityImagesByCommunityId(Community communityId);
 
 }
 

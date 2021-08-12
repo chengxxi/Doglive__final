@@ -2,8 +2,8 @@
 
 // 현재 로그인 된 UserInfo 가져오기
 export function getLoginUserInfo(state) {
-  console.log("state 내용 : " + state);
-  return state.loginUserInfo;
+  console.log(state)
+  return state.loginUserInfo
 }
 
 // 현재 Current Path 가져오기
@@ -42,4 +42,10 @@ export function getBoardList(state) {
 // 채팅방 정보 여부 가져오기
 export function getChat(state) {
   return state.chat;
+}
+
+// 현재 커뮤니티 글 가져오기
+export function getCommunityBoard(state){
+  console.log(state)
+  return state.community;
 }

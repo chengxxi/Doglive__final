@@ -20,6 +20,8 @@ import FindDetail from "@/views/find/find-detail.vue";
 import FindRegister from "@/views/find/find-register.vue";
 import FindModify from "@/views/find/find-modify.vue";
 import MBTI from "@/views/mbti/mbti.vue";
+import Community from "@/views/community/community.vue";
+import MyCommunity from "@/views/community/mycommunity.vue";
 
 const routes = [
   {
@@ -175,7 +177,36 @@ const routes = [
     path: "/mbti",
     name: "MBTI",
     component: MBTI
-  }
+  },
+  {
+    path: "/community",
+    redirect: "/community/list",
+    name: "Community",
+    component: Community,
+    children: [
+      {
+        path: "list",
+        name: "community-board-list",
+        component: () => import("@/views/community/components/community-board-list.vue")
+      },
+      {
+        path: "register",
+        name: "community-board-register",
+        component: () => import("@/views/community/components/community-board-register.vue")
+      },
+      {
+        path: "update",
+        name: "community-board-update",
+        component: () => import("@/views/community/components/community-board-update.vue")
+      },
+    ]
+  },
+  {
+    path: "/community/mylist",
+    name: "MyCommunity",
+    component : MyCommunity,
+    component: () => import("@/views/community/mycommunity.vue")
+  },
 ];
 
 const router = createRouter({

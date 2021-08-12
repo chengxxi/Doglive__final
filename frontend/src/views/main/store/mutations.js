@@ -61,3 +61,11 @@ export function setBoardMovePage(state, index) {
   state.board.offset = (index - 1) * state.board.listRowCount;
   state.board.currentPageIndex = index;
 }
+
+export function setCommunityBoard(state, payload){
+  state.community.communityId = payload.communityId;
+  state.community.title = payload.title;
+  state.community.category = payload.category;
+  state.community.description = payload.description;
+
+}
