@@ -450,7 +450,7 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public List<Gugun> getGugunListBySido(Long sido) {
 
-        Optional<List<Gugun>> gugunList = gugunRepository.findGugunsBySidoCode(sido);
+        Optional<List<Gugun>> gugunList = gugunRepository.findGugunsBySidoCode(sidoRepository.findById(sido).get());
         if(gugunList.isPresent()){
             return gugunList.get();
         }

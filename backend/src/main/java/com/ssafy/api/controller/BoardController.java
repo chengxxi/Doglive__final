@@ -259,9 +259,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<GugunCodeGetRes> findGugunList(@PathVariable("sido") String sido){
+    public ResponseEntity<GugunCodeGetRes> findGugunList(@PathVariable("sido") Long sido){
 
-        List<Gugun> gugunList = boardService.getGugunListBySido(Long.parseLong(sido));
+        List<Gugun> gugunList = boardService.getGugunListBySido(sido);
         return ResponseEntity.ok(GugunCodeGetRes.of(200, "Success",gugunList));
     }
 

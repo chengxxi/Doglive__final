@@ -9,7 +9,7 @@
 
       <div>
         <el-form
-          style=" margin:100px;"
+          style=" margin:100px; padding-left:20px; padding-right:20px;"
           label-position="left"
           :model="ruleForm"
           :rules="rules"
@@ -21,22 +21,49 @@
           </h5>
           <el-divider />
           <el-row class="mt-3 mb-3">
-            <el-form-item label="제목" prop="title" style="width:100%">
-              <el-input v-model="ruleForm.title"></el-input>
-            </el-form-item>
-          </el-row>
-          <el-row>
             <el-col :span="12">
-              <el-form-item label="강아지 이름" prop="name" style="width:95%">
-                <el-input v-model="ruleForm.name"></el-input>
+              <el-form-item
+                label="제목"
+                prop="title"
+                style="padding-right:10px; width:100%"
+              >
+                <el-input v-model="ruleForm.title"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="현재 주소" prop="address">
+              <el-form-item label="강아지 이름" prop="name" style="width:100%">
                 <el-input
-                  placeholder="ㅇㅇ시 ㅇㅇ구"
-                  v-model="ruleForm.address"
+                  style="padding-left:10px; width:100%;"
+                  v-model="ruleForm.name"
                 ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="거주지" label-width="100%">
+                <el-select
+                  v-model="ruleForm.sido"
+                  placeholder="시/도"
+                  :change="gugunList(ruleForm.sido)"
+                >
+                  <el-option
+                    v-for="(sido, idx) in state.sidoList"
+                    :key="idx"
+                    :label="sido.name"
+                    :value="sido.id"
+                  >
+                  </el-option>
+                </el-select>
+                <el-select v-model="ruleForm.gugun" placeholder="구/군">
+                  <el-option
+                    v-for="(gugun, idx) in state.gugunList"
+                    :key="idx"
+                    :label="gugun.name"
+                    :value="gugun.id"
+                  >
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -44,7 +71,11 @@
           <el-row class="mt-3 mb-3">
             <el-col :span="12">
               <el-form-item label="연령대" prop="age">
-                <el-select v-model="ruleForm.age" placeholder="Puppy(~ 6개월)">
+                <el-select
+                  style="width:95%;"
+                  v-model="ruleForm.age"
+                  placeholder="Puppy(~ 6개월)"
+                >
                   <el-option
                     label="Puppy(~ 6개월)"
                     value="{ id: 4, name: 'Puppy(~ 6개월)' }"
@@ -66,7 +97,11 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="크기" prop="size">
-                <el-select v-model="ruleForm.size" placeholder="소(8kg 미만)">
+                <el-select
+                  style="width:100%;"
+                  v-model="ruleForm.size"
+                  placeholder="소(8kg 미만)"
+                >
                   <el-option
                     label="소(8kg 미만)"
                     value="{ id: 1, name: '소(8kg 미만)' }"
@@ -136,10 +171,20 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="품종" prop="dogType">
-                <el-radio-group v-model="ruleForm.dogType">
-                  <el-radio label="장모" border></el-radio>
-                  <el-radio label="단모" border></el-radio>
-                </el-radio-group>
+                <el-select
+                  v-model="ruleForm.dogType"
+                  clearable
+                  placeholder="품종"
+                  style="width:25%;padding-right:30px;"
+                >
+                  <el-option
+                    v-for="dog in state.dogTypeList"
+                    :key="dog.id"
+                    :label="dog.name"
+                    :value="dog.id"
+                  >
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -341,6 +386,8 @@ export default {
   data() {
     return {
       ruleForm: {
+        sido: "",
+        gugun: "",
         type: "",
         title: "",
         name: "",
@@ -533,10 +580,24 @@ export default {
     const router = new useRouter();
 
     const state = reactive({
+      dogTypeList: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"];
-      })
+      }),
+      sidoList: [],
+      gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }]
     });
+
+    //시도 리스트 가져오기
+    store
+      .dispatch("root/requestSidoCodeList")
+      .then(function(result) {
+        console.log("call : sidocode");
+        state.sidoList = result.data.sidoList;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
 
     const registerData = function(data) {
       store
@@ -568,6 +629,31 @@ export default {
         });
     };
 
+    //강아지 품종 데이터 읽어오기
+    const readDogTypeList = function() {
+      store.dispatch("root/requestDogTypeList").then(function(result) {
+        console.log("dogType:", result);
+        state.dogTypeList = result.data.dogTypeList;
+        state.dogTypeList.push({ id: 17, name: "기타" });
+      });
+    };
+
+    //시도에 맞는 구군 리스트 가져오기
+    const gugunList = function(selectedSidoCode) {
+      console.log(selectedSidoCode);
+
+      store
+        .dispatch("root/requestGugunCodeList", selectedSidoCode)
+        .then(function(result) {
+          console.log("call : guguncode");
+
+          state.gugunList = result.data.gugunList;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    };
+
     onMounted(() => {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
@@ -576,10 +662,11 @@ export default {
         path: "/adopt",
         subTitle: "입양/임보 공고 작성"
       });
+      readDogTypeList();
       window.scrollTo(0, 0);
     });
 
-    return { state, registerData };
+    return { state, gugunList, registerData, readDogTypeList };
   }
 };
 </script>
