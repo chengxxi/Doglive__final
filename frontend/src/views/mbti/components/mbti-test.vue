@@ -39,11 +39,11 @@
 
 
 <script>
-import MbtiDescription from './components/mbti-description.vue'
-import MbtiQuestion from './components/mbti-questions.vue'
+import MbtiDescription from './mbti-description.vue'
+import MbtiQuestion from './mbti-question.vue'
 
 export default {
-  name: 'mbti',
+  name: 'mbti-test',
   components: {
     MbtiDescription,
     MbtiQuestion,
