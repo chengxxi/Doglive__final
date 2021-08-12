@@ -5,13 +5,13 @@ module.exports = {
   devServer: {
     compress: true,
     disableHostCheck: true,
-    https: false,
+    https: true,
     port: 8080,
     open: true,
 
     proxy: {
       '/api/v1': {
-        target: 'http://localhost:8080/'
+        target: 'https://localhost:8080/'
       },
       // '/webjars': {
       //   target: 'https://localhost:8443/'
