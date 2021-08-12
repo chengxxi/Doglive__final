@@ -174,8 +174,21 @@ const routes = [
   {
     path: '/mbti',
     name: 'MBTI',
-    component: MBTI
-  }
+    component: MBTI,
+    children: [
+      {
+        path: 'intro',
+        name: 'mbti-intro',
+        component: () => import('@/views/mbti/components/mbti-intro.vue')
+      },
+      {
+        path: 'test',
+        name: 'mbti-test',
+        component: () => import('@/views/chat/components/mbti-test.vue')
+      }
+    ]
+  },
+
 ];
 
 const router = createRouter({
