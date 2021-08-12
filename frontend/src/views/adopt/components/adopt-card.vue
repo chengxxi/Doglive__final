@@ -74,6 +74,14 @@
 :deep(.el-card__body) {
   padding: 0px;
 }
+
+.scale-up-2:hover {
+  transform: scale(1.03);
+}
+
+.scale-up-hover-2:hover .scale {
+  transform: scale(1.03);
+}
 </style>
 
 <script>

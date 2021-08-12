@@ -5,10 +5,10 @@
         <el-breadcrumb-item :to="{ path: '/' }"
           ><font-awesome-icon :icon="['fas', 'home']"
         /></el-breadcrumb-item>
-        <el-breadcrumb-item>{{
+        <el-breadcrumb-item :to="{ path: state.breadCrumbInfo.path }">{{
           state.breadCrumbInfo.title
         }}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{
+        <el-breadcrumb-item :to="{ path: '/' }">{{
           state.breadCrumbInfo.subTitle
         }}</el-breadcrumb-item>
       </el-breadcrumb>
@@ -39,4 +39,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+:deep(.el-breadcrumb__inner) {
+  color: #606266;
+}
+:deep(.el-breadcrumb__inner:hover) {
+  color: #755744;
+}
+</style>

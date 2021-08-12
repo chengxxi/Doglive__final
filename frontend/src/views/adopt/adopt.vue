@@ -6,27 +6,27 @@
 
         <el-row style="margin-right:5px; margin-top:20px; margin-bottom:15px;">
           <el-button
-            class="scale-up-2"
             type="primary"
             @click="goRegister"
             style="float:right; margin-top:20px;  margin-right:5px; height:40px;"
             >글 작성하기<i
               class="el-icon-circle-plus "
-              style="margin-left : 10px; cursor: pointer;"
+              style="margin-left : 10px; font-size:15px; cursor: pointer;"
             />
           </el-button>
+
           <el-button
             type="info"
             class="scale-up-2"
             data-bs-toggle="collapse"
-            href="#collapseExample"
-            style="float:left; margin-top:20px;  margin-right:5px; height:40px;"
-            >입양 절차 안내
-            <i class="el-icon-info " style="margin-left : 5px; cursor: pointer;"
+            href="#notice"
+            style="float:left; font-size:20px;margin-top:20px; height:40px;"
+          >
+            <i class="el-icon-info " style=" cursor: pointer;"
           /></el-button>
         </el-row>
 
-        <div class="collapse" id="collapseExample">
+        <div class="collapse" id="notice">
           <div class="card card-body">
             <div style="text-align:center;">
               <h4 class="mt-5 mb-3" style="font-weight:600;">
@@ -88,7 +88,7 @@
           </el-button> -->
 
           <el-row
-            style="background-color:#f9f4f0; margin-bottom:30px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
+            style="background-color:#f9f4f0; margin-bottom:10px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
           >
             <el-col :span="20">
               <el-row
@@ -175,7 +175,6 @@
               <el-button
                 @click="resetData"
                 type="warning"
-                class="scale-up-2"
                 style=" width:100%;  height:100%; float:right;  margin-right:5px;"
               >
                 초기화<i
@@ -186,7 +185,6 @@
               <el-button
                 @click="searchData"
                 type="primary"
-                class="scale-up-2"
                 style=" width:100%;   height:100%; float:right; margin-right:5px;  margin-top:20px;  "
               >
                 검색<i
@@ -198,6 +196,27 @@
           </el-row>
         </span>
       </div>
+      <el-row>
+        <el-button
+          type="info"
+          class="scale-up-2"
+          @click="newestSort"
+          style="float:left; height:30px; margin-left:20px; padding-left:0px; padding-right:0px;  padding-bottom:0px;"
+          >최신순
+        </el-button>
+        <el-button
+          type="info"
+          style="float:left; font-weight:500; height:30px;width:5px;padding-left:0px; padding-right:0px;padding-bottom:0px;"
+          >|
+        </el-button>
+        <el-button
+          type="info"
+          class="scale-up-2"
+          @click="oldestSort"
+          style="float:left;height:30px; padding-left:0px; padding-right:0px;padding-bottom:0px; "
+          >오래된순
+        </el-button>
+      </el-row>
       <el-row v-if="state.boardListCount == 0">
         <el-empty
           style="margin-top:80px; margin-bottom:50px;"
@@ -244,31 +263,11 @@ export default {
   },
   data() {
     return {
-      //목록 정보
-      boardList: [],
-      boardListCount: 0,
-      limit: 10,
-      offset: 0,
-      searchWord: " ",
-      age: [],
-      weight: [],
-      boardType: [],
-      gender: [],
-      ageCode: "",
-      weightCode: "",
-      boardTypeCode: "",
-      genderCode: "",
-
-      //페이지네이션
-      listRowCount: 3,
-      pageLinkCount: 12,
-      currentPageIndex: 1,
-
       // Color Option
       options_type: [
         {
           value: "",
-          label: "전체"
+          label: "분류"
         },
         {
           value: 1,
@@ -283,7 +282,7 @@ export default {
       options_gender: [
         {
           value: "",
-          label: "전체"
+          label: "성별"
         },
         {
           value: 8,
@@ -298,7 +297,7 @@ export default {
       options_size: [
         {
           value: "",
-          label: "전체"
+          label: "크기"
         },
         {
           value: 1,
@@ -317,7 +316,7 @@ export default {
       options_age: [
         {
           value: "",
-          label: "전체"
+          label: "연령"
         },
         {
           value: 4,
@@ -345,6 +344,9 @@ export default {
     const router = new useRouter();
 
     const state = reactive({
+      //검색용
+      dogTypeList: [],
+
       dialogDataVisible: false,
       boardList: [],
       boardListCount: 0,
@@ -359,6 +361,7 @@ export default {
       weightCode: "",
       boardTypeCode: "",
       genderCode: "",
+      sort: "",
 
       //페이지네이션
       listRowCount: 12,
@@ -370,6 +373,7 @@ export default {
       })
     });
 
+    //글 등록하기
     const goRegister = function() {
       if (state.userId === null) {
         createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
@@ -387,10 +391,14 @@ export default {
       }
     };
 
+    //목록 정보 가져오기
     const readData = function() {
       store
-        .dispatch("root/requestAdoptList", {
+        .dispatch("root/requestBoardList", {
           page: state.currentPageIndex,
+          sort: state.sort,
+          size: state.limit,
+          isAdopt: true,
           searchWord: state.searchWord,
           age: state.ageCode,
           gender: state.genderCode,
@@ -410,6 +418,7 @@ export default {
         });
     };
 
+    //필터 리셋
     const resetData = function() {
       state.boardList = [];
       state.boardListCount = 0;
@@ -419,14 +428,16 @@ export default {
       state.weightCode = "";
       state.boardTypeCode = "";
       state.genderCode = "";
+      state.sort = "";
 
       readData();
     };
 
+    //검색 버튼 클릭 => 페이지 초기화
     const searchData = function() {
       state.currentPageIndex = 1;
       state.offset = 0;
-
+      state.sort = "";
       readData();
     };
 
@@ -458,6 +469,18 @@ export default {
       readData();
     };
 
+    //날짜 최신순 정렬(default)
+    const newestSort = function() {
+      state.sort = "";
+      readData();
+    };
+
+    //날짜 오래된 순 정렬
+    const oldestSort = function() {
+      state.sort = "boardId.regDate,desc";
+      readData();
+    };
+
     onMounted(() => {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
@@ -477,7 +500,9 @@ export default {
       goMBTI,
       readData,
       resetData,
-      searchData
+      searchData,
+      newestSort,
+      oldestSort
     };
   }
 };
@@ -505,6 +530,12 @@ export default {
 }
 
 :deep(.el-button) {
+  /* color: #755744;
+  border-color: #f9f0e7;
+  background-color: #f9f0e7; */
+}
+
+:deep(.el-button:hover) {
   /* color: #755744;
   border-color: #f9f0e7;
   background-color: #f9f0e7; */
@@ -548,9 +579,6 @@ export default {
   background-color: #d7afa49c;
 }
 
-:deep(.el-input__inner) {
-}
-
 :deep(.el-select-dropdown__item.selected) {
   color: #755744;
 }
@@ -563,18 +591,19 @@ export default {
   border-color: #fff;
   background-color: #fff;
 }
-/*
+
 :deep(.el-button--info:hover) {
-  color: #755744;
-  border-color: #d7afa49c;
-  background-color: #d7afa49c;
+  font-weight: 600;
 }
 
 :deep(.el-button--info:focus) {
+  font-weight: 600;
+}
+
+:deep(.el-select .el-input__inner) {
+  font-weight: 600;
   color: #755744;
-  border-color: #d7afa49c;
-  background-color: #d7afa49c;
-} */
+}
 
 li.el-select-dropdown__item.selected {
   color: #755744;

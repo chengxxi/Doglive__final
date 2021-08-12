@@ -1,151 +1,102 @@
 <template>
-  <!-- 개별 입양 공고 card -->
-  <el-card
-    :body-style="{ padding: '10px' }"
-    style="margin: 10px !important;"
-    shadow="hover"
-    class="el-col-4"
-  >
-    <img :src="require('@/assets/images/logo2.png')" class="image" />
-    <div> <!--  style="padding: 14px;"  -->
-      <!-- <span><el-tag color="#D7AFA4">{{ card.boardType }}</el-tag></span> -->
-      <div class="bottom">
-        <p>{{ card.title }}</p>
-        <!-- <p>{{ state.boardList.type }}</p> -->
-        <el-button type="text" class="button">Details</el-button>
-      </div>
-    </div>
+  <el-card shadow="hover" style="background-color:#f9f4f0;" class="scale-up-2">
+    <el-row style="margin-top:15px; margin-right:15px; margin-left:15px;">
+      <el-tag
+        v-if="card.boardId.type.id == 3"
+        class="mb-2 scale-up-2"
+        color="#B4D9A7"
+        effect="dark"
+        size="small"
+        style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF; float:right; "
+        >{{ card.boardId.type.name }}</el-tag
+      >
+      <el-tag
+        v-if="card.boardId.type.id != 3"
+        class="mb-2 scale-up-2"
+        color="#87CEDC"
+        effect="dark"
+        size="small"
+        style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
+        >{{ card.boardId.type.name }}</el-tag
+      >
+    </el-row>
+    <el-row
+      style="margin-top:5px; display:flex; display: flex;
+  justify-content: center;"
+    >
+      <img src="https://placedog.net/500/500?random" class="image" />
+    </el-row>
+
+    <el-row
+      style="margin-top:10px; margin-right:15px; margin-left:15px; vertical-align: middle; "
+    >
+      <h3 style="font-weight:800; float:right;" class="mb-0 ">
+        {{ card.dogType.name }}
+      </h3>
+      <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
+        {{
+          card.address.length < 15
+            ? card.address
+            : card.address.substr(0, 10) + "..."
+        }}
+      </p>
+
+      <p
+        style="font-size:11px; margin-top:0px; font-weight:600; color:#727272;"
+      >
+        <i v-if="card.gender.name == '여'" class="el-icon-female " />
+        <i v-if="card.gender.name == '남'" class="el-icon-male " /> /
+
+        {{ card.boardId.regDate.split(" ")[0] }}
+      </p>
+    </el-row>
   </el-card>
 </template>
 
 <style scoped>
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.button {
-  padding: 0;
-  min-height: auto;
-}
-
 .image {
-  width: 100%;
-  display: block;
-}
-
-.main-body {
-  width: 100%;
-  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
-  margin-right: 10%;
-}
-.main-padding {
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-h3 {
-  margin-block-start: 0px;
-}
-
-:deep(.el-descriptions__title) {
-  font-size: 30pt;
-  font-weight: 700;
-}
-
-.dog-thumbnail {
   width: 90%;
-  height: auto;
-  margin-right: 20px;
-  margin: 10px;
+  height: 250px;
 }
 
-.dog-info-box {
-  width: 100%;
-  margin-right: 30px;
-  margin: 10px;
-  padding-right: 20px;
+* {
+  color: #606266;
+  cursor: pointer;
 }
 
-:deep(.el-descriptions__label) {
-  display: inline-block;
-  width: 150px;
-  font-weight: 500;
+:deep(.el-card__body) {
+  padding: 0px;
 }
 
-:deep(.el-descriptions__content) {
-  display: inline-block;
-  font-weight: 500;
-}
-:deep(.el-button) {
-  font-family: NEXONLv1Gothic;
-  font-weight: 700;
-  background: #755744;
-  color: #f9f0e7;
+.scale-up-2:hover {
+  transform: scale(1.03);
 }
 
-.dog-image-box {
-  margin: 30px;
-  padding: 10px;
+.scale-up-hover-2:hover .scale {
+  transform: scale(1.03);
 }
-
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 200px;
-  margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
-
-.el-col {
-  display: flex;
-
-  align-items: center;
-}
-
-.box-card {
-  margin-top: 20px;
-}
-
-.box {
-  margin-top: 30px;
-  margin-bottom: 40px;
-  margin-left: 50px;
-  margin-right: 50px;
-  padding: 40px;
-  background-color: #f9f0e7;
-}
-
-.content {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-}
-
-/* .el-card__body {
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-} */
 </style>
 
 <script>
+import FindDetail from "../find-detail.vue";
+
 export default {
-  name: 'find-card',
+  name: "FindCard",
+  components: {
+    FindDetail
+  },
   props: {
     card: Object
+  },
+  data() {
+    return {
+      age: this.card.age.name.split("(")[0],
+      weight: this.card.weight.name.split("(")[0],
+      title:
+        this.card.boardId.title.length <= 12
+          ? this.card.boardId.title
+          : this.card.boardId.title.substr(0, 10) + "..."
+    };
   }
 };
 </script>

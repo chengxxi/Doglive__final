@@ -151,12 +151,14 @@ export function existedForm({ state }, payload) {
 }
 
 //입양,임보 게시판 목록 가져오기
-export function requestAdoptList({ state }, payload) {
-  const url = "/board/adopt";
+export function requestBoardList({ state }, payload) {
+  const url = "/board";
   return $axios.get(url, {
     params: {
       page: payload.page,
-      size: 12,
+      size: payload.size,
+      sort: payload.sort,
+      isAdopt: payload.isAdopt,
       searchWord: payload.searchWord,
       age: payload.age,
       weight: payload.weight,
@@ -164,4 +166,11 @@ export function requestAdoptList({ state }, payload) {
       gender: payload.gender
     }
   });
+}
+
+//강아지 품종 데이터 가져오기
+export function requestDogTypeList({ state }, payload) {
+  const url = "/board/dogType";
+
+  return $axios.get(url);
 }
