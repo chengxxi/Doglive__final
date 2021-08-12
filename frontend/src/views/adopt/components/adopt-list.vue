@@ -90,15 +90,6 @@ export default {
       }
     };
 
-    onMounted(() => {
-      store.commit("root/setBreadcrumbInfo", {
-        isHome: false,
-        title: "Adopt",
-        subTitle: "입양 공고 목록"
-      });
-      window.scrollTo(0, 0);
-    });
-
     return { state, readDetail, goRegister };
   }
 };

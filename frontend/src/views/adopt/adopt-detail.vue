@@ -17,7 +17,7 @@
             <el-row>
               <el-tag
                 v-if="state.board.boardType.id == 1"
-                class="mb-3"
+                class="mb-3  scale-up-2"
                 color="#D7AFA4"
                 effect="dark"
                 size="large"
@@ -26,7 +26,7 @@
               >
               <el-tag
                 v-if="state.board.boardType.id != 1"
-                class="mb-3"
+                class="mb-3  scale-up-2"
                 color="#E9CDA4"
                 effect="dark"
                 size="large"
@@ -219,7 +219,7 @@
 
                   <template #reference>
                     <i
-                      class="el-icon-question"
+                      class="el-icon-question scale-up-2"
                       style="margin-left : 10px; cursor: pointer;"
                     />
                   </template>

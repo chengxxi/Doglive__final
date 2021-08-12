@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="hover" style="background-color:#f9f4f0;">
+  <el-card shadow="hover" style="background-color:#f9f4f0;" class="scale-up-2">
     <el-row style="margin-top:15px; margin-right:15px; margin-left:15px;">
       <el-tag
         class="mb-2"
@@ -10,7 +10,7 @@
       >
       <el-tag
         v-if="card.boardId.type.id == 1"
-        class="mb-2"
+        class="mb-2 scale-up-2"
         color="#D7AFA4"
         effect="dark"
         size="small"
@@ -19,7 +19,7 @@
       >
       <el-tag
         v-if="card.boardId.type.id != 1"
-        class="mb-2"
+        class="mb-2 scale-up-2"
         color="#E9CDA4"
         effect="dark"
         size="small"
@@ -37,7 +37,7 @@
     <el-row
       style="margin-top:10px; margin-right:15px; margin-left:15px; vertical-align: middle; "
     >
-      <h3 style="font-weight:800; float:right;" class="mb-0">
+      <h3 style="font-weight:800; float:right;" class="mb-0 ">
         {{ card.dogName }}
       </h3>
       <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
@@ -48,8 +48,12 @@
         }}
       </p>
 
-      <p style="font-size:10px; margin-top:0px; color:#727272;">
-        {{ card.gender.name }} / {{ card.age.name.split("(")[0] }} /
+      <p
+        style="font-size:11px; margin-top:0px; font-weight:600; color:#727272;"
+      >
+        <i v-if="card.gender.name == '여'" class="el-icon-female " />
+        <i v-if="card.gender.name == '남'" class="el-icon-male " /> /
+        {{ card.age.name.split("(")[0] }} /
         {{ card.weight.name.split("(")[0] }}
       </p>
     </el-row>

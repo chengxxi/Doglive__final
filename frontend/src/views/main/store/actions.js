@@ -155,8 +155,8 @@ export function requestAdoptList({ state }, payload) {
   const url = "/board/adopt";
   return $axios.get(url, {
     params: {
-      page: state.board.offset,
-      size: state.board.limit,
+      page: payload.page,
+      size: 12,
       searchWord: payload.searchWord,
       age: payload.age,
       weight: payload.weight,

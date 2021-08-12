@@ -4,25 +4,33 @@
       <div>
         <bread-crumb></bread-crumb>
 
-        <el-row>
+        <el-row style="margin-right:5px; margin-top:20px; margin-bottom:15px;">
           <el-button
+            class="scale-up-2"
             type="primary"
             @click="goRegister"
             style="float:right; margin-top:20px;  margin-right:5px; height:40px;"
-            class="scale-up-2"
-            >글 작성하기
+            >글 작성하기<i
+              class="el-icon-circle-plus "
+              style="margin-left : 10px; cursor: pointer;"
+            />
           </el-button>
+          <el-button
+            type="info"
+            class="scale-up-2"
+            data-bs-toggle="collapse"
+            href="#collapseExample"
+            style="float:left; margin-top:20px;  margin-right:5px; height:40px;"
+            >입양 절차 안내
+            <i class="el-icon-info " style="margin-left : 5px; cursor: pointer;"
+          /></el-button>
         </el-row>
-        <el-collapse class="mt-4 mb-4">
-          <el-collapse-item name="1">
-            <template #title>
-              <h5 style="font-weight:600">입양 절차 안내</h5>
-              <i class="header-icon el-icon-info" />
-            </template>
 
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
             <div style="text-align:center;">
-              <h4 class="mt-4 mb-3" style="font-weight:600;">
-                🚥 입양 절차 및 유의사항
+              <h4 class="mt-5 mb-3" style="font-weight:600;">
+                🚥 입양 절차 및 유의사항 🚥
               </h4>
 
               <div class="box" style="margin-bottom:60px;">
@@ -72,16 +80,15 @@
                 </div>
               </div>
             </div>
-          </el-collapse-item>
-        </el-collapse>
-
+          </div>
+        </div>
         <span class="filter-wrapper">
           <!-- <el-button @click="showFilter = !showFilter" circle>
             <i class="el-icon-s-operation"></i>
           </el-button> -->
 
           <el-row
-            style="background-color:#f9f0e7; margin-bottom:30px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
+            style="background-color:#f9f4f0; margin-bottom:30px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
           >
             <el-col :span="20">
               <el-row
@@ -168,16 +175,24 @@
               <el-button
                 @click="resetData"
                 type="warning"
+                class="scale-up-2"
                 style=" width:100%;  height:100%; float:right;  margin-right:5px;"
               >
-                초기화
+                초기화<i
+                  class="el-icon-refresh "
+                  style="margin-left : 10px; cursor: pointer;"
+                />
               </el-button>
               <el-button
-                @click="readData"
+                @click="searchData"
                 type="primary"
+                class="scale-up-2"
                 style=" width:100%;   height:100%; float:right; margin-right:5px;  margin-top:20px;  "
               >
-                검색
+                검색<i
+                  class="el-icon-search "
+                  style="margin-left : 10px; cursor: pointer;"
+                />
               </el-button>
             </el-col>
           </el-row>
@@ -187,13 +202,21 @@
         <el-empty
           style="margin-top:80px; margin-bottom:50px;"
           description="검색 결과가 없다개 💨"
-          image="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+          image=""
         ></el-empty>
       </el-row>
       <el-row v-if="state.boardListCount != 0">
         <AdoptList :boardList="state.boardList" />
       </el-row>
-      <el-col :span="24" style="margin-top:20px;"> <Pagination /></el-col>
+      <el-col :span="24" style="margin-top:20px;">
+        <Pagination
+          :listRowCount="state.listRowCount"
+          :pageLinkCount="state.pageLinkCount"
+          :currentPageIndex="state.currentPageIndex"
+          :boardListCount="state.boardListCount"
+          @call-parent="movePage"
+        />
+      </el-col>
     </div>
   </div>
 </template>
@@ -237,8 +260,8 @@ export default {
       genderCode: "",
 
       //페이지네이션
-      listRowCount: 10,
-      pageLinkCount: 10,
+      listRowCount: 3,
+      pageLinkCount: 12,
       currentPageIndex: 1,
 
       // Color Option
@@ -317,31 +340,15 @@ export default {
       showFilter: true
     };
   },
-  method: {
-    btnSearchClick() {
-      this.currentPageIndex = 1;
-      this.offset = 0;
-      this.readData(
-        this.offset,
-        this.searchWord,
-        this.ageCode,
-        this.genderCode,
-        this.boardTypeCode,
-        this.weightCode
-      );
-    },
-    searchList() {
-      console.log("search!");
-    }
-  },
   setup() {
     const store = new useStore();
     const router = new useRouter();
 
     const state = reactive({
+      dialogDataVisible: false,
       boardList: [],
       boardListCount: 0,
-      limit: 10,
+      limit: 12,
       offset: 0,
       searchWord: "",
       age: [],
@@ -352,6 +359,12 @@ export default {
       weightCode: "",
       boardTypeCode: "",
       genderCode: "",
+
+      //페이지네이션
+      listRowCount: 12,
+      pageLinkCount: 12,
+      currentPageIndex: 1,
+
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       })
@@ -375,12 +388,9 @@ export default {
     };
 
     const readData = function() {
-      state.currentPageIndex = 1;
-      state.offset = 0;
-
       store
         .dispatch("root/requestAdoptList", {
-          page: state.offset,
+          page: state.currentPageIndex,
           searchWord: state.searchWord,
           age: state.ageCode,
           gender: state.genderCode,
@@ -401,6 +411,22 @@ export default {
     };
 
     const resetData = function() {
+      state.boardList = [];
+      state.boardListCount = 0;
+      state.offset = 0;
+      state.searchWord = "";
+      state.ageCode = "";
+      state.weightCode = "";
+      state.boardTypeCode = "";
+      state.genderCode = "";
+
+      readData();
+    };
+
+    const searchData = function() {
+      state.currentPageIndex = 1;
+      state.offset = 0;
+
       readData();
     };
 
@@ -426,10 +452,10 @@ export default {
 
     // pagination
     const movePage = function(pageIndex) {
-      this.state.offset = (pageIndex - 1) * this.state.listRowCount;
-      this.state.currentPageIndex = pageIndex;
-
-      this.readData();
+      state.offset = (pageIndex - 1) * state.listRowCount;
+      state.currentPageIndex = pageIndex;
+      console.log(state.offset, state.currentPageIndex);
+      readData();
     };
 
     onMounted(() => {
@@ -450,15 +476,14 @@ export default {
       goRegister,
       goMBTI,
       readData,
-      resetData
+      resetData,
+      searchData
     };
   }
 };
 </script>
 
 <style scoped>
-@import "../../common/css/animation.css";
-
 .main-body {
   width: 100%;
   margin-left: 10%;
@@ -508,7 +533,7 @@ export default {
 :deep(.el-button--warning) {
   color: #755744;
   border-color: #f9f0e7;
-  background-color: #f9f0e7;
+  background-color: #f9f0e700;
 }
 
 :deep(.el-button--warning:hover) {
@@ -524,7 +549,6 @@ export default {
 }
 
 :deep(.el-input__inner) {
-  font-weight: 600;
 }
 
 :deep(.el-select-dropdown__item.selected) {
@@ -533,6 +557,24 @@ export default {
 :deep(.el-select .el-input.is-focus .el-input__inner) {
   border-color: #755744;
 }
+
+:deep(.el-button--info) {
+  color: #755744;
+  border-color: #fff;
+  background-color: #fff;
+}
+/*
+:deep(.el-button--info:hover) {
+  color: #755744;
+  border-color: #d7afa49c;
+  background-color: #d7afa49c;
+}
+
+:deep(.el-button--info:focus) {
+  color: #755744;
+  border-color: #d7afa49c;
+  background-color: #d7afa49c;
+} */
 
 li.el-select-dropdown__item.selected {
   color: #755744;

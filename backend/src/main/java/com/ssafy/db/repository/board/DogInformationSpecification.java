@@ -1,6 +1,7 @@
 package com.ssafy.db.repository.board;
 
 import com.ssafy.db.entity.board.BoardCategory;
+import com.ssafy.db.entity.board.BoardComment;
 import com.ssafy.db.entity.board.Code;
 import com.ssafy.db.entity.board.DogInformation;
 import org.springframework.data.jpa.domain.Specification;
@@ -56,6 +57,21 @@ public class DogInformationSpecification {
                                          CriteriaQuery<?> query, CriteriaBuilder cb) {
                 Predicate equalPredicate = cb.equal(root.get("boardId").get("type"), boardCategory);
                 return equalPredicate;
+            }
+        };
+    }
+
+
+    public static Specification<DogInformation> inType(final BoardCategory boardCategory1, final BoardCategory boardCategory2) {
+        return new Specification<DogInformation>() {
+            @Override
+            public Predicate toPredicate(Root<DogInformation> root,
+                                         CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Predicate p = cb.conjunction();
+                List<BoardCategory> list = new ArrayList<BoardCategory>();
+                list.add(boardCategory1);
+                list.add(boardCategory2);
+                return cb.and(root.get("boardId").get("type").in(list));
             }
         };
     }
