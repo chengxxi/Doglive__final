@@ -49,15 +49,6 @@ export function setProfile(state, payload) {
   state.userProfile.phoneNumber = payload.phoneNumber;
 }
 
-// export function setBoardList(state, payload) {
-//   state.board.list = payload;
-// }
-
-// export function setBoardTotalListItemCnt(state, count) {
-//   state.board.totalListItemCount = count;
-// }
-
-// export function setBoardMovePage(state, index) {
-//   state.board.offset = (index - 1) * state.board.listRowCount;
-//   state.board.currentPageIndex = index;
-// }
+export function setBoardId(state, payload) {
+  state.board.boardId = payload;
+}

@@ -1,5 +1,9 @@
 <template>
-  <el-card shadow="hover" style="background-color:#F9F8EC;" class="scale-up-2">
+  <el-card
+    shadow="hover"
+    style="background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+    class="scale-up-2"
+  >
     <el-row style="margin-top:15px; margin-right:15px; margin-left:15px;">
       <el-tag
         v-if="card.boardId.type.id == 3"
@@ -33,6 +37,9 @@
       <h3 style="font-weight:800; float:right;" class="mb-0 ">
         {{ card.dogType.name }}
       </h3>
+      <!-- <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
+        {{ card.boardId.title }}
+      </p> -->
       <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
         {{ card.gugun.sidoCode.name }} {{ card.gugun.name }}
       </p>
@@ -43,9 +50,7 @@
         <i v-if="card.gender.name == '여'" class="el-icon-female " />
         <i v-if="card.gender.name == '남'" class="el-icon-male " />
         <i v-if="card.gender.name == '기타'" class="el-icon-question" />
-        /
-        {{ card.weight.name.split("(")[0] }}
-        /
+        / {{ card.weight.name.split("(")[0] }} /
         {{ card.boardId.regDate.split(" ")[0] }}
       </p>
     </el-row>

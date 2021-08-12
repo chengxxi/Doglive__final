@@ -1,5 +1,9 @@
 <template>
-  <el-card shadow="hover" style="background-color:#f9f4f0;" class="scale-up-2">
+  <el-card
+    shadow="hover"
+    style="background:linear-gradient( to top,#f0ebe0, #f6ede9  );"
+    class="scale-up-2"
+  >
     <el-row style="margin-top:15px; margin-right:15px; margin-left:15px;">
       <el-tag
         class="mb-2"
@@ -55,7 +59,7 @@
         <i v-if="card.gender.name == '남'" class="el-icon-male " /> /
         <i v-if="card.gender.name == '기타'" class="el-icon-question" />
         {{ card.age.name.split("(")[0] }} /
-        {{ card.weight.name.split("(")[0] }}
+        {{ card.dogType.name }}
       </p>
     </el-row>
   </el-card>

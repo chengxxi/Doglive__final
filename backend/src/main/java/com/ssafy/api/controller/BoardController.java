@@ -176,7 +176,7 @@ public class BoardController {
         }
 
         System.out.println("북마크체크"+isBookmarked+" "+userId+" "+board.getUserId());
-        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner,  writer, board, dogInformation, boardImages, boardComments));
+        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner,  writer, dogInformation, boardImages, boardComments));
     }
 
 

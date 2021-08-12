@@ -97,7 +97,7 @@
 
           <el-row
             v-show="showFilter"
-            style="background-color:#f9f4f0; margin-bottom:10px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
+            style="background:linear-gradient( to top, #f0ebe0, #f6ede9 ); margin-bottom:10px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
           >
             <el-col :span="20">
               <el-row style="height:50%; " class="select-wrapper" :gutter="20">
@@ -177,7 +177,7 @@
               <el-button
                 @click="resetData"
                 type="warning"
-                style=" width:100%; font-weight:600;  height:100%; float:right;  margin-right:5px;"
+                style=" width:100%; font-weight:600; border:none; height:100%; float:right;  margin-right:5px;"
               >
                 초기화<i
                   class="el-icon-refresh "
@@ -203,19 +203,19 @@
           type="info"
           class="scale-up-2"
           @click="newestSort"
-          style="float:left; height:30px; margin-left:20px; padding-left:0px; padding-right:0px;  padding-bottom:0px;"
+          style="float:left;  color:#727272; height:30px; margin-left:20px; padding-left:0px; padding-right:0px;  padding-bottom:0px;"
           >최신순
         </el-button>
         <el-button
           type="info"
-          style="float:left; font-weight:500; height:30px;width:5px;padding-left:0px; padding-right:0px;padding-bottom:0px;"
+          style="float:left;  color:#727272; font-weight:500; height:30px;width:5px;padding-left:0px; padding-right:0px;padding-bottom:0px;"
           >|
         </el-button>
         <el-button
           type="info"
           class="scale-up-2"
           @click="oldestSort"
-          style="float:left;height:30px; padding-left:0px; padding-right:0px;padding-bottom:0px; "
+          style="float:left;height:30px;  color:#727272; padding-left:0px; padding-right:0px;padding-bottom:0px; "
           >오래된순
         </el-button>
       </el-row>
@@ -548,14 +548,14 @@ export default {
 
 :deep(.el-button--primary:hover) {
   color: #755744;
-  border-color: #d7afa49c;
-  background-color: #d7afa49c;
+  border-color: #75574488;
+  background-color: #75574488;
 }
 
 :deep(.el-button--primary:focus) {
   color: #755744;
-  border-color: #d7afa49c;
-  background-color: #d7afa49c;
+  border-color: #75574488;
+  background-color: #75574488;
 }
 
 :deep(.el-button--warning) {
@@ -566,14 +566,14 @@ export default {
 
 :deep(.el-button--warning:hover) {
   color: #755744;
-  border-color: #d7afa49c;
-  background-color: #d7afa49c;
+  border-color: #75574488;
+  background-color: #75574488;
 }
 
 :deep(.el-button--warning:focus) {
   color: #755744;
-  border-color: #d7afa49c;
-  background-color: #d7afa49c;
+  border-color: #75574488;
+  background-color: #75574488;
 }
 
 :deep(.el-select-dropdown__item.selected) {

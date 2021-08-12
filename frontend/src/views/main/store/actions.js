@@ -190,3 +190,9 @@ export function requestFindBoardList({ state }, payload) {
     }
   });
 }
+
+//보드 디테일 정보 가졍괴
+export function reqestBoardDetail({ state }, payload) {
+  const url = "/board/" + payload.boardId + "/" + payload.userId;
+  return $axios.get(url);
+}

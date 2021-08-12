@@ -89,12 +89,12 @@
               >
               <el-descriptions-item label="MBTI">
                 <el-tag
-                  color="#E9CDA4"
+                  class="mb-2"
                   effect="dark"
-                  style="font-weight:700; color: #606266;"
-                  :style="{ border: 'none' }"
+                  style="height:30px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none;font-weight:700; color: #606266; "
                   >{{ state.board.mbti }}</el-tag
                 >
+
                 <el-popover placement="bottom" width="200" trigger="hover">
                   <div class="content">
                     <h3 style="font-weight:700;">강아지 MBTI 해석하기</h3>
@@ -513,16 +513,20 @@ export default {
       }
     };
 
-    $axios
-      .get("/board/" + state.board.boardId + "/" + state.userId)
+    //보드 디테일 정보 가져오기
+    store
+      .dispatch("root/reqestBoardDetail", {
+        boardId: state.board.boardId,
+        userId: state.userId
+      })
       .then(function(result) {
         console.log(result);
 
         const boardDetail = {
-          boardId: result.data.board.id,
-          boardType: result.data.board.type,
-          thumbnailUrl: result.data.board.thumbnailUrl,
-          title: result.data.board.title,
+          boardId: result.data.dogInformation.boardId.id,
+          boardType: result.data.dogInformation.boardId.type,
+          thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+          title: result.data.dogInformation.boardId.title,
           address: result.data.dogInformation.address,
           mbti: result.data.dogInformation.mbti,
           colorType: result.data.dogInformation.colorType,
@@ -532,9 +536,11 @@ export default {
           writer: result.data.writer,
           weight: result.data.dogInformation.weight,
           ageType: result.data.dogInformation.age,
-          regDate: result.data.board.regDate,
+          regDate: result.data.dogInformation.boardId.regDate,
           fileList: result.data.boardImageList,
           isOwner: result.data.owner,
+          gugun: result.data.dogInformation.gugun.name,
+          sido: result.data.dogInformation.gugun.sidoCode.name,
           description: result.data.dogInformation.description,
           dogName: result.data.dogInformation.dogName,
           isBookmarked: result.data.bookmarked

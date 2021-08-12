@@ -45,6 +45,17 @@ public class DogInformationSpecification {
         };
     }
 
+
+    public static Specification<DogInformation> likeDesc(final String keyword) {
+
+        return new Specification<DogInformation>() {
+            @Override
+            public Predicate toPredicate(Root<DogInformation> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.like(root.get("description"), "%" + keyword + "%");
+            }
+        };
+    }
+
     public static Specification<DogInformation> eqSido(final Sido sido) {
         return new Specification<DogInformation>() {
             @Override

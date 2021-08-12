@@ -43,3 +43,8 @@ export function getBoardList(state) {
 export function getChat(state) {
   return state.chat;
 }
+
+//현재 게시판 번호 가져오기
+export function getBoardId(state) {
+  return state.board.getBoardId;
+}

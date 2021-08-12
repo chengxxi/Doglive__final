@@ -112,7 +112,7 @@ public class BoardServiceImpl implements  BoardService{
 
 
         Specification<DogInformation> spec = Specification.where(DogInformationSpecification.likeAddress(searchWord));
-        spec = spec.or(DogInformationSpecification.likeTitle(searchWord));
+        spec = spec.or(DogInformationSpecification.likeDesc(searchWord));
 
         //제목, 상세주소 검색
 
