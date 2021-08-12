@@ -8,6 +8,15 @@
     <p>강아지 MBTI를 통해 새롭게 우리 가족이 될 강아지를 발견해 보세요!</p>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus ad laborum at dolore rem temporibus harum ea adipisci repudiandae? Eos voluptas enim reprehenderit optio aspernatur fuga animi! Dolorum, quaerat ipsa?</p>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta porro facere, minus quae ad maxime? Eveniet, nam! Doloremque, cupiditate, beatae culpa excepturi ratione cum ipsum, repellendus quos aspernatur quod ad!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, modi. Dolorem nemo, accusantium provident tempore molestias eius velit ducimus dolore, numquam enim perferendis. Eum quia, fugiat tempore minus ex impedit!</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, amet, veniam facilis, quo laborum fuga libero praesentium tempora ad reiciendis illo minima cum? Molestiae minima amet quidem consectetur in magni?</p>
+
+    <div class="mbtiBtn">
+      <el-button>MBTI 테스트 하러 가기</el-button>
+      <el-button>독립 MBTI 테스트 유형 보기</el-button>
+
+    </div>
+
     <!-- 상세 소개 내용 수정 필요 -->
   </div>
 
@@ -41,6 +50,13 @@
 .description {
   font-size: 1.5rem;
   font-weight: 600;
+}
+
+.mbtiBtn {
+  align-content: center;
+  display: flex;
+  justify-content: center;
+  /* margin-bottom: 40px; */
 }
 
 
