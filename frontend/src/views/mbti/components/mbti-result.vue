@@ -12,8 +12,15 @@
     </div>
 
 
+    <el-row class="mbtiBox">
+      <MbtiCard
+        v-for="(idx, card) in 16"
+        :key="idx"
+        :card="card"
+        :span="6"
+      />
+    </el-row>
 
-    <MbtiCard/>
 
 
   </div>
@@ -34,6 +41,12 @@
   font-size: 1.5rem;
   font-weight: 600;
 }
+
+.mbtiBox {
+  margin: 30px 50px;
+  padding: 40px;
+}
+
 
 </style>
 
