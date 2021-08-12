@@ -90,25 +90,6 @@ const routes = [
     ]
   },
   {
-    path : '/chat',
-    redirect : '/chat/rooms',
-    name: 'Chat',
-    component : Chat,
-    meta: { requiresAuth : true },
-    children: [
-      {
-        path: "rooms",
-        name: "chat-list",
-        component: () => import("@/views/chat/components/chat-list.vue")
-      },
-      {
-        path: "room",
-        name: "chat-detail",
-        component: () => import("@/views/chat/components/chat-detail.vue")
-      }
-    ]
-  },
-  {
     path: "/adopt",
     name: "Adopt",
     component: Adopt
@@ -121,7 +102,8 @@ const routes = [
   {
     path: "/adopt/register",
     name: "AdoptRegister",
-    component: AdoptRegister
+    component: AdoptRegister,
+    meta: { requiresAuth : true },
   },
   {
     path: "/adopt/form",

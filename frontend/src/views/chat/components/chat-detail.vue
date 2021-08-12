@@ -4,10 +4,11 @@
     <i class="el-icon-close close-btn" @click="changeOpen"></i>
     <span class="title">{{ chat.title }}</span>
   </div>
-  <div class="chat-body" ref="chatList"
+  <div class="chat-body"
     v-loading="chat.loading"
     :element-loading-svg="svgInfo.path"
     :element-loading-svg-view-box="svgInfo.viewBox"
+    :ref="el => { if(el) divs = el}"
     >
     <ChatMessage
       v-for="(message, index) in state.recvList"
@@ -18,6 +19,8 @@
   <div class="chat-input">
     <el-input type="textarea" v-model="state.content" @keyup.enter="sendMessage"></el-input>
     <el-button class="send-btn" :class="{active : !state.activeButton}" @click="sendMessage">전송</el-button>
+    <i class="video-btn"><font-awesome-icon  :icon="[ 'fas' , 'video']"></font-awesome-icon></i>
+    <!-- <i class="el-icon-video-camera video-btn"></i> -->
   </div>
 </template>
 
@@ -83,7 +86,7 @@
 }
 :deep(.el-button){
   width: 60px;
-  margin-top: 20px;
+  padding: 10px;
   color: white;
   background-color: rgba(117, 87, 68, 0.8);
 }
@@ -98,6 +101,13 @@
   top: 20px;
   left: 20px;
 }
+.video-btn{
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  color: rgb(150, 150, 150);
+}
 .close-btn{
   cursor: pointer;
   position: absolute;
@@ -110,7 +120,7 @@
 import svg from '@/assets/svgs/loading.js'
 import ChatMessage from './chat-message.vue'
 import { useStore } from 'vuex'
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, computed, onRenderTracked, onBeforeUpdate, onUpdated } from 'vue'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 
@@ -126,7 +136,8 @@ export default {
     const store = useStore()
     const userId = store.getters['root/getLoginUserInfo'].userId;
     const roomId = store.getters['root/getChat'].roomId;
-    const chatList = ref(null);
+    const divs = ref(null);
+
     let socket, client
     const state = reactive({
       recvList: [],
@@ -228,14 +239,18 @@ export default {
       store.commit('root/setChatRoomId', '')
     }
 
-    // 마운트 이후 스크롤 Focus 변경
-    onMounted(()=>{
-      // chatList.scrollBy({top: chatList.scrollHeight || 9999, behavior: 'smooth'})
+    // 스크롤 하단 고정
+    function scrollToBottom(el){
+      el.value.scrollTop = 99999
+    }
+
+    onUpdated(()=> {
+      scrollToBottom(divs)
     })
 
     connect()
 
-    return { sendMessage, state, chat, changeOpen, goBack, svgInfo }
+    return { sendMessage, state, chat, changeOpen, goBack, svgInfo, divs }
   }
 }
 </script>

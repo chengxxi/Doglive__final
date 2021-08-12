@@ -24,7 +24,9 @@ import MainFooter from "./components/main-footer";
 import Chat from "@/views/chat/chat.vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { createToast } from "mosha-vue-toastify";
 import "element-ui/lib/theme-chalk/index.css";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "main",
@@ -41,6 +43,15 @@ export default {
     router.beforeEach(function(to, from, next){
       if(to.matched.some(record => record.meta.requiresAuth)){ // 로그인이 필요한 페이지라면
         if(store.getters["root/getLoginUserInfo"].userId === null){ // 현재 로그인된 상태인지 확인
+           createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "warning"
+          });
           next({ path: '/login'})
         }else{
           next()

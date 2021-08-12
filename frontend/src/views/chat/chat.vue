@@ -1,5 +1,4 @@
 <template>
-
   <div class="chat-wrapper" :class="{enter : chat.open, leave : !chat.open}" v-if="chat.open">
     <ChatList v-if="chat.menu == 0"/>
     <ChatDetail v-else-if="chat.menu == 1"/>
@@ -7,7 +6,6 @@
   <div class="chat-background">
     <i class="el-icon-chat-dot-round chat-button" @click="changeOpen"/>
   </div>
-
 </template>
 
 <style scoped>
@@ -26,6 +24,7 @@
   overflow-y: hidden;
 }
 .enter {
+  animation: 0.25s ease-out 0s 1 normal scaleUp;
   display: block;
 }
 .leave {
@@ -53,21 +52,20 @@
   cursor: pointer;
 }
 /* 애니메이션 */
-@keyframes fade-out{
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-@keyframes fade-in{
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes scaleUp{
+  from { transform: scale(0.0); }
+  to { transform: scale(1.0); }
 }
 </style>
 
 <script>
 import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import ChatList from './components/chat-list.vue'
 import ChatDetail from './components/chat-detail.vue'
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: 'chat',
@@ -79,6 +77,7 @@ export default {
 
   setup(){
     const store = useStore()
+    const router = useRouter()
     const state = reactive({
       login: computed(()=> {
         if(store.getters['root/getLoginUserInfo'].userId === null)
@@ -90,12 +89,23 @@ export default {
     const chat = reactive({
       open: computed(()=> store.getters['root/getChat'].open),
       menu: computed(()=> store.getters['root/getChat'].menu),
-      isActive : false,
     })
 
     function changeOpen(){
-      store.commit('root/setChatOpen', !chat.open)
-      chat.isActive = true;
+      if(!state.login){ // 로그인이 되어있지 않으면 로그인 화면으로 이동
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+        router.push({ path: '/login'})
+      }
+      else
+        store.commit('root/setChatOpen', !chat.open)
     }
     return { state, chat, changeOpen };
   },
