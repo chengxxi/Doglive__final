@@ -7,7 +7,6 @@
       </h3>
     </el-card>
   </el-col>
-
 </template>
 
 <style scoped>
