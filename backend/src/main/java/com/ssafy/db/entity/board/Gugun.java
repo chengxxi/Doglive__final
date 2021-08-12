@@ -13,6 +13,7 @@ public class Gugun extends BaseEntity {
 
     String name;
 
-    @Column(name="sido_code")
-    Long sidoCode;
+    @ManyToOne
+    @JoinColumn(name="sido_code")
+    private Sido sidoCode;
 }

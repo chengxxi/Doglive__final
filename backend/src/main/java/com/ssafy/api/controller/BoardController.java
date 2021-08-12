@@ -1,6 +1,9 @@
 package com.ssafy.api.controller;
 
 
+
+import com.ssafy.api.request.BoardParamDto;
+
 import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.request.BookmarkReq;
 import com.ssafy.api.response.*;
@@ -11,11 +14,20 @@ import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.Bookmark;
 import com.ssafy.db.entity.board.*;
+
+import com.ssafy.db.repository.board.BoardRepository;
+
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,32 +51,48 @@ public class BoardController {
     @Autowired
     FindService findService;
 
+    @Autowired
+    BoardRepository boardRepository;
+
+
+
     @GetMapping("/adopt")
-    @ApiOperation(value = "입양/임보 공고 목록", notes = "입양/입양 공고 목록을 가져온다")
+    @ApiOperation(value = "입양/임보 공고 목록", notes = "입양/임보 공고 목록을 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardDetailListGetRes> adoptBoardList(){
-        List<BoardListData> boardList = adoptService.getAdoptBoardList();
-        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", boardList, boardList.size()));
-    }
+    public ResponseEntity<BoardDetailListGetRes> adoptBoardList(@PageableDefault(size = 12) Pageable pageable,
+            boolean isAdopt,
+            Long boardType, Long weight, Long age, Long gender,
+            String searchWord
+    ) {
 
+        Page<DogInformation> resultFilterList = boardService.filterBoardList(pageable, boardType, weight, age, gender, searchWord.replace(" ", ""));
+        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", resultFilterList));
+
+
+    }
 
     @GetMapping("/find")
-    @ApiOperation(value = "실종/보호 공고 목록", notes = "입양/입양 공고 목록을 가져온다")
+    @ApiOperation(value = "실종/보호 공고 목록", notes = "실종/보호 공고 목록을 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardDetailListGetRes> findBoardList(){
-        List<BoardListData> boardList = findService.getFindBoardList();
-        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", boardList, boardList.size()));
+    public ResponseEntity<BoardDetailListGetRes> findBoardList(@PageableDefault(size = 12) Pageable pageable, Long boardType, Long sido, Long color, Long dogType, String searchWord
+    ) {
+
+        Page<DogInformation> resultFilterList = boardService.filterFindBoardList(pageable, boardType, sido, color, dogType, searchWord.replace(" ", ""));
+        return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", resultFilterList));
+
+
     }
+
 
     @PostMapping()
     @ApiOperation(value = "게시판 공고 등록", notes = "게시판 공고를 등록한다")
@@ -129,10 +157,11 @@ public class BoardController {
         List<BoardComment> boardComments = boardService.getBoardCommentsByBoard(board);
         List<BoardImage> boardImages = boardService.getBoardImagesByBoard(board);
 
-        String writer = userService.getUserName(board.getUserId());
-        if(board.getUserId().equals(userId)) isOwner = true;
 
-        System.out.println(writer);
+        String writer = userService.getUserName(board.getUserId());
+        if(userId!=null){
+            if(board.getUserId().equals(userId)) isOwner = true;
+        }
 
 
         List<Bookmark> userBookmarks = userService.getBookmarkList(userId);
@@ -147,7 +176,7 @@ public class BoardController {
         }
 
         System.out.println("북마크체크"+isBookmarked+" "+userId+" "+board.getUserId());
-        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner, writer, board, dogInformation, boardImages, boardComments));
+        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner,  writer, dogInformation, boardImages, boardComments));
     }
 
 
@@ -234,6 +263,20 @@ public class BoardController {
 
         List<Gugun> gugunList = boardService.getGugunListBySido(Long.parseLong(sido));
         return ResponseEntity.ok(GugunCodeGetRes.of(200, "Success",gugunList));
+    }
+
+    @GetMapping("/dogType")
+    @ApiOperation(value = "강아지 품종 코드 리스트", notes = "강아지 품종 코드 정보를 가져온다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<DogTypeGetRes> findDogTypeList(){
+
+        List<DogType> dogTypeList = boardService.getDogTypeList();
+        return ResponseEntity.ok(DogTypeGetRes.of(200, "Success", dogTypeList));
     }
 
 }

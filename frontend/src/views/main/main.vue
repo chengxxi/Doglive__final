@@ -6,12 +6,14 @@
     </el-container>
     <main-footer :height="`70px`" />
   </el-container>
+  <chat />
 </template>
 
 <style>
 @import "./main.css";
 @import "../../common/css/common.css";
 @import "../../common/css/element-plus.css";
+@import "../../common/css/animation.css";
 </style>
 
 <script>
@@ -20,6 +22,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import MainHeader from "./components/main-header";
 import MainFooter from "./components/main-footer";
+import Chat from "@/views/chat/chat.vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import "element-ui/lib/theme-chalk/index.css";
@@ -28,7 +31,8 @@ export default {
   name: "main",
   components: {
     MainHeader,
-    MainFooter
+    MainFooter,
+    Chat
   },
   setup() {
     const store = useStore();

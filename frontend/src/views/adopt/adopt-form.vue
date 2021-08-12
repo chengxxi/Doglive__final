@@ -631,7 +631,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "warning"
           });
@@ -657,6 +657,7 @@ export default {
       gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }]
     });
 
+    //시도 리스트 가져오기
     store
       .dispatch("root/requestSidoCodeList")
       .then(function(result) {
@@ -667,18 +668,20 @@ export default {
         console.log(error);
       });
 
+    //이메일 중복체크
     const clickEmailCheck = function() {
       createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
         hideProgressBar: "true",
         timeout: 4500,
         showIcon: "true",
         toastBackgroundColor: "#c49d83",
-        position: "bottom-right",
+        position: "bottom-left",
         transition: "bounce",
         type: "warning"
       });
     };
 
+    //입양신청서 제출
     const submitAdoptForm = function(data) {
       store
         .dispatch("root/registerAdoptForm", data)
@@ -688,7 +691,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "success"
           });
@@ -704,7 +707,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "warning"
           });
@@ -712,6 +715,7 @@ export default {
         });
     };
 
+    //시도에 맞는 구군 리스트 가져오기
     const gugunList = function(selectedSidoCode) {
       console.log(selectedSidoCode);
 
@@ -731,7 +735,8 @@ export default {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: "입양/임보 상담",
+        title: "입양/임보",
+        path: "/adopt",
         subTitle: "입양/임보 신청서 작성"
       });
       window.scrollTo(0, 0);
@@ -798,6 +803,10 @@ li.el-select-dropdown__item.selected {
 
 :deep(.el-radio-button__inner:hover) {
   color: #d7aea4;
+}
+
+:deep(.el-textarea__inner) {
+  resize: none;
 }
 
 :deep(.el-button--primary) {

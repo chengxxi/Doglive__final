@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getUserById(String id) {
         // 디비에 유저 정보 조회 (userId 를 통한 조회).
-        Optional<User> user = userRepositorySupport.findUserById(id);
+        Optional<User> user = userRepository.findUserById(id);
 
         if(user.isPresent()) return user.get();
         return null;

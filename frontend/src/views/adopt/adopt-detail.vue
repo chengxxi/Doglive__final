@@ -1,13 +1,11 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " shadow="hover" style="border:none;">
+    <el-card class="box-card " shadow="none" style="border:none;">
       <bread-crumb></bread-crumb>
 
-      <div style="margin-top:60px; margin-left:60px;">
-        <h3>{{ state.board.title }}</h3>
-      </div>
+      <div style="margin-top:40px; margin-left:60px;"></div>
 
-      <el-row class="vertical-center" :gutter="20" style="margin-top:10px;">
+      <el-row class="vertical-center" :gutter="20">
         <el-col :span="12" style="margin-left:50px;">
           <img
             class="dog-thumbnail"
@@ -16,24 +14,26 @@
         </el-col>
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
-            <el-tag
-              v-if="state.board.boardType.id == 1"
-              class="mb-3"
-              color="#D7AFA4"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:14pt;"
-              >{{ state.board.boardType.name }}</el-tag
-            >
-            <el-tag
-              v-if="state.board.boardType.id != 1"
-              class="mb-3"
-              color="#E9CDA4"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:14pt;"
-              >{{ state.board.boardType.name }}</el-tag
-            >
+            <el-row>
+              <el-tag
+                v-if="state.board.boardType.id == 1"
+                class="mb-3  scale-up-2"
+                color="#D7AFA4"
+                effect="dark"
+                size="large"
+                style="border:none; border-radius: 30px; font-size:14pt; float:left;"
+                >{{ state.board.boardType.name }}</el-tag
+              >
+              <el-tag
+                v-if="state.board.boardType.id != 1"
+                class="mb-3  scale-up-2"
+                color="#E9CDA4"
+                effect="dark"
+                size="large"
+                style="border:none; border-radius: 30px; font-size:14pt; float:left;"
+                >{{ state.board.boardType.name }}</el-tag
+              >
+            </el-row>
             <div class="vertical-center row">
               <div class="col-md-9">
                 <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
@@ -46,6 +46,7 @@
                   style="text-align: center;"
                 >
                   <font-awesome-icon
+                    class="scale-up-2"
                     :icon="[state.board.isbookmarked ? 'fas' : 'far', 'star']"
                     @click="clickBookmark()"
                     aria-hidden="true"
@@ -55,6 +56,7 @@
 
                   <img
                     @click="kakaoShare"
+                    class="scale-up-2"
                     style="margin-left:15px; cursor: pointer;"
                     src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
                     width="40"
@@ -80,19 +82,19 @@
                 state.board.colorType.name
               }}</el-descriptions-item>
               <el-descriptions-item label="품종">{{
-                state.board.hairType.name
+                state.board.dogType.name
               }}</el-descriptions-item>
-              <el-descriptions-item label="현재위치">{{
-                state.board.address
-              }}</el-descriptions-item>
+              <el-descriptions-item label="현재위치">
+                {{ state.board.address }}</el-descriptions-item
+              >
               <el-descriptions-item label="MBTI">
                 <el-tag
-                  color="#E9CDA4"
+                  class="mb-2"
                   effect="dark"
-                  style="font-weight:700; color: #606266;"
-                  :style="{ border: 'none' }"
+                  style="height:30px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none;font-weight:700; color: #606266; "
                   >{{ state.board.mbti }}</el-tag
                 >
+
                 <el-popover placement="bottom" width="200" trigger="hover">
                   <div class="content">
                     <h3 style="font-weight:700;">강아지 MBTI 해석하기</h3>
@@ -217,7 +219,7 @@
 
                   <template #reference>
                     <i
-                      class="el-icon-question"
+                      class="el-icon-question scale-up-2"
                       style="margin-left : 10px; cursor: pointer;"
                     />
                   </template>
@@ -260,7 +262,15 @@
         </el-col>
       </el-row>
       <div class="box">
-        {{ state.board.description }}
+        <h4
+          class="mb-2
+        "
+        >
+          <b>{{ state.board.title }}</b>
+        </h4>
+        <div style="margin-top:20px; white-space:pre;">
+          {{ state.board.description }}
+        </div>
       </div>
       <el-divider />
 
@@ -281,6 +291,282 @@
   </div>
 </template>
 
+<script>
+import $axios from "axios";
+import BreadCrumb from "./components/bread-crumb.vue";
+import { computed, reactive, onMounted } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
+
+export default {
+  name: "AdoptDetail",
+  components: {
+    BreadCrumb,
+    createToast
+  },
+  data() {
+    return {
+      isPopoverVisible: false,
+      popoverOptions: {
+        animation: "scale-fade",
+        popoverReference: null,
+        placement: "top",
+        offset: "0,0"
+      }
+    };
+  },
+  setup() {
+    if (!Kakao.isInitialized()) {
+      Kakao.init("d0106aa9ba1feb9c379bbb82194695fe");
+    }
+    const store = new useStore();
+    const router = new useRouter();
+
+    const state = reactive({
+      userId: computed(() => {
+        return store.getters["root/getLoginUserInfo"].userId;
+      }),
+      isBookmarked: computed(() => {
+        return store.getters["root/getIsbookmarked"];
+      }),
+      board: computed(() => {
+        console.log(store.getters["root/getBoardDetail"]);
+        return store.getters["root/getBoardDetail"];
+      })
+    });
+
+    const goModify = function(id) {
+      console.log(id, "go modify");
+      router.push({ name: "AdoptModify" });
+    };
+
+    const doDelete = function(id) {
+      store
+        .dispatch("root/requestDeleteBoard", id)
+        .then(function(result) {
+          createToast("공고가 삭제되었어요 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#7eaa72",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "success"
+          });
+          router.push({ name: "Adopt" });
+        })
+        .catch(function(err) {
+          createToast("공고 삭제에 실패했어요 😱💦", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "warning"
+          });
+          console.log(err);
+        });
+    };
+
+    const kakaoShare = function() {
+      Kakao.Link.sendDefault({
+        objectType: "feed",
+        content: {
+          title: state.board.title,
+          description: state.board.description,
+          imageUrl: "@/assets/images/mbti_isfp.png",
+          link: {
+            mobileWebUrl: "http://i5a501.p.ssafy.io/",
+            androidExecutionParams: "test"
+          }
+        },
+        buttons: [
+          {
+            title: "독립으로 이동",
+            link: {
+              mobileWebUrl: "http://i5a501.p.ssafy.io/"
+            }
+          }
+        ]
+      });
+    };
+
+    const clickBookmark = function() {
+      const isBookmarked = store.getters["root/getIsbookmarked"];
+
+      if (state.userId === null) {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+        router.push({ name: "Login" });
+      } else {
+        console.log("북마크 등록 ", isBookmarked);
+        if (isBookmarked) {
+          $axios
+            .delete(
+              "/board/bookmark/" +
+                store.getters["root/getLoginUserInfo"].userId +
+                "/" +
+                state.board.boardId
+            )
+            .then(function(result) {
+              console.log("deleteBookmark!!!!!!");
+              store.commit("root/setIsbookmarked", false);
+              createToast("북마크가 해제되었어요 💨💨", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "success"
+              });
+            })
+            .catch(function(err) {
+              createToast("북마크 해제에 실패했어요 😱💦", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#c49d83",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "warning"
+              });
+              console.log(err);
+            });
+        } else {
+          $axios
+            .post("/board/bookmark", {
+              userId: store.getters["root/getLoginUserInfo"].userId,
+              boardId: state.board.boardId
+            })
+            .then(function(result) {
+              console.log("insertBookmark!!!!!!");
+              store.commit("root/setIsbookmarked", true);
+              createToast("북마크가 등록되었어요 🐾💌", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "success"
+              });
+            })
+            .catch(function(err) {
+              createToast("북마크 등록에 실패했어요 😱💦", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#c49d83",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "warning"
+              });
+              console.log(err);
+            });
+        }
+      }
+    };
+
+    const goChat = function(id) {
+      if (state.userId === null) {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+        router.push({ name: "Login" });
+      } else {
+        store
+          .dispatch("root/existedForm", {
+            userId: state.userId,
+            boardId: state.board.boardId
+          })
+          .then(function(result) {
+            router.push({ name: "AdoptFormConfirm" });
+          })
+          .catch(function(err) {
+            createToast("이미 신청서를 작성했던 공고입니다 💬💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            });
+          });
+      }
+    };
+
+    //보드 디테일 정보 가져오기
+    store
+      .dispatch("root/reqestBoardDetail", {
+        boardId: state.board.boardId,
+        userId: state.userId
+      })
+      .then(function(result) {
+        console.log(result);
+
+        const boardDetail = {
+          boardId: result.data.dogInformation.boardId.id,
+          boardType: result.data.dogInformation.boardId.type,
+          thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+          title: result.data.dogInformation.boardId.title,
+          address: result.data.dogInformation.address,
+          mbti: result.data.dogInformation.mbti,
+          colorType: result.data.dogInformation.colorType,
+          gender: result.data.dogInformation.gender,
+          dogType: result.data.dogInformation.dogType,
+          neutralization: result.data.dogInformation.neutralization,
+          writer: result.data.writer,
+          weight: result.data.dogInformation.weight,
+          ageType: result.data.dogInformation.age,
+          regDate: result.data.dogInformation.boardId.regDate,
+          fileList: result.data.boardImageList,
+          isOwner: result.data.owner,
+          gugun: result.data.dogInformation.gugun.name,
+          sido: result.data.dogInformation.gugun.sidoCode.name,
+          description: result.data.dogInformation.description,
+          dogName: result.data.dogInformation.dogName,
+          isBookmarked: result.data.bookmarked
+        };
+
+        store.commit("root/setBoardDetail", boardDetail);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+
+    onMounted(() => {
+      console.log("breadcrumb");
+      store.commit("root/setBreadcrumbInfo", {
+        isHome: false,
+        title: "입양/임보",
+        subTitle: "입양/임보 동물 정보",
+        path: "/adopt"
+      });
+      window.scrollTo(0, 0);
+    });
+
+    return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify };
+  }
+};
+</script>
 <style scoped>
 .main-body {
   width: 100%;
@@ -389,273 +675,3 @@ h3 {
   margin-right: auto;
 }
 </style>
-
-<script>
-import $axios from "axios";
-import BreadCrumb from "./components/bread-crumb.vue";
-import { computed, reactive, onMounted } from "vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { createToast } from "mosha-vue-toastify";
-import "mosha-vue-toastify/dist/style.css";
-
-export default {
-  name: "AdoptDetail",
-  components: {
-    BreadCrumb,
-    createToast
-  },
-  data() {
-    return {
-      isPopoverVisible: false,
-      popoverOptions: {
-        animation: "scale-fade",
-        popoverReference: null,
-        placement: "top",
-        offset: "0,0"
-      }
-    };
-  },
-  setup() {
-    if (!Kakao.isInitialized()) {
-      Kakao.init("d0106aa9ba1feb9c379bbb82194695fe");
-    }
-    const store = new useStore();
-    const router = new useRouter();
-
-    const state = reactive({
-      userId: computed(() => {
-        return store.getters["root/getLoginUserInfo"].userId;
-      }),
-      isBookmarked: computed(() => {
-        return store.getters["root/getIsbookmarked"];
-      }),
-      board: computed(() => {
-        console.log(store.getters["root/getBoardDetail"]);
-        return store.getters["root/getBoardDetail"];
-      })
-    });
-
-    const goModify = function(id) {
-      console.log(id, "go modify");
-      router.push({ name: "AdoptModify" });
-    };
-
-    const doDelete = function(id) {
-      store
-        .dispatch("root/requestDeleteBoard", id)
-        .then(function(result) {
-          createToast("공고가 삭제되었어요 💨💨", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
-            transition: "bounce",
-            type: "success"
-          });
-          router.push({ name: "Adopt" });
-        })
-        .catch(function(err) {
-          createToast("공고 삭제에 실패했어요 😱💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
-            transition: "bounce",
-            type: "warning"
-          });
-          console.log(err);
-        });
-    };
-
-    const kakaoShare = function() {
-      Kakao.Link.sendDefault({
-        objectType: "feed",
-        content: {
-          title: state.board.title,
-          description: state.board.description,
-          imageUrl: "@/assets/images/mbti_isfp.png",
-          link: {
-            mobileWebUrl: "http://i5a501.p.ssafy.io/",
-            androidExecutionParams: "test"
-          }
-        },
-        buttons: [
-          {
-            title: "독립으로 이동",
-            link: {
-              mobileWebUrl: "http://i5a501.p.ssafy.io/"
-            }
-          }
-        ]
-      });
-    };
-
-    const clickBookmark = function() {
-      const isBookmarked = store.getters["root/getIsbookmarked"];
-
-      if (state.userId === null) {
-        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
-          hideProgressBar: "true",
-          timeout: 4500,
-          showIcon: "true",
-          toastBackgroundColor: "#c49d83",
-          position: "bottom-right",
-          transition: "bounce",
-          type: "warning"
-        });
-        router.push({ name: "Login" });
-      } else {
-        console.log("북마크 등록 ", isBookmarked);
-        if (isBookmarked) {
-          $axios
-            .delete(
-              "/board/bookmark/" +
-                store.getters["root/getLoginUserInfo"].userId +
-                "/" +
-                state.board.boardId
-            )
-            .then(function(result) {
-              console.log("deleteBookmark!!!!!!");
-              store.commit("root/setIsbookmarked", false);
-              createToast("북마크가 해제되었어요 💨💨", {
-                hideProgressBar: "true",
-                timeout: 4500,
-                showIcon: "true",
-                toastBackgroundColor: "#7eaa72",
-                position: "bottom-right",
-                transition: "bounce",
-                type: "success"
-              });
-            })
-            .catch(function(err) {
-              createToast("북마크 해제에 실패했어요 😱💦", {
-                hideProgressBar: "true",
-                timeout: 4500,
-                showIcon: "true",
-                toastBackgroundColor: "#c49d83",
-                position: "bottom-right",
-                transition: "bounce",
-                type: "warning"
-              });
-              console.log(err);
-            });
-        } else {
-          $axios
-            .post("/board/bookmark", {
-              userId: store.getters["root/getLoginUserInfo"].userId,
-              boardId: state.board.boardId
-            })
-            .then(function(result) {
-              console.log("insertBookmark!!!!!!");
-              store.commit("root/setIsbookmarked", true);
-              createToast("북마크가 등록되었어요 🐾💌", {
-                hideProgressBar: "true",
-                timeout: 4500,
-                showIcon: "true",
-                toastBackgroundColor: "#7eaa72",
-                position: "bottom-right",
-                transition: "bounce",
-                type: "success"
-              });
-            })
-            .catch(function(err) {
-              createToast("북마크 등록에 실패했어요 😱💦", {
-                hideProgressBar: "true",
-                timeout: 4500,
-                showIcon: "true",
-                toastBackgroundColor: "#c49d83",
-                position: "bottom-right",
-                transition: "bounce",
-                type: "warning"
-              });
-              console.log(err);
-            });
-        }
-      }
-    };
-
-    const goChat = function(id) {
-      if (state.userId === null) {
-        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
-          hideProgressBar: "true",
-          timeout: 4500,
-          showIcon: "true",
-          toastBackgroundColor: "#c49d83",
-          position: "bottom-right",
-          transition: "bounce",
-          type: "warning"
-        });
-        router.push({ name: "Login" });
-      } else {
-        store
-          .dispatch("root/existedForm", {
-            userId: state.userId,
-            boardId: state.board.boardId
-          })
-          .then(function(result) {
-            router.push({ name: "AdoptFormConfirm" });
-          })
-          .catch(function(err) {
-            createToast("이미 신청서를 작성했던 공고입니다 💬💦", {
-              hideProgressBar: "true",
-              timeout: 4500,
-              showIcon: "true",
-              toastBackgroundColor: "#c49d83",
-              position: "bottom-right",
-              transition: "bounce",
-              type: "warning"
-            });
-          });
-      }
-    };
-
-    $axios
-      .get("/board/" + state.board.boardId + "/" + state.userId)
-      .then(function(result) {
-        console.log(result);
-
-        const boardDetail = {
-          boardId: result.data.board.id,
-          boardType: result.data.board.type,
-          thumbnailUrl: result.data.board.thumbnailUrl,
-          title: result.data.board.title,
-          address: result.data.dogInformation.address,
-          mbti: result.data.dogInformation.mbti,
-          colorType: result.data.dogInformation.colorType,
-          gender: result.data.dogInformation.gender,
-          hairType: result.data.dogInformation.hairType,
-          neutralization: result.data.dogInformation.neutralization,
-          writer: result.data.writer,
-          weight: result.data.dogInformation.weight,
-          ageType: result.data.dogInformation.age,
-          regDate: result.data.board.regDate,
-          fileList: result.data.boardImageList,
-          isOwner: result.data.owner,
-          description: result.data.dogInformation.description,
-          dogName: result.data.dogInformation.dogName,
-          isBookmarked: result.data.bookmarked
-        };
-
-        store.commit("root/setBoardDetail", boardDetail);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-
-    onMounted(() => {
-      console.log("breadcrumb");
-      store.commit("root/setBreadcrumbInfo", {
-        isHome: false,
-        title: "입양/임보",
-        subTitle: "입양/임보 동물 정보"
-      });
-      window.scrollTo(0, 0);
-    });
-
-    return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify };
-  }
-};
-</script>

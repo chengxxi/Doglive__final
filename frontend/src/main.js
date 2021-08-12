@@ -7,7 +7,6 @@ import VueAxios from "./common/lib/axios";
 import axios from "./common/lib/axios";
 import i18n from "./common/lib/i18n";
 import router from "./common/lib/vue-router";
-
 import { WebRTC } from "vue-webrtc";
 
 // Element UI Components [시작]
@@ -82,6 +81,7 @@ import {
   ElSubmenu,
   ElSwitch,
   ElTabPane,
+  ElEmpty,
   ElTable,
   ElTableColumn,
   ElTabs,
@@ -174,6 +174,7 @@ const components = [
   ElTabPane,
   ElTable,
   ElTableColumn,
+  ElEmpty,
   ElTabs,
   ElTag,
   ElTimePicker,
@@ -208,6 +209,8 @@ import {
   faUserEdit,
   faEraser,
   faAngleLeft,
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
   faPaperclip,
   faKey,
   faImage,
@@ -219,7 +222,8 @@ import {
   faComments,
   faFile,
   faCheck,
-  faCheckCircle
+  faCheckCircle,
+  faHeart
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -245,6 +249,8 @@ library.add(
   faUserEdit,
   faEraser,
   faAngleLeft,
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
   faPaperclip,
   faKey,
   faImage,
@@ -256,7 +262,8 @@ library.add(
   faComments,
   faFile,
   faCheck,
-  faCheckCircle
+  faCheckCircle,
+  faHeart
 );
 
 const plugins = [

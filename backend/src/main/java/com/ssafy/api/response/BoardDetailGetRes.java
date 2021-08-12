@@ -12,6 +12,11 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * 유기동물 상세페이지에서 필요한 정보
+ */
+
+
 @Getter
 @Setter
 @ApiModel("BoardDetailGetRes")
@@ -27,9 +32,6 @@ public class BoardDetailGetRes extends BaseResponseBody {
     String writer;
 
     @ApiModelProperty
-    Board board;
-
-    @ApiModelProperty
     DogInformation dogInformation;
 
     @ApiModelProperty
@@ -39,14 +41,13 @@ public class BoardDetailGetRes extends BaseResponseBody {
     List<BoardComment> boardCommentList;
 
 
-    public static BoardDetailGetRes of(Integer statusCode, String message, boolean isBookmarked, boolean isOwner, String writer, Board board, DogInformation dogInformation, List<BoardImage> boardImageList, List<BoardComment> boardComments) {
+    public static BoardDetailGetRes of(Integer statusCode, String message, boolean isBookmarked, boolean isOwner, String writer, DogInformation dogInformation, List<BoardImage> boardImageList, List<BoardComment> boardComments) {
         BoardDetailGetRes res = new BoardDetailGetRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
         res.setOwner(isOwner);
-        res.setBookmarked(isBookmarked);
         res.setWriter(writer);
-        res.setBoard(board);
+        res.setBookmarked(isBookmarked);
         res.setDogInformation(dogInformation);
         res.setBoardImageList(boardImageList);
         res.setBoardCommentList(boardComments);

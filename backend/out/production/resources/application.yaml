@@ -31,28 +31,28 @@ pringfox:
     swagger:
       use-model-v3: false
 server:
-  address: localhost
+ # address: localhost
   compression:
     enabled: true
   mime-types: application/json,application/xml,text/xml,text/plain,application/javascript,text/css,text/html,text/event-stream
-  port: 8443
-  ssl:
-    enabled: true
-    key-store-type: PKCS12
-    key-store: classpath:keystore/ssafy.p12
-    key-store-password: doglivedoggi
-    key-alias: ssafy
-#    trust-store: classpath:keystore/ssafy.p12
-#    trust-store-password: doglivedoggi
+  port: 8080
+#  ssl:
+#    enabled: true
+#    key-store-type: PKCS12
+#    key-store: classpath:keystore/ssafy.p12
+#    key-store-password: doglivedoggi
+#    key-alias: ssafy
+  #    trust-store: classpath:keystore/ssafy.p12
+  #    trust-store-password: doglivedoggi
   servlet:
-    contextPath: /api/v1
+    contextPath: /
     encoding:
       charset: UTF-8
       enabled: true
       force: true
-http-server:
-  http:
-    port: 8080
+#http-server:
+#  http:
+#    port: 8080
 
 spa:
   default-file: /dist/index.html
@@ -74,8 +74,8 @@ spring:
       registration:
         kakao:
           authorization-grant-type: authorization_code
-          client-id: 8a6da8dccc17d0706c19f099353a04ca
-          client-secret: tbCfosMsAwk9xOpgebmWpWvXacrl25VK
+          client-id: f4c6ef3414193da426ed5d863808c7d4
+          client-secret: ocpg3oVjb8ysLbrdZNzDWBINfQvbkPB7
           redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
           scope:
             - profile
@@ -110,6 +110,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        show_sql : true
+        format_sql : true
+        use_sql_comment: true
 
   mvc:
     throw-exception-if-no-handler-found: true

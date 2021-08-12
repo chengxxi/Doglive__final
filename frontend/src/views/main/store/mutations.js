@@ -28,7 +28,7 @@ export function setBoardDetail(state, payload) {
   state.board.mbti = payload.mbti;
   state.board.colorType = payload.colorType;
   state.board.gender = payload.gender;
-  state.board.hairType = payload.hairType;
+  state.board.dogType = payload.dogType;
   state.board.neutralization = payload.neutralization;
   state.board.writer = payload.writer;
   state.board.weight = payload.weight;
@@ -47,4 +47,16 @@ export function setProfile(state, payload) {
   state.userProfile.email = payload.email;
   state.userProfile.birth = payload.birth;
   state.userProfile.phoneNumber = payload.phoneNumber;
+}
+
+export function setBoardId(state, payload) {
+  state.board.boardId = payload;
+}
+
+export function setCommunityBoard(state, payload){
+  state.community.communityId = payload.communityId;
+  state.community.title = payload.title;
+  state.community.category = payload.category;
+  state.community.description = payload.description;
+
 }

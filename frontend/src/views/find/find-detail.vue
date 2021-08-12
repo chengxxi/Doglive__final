@@ -79,7 +79,7 @@
                 state.board.colorType.name
               }}</el-descriptions-item>
               <el-descriptions-item label="품종">{{
-                state.board.hairType.name
+                state.board.dogType.name
               }}</el-descriptions-item>
               <el-descriptions-item label="실종/보호장소">{{
                 state.board.address
@@ -438,28 +438,31 @@ export default {
       }
     };
 
+    //보드 디테일 정보 가져오기
     $axios
       .get("/board/" + state.board.boardId + "/" + state.userId)
       .then(function(result) {
         console.log(result);
 
         const boardDetail = {
-          boardId: result.data.board.id,
-          boardType: result.data.board.type,
-          thumbnailUrl: result.data.board.thumbnailUrl,
-          title: result.data.board.title,
+          boardId: result.data.dogInformation.boardId.id,
+          boardType: result.data.dogInformation.boardId.type,
+          thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+          title: result.data.dogInformation.boardId.title,
           address: result.data.dogInformation.address,
           mbti: result.data.dogInformation.mbti,
           colorType: result.data.dogInformation.colorType,
           gender: result.data.dogInformation.gender,
-          hairType: result.data.dogInformation.hairType,
+          dogType: result.data.dogInformation.dogType,
           neutralization: result.data.dogInformation.neutralization,
           writer: result.data.writer,
           weight: result.data.dogInformation.weight,
           ageType: result.data.dogInformation.age,
-          regDate: result.data.board.regDate,
+          regDate: result.data.dogInformation.boardId.regDate,
           fileList: result.data.boardImageList,
           isOwner: result.data.owner,
+          gugun: result.data.gugun.name,
+          sido: result.data.sidoCode.name,
           description: result.data.dogInformation.description,
           dogName: result.data.dogInformation.dogName,
           isBookmarked: result.data.bookmarked
