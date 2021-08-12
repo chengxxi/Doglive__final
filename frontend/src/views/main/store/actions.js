@@ -44,7 +44,6 @@ export function requestChatRoomList({ state }) {
 
 // 채팅방 이전 로그 목록 요청
 export function requestChatMessageList({ state }, payload){
-  console.log("payload : " + payload)
   let roomId = payload.roomId;
   const url = '/chatroom/' + roomId + '/messages/'
   return $axios.get(url)

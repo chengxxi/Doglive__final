@@ -58,6 +58,7 @@ const routes = [
     redirect: "/mypage/profile",
     name: "Mypage",
     component: Mypage,
+    meta: { requiresAuth : true },
     children: [
       {
         path: "profile",
@@ -184,18 +185,5 @@ const router = createRouter({
   routes
 });
 
-// URL이 변경되기전 거쳐가는 함수
-router.beforeEach(function(to, from, next){
-  // if(to.matched.some(record => record.meta.requiresAuth)){ // 로그인이 필요한 페이지라면
-  //   if(store.getters["root/getLoginUserInfo"].userId === null){ // 현재 로그인된 상태인지 확인
-  //     next({ path: '/', query: {redirect: to.fullPath}})
-  //   }else{
-  //     next()
-  //   }
-  // }else{
-  //   next()
-  // }
-  next()
-})
 
 export default router;

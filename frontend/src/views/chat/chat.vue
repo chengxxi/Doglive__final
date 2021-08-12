@@ -16,7 +16,6 @@
   position: fixed;
   right: 25px;
   bottom: 25px;
-  margin: 0;
   width: 360px;
   height: 80%;
   min-height: 520px;

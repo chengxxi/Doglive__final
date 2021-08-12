@@ -1,12 +1,19 @@
 <template>
   <div class="chat-header">
-    <i class="el-icon-arrow-left close-btn" @click="goBack"></i>
+    <i class="el-icon-arrow-left back-btn" @click="goBack"></i>
     <i class="el-icon-close close-btn" @click="changeOpen"></i>
+    <span class="title">{{ chat.title }}</span>
   </div>
-  <div class="chat-body">
-    <ul v-for="(item, index) in state.recvList" v-bind:key="index">
-      <li>{{ item.username + " - " + item.chatMessage }}</li>
-    </ul>
+  <div class="chat-body" ref="chatList"
+    v-loading="chat.loading"
+    :element-loading-svg="svgInfo.path"
+    :element-loading-svg-view-box="svgInfo.viewBox"
+    >
+    <ChatMessage
+      v-for="(message, index) in state.recvList"
+      :key="index"
+      :message="message"
+    />
   </div>
   <div class="chat-input">
     <el-input type="textarea" v-model="state.content" @keyup.enter="sendMessage"></el-input>
@@ -24,8 +31,15 @@
   color: rgb(250, 250, 250); /* font color */
   background-color: rgb(215, 174, 164);
   box-shadow: 0px 0px 10px 5px rgb(230, 230, 230);
+  text-align: center;
+}
+.title{
+  font-size: 16px;
+  font-weight: 500;
+  vertical-align: super;
 }
 .chat-body{
+  height: calc(100% - 140px); /* input 높이(80) + margin 높이(25) */
   position: relative;
   margin: 0;
   padding: 10px;
@@ -33,7 +47,6 @@
 }
 .chat-body::-webkit-scrollbar{
   display: none;
-  overflow-y: scroll;
 }
 .chat-input {
   position: absolute;
@@ -59,9 +72,11 @@
 }
 :deep(.el-textarea__inner){
   width: 280px;
+  height: 100%;
   border-style: none;
   padding-left: 0px;
   padding-right: 10px;
+  resize: none;
 }
 :deep(.el-textarea__inner::-webkit-scrollbar){
   display: none;
@@ -77,43 +92,57 @@
   border-color: #755744;
   background-color: #755744;
 }
+.back-btn{
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
 .close-btn{
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 </style>
 
 <script>
+import svg from '@/assets/svgs/loading.js'
+import ChatMessage from './chat-message.vue'
 import { useStore } from 'vuex'
+import { ref, reactive, computed, onMounted } from 'vue'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
-import { reactive, computed } from 'vue'
+
 
 export default {
   name: 'chat-detail',
+
+  components: {
+    ChatMessage,
+  },
+
   setup () {
     const store = useStore()
     const userId = store.getters['root/getLoginUserInfo'].userId;
     const roomId = store.getters['root/getChat'].roomId;
+    const chatList = ref(null);
     let socket, client
-
     const state = reactive({
       recvList: [],
       content: '',
       activeButton: computed(()=> {
-        if(state.content.length > 0)
-          return true
-        else
-          return false
+        if(state.content.trim().length > 0) return true
+        else return false
       }),
     })
-
     const chat = reactive({
       open: computed(()=> store.getters['root/getChat'].open),
       title: computed(()=> store.getters['root/getChat'].title),
-      isActive : false,
+      loading: true,
+      isLoading : computed(()=> chat.loading)
     })
+    const svgInfo = svg[0]
 
     /* Methods*/
 
@@ -125,6 +154,8 @@ export default {
           for(var i = 0; i < result.data.messageList.length; i++){
             state.recvList.push(result.data.messageList[i])
           }
+          // 다 받아왔으면 loading false
+          chat.loading = false
           return true;
         })
         .catch(function(err){
@@ -148,10 +179,11 @@ export default {
 
     // Input에 입력한 메세지 전송
     function sendMessage(){
+      console.log(state.activeButton)
       if(!state.activeButton) // 입력하지 않은 상태로는 전송 불가
         return
 
-      client.send('/pub/chat/message', JSON.stringify({roomId: roomId, chatMessage: state.content, userId: userId}, {} ))
+      client.send('/pub/chat/message', JSON.stringify({roomId: roomId, chatMessage: state.content.trim(), userId: userId}, {} ))
       state.content = ''
     }
 
@@ -184,20 +216,26 @@ export default {
       })
     }
 
+    // 닫기 버튼 : 채팅 Open 여부 변경
     function changeOpen(){
       store.commit('root/setChatOpen', !chat.open)
-      chat.isActive = true;
     }
 
+    // 뒤로가기 버튼 : 채팅방 목록으로 넘어감
     function goBack(){
       store.commit('root/setChatMenu', 0)
       store.commit('root/setChatTitle', '')
       store.commit('root/setChatRoomId', '')
     }
 
+    // 마운트 이후 스크롤 Focus 변경
+    onMounted(()=>{
+      // chatList.scrollBy({top: chatList.scrollHeight || 9999, behavior: 'smooth'})
+    })
+
     connect()
 
-    return { sendMessage, state, chat, changeOpen, goBack }
+    return { sendMessage, state, chat, changeOpen, goBack, svgInfo }
   }
 }
 </script>

@@ -8,7 +8,7 @@
       {{ card.user1 }}
       {{ card.user2 }}
     </div>
-    <el-badge :value="card.unRead" class="message-badge" type="danger"></el-badge>
+    <el-badge v-if="card.unRead > 0" :value="card.unRead" class="message-badge" type="danger"></el-badge>
   </el-card>
 </template>
 
@@ -25,7 +25,7 @@
   padding: 15px;
 }
 .room-title{
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .room-user{
   font-size: 14px;
