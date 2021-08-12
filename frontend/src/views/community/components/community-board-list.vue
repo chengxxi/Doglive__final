@@ -216,7 +216,7 @@ export default {
             transition: "bounce",
             type: "success"
           });
-          router.push({ name: "community-board-register" });
+          router.push({ name: "Login" });
       } else {
         router.push({ name: "community-board-register" });
       }

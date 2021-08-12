@@ -186,6 +186,7 @@ export default {
   data(){
     return{
       boardForm:{
+        userId: this.state.userId.userId,
         communityId: this.state.community.communityId,
         category : this.state.community.category,
         title : this.state.community.title,
@@ -223,6 +224,7 @@ export default {
   methods:{
     submitForm(formName) {
       const data = {
+        userId: this.state.userId.userId,
         communityId: this.boardForm.communityId,
         title: this.boardForm.title,
         category : this.boardForm.category,

@@ -92,7 +92,7 @@
           <el-divider />
           <el-row class="mb-3">
           <el-form-item label="내용" prop="description">
-            <el-input type="textarea" v-model="boardForm.description" style="resize: none; white-space:pre;"></el-input>
+            <el-input class="textarea" type="textarea" v-model="boardForm.description" style="resize: none; white-space:pre;"></el-input>
           </el-form-item>
             
           </el-row>
@@ -170,6 +170,10 @@ li.el-select-dropdown__item.selected {
   font-size: 12pt;
   font-weight: 500;
 }
+.textarea{
+  resize: none; 
+  white-space:pre;
+}
 
 
 </style>
@@ -186,6 +190,7 @@ export default {
   data(){
     return{
       boardForm:{
+        userId: this.state.userId.userId,
         category : "",
         title : "",
         description : "",
@@ -222,6 +227,7 @@ export default {
   methods:{
     submitForm(formName) {
       const data = {
+        userId: this.state.userId.userId,
         title: this.boardForm.title,
         category : this.boardForm.category,
         description: this.boardForm.description,
@@ -257,7 +263,7 @@ export default {
     const router = new useRouter();
     const state = reactive({
       userId: computed(() => {
-        return store.getters["root/getLoginUserInfo"].userId;
+        return store.getters["root/getLoginUserInfo"];
       }),
 
     });
