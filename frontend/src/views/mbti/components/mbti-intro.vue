@@ -1,8 +1,11 @@
 <template>
+<div>
   <div class="box">
     <h1 class="description">
       🐕 강아지 MBTI란? 🐾
     </h1>
+
+
     <br>
     <p>'독립'의 강아지 MBTI는 강아지들의 성격을 총 16가지로 분류해 정리했어요. 원하는 성향을 선택하면 나와 꼭 맞는 강아지를 추천해 준답니다.</p>
     <p>강아지 MBTI를 통해 새롭게 우리 가족이 될 강아지를 발견해 보세요!</p>
@@ -11,15 +14,17 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, modi. Dolorem nemo, accusantium provident tempore molestias eius velit ducimus dolore, numquam enim perferendis. Eum quia, fugiat tempore minus ex impedit!</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, amet, veniam facilis, quo laborum fuga libero praesentium tempora ad reiciendis illo minima cum? Molestiae minima amet quidem consectetur in magni?</p>
 
-    <div class="mbtiBtn">
+    <!-- 상세 소개 내용 수정 필요 -->
+  </div>
+
+  <div class="mbtiBtn">
       <!-- round option -->
       <el-button class="goMbtiBtn">MBTI 테스트 하러 가기</el-button>
       <el-button class="showMbtiBtn">독립 MBTI 테스트 유형 보기</el-button>
 
     </div>
 
-    <!-- 상세 소개 내용 수정 필요 -->
-  </div>
+</div>
 
 </template>
 

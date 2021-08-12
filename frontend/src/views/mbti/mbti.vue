@@ -10,8 +10,6 @@
 
       <MbtiIntro />
 
-
-
       <!-- 테스트 하기 버튼 -->
         <!-- <MbtiDescription /> -->
         <!-- <MbtiQuestion /> -->
@@ -38,6 +36,8 @@
   font-size: 2.5rem;
   font-weight: normal;
 }
+
+
 </style>
 
 
