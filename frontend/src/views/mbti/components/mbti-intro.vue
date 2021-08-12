@@ -12,8 +12,9 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, amet, veniam facilis, quo laborum fuga libero praesentium tempora ad reiciendis illo minima cum? Molestiae minima amet quidem consectetur in magni?</p>
 
     <div class="mbtiBtn">
-      <el-button>MBTI 테스트 하러 가기</el-button>
-      <el-button>독립 MBTI 테스트 유형 보기</el-button>
+      <!-- round option -->
+      <el-button class="goMbtiBtn">MBTI 테스트 하러 가기</el-button>
+      <el-button class="showMbtiBtn">독립 MBTI 테스트 유형 보기</el-button>
 
     </div>
 
@@ -59,6 +60,21 @@
   /* margin-bottom: 40px; */
 }
 
+.goMbtiBtn {
+  border: 2px solid #E9CDA4;
+  background-color: #E9CDA4;
+  font-weight: 600;
+  color: azure;
+  margin: 0 15px;
+}
+
+.showMbtiBtn {
+  border: 2px solid #D7AEA4;
+  background-color: #D7AEA4;
+  font-weight: 600;
+  color: azure;
+  margin: 0 15px;
+}
 
 </style>
 
