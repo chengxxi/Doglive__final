@@ -113,8 +113,8 @@ export function requestUserProfile({ state }, payload) {
 }
 
 // 커뮤니티 게시글 목록 가져오기
-export function requestCommunityBoardList({state}){
-  const url = "/community/list"
+export function requestCommunityBoardList({state}, payload){
+  const url = "/community/list/" + payload
   return $axios.get(url);
 }
 

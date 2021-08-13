@@ -30,6 +30,6 @@ public interface CommunityService {
     void deleteAllCommunityCommentsByCommunity(Community community);
 
     /* community 모든 게시글 출력 */
-    List<CommunityParamDto> communityList();
+    List<CommunityParamDto> communityList(int page);
 
 }

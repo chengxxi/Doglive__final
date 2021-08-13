@@ -67,7 +67,7 @@ public class CommunityController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "게시글이 정상적으로 수정되었습니다"));
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list/{page}")
     @ApiOperation(value = "커뮤니티 게시글 목록", notes = "커뮤니티 게시글 목록을 가져온다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -75,9 +75,9 @@ public class CommunityController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public List<CommunityParamDto> communityBoardList(){
-        List<CommunityParamDto> communityList = communityService.communityList();
-        System.out.println("list: " + communityList);
+    public List<CommunityParamDto> communityBoardList(@PathVariable("page") int page){
+        List<CommunityParamDto> communityList = communityService.communityList(page);
+        System.out.println("list size: " + communityList.size());
         return communityList;
     }
 

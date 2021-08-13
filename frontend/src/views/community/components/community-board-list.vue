@@ -6,7 +6,12 @@
         
       </div>
 
-      
+        <div class="chat-body"
+        @scroll="scroll"
+        v-loading="communities.loading"
+        :ref="el => { if(el) divs = el}"
+    >
+    
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
       
       <div class="button-group" v-if="item.userId==state.userId">
@@ -73,7 +78,7 @@
       </div>
     </el-row>
 
-
+  </div>
   </div>
 </template>
 
@@ -141,7 +146,7 @@
 <script>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { onBeforeMount, onMounted, reactive,computed } from "vue";
+import { ref, onBeforeMount, onMounted, reactive,computed } from "vue";
 import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css"; 
 
@@ -155,6 +160,8 @@ export default {
     const store = new useStore();
     const router = new useRouter();
 
+    const divs = ref(null); // 요기
+
     const state = reactive({
       boardList:[],
       userId: computed(() => {
@@ -162,16 +169,51 @@ export default {
       }),
     });
 
+    const communities = reactive({
+      init: true,
+      loading: true,
+      isLoading : computed(()=> communities.loading),
+      page: 0,
+      noMore: false,
+      prev: 0,
+      now : 0,
+    })
+
+    // 다음 커뮤니티 목록 가져오기
+    function fetchCommunityList(){
+       store.dispatch('root/requestCommunityBoardList', communities.page )
+        .then(function(result){
+          console.log(result)
+        })
+        .catch(function(err){
+          console.log(err)
+        })
+    }
+
+    function scroll(state){ // 요기
+      console.log(divs)
+      if(divs.value.scrollTop == 0  && !communities.noMore){
+        communities.now = divs.value.scrollHeight
+        console.log(divs.value.scrollHeight)
+        communities.page += 1
+
+        divs.value.scrollTop = communities.now+10
+        console.log(divs.value.scrollTop)
+        console.log("prev", communities.prev)
+        console.log("now", communities.now)
+      }
+      console.log("scrollTo", divs.value.scrollTop);
+    }
  
 
 
-    store.dispatch('root/requestCommunityBoardList')
-      .then(function(result){
-        console.log(result)
-        state.boardList = result.data;
-      }).catch(function(err){
-        console.log(err)
-    });
+    // store.dispatch('root/requestCommunityBoardList')
+    //   .then(function(result){
+    //     console.log(result)
+    //     state.boardList = result.data;
+    //   }).catch(function(err){
+    //     console.log(err)
+    // });
 
 
     const updateCommunity = function(id){
@@ -244,11 +286,12 @@ export default {
         title: "Community",
         subTitle: "게시글 구경하기"
       });
+      fetchCommunityList()
     });
 
    
 
-    return { state, deleteCommunity, goRegister, updateCommunity};
+    return { state, deleteCommunity, goRegister, updateCommunity, communities,fetchCommunityList,scroll };
   }
 }
 </script>

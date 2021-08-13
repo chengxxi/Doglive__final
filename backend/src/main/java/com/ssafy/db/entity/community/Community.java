@@ -32,7 +32,7 @@ import java.util.List;
 )
 @NamedNativeQuery(
         name="CommunityAndUser",
-        query="select c.id, c.description, c.title, c.user_id, u.name, c.category from community.community c inner join auth.user_profile u where c.user_id = u.user_id order by c.regDate desc",
+        query="select c.id, c.description, c.title, c.user_id, u.name, c.category from community.community c inner join auth.user_profile u where c.user_id = u.user_id order by c.id desc",
         resultSetMapping="CommunityAndUserMapping")
 @Getter
 @Setter

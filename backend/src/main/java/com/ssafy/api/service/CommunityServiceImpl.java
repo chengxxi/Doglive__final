@@ -10,6 +10,8 @@ import com.ssafy.db.repository.community.CommunityCommentRepository;
 import com.ssafy.db.repository.community.CommunityImageRepository;
 import com.ssafy.db.repository.community.CommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -110,9 +112,10 @@ public class CommunityServiceImpl implements  CommunityService{
 
     /* 커뮤니티 게시글 전체 목록 불러오기 */
     @Override
-    public List<CommunityParamDto> communityList(){
-        Optional<List<CommunityParamDto>> communityList = communityRepository.findAllDesc();
+    public List<CommunityParamDto> communityList(int page){
+        PageRequest pageRequest = PageRequest.of(page,10);
+        Page<CommunityParamDto> communityList = communityRepository.findAllDesc(pageRequest).orElse(null);
 
-        return communityList.get();
+        return communityList.getContent();
     }
 }
