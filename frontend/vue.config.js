@@ -6,12 +6,12 @@ module.exports = {
     compress: true,
     disableHostCheck: true,
     https: true,
-    port: 8081,
+    port: 8080,
     open: true,
 
     proxy: {
       '/api/v1': {
-        target: 'https://localhost:8081/'
+        target: 'https://localhost:8080/'
       },
       // '/webjars': {
       //   target: 'https://localhost:8443/'
