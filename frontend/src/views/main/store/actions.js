@@ -113,38 +113,38 @@ export function requestUserProfile({ state }, payload) {
 }
 
 // 커뮤니티 게시글 목록 가져오기
-export function requestCommunityBoardList({state}){
-  const url = "/community/list"
+export function requestCommunityBoardList({ state }) {
+  const url = "/community/list";
   return $axios.get(url);
 }
 
 // 사용자가 작성한 커뮤니티 게시글 목록 가져오기
-export function requestMyCommunity({state}, payload){
-  const url = "/community/" + payload
+export function requestMyCommunity({ state }, payload) {
+  const url = "/community/" + payload;
   return $axios.get(url);
 }
 
 // 커뮤니티 게시글 삭제
-export function requestDeleteCommunity({state}, payload){
-  const url = "/community/" + payload
+export function requestDeleteCommunity({ state }, payload) {
+  const url = "/community/" + payload;
   return $axios.delete(url);
 }
 
 // 커뮤니티 게시글 등록
-export function requestRegisterCommunity({state}, payload){
-  const url = "/community"
+export function requestRegisterCommunity({ state }, payload) {
+  const url = "/community";
   return $axios.post(url, payload);
 }
 
 // 커뮤니티 게시글 수정
-export function requestUpdateCommunity({state}, payload){
-  const url = "/community/" + payload.communityId
-  return $axios.put(url,payload.data);
+export function requestUpdateCommunity({ state }, payload) {
+  const url = "/community/" + payload.communityId;
+  return $axios.put(url, payload.data);
 }
 
 // 커뮤니티 게시글 상세 정보 가져오기
-export function requestCommunityDetail({state}, payload){
-  const url = "/community/detail/" + payload
+export function requestCommunityDetail({ state }, payload) {
+  const url = "/community/detail/" + payload;
   return $axios.get(url);
 }
 
@@ -228,7 +228,7 @@ export function requestFindBoardList({ state }, payload) {
 }
 
 //보드 디테일 정보 가졍괴
-export function reqestBoardDetail({ state }, payload) {
+export function requestBoardDetail({ state }, payload) {
   const url = "/board/" + payload.boardId + "/" + payload.userId;
   return $axios.get(url);
 }
