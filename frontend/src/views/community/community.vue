@@ -1,13 +1,13 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " style="width:100%;" shadow="none">
+    <el-card class="box-card" style="width:100%; margin-left:1%; margin-right:1%;" shadow="none">
       <bread-crumb></bread-crumb>
       <div style="margin-top:2%; margin-left:1%;">
         <h1 class="title">Community</h1>
         <p>강아지와 당신의 이야기</p>
       </div>
 
-      <router-view></router-view>
+      <router-view ></router-view>
     </el-card>
     
   </div>
@@ -15,10 +15,10 @@
 
 <style scoped>
 .main-body {
-  width: 90%;
-  margin-left: 25%; 
-  margin-right: 25%;
-  margin-bottom : 50px
+  width: 100%;
+  margin-left: 10%; 
+  margin-right: 10%;
+  margin-bottom : 50px;
 }
 .main-padding {
   padding-top: 50px;

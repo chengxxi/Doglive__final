@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.CommunityRegisterPostReq;
 import com.ssafy.api.response.BoardListGetRes;
 import com.ssafy.api.response.CommunityBoardGetRes;
@@ -74,9 +75,10 @@ public class CommunityController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<CommunityListGetRes> communityBoardList(){
-        List<Community> communityList = communityService.communityList();
-        return ResponseEntity.ok(CommunityListGetRes.of(200, "Success", communityList, communityList.size()));
+    public List<CommunityParamDto> communityBoardList(){
+        List<CommunityParamDto> communityList = communityService.communityList();
+        System.out.println("list: " + communityList);
+        return communityList;
     }
 
     @GetMapping("/{id}")
@@ -105,4 +107,5 @@ public class CommunityController {
         Community community = communityService.getCommunityById(id);
         return ResponseEntity.ok(CommunityBoardGetRes.of(200, "Success", community));
     }
+
 }

@@ -14,11 +14,15 @@ public class CommunityBoardGetRes extends BaseResponseBody {
     @ApiModelProperty
     Community community;
 
+//    @ApiModelProperty
+//    String username;
+
     public static CommunityBoardGetRes of(Integer statusCode, String message, Community community){
         CommunityBoardGetRes res = new CommunityBoardGetRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
         res.setCommunity(community);
+//        res.setUsername(username);
         return res;
     }
 

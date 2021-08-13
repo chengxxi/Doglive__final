@@ -16,6 +16,9 @@
                 <el-button type="info" plain icon="el-icon-delete" size="mini" @click="deleteCommunity(item.id)"></el-button>
               </el-button-group>
           </div>
+          <div class="title">
+            {{item.title}}
+          </div>
           <div class="image">
             <img :src="require('@/assets/images/mbti_isfp.png')" />
           </div>
@@ -53,20 +56,17 @@
                   >{{ item.category }}</el-tag
                 >
           </div>
-          <div class="title">
-            <span style="font-weight: bold;">
-              <font-awesome-icon
+          <div class="content">
+            <span style="font-weight: bold; font-size: 2.3vmin;">
+              <!-- <font-awesome-icon
                 icon="heart"
                 aria-hidden="true"
                 style="color: rgb(237, 0, 109); font-size: 3vmin; cursor: pointer; margin-top: 10px;"
                 class="scale-up-5"
               >
-            </font-awesome-icon>
-            {{item.userId}}</span>
-            <span class="boardtitle">{{item.title}}</span>
-          </div>
-          <div class="content">
-            <p>{{item.description}}</p>
+            </font-awesome-icon> -->
+            {{item.name}}</span>
+            <span class="boardcontent">{{item.description}}</span>
           </div>
         </el-row>
       </div>
@@ -76,10 +76,10 @@
 
 <style scoped>
 .main-body {
-  width: 90%;
-  margin-left: 25%; 
-  margin-right: 25%;
-  margin-bottom : 50px
+  width: 100%;
+  margin-left: 10%; 
+  margin-right: 10%;
+  margin-bottom : 50px;
 }
 .main-padding {
   padding-top: 50px;
@@ -87,9 +87,17 @@
 
 .myboard{
   border:1px solid lightgray;
-  margin: 1%;
+  margin-right:25%;
+  margin-left: 25%;
   margin-bottom: 5%;
   margin-top:2%;
+}
+.title{
+  font-size: 2vmin;
+  text-align:right;
+  margin-top:1%;
+  margin-right:1%;
+  color: lightgray;
 }
 .button-group{
   text-align:right;
@@ -106,22 +114,19 @@
 .el-tag{
   margin-bottom: 2%;
 }
-.title{
-  margin-left:5%;
-  text-align: left;
-}
+
 .title >span{
   display: inline-block;
-  font-size: 3vmin;
   margin-bottom : 2%;
 }
-.boardtitle{
+.boardcontent{
+  font-size: 2vmin;
   margin-left:2%;
-  background-color: lightgoldenrodyellow;
 }
 .content{
-  margin: 0 5% 5% 5%;
+  margin: 2% 5% 5% 5%;
   vertical-align: middle; 
+  text-align: left;
 }
 
 .content >p{
@@ -135,6 +140,8 @@
 .tag >.el-tag{
   margin-bottom: 0%;
 }
+
+
 
 
 </style>

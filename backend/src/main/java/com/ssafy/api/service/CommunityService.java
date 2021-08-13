@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.CommunityRegisterPostReq;
 import com.ssafy.db.entity.community.Community;
 
@@ -29,6 +30,6 @@ public interface CommunityService {
     void deleteAllCommunityCommentsByCommunity(Community community);
 
     /* community 모든 게시글 출력 */
-    List<Community> communityList();
+    List<CommunityParamDto> communityList();
 
 }

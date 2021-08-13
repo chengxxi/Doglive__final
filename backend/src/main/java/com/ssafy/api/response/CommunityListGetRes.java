@@ -1,5 +1,6 @@
 package com.ssafy.api.response;
 
+import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.community.Community;
 import io.swagger.annotations.ApiModel;
