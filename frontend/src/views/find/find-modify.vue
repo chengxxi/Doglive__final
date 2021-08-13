@@ -9,140 +9,191 @@
 
       <div>
         <el-form
-          style=" margin:100px;"
+          style=" margin:100px; padding-left:10px; padding-right:10px;"
           label-position="left"
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
-          label-width="120px"
         >
-          <h5 class="mt-1 mb-3" style="font-weight:600">
+          <h5
+            class="pt-3 pb-3"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+          >
             📑 기본정보를 입력해주세요
           </h5>
-          <el-divider />
-          <el-row class="mt-3 mb-3">
-            <el-form-item label="제목" prop="title" style="width:100%">
-              <el-input v-model="ruleForm.title"></el-input>
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="강아지 이름" prop="name" style="width:95%">
-                <el-input v-model="ruleForm.name"></el-input>
+
+          <el-row class="mt-4 mb-3">
+            <el-col :span="14">
+              <el-form-item label="제목" prop="title" label-width="20%">
+                <el-input
+                  style="width:70%;"
+                  v-model="ruleForm.title"
+                ></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
-              <el-form-item label="현재 주소" prop="address">
+            <el-col :span="10">
+              <el-form-item label="공고 타입" prop="type" label-width="40%">
+                <el-select
+                  style="width:60%;"
+                  v-model="ruleForm.type"
+                  placeholder="분류"
+                >
+                  <el-option label="실종" value="3"></el-option>
+                  <el-option label="보호" value="4"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row> </el-row>
+
+          <el-row class="mt-3 mb-3">
+            <el-col :span="10">
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="컬러" prop="color" label-width="100%">
+                    <el-select
+                      style="width:90%;"
+                      v-model="ruleForm.color"
+                      placeholder="컬러"
+                    >
+                      <el-option label="White" value="12"></el-option>
+                      <el-option label="Beige" value="13"></el-option>
+                      <el-option label="Gray" value="14"></el-option>
+                      <el-option label="Brown" value="15"></el-option>
+                      <el-option label="Black" value="16"></el-option>
+                      <el-option label="기타" value="17"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="연령대" prop="age">
+                    <el-select
+                      style="width:90%;"
+                      v-model="ruleForm.age"
+                      placeholder="연령대"
+                    >
+                      <el-option label="Puppy(~ 6개월)" value="4"></el-option>
+                      <el-option
+                        label="Junior(7개월 ~ 2살)"
+                        value="5"
+                      ></el-option>
+                      <el-option label="Adult(3살 ~ 8살)" value="6"></el-option>
+                      <el-option label="Senior(9살 ~)" value="7"></el-option>
+                      <el-option label="기타" value="17"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-col>
+            <el-col :span="10">
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="크기" prop="size">
+                    <el-select
+                      style="width:90%;"
+                      v-model="ruleForm.size"
+                      placeholder="크기"
+                    >
+                      <el-option label="소(8kg 미만)" value="1"></el-option>
+                      <el-option
+                        label="중(8kg-18kg 미만)"
+                        value="2"
+                      ></el-option>
+                      <el-option label="대(18kg 이상)" value="3"></el-option>
+                      <el-option label="기타" value="17"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label-width="100%" label="품종" prop="dogType">
+                    <el-select
+                      v-model="ruleForm.dogType"
+                      placeholder="품종"
+                      style="width:90%;"
+                    >
+                      <el-option
+                        v-for="dog in state.dogTypeList"
+                        :key="dog.id"
+                        :label="dog.name"
+                        :value="dog.id"
+                      >
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-col>
+            <el-col :span="4">
+              <el-form-item label="성별" label-width="100%" prop="gender">
+                <el-radio-group v-model="ruleForm.gender" style="width:100%;">
+                  <el-radio
+                    style="margin-left:10%; margin-right:10%;"
+                    label="남"
+                    border
+                  ></el-radio>
+                  <el-radio label="여" border></el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="15">
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item
+                    label="거주지(시/도)"
+                    prop="sido"
+                    label-width="100%"
+                  >
+                    <el-select
+                      v-model="ruleForm.sido"
+                      placeholder="시/도"
+                      style="width:95% ;"
+                      :change="gugunList(ruleForm.sido)"
+                    >
+                      <el-option
+                        v-for="(sido, idx) in state.sidoList"
+                        :key="idx"
+                        :label="sido.name"
+                        :value="sido.id"
+                      >
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item
+                    label="거주지(구/군)"
+                    prop="gugun"
+                    label-width="100%"
+                  >
+                    <el-select
+                      style="width:95% ;"
+                      v-model="ruleForm.gugun"
+                      placeholder="구/군"
+                    >
+                      <el-option
+                        v-for="(gugun, idx) in state.gugunList"
+                        :key="idx"
+                        :label="gugun.name"
+                        :value="gugun.id"
+                      >
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-col>
+            <el-col :span="9">
+              <el-form-item label="상세주소" prop="address" label-width="100%">
                 <el-input
-                  placeholder="ㅇㅇ시 ㅇㅇ구"
+                  style="width:100%;"
                   v-model="ruleForm.address"
                 ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
-          <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item label="연령대" prop="age">
-                <el-select v-model="ruleForm.age" placeholder="Puppy(~ 6개월)">
-                  <el-option
-                    label="Puppy(~ 6개월)"
-                    value="{ id: 4, name: 'Puppy(~ 6개월)' }"
-                  ></el-option>
-                  <el-option
-                    label="Junior(7개월 ~ 2살)"
-                    value="{ id: 5, name: 'Junior(7개월 ~ 2살)' }"
-                  ></el-option>
-                  <el-option
-                    label="Adult(3살 ~ 8살)"
-                    value="{ id: 6, name: 'Adult(3살 ~ 8살)' }"
-                  ></el-option>
-                  <el-option
-                    label="Senior(9살 ~)"
-                    value="{ id: 7, name: 'Senior(9살 ~)' }"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="크기" prop="size">
-                <el-select v-model="ruleForm.size" placeholder="소(8kg 미만)">
-                  <el-option
-                    label="소(8kg 미만)"
-                    value="{ id: 1, name: '소(8kg 미만)' }"
-                  ></el-option>
-                  <el-option
-                    label="중(8kg-18kg 미만)"
-                    value="{ id: 2, name: '중(8kg-18kg 미만)' }"
-                  ></el-option>
-                  <el-option
-                    label="대(18kg 이상)"
-                    value="{ id: 3, name: '대(18kg 이상)' }"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="컬러" prop="color">
-                <el-select v-model="ruleForm.color" placeholder="White">
-                  <el-option
-                    label="White"
-                    value="{ id: 12, name: 'White' }"
-                  ></el-option>
-                  <el-option
-                    label="Beige"
-                    value="{ id: 13, name: 'Beige' }"
-                  ></el-option>
-                  <el-option
-                    label="Gray"
-                    value="{ id: 14, name: 'Gray' }"
-                  ></el-option>
-                  <el-option
-                    label="Brown"
-                    value="{ id: 15, name: 'Brown' }"
-                  ></el-option>
-                  <el-option
-                    label="Black"
-                    value="{ id: 16, name: 'Black' }"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="공고 타입" prop="type">
-                <el-select v-model="ruleForm.type" placeholder="실종">
-                  <el-option
-                    label="실종"
-                    value="{ id: 3, name: '실종' }"
-                  ></el-option>
-                  <el-option
-                    label="임보"
-                    value="{ id: 4, name: '보호' }"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item label="성별" prop="gender">
-                <el-radio-group v-model="ruleForm.gender">
-                  <el-radio label="남" border></el-radio>
-                  <el-radio label="여" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="품종" prop="dogType">
-                <el-radio-group v-model="ruleForm.dogType">
-                  <el-radio label="장모" border></el-radio>
-                  <el-radio label="단모" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
           <el-row class="mt-3 mb-3">
             <el-form-item label="부가 설명" prop="desc">
               <el-input
@@ -153,13 +204,19 @@
               ></el-input>
             </el-form-item>
           </el-row>
+
           <div class="mb-3" style="margin-top:100px;"></div>
-          <span style="font-size: 1.25rem; font-weight:600">
-            📷 사진을 업로드 해주세요
-          </span>
-          <span> (최대 5장)</span>
-          <el-divider />
-          <el-row>
+          <div
+            class="pt-3 pb-3"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+          >
+            <span style="font-size: 1.25rem; font-weight:600">
+              📷 사진을 업로드 해주세요
+            </span>
+            <span> (최대 5장)</span>
+          </div>
+
+          <el-row class="mt-4">
             <el-upload
               action="#"
               list-type="picture-card"
@@ -212,7 +269,7 @@
   justify-content: center;"
           >
             <el-button type="primary" @click="submitForm('ruleForm')"
-              >수정</el-button
+              >작성</el-button
             >
             <el-button @click="resetForm('ruleForm')">초기화</el-button>
           </el-row>
@@ -238,6 +295,8 @@ export default {
   data() {
     return {
       ruleForm: {
+        sido: this.state.board.sido,
+        gugun: this.state.board.gugun,
         type: this.state.board.boardType,
         title: this.state.board.title,
         name: this.state.board.dogName,
@@ -246,18 +305,10 @@ export default {
         color: this.state.board.colorType,
         age: this.state.board.ageType,
         size: this.state.board.weight,
-        neutralization:
-          this.state.board.neutralization == true ? "중성화 O" : "중성화 X",
+
         address: this.state.board.address,
         desc: this.state.board.description,
-        energy:
-          this.state.board.mbti.indexOf("E") == 0 ? "에너지있는" : "침착한",
-        obedience:
-          this.state.board.mbti.indexOf("S") == 1 ? "충성심 강한" : "영리한",
-        relationship:
-          this.state.board.mbti.indexOf("F") == 2 ? "의존적인" : "독립적인",
-        adaptability:
-          this.state.board.mbti.indexOf("P") == 3 ? "낯가리는" : "친화적인",
+
         disabled: false
       },
       rules: {
@@ -292,8 +343,22 @@ export default {
         dogType: [
           {
             required: true,
-            message: "헤어타입을 선택해주세요",
+            message: "품종을 선택해주세요",
             trigger: "blur"
+          }
+        ],
+        sido: [
+          {
+            required: true,
+            message: "주소지를 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        gugun: [
+          {
+            required: true,
+            message: "주소지를 입력해주세요.",
+            trigger: "change"
           }
         ],
         color: [
@@ -309,17 +374,10 @@ export default {
         size: [
           { required: true, message: "크기를 선택해주세요", trigger: "blur" }
         ],
-        neutralization: [
-          {
-            required: true,
-            message: "중성화여부를 선택해주세요",
-            trigger: "blur"
-          }
-        ],
         address: [
           {
             required: true,
-            message: "실종/보호 장소를 입력해주세요",
+            message: "상세 주소를 입력해주세요",
             trigger: "blur"
           },
           {
@@ -352,19 +410,23 @@ export default {
         thumbnailUrl: "",
         filePath: [],
         dogName: this.ruleForm.name,
-        boardType: Number(this.ruleForm.type.id),
+        boardType: Number(this.ruleForm.type),
         userId: this.state.userId.userId,
-        mbti: mbti,
+
         title: this.ruleForm.title,
         description: this.ruleForm.desc,
-        colorType: Number(this.ruleForm.color.id),
-        dogType: this.ruleForm.dogType == "단모" ? 10 : 11,
-        gender: this.ruleForm.gender == "여" ? 8 : 9,
-        age: Number(this.ruleForm.age.id),
-        neutralization:
-          this.ruleForm.neutralization == "중성화 O" ? true : false,
-        weight: Number(this.ruleForm.size.id),
-        address: this.ruleForm.address
+        colorType: Number(this.ruleForm.color),
+        dogType: this.ruleForm.dogType,
+        gender:
+          this.ruleForm.gender == "여"
+            ? 8
+            : this.ruleForm.gender == "남"
+            ? 9
+            : 17,
+        age: Number(this.ruleForm.age),
+        address: this.ruleForm.address,
+        weight: Number(this.ruleForm.size),
+        gugun: this.ruleForm.gugun
       };
       console.log(data);
 
@@ -398,6 +460,7 @@ export default {
     const router = new useRouter();
 
     const state = reactive({
+      dogTypeList: [],
       board: computed(() => {
         console.log(store.getters["root/getBoardDetail"]);
         return store.getters["root/getBoardDetail"];
@@ -405,7 +468,9 @@ export default {
 
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"];
-      })
+      }),
+      sidoList: [],
+      gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }]
     });
 
     const modifyData = function(data) {
@@ -420,12 +485,12 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "success"
           });
           console.log("수정 성공");
-          router.push({ name: "AdoptDetail" });
+          router.push({ name: "FindDetail" });
         })
         .catch(function(err) {
           createToast("공고 수정에 실패했어요 😱💦", {
@@ -433,11 +498,47 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "warning"
           });
           console.log(err);
+        });
+    };
+
+    //강아지 품종 데이터 읽어오기
+    const readDogTypeList = function() {
+      store.dispatch("root/requestDogTypeList").then(function(result) {
+        console.log("dogType:", result);
+        state.dogTypeList = result.data.dogTypeList;
+        state.dogTypeList.push({ id: 17, name: "기타" });
+      });
+    };
+
+    //시도 리스트 가져오기
+    store
+      .dispatch("root/requestSidoCodeList")
+      .then(function(result) {
+        console.log("call : sidocode");
+        state.sidoList = result.data.sidoList;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    //시도에 맞는 구군 리스트 가져오기
+    const gugunList = function(selectedSidoCode) {
+      console.log(selectedSidoCode);
+
+      store
+        .dispatch("root/requestGugunCodeList", selectedSidoCode)
+        .then(function(result) {
+          console.log("call : guguncode");
+
+          state.gugunList = result.data.gugunList;
+        })
+        .catch(function(error) {
+          console.log(error);
         });
     };
 
@@ -446,20 +547,34 @@ export default {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "실종/보호",
+        path: "/find",
         subTitle: "실종/보호 공고 수정"
       });
+      readDogTypeList();
       window.scrollTo(0, 0);
     });
 
-    return { state, modifyData };
+    return { state, modifyData, gugunList, readDogTypeList };
   }
 };
 </script>
 
 <style scoped>
+.main-body {
+  width: 100%;
+  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
+  margin-right: 10%;
+}
+.main-padding {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
 :deep(.el-radio__inner:hover) {
   border-color: #755744;
+  color: #755744;
 }
+
 :deep(.el-radio.is-bordered.is-checked) {
   border-color: #755744;
   background-color: #f9f0e7;
@@ -486,6 +601,11 @@ li.el-select-dropdown__item.selected {
   background: #755744;
 }
 
+:deep(.el-radio) {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 :deep(.el-button) {
   font-weight: 600;
 }
@@ -501,6 +621,10 @@ li.el-select-dropdown__item.selected {
 
 :deep(.el-textarea__inner:focus) {
   border: 1px solid #755744;
+}
+
+:deep(.el-textarea__inner) {
+  resize: none;
 }
 
 :deep(.el-radio-button__inner:hover) {

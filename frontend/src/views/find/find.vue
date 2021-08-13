@@ -292,7 +292,7 @@ export default {
         });
         router.push({ name: "Login" });
       } else {
-        router.push({ name: "AdoptRegister" });
+        router.push({ name: "FindRegister" });
       }
     };
 

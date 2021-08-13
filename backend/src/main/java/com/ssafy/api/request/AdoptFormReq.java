@@ -24,4 +24,7 @@ public class AdoptFormReq {
 
     @ApiModelProperty
     Object content;
+
+    @ApiModelProperty
+    String boardTitle;
 }

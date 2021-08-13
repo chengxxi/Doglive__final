@@ -30,10 +30,14 @@ public class CounselingHistory {
   @Column(name="board_id")
   private Long boardId;             //입양 공고 아이디
 
+  @Column(name="board_title")
+  private String boardTitle;        //입양 공고 제목
+
   @Column(name="board_type")
   private String boardType;           //입양 공고 타입
 
   private String dogName;           //강아지네임
+
 
   @Column(columnDefinition = "LONGTEXT")
   private String content;           //입양 신청 설문 내용

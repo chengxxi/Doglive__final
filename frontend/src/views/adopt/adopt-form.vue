@@ -614,6 +614,7 @@ export default {
         data: {
           boardId: this.state.board.boardId,
           boardType: this.state.board.boardType.name,
+          boardTitle: this.state.board.title,
           dogName: this.state.board.dogName,
           content: this.form
         }

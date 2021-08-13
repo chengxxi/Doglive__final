@@ -19,8 +19,8 @@ export default {
     TableData: []
   },
 
-  community:{
-    communityId:"",
+  community: {
+    communityId: "",
     title: "",
     category: "",
     description: ""
@@ -57,7 +57,9 @@ export default {
     readCount: {},
     fileList: [],
     isOwner: false,
-    isbookmarked: false
+    isbookmarked: false,
+    sido: "",
+    gugun: ""
   },
 
   chat: {

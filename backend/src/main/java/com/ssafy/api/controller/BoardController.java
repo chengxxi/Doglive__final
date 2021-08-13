@@ -102,10 +102,10 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> registerAdoptBoard(@RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq){
+    public ResponseEntity<BoardRegisterRes> registerAdoptBoard(@RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq){
         Board board = boardService.registerBoard(boardRegisterPostReq);
         System.out.println(board);
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "공고가 정상적으로 등록되었습니다"));
+        return ResponseEntity.ok(BoardRegisterRes.of(200, "공고가 정상적으로 등록되었습니다", board.getId()));
     }
 
 

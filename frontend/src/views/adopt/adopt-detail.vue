@@ -75,7 +75,7 @@
               <el-descriptions-item label="연령">{{
                 state.board.ageType.name
               }}</el-descriptions-item>
-              <el-descriptions-item label="무게">{{
+              <el-descriptions-item label="크기">{{
                 state.board.weight.name
               }}</el-descriptions-item>
               <el-descriptions-item label="컬러">{{
@@ -85,8 +85,8 @@
                 state.board.dogType.name
               }}</el-descriptions-item>
               <el-descriptions-item label="현재위치">
-                {{ state.board.address }}</el-descriptions-item
-              >
+                {{ state.board.sido }} {{ state.board.gugun }}
+              </el-descriptions-item>
               <el-descriptions-item label="MBTI">
                 <el-tag
                   class="mb-2"

@@ -62,6 +62,27 @@ public class BoardRegisterPostReq {
     @ApiModelProperty
     String address;
 
+    @ApiModelProperty
+    String gugun;
 
-
+    @Override
+    public String toString() {
+        return "BoardRegisterPostReq{" +
+                "userId='" + userId + '\'' +
+                ", boardType=" + boardType +
+                ", dogName='" + dogName + '\'' +
+                ", title='" + title + '\'' +
+                ", thumbnailUrl='" + thumbnailUrl + '\'' +
+                ", filePath=" + filePath +
+                ", colorType=" + colorType +
+                ", description='" + description + '\'' +
+                ", gender=" + gender +
+                ", dogType=" + dogType +
+                ", age=" + age +
+                ", neutralization=" + neutralization +
+                ", weight=" + weight +
+                ", mbti='" + mbti + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

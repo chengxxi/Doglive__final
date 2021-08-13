@@ -150,6 +150,7 @@ public class BoardServiceImpl implements  BoardService{
         Board board = new Board();
 
         DogInformation dogInformation = new DogInformation();
+        System.out.println(boardRegisterPostReq.toString());
         Optional<BoardCategory> boardCategory = boardCategoryRepository.findById(boardRegisterPostReq.getBoardType());
         if(boardCategory.isPresent()){
             board.setType(boardCategory.get());
