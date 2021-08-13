@@ -62,6 +62,9 @@ public class BoardRegisterPostReq {
     @ApiModelProperty
     String address;
 
+    @ApiModelProperty
+    String gugun;
+
     @Override
     public String toString() {
         return "BoardRegisterPostReq{" +

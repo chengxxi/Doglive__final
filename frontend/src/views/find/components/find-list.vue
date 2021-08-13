@@ -44,6 +44,7 @@ export default {
     const readDetail = function(id) {
       console.log("read");
       store.commit("root/setBoardId", id);
+      router.push({ name: "FindDetail" });
     };
 
     const goRegister = function() {
@@ -51,7 +52,7 @@ export default {
         alert("로그인해주세요");
         router.push({ name: "Login" });
       } else {
-        router.push({ name: "AdoptRegister" });
+        router.push({ name: "FindRegister" });
       }
     };
 

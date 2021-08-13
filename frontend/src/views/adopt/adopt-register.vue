@@ -15,11 +15,14 @@
           :rules="rules"
           ref="ruleForm"
         >
-          <h5 class="mt-1 mb-3" style="font-weight:600">
+          <h5
+            class="pt-3 pb-3"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to top, #f0ebe0, #f6ede9 );"
+          >
             📑 기본정보를 입력해주세요
           </h5>
-          <el-divider />
-          <el-row class="mt-3 mb-3">
+
+          <el-row class="mt-4 mb-3">
             <el-col :span="12">
               <el-form-item label="제목" prop="title" label-width="30%">
                 <el-input
@@ -209,7 +212,7 @@
             </el-col>
           </el-row>
 
-          <el-row class="mt-3 mb-3">
+          <el-row class="mt-3">
             <el-form-item label="부가 설명" prop="desc">
               <el-input
                 type="textarea"
@@ -220,12 +223,16 @@
             </el-form-item>
           </el-row>
 
-          <h5 class="mb-3" style="margin-top:100px; font-weight:600">
+          <div class="mb-3" style="margin-top:100px;"></div>
+
+          <h5
+            class="pt-3 pb-3"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to top, #f0ebe0, #f6ede9 );"
+          >
             🐶 성격을 소개해주세요
           </h5>
-          <el-divider />
 
-          <el-row class="mt-3 mb-3">
+          <el-row class="mt-4 mb-3">
             <el-col :span="12">
               <el-form-item label="활동성향" prop="energy">
                 <el-radio-group v-model="ruleForm.energy">
@@ -313,12 +320,16 @@
             </el-col>
           </el-row>
           <div class="mb-3" style="margin-top:100px;"></div>
-          <span style="font-size: 1.25rem; font-weight:600">
-            📷 사진을 업로드 해주세요
-          </span>
-          <span> (최대 5장)</span>
-          <el-divider />
-          <el-row>
+          <div
+            class="pt-3 pb-3"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to top, #f0ebe0, #f6ede9 );"
+          >
+            <span style="font-size: 1.25rem; font-weight:600">
+              📷 사진을 업로드 해주세요
+            </span>
+            <span> (최대 5장)</span>
+          </div>
+          <el-row class="mt-4">
             <el-upload
               action="#"
               list-type="picture-card"

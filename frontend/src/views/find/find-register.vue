@@ -15,11 +15,14 @@
           :rules="rules"
           ref="ruleForm"
         >
-          <h5 class="mt-1 mb-3" style="font-weight:600">
+          <h5
+            class="pt-3 pb-3"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+          >
             📑 기본정보를 입력해주세요
           </h5>
-          <el-divider />
-          <el-row class="mt-3 mb-3">
+
+          <el-row class="mt-4 mb-3">
             <el-col :span="14">
               <el-form-item label="제목" prop="title" label-width="20%">
                 <el-input
@@ -29,9 +32,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="10">
-              <el-form-item label="공고 타입" prop="type" label-width="20%">
+              <el-form-item label="공고 타입" prop="type" label-width="40%">
                 <el-select
-                  style="width:80%;"
+                  style="width:60%;"
                   v-model="ruleForm.type"
                   placeholder="분류"
                 >
@@ -181,12 +184,14 @@
                 </el-col>
               </el-row>
             </el-col>
-            <el-col :span="5">
-              <el-row>
-                <el-col :span="24"> </el-col>
-              </el-row>
+            <el-col :span="9">
+              <el-form-item label="상세주소" prop="address" label-width="100%">
+                <el-input
+                  style="width:100%;"
+                  v-model="ruleForm.address"
+                ></el-input>
+              </el-form-item>
             </el-col>
-            <el-col :span="4"> </el-col>
           </el-row>
 
           <el-row class="mt-3 mb-3">
@@ -200,105 +205,18 @@
             </el-form-item>
           </el-row>
 
-          <h5 class="mb-3" style="margin-top:100px; font-weight:600">
-            🐶 성격을 소개해주세요
-          </h5>
-          <el-divider />
-
-          <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item label="활동성향" prop="energy">
-                <el-radio-group v-model="ruleForm.energy">
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">에너지 Energetic</h6>
-                    활동적, 즉흥적인
-                    <template #reference>
-                      <el-radio label="에너지있는" border></el-radio>
-                    </template>
-                  </el-popover>
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">침착한 Introversion</h6>
-                    차분한, 일관적인
-                    <template #reference>
-                      <el-radio label="침착한" border></el-radio>
-                    </template>
-                  </el-popover>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="순종성향" prop="obedience">
-                <el-radio-group v-model="ruleForm.obedience">
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">충성심 강한 Supportive</h6>
-                    유순한, 성실한
-                    <template #reference>
-                      <el-radio label="충성심 강한" border></el-radio>
-                    </template>
-                  </el-popover>
-                  <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">영리한 Naughty</h6>
-                    재치한, 똑똑한
-                    <template #reference>
-                      <el-radio label="영리한" border></el-radio>
-                    </template>
-                  </el-popover>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="관계성향" prop="relationship">
-                <el-radio-group v-model="ruleForm.relationship">
-                  <el-popover placement="bottom" width="200" trigger="hover">
-                    <h6 style="font-weight:600">관계지향 Friendly</h6>
-                    반려인 바라기
-                    <template #reference>
-                      <el-radio label="의존적인" border></el-radio>
-                    </template>
-                  </el-popover>
-                  <el-popover placement="bottom" width="200" trigger="hover">
-                    <h6 style="font-weight:600">독립지향 independenT</h6>
-                    스스로 행동하는
-                    <template #reference>
-                      <el-radio label="독립적인" border></el-radio>
-                    </template>
-                  </el-popover>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="적응성향" prop="adaptability">
-                <div>
-                  <el-radio-group v-model="ruleForm.adaptability">
-                    <el-popover placement="bottom" width="200" trigger="hover">
-                      <h6 style="font-weight:600">신중한 Prudent</h6>
-                      낯가리는, 조심스러운
-
-                      <template #reference>
-                        <el-radio label="낯가리는" border></el-radio>
-                      </template>
-                    </el-popover>
-                    <el-popover placement="bottom" width="200" trigger="hover">
-                      <h6 style="font-weight:600">친화적인 Jolly</h6>
-                      모든 것에 호기심 가득한
-                      <template #reference>
-                        <el-radio label="친화적인" border></el-radio>
-                      </template>
-                    </el-popover>
-                  </el-radio-group>
-                </div>
-              </el-form-item>
-            </el-col>
-          </el-row>
           <div class="mb-3" style="margin-top:100px;"></div>
-          <span style="font-size: 1.25rem; font-weight:600">
-            📷 사진을 업로드 해주세요
-          </span>
-          <span> (최대 5장)</span>
-          <el-divider />
-          <el-row>
+          <div
+            class="pt-3 pb-3"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+          >
+            <span style="font-size: 1.25rem; font-weight:600">
+              📷 사진을 업로드 해주세요
+            </span>
+            <span> (최대 5장)</span>
+          </div>
+
+          <el-row class="mt-4">
             <el-upload
               action="#"
               list-type="picture-card"
@@ -516,7 +434,7 @@ export default {
         age: Number(this.ruleForm.age),
         address: this.ruleForm.address,
         weight: Number(this.ruleForm.size),
-        gugun: this.ruleForm.gugun.id
+        gugun: this.ruleForm.gugun
       };
       console.log(data);
 
