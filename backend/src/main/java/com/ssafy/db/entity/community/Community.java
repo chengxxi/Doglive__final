@@ -12,6 +12,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.ssafy.db.entity.community.QCommunity.community;
+
 /**
  * 커뮤니티 게시글 정보 Entity
  */
@@ -32,7 +34,7 @@ import java.util.List;
 )
 @NamedNativeQuery(
         name="CommunityAndUser",
-        query="select c.id, c.description, c.title, c.user_id, u.name, c.category from community.community c inner join auth.user_profile u where c.user_id = u.user_id order by c.id desc",
+        query="select c.id, c.description, c.title, c.user_id, u.name, c.category from community.community c inner join auth.user_profile u where c.user_id = u.user_id",
         resultSetMapping="CommunityAndUserMapping")
 @Getter
 @Setter

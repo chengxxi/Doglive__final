@@ -3,6 +3,8 @@ package com.ssafy.api.service;
 import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.CommunityRegisterPostReq;
 import com.ssafy.db.entity.community.Community;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 

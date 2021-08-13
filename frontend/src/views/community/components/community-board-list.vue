@@ -175,15 +175,19 @@ export default {
       isLoading : computed(()=> communities.loading),
       page: 0,
       noMore: false,
-      prev: 0,
-      now : 0,
     })
 
     // 다음 커뮤니티 목록 가져오기
     function fetchCommunityList(){
        store.dispatch('root/requestCommunityBoardList', communities.page )
         .then(function(result){
-          console.log(result)
+           var size = result.data.length;
+          for(var i = 0; i < size; i++)
+            state.boardList.push(result.data[i])
+          // 다 받아왔으면
+          // if(size < 10)
+          //   communities.noMore = true
+          // communities.loading = false
         })
         .catch(function(err){
           console.log(err)
@@ -192,15 +196,10 @@ export default {
 
     function scroll(state){ // 요기
       console.log(divs)
-      if(divs.value.scrollTop == 0  && !communities.noMore){
-        communities.now = divs.value.scrollHeight
+      if(divs.value.scrollTop >= divs.value.clientHeight  && !communities.noMore){
         console.log(divs.value.scrollHeight)
         communities.page += 1
-
-        divs.value.scrollTop = communities.now+10
-        console.log(divs.value.scrollTop)
-        console.log("prev", communities.prev)
-        console.log("now", communities.now)
+        fetchCommunityList();
       }
       console.log("scrollTo", divs.value.scrollTop);
     }
