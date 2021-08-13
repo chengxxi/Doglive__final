@@ -42,8 +42,8 @@ server:
     key-store: classpath:keystore/ssafy.p12
     key-store-password: doglivedoggi
     key-alias: ssafy
-  #    trust-store: classpath:keystore/ssafy.p12
-  #    trust-store-password: doglivedoggi
+    trust-store: classpath:keystore/ssafy.ts
+    trust-store-password: doglivedoggi
   servlet:
     contextPath: /
     encoding:
