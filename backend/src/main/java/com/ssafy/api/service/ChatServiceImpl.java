@@ -11,6 +11,10 @@ import com.ssafy.db.repository.chat.ChatMessageRepository;
 import com.ssafy.db.repository.chat.ChatRoomJoinRepository;
 import com.ssafy.db.repository.chat.ChatRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -78,13 +82,18 @@ public class ChatServiceImpl implements ChatService{
     }
 
     @Override
-    public List<ChatMessage> getChatMessageList(ChatRoom roomId, String userId) {
-        // 채팅방에 입장했을 때, 이전 채팅 기록을 불러오는 메소드
-        List<ChatMessage> messageList = chatMessageRepository.findAllByRoomId(roomId).orElse(null);
+    public List<ChatMessage> getChatMessageList(ChatRoom roomId, String userId, int page) {
+        // 채팅방에 입장했을 때, 이전 채팅 기록을 불러오는 메소드 (최신순 페이징 처리)
+        PageRequest pageRequest = PageRequest.of(page,30, Sort.Direction.DESC, "sendTimeAt");
+        Page<ChatMessage> messageList = chatMessageRepository.findAllByRoomId(roomId, pageRequest).orElse(null);
+//        System.out.println("Total Pages : " + messageList.getTotalPages());
+//        System.out.println("Total Count : " + messageList.getTotalElements());
+//        System.out.println("Next : " + messageList.nextPageable());
+
         // 이 때, 안읽은 메시지가 있다면 isRead 값을 true로 변경해준다
         chatMessageReadRepository.updateIsRead(roomId, userId);
 
-        return messageList;
+        return messageList.getContent();
     }
 
     @Override

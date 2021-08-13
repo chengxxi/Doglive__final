@@ -45,8 +45,9 @@ export function requestChatRoomList({ state }) {
 // 채팅방 이전 로그 목록 요청
 export function requestChatMessageList({ state }, payload){
   let roomId = payload.roomId;
-  const url = '/chatroom/' + roomId + '/messages/'
-  return $axios.get(url)
+  let page = payload.page;
+  const url = '/chatroom/' + roomId + '/messages/' + page;
+  return $axios.get(url);
 }
 
 // 사용자 북마크 리스트를 불러오기

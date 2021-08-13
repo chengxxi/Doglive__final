@@ -48,7 +48,6 @@ public class ChatSubController {
 
         // 1. 현재 요청한 회원의 userId에 맞는 roomId 리스트 받아오기
         List<ChatRoomJoin> joinedRoomList =  chatService.getChatroomListByUser(userId);
-
         // 2. roomId에 해당하는 ChatRoom 리스트 반환하기 + 해당 채팅방안에 있는 username도 추가
         List<ChatRoomGetRes> chatRoomList = new ArrayList<>();
 
@@ -59,7 +58,6 @@ public class ChatSubController {
             chatRoom.setUserNameList(chatService.getUserNameList(roomId));
             chatRoom.setUnReadCount(chatService.getUnReadMessage(roomId, userId));
             chatRoomList.add(chatRoom);
-
             System.out.println("안읽은 메세지 개수" + chatRoom.getUnReadCount());
         }
 
@@ -68,10 +66,13 @@ public class ChatSubController {
     }
 
     // 특정 채팅방의 채팅 목록 조회
-    @GetMapping(value="/{roomId}/messages")
-    public ResponseEntity getAllChatMessages(@CookieValue("userId") Cookie userIdCookie, @PathVariable("roomId") Long roomId){
+    @GetMapping(value="/{roomId}/messages/{page}")
+    public ResponseEntity getAllChatMessages(@CookieValue("userId") Cookie userIdCookie,
+                                             @PathVariable("roomId") Long roomId,
+                                             @PathVariable("page") int page){
+
         String userId = userIdCookie.getValue();
-        List<ChatMessage> messageList = chatService.getChatMessageList(chatService.getChatRoomInfo(roomId), userId);
+        List<ChatMessage> messageList = chatService.getChatMessageList(chatService.getChatRoomInfo(roomId), userId, page);
         List<ChatMessageGetRes> list = chatService.getChatMessageListWithUserName(messageList);
         System.out.println("검색된 채팅 로그의 개수" + list.size());
         return ResponseEntity.ok(ChatMessageListGetRes.of(200, "Success", list));

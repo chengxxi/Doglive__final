@@ -5,13 +5,14 @@
     <span class="title">{{ chat.title }}</span>
   </div>
   <div class="chat-body"
+    @scroll="scroll"
     v-loading="chat.loading"
     :element-loading-svg="svgInfo.path"
     :element-loading-svg-view-box="svgInfo.viewBox"
     :ref="el => { if(el) divs = el}"
     >
     <ChatMessage
-      v-for="(message, index) in state.recvList"
+      v-for="(message, index) in state.chatList"
       :key="index"
       :message="message"
     />
@@ -46,10 +47,10 @@
   position: relative;
   margin: 0;
   padding: 10px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .chat-body::-webkit-scrollbar{
-  display: none;
+  /* display: none; */
 }
 .chat-input {
   position: absolute;
@@ -120,7 +121,7 @@
 import svg from '@/assets/svgs/loading.js'
 import ChatMessage from './chat-message.vue'
 import { useStore } from 'vuex'
-import { ref, reactive, computed, onRenderTracked, onBeforeUpdate, onUpdated } from 'vue'
+import { ref, reactive, computed, onUpdated } from 'vue'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 
@@ -137,10 +138,12 @@ export default {
     const userId = store.getters['root/getLoginUserInfo'].userId;
     const roomId = store.getters['root/getChat'].roomId;
     const divs = ref(null);
-
+    const svgInfo = svg[0]
     let socket, client
+
     const state = reactive({
-      recvList: [],
+      recvList: [], // 서버로부터 받은 데이터 축적 (내림차순)
+      chatList: [], // 사용자에게 보여줄 데이터 (아래에서 부터 위로 오름차순)
       content: '',
       activeButton: computed(()=> {
         if(state.content.trim().length > 0) return true
@@ -148,43 +151,45 @@ export default {
       }),
     })
     const chat = reactive({
+      init: true,
       open: computed(()=> store.getters['root/getChat'].open),
       title: computed(()=> store.getters['root/getChat'].title),
       loading: true,
-      isLoading : computed(()=> chat.loading)
+      isLoading : computed(()=> chat.loading),
+      page: 0,
+      noMore: false,
+      prev: 0,
+      now : 0,
     })
-    const svgInfo = svg[0]
 
     /* Methods*/
 
     // 이전 채팅방 로그 가져오기
     function fetchMessageLogs(){
-       store.dispatch('root/requestChatMessageList', {roomId: roomId, withCredentials: true})
+       store.dispatch('root/requestChatMessageList', {roomId: roomId, page: chat.page, withCredentials: true})
         .then(function(result){
-          console.log(result.data)
-          for(var i = 0; i < result.data.messageList.length; i++){
+          var size = result.data.messageList.length;
+          for(var i = 0; i < size; i++)
             state.recvList.push(result.data.messageList[i])
-          }
-          // 다 받아왔으면 loading false
+          // 다 받아왔으면
+          if(size < 30)
+            chat.noMore = true
           chat.loading = false
-          return true;
+          state.chatList = [...state.recvList].reverse()
+
+          chat.prev = divs.value.scrollHeight
         })
         .catch(function(err){
-          return false;
         })
     }
 
     // 채팅방 입장 요청 + 메시지 받아오기
     function fetchJoin(){
-      console.log("fetchJoin 함수 호출!")
-      // 1. 채팅방 입장 메시지
-      // const data = JSON.stringify({ userId: userId, roomId: roomId, chatMessage: "join" });
-      // client.send("/pub/chat/join", data, {})
-
-      // 2. 채팅방에서 메시지 받아오기
       client.subscribe("/sub/chat/room/" + roomId, function(result){
         console.log(JSON.parse(result.body))
         state.recvList.push(JSON.parse(result.body))
+        state.chatList.push(JSON.parse(result.body))
+        chat.init = true;
       })
     }
 
@@ -202,10 +207,6 @@ export default {
     async function onConnected(){
       console.log("onConnected 함수 호출!")
       var load = await fetchMessageLogs()
-
-      if(!load){
-        console.log("로딩중...")
-      }
       fetchJoin()
     }
 
@@ -215,8 +216,6 @@ export default {
       // const url = "http://i5a501.p.ssafy.io/api/v1/chat-server" // 배포용
       socket = new SockJS(url, { transports: ['websocket', 'xhr-streaming', 'xhr-polling']})
       client = Stomp.over(socket)
-
-      console.log("소켓 연결을 시도합니다.")
       client.connect({withCredentials : true, userId : userId }
       ,frame => {
         console.log("연결 성공 : ", frame)
@@ -244,13 +243,32 @@ export default {
       el.value.scrollTop = 99999
     }
 
+    function scroll(state){
+      console.log(divs)
+      if(divs.value.scrollTop == 0  && !chat.noMore){
+        chat.now = divs.value.scrollHeight
+        console.log(divs.value.scrollHeight)
+        chat.page += 1
+
+        fetchMessageLogs()
+        divs.value.scrollTop = chat.now+30
+        console.log(divs.value.scrollTop)
+        console.log("prev", chat.prev)
+        console.log("now", chat.now)
+      }
+      console.log("scrollTo", divs.value.scrollTop);
+    }
+
     onUpdated(()=> {
-      scrollToBottom(divs)
+      if(chat.init){ // 처음 화면을 불러올 때만 스크롤을 맨 아래로 배치
+        chat.init = false;
+        scrollToBottom(divs)
+      }
     })
 
     connect()
 
-    return { sendMessage, state, chat, changeOpen, goBack, svgInfo, divs }
+    return { sendMessage, state, chat, changeOpen, goBack, svgInfo, divs, scroll }
   }
 }
 </script>
