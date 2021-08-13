@@ -1,13 +1,17 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="12" v-for="(o, idx) in applicant" :key="idx">
-      <div class="grid-content bg-beige">
-        <div class="image">
-          <el-avatar shape="circle" :size="70" :src="require('@/assets/images/profile-image.jpg')" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}"/>
-        </div>
-        <div class="apply-content"><p>이름 : {{o.applicantId.name}}</p><p>{{o.applicantId.phoneNumber}}</p></div>
-        
-        <div class="icon">
+      <el-row :gutter="20" class="grid-content bg-beige">
+        <el-col :span="4">
+          <div class="image">
+            <el-avatar s4hape="circle" :size="70" :src="require('@/assets/images/profile-image.jpg')" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}"/>
+          </div>
+        </el-col>
+        <el-col :span="13">
+          <div class="apply-content"><p>이름 : {{o.applicantId.name}}</p><p>{{o.applicantId.phoneNumber}}</p></div>
+        </el-col>
+        <el-col :span="3">
+          <div class="icon">
           <font-awesome-icon
                         icon="file"
                         aria-hidden="true"
@@ -21,21 +25,24 @@
                         class="scale-up-5">
           </font-awesome-icon>
         </div>
-        <div class="button">
-          <el-tag
-              color="#D7AFA4"
-              effect="dark"
-              size="medium"
-              style="border:none; border-radius: 30px; font-size:7pt; display:block; margin-bottom: 5px"
-              @click="clickAccept(o.id)">승인</el-tag>
-          <el-tag
-              color="#BDBDBD"
-              effect="dark"
-              size="medium"
-              style="border:none; border-radius: 30px; font-size:7pt; display:block;"
-              @click="clickReject(o.id)">거절</el-tag>
-        </div>
-      </div>
+        </el-col>
+        <el-col :span="3">
+          <div class="button" style="text-align:center;">
+            <el-tag
+                color="#D7AFA4"
+                effect="dark"
+                size="medium"
+                style="border:none; border-radius: 30px; font-size:7pt; display:block; margin-bottom: 5px"
+                @click="clickAccept(o.id)">승인</el-tag>
+            <el-tag
+                color="#BDBDBD"
+                effect="dark"
+                size="medium"
+                style="border:none; border-radius: 30px; font-size:7pt; display:block;"
+                @click="clickReject(o.id)">거절</el-tag>
+          </div>
+        </el-col>
+      </el-row>
     </el-col>
 
   </el-row>
