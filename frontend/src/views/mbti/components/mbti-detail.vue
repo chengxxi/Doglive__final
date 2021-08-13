@@ -21,7 +21,7 @@
                 effect="dark"
                 size="large"
                 style="border:none; border-radius: 30px; font-size:14pt; float:left;"
-                >{{ state.board.boardType.name }}</el-tag
+                >{{ state.name }}</el-tag
               >
               <el-tag
                 v-if="state.board.boardType.id != 1"
@@ -30,13 +30,13 @@
                 effect="dark"
                 size="large"
                 style="border:none; border-radius: 30px; font-size:14pt; float:left;"
-                >{{ state.board.boardType.name }}</el-tag
+                >{{ state.title }}</el-tag
               >
             </el-row>
             <div class="vertical-center row">
               <div class="col-md-9">
                 <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
-                  state.board.dogName
+                  state.name
                 }}</span>
               </div>
               <div class="col-md-3 ms-auto">
@@ -44,14 +44,6 @@
                   class="align-self-center vertical-center"
                   style="text-align: center;"
                 >
-                  <font-awesome-icon
-                    class="scale-up-2"
-                    :icon="[state.board.isbookmarked ? 'fas' : 'far', 'star']"
-                    @click="clickBookmark()"
-                    aria-hidden="true"
-                    style="color: rgb(255, 226, 95); font-size: 40px; cursor: pointer;"
-                  >
-                  </font-awesome-icon>
 
                   <!-- <img
                     @click="kakaoShare"
@@ -72,7 +64,7 @@
                   class="mb-2"
                   effect="dark"
                   style="height:30px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none;font-weight:700; color: #606266; "
-                  >{{ state.board.mbti }}</el-tag
+                  >{{ state.desc }}</el-tag
                 >
 
                 <el-popover placement="bottom" width="200" trigger="hover">
@@ -217,7 +209,7 @@
           class="mb-2
         "
         >
-          <b>{{ state.board.title }}</b>
+          <b>{{ state.title }}</b>
         </h4>
       </div>
       <el-divider />
@@ -275,31 +267,6 @@ export default {
       })
     });
 
-
-    // const kakaoShare = function() {
-    //   Kakao.Link.sendDefault({
-    //     objectType: 'feed',
-    //     content: {
-    //       title: state.board.title,
-    //       description: state.board.description,
-    //       imageUrl: '@/assets/images/mbti_isfp.png',
-    //       link: {
-    //         mobileWebUrl: 'http://i5a501.p.ssafy.io/',
-    //         androidExecutionParams: 'test'
-    //       }
-    //     },
-    //     buttons: [
-    //       {
-    //         title: '독립으로 이동',
-    //         link: {
-    //           mobileWebUrl: 'http://i5a501.p.ssafy.io/'
-    //         }
-    //       }
-    //     ]
-    //   });
-    // };
-
-
     //보드 디테일 정보 가져오기
     store
       .dispatch('root/reqestBoardDetail', {
@@ -310,29 +277,6 @@ export default {
       .then(function(result) {
         console.log(result);
 
-        // const boardDetail = {
-        //   boardId: result.data.dogInformation.boardId.id,
-        //   boardType: result.data.dogInformation.boardId.type,
-        //   thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
-        //   title: result.data.dogInformation.boardId.title,
-        //   address: result.data.dogInformation.address,
-        //   mbti: result.data.dogInformation.mbti,
-        //   colorType: result.data.dogInformation.colorType,
-        //   gender: result.data.dogInformation.gender,
-        //   dogType: result.data.dogInformation.dogType,
-        //   neutralization: result.data.dogInformation.neutralization,
-        //   writer: result.data.writer,
-        //   weight: result.data.dogInformation.weight,
-        //   ageType: result.data.dogInformation.age,
-        //   regDate: result.data.dogInformation.boardId.regDate,
-        //   fileList: result.data.boardImageList,
-        //   isOwner: result.data.owner,
-        //   gugun: result.data.dogInformation.gugun.name,
-        //   sido: result.data.dogInformation.gugun.sidoCode.name,
-        //   description: result.data.dogInformation.description,
-        //   dogName: result.data.dogInformation.dogName,
-        //   isBookmarked: result.data.bookmarked
-        // };
         const MbtiDetail = {
           name: result.data.name,
           title: result.data.title,
