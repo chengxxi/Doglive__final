@@ -6,6 +6,7 @@ import com.ssafy.api.response.ChatMessageListGetRes;
 import com.ssafy.api.response.ChatRoomGetRes;
 import com.ssafy.api.response.ChatRoomListGetRes;
 import com.ssafy.api.service.ChatService;
+import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.chat.ChatMessage;
 
 import com.ssafy.db.entity.chat.ChatRoom;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -36,8 +38,12 @@ public class ChatSubController {
 
     // 채팅방 생성 요청
     @PostMapping(value="")
-    public ChatRoom createChatRoom(@RequestBody String name){
-        return chatService.createChatRoom(name);
+    public ResponseEntity createChatRoom(@CookieValue("userId") Cookie userIdCookie, @RequestBody HashMap<String, Object> body){
+        System.out.println(body);
+        int id = (Integer)body.get("counseling_id");
+        Long counseling_id = Long.valueOf(id);
+        chatService.createChatRoom(counseling_id);
+        return ResponseEntity.ok(BaseResponseBody.of(200, "채팅방이 생성되었습니다."));
     }
 
     // 특정 유저의 전체 채팅방 목록 조회
@@ -47,19 +53,9 @@ public class ChatSubController {
         System.out.println("userId : " + userId);
 
         // 1. 현재 요청한 회원의 userId에 맞는 roomId 리스트 받아오기
-        List<ChatRoomJoin> joinedRoomList =  chatService.getChatroomListByUser(userId);
+        List<ChatRoomJoin> joinedRoomList =  chatService.getChatroomJoinListByUser(userId);
         // 2. roomId에 해당하는 ChatRoom 리스트 반환하기 + 해당 채팅방안에 있는 username도 추가
-        List<ChatRoomGetRes> chatRoomList = new ArrayList<>();
-
-        for(int i = 0; i < joinedRoomList.size(); i++){
-            ChatRoomGetRes chatRoom = new ChatRoomGetRes();
-            ChatRoom roomId = joinedRoomList.get(i).getRoomId(); // 채팅방 목록의 roomId
-            chatRoom.setChatRoom(roomId);
-            chatRoom.setUserNameList(chatService.getUserNameList(roomId));
-            chatRoom.setUnReadCount(chatService.getUnReadMessage(roomId, userId));
-            chatRoomList.add(chatRoom);
-            System.out.println("안읽은 메세지 개수" + chatRoom.getUnReadCount());
-        }
+        List<ChatRoomGetRes> chatRoomList = chatService.getChatroomList(joinedRoomList, userId);
 
         System.out.println("검색된 채팅 방의 개수" + chatRoomList.size());
         return ResponseEntity.ok(ChatRoomListGetRes.of(200, "Success", chatRoomList));

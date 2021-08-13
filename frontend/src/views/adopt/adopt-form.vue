@@ -687,20 +687,13 @@ export default {
       store
         .dispatch("root/registerAdoptForm", data)
         .then(function(result) {
-          createToast("입양 신청서가 제출 되었어요 📬🐾", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "success"
-          });
-
-          router.push({ name: "AdoptDetail" });
-          //1.채팅방으로 이동하는 로직 구현(?)
-          //2. 마이페이지 제출 확인 페이지로 이동
           console.log(result);
+          // 상담친성이 되었다면 채팅방을 열어주기
+          //1.채팅방으로 이동하는 로직 구현(?)
+          openChatting(result.data.counselingHistory.id);
+
+          //2. 마이페이지 제출 확인 페이지로 이동
+          router.push({ name: "AdoptDetail" });
         })
         .catch(function(error) {
           createToast("입양 신청서 제출에 실패했어요 💬💦", {
@@ -719,7 +712,6 @@ export default {
     //시도에 맞는 구군 리스트 가져오기
     const gugunList = function(selectedSidoCode) {
       console.log(selectedSidoCode);
-
       store
         .dispatch("root/requestGugunCodeList", selectedSidoCode)
         .then(function(result) {
@@ -731,6 +723,37 @@ export default {
           console.log(error);
         });
     };
+
+    // 상담채팅방 열기
+    const openChatting = function(counselingId){
+      store.dispatch("root/requestCreateChatRoom", {
+        counseling_id : counselingId,
+        withCredentials: true, // userId를 헤더 쿠키에 담아서 보냄
+      })
+      .then(function(result){
+        createToast("입양 신청서가 제출 되었어요. 채팅방에서 상담을 시작해보세요!🐾💌", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#7eaa72",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "success"
+        });
+      })
+      .catch(function(){
+         createToast("상담채팅방을 생성하지 못하였습니다. 다시 시도해주세요.💬💦", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "warning"
+        });
+      })
+    }
+
 
     onMounted(() => {
       console.log("breadcrumb");

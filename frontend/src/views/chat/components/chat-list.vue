@@ -10,7 +10,7 @@
       v-for="(card, idx) in state.roomList"
       :key="idx"
       :card="card"
-      @click="enterRoom(card.chatRoom)"
+      @click="enterRoom(card)"
     />
   </div>
   <div class="chat-footer"/>
@@ -100,9 +100,10 @@ export default {
       for(var i = 0; i < chatRoomList.length; i++){
         state.roomList.push({
           chatRoom : chatRoomList[i].chatRoom,
+          boardTitle: chatRoomList[i].counselingHistory.boardTitle,
           user1 : chatRoomList[i].userNameList[0],
           user2 : chatRoomList[i].userNameList[1],
-          unRead : chatRoomList[i].unReadCount
+          unRead : chatRoomList[i].unReadCount,
         })
       }
     })
@@ -113,6 +114,7 @@ export default {
     // 닫기 버튼 : 채팅 Open 여부 변경
     function changeOpen(){
       store.commit('root/setChatOpen', !chat.open)
+      store.commit('root/setChatTitle', card.boardTitle)
     }
 
     return { state, chat, enterRoom, changeOpen }

@@ -5,8 +5,10 @@ import com.ssafy.api.request.AdoptFormReq;
 
 import com.ssafy.api.request.StatusUpdatePutReq;
 
+import com.ssafy.api.response.CounselingHistoryGetRes;
 import com.ssafy.api.service.AdoptService;
 import com.ssafy.common.model.response.BaseResponseBody;
+import com.ssafy.db.entity.auth.CounselingHistory;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,11 +35,11 @@ public class AdoptController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> insertAdoptForm(@PathVariable("userId") String id, @RequestBody @ApiParam(value="입양신청 등록 정보", required = true) AdoptFormReq adoptFormReq){
+    public ResponseEntity<CounselingHistoryGetRes> insertAdoptForm(@PathVariable("userId") String id, @RequestBody @ApiParam(value="입양신청 등록 정보", required = true) AdoptFormReq adoptFormReq){
 
-        adoptService.insertAdoptForm(id, adoptFormReq);
+        CounselingHistory counseling = adoptService.insertAdoptForm(id, adoptFormReq);
 
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "입양신청서가 정상적으로 등록되었습니다"));
+        return ResponseEntity.status(200).body(CounselingHistoryGetRes.of(200, "입양신청서가 정상적으로 등록되었습니다", counseling));
     }
 
 

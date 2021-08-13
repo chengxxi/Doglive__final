@@ -17,10 +17,11 @@ public interface UserService {
     User getUserById(String Id);
 //    UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq, MultipartFile multipartFile);
     UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq);
-    UserProfile getUserProfile(String id);
+    UserProfile getUserProfile(String id); // userId를 통해 프로필 받아오는 함수
     boolean deleteUser(String id);
     String getUserName(String id);
     List<Bookmark> getBookmarkList(String id);
     List<CounselingHistory> getCounselingResult(String id);
     List<CounselingHistory> getApplicantList(String id);
+    CounselingHistory getCounselingById(Long counselingId);
 }
