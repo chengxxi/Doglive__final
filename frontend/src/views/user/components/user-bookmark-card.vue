@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row>
+    <el-row :gutter="20">
     <el-col :span="6" v-for="(o, idx) in card" :key="idx"> 
       <el-card :body-style="{ padding: '10px' }" style="margin: 10px !important;" shadow="hover">
         <img :src="require('@/assets/images/logo2.png')" class="image" />

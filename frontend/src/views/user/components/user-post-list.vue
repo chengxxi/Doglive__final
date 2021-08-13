@@ -5,7 +5,15 @@
           <h5>작성글 목록</h5>
         </div>
         <div class="mypage-content">
-          <posting-card :card="state.tableData"></posting-card>
+          <el-row v-if="state.tableData.length == 0">
+            <el-empty
+              style="margin-top:80px; margin-bottom:50px;"
+              description="작성한 글이 없다개 💨"
+            ></el-empty>
+          </el-row>
+          <el-row v-if="state.tableData.length != 0">
+            <posting-card :card="state.tableData"></posting-card>
+          </el-row> 
         </div>
       </div>
     </div>
@@ -52,7 +60,7 @@ export default {
 
     store.dispatch('root/requestUserPostList', userId)
       .then(function(result){
-        console.log("check : " + result)
+        console.log(result)
         state.tableData = result.data.boardList;
       }).catch(function(err){
         console.log(err)
