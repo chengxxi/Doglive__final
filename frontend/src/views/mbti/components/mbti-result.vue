@@ -11,15 +11,25 @@
       <!-- 상세 소개 내용 수정 필요 -->
     </div>
 
+    <span v-for="(idx, card) in boardList" :key="idx">
+      <el-col :span="6">
+        <MbtiCard
+          :card="card"
+          @click="readDetail(card.boardId.id)"
+        />
+      </el-col>
+    </span>
 
+<!--
     <el-row class="mbtiBox">
       <MbtiCard
         v-for="(idx, card) in 16"
         :key="idx"
         :card="card"
+        @click="readDetail(card.boardId.id)"
         :span="6"
       />
-    </el-row>
+    </el-row> -->
 
 
 
@@ -53,6 +63,11 @@
 
 <script>
 import MbtiCard from './mbti-card.vue'
+// import $axios from 'axios'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { reactive, computed } from 'vue'
+
 
 
 export default {
@@ -63,5 +78,30 @@ export default {
   //       card.flipped = !card.flipped;
   //   },
   // }
+props: {
+    boardList: Array
+  },
+  setup() {
+    const store = new useStore();
+    const router = new useRouter();
+    const state = reactive({
+      userId: computed(() => {
+        return store.getters['root/getLoginUserInfo'].userId;
+      })
+    });
+
+    const readDetail = function(id) {
+      // console.log('read');
+      store.commit('root/setBoardId', id);
+      router.push({ name: 'MbtiDetail' });
+    };
+
+
+    return { state, readDetail, };
+  }
+
+
+
+
 }
 </script>

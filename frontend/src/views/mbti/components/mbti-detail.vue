@@ -67,25 +67,6 @@
             <el-divider class="mt-4 mb-4" />
 
             <el-descriptions class="margin-top mt-3" :column="1" :size="size">
-              <el-descriptions-item label="성별/중성화여부"
-                >{{ state.board.gender.name }} /
-                {{ state.board.neutralization ? "중성화 O" : "중성화 X" }}
-              </el-descriptions-item>
-              <el-descriptions-item label="연령">{{
-                state.board.ageType.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="크기">{{
-                state.board.weight.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="컬러">{{
-                state.board.colorType.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="품종">{{
-                state.board.dogType.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="현재위치">
-                {{ state.board.sido }} {{ state.board.gugun }}
-              </el-descriptions-item>
               <el-descriptions-item label="MBTI">
                 <el-tag
                   class="mb-2"
@@ -228,35 +209,6 @@
 
             <el-divider class="mb-3" />
 
-            <div>
-              <div v-if="!state.board.isOwner">
-                <el-button
-                  style="width:100%; background : #755744;"
-                  @click="goChat(state.board.boardId)"
-                  >상담 신청</el-button
-                >
-              </div>
-              <div v-if="state.board.isOwner">
-                <el-row>
-                  <el-col :span="12"
-                    ><el-button
-                      class="m-2"
-                      style="width:100%;   background : #755744;"
-                      @click="goModify(state.board.boardId)"
-                      >공고 수정</el-button
-                    ></el-col
-                  >
-                  <el-col :span="12"
-                    ><el-button
-                      class="m-2"
-                      style="width:100%;   background : #C4C4C4;"
-                      @click="doDelete(state.board.boardId)"
-                      >공고 삭제</el-button
-                    ></el-col
-                  >
-                </el-row>
-              </div>
-            </div>
           </div>
         </el-col>
       </el-row>
@@ -267,25 +219,20 @@
         >
           <b>{{ state.board.title }}</b>
         </h4>
-        <div style="margin-top:20px; white-space:pre;">
-          {{ state.board.description }}
-        </div>
       </div>
       <el-divider />
 
-      <div class="dog-image-box">
+      <!-- <div class="dog-image-box">
         <el-carousel :interval="4000" type="card" height="500px">
           <el-carousel-item v-for="item in 6" :key="item">
             <img
               style="  width: 100%;
-	height: auto;
-
-"
+              height: auto;"
               :src="require('@/assets/images/mbti_infj.png')"
             />
           </el-carousel-item>
         </el-carousel>
-      </div>
+      </div> -->
     </el-card>
   </div>
 </template>
@@ -301,8 +248,6 @@ import { useRouter } from 'vue-router'
 
 export default {
   name: 'MbtiDetail',
-  components: {
-  },
   data() {
     return {
       isPopoverVisible: false,
