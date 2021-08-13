@@ -18,20 +18,11 @@
   <div class="mbtiBtn">
       <!-- round option -->
       <a href="/mbti/test">
-        <el-button class="goMbtiBtn">MBTI 테스트 하러 가기</el-button>
+        <el-button class="goMbtiBtn" round>MBTI 테스트 하러 가기</el-button>
       </a>
       <a href="/mbti/info">
-        <el-button class="showMbtiBtn">독립 MBTI 테스트 유형 보기</el-button>
+        <el-button class="showMbtiBtn" round>독립 MBTI 테스트 유형 보기</el-button>
       </a>
-
-      <!-- black -->
-      <a href="/mbti/test">
-        <el-button class="goMbtiBtn2">MBTI 테스트 하러 가기</el-button>
-      </a>
-      <a href="/mbti/info">
-        <el-button class="showMbtiBtn2">독립 MBTI 테스트 유형 보기</el-button>
-      </a>
-
 
     </div>
 
@@ -96,25 +87,6 @@
   color: white;
   margin: 0 15px;
 }
-
-
-
-.goMbtiBtn2 {
-  border: 2px solid #E9CDA4;
-  background-color: #E9CDA4;
-  font-weight: 600;
-  /* color: white; */
-  margin: 0 15px;
-}
-
-.showMbtiBtn2 {
-  border: 2px solid #D7AEA4;
-  background-color: #D7AEA4;
-  font-weight: 600;
-  /* color: white; */
-  margin: 0 15px;
-}
-
 
 
 </style>

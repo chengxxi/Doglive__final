@@ -63,10 +63,9 @@
 
 <script>
 import MbtiCard from './mbti-card.vue'
-// import $axios from 'axios'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import { reactive, computed, onMounted } from 'vue'
+import { reactive, onMounted } from 'vue'
 
 
 
@@ -85,17 +84,10 @@ export default {
     const store = new useStore();
     const router = new useRouter();
     const state = reactive({
-      // userId: computed(() => {
-      //   return store.getters['root/getLoginUserInfo'].userId;
-      // })
-      MbtiList: []
+      mbtiList: []
 
     });
 
-    // const MbtiList = function() {
-    //   store.dispatch('root/readMbti')
-
-    // }
 
     const readDetail = function(id) {
       store.dispatch('root/requestMbtiDetail', id).then(function(result) {

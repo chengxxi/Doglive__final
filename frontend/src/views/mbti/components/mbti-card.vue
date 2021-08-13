@@ -10,25 +10,15 @@
         effect="dark"
         size="small"
         style="height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;"
-        >{{ card.mbti }}</el-tag
+        >{{ card.mbti.name }}</el-tag
       >
       <el-tag
-        v-if="card.boardId.type.id == 1"
         class="mb-2 scale-up-2"
         color="#D7AFA4"
         effect="dark"
         size="small"
         style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF; float:right; "
-        >{{ card.name }}</el-tag
-      >
-      <el-tag
-        v-if="card.boardId.type.id != 1"
-        class="mb-2 scale-up-2"
-        color="#E9CDA4"
-        effect="dark"
-        size="small"
-        style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
-        >{{ card.boardId.type.name }}</el-tag
+        >{{ card.mbti.title }}</el-tag
       >
     </el-row>
     <el-row
@@ -42,13 +32,9 @@
       style="margin-top:10px; margin-right:15px; margin-left:15px; vertical-align: middle; "
     >
       <h3 style="font-weight:800; float:right;" class="mb-0 ">
-        {{ card.id }}
+        {{ card.mbti.id }}
       </h3>
-      <!-- <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
-        {{
-          card.id
-        }}
-      </p> -->
+
 
     </el-row>
   </el-card>
@@ -119,12 +105,10 @@ export default {
   },
   data() {
     return {
-
-
-      name: this.card.mbti.name,
-      title: this.card.mbti.title,
-      desc: this.card.mbti.desc,
-      image_url: this.card.mbti.image_url,
+      name: this.name,
+      title: this.title,
+      desc: this.desc,
+      image_url: this.image_url,
 
     };
   }

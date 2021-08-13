@@ -1,6 +1,6 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " style="border:none;">
+    <el-card class="box-card" shadow="none" style="border:none;">
 
       <div style="margin-top:40px; margin-left:60px;"></div>
 
@@ -8,14 +8,13 @@
         <el-col :span="12" style="margin-left:50px;">
           <img
             class="dog-thumbnail"
-            :src="require('@/assets/images/mbti_isfp.png')"
+            :src="require('@/assets/images/mbti_infj.png')"
           />
         </el-col>
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
             <el-row>
               <el-tag
-                v-if="state.board.boardType.id == 1"
                 class="mb-3  scale-up-2"
                 color="#D7AFA4"
                 effect="dark"
@@ -23,16 +22,8 @@
                 style="border:none; border-radius: 30px; font-size:14pt; float:left;"
                 >{{ state.mbti.name }}</el-tag
               >
-              <el-tag
-                v-if="state.board.boardType.id != 1"
-                class="mb-3  scale-up-2"
-                color="#E9CDA4"
-                effect="dark"
-                size="large"
-                style="border:none; border-radius: 30px; font-size:14pt; float:left;"
-                >{{ state.mbti.title }}</el-tag
-              >
             </el-row>
+
             <div class="vertical-center row">
               <div class="col-md-9">
                 <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
@@ -197,11 +188,11 @@
           </div>
         </el-col>
       </el-row>
-      <div class="box">
+      <!-- <div class="box">
         <h4 class="mb-2">
-          <b>{{ state.mbti.title }}</b>
+          <b>{{ state.title }}</b>
         </h4>
-      </div>
+      </div> -->
       <el-divider />
 
       <!-- <div class="dog-image-box">
@@ -229,17 +220,6 @@ import { useRouter } from 'vue-router'
 
 export default {
   name: 'MbtiDetail',
-  // data() {
-  //   return {
-  //     isPopoverVisible: false,
-  //     popoverOptions: {
-  //       animation: 'scale-fade',
-  //       popoverReference: null,
-  //       placement: 'top',
-  //       offset: '0,0'
-  //     }
-  //   };
-  // },
 
   setup() {
     const store = new useStore();
