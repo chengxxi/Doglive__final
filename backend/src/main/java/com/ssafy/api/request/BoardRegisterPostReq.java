@@ -62,6 +62,7 @@ public class BoardRegisterPostReq {
     @ApiModelProperty
     String address;
 
+
     @ApiModelProperty
     String gugun;
 

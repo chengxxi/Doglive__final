@@ -9,7 +9,10 @@
     <el-radio-item>
       <el-radio-group v-model="radio1" class="rating">
         <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
+        <el-radio class="radioBtn-lg-lf"
+          v-bind:class="{'radioBtn-lg-lf': !clicked, 'radioBtn-lg-lf2': clicked}"
+          v-on:click ="clicked = !clicked"
+        ></el-radio> <!-- 매우 아니다 -->
         <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
         <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
         <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
@@ -18,81 +21,6 @@
       </el-radio-group>
     </el-radio-item>
   </div> <!-- question 1 -->
-
-  <div class="question"> <!-- question 1 -->
-    <p class="demonstration">
-      나는 잘 때를 제외하고 가만히 있는 것을 참지 못해요.
-    </p>
-
-    <el-radio-item>
-      <el-radio-group v-model="radio2" class="rating">
-        <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
-        <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
-        <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
-        <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
-        <el-radio class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
-        <span style="color: #c58676; font-weight: 530;">좋아요</span>
-      </el-radio-group>
-    </el-radio-item>
-  </div> <!-- question 1 -->
-
-
-  <div class="question"> <!-- question 1 -->
-    <p class="demonstration">
-      저는 애정 표현에 매우 적극적이에요.
-    </p>
-
-    <el-radio-item>
-      <el-radio-group v-model="radio3" class="rating">
-        <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
-        <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
-        <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
-        <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
-        <el-radio class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
-        <span style="color: #c58676; font-weight: 530;">좋아요</span>
-      </el-radio-group>
-    </el-radio-item>
-  </div> <!-- question 1 -->
-
-  <div class="question"> <!-- question 1 -->
-    <p class="demonstration">
-      처음 가 보는 익숙하지 않은 장소도 두렵지 않아요.
-    </p>
-
-    <el-radio-item>
-      <el-radio-group v-model="radio4" class="rating">
-        <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
-        <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
-        <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
-        <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
-        <el-radio class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
-        <span style="color: #c58676; font-weight: 530;">좋아요</span>
-      </el-radio-group>
-    </el-radio-item>
-  </div> <!-- question 1 -->
-
-  <div class="question"> <!-- question 1 -->
-    <p class="demonstration">
-      모르는 사람과 같이 있는 시간은 견디기 힘들어요.
-    </p>
-
-    <el-radio-item>
-      <el-radio-group v-model="radio5" class="rating">
-        <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio class="radioBtn-lg-lf"></el-radio> <!-- 매우 아니다 -->
-        <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
-        <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
-        <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
-        <el-radio class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
-        <span style="color: #c58676; font-weight: 530;">좋아요</span>
-      </el-radio-group>
-    </el-radio-item>
-  </div> <!-- question 1 -->
-
-
 
 </div>
 </template>
@@ -165,6 +93,17 @@
   border-radius: 50%;
   margin: 0 25px;
 }
+
+.radioBtn-lg-lf2 {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid #755744;
+  background-color: #755744;
+  visibility: visible;
+  border-radius: 50%;
+  margin: 0 25px;
+}
+
 
 .radioBtn-md-lf {
   width: 2rem;
@@ -243,6 +182,9 @@ import { ref } from 'vue'
 export default {
   name: 'MbtiQuestion',
   setup() {
+
+    // const clicked =  false;
+
     return {
       radio1: ref(null),
       radio2: ref(null),
@@ -250,6 +192,8 @@ export default {
       radio4: ref(null),
       radio5: ref(null),
       radio6: ref(null),
+      colors: ['red', 'green', 'blue', 'yellow'],
+      backgroundColor: undefined,
     }
   },
 }

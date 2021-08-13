@@ -1,6 +1,6 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " style="width:100%; border:none;">
+    <div class="box-card " style="width:100%; border:none;">
       <div style="margin-top:50px">
         <h1 class="title">나와 맞는 강아지 찾기</h1>
         <p>강아지 성향 기반 MBTI를 통한 나와 맞는 성향의 강아지 찾기</p>
@@ -8,14 +8,15 @@
 
       </div>
 
-      <MbtiDescription />
+      <MbtiIntro />
 
-      <!-- if 사용자가 아직 테스트 전이면 -->
-      <MbtiQuestion />
-      <!-- if 사용자의 테스트 결과가 있으면 -->
-      <!-- <MbtiResult /> -->
+      <!-- 테스트 하기 버튼 -->
+        <!-- <MbtiDescription /> -->
+        <!-- <MbtiQuestion /> -->
+      <!-- 유형 알아보기 버튼 -->
+        <!-- <MbtiResult /> -->
 
-    </el-card>
+    </div>
   </div>
 </template>
 
@@ -35,21 +36,19 @@
   font-size: 2.5rem;
   font-weight: normal;
 }
+
+
 </style>
 
 
 
 <script>
-import MbtiDescription from './components/mbti-description.vue'
-import MbtiQuestion from './components/mbti-question.vue'
-// import MbtiResult from './components/mbti-result.vue'
+import MbtiIntro from './components/mbti-intro.vue'
 
 export default {
   name: 'mbti',
   components: {
-    MbtiDescription,
-    MbtiQuestion,
-    // MbtiResult
+    MbtiIntro,
   },
 }
 </script>
