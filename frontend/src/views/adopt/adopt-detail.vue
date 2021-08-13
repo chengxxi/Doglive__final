@@ -85,7 +85,7 @@
                 state.board.dogType.name
               }}</el-descriptions-item>
               <el-descriptions-item label="현재위치">
-                {{ state.board.sido }} {{ state.board.gugun }}
+                {{ state.board.sido.name }} {{ state.board.gugun.name }}
               </el-descriptions-item>
               <el-descriptions-item label="MBTI">
                 <el-tag
@@ -512,45 +512,6 @@ export default {
           });
       }
     };
-
-    //보드 디테일 정보 가져오기
-    store
-      .dispatch("root/reqestBoardDetail", {
-        boardId: state.board.boardId,
-        userId: state.userId
-      })
-      .then(function(result) {
-        console.log(result);
-
-        const boardDetail = {
-          boardId: result.data.dogInformation.boardId.id,
-          boardType: result.data.dogInformation.boardId.type,
-          thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
-          title: result.data.dogInformation.boardId.title,
-          address: result.data.dogInformation.address,
-          mbti: result.data.dogInformation.mbti,
-          colorType: result.data.dogInformation.colorType,
-          gender: result.data.dogInformation.gender,
-          dogType: result.data.dogInformation.dogType,
-          neutralization: result.data.dogInformation.neutralization,
-          writer: result.data.writer,
-          weight: result.data.dogInformation.weight,
-          ageType: result.data.dogInformation.age,
-          regDate: result.data.dogInformation.boardId.regDate,
-          fileList: result.data.boardImageList,
-          isOwner: result.data.owner,
-          gugun: result.data.dogInformation.gugun.name,
-          sido: result.data.dogInformation.gugun.sidoCode.name,
-          description: result.data.dogInformation.description,
-          dogName: result.data.dogInformation.dogName,
-          isBookmarked: result.data.bookmarked
-        };
-
-        store.commit("root/setBoardDetail", boardDetail);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
 
     onMounted(() => {
       console.log("breadcrumb");

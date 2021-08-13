@@ -627,19 +627,54 @@ export default {
       store
         .dispatch("root/requestRegisterBoard", data)
         .then(function(result) {
-          createToast("공고가 등록되었어요 📜🐾", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "success"
-          });
           console.log("등록 성공");
 
-          store.commit("root/setBoardId", result.data.boardId);
-          router.push({ name: "AdoptDetail" });
+          store
+            .dispatch("requestBoardDetail", {
+              boardId: result.data.boardId,
+              userId: state.userId.userId
+            })
+            .then(function(result) {
+              console.log(result);
+
+              const boardDetail = {
+                boardId: result.data.dogInformation.boardId.id,
+                boardType: result.data.dogInformation.boardId.type,
+                thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+                title: result.data.dogInformation.boardId.title,
+                address: result.data.dogInformation.address,
+                mbti: result.data.dogInformation.mbti,
+                colorType: result.data.dogInformation.colorType,
+                gender: result.data.dogInformation.gender,
+                dogType: result.data.dogInformation.dogType,
+                neutralization: result.data.dogInformation.neutralization,
+                writer: result.data.writer,
+                weight: result.data.dogInformation.weight,
+                ageType: result.data.dogInformation.age,
+                regDate: result.data.dogInformation.boardId.regDate,
+                fileList: result.data.boardImageList,
+                isOwner: result.data.owner,
+                gugun: result.data.dogInformation.gugun,
+                sido: result.data.dogInformation.gugun.sidoCode,
+                description: result.data.dogInformation.description,
+                dogName: result.data.dogInformation.dogName,
+                isBookmarked: result.data.bookmarked
+              };
+              createToast("공고가 등록되었어요 📜🐾", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "success"
+              });
+              store.commit("root/setBoardDetail", boardDetail);
+              router.push({ name: "AdoptDetail" });
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
         })
         .catch(function(err) {
           createToast("공고 등록에 실패했어요 💬💦", {
