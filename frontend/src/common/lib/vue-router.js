@@ -19,6 +19,8 @@ import FindDetail from "@/views/find/find-detail.vue";
 import FindRegister from "@/views/find/find-register.vue";
 import FindModify from "@/views/find/find-modify.vue";
 import MBTI from "@/views/mbti/mbti.vue";
+import MBTItest from "@/views/mbti/components/mbti-test.vue";
+import MBTIinfo from "@/views/mbti/components/mbti-info.vue";
 import Community from "@/views/community/community.vue";
 import MyCommunity from "@/views/community/mycommunity.vue";
 
