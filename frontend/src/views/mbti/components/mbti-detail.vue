@@ -53,13 +53,13 @@
                   >
                   </font-awesome-icon>
 
-                  <img
+                  <!-- <img
                     @click="kakaoShare"
                     class="scale-up-2"
                     style="margin-left:15px; cursor: pointer;"
                     src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
                     width="40"
-                  />
+                  /> -->
                 </div>
               </div>
             </div>
@@ -261,85 +261,88 @@ export default {
   },
 
   setup() {
-    if (!Kakao.isInitialized()) {
-      Kakao.init('d0106aa9ba1feb9c379bbb82194695fe');
-    }
+    // if (!Kakao.isInitialized()) {
+    //   Kakao.init('d0106aa9ba1feb9c379bbb82194695fe');
+    // }
     const store = new useStore();
     const router = new useRouter();
     console.log(router)
 
     const state = reactive({
-      userId: computed(() => {
-        return store.getters['root/getLoginUserInfo'].userId;
-      }),
-      isBookmarked: computed(() => {
-        return store.getters['root/getIsbookmarked'];
-      }),
       board: computed(() => {
-        console.log(store.getters['root/getBoardDetail']);
-        return store.getters['root/getBoardDetail'];
+        console.log(store.getters['root/getMbtiDetail']);
+        return store.getters['root/getMbtiDetail'];
       })
     });
 
 
-    const kakaoShare = function() {
-      Kakao.Link.sendDefault({
-        objectType: 'feed',
-        content: {
-          title: state.board.title,
-          description: state.board.description,
-          imageUrl: '@/assets/images/mbti_isfp.png',
-          link: {
-            mobileWebUrl: 'http://i5a501.p.ssafy.io/',
-            androidExecutionParams: 'test'
-          }
-        },
-        buttons: [
-          {
-            title: '독립으로 이동',
-            link: {
-              mobileWebUrl: 'http://i5a501.p.ssafy.io/'
-            }
-          }
-        ]
-      });
-    };
+    // const kakaoShare = function() {
+    //   Kakao.Link.sendDefault({
+    //     objectType: 'feed',
+    //     content: {
+    //       title: state.board.title,
+    //       description: state.board.description,
+    //       imageUrl: '@/assets/images/mbti_isfp.png',
+    //       link: {
+    //         mobileWebUrl: 'http://i5a501.p.ssafy.io/',
+    //         androidExecutionParams: 'test'
+    //       }
+    //     },
+    //     buttons: [
+    //       {
+    //         title: '독립으로 이동',
+    //         link: {
+    //           mobileWebUrl: 'http://i5a501.p.ssafy.io/'
+    //         }
+    //       }
+    //     ]
+    //   });
+    // };
 
 
     //보드 디테일 정보 가져오기
     store
       .dispatch('root/reqestBoardDetail', {
         boardId: state.board.boardId,
-        userId: state.userId
+        userId: state.userId,
+        mbtiId: state.id
       })
       .then(function(result) {
         console.log(result);
 
-        const boardDetail = {
-          boardId: result.data.dogInformation.boardId.id,
-          boardType: result.data.dogInformation.boardId.type,
-          thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
-          title: result.data.dogInformation.boardId.title,
-          address: result.data.dogInformation.address,
-          mbti: result.data.dogInformation.mbti,
-          colorType: result.data.dogInformation.colorType,
-          gender: result.data.dogInformation.gender,
-          dogType: result.data.dogInformation.dogType,
-          neutralization: result.data.dogInformation.neutralization,
-          writer: result.data.writer,
-          weight: result.data.dogInformation.weight,
-          ageType: result.data.dogInformation.age,
-          regDate: result.data.dogInformation.boardId.regDate,
-          fileList: result.data.boardImageList,
-          isOwner: result.data.owner,
-          gugun: result.data.dogInformation.gugun.name,
-          sido: result.data.dogInformation.gugun.sidoCode.name,
-          description: result.data.dogInformation.description,
-          dogName: result.data.dogInformation.dogName,
-          isBookmarked: result.data.bookmarked
-        };
+        // const boardDetail = {
+        //   boardId: result.data.dogInformation.boardId.id,
+        //   boardType: result.data.dogInformation.boardId.type,
+        //   thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+        //   title: result.data.dogInformation.boardId.title,
+        //   address: result.data.dogInformation.address,
+        //   mbti: result.data.dogInformation.mbti,
+        //   colorType: result.data.dogInformation.colorType,
+        //   gender: result.data.dogInformation.gender,
+        //   dogType: result.data.dogInformation.dogType,
+        //   neutralization: result.data.dogInformation.neutralization,
+        //   writer: result.data.writer,
+        //   weight: result.data.dogInformation.weight,
+        //   ageType: result.data.dogInformation.age,
+        //   regDate: result.data.dogInformation.boardId.regDate,
+        //   fileList: result.data.boardImageList,
+        //   isOwner: result.data.owner,
+        //   gugun: result.data.dogInformation.gugun.name,
+        //   sido: result.data.dogInformation.gugun.sidoCode.name,
+        //   description: result.data.dogInformation.description,
+        //   dogName: result.data.dogInformation.dogName,
+        //   isBookmarked: result.data.bookmarked
+        // };
+        const MbtiDetail = {
+          name: result.data.name,
+          title: result.data.title,
+          desc: result.data.description,
+          image_url: result.data.image_url,
+        }
 
-        store.commit('root/setBoardDetail', boardDetail);
+        console.log(MbtiDetail)
+
+        store.commit('root/setMbtiDetail', MbtiDetail);
       })
       .catch(function(err) {
         console.log(err);
@@ -347,7 +350,7 @@ export default {
 
 
 
-    return { state, kakaoShare, };
+    return { state, };
   }
 };
 </script>

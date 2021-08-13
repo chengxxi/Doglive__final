@@ -78,7 +78,7 @@ export default {
   //       card.flipped = !card.flipped;
   //   },
   // }
-props: {
+  props: {
     boardList: Array
   },
   setup() {
