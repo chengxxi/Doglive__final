@@ -40,6 +40,8 @@ export function setBoardDetail(state, payload) {
   state.board.thumbnailUrl = payload.thumbnailUrl;
   state.board.dogName = payload.dogName;
   state.board.isbookmarked = payload.isBookmarked;
+  state.board.sido = payload.sido;
+  state.board.gugun = payload.gugun;
 }
 export function setProfile(state, payload) {
   state.userProfile.imgURL = payload.imgURL;
@@ -53,10 +55,9 @@ export function setBoardId(state, payload) {
   state.board.boardId = payload;
 }
 
-export function setCommunityBoard(state, payload){
+export function setCommunityBoard(state, payload) {
   state.community.communityId = payload.communityId;
   state.community.title = payload.title;
   state.community.category = payload.category;
   state.community.description = payload.description;
-
 }

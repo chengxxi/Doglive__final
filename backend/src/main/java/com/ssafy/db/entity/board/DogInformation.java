@@ -23,8 +23,8 @@ public class DogInformation extends BaseEntity {
   @JoinColumn(name = "board_id")
   private Board boardId;
 
-  @Column(name="dog_name", length = 10)
-  private String dogName;                    // 강아지 MBTI
+  @Column(name="dog_name")
+  private String dogName;                    // 강아지 이름
 
   @Column(length = 4)
   private String mbti;                    // 강아지 MBTI

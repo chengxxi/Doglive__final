@@ -9,12 +9,11 @@
 
       <div>
         <el-form
-          style=" margin:100px; padding-left:20px; padding-right:20px;"
+          style=" margin:100px; padding-left:10px; padding-right:10px;"
           label-position="left"
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
-          label-width="120px"
         >
           <h5 class="mt-1 mb-3" style="font-weight:600">
             📑 기본정보를 입력해주세요
@@ -22,176 +21,189 @@
           <el-divider />
           <el-row class="mt-3 mb-3">
             <el-col :span="12">
-              <el-form-item
-                label="제목"
-                prop="title"
-                style="padding-right:10px; width:100%"
-              >
-                <el-input v-model="ruleForm.title"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="강아지 이름" prop="name" style="width:100%">
+              <el-form-item label="제목" prop="title" label-width="30%">
                 <el-input
-                  style="padding-left:10px; width:100%;"
-                  v-model="ruleForm.name"
+                  style="width:65%;"
+                  v-model="ruleForm.title"
                 ></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="12">
-              <el-form-item label="거주지" label-width="100%">
-                <el-select
-                  v-model="ruleForm.sido"
-                  placeholder="시/도"
-                  :change="gugunList(ruleForm.sido)"
-                >
-                  <el-option
-                    v-for="(sido, idx) in state.sidoList"
-                    :key="idx"
-                    :label="sido.name"
-                    :value="sido.id"
-                  >
-                  </el-option>
-                </el-select>
-                <el-select v-model="ruleForm.gugun" placeholder="구/군">
-                  <el-option
-                    v-for="(gugun, idx) in state.gugunList"
-                    :key="idx"
-                    :label="gugun.name"
-                    :value="gugun.id"
-                  >
-                  </el-option>
-                </el-select>
+              <el-form-item label-width="30%" label="강아지 이름" prop="name">
+                <el-input style="width:70%;" v-model="ruleForm.name"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
+          <el-row> </el-row>
 
           <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item label="연령대" prop="age">
-                <el-select
-                  style="width:95%;"
-                  v-model="ruleForm.age"
-                  placeholder="Puppy(~ 6개월)"
-                >
-                  <el-option
-                    label="Puppy(~ 6개월)"
-                    value="{ id: 4, name: 'Puppy(~ 6개월)' }"
-                  ></el-option>
-                  <el-option
-                    label="Junior(7개월 ~ 2살)"
-                    value="{ id: 5, name: 'Junior(7개월 ~ 2살)' }"
-                  ></el-option>
-                  <el-option
-                    label="Adult(3살 ~ 8살)"
-                    value="{ id: 6, name: 'Adult(3살 ~ 8살)' }"
-                  ></el-option>
-                  <el-option
-                    label="Senior(9살 ~)"
-                    value="{ id: 7, name: 'Senior(9살 ~)' }"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
+            <el-col :span="10">
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="공고 타입" prop="type" label-width="90%">
+                    <el-select
+                      style="width:90%;"
+                      v-model="ruleForm.type"
+                      placeholder="분류"
+                    >
+                      <el-option label="입양" value="1"></el-option>
+                      <el-option label="임보" value="2"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="연령대" prop="age">
+                    <el-select
+                      style="width:90%;"
+                      v-model="ruleForm.age"
+                      placeholder="연령대"
+                    >
+                      <el-option label="Puppy(~ 6개월)" value="4"></el-option>
+                      <el-option
+                        label="Junior(7개월 ~ 2살)"
+                        value="5"
+                      ></el-option>
+                      <el-option label="Adult(3살 ~ 8살)" value="6"></el-option>
+                      <el-option label="Senior(9살 ~)" value="7"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-col>
-            <el-col :span="12">
-              <el-form-item label="크기" prop="size">
-                <el-select
+            <el-col :span="10">
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="크기" prop="size">
+                    <el-select
+                      style="width:90%;"
+                      v-model="ruleForm.size"
+                      placeholder="크기"
+                    >
+                      <el-option label="소(8kg 미만)" value="1"></el-option>
+                      <el-option
+                        label="중(8kg-18kg 미만)"
+                        value="2"
+                      ></el-option>
+                      <el-option label="대(18kg 이상)" value="3"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label-width="100%" label="품종" prop="dogType">
+                    <el-select
+                      v-model="ruleForm.dogType"
+                      placeholder="품종"
+                      style="width:90%;"
+                    >
+                      <el-option
+                        v-for="dog in state.dogTypeList"
+                        :key="dog.id"
+                        :label="dog.name"
+                        :value="dog.id"
+                      >
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-col>
+            <el-col :span="4">
+              <el-form-item
+                label="중성화 여부"
+                label-width="100%"
+                label-position="center"
+                prop="neutralization"
+              >
+                <el-radio-group
                   style="width:100%;"
-                  v-model="ruleForm.size"
-                  placeholder="소(8kg 미만)"
+                  v-model="ruleForm.neutralization"
                 >
-                  <el-option
-                    label="소(8kg 미만)"
-                    value="{ id: 1, name: '소(8kg 미만)' }"
-                  ></el-option>
-                  <el-option
-                    label="중(8kg-18kg 미만)"
-                    value="{ id: 2, name: '중(8kg-18kg 미만)' }"
-                  ></el-option>
-                  <el-option
-                    label="대(18kg 이상)"
-                    value="{ id: 3, name: '대(18kg 이상)' }"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="컬러" prop="color">
-                <el-select v-model="ruleForm.color" placeholder="White">
-                  <el-option
-                    label="White"
-                    value="{ id: 12, name: 'White' }"
-                  ></el-option>
-                  <el-option
-                    label="Beige"
-                    value="{ id: 13, name: 'Beige' }"
-                  ></el-option>
-                  <el-option
-                    label="Gray"
-                    value="{ id: 14, name: 'Gray' }"
-                  ></el-option>
-                  <el-option
-                    label="Brown"
-                    value="{ id: 15, name: 'Brown' }"
-                  ></el-option>
-                  <el-option
-                    label="Black"
-                    value="{ id: 16, name: 'Black' }"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="공고 타입" prop="type">
-                <el-select v-model="ruleForm.type" placeholder="입양">
-                  <el-option
-                    label="입양"
-                    value="{ id: 1, name: '입양' }"
-                  ></el-option>
-                  <el-option
-                    label="임보"
-                    value="{ id: 2, name: '임보' }"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col :span="8">
-              <el-form-item label="성별" prop="gender">
-                <el-radio-group v-model="ruleForm.gender">
-                  <el-radio label="남" border></el-radio>
-                  <el-radio label="여" border></el-radio>
+                  <el-radio
+                    label="O"
+                    style="margin-left:10%; margin-right:10%;"
+                    border
+                  ></el-radio>
+                  <el-radio label="X" border></el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
-              <el-form-item label="품종" prop="dogType">
-                <el-select
-                  v-model="ruleForm.dogType"
-                  clearable
-                  placeholder="품종"
-                  style="width:25%;padding-right:30px;"
-                >
-                  <el-option
-                    v-for="dog in state.dogTypeList"
-                    :key="dog.id"
-                    :label="dog.name"
-                    :value="dog.id"
+          </el-row>
+          <el-row>
+            <el-col :span="15">
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item
+                    label="거주지(시/도)"
+                    prop="sido"
+                    label-width="100%"
                   >
-                  </el-option>
-                </el-select>
-              </el-form-item>
+                    <el-select
+                      v-model="ruleForm.sido"
+                      placeholder="시/도"
+                      style="width:95% ;"
+                      :change="gugunList(ruleForm.sido)"
+                    >
+                      <el-option
+                        v-for="(sido, idx) in state.sidoList"
+                        :key="idx"
+                        :label="sido.name"
+                        :value="sido.id"
+                      >
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item
+                    label="거주지(구/군)"
+                    prop="gugun"
+                    label-width="100%"
+                  >
+                    <el-select
+                      style="width:95% ;"
+                      v-model="ruleForm.gugun"
+                      placeholder="구/군"
+                    >
+                      <el-option
+                        v-for="(gugun, idx) in state.gugunList"
+                        :key="idx"
+                        :label="gugun.name"
+                        :value="gugun.id"
+                      >
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-col>
-            <el-col :span="8">
-              <el-form-item label="중성화 여부" prop="neutralization">
-                <el-radio-group v-model="ruleForm.neutralization">
-                  <el-radio label="중성화 O" border></el-radio>
-                  <el-radio label="중성화 X" border></el-radio>
+            <el-col :span="5">
+              <el-row>
+                <el-col :span="24">
+                  <el-form-item label="컬러" prop="color" label-width="100%">
+                    <el-select
+                      style="width:90%;"
+                      v-model="ruleForm.color"
+                      placeholder="컬러"
+                    >
+                      <el-option label="White" value="12"></el-option>
+                      <el-option label="Beige" value="13"></el-option>
+                      <el-option label="Gray" value="14"></el-option>
+                      <el-option label="Brown" value="15"></el-option>
+                      <el-option label="Black" value="16"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-col>
+            <el-col :span="4">
+              <el-form-item label="성별" label-width="100%" prop="gender">
+                <el-radio-group v-model="ruleForm.gender" style="width:100%;">
+                  <el-radio
+                    style="margin-left:10%; margin-right:10%;"
+                    label="남"
+                    border
+                  ></el-radio>
+                  <el-radio label="여" border></el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -440,8 +452,22 @@ export default {
         dogType: [
           {
             required: true,
-            message: "헤어타입을 선택해주세요",
+            message: "품종을 선택해주세요",
             trigger: "blur"
+          }
+        ],
+        sido: [
+          {
+            required: true,
+            message: "주소지를 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        gugun: [
+          {
+            required: true,
+            message: "주소지를 입력해주세요.",
+            trigger: "change"
           }
         ],
         color: [
@@ -464,19 +490,7 @@ export default {
             trigger: "blur"
           }
         ],
-        address: [
-          {
-            required: true,
-            message: "현재 강아지의 위치를 입력해주세요",
-            trigger: "blur"
-          },
-          {
-            min: 3,
-            max: 20,
-            message: "3글자 이상, 20글자 이하로 입력해주세요.",
-            trigger: "blur"
-          }
-        ],
+
         desc: [
           {
             required: true,
@@ -534,19 +548,18 @@ export default {
         thumbnailUrl: "",
         filePath: [],
         dogName: this.ruleForm.name,
-        boardType: Number(this.ruleForm.type.id),
+        boardType: Number(this.ruleForm.type),
         userId: this.state.userId.userId,
         mbti: mbti,
         title: this.ruleForm.title,
         description: this.ruleForm.desc,
-        colorType: Number(this.ruleForm.color.id),
-        dogType: this.ruleForm.dogType == "단모" ? 10 : 11,
+        colorType: Number(this.ruleForm.color),
+        dogType: this.ruleForm.dogType,
         gender: this.ruleForm.gender == "여" ? 8 : 9,
-        age: Number(this.ruleForm.age.id),
-        neutralization:
-          this.ruleForm.neutralization == "중성화 O" ? true : false,
-        weight: Number(this.ruleForm.size.id),
-        address: this.ruleForm.address
+        age: Number(this.ruleForm.age),
+        neutralization: this.ruleForm.neutralization == "O" ? true : false,
+        weight: Number(this.ruleForm.size),
+        gugun: this.ruleForm.gugun
       };
       console.log(data);
 
@@ -613,6 +626,8 @@ export default {
             type: "success"
           });
           console.log("등록 성공");
+
+          store.commit("root/setBoardId", result.data.boardId);
           router.push({ name: "AdoptDetail" });
         })
         .catch(function(err) {

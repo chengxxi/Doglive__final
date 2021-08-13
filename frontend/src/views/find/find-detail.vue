@@ -81,7 +81,10 @@
               <el-descriptions-item label="품종">{{
                 state.board.dogType.name
               }}</el-descriptions-item>
-              <el-descriptions-item label="실종/보호장소">{{
+              <el-descriptions-item label="실종/보호주소"
+                >{{ state.board.sido }} {{ state.board.gugun }}
+              </el-descriptions-item>
+              <el-descriptions-item label="상세주소">{{
                 state.board.address
               }}</el-descriptions-item>
             </el-descriptions>
@@ -461,8 +464,8 @@ export default {
           regDate: result.data.dogInformation.boardId.regDate,
           fileList: result.data.boardImageList,
           isOwner: result.data.owner,
-          gugun: result.data.gugun.name,
-          sido: result.data.sidoCode.name,
+          gugun: result.data.dogInformation.gugun.name,
+          sido: result.data.dogInformation.gugun.sidoCode.name,
           description: result.data.dogInformation.description,
           dogName: result.data.dogInformation.dogName,
           isBookmarked: result.data.bookmarked

@@ -27,7 +27,7 @@ public class MBTIController {
     MBTIService mbtiService;
 
 
-    @GetMapping("/name/{name}")
+    @GetMapping("/{name}")
     @ApiOperation(value = "MBTI 별 상세 정보 (2)", notes = "name으로 MBTI 상세 정보를 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
