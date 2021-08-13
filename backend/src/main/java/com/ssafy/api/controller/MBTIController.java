@@ -27,7 +27,7 @@ public class MBTIController {
     @Autowired
     MBTIService mbtiService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     @ApiOperation(value = "MBTI 별 상세 정보", notes = "id로 MBTI 상세 정보를 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
@@ -35,14 +35,14 @@ public class MBTIController {
             @ApiResponse(code = 404, message = "데이터 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<MBTIDetailGetRes> mbtiDetailById(@PathVariable("id") String id){
-        MBTI mbti = mbtiService.getMbtiById(Long.parseLong(id));
+    public ResponseEntity<MBTIDetailGetRes> mbtiDetailById(@PathVariable("id") Long id){
+        MBTI mbti = mbtiService.getMbtiById(id);
         if(mbti==null) return ResponseEntity.ok(MBTIDetailGetRes.of(404, "Fail", null));
 
         return ResponseEntity.ok(MBTIDetailGetRes.of(200, "Success", mbti));
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/name/{name}")
     @ApiOperation(value = "MBTI 별 상세 정보 (2)", notes = "name으로 MBTI 상세 정보를 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
