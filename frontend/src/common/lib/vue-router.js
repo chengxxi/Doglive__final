@@ -22,6 +22,7 @@ import FindModify from '@/views/find/find-modify.vue';
 import MBTI from '@/views/mbti/mbti.vue';
 import MBTItest from '@/views/mbti/components/mbti-test.vue';
 import MBTIinfo from '@/views/mbti/components/mbti-info.vue';
+import MbtiDetail from '@/views/mbti/mbti-detail.vue';
 
 
 const routes = [
@@ -178,18 +179,6 @@ const routes = [
     path: '/mbti', // introduction page
     name: 'MBTI',
     component: MBTI,
-    // children: [
-    //   {
-    //     path: 'intro',
-    //     name: 'mbti-intro',
-    //     component: () => import('@/views/mbti/components/mbti-intro.vue')
-    //   },
-    //   {
-    //     path: 'test',
-    //     name: 'mbti-test',
-    //     component: () => import('@/views/mbti/components/mbti-test.vue')
-    //   }
-    // ]
   },
   {
     path: '/mbti/test', // test page
@@ -200,6 +189,11 @@ const routes = [
     path: '/mbti/info', // information page
     name: 'MBTIinfo',
     component: MBTIinfo
+  },
+  {
+    path: '/mbti/detail',
+    name: 'MbtiDetail',
+    component: MbtiDetail
   },
 
 ];
