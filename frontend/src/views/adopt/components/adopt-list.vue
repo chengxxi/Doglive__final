@@ -1,29 +1,17 @@
 <template>
   <!-- <AdoptCard /> -->
-  <span v-for="(card, idx) in state.boardList" :key="idx">
+  <span v-for="(card, idx) in boardList" :key="idx">
     <el-col :span="6">
       <AdoptCard
         :card="card"
         @click="readDetail(card.boardId.id)"
-        style="margin:20px;"
+        style="margin:10px; "
       />
     </el-col>
-
-    <div v-if="idx % 4 == 0"></div>
   </span>
 </template>
 
-<style scoped>
-.main-body {
-  width: 100%;
-  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
-  margin-right: 10%;
-}
-.main-padding {
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-</style>
+<style scoped></style>
 
 <script>
 import $axios from "axios";
@@ -41,35 +29,20 @@ export default {
   //   // boardType: String,
   //   // cards: Array,
   // },
-
+  props: {
+    boardList: Array
+  },
   setup() {
     const store = new useStore();
     const router = new useRouter();
     const state = reactive({
-      boardList: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       })
     });
 
-    const readData = function() {
-      const userid = store.getters["root/getLoginUserInfo"].userId;
-      console.log(userid);
-
-      $axios
-        .get("/board/adopt?searchWord=")
-        .then(function(result) {
-          console.log(result);
-          console.log(result.data.boardList);
-
-          state.boardList = result.data.boardList.content;
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-    };
-
     const readDetail = function(id) {
+      console.log("read");
       const userid = store.getters["root/getLoginUserInfo"].userId;
 
       $axios
@@ -126,11 +99,7 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    onBeforeMount(() => {
-      readData();
-    });
-
-    return { state, readData, readDetail, goRegister };
+    return { state, readDetail, goRegister };
   }
 };
 </script>

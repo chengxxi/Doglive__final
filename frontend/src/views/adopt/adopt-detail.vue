@@ -1,13 +1,11 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " shadow="hover" style="border:none;">
+    <el-card class="box-card " shadow="none" style="border:none;">
       <bread-crumb></bread-crumb>
 
-      <div style="margin-top:60px; margin-left:60px;">
-        <h3>{{ state.board.title }}</h3>
-      </div>
+      <div style="margin-top:40px; margin-left:60px;"></div>
 
-      <el-row class="vertical-center" :gutter="20" style="margin-top:10px;">
+      <el-row class="vertical-center" :gutter="20">
         <el-col :span="12" style="margin-left:50px;">
           <img
             class="dog-thumbnail"
@@ -16,24 +14,26 @@
         </el-col>
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
-            <el-tag
-              v-if="state.board.boardType.id == 1"
-              class="mb-3"
-              color="#D7AFA4"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:14pt;"
-              >{{ state.board.boardType.name }}</el-tag
-            >
-            <el-tag
-              v-if="state.board.boardType.id != 1"
-              class="mb-3"
-              color="#E9CDA4"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:14pt;"
-              >{{ state.board.boardType.name }}</el-tag
-            >
+            <el-row>
+              <el-tag
+                v-if="state.board.boardType.id == 1"
+                class="mb-3"
+                color="#D7AFA4"
+                effect="dark"
+                size="large"
+                style="border:none; border-radius: 30px; font-size:14pt; float:left;"
+                >{{ state.board.boardType.name }}</el-tag
+              >
+              <el-tag
+                v-if="state.board.boardType.id != 1"
+                class="mb-3"
+                color="#E9CDA4"
+                effect="dark"
+                size="large"
+                style="border:none; border-radius: 30px; font-size:14pt; float:left;"
+                >{{ state.board.boardType.name }}</el-tag
+              >
+            </el-row>
             <div class="vertical-center row">
               <div class="col-md-9">
                 <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
@@ -46,6 +46,7 @@
                   style="text-align: center;"
                 >
                   <font-awesome-icon
+                    class="scale-up-2"
                     :icon="[state.board.isbookmarked ? 'fas' : 'far', 'star']"
                     @click="clickBookmark()"
                     aria-hidden="true"
@@ -55,6 +56,7 @@
 
                   <img
                     @click="kakaoShare"
+                    class="scale-up-2"
                     style="margin-left:15px; cursor: pointer;"
                     src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
                     width="40"
@@ -260,7 +262,15 @@
         </el-col>
       </el-row>
       <div class="box">
-        {{ state.board.description }}
+        <h4
+          class="mb-2
+        "
+        >
+          <b>{{ state.board.title }}</b>
+        </h4>
+        <div style="margin-top:20px; white-space:pre;">
+          {{ state.board.description }}
+        </div>
       </div>
       <el-divider />
 
@@ -280,115 +290,6 @@
     </el-card>
   </div>
 </template>
-
-<style scoped>
-.main-body {
-  width: 100%;
-  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
-  margin-right: 10%;
-}
-.main-padding {
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-h3 {
-  margin-block-start: 0px;
-}
-
-:deep(.el-descriptions) {
-  font-size: 13pt;
-  font-weight: 500;
-}
-:deep(.el-descriptions__title) {
-  font-size: 30pt;
-  font-weight: 700;
-}
-
-.dog-thumbnail {
-  width: 90%;
-  height: auto;
-  margin-right: 20px;
-  margin: 10px;
-}
-
-.dog-info-box {
-  width: 100%;
-  margin-right: 30px;
-  margin: 10px;
-  padding-right: 20px;
-}
-
-:deep(.el-descriptions__label) {
-  display: inline-block;
-  width: 150px;
-  font-weight: 500;
-}
-
-:deep(.el-descriptions__content) {
-  display: inline-block;
-  font-weight: 500;
-}
-:deep(.el-button) {
-  font-size: 15pt;
-  font-family: NEXONLv1Gothic;
-  font-weight: 700;
-  color: #f9f0e7;
-}
-
-.dog-image-box {
-  margin: 30px;
-  padding: 10px;
-}
-
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 200px;
-  margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
-
-.el-col {
-  display: flex;
-
-  align-items: center;
-}
-
-.box-card {
-  margin-top: 20px;
-}
-
-.box {
-  margin-top: 30px;
-  margin-bottom: 40px;
-  margin-left: 50px;
-  margin-right: 50px;
-  padding: 40px;
-  background-color: #f9f0e7;
-}
-
-.content {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-}
-
-.el-card__body {
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-}
-</style>
 
 <script>
 import $axios from "axios";
@@ -650,7 +551,8 @@ export default {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "입양/임보",
-        subTitle: "입양/임보 동물 정보"
+        subTitle: "입양/임보 동물 정보",
+        path: "/adopt"
       });
       window.scrollTo(0, 0);
     });
@@ -659,3 +561,111 @@ export default {
   }
 };
 </script>
+<style scoped>
+.main-body {
+  width: 100%;
+  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
+  margin-right: 10%;
+}
+.main-padding {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+h3 {
+  margin-block-start: 0px;
+}
+
+:deep(.el-descriptions) {
+  font-size: 13pt;
+  font-weight: 500;
+}
+:deep(.el-descriptions__title) {
+  font-size: 30pt;
+  font-weight: 700;
+}
+
+.dog-thumbnail {
+  width: 90%;
+  height: auto;
+  margin-right: 20px;
+  margin: 10px;
+}
+
+.dog-info-box {
+  width: 100%;
+  margin-right: 30px;
+  margin: 10px;
+  padding-right: 20px;
+}
+
+:deep(.el-descriptions__label) {
+  display: inline-block;
+  width: 150px;
+  font-weight: 500;
+}
+
+:deep(.el-descriptions__content) {
+  display: inline-block;
+  font-weight: 500;
+}
+:deep(.el-button) {
+  font-size: 15pt;
+  font-family: NEXONLv1Gothic;
+  font-weight: 700;
+  color: #f9f0e7;
+}
+
+.dog-image-box {
+  margin: 30px;
+  padding: 10px;
+}
+
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 200px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+
+.el-col {
+  display: flex;
+
+  align-items: center;
+}
+
+.box-card {
+  margin-top: 20px;
+}
+
+.box {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 40px;
+  background-color: #f9f0e7;
+}
+
+.content {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.el-card__body {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+</style>

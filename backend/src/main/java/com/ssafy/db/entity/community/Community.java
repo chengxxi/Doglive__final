@@ -1,12 +1,15 @@
 package com.ssafy.db.entity.community;
 
+import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.community.CommunityComment;
 import com.ssafy.db.entity.community.CommunityImage;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -14,8 +17,26 @@ import java.util.List;
  */
 @Entity
 @Table(name="community", schema = "community")
+@SqlResultSetMapping(
+        name="CommunityAndUserMapping",
+        classes = @ConstructorResult(
+                targetClass = CommunityParamDto.class,
+                columns = {
+                        @ColumnResult(name="id", type = Long.class),
+                        @ColumnResult(name="description", type = String.class),
+                        @ColumnResult(name="title", type = String.class),
+                        @ColumnResult(name="user_id", type = String.class),
+                        @ColumnResult(name="name", type = String.class),
+                        @ColumnResult(name="category", type = String.class),
+                })
+)
+@NamedNativeQuery(
+        name="CommunityAndUser",
+        query="select c.id, c.description, c.title, c.user_id, u.name, c.category from community.community c inner join auth.user_profile u where c.user_id = u.user_id order by c.regDate desc",
+        resultSetMapping="CommunityAndUserMapping")
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 public class Community extends BaseEntity {
 
     @Column(name="user_id")
@@ -27,15 +48,17 @@ public class Community extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String description;               // 게시글 내용
 
-    @Column(name="reg_date")
-    @Temporal(TemporalType.TIME)
-    private java.util.Date regDate;  // 게시글 작성 시간
+    @Column(length = 10)
+    private String category;                  // 게시글 종류
 
-    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-    private List<CommunityComment> communityComments;
+    @Column(name="reg_date", columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
+    private LocalDateTime regDate;
 
-    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-    private List<CommunityImage> communityImages;
+//    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+//    private List<CommunityComment> communityComments;
+//
+//    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+//    private List<CommunityImage> communityImages;
 
 }
 

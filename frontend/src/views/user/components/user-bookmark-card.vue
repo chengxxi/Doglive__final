@@ -118,7 +118,6 @@ export default {
       const userid = store.getters["root/getLoginUserInfo"].userId;
 
       const state = reactive({
-        boardList: [],
         board : computed(()=>{
           console.log(store.getters['root/getBoardDetail'])
           return store.getters['root/getBoardDetail']
@@ -142,7 +141,7 @@ export default {
                 transition: "bounce",
                 type: "success"
               });
-              router.push({name: "mypage-bookmark"})
+              router.go(router.currentRoute)
             })
             .catch(function(err) {
               createToast("북마크 해제에 실패했어요 😱💦", {

@@ -81,6 +81,7 @@ import {
   ElSubmenu,
   ElSwitch,
   ElTabPane,
+  ElEmpty,
   ElTable,
   ElTableColumn,
   ElTabs,
@@ -173,6 +174,7 @@ const components = [
   ElTabPane,
   ElTable,
   ElTableColumn,
+  ElEmpty,
   ElTabs,
   ElTag,
   ElTimePicker,
@@ -207,6 +209,8 @@ import {
   faUserEdit,
   faEraser,
   faAngleLeft,
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
   faPaperclip,
   faKey,
   faImage,
@@ -219,7 +223,8 @@ import {
   faFile,
   faCheck,
   faCheckCircle,
-  faVideo
+  faVideo,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -245,6 +250,8 @@ library.add(
   faUserEdit,
   faEraser,
   faAngleLeft,
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
   faPaperclip,
   faKey,
   faImage,
@@ -257,7 +264,8 @@ library.add(
   faFile,
   faCheck,
   faCheckCircle,
-  faVideo
+  faVideo,
+  faHeart,
 );
 
 const plugins = [

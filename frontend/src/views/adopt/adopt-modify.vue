@@ -581,6 +581,7 @@ export default {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "입양/임보",
+        path: "/adopt",
         subTitle: "입양/임보 공고 수정"
       });
       window.scrollTo(0, 0);
@@ -627,6 +628,10 @@ li.el-select-dropdown__item.selected {
   color: #f9f0e7;
   border-color: #755744;
   background-color: #755744;
+}
+
+:deep(.el-textarea__inner) {
+  resize: none;
 }
 
 :deep(.el-input__inner:focus) {
