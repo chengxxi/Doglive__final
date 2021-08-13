@@ -2,27 +2,68 @@
   <div>
     <el-row :gutter="20">
     <el-col :span="6" v-for="(o, idx) in card" :key="idx"> 
-      <el-card :body-style="{ padding: '10px' }" style="margin: 10px !important;" shadow="hover">
-        <img :src="require('@/assets/images/logo2.png')" class="image" />
-        <div style="padding: 14px;">
-          <div class="title">
-           <el-tag class="type" style="mini">{{o.type.name}}</el-tag>
-            <!-- <font-awesome-icon
-                        icon="eraser"
-                        @click="clickBookmark(o.id)"
-                        aria-hidden="true"
-                        style="color: rgb(78, 78, 78); font-size: 25px; cursor: pointer; margin-top: 10px;"
-                        class="scale-up-5"
-                      >
-                </font-awesome-icon> -->
-            </div> 
-            <p class="cardtitle">{{o.title}}</p>
-            <div class="bottom">
-              <el-button type="text" class="button" @click="readDetail(o.id)" >글 보러가기</el-button>
-              <el-button type="danger" icon="el-icon-delete" @click="clickBookmark(o.id)"  style="size: small;" circle></el-button>
-            </div>
-        </div>
+      <el-card :body-style="{ padding: '10px' }" style="background-color:#f9f4f0; width:90%; height:360px;" shadow="hover">
+        <el-row style="margin-top:1%; margin-right:1%; margin-left:1%;">
+          <el-tag
+            v-if="o.type.name == '입양'"
+            class="mb-2"
+            color="#D7AFA4"
+            effect="dark"
+            size="small"
+            style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF; float:right; "
+            >{{ o.type.name }}</el-tag
+          >
+          <el-tag
+            v-if="o.type.name == '임보'"
+            class="mb-2"
+            color="#E9CDA4"
+            effect="dark"
+            size="small"
+            style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
+            >{{ o.type.name }}</el-tag
+          >
+          <el-tag
+            v-if="o.type.name == '실종'"
+            class="mb-2"
+            color="#bdaf9f"
+            effect="dark"
+            size="small"
+            style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
+            >{{ o.type.name }}</el-tag
+          >
+          <el-tag
+            v-if="o.type.name == '보호'"
+            class="mb-2"
+            color="#a3723c"
+            effect="dark"
+            size="small"
+            style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
+            >{{ o.type.name }}</el-tag
+          >
+        </el-row>
+        <el-row style="margin-top:1%; display:flex; display: flex; justify-content: center;">
+          <img src="https://placedog.net/500/500?random" class="image" />
+        </el-row>
+        <el-row style="margin-top:3%; margin-right:2.5%; margin-left:2.5%; vertical-align: middle;">
+          <h6 style="font-weight:700; margin-top:10%;" class="mb-0">
+            {{ o.title.length < 15
+                ? o.title
+                : o.title.substr(0, 12) + "..."}}
+          </h6>
+        </el-row>  
+        <el-row>
+          <div style="padding-top:7%; text-align:right; maring-right:4%;">
+            <el-button style="justify-content: space-between; align-items: center; margin-right:5%; color:black;" type="text" class="button" @click="readDetail(o.id)"  >글 보러가기</el-button>
+            <font-awesome-icon
+            icon="trash-alt"
+            aria-hidden="true"
+            style="color: rgb(0, 0, 0); font-size: 2.5vmin; cursor: pointer; margin-top: 10px; text-align:right; display:inline-block;"
+            @click="clickBookmark(o.id)">
+            </font-awesome-icon>
+          </div>
+        </el-row>
       </el-card>
+      
     </el-col>
     </el-row>
   </div>
@@ -33,7 +74,7 @@
     float : left;
   }
   .bottom {
-    margin-top: 13px;
+    margin-top: 2%;;
     line-height: 12px;
     justify-content: space-between;
     float :right;
@@ -63,27 +104,7 @@
      justify-content: space-between;
      margin-top:10px;
   }
-  .scale-up-5{
-      margin-top : 5px;
 
-  }
-
-.button {
-  padding: 0;
-  min-height: auto;
-}
-
-.image {
-  width: 100%;
-  display: block;
-}
-.title {
-  display: flex;
-  justify-content: space-between;
-}
-.scale-up-5 {
-  margin-top: 5px;
-}
 </style>
 
 <script>
