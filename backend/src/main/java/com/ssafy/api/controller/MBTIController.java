@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.MbtiCalPostReq;
 import com.ssafy.api.response.MBTIDetailGetRes;
+import com.ssafy.api.response.MBTIListGetRes;
 import com.ssafy.api.response.MBTIResultPostRes;
 import com.ssafy.api.service.MBTIService;
 import com.ssafy.db.entity.board.Board;
@@ -26,8 +27,22 @@ public class MBTIController {
     @Autowired
     MBTIService mbtiService;
 
+    @GetMapping("/id/{id}")
+    @ApiOperation(value = "MBTI 별 상세 정보", notes = "id로 MBTI 상세 정보를 가져온다")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "데이터 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<MBTIDetailGetRes> mbtiDetailById(@PathVariable("id") Long id){
+        MBTI mbti = mbtiService.getMbtiById(id);
+        if(mbti==null) return ResponseEntity.ok(MBTIDetailGetRes.of(404, "Fail", null));
 
-    @GetMapping("/{name}")
+        return ResponseEntity.ok(MBTIDetailGetRes.of(200, "Success", mbti));
+    }
+
+    @GetMapping("/name/{name}")
     @ApiOperation(value = "MBTI 별 상세 정보 (2)", notes = "name으로 MBTI 상세 정보를 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
@@ -58,6 +73,24 @@ public class MBTIController {
 
         List<Board> matchedBoardList = mbtiService.getSameMbtiDogBoard(mbti.getName());
         return ResponseEntity.ok(MBTIResultPostRes.of(200, "Success", mbti, matchedBoardList));
+    }
+
+
+    /* 항목 별 점수로 MBTI 계산하는 메소드 */
+    @GetMapping("")
+    @ApiOperation(value = "MBTI 전체 리스트 정보", notes = "MBTI 전체 데이터를 가져온다")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "데이터 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<MBTIListGetRes> returnMbtiList(){
+        List<MBTI> mbtiList = mbtiService.getMbtiList();
+        if(mbtiList==null) return ResponseEntity.ok(MBTIListGetRes.of(404, "Fail", null));
+
+
+        return ResponseEntity.ok(MBTIListGetRes.of(200, "Success", mbtiList));
     }
 
 

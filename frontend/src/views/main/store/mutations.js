@@ -61,3 +61,11 @@ export function setBoardMovePage(state, index) {
   state.board.offset = (index - 1) * state.board.listRowCount;
   state.board.currentPageIndex = index;
 }
+
+export function setMbtiDetail(state, data) {
+  state.mbti.id = data.id;
+  state.mbti.title = data.title;
+  state.mbti.name = data.name;
+  state.mbti.desc = data.desc;
+  state.mbti.image_url = data.imageUrl;
+}

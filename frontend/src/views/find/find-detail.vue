@@ -2,10 +2,7 @@
   <div class="main-body main-padding">
     <el-card class="box-card " shadow="hover">
       <bread-crumb></bread-crumb>
-
-      <div style="margin-top:60px; margin-left:60px;">
-        <h3>{{ state.board.title }}</h3>
-      </div>
+      <div style="margin-top:40px; margin-left:60px;"></div>
 
       <el-row class="vertical-center" :gutter="20" style="margin-top:10px;">
         <el-col :span="12" style="margin-left:50px;">
@@ -37,7 +34,7 @@
             <div class="vertical-center row">
               <div class="col-md-9">
                 <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
-                  state.board.dogName
+                  state.board.dogType.name
                 }}</span>
               </div>
               <div class="col-md-3 ms-auto">
@@ -72,7 +69,7 @@
               <el-descriptions-item label="연령">{{
                 state.board.ageType.name
               }}</el-descriptions-item>
-              <el-descriptions-item label="무게">{{
+              <el-descriptions-item label="크기">{{
                 state.board.weight.name
               }}</el-descriptions-item>
               <el-descriptions-item label="컬러">{{
@@ -81,7 +78,10 @@
               <el-descriptions-item label="품종">{{
                 state.board.dogType.name
               }}</el-descriptions-item>
-              <el-descriptions-item label="실종/보호장소">{{
+              <el-descriptions-item label="실종/보호주소"
+                >{{ state.board.sido }} {{ state.board.gugun }}
+              </el-descriptions-item>
+              <el-descriptions-item label="상세주소">{{
                 state.board.address
               }}</el-descriptions-item>
             </el-descriptions>
@@ -121,7 +121,15 @@
         </el-col>
       </el-row>
       <div class="box">
-        {{ state.board.description }}
+        <h4
+          class="mb-2
+        "
+        >
+          <b>{{ state.board.title }}</b>
+        </h4>
+        <div style="margin-top:20px; white-space:pre;">
+          {{ state.board.description }}
+        </div>
       </div>
       <el-divider />
 
@@ -299,7 +307,7 @@ export default {
 
     const goModify = function(id) {
       console.log(id, "go modify");
-      router.push({ name: "AdoptModify" });
+      router.push({ name: "FindModify" });
     };
 
     const doDelete = function(id) {
@@ -438,28 +446,31 @@ export default {
       }
     };
 
+    //보드 디테일 정보 가져오기
     $axios
       .get("/board/" + state.board.boardId + "/" + state.userId)
       .then(function(result) {
         console.log(result);
 
         const boardDetail = {
-          boardId: result.data.board.id,
-          boardType: result.data.board.type,
-          thumbnailUrl: result.data.board.thumbnailUrl,
-          title: result.data.board.title,
+          boardId: result.data.dogInformation.boardId.id,
+          boardType: result.data.dogInformation.boardId.type,
+          thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+          title: result.data.dogInformation.boardId.title,
           address: result.data.dogInformation.address,
           mbti: result.data.dogInformation.mbti,
           colorType: result.data.dogInformation.colorType,
           gender: result.data.dogInformation.gender,
-          dogType: result.data.dogInformation.dogType.name,
+          dogType: result.data.dogInformation.dogType,
           neutralization: result.data.dogInformation.neutralization,
           writer: result.data.writer,
           weight: result.data.dogInformation.weight,
           ageType: result.data.dogInformation.age,
-          regDate: result.data.board.regDate,
+          regDate: result.data.dogInformation.boardId.regDate,
           fileList: result.data.boardImageList,
           isOwner: result.data.owner,
+          gugun: result.data.dogInformation.gugun.name,
+          sido: result.data.dogInformation.gugun.sidoCode.name,
           description: result.data.dogInformation.description,
           dogName: result.data.dogInformation.dogName,
           isBookmarked: result.data.bookmarked
@@ -488,6 +499,7 @@ export default {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "실종/보호",
+        path: "/find",
         subTitle: "실종/보호 동물 정보"
       });
       window.scrollTo(0, 0);

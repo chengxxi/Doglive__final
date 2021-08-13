@@ -11,11 +11,11 @@
       <!-- 상세 소개 내용 수정 필요 -->
     </div>
 
-    <span v-for="(idx, card) in boardList" :key="idx">
+    <span v-for="(idx, card) in state.MbtiList" :key="idx">
       <el-col :span="6">
         <MbtiCard
           :card="card"
-          @click="readDetail(card.boardId.id)"
+          @click="readDetail(card.id)"
         />
       </el-col>
     </span>
@@ -66,7 +66,7 @@ import MbtiCard from './mbti-card.vue'
 // import $axios from 'axios'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import { reactive, computed } from 'vue'
+import { reactive, computed, onMounted } from 'vue'
 
 
 
@@ -85,19 +85,45 @@ export default {
     const store = new useStore();
     const router = new useRouter();
     const state = reactive({
-      userId: computed(() => {
-        return store.getters['root/getLoginUserInfo'].userId;
-      })
+      // userId: computed(() => {
+      //   return store.getters['root/getLoginUserInfo'].userId;
+      // })
+      MbtiList: []
+
     });
 
+    // const MbtiList = function() {
+    //   store.dispatch('root/readMbti')
+
+    // }
+
     const readDetail = function(id) {
-      // console.log('read');
-      store.commit('root/setBoardId', id);
+      store.dispatch('root/requestMbtiDetail', id).then(function(result) {
+        console.log('Mbti:', result);
+        store.commit('root/setMbtiDetail', result.data.mbti)
+        store.push({ name : 'MbtiDetail' })
+      });
+
       router.push({ name: 'MbtiDetail' });
+
     };
 
 
-    return { state, readDetail, };
+    // MBTI 읽어오기
+    const readMbtiList = function() {
+      store.dispatch('root/requestMbtiList').then(function(result) {
+        console.log('Mbti:', result);
+        state.MbtiList = result.data.mbtiList
+      });
+    };
+
+    onMounted(() => {
+      readMbtiList();
+    })
+
+
+
+    return { state, readDetail, readMbtiList, };
   }
 
 

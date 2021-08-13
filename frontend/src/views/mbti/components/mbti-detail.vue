@@ -21,7 +21,7 @@
                 effect="dark"
                 size="large"
                 style="border:none; border-radius: 30px; font-size:14pt; float:left;"
-                >{{ state.name }}</el-tag
+                >{{ state.mbti.name }}</el-tag
               >
               <el-tag
                 v-if="state.board.boardType.id != 1"
@@ -30,13 +30,13 @@
                 effect="dark"
                 size="large"
                 style="border:none; border-radius: 30px; font-size:14pt; float:left;"
-                >{{ state.title }}</el-tag
+                >{{ state.mbti.title }}</el-tag
               >
             </el-row>
             <div class="vertical-center row">
               <div class="col-md-9">
                 <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
-                  state.name
+                  state.mbti.name
                 }}</span>
               </div>
               <div class="col-md-3 ms-auto">
@@ -45,13 +45,6 @@
                   style="text-align: center;"
                 >
 
-                  <!-- <img
-                    @click="kakaoShare"
-                    class="scale-up-2"
-                    style="margin-left:15px; cursor: pointer;"
-                    src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
-                    width="40"
-                  /> -->
                 </div>
               </div>
             </div>
@@ -64,7 +57,7 @@
                   class="mb-2"
                   effect="dark"
                   style="height:30px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none;font-weight:700; color: #606266; "
-                  >{{ state.id }}</el-tag
+                  >{{ state.mbti.id }}</el-tag
                 >
 
                 <el-popover placement="bottom" width="200" trigger="hover">
@@ -205,10 +198,7 @@
         </el-col>
       </el-row>
       <div class="box">
-        <h4
-          class="mb-2
-        "
-        >
+        <h4 class="mb-2">
           <b>{{ state.mbti.title }}</b>
         </h4>
       </div>
@@ -232,7 +222,6 @@
 
 
 <script>
-// import $axios from 'axios'
 import { computed, reactive, } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -240,59 +229,29 @@ import { useRouter } from 'vue-router'
 
 export default {
   name: 'MbtiDetail',
-  data() {
-    return {
-      isPopoverVisible: false,
-      popoverOptions: {
-        animation: 'scale-fade',
-        popoverReference: null,
-        placement: 'top',
-        offset: '0,0'
-      }
-    };
-  },
+  // data() {
+  //   return {
+  //     isPopoverVisible: false,
+  //     popoverOptions: {
+  //       animation: 'scale-fade',
+  //       popoverReference: null,
+  //       placement: 'top',
+  //       offset: '0,0'
+  //     }
+  //   };
+  // },
 
   setup() {
-    // if (!Kakao.isInitialized()) {
-    //   Kakao.init('d0106aa9ba1feb9c379bbb82194695fe');
-    // }
     const store = new useStore();
     const router = new useRouter();
     console.log(router)
 
     const state = reactive({
-      board: computed(() => {
-        console.log(store.getters['root/getMbtiDetail']);
-        return store.getters['root/getMbtiDetail'];
+      MbtiDetail: computed(() => {
+        console.log(store.getters['root/getMbti']);
+        return store.getters['root/getMbti'];
       })
     });
-
-    //보드 디테일 정보 가져오기
-    store
-      .dispatch('root/reqestBoardDetail', {
-        boardId: state.board.boardId,
-        userId: state.userId,
-        mbtiId: state.id
-      })
-      .then(function(result) {
-        console.log(result);
-
-        const MbtiDetail = {
-          name: result.data.name,
-          title: result.data.title,
-          desc: result.data.description,
-          image_url: result.data.image_url,
-        }
-
-        console.log(MbtiDetail)
-
-        store.commit('root/setMbtiDetail', MbtiDetail);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-
-
 
     return { state, };
   }

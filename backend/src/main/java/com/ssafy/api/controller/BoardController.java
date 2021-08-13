@@ -26,6 +26,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,6 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<BoardDetailListGetRes> adoptBoardList(@PageableDefault(size = 12) Pageable pageable,
-            boolean isAdopt,
             Long boardType, Long weight, Long age, Long gender,
             String searchWord
     ) {
@@ -102,8 +102,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardRegisterRes> registerAdoptBoard(@RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq){
-        Board board = boardService.registerBoard(boardRegisterPostReq);
+    public ResponseEntity<BoardRegisterRes> registerAdoptBoard(@RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq   ,
+                                                               @RequestPart MultipartFile file){
+        Board board = boardService.registerBoard(boardRegisterPostReq, file);
         System.out.println(board);
         return ResponseEntity.ok(BoardRegisterRes.of(200, "공고가 정상적으로 등록되었습니다", board.getId()));
     }
@@ -131,8 +132,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> updateAdoptBoard(@PathVariable("boardId") String id, @RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq){
-        Board board = boardService.updateBoard(Long.parseLong(id), boardRegisterPostReq);
+    public ResponseEntity<? extends BaseResponseBody> updateAdoptBoard(@PathVariable("boardId") String id, @RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq
+    , @RequestPart MultipartFile file){
+        Board board = boardService.updateBoard(Long.parseLong(id), boardRegisterPostReq, file);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "공고가 정상적으로 수정되었습니다"));
     }
 

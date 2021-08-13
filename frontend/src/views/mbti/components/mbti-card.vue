@@ -19,7 +19,7 @@
         effect="dark"
         size="small"
         style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF; float:right; "
-        >{{ card.boardId.type.name }}</el-tag
+        >{{ card.name }}</el-tag
       >
       <el-tag
         v-if="card.boardId.type.id != 1"
@@ -42,15 +42,13 @@
       style="margin-top:10px; margin-right:15px; margin-left:15px; vertical-align: middle; "
     >
       <h3 style="font-weight:800; float:right;" class="mb-0 ">
-        {{ card.dogName }}
+        {{ card.id }}
       </h3>
-      <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
+      <!-- <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
         {{
-          card.boardId.title.length < 15
-            ? card.boardId.title
-            : card.boardId.title.substr(0, 10) + "..."
+          card.id
         }}
-      </p>
+      </p> -->
 
     </el-row>
   </el-card>
@@ -121,12 +119,13 @@ export default {
   },
   data() {
     return {
-      age: this.card.age.name.split('(')[0],
-      weight: this.card.weight.name.split('(')[0],
-      title:
-        this.card.boardId.title.length <= 12
-          ? this.card.boardId.title
-          : this.card.boardId.title.substr(0, 10) + '...'
+
+
+      name: this.card.mbti.name,
+      title: this.card.mbti.title,
+      desc: this.card.mbti.desc,
+      image_url: this.card.mbti.image_url,
+
     };
   }
 

@@ -71,5 +71,13 @@ export default {
     menu: 0 /* 0: 채팅 목록, 1: 채팅방, 2: 화상회의 목록 */,
     title: "",
     roomId: ""
+  },
+
+  mbti: {
+    id: '',
+    name: '',
+    title: '',
+    desc: '',
+    image_url: '',
   }
 };

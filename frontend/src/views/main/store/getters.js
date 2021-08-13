@@ -43,3 +43,9 @@ export function getBoardList(state) {
 export function getChat(state) {
   return state.chat;
 }
+
+
+// MBTI detail 가져오기
+export function getMbti(state) {
+  return state.mbti;
+}

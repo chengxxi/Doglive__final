@@ -12,4 +12,5 @@ public interface MBTIService {
     MBTI getMbtiById(Long id);
     MBTI calMbti(MbtiCalPostReq mbtiCalPostReq);
     List<Board> getSameMbtiDogBoard(String mbti);
+    List<MBTI> getMbtiList();
 }
