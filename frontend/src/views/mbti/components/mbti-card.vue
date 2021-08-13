@@ -52,32 +52,17 @@ el-col {
   box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
-
-
 </style>
 
+
+
 <script>
-// import MbtiDetail from "./mbti-detail.vue";
+import MbtiDetail from "./mbti-detail.vue";
 
 export default {
-  name: 'mbti-card',
-    components: {
-    // MbtiDetail
+  name: 'MbtiCard',
+  components: {
+    MbtiDetail,
   },
-  // props: {
-  //   card: Object
-  // },
-  // data() {
-  //   return {
-  //     age: this.card.age.name.split("(")[0],
-  //     weight: this.card.weight.name.split("(")[0],
-  //     title:
-  //       this.card.boardId.title.length <= 12
-  //         ? this.card.boardId.title
-  //         : this.card.boardId.title.substr(0, 10) + "..."
-  //   };
-  // }
-
-
 }
 </script>

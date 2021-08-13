@@ -1,7 +1,6 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " shadow="none" style="border:none;">
-      <bread-crumb></bread-crumb>
+    <el-card class="box-card " style="border:none;">
 
       <div style="margin-top:40px; margin-left:60px;"></div>
 
@@ -291,6 +290,8 @@
   </div>
 </template>
 
+
+
 <script>
 // import $axios from 'axios'
 import { computed, reactive, } from 'vue'
@@ -405,6 +406,8 @@ export default {
   }
 };
 </script>
+
+
 <style scoped>
 .main-body {
   width: 100%;
