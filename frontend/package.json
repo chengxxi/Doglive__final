@@ -21,6 +21,7 @@
     "element-ui": "^2.15.5",
     "flatted": "^3.2.2",
     "infinite-loading-vue3": "^1.0.1",
+    "lodash": "^4.17.21",
     "mosha-vue-toastify": "^1.0.18",
     "node-sass": "^6.0.0",
     "openvidu-browser": "^2.19.0",

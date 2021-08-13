@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-wrapper" :class="{enter : chat.open, leave : !chat.open}" v-if="chat.open">
+  <div class="chat-wrapper" :class="{enter : chat.open, leave : !chat.open, click: (chat.open && chat.click)}" v-if="chat.open">
     <ChatList v-if="chat.menu == 0"/>
     <ChatDetail v-else-if="chat.menu == 1"/>
   </div>
@@ -24,11 +24,13 @@
   overflow-y: hidden;
 }
 .enter {
-  animation: 0.25s ease-out 0s 1 normal scaleUp;
   display: block;
 }
 .leave {
   display: none;
+}
+.click {
+  animation: 0.25s ease-out 0s 1 normal scaleUp;
 }
 .chat-background{
   z-index: 5;
@@ -93,6 +95,7 @@ export default {
     })
 
     function changeOpen(){
+      chat.click = true;
       if(!state.login){ // 로그인이 되어있지 않으면 로그인 화면으로 이동
         createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
           hideProgressBar: "true",
