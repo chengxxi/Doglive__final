@@ -64,7 +64,7 @@
                   class="mb-2"
                   effect="dark"
                   style="height:30px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none;font-weight:700; color: #606266; "
-                  >{{ state.desc }}</el-tag
+                  >{{ state.id }}</el-tag
                 >
 
                 <el-popover placement="bottom" width="200" trigger="hover">
@@ -209,7 +209,7 @@
           class="mb-2
         "
         >
-          <b>{{ state.title }}</b>
+          <b>{{ state.mbti.title }}</b>
         </h4>
       </div>
       <el-divider />
