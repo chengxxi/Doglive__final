@@ -46,7 +46,7 @@ export default {
       store
         .dispatch("root/requestBoardDetail", {
           boardId: id,
-          userId: userid
+          userId: state.userId.userId
         })
         .then(function(result) {
           console.log(result);
