@@ -58,5 +58,10 @@ import MbtiCard from './mbti-card.vue'
 export default {
   name: 'mbti-result',
   components: { MbtiCard },
+  // methods: {
+  //   toggleCard: function(card) {
+  //       card.flipped = !card.flipped;
+  //   },
+  // }
 }
 </script>
