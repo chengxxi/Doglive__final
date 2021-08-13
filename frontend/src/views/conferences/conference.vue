@@ -56,16 +56,24 @@
           </el-col>
         </el-row>
       </el-col>
+      <!-- 채팅 -->
       <el-col :span='4' class='con-col-wrapper' v-if='!chatEnabled'>
         <div class="chat-main">
           <div class="chat-header">
             <i class="el-icon-arrow-right close-btn" @click="turnChat"></i>
           </div>
-          <el-scrollbar class="chatlog" dropzone="true" :ref="el => { if(el) divs = el}">
-            <div v-for="chat in chatArray" :key="chat" class="chatContent">
+          <div @scroll="scroll" class="chatlog" dropzone="true" id = "chatlog" :ref="el => { if(el) divs = el}">
+            <!-- <div v-for="chat in chatArray" :key="chat" class="chatContent">
               {{chat}}
-            </div>
-          </el-scrollbar>
+            </div> -->
+            <ConferenceChatMessage
+              v-for="chat in chatArray"
+              :key="chat"
+              :message="chat"
+              :userName="myUserName"
+              class="chatContent"
+            />
+          </div>
           <el-divider>🐶</el-divider>
           <textarea
             class='chatinput'
@@ -143,7 +151,11 @@ user-video {
   padding: 9px;
   overflow: auto;
 }
+.chatlog::-webkit-scrollbar{
+  display: none;
+}
 :deep(.el-divider) {
+  margin-top: 10px;
   margin-bottom: 2px;
 }
 .chatinput {
@@ -174,6 +186,7 @@ textarea::-webkit-scrollbar {
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideo from './components/UserVideo';
+import ConferenceChatMessage from './components/conferenceChatMessage.vue'
 import { computed } from '@vue/runtime-core';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 const OPENVIDU_SERVER_URL = "https://i5a501.p.ssafy.io:8443";
@@ -182,6 +195,7 @@ export default {
 	name: 'App',
 	components: {
 		UserVideo,
+    ConferenceChatMessage,
 	},
 	data () {
 		return {
@@ -218,9 +232,10 @@ export default {
     joinSession() {
       // mySessionId : 채팅방 있는 두 명의 사용자 ID 합친 것 (26자리 숫자 || 앞자리 어떤 채팅방인지 + 26자리 숫자 => 27자리 숫자)
       // myUserName : 현재 유저의 카카오톡 고유 아이디로 지정
-      this.myUserName = this.$store.state.loginUserInfo;
-      console.log('로그인한 사용자 아이디 : ');
-      console.log(this.myUserName)
+      // this.myUserName = this.$store.state.loginUserInfo;
+      // console.log('로그인한 사용자 아이디 : ');
+      // console.log(this.myUserName)
+      // this.myUserName = '영주';
       // 먼저 화상회의 개설 (DB에 저장)
 
       // --- Get an OpenVidu object ---
@@ -229,6 +244,19 @@ export default {
       this.session = this.OV.initSession();
       // --- Specify the actions when events take place in the session ---
       // On every new Stream received...
+
+      // 채팅 내역 받기
+      this.session.on('signal:chatSend', (event) => {
+        console.log('arrive chat')
+        console.log(event.data)
+        console.log(JSON.parse(event.data))
+        console.log('After arrive chat ')
+        this.chatArray.push(JSON.parse(event.data))
+        console.log(this.chatArray)
+        var chatlogScroll = document.getElementById('chatlog');
+        chatlogScroll.scrollTop = chatlogScroll.scrollHeight;
+      })
+
       this.session.on('streamCreated', ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
@@ -285,6 +313,7 @@ export default {
       this.publisher = undefined;
       this.subscribers = [];
       this.OV = undefined;
+      this.chatArray = [];  // Session 나가면 채팅 사라짐
       window.removeEventListener('beforeunload', this.leaveSession);
     },
     /**
@@ -360,13 +389,16 @@ export default {
       });
     },
 
+    // 오픈비두 채팅
     sendMessage() {
       console.log('sendMessage > 사용자가 enter 쳤다')
       console.log(this.chatString)
       console.log(this.myUserName)
+      if(this.chatString.trim().length == 0) return;
+      // 사용자 아이디도 추가
       const msg = {
         userName : this.myUserName,
-        content : this.chatString
+        chatMessage : this.chatString.trim()
       }
       this.session.signal({
         data: JSON.stringify(msg),
