@@ -22,7 +22,7 @@ import FindModify from '@/views/find/find-modify.vue';
 import MBTI from '@/views/mbti/mbti.vue';
 import MBTItest from '@/views/mbti/components/mbti-test.vue';
 import MBTIinfo from '@/views/mbti/components/mbti-info.vue';
-import MbtiDetail from '@/views/mbti/mbti-detail.vue';
+import MbtiDetail from '@/views/mbti/components/mbti-detail.vue';
 
 
 const routes = [
@@ -191,7 +191,7 @@ const routes = [
     component: MBTIinfo
   },
   {
-    path: '/mbti/detail',
+    path: '/mbtis/detail',
     name: 'MbtiDetail',
     component: MbtiDetail
   },
