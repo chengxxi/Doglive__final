@@ -77,7 +77,7 @@ public class MBTIController {
 
 
     /* 항목 별 점수로 MBTI 계산하는 메소드 */
-    @PostMapping("")
+    @GetMapping("")
     @ApiOperation(value = "MBTI 전체 리스트 정보", notes = "MBTI 전체 데이터를 가져온다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
