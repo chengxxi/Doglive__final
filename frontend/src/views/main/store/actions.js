@@ -46,7 +46,7 @@ export function requestChatRoomList({ state }) {
 export function requestChatMessageList({ state }, payload){
   let roomId = payload.roomId;
   let page = payload.page;
-  const url = '/chatroom/' + roomId + '/messages/' + page;
+  const url = '/chatroom/' + roomId + '/messages/' + page; // 요기
   return $axios.get(url);
 }
 

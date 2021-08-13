@@ -137,7 +137,7 @@ export default {
     const store = useStore()
     const userId = store.getters['root/getLoginUserInfo'].userId;
     const roomId = store.getters['root/getChat'].roomId;
-    const divs = ref(null);
+    const divs = ref(null); // 요기
     const svgInfo = svg[0]
     let socket, client
 
@@ -243,7 +243,7 @@ export default {
       el.value.scrollTop = 99999
     }
 
-    function scroll(state){
+    function scroll(state){ // 요기
       console.log(divs)
       if(divs.value.scrollTop == 0  && !chat.noMore){
         chat.now = divs.value.scrollHeight
