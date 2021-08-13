@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -145,7 +146,7 @@ public class BoardServiceImpl implements  BoardService{
 
     /* 유기동물 관련 게시물 작성하기 */
     @Override
-    public Board registerBoard(BoardRegisterPostReq boardRegisterPostReq) {
+    public Board registerBoard(BoardRegisterPostReq boardRegisterPostReq, MultipartFile file) {
 
         Board board = new Board();
 
@@ -166,12 +167,12 @@ public class BoardServiceImpl implements  BoardService{
 
         if(!boardRegisterPostReq.getFilePath().isEmpty()){
 
-            for(String file : boardRegisterPostReq.getFilePath()){
+            for(String f : boardRegisterPostReq.getFilePath()){
                 BoardImage boardImage = new BoardImage();
 
 
                 boardImage.setBoardId(board);
-                boardImage.setFilePath(file);
+                boardImage.setFilePath(f);
 
                 boardImageRepository.save(boardImage);
             }
@@ -237,7 +238,7 @@ public class BoardServiceImpl implements  BoardService{
 
     /* 유기동물 관련 게시물 수정하기 */
     @Override
-    public Board updateBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq) {
+    public Board updateBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq, MultipartFile file) {
 
 
         Board board = getBoardByBoardId(boardId); //수정할 Board 찾기
@@ -251,11 +252,11 @@ public class BoardServiceImpl implements  BoardService{
 
         if(!boardRegisterPostReq.getFilePath().isEmpty()){
 
-            for(String file : boardRegisterPostReq.getFilePath()){
+            for(String f : boardRegisterPostReq.getFilePath()){
                 BoardImage boardImage = new BoardImage();
 
                 boardImage.setBoardId(board);
-                boardImage.setFilePath(file);
+                boardImage.setFilePath(f);
 
                 boardImageRepository.save(boardImage);
             }
