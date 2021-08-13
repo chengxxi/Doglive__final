@@ -54,6 +54,7 @@ const routes = [
     redirect: "/mypage/profile",
     name: "Mypage",
     component: Mypage,
+    meta: { requiresAuth : true },
     children: [
       {
         path: "profile",
@@ -85,25 +86,6 @@ const routes = [
     ]
   },
   {
-    path: "/chat",
-    redirect: "/chat/rooms",
-    name: "Chat",
-    component: Chat,
-    meta: { requiresAuth: true },
-    children: [
-      {
-        path: "rooms",
-        name: "chat-list",
-        component: () => import("@/views/chat/components/chat-list.vue")
-      },
-      {
-        path: "room",
-        name: "chat-detail",
-        component: () => import("@/views/chat/components/chat-detail.vue")
-      }
-    ]
-  },
-  {
     path: "/adopt",
     name: "Adopt",
     component: Adopt
@@ -116,7 +98,8 @@ const routes = [
   {
     path: "/adopt/register",
     name: "AdoptRegister",
-    component: AdoptRegister
+    component: AdoptRegister,
+    meta: { requiresAuth : true },
   },
   {
     path: "/adopt/form",
@@ -234,17 +217,5 @@ const router = createRouter({
   routes
 });
 
-// URL이 변경되기전 거쳐가는 함수
-router.beforeEach(function(to, from, next) {
-  // if(to.matched.some(record => record.meta.requiresAuth)){ // 로그인이 필요한 페이지라면
-  //   if(store.getters['root/getLoginUserInfo'].userId === null){ // 현재 로그인된 상태인지 확인
-  //     next({ path: '/', query: {redirect: to.fullPath}})
-  //   }else{
-  //     next()
-  //   }
-  // }else{
-  next();
-  // }
-});
 
 export default router;

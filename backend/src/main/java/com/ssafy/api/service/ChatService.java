@@ -27,7 +27,7 @@ public interface ChatService {
     ChatMessageRead saveRead(ChatMessageRead read);
 
     /* 회원이 Join 중인 채팅방의 메세지 기록 가져오기 */
-    List<ChatMessage> getChatMessageList(ChatRoom roomId, String userId);
+    List<ChatMessage> getChatMessageList(ChatRoom roomId, String userId, int page);
 
     /* 회원이 Join 중인 채팅방의 메세지 기록 가져오기 (userName을 담는 로직 추가)*/
     List<ChatMessageGetRes> getChatMessageListWithUserName(List<ChatMessage> messageList);

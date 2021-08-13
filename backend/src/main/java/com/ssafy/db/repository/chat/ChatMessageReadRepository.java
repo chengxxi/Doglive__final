@@ -21,7 +21,7 @@ public interface ChatMessageReadRepository extends JpaRepository<ChatMessageRead
 
     /* 현재 user가 채팅방에서 읽지않은 메시지의 개수 가져오기 */
     @Query(
-            value = "SELECT * FROM chat_message_read WHERE room_id = :roomId and is_read = false GROUP BY user_id = :userId",
+            value = "SELECT * FROM chat_message_read WHERE room_id = :roomId and user_id = :userId and is_read = false",
             nativeQuery = true
     )
     Optional<List<ChatMessageRead>> findChatMessageReadsByRoomIdAndUserId(@Param("roomId") ChatRoom roomId, @Param("userId") String userId);

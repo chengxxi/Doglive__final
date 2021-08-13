@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.CommunityRegisterPostReq;
 import com.ssafy.db.entity.community.Community;
 import com.ssafy.db.entity.community.CommunityComment;
@@ -109,12 +110,9 @@ public class CommunityServiceImpl implements  CommunityService{
 
     /* 커뮤니티 게시글 전체 목록 불러오기 */
     @Override
-    public List<Community> communityList(){
-        List<Community> communityList = communityRepository.findAll();
-        System.out.println(communityList);
-//        if(communityList.size()!=0){
-//            return communityList;
-//        }
-        return communityList;
+    public List<CommunityParamDto> communityList(){
+        Optional<List<CommunityParamDto>> communityList = communityRepository.findAllDesc();
+
+        return communityList.get();
     }
 }

@@ -43,10 +43,10 @@ export function requestChatRoomList({ state }) {
 }
 
 // 채팅방 이전 로그 목록 요청
-export function requestChatMessageList({ state }, payload) {
-  console.log("payload : " + payload);
+export function requestChatMessageList({ state }, payload){
   let roomId = payload.roomId;
-  const url = "/chatroom/" + roomId + "/messages/";
+  let page = payload.page;
+  const url = '/chatroom/' + roomId + '/messages/' + page; // 요기
   return $axios.get(url);
 }
 

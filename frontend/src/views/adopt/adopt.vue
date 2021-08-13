@@ -377,20 +377,7 @@ export default {
 
     //글 등록하기
     const goRegister = function() {
-      if (state.userId === null) {
-        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
-          hideProgressBar: "true",
-          timeout: 4500,
-          showIcon: "true",
-          toastBackgroundColor: "#c49d83",
-          position: "bottom-left",
-          transition: "bounce",
-          type: "warning"
-        });
-        router.push({ name: "Login" });
-      } else {
-        router.push({ name: "AdoptRegister" });
-      }
+      router.push({ name: "AdoptRegister" });
     };
 
     //목록 정보 가져오기

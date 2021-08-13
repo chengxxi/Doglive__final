@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.community;
 
+import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.community.CommunityComment;
 import com.ssafy.db.entity.community.CommunityImage;
@@ -16,6 +17,23 @@ import java.util.List;
  */
 @Entity
 @Table(name="community", schema = "community")
+@SqlResultSetMapping(
+        name="CommunityAndUserMapping",
+        classes = @ConstructorResult(
+                targetClass = CommunityParamDto.class,
+                columns = {
+                        @ColumnResult(name="id", type = Long.class),
+                        @ColumnResult(name="description", type = String.class),
+                        @ColumnResult(name="title", type = String.class),
+                        @ColumnResult(name="user_id", type = String.class),
+                        @ColumnResult(name="name", type = String.class),
+                        @ColumnResult(name="category", type = String.class),
+                })
+)
+@NamedNativeQuery(
+        name="CommunityAndUser",
+        query="select c.id, c.description, c.title, c.user_id, u.name, c.category from community.community c inner join auth.user_profile u where c.user_id = u.user_id order by c.regDate desc",
+        resultSetMapping="CommunityAndUserMapping")
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
