@@ -4,7 +4,7 @@ import Main from "@/views/main/components/main-content.vue";
 import Login from "@/views/main/components/login-dialog.vue";
 import Logout from "@/views/main/components/logout-dialog.vue";
 import Mypage from "@/views/user/mypage.vue";
-import Conference from "@/views/conferences/components/conference.vue";
+import Conference from "@/views/conferences/conference.vue";
 import KakaoCallback from "@/views/main/components/kakao-callback.vue";
 import Chat from "@/views/chat/chat.vue";
 import AdoptDetail from "@/views/adopt/adopt-detail.vue";
@@ -54,7 +54,7 @@ const routes = [
     redirect: "/mypage/profile",
     name: "Mypage",
     component: Mypage,
-    meta: { requiresAuth : true },
+    meta: { requiresAuth: true },
     children: [
       {
         path: "profile",
@@ -99,7 +99,7 @@ const routes = [
     path: "/adopt/register",
     name: "AdoptRegister",
     component: AdoptRegister,
-    meta: { requiresAuth : true },
+    meta: { requiresAuth: true }
   },
   {
     path: "/adopt/form",
@@ -216,6 +216,5 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 });
-
 
 export default router;
