@@ -57,6 +57,7 @@ server:
 spa:
   default-file: /dist/index.html
 
+
 profileImg:
   path: C:\Users\multicampus\Desktop\ssafy\공통프로젝트\Doglive\profile_imgs\
 spring:
@@ -64,6 +65,9 @@ spring:
     multipart:
       enabled: true
       max-file-size: 2MB
+  profiles:
+    include:
+      - aws
   security:
     user:
       name: "ssafy"

@@ -24,6 +24,7 @@ import java.util.List;
 @RequestMapping("/api/v1/mbti")
 public class MBTIController {
 
+
     @Autowired
     MBTIService mbtiService;
 
@@ -41,6 +42,7 @@ public class MBTIController {
 
         return ResponseEntity.ok(MBTIDetailGetRes.of(200, "Success", mbti));
     }
+
 
     @GetMapping("/name/{name}")
     @ApiOperation(value = "MBTI 별 상세 정보 (2)", notes = "name으로 MBTI 상세 정보를 가져온다")

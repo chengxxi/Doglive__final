@@ -1,7 +1,9 @@
 package com.ssafy.db.entity.board;
 
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -42,13 +44,16 @@ public class Board extends BaseEntity{
     regDate = LocalDateTime.now();
   }
 
-//  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, orphanRemoval=true)
-//  private List<BoardComment> boardComments;
-//
-//  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, orphanRemoval=true)
-//  private Set<BoardImage> boardImages;
-//
-//  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, orphanRemoval=true)
-//  private Set<DogInformation> dogInformations;                   // 유기견 ID
+  @Builder
+  public Board(String userId, String title, String thumbnailUrl) {
+    this.userId = userId;
+    this.title = title;
+    this.thumbnailUrl = thumbnailUrl;
+  }
+
+
+  public void addBoardCategory(BoardCategory boardCategory){
+    this.type = boardCategory;
+  }
 
 }

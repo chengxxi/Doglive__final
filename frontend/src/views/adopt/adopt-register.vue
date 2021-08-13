@@ -330,51 +330,82 @@
             <span> (최대 5장)</span>
           </div>
           <el-row class="mt-4">
-            <el-upload
-              action="#"
-              list-type="picture-card"
-              :auto-upload="false"
-              limit="5"
-              on-exceed=""
+            <div class="form-check mb-3">
+              <input
+                v-model="state.attachFile"
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="chkFileUploadInsert"
+              />
+              <label class="form-check-label" for="chkFileUploadInsert"
+                >파일 추가</label
+              >
+            </div>
+            <div
+              class="mb-3"
+              v-show="state.attachFile"
+              id="imgFileUploadInsertWrapper"
             >
-              <template #default>
-                <i class="el-icon-plus"></i>
-              </template>
-              <template #file="{file}">
-                <div>
-                  <img
-                    class="el-upload-list__item-thumbnail"
-                    :src="file.url"
-                    alt=""
-                  />
-                  <span class="el-upload-list__item-actions">
-                    <span
-                      class="el-upload-list__item-preview"
-                      @click="handlePictureCardPreview(file)"
-                    >
-                      <i class="el-icon-zoom-in"></i>
+              <input
+                @change="changeFile"
+                type="file"
+                id="inputFileUploadInsert"
+                multiple
+              />
+              <div id="imgFileUploadInsertThumbnail" class="thumbnail-wrapper">
+                <img
+                  v-for="(file, index) in state.fileList"
+                  v-bind:src="file"
+                  v-bind:key="index"
+                />
+              </div>
+            </div>
+
+            <el-form-item props="filePath">
+              <el-upload
+                action="#"
+                list-type="picture-card"
+                :auto-upload="false"
+                :on-remove="handleRemove"
+                :file-list="ruleForm.filePath"
+              >
+                <template #default>
+                  <i class="el-icon-plus"></i>
+                </template>
+                <template #file="{file}">
+                  <div>
+                    <img
+                      class="el-upload-list__item-thumbnail"
+                      :src="file.url"
+                      alt=""
+                    />
+                    <span class="el-upload-list__item-actions">
+                      <span
+                        class="el-upload-list__item-preview"
+                        @click="handlePictureCardPreview(file)"
+                      >
+                        <i class="el-icon-zoom-in"></i>
+                      </span>
+                      <span
+                        v-if="!disabled"
+                        class="el-upload-list__item-delete"
+                        @click="handleDownload(file)"
+                      >
+                        <i class="el-icon-download"></i>
+                      </span>
+                      <span
+                        v-if="!disabled"
+                        class="el-upload-list__item-delete"
+                        @click="handleRemove(file)"
+                      >
+                        <i class="el-icon-delete"></i>
+                      </span>
                     </span>
-                    <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleDownload(file)"
-                    >
-                      <i class="el-icon-download"></i>
-                    </span>
-                    <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleRemove(file)"
-                    >
-                      <i class="el-icon-delete"></i>
-                    </span>
-                  </span>
-                </div>
-              </template>
-            </el-upload>
-            <el-dialog v-model="dialogVisible">
-              <img width="100%" :src="dialogImageUrl" alt="" />
-            </el-dialog>
+                  </div>
+                </template>
+              </el-upload>
+            </el-form-item>
           </el-row>
           <el-row
             class="mt-5"
@@ -426,10 +457,9 @@ export default {
         obedience: "",
         relationship: "",
         adaptability: "",
+
         disabled: false,
-        dialogImageUrl: "",
-        dialogVisible: false,
-        disabled: false
+        filePath: []
       },
       rules: {
         type: [
@@ -542,6 +572,13 @@ export default {
             message: "적응성향을 관찰 후 선택해주세요",
             trigger: "blur"
           }
+        ],
+        file: [
+          {
+            required: true,
+            message: "사진을 최소 1장 업로드해주세요.",
+            trigger: "blur"
+          }
         ]
       }
     };
@@ -555,9 +592,10 @@ export default {
         [this.ruleForm.relationship == "의존적인" ? "F" : "T"] +
         [this.ruleForm.adaptability == "친화적인" ? "J" : "P"];
 
+      var formData = new FormData();
+
       const data = {
-        thumbnailUrl: "",
-        filePath: [],
+        fileList: [],
         dogName: this.ruleForm.name,
         boardType: Number(this.ruleForm.type),
         userId: this.state.userId.userId,
@@ -575,27 +613,26 @@ export default {
       console.log(data);
 
       this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.registerData(data);
-          console.log(this.ruleForm);
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
+        this.registerData(data);
+        console.log(this.ruleForm);
+        // if (valid) {
+        //   this.registerData(data);
+        //   console.log(this.ruleForm);
+        // } else {
+        //   console.log("error submit!!");
+        //   return false;
+        // }
       });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    handleRemove(file) {
-      console.log(file);
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
-    },
-    handleDownload(file) {
-      console.log(file);
     }
   },
 
@@ -604,6 +641,8 @@ export default {
     const router = new useRouter();
 
     const state = reactive({
+      attachFile: false,
+      fileList: [],
       dogTypeList: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"];
@@ -715,6 +754,16 @@ export default {
         });
     };
 
+    //파일 업로드 시 호출
+    const changeFile = function(fileEvent) {
+      if (fileEvent.target.files && fileEvent.target.files.length > 0) {
+        for (var i = 0; i < fileEvent.target.files.length; i++) {
+          const file = fileEvent.target.files[i];
+          state.fileList.push(URL.createObjectURL(file));
+        }
+      }
+    };
+
     onMounted(() => {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
@@ -727,7 +776,7 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state, gugunList, registerData, readDogTypeList };
+    return { state, gugunList, changeFile, registerData, readDogTypeList };
   }
 };
 </script>
@@ -829,5 +878,15 @@ li.el-select-dropdown__item.selected {
 :deep(.el-form-item__label) {
   font-size: 12pt;
   font-weight: 500;
+}
+
+.thumbnail-wrapper {
+  margin-top: 5px;
+}
+
+.thumbnail-wrapper img {
+  width: 100px !important;
+  margin-right: 5px;
+  max-width: 100%;
 }
 </style>

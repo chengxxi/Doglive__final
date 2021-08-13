@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface BoardService {
@@ -20,13 +21,13 @@ public interface BoardService {
 
 
     /* 유기동물 관련 게시물 작성하기 */
-    Board registerBoard(BoardRegisterPostReq boardRegisterPostReq, MultipartFile file);
+    Board registerBoard(BoardRegisterPostReq boardRegisterPostReq) throws IOException;
 
     /* 유기동물 관련 게시물 삭제하기 */
     boolean deleteBoard(Long boardId);
 
     /* 유기동물 관련 게시물 수정하기 */
-    Board updateBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq, MultipartFile file);
+    Board updateBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq) throws IOException;
 
     /* BoardId로 Board 찾기 */
     Board getBoardByBoardId(Long boardId);

@@ -11,6 +11,9 @@ import com.ssafy.db.repository.auth.CounselingHistoryRepository;
 import com.ssafy.db.repository.auth.UserProfileRepository;
 import com.ssafy.db.repository.auth.UserRepository;
 import com.ssafy.db.repository.board.*;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,16 +21,14 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-
+@Slf4j
+@RequiredArgsConstructor
 @Service("boardService")
+@AllArgsConstructor
 public class BoardServiceImpl implements  BoardService{
 
 
@@ -72,6 +73,9 @@ public class BoardServiceImpl implements  BoardService{
 
     @Autowired
     DogTypeRepository dogTypeRepository;
+
+
+    private S3Uploader s3Uploader;
 
 
     /* 입양임보실종보호 게시물 필터링 및 페이지네이션해서 가져오기 */
@@ -146,46 +150,60 @@ public class BoardServiceImpl implements  BoardService{
 
     /* 유기동물 관련 게시물 작성하기 */
     @Override
-    public Board registerBoard(BoardRegisterPostReq boardRegisterPostReq, MultipartFile file) {
+    public Board registerBoard(BoardRegisterPostReq boardRegisterPostReq) throws IOException {
 
-        Board board = new Board();
 
-        DogInformation dogInformation = new DogInformation();
         System.out.println(boardRegisterPostReq.toString());
+
+
+
+        //썸네일 저장
+        String thumbnailUrl = s3Uploader.upload(boardRegisterPostReq.getThumbnailUrl(), "static");
+
+        Board board = Board.builder()
+                .title(boardRegisterPostReq.getTitle())
+                .userId(boardRegisterPostReq.getUserId())
+                .thumbnailUrl(thumbnailUrl)
+                .build();
+
         Optional<BoardCategory> boardCategory = boardCategoryRepository.findById(boardRegisterPostReq.getBoardType());
         if(boardCategory.isPresent()){
-            board.setType(boardCategory.get());
+            board.addBoardCategory(boardCategory.get());
         }
-
-        board.setTitle(boardRegisterPostReq.getTitle());
-        board.setThumbnailUrl(boardRegisterPostReq.getThumbnailUrl());
-        board.setUserId(boardRegisterPostReq.getUserId());
-
-
         boardRepository.save(board);
 
 
-        if(!boardRegisterPostReq.getFilePath().isEmpty()){
 
-            for(String f : boardRegisterPostReq.getFilePath()){
-                BoardImage boardImage = new BoardImage();
+        //이미지 저장
+        DogInformation dogInformation = new DogInformation();
 
-
-                boardImage.setBoardId(board);
-                boardImage.setFilePath(f);
-
-                boardImageRepository.save(boardImage);
-            }
+        for(MultipartFile file : boardRegisterPostReq.getFileList()){
+            String saveUrl = s3Uploader.upload(file, "static");
+            BoardImage image = BoardImage
+                    .builder()
+                    .url(saveUrl)
+                    .originFileName(file.getOriginalFilename())
+                    .build();
+            image.addBoard(board);
+            boardImageRepository.save(image);
         }
+
 
         dogInformation.setBoardId(board);
         dogInformation.setDescription(boardRegisterPostReq.getDescription());
-        dogInformation.setMbti(boardRegisterPostReq.getMbti());
-        dogInformation.setAddress(boardRegisterPostReq.getAddress());
-        dogInformation.setDogName(boardRegisterPostReq.getDogName());
+        if(boardRegisterPostReq.getMbti()!=null){
+            dogInformation.setMbti(boardRegisterPostReq.getMbti());
+        }
+        if(boardRegisterPostReq.getAddress()!=null) {
+            dogInformation.setAddress(boardRegisterPostReq.getAddress());                   //세부주소 저장
+        }
+        if(boardRegisterPostReq.getDogName()!=null){
+            dogInformation.setDogName(boardRegisterPostReq.getDogName());                   //강아지 이름 저장
+        }
+
+        dogInformation.setGugun(gugunRepository.findById(boardRegisterPostReq.getGugun()).get()); //구군 코드 저장
 
 
-        System.out.println();
         Code gender = getCode(boardRegisterPostReq.getGender());
         if(gender!=null) dogInformation.setGender(gender);
 
@@ -206,7 +224,6 @@ public class BoardServiceImpl implements  BoardService{
         Code age= getCode(boardRegisterPostReq.getAge());
         if(age!=null) dogInformation.setAge(age);
 
-        dogInformation.setNeutralization(boardRegisterPostReq.isNeutralization());
 
 
         dogInformationRepository.save(dogInformation);
@@ -238,7 +255,7 @@ public class BoardServiceImpl implements  BoardService{
 
     /* 유기동물 관련 게시물 수정하기 */
     @Override
-    public Board updateBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq, MultipartFile file) {
+    public Board updateBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq) throws IOException {
 
 
         Board board = getBoardByBoardId(boardId); //수정할 Board 찾기
@@ -250,35 +267,50 @@ public class BoardServiceImpl implements  BoardService{
             deleteAllBoardImagesByBoard(board);
         }
 
-        if(!boardRegisterPostReq.getFilePath().isEmpty()){
 
-            for(String f : boardRegisterPostReq.getFilePath()){
-                BoardImage boardImage = new BoardImage();
-
-                boardImage.setBoardId(board);
-                boardImage.setFilePath(f);
-
-                boardImageRepository.save(boardImage);
-            }
-        }
 
         //board, DogInformation 수정
+
+        //썸네일 저장
+        String thumbnailUrl = s3Uploader.upload(boardRegisterPostReq.getThumbnailUrl(), "static");
+
+        board.setTitle(boardRegisterPostReq.getTitle());
+        board.setThumbnailUrl(thumbnailUrl);
 
         Optional<BoardCategory> boardCategory = boardCategoryRepository.findById(boardRegisterPostReq.getBoardType());
         if(boardCategory.isPresent()){
             board.setType(boardCategory.get());
         }
-        board.setTitle(boardRegisterPostReq.getTitle());
-        board.setThumbnailUrl(boardRegisterPostReq.getThumbnailUrl());
-        board.setUserId(boardRegisterPostReq.getUserId());
         boardRepository.save(board);
 
 
+        for(MultipartFile file : boardRegisterPostReq.getFileList()){
+            String saveUrl = s3Uploader.upload(file, "static");
+            BoardImage image = BoardImage
+                    .builder()
+                    .url(saveUrl)
+                    .originFileName(file.getOriginalFilename())
+                    .build();
+            image.addBoard(board);
+            boardImageRepository.save(image);
+        }
+
+
         dogInformation.setBoardId(board);
-        dogInformation.setDogName(boardRegisterPostReq.getDogName());
         dogInformation.setDescription(boardRegisterPostReq.getDescription());
-        dogInformation.setMbti(boardRegisterPostReq.getMbti());
-        dogInformation.setAddress(boardRegisterPostReq.getAddress());
+        if(boardRegisterPostReq.getMbti()!=null){
+            dogInformation.setMbti(boardRegisterPostReq.getMbti());
+        }
+        if(boardRegisterPostReq.getAddress()!=null) {
+            dogInformation.setAddress(boardRegisterPostReq.getAddress());                   //세부주소 저장
+        }
+        if(boardRegisterPostReq.getDogName()!=null){
+            dogInformation.setDogName(boardRegisterPostReq.getDogName());                   //강아지 이름 저장
+        }
+
+        dogInformation.setGugun(gugunRepository.findById(boardRegisterPostReq.getGugun()).get()); //구군 코드 저장
+
+
         Code gender = getCode(boardRegisterPostReq.getGender());
         if(gender!=null) dogInformation.setGender(gender);
 
@@ -295,10 +327,11 @@ public class BoardServiceImpl implements  BoardService{
         Code weight = getCode(boardRegisterPostReq.getWeight());
         if(weight!=null) dogInformation.setWeight(weight);
 
+
         Code age= getCode(boardRegisterPostReq.getAge());
         if(age!=null) dogInformation.setAge(age);
 
-        dogInformation.setNeutralization(boardRegisterPostReq.isNeutralization());
+
 
         dogInformationRepository.save(dogInformation);
 

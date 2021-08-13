@@ -1,7 +1,7 @@
 <template>
   <el-card
     shadow="hover"
-    style="background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+    style="background:linear-gradient( to bottom,#f0ebe0, #f6ede9 ); height:360px;"
     class="scale-up-2"
   >
     <el-row style="margin-top:15px; margin-right:15px; margin-left:15px;">

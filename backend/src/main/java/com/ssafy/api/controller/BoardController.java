@@ -28,6 +28,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,9 +103,8 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardRegisterRes> registerAdoptBoard(@RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq   ,
-                                                               @RequestPart MultipartFile file){
-        Board board = boardService.registerBoard(boardRegisterPostReq, file);
+    public ResponseEntity<BoardRegisterRes> registerAdoptBoard(@RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq ) throws IOException {
+        Board board = boardService.registerBoard(boardRegisterPostReq);
         System.out.println(board);
         return ResponseEntity.ok(BoardRegisterRes.of(200, "공고가 정상적으로 등록되었습니다", board.getId()));
     }
@@ -132,9 +132,8 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> updateAdoptBoard(@PathVariable("boardId") String id, @RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq
-    , @RequestPart MultipartFile file){
-        Board board = boardService.updateBoard(Long.parseLong(id), boardRegisterPostReq, file);
+    public ResponseEntity<? extends BaseResponseBody> updateAdoptBoard(@PathVariable("boardId") String id, @RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq) throws IOException {
+        Board board = boardService.updateBoard(Long.parseLong(id), boardRegisterPostReq);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "공고가 정상적으로 수정되었습니다"));
     }
 
@@ -159,6 +158,13 @@ public class BoardController {
         List<BoardComment> boardComments = boardService.getBoardCommentsByBoard(board);
         List<BoardImage> boardImages = boardService.getBoardImagesByBoard(board);
 
+        List<String> fileList  = new ArrayList<>();
+        if(boardImages!=null){
+            for(BoardImage img : boardImages){
+                fileList.add(img.getUrl());
+            }
+        }
+
 
         String writer = userService.getUserName(board.getUserId());
         if(userId!=null){
@@ -178,7 +184,7 @@ public class BoardController {
         }
 
         System.out.println("북마크체크"+isBookmarked+" "+userId+" "+board.getUserId());
-        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner,  writer, dogInformation, boardImages, boardComments));
+        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner,  writer, dogInformation, fileList, boardComments));
     }
 
 
