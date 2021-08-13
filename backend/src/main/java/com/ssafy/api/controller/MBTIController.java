@@ -85,7 +85,7 @@ public class MBTIController {
             @ApiResponse(code = 404, message = "데이터 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<MBTIListGetRes> returnMbtiList(@RequestBody @ApiParam(value="MBTI 테스트 점수", required = true) MbtiCalPostReq mbtiCalPostReq){
+    public ResponseEntity<MBTIListGetRes> returnMbtiList(){
         List<MBTI> mbtiList = mbtiService.getMbtiList();
         if(mbtiList==null) return ResponseEntity.ok(MBTIListGetRes.of(404, "Fail", null));
 
