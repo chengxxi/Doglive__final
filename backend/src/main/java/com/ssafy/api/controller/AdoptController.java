@@ -5,11 +5,13 @@ import com.ssafy.api.request.AdoptFormReq;
 
 import com.ssafy.api.request.StatusUpdatePutReq;
 
+import com.ssafy.api.response.AdoptFormGetRes;
 import com.ssafy.api.response.CounselingHistoryGetRes;
 import com.ssafy.api.service.AdoptService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.auth.CounselingHistory;
 import io.swagger.annotations.*;
+import org.h2.util.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +45,20 @@ public class AdoptController {
     }
 
 
+//    @GetMapping("/{userId}/{boardId}")
+//    @ApiOperation(value = "입양신청서 읽기", notes = "제출된 입양 신청서를 read한다..")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 409, message = "이미 존재하는 유저"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public ResponseEntity<AdoptFormGetRes> readAdoptForm(@PathVariable("userId") String userId, @PathVariable("boardId") Long boardId){
+//        JSONObject
+//        return ResponseEntity.status(200).body(AdoptFormGetRes.of(200, "입양 신청서 읽기 성공"));
+//    }
+
     @PutMapping("/{id}")
     @ApiOperation(value = "신청서 현황 수정", notes = "신청서 현황을 수정한다.")
     @ApiResponses({
@@ -58,6 +74,8 @@ public class AdoptController {
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "입양 신청서 결과가 정상적으로 수정되었습니다."));
     }
+
+
 
     @GetMapping("/check/{userId}/{boardId}")
     @ApiOperation(value = "입양신청서 작성 여부 확인", notes = "해당 게시물에 대한 진행중인 입양신청 데이터가 있는지 확인한다.")

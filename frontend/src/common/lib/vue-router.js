@@ -106,32 +106,26 @@ const routes = [
   {
     path: "/adopt/form",
     name: "AdoptForm",
-    component: AdoptForm
+    component: AdoptForm,
+    meta: { requiresAuth: true }
   },
   {
     path: "/adopt/form/confirm",
     name: "AdoptFormConfirm",
-    component: AdoptFormConfirm
+    component: AdoptFormConfirm,
+    meta: { requiresAuth: true }
   },
   {
     path: "/adopt/form/review",
     name: "AdoptFormReview",
     component: AdoptFormReview
+    // meta: { requiresAuth: true }
   },
   {
     path: "/adopt/modify",
     name: "AdoptModify",
-    component: AdoptModify
-  },
-  {
-    path: "/adopt/form/confirm",
-    name: "AdoptFormConfirm",
-    component: AdoptFormConfirm
-  },
-  {
-    path: "/adopt/form/review",
-    name: "AdoptFormReview",
-    component: AdoptFormReview
+    component: AdoptModify,
+    meta: { requiresAuth: true }
   },
   {
     path: "/find",
@@ -146,12 +140,14 @@ const routes = [
   {
     path: "/find/register",
     name: "FindRegister",
-    component: FindRegister
+    component: FindRegister,
+    meta: { requiresAuth: true }
   },
   {
     path: "/find/modify",
     name: "FindModify",
-    component: FindModify
+    component: FindModify,
+    meta: { requiresAuth: true }
   },
   {
     path: "/community",
