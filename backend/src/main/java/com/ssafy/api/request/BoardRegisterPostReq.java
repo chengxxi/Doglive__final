@@ -22,7 +22,7 @@ public class BoardRegisterPostReq {
     String userId;
 
     @ApiModelProperty
-    Long boardType;
+    String boardType;
 
     @ApiModelProperty
     String dogName;
@@ -31,31 +31,28 @@ public class BoardRegisterPostReq {
     String title;
 
     @ApiModelProperty
-    MultipartFile thumbnailUrl;
-
-    @ApiModelProperty
     List<MultipartFile> fileList;
 
     @ApiModelProperty
-    Long colorType;
+    String colorType;
 
     @ApiModelProperty
     String description;
 
     @ApiModelProperty
-    Long gender;
+    String gender;
 
     @ApiModelProperty
-    Long dogType;
+    String dogType;
 
     @ApiModelProperty
-    Long age;
+    String age;
 
     @ApiModelProperty
     boolean neutralization;
 
     @ApiModelProperty
-    Long weight;
+    String weight;
 
     @ApiModelProperty
     String mbti;
@@ -64,7 +61,7 @@ public class BoardRegisterPostReq {
     String address;
 
     @ApiModelProperty
-    Long gugun;
+    String gugun;
 
     @Override
     public String toString() {
@@ -73,7 +70,6 @@ public class BoardRegisterPostReq {
                 ", boardType=" + boardType +
                 ", dogName='" + dogName + '\'' +
                 ", title='" + title + '\'' +
-                ", thumbnailUrl=" + thumbnailUrl +
                 ", fileList=" + fileList +
                 ", colorType=" + colorType +
                 ", description='" + description + '\'' +

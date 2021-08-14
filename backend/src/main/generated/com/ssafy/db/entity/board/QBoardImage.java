@@ -26,12 +26,12 @@ public class QBoardImage extends EntityPathBase<BoardImage> {
 
     public final QBoard boardId;
 
+    public final StringPath filename = createString("filename");
+
     //inherited
     public final NumberPath<Long> id = _super.id;
 
-    public final StringPath originFileName = createString("originFileName");
-
-    public final StringPath url = createString("url");
+    public final StringPath imgFullPath = createString("imgFullPath");
 
     public QBoardImage(String variable) {
         this(BoardImage.class, forVariable(variable), INITS);

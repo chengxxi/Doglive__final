@@ -27,7 +27,7 @@
         <span class="filter-wrapper">
           <el-row
             v-show="showFilter"
-            style="background:linear-gradient( to bottom,#f0ebe0, #f6ede9 ); margin-bottom:10px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
+            style="background:linear-gradient( to bottom,#f3e8dc, #f5edea ); margin-bottom:10px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
           >
             <el-col :span="20">
               <el-row style="height:50%; " class="select-wrapper" :gutter="20">

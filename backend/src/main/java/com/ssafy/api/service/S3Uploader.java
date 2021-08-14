@@ -30,8 +30,10 @@ import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
-@Component
+@Service
 public class S3Uploader {
+
+    public static final String CLOUD_FRONT_DOMAIN_NAME = "d2ud6j7vlf3xy9.cloudfront.net";
 
     private final AmazonS3Client amazonS3Client;
 
@@ -41,8 +43,12 @@ public class S3Uploader {
 
 
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
+        System.out.println(multipartFile);
+
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
+
+        System.out.println("upload1 "+ uploadFile);
 
         return upload(uploadFile, dirName);
     }
@@ -50,32 +56,52 @@ public class S3Uploader {
     private String upload(File uploadFile, String dirName) {
 
         SimpleDateFormat date = new SimpleDateFormat("yyyymmddHHmmss");
+        String orgName = uploadFile.getName();
+        if(orgName.length()>30) orgName = orgName.substring(0,30);
+        String fileName = dirName + "/" + date.format(new Date()) + "-" + orgName;
 
-        String fileName = dirName + "/" + uploadFile.getName() +"-" +date.format(new Date());
+        System.out.println("upload2 "+ fileName);
         String uploadImageUrl = putS3(uploadFile, fileName);
         removeNewFile(uploadFile);
-        return uploadImageUrl;
+        return fileName;
     }
 
-    public String upload(String currentFilePath, File uploadFile, String dirName) {
+    public String update(String currentFilePath, MultipartFile multipartFile, String dirName) throws IOException {
+        File uploadFile = convert(multipartFile)
+                .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
+
+        return update(currentFilePath, uploadFile, dirName);
+    }
+
+    private String update(String currentFilePath, File uploadFile, String dirName) {
 
         SimpleDateFormat date = new SimpleDateFormat("yyyymmddHHmmss");
+        String orgName = uploadFile.getName();
+        if(orgName.length()>30) orgName = orgName.substring(0,30);
+        String fileName = dirName + "/" + date.format(new Date()) + "-" + orgName;
 
-        String fileName = dirName + "/" + uploadFile.getName() +"-" +date.format(new Date());
+        // key가 존재하면 기존 파일은 삭제
+        if ("".equals(currentFilePath) == false && currentFilePath != null) {
+            boolean isExistObject = amazonS3Client.doesObjectExist(bucket, currentFilePath);
 
-//        // key가 존재하면 기존 파일은 삭제
-//        if ("".equals(currentFilePath) == false && currentFilePath != null) {
-//            boolean isExistObject = amazonS3Client.doesObjectExist(bucket, currentFilePath);
-//
-//            if (isExistObject == true) {
-//                amazonS3Client.deleteObject(bucket, currentFilePath);
-//            }
-//        }
-
+            if (isExistObject == true) {
+                amazonS3Client.deleteObject(bucket, currentFilePath);
+            }
+        }
 
         String uploadImageUrl = putS3(uploadFile, fileName);
         removeNewFile(uploadFile);
-        return uploadImageUrl;
+        return fileName;
+    }
+
+    public void delete(String currentFilePath){
+        if ("".equals(currentFilePath) == false && currentFilePath != null) {
+            boolean isExistObject = amazonS3Client.doesObjectExist(bucket, currentFilePath);
+
+            if (isExistObject == true) {
+                amazonS3Client.deleteObject(bucket, currentFilePath);
+            }
+        }
     }
 
     private String putS3(File uploadFile, String fileName) {

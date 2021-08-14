@@ -26,9 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@RequiredArgsConstructor
 @Service("boardService")
-@AllArgsConstructor
 public class BoardServiceImpl implements  BoardService{
 
 
@@ -74,11 +72,11 @@ public class BoardServiceImpl implements  BoardService{
     @Autowired
     DogTypeRepository dogTypeRepository;
 
+    @Autowired
+    S3Uploader s3Uploader;
 
-    private S3Uploader s3Uploader;
 
-
-    /* 입양임보실종보호 게시물 필터링 및 페이지네이션해서 가져오기 */
+    /* 입양임보 게시물 필터링 및 페이지네이션해서 가져오기 */
     @Override
     public Page<DogInformation> filterBoardList(Pageable pageable, Long boardType, Long weight, Long age, Long gender, String searchWord) {
 
@@ -112,6 +110,8 @@ public class BoardServiceImpl implements  BoardService{
 
     }
 
+
+    /* 실종보호 게시물 필터링 및 페이지네이션해서 가져오기 */
     @Override
     public Page<DogInformation> filterFindBoardList(Pageable pageable, Long boardType, Long sido, Long color, Long dogType, String searchWord) {
 
@@ -152,21 +152,22 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public Board registerBoard(BoardRegisterPostReq boardRegisterPostReq) throws IOException {
 
+        String thumbnailUrl = "";
 
-        System.out.println(boardRegisterPostReq.toString());
+        if(boardRegisterPostReq.getFileList()!=null){
+            //썸네일 저장
+            thumbnailUrl = s3Uploader.upload(boardRegisterPostReq.getFileList().get(0), "static");
+        }
 
 
-
-        //썸네일 저장
-        String thumbnailUrl = s3Uploader.upload(boardRegisterPostReq.getThumbnailUrl(), "static");
 
         Board board = Board.builder()
                 .title(boardRegisterPostReq.getTitle())
                 .userId(boardRegisterPostReq.getUserId())
-                .thumbnailUrl(thumbnailUrl)
+                .thumbnailUrl("https://"+S3Uploader.CLOUD_FRONT_DOMAIN_NAME+"/"+thumbnailUrl)
                 .build();
 
-        Optional<BoardCategory> boardCategory = boardCategoryRepository.findById(boardRegisterPostReq.getBoardType());
+        Optional<BoardCategory> boardCategory = boardCategoryRepository.findById(Long.parseLong(boardRegisterPostReq.getBoardType()));
         if(boardCategory.isPresent()){
             board.addBoardCategory(boardCategory.get());
         }
@@ -181,8 +182,8 @@ public class BoardServiceImpl implements  BoardService{
             String saveUrl = s3Uploader.upload(file, "static");
             BoardImage image = BoardImage
                     .builder()
-                    .url(saveUrl)
-                    .originFileName(file.getOriginalFilename())
+                    .filename(saveUrl)
+                    .imgFullPath("https://"+S3Uploader.CLOUD_FRONT_DOMAIN_NAME+"/"+saveUrl)
                     .build();
             image.addBoard(board);
             boardImageRepository.save(image);
@@ -201,27 +202,27 @@ public class BoardServiceImpl implements  BoardService{
             dogInformation.setDogName(boardRegisterPostReq.getDogName());                   //강아지 이름 저장
         }
 
-        dogInformation.setGugun(gugunRepository.findById(boardRegisterPostReq.getGugun()).get()); //구군 코드 저장
+        dogInformation.setGugun(gugunRepository.findById(Long.parseLong(boardRegisterPostReq.getGugun())).get()); //구군 코드 저장
 
 
-        Code gender = getCode(boardRegisterPostReq.getGender());
+        Code gender = getCode(Long.parseLong(boardRegisterPostReq.getGender()));
         if(gender!=null) dogInformation.setGender(gender);
 
-        Code colorType = getCode(boardRegisterPostReq.getColorType());
+        Code colorType = getCode(Long.parseLong(boardRegisterPostReq.getColorType()));
         if(colorType!=null) dogInformation.setColorType(colorType);
 
-        Optional<DogType> dogType = dogTypeRepository.findById(boardRegisterPostReq.getDogType());
+        Optional<DogType> dogType = dogTypeRepository.findById(Long.parseLong(boardRegisterPostReq.getDogType()));
         if(dogType.isPresent()) {
             if(dogType.get()!=null){
                 dogInformation.setDogType(dogType.get());
             }
         }
 
-        Code weight = getCode(boardRegisterPostReq.getWeight());
+        Code weight = getCode(Long.parseLong(boardRegisterPostReq.getWeight()));
         if(weight!=null) dogInformation.setWeight(weight);
 
 
-        Code age= getCode(boardRegisterPostReq.getAge());
+        Code age= getCode(Long.parseLong(boardRegisterPostReq.getAge()));
         if(age!=null) dogInformation.setAge(age);
 
 
@@ -242,8 +243,8 @@ public class BoardServiceImpl implements  BoardService{
 
             DogInformation tgtDogInformation = getDogInformationByBoard(tgtBoard); //dogInformation도 삭제
 
+            deleteAllBoardImagesByBoard(tgtBoard);
 
-            deleteAllBoardCommentsByBoard(tgtBoard);
             deleteAllBoardCommentsByBoard(tgtBoard);
             if(tgtDogInformation!=null) dogInformationRepository.delete(tgtDogInformation);
 
@@ -261,39 +262,44 @@ public class BoardServiceImpl implements  BoardService{
         Board board = getBoardByBoardId(boardId); //수정할 Board 찾기
         DogInformation dogInformation = getDogInformationByBoard(board); //수정할 dogInformation 찾기
 
-
         //boardImage 수정
         if(board!=null) {
             deleteAllBoardImagesByBoard(board);
+            deleteAllBoardCommentsByBoard(board);
         }
 
 
 
-        //board, DogInformation 수정
 
-        //썸네일 저장
-        String thumbnailUrl = s3Uploader.upload(boardRegisterPostReq.getThumbnailUrl(), "static");
+        //썸네일 및 이미지  저장
+        if(boardRegisterPostReq.getFileList()!=null){
+            String thumbnailUrl = s3Uploader.upload(boardRegisterPostReq.getFileList().get(0), "static");
 
-        board.setTitle(boardRegisterPostReq.getTitle());
-        board.setThumbnailUrl(thumbnailUrl);
+            board.setTitle(boardRegisterPostReq.getTitle());
+            board.setThumbnailUrl("https://"+S3Uploader.CLOUD_FRONT_DOMAIN_NAME+"/"+thumbnailUrl);
 
-        Optional<BoardCategory> boardCategory = boardCategoryRepository.findById(boardRegisterPostReq.getBoardType());
+
+            for(MultipartFile file : boardRegisterPostReq.getFileList()){
+                String saveUrl = s3Uploader.upload(file, "static");
+                BoardImage image = BoardImage
+                        .builder()
+                        .filename(saveUrl)
+                        .imgFullPath("https://"+S3Uploader.CLOUD_FRONT_DOMAIN_NAME+"/"+saveUrl)
+                        .build();
+                image.addBoard(board);
+                boardImageRepository.save(image);
+            }
+        }
+
+
+        Optional<BoardCategory> boardCategory = boardCategoryRepository.findById(Long.parseLong(boardRegisterPostReq.getBoardType()));
         if(boardCategory.isPresent()){
             board.setType(boardCategory.get());
         }
         boardRepository.save(board);
 
 
-        for(MultipartFile file : boardRegisterPostReq.getFileList()){
-            String saveUrl = s3Uploader.upload(file, "static");
-            BoardImage image = BoardImage
-                    .builder()
-                    .url(saveUrl)
-                    .originFileName(file.getOriginalFilename())
-                    .build();
-            image.addBoard(board);
-            boardImageRepository.save(image);
-        }
+
 
 
         dogInformation.setBoardId(board);
@@ -308,27 +314,27 @@ public class BoardServiceImpl implements  BoardService{
             dogInformation.setDogName(boardRegisterPostReq.getDogName());                   //강아지 이름 저장
         }
 
-        dogInformation.setGugun(gugunRepository.findById(boardRegisterPostReq.getGugun()).get()); //구군 코드 저장
+        dogInformation.setGugun(gugunRepository.findById(Long.parseLong(boardRegisterPostReq.getGugun())).get()); //구군 코드 저장
 
 
-        Code gender = getCode(boardRegisterPostReq.getGender());
+        Code gender = getCode(Long.parseLong(boardRegisterPostReq.getGender()));
         if(gender!=null) dogInformation.setGender(gender);
 
-        Code colorType = getCode(boardRegisterPostReq.getColorType());
+        Code colorType = getCode(Long.parseLong(boardRegisterPostReq.getColorType()));
         if(colorType!=null) dogInformation.setColorType(colorType);
 
-        Optional<DogType> dogType = dogTypeRepository.findById(boardRegisterPostReq.getDogType());
+        Optional<DogType> dogType = dogTypeRepository.findById(Long.parseLong(boardRegisterPostReq.getDogType()));
         if(dogType.isPresent()) {
             if(dogType.get()!=null){
                 dogInformation.setDogType(dogType.get());
             }
         }
 
-        Code weight = getCode(boardRegisterPostReq.getWeight());
+        Code weight = getCode(Long.parseLong(boardRegisterPostReq.getWeight()));
         if(weight!=null) dogInformation.setWeight(weight);
 
 
-        Code age= getCode(boardRegisterPostReq.getAge());
+        Code age= getCode(Long.parseLong(boardRegisterPostReq.getAge()));
         if(age!=null) dogInformation.setAge(age);
 
 
@@ -394,13 +400,16 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public void deleteAllBoardImagesByBoard(Board board) {
 
-        List<BoardComment> tgtBoardComment = getBoardCommentsByBoard(board);
+        List<BoardImage> tgtBoardImage = getBoardImagesByBoard(board);
 
+        if(tgtBoardImage!=null) {
 
-
-        if(tgtBoardComment!=null) {
-            for(BoardComment tgt : tgtBoardComment) boardCommentRepository.delete(tgt);
+            for(BoardImage tgt : tgtBoardImage) {
+                boardImageRepository.delete(tgt);
+                s3Uploader.delete(tgt.getFilename());
+            }
         }
+
 
     }
 
@@ -408,11 +417,12 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public void deleteAllBoardCommentsByBoard(Board board) {
 
-        List<BoardImage> tgtBoardImage = getBoardImagesByBoard(board);
+        List<BoardComment> tgtBoardComment = getBoardCommentsByBoard(board);
 
-        if(tgtBoardImage!=null) {
 
-            for(BoardImage tgt : tgtBoardImage) boardImageRepository.delete(tgt);
+
+        if(tgtBoardComment!=null) {
+            for(BoardComment tgt : tgtBoardComment) boardCommentRepository.delete(tgt);
         }
 
     }

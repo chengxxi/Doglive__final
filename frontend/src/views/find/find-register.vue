@@ -17,7 +17,7 @@
         >
           <h5
             class="pt-3 pb-3"
-            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
           >
             📑 기본정보를 입력해주세요
           </h5>
@@ -208,7 +208,7 @@
           <div class="mb-3" style="margin-top:100px;"></div>
           <div
             class="pt-3 pb-3"
-            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea);"
           >
             <span style="font-size: 1.25rem; font-weight:600">
               📷 사진을 업로드 해주세요

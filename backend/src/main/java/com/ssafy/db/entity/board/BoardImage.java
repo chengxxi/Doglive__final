@@ -23,15 +23,15 @@ public class BoardImage extends BaseEntity {
   @JoinColumn(name="board_id")
   private Board boardId;             // 공고 아이디
 
-  private String url;
+  private String filename;
 
-  @Column(name="origin_file_name")
-  private String originFileName;
+  @Column(name="img_full_path")
+  private String imgFullPath;
 
   @Builder
-  public BoardImage(String url, String originFileName){
-    this.url = url;
-    this.originFileName = originFileName;
+  public BoardImage(String filename, String imgFullPath){
+    this.filename = filename;
+    this.imgFullPath = imgFullPath;
   }
 
   public void addBoard(Board board){

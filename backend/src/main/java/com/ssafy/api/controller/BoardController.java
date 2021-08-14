@@ -18,13 +18,16 @@ import com.ssafy.db.entity.board.*;
 import com.ssafy.db.repository.board.BoardRepository;
 
 import io.swagger.annotations.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -95,7 +98,7 @@ public class BoardController {
     }
 
 
-    @PostMapping()
+    @PostMapping(consumes = {"multipart/form-data"})
     @ApiOperation(value = "게시판 공고 등록", notes = "게시판 공고를 등록한다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
@@ -103,7 +106,7 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<BoardRegisterRes> registerAdoptBoard(@RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq ) throws IOException {
+    public ResponseEntity<BoardRegisterRes> registerAdoptBoard(@ModelAttribute BoardRegisterPostReq boardRegisterPostReq) throws IOException {
         Board board = boardService.registerBoard(boardRegisterPostReq);
         System.out.println(board);
         return ResponseEntity.ok(BoardRegisterRes.of(200, "공고가 정상적으로 등록되었습니다", board.getId()));
@@ -124,7 +127,7 @@ public class BoardController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "공고가 정상적으로 삭제되었습니다"));
     }
 
-    @PutMapping("/{boardId}")
+    @PutMapping(value = "/{boardId}", consumes = {"multipart/form-data"})
     @ApiOperation(value = "게시판 공고 수정", notes = "게시판 공고를 수정한다")
     @ApiResponses({
             @ApiResponse(code = 204, message = "성공"),
@@ -132,8 +135,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> updateAdoptBoard(@PathVariable("boardId") String id, @RequestBody @ApiParam(value="공고 등록 정보", required = true)BoardRegisterPostReq boardRegisterPostReq) throws IOException {
-        Board board = boardService.updateBoard(Long.parseLong(id), boardRegisterPostReq);
+    public ResponseEntity<? extends BaseResponseBody> updateAdoptBoard(@PathVariable("boardId") Long boardId, @ModelAttribute BoardRegisterPostReq boardRegisterPostReq) throws IOException {
+
+        Board board = boardService.updateBoard(boardId, boardRegisterPostReq);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "공고가 정상적으로 수정되었습니다"));
     }
 
@@ -161,7 +165,7 @@ public class BoardController {
         List<String> fileList  = new ArrayList<>();
         if(boardImages!=null){
             for(BoardImage img : boardImages){
-                fileList.add(img.getUrl());
+                fileList.add(img.getImgFullPath());
             }
         }
 

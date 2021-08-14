@@ -18,10 +18,6 @@ import java.util.List;
 public class FileTestController {
     private final S3Uploader s3Uploader;
 
-    @GetMapping("/file") // 파일 업로드 테스트용 뷰
-    public String uploadView(){
-        return "upload";
-    }
 
     @PostMapping("/upload") //업로드 테스트 API
     public void upload(@RequestParam("data") List<MultipartFile> multipartFiles) throws IOException {
@@ -32,7 +28,7 @@ public class FileTestController {
     @PostMapping("/upload/update") //업로드 테스트 API
     public void upload(@RequestParam(
             "url") String currentUrl, @RequestParam("data") List<MultipartFile> multipartFiles) throws IOException {
-        String coverUrl = s3Uploader.upload(currentUrl, multipartFiles.get(0), "static");
+        String coverUrl = s3Uploader.update(currentUrl, multipartFiles.get(0), "static");
         System.out.println("cover"+coverUrl);
     }
 }

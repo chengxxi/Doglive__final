@@ -7,10 +7,7 @@
 
       <el-row class="vertical-center" :gutter="20">
         <el-col :span="12" style="margin-left:50px;">
-          <img
-            class="dog-thumbnail"
-            :src="require('@/assets/images/mbti_isfp.png')"
-          />
+          <img class="dog-thumbnail" :src="state.board.fileList[0]" />
         </el-col>
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
@@ -247,14 +244,24 @@
                       >공고 수정</el-button
                     ></el-col
                   >
-                  <el-col :span="12"
-                    ><el-button
-                      class="m-2"
-                      style="width:100%;   background : #C4C4C4;"
-                      @click="doDelete(state.board.boardId)"
-                      >공고 삭제</el-button
-                    ></el-col
-                  >
+                  <el-col :span="12">
+                    <el-popconfirm
+                      confirmButtonText="삭제"
+                      cancelButtonText="취소"
+                      icon="el-icon-warning"
+                      iconColor="iconColor"
+                      title="게시물을 정말 삭제하시겠습니까? "
+                      @confirm="doDelete(state.board.boardId)"
+                    >
+                      <template #reference>
+                        <el-button
+                          class="m-2"
+                          style="width:100%;   background : #C4C4C4;"
+                          >공고 삭제</el-button
+                        >
+                      </template>
+                    </el-popconfirm>
+                  </el-col>
                 </el-row>
               </div>
             </div>
@@ -276,13 +283,13 @@
 
       <div class="dog-image-box">
         <el-carousel :interval="4000" type="card" height="500px">
-          <el-carousel-item v-for="item in 6" :key="item">
+          <el-carousel-item v-for="img in state.board.fileList" :key="img">
             <img
               style="  width: 100%;
 	height: auto;
 
 "
-              :src="require('@/assets/images/mbti_infj.png')"
+              :src="img"
             />
           </el-carousel-item>
         </el-carousel>
@@ -377,9 +384,9 @@ export default {
         content: {
           title: state.board.title,
           description: state.board.description,
-          imageUrl: "@/assets/images/mbti_isfp.png",
+          imageUrl: state.board.fileList[0],
           link: {
-            mobileWebUrl: "http://i5a501.p.ssafy.io/",
+            mobileWebUrl: "https://i5a501.p.ssafy.io/",
             androidExecutionParams: "test"
           }
         },
@@ -387,7 +394,7 @@ export default {
           {
             title: "독립으로 이동",
             link: {
-              mobileWebUrl: "http://i5a501.p.ssafy.io/"
+              mobileWebUrl: "https://i5a501.p.ssafy.io/"
             }
           }
         ]
@@ -581,6 +588,12 @@ h3 {
   font-family: NEXONLv1Gothic;
   font-weight: 700;
   color: #f9f0e7;
+}
+
+:deep(.el-button--primary) {
+  color: #fff;
+  background-color: #755744;
+  background: #755744;
 }
 
 .dog-image-box {

@@ -49,6 +49,7 @@ public class Board extends BaseEntity{
     this.userId = userId;
     this.title = title;
     this.thumbnailUrl = thumbnailUrl;
+    this.regDate =LocalDateTime.now();
   }
 
 

@@ -89,7 +89,9 @@ export function requestRegisterBoard({ state }, payload) {
 export function requestModifyBoard({ state }, payload) {
   const url = "/board/" + payload.boardId;
   console.log(payload);
-  return $axios.put(url, payload.data);
+  return $axios.put(url, payload.data, {
+    header: "multipart/form-data"
+  });
 }
 
 //게시판 공고 삭제
