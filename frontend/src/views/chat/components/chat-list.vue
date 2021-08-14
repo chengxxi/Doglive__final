@@ -87,10 +87,10 @@ export default {
     })
 
     // 채팅방에 입장할 때, chatRoom 정보를 넘겨줌
-    const enterRoom = function(chatRoom){
+    const enterRoom = function(card){
       store.commit('root/setChatMenu', 1); // chat-detail.vue로 이동
-      store.commit('root/setChatRoomId', chatRoom.id);
-      store.commit('root/setChatTitle', chatRoom.name);
+      store.commit('root/setChatRoomId', card.chatRoom.id);
+      store.commit('root/setChatTitle', card.boardTitle)
     }
 
     // 현재 로그인한 유저의 userId 쿠키를 헤더에 포함하여 전송
@@ -114,7 +114,6 @@ export default {
     // 닫기 버튼 : 채팅 Open 여부 변경
     function changeOpen(){
       store.commit('root/setChatOpen', !chat.open)
-      store.commit('root/setChatTitle', card.boardTitle)
     }
 
     return { state, chat, enterRoom, changeOpen }

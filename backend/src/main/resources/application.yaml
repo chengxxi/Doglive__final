@@ -52,7 +52,7 @@ server:
       force: true
 http-server:
   http:
-    port: 8080
+    port: 8081
 
 spa:
   default-file: /dist/index.html
