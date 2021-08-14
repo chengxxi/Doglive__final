@@ -1,81 +1,87 @@
 <template>
   <div>
-    <div style="text-align:left;">
-        <el-button type="outline-primary" round @click="goRegister"
-        >글 작성하기</el-button>
-        
-      </div>
+    <div style="text-align:right;">
+        <el-button class="regist-button" type="outline-primary" round @click="goRegister">글 작성하기</el-button>
+    </div>
 
         <!-- <div class="chat-body"
         @scroll="scroll"
         v-loading="communities.loading"
         :ref="el => { if(el) divs = el}"
     > -->
-   
+
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
-       <div>
-      <div class="button-group" v-if="item.userId==state.userId">
-          <el-button-group>
-            <el-button type="info" plain icon="el-icon-edit" size="mini" @click="updateCommunity(item.id)"></el-button>
-            <el-button type="info" plain icon="el-icon-delete" size="mini" @click="deleteCommunity(item.id)"></el-button>
-          </el-button-group>
-      </div>
+      <div>
+
       <div class="title" v-if="item.userId!=state.userId">
-        {{item.title}}
+        <div class="user">
+          <img class="user-profile" :src="item.profileImageUrl" />
+          <span>{{item.name}}</span>
+        </div>
+        <!-- 자신의 글만 수정, 삭제 가능 -->
+        <!-- <div class="button-group" v-if="item.userId==state.userId"> -->
+        <span class="button-group">
+        <el-button-group>
+          <el-button type="info" plain icon="el-icon-edit" size="mini" @click="updateCommunity(item.id)"></el-button>
+          <el-button type="info" plain icon="el-icon-delete" size="mini" @click="deleteCommunity(item.id)"></el-button>
+        </el-button-group>
+      </span>
       </div>
-      <div class="image">
-        <img :src="require('@/assets/images/mbti_isfp.png')" />
+      <div class="body">
+        <el-carousel class="image-carousel" indicator-position="none" trigger="click" autoplay="true" interval="10000">
+          <el-carousel-item v-for="(item, index) in images" :key="index">
+            <img class="image" :src="item"/>
+          </el-carousel-item>
+        </el-carousel>
+        <div class="tag">
+          <el-tag
+                v-if="item.category == '입양일기'"
+                color="#D7AFA4"
+                effect="dark"
+                style="border:none; border-radius: 30px; font-size:14px;"
+                >{{ item.category }}</el-tag
+              >
+              <el-tag
+                v-if="item.category == '임보일기'"
+                color="#E9CDA4"
+                effect="dark"
+                style="border:none; border-radius: 30px; font-size:14px;"
+                >{{ item.category }}</el-tag
+              >
+              <el-tag
+                v-if="item.category == '자유게시판'"
+                color="#87CEDC"
+                effect="dark"
+                style="border:none; border-radius: 30px; font-size:14px;"
+                >{{ item.category }}</el-tag
+              >
+              <el-tag
+                v-if="item.category == '나눔'"
+                color="#B4D9A7"
+                effect="dark"
+                style="border:none; border-radius: 30px; font-size:14px;"
+                >{{ item.category }}</el-tag
+              >
+        </div>
+        <div class="content">
+          <span style="font-weight: 600; font-size: 16px;">
+            <!-- <font-awesome-icon
+              icon="heart"
+              aria-hidden="true"
+              style="color: rgb(237, 0, 109); font-size: 3vmin; cursor: pointer; margin-top: 10px;"
+              class="scale-up-5"
+            >
+          </font-awesome-icon> -->
+          {{item.title}}</span>
+          <div class="boardcontent">{{item.description}}</div>
+        </div>
       </div>
-      <div class="tag">
-        <el-tag
-              v-if="item.category == '입양일기'"
-           
-              color="#D7AFA4"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:2.3vmin;"
-              >{{ item.category }}</el-tag
-            >
-            <el-tag
-              v-if="item.category == '임보일기'"
-            
-              color="#E9CDA4"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:2.3vmin;"
-              >{{ item.category }}</el-tag
-            >
-            <el-tag
-              v-if="item.category == '자유게시판'"
-             
-              color="#A06565"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:2.3vmin;"
-              >{{ item.category }}</el-tag
-            >
-            <el-tag
-              v-if="item.category == '나눔'"
-             
-              color="#C9FD30"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:2.3vmin;"
-              >{{ item.category }}</el-tag
-            >
-      </div>
-      <div class="content">
-        <span style="font-weight: bold; font-size: 2.3vmin;">
-          <!-- <font-awesome-icon
-            icon="heart"
-            aria-hidden="true"
-            style="color: rgb(237, 0, 109); font-size: 3vmin; cursor: pointer; margin-top: 10px;"
-            class="scale-up-5"
-          >
-        </font-awesome-icon> -->
-        {{item.name}}</span>
-        <span class="boardcontent">{{item.description}}</span>
-      </div>
+      <div class="comment">
+         <img class="icon" :src="require('@/assets/images/icon.png')" />
+        <el-input placeholder="댓글을 입력해주세요" v-model="comment.input" class="comment-input">
+        </el-input>
+        <el-button class="comment-button" icon="el-icon-s-promotion"></el-button>
+        <!--
         <div style="margin-left: 5%; margin-right: 5%;">
           <div style="margin-bottom: 5%;">
             <el-input placeholder="댓글을 입력해주세요" v-model="input3" class="input-with-select">
@@ -84,71 +90,125 @@
               </template>
             </el-input>
           </div>
-        </div>
+        </div> -->
+      </div>
       </div>
     </el-row>
-
   </div>
 </template>
 
 <style scoped>
+.regist-button{
+  border: solid 1px lightgray !important;
+}
+.regist-button:hover{
+  background-color: #F9F0E7 !important;;
+  border: solid 1px #F9F0E7 !important;
+}
 .board{
+  max-width: 600px;
+  max-width: 850px;
+  min-width: 300px;
+  min-height: 550px;
+  width: 50%;
+  height: 100%;
   border:1px solid lightgray;
+  border-radius: 5px;
   margin-right:25%;
   margin-left: 25%;
-  margin-bottom: 5%;
-  margin-top:2%;
+  margin-bottom: 4%;
+  margin-top:4%;
 }
 .title{
-  font-size: 2vmin;
-  text-align:right;
-  margin-top:1%;
-  margin-right:1%;
-  color: lightgray;
+  display: table;
+  width: 100%;
+  min-height: 60px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: solid 1px rgb(240, 240, 240);
+  padding: 10px;
+}
+.user{
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+}
+.user-profile{
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  margin-left: 8px;
+  margin-right: 10px;
 }
 .button-group{
-  text-align:right;
+  position: absolute;
+  right: 0;
   margin-top:1%;
-  margin-right:1%;
+  margin-right: 3%;
 }
-.image{
+.image-carousel{
+  width: inherit; /*정방향 크기 */
   margin-top: 2%;
   text-align: center;
+  margin: auto 0;
 }
-.image img {
-  width: 70%;
+.image{
+  width: 100%;
 }
-.el-tag{
-  margin-bottom: 2%;
-}
-
 .title >span{
   display: inline-block;
   margin-bottom : 2%;
 }
 .boardcontent{
-  font-size: 2vmin;
-  margin-left:2%;
+  font-size: 14px;
 }
 .content{
+  min-height: 50px;
   margin: 2% 5% 5% 5%;
-  vertical-align: middle; 
+  vertical-align: middle;
   text-align: left;
 }
-
-.content >p{
-  font-size: 2.4vmin;
-  vertical-align: middle; 
-  margin-bottom: 0px;
-}
 .tag{
-  margin-left:5%;
+  margin-left: 4.5%;
 }
-.tag >.el-tag{
-  margin-bottom: 0%;
+.icon{
+  width: 30px;
+  height: 30px;
+  color: #755744;
 }
-
-
+.comment{
+  padding: 10px;
+  border-top: solid 1px rgb(240, 240, 240);
+}
+.comment-input{
+  width: 80%;
+}
+.comment-button{
+  position: absolute;
+  right: 10px;
+  color: #755744;
+}
+:deep(.el-tag){
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+}
+:deep(.el-input__inner){
+  border: none;
+}
+:deep(.el-button){
+  border: none;
+  background-color: white;
+}
+:deep(.el-button:hover){
+  color: black;
+  background-color: white;
+}
+:deep(.el-carousel__container){
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 정방향 */
+}
 
 </style>
 
@@ -157,7 +217,7 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { ref, onBeforeMount, onMounted, reactive,computed } from "vue";
 import { createToast } from "mosha-vue-toastify";
-import "mosha-vue-toastify/dist/style.css"; 
+import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "community-board-list",
@@ -165,11 +225,18 @@ export default {
     createToast,
   },
 
+
   setup() {
     const store = new useStore();
     const router = new useRouter();
 
     const divs = ref(null); // 요기
+
+    // 이미지 배열
+    const images = [require('@/assets/images/mbti_infj.png'),
+                    require('@/assets/images/mbti_isfp.png'),
+                    require('@/assets/images/icon.png'),
+    ]
 
     const state = reactive({
       boardList:[],
@@ -185,6 +252,11 @@ export default {
       isLoading : computed(()=> communities.loading),
       page: 0,
       noMore: false,
+    })
+
+    // 댓글 입력 값을 받아올 객체
+    const comment = reactive({
+      input: '',
     })
 
     // 다음 커뮤니티 목록 가져오기
@@ -206,7 +278,7 @@ export default {
               }).catch(function(err){
                 console.log(err)
             });
-          } 
+          }
           // 다 받아왔으면
           // if(size < 10)
           //   communities.noMore = true
@@ -226,7 +298,7 @@ export default {
       }
       console.log("scrollTo", divs.value.scrollTop);
     }
- 
+
 
 
     // store.dispatch('root/requestCommunityBoardList')
@@ -253,7 +325,7 @@ export default {
       }).catch(function(err) {
           console.log(err);
         });
-      
+
     }
 
     const deleteCommunity = function(id){
@@ -301,7 +373,7 @@ export default {
       }
     }
 
-    
+
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
@@ -311,9 +383,9 @@ export default {
       fetchCommunityList()
     });
 
-   
 
-    return { state, deleteCommunity, goRegister, updateCommunity, communities,fetchCommunityList,scroll };
+
+    return { state, deleteCommunity, goRegister, updateCommunity, communities,fetchCommunityList,scroll, images, comment };
   }
 }
 </script>

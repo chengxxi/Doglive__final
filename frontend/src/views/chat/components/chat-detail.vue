@@ -50,7 +50,7 @@
   overflow-y: auto;
 }
 .chat-body::-webkit-scrollbar{
-  /* display: none; */
+  display: none;
 }
 .chat-input {
   position: absolute;
@@ -121,16 +121,20 @@
 import svg from '@/assets/svgs/loading.js'
 import ChatMessage from './chat-message.vue'
 import { useStore } from 'vuex'
-import { ref, reactive, computed, onUpdated } from 'vue'
+import { ref, reactive, computed, onUpdated, onMounted } from 'vue'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
-
+import _ from 'lodash'
 
 export default {
   name: 'chat-detail',
 
   components: {
     ChatMessage,
+  },
+
+  props: {
+    boardTitle: ''
   },
 
   setup () {
@@ -166,7 +170,7 @@ export default {
 
     // 이전 채팅방 로그 가져오기
     function fetchMessageLogs(){
-       store.dispatch('root/requestChatMessageList', {roomId: roomId, page: chat.page, withCredentials: true})
+      store.dispatch('root/requestChatMessageList', {roomId: roomId, page: chat.page, withCredentials: true})
         .then(function(result){
           var size = result.data.messageList.length;
           for(var i = 0; i < size; i++)
@@ -176,8 +180,6 @@ export default {
             chat.noMore = true
           chat.loading = false
           state.chatList = [...state.recvList].reverse()
-
-          chat.prev = divs.value.scrollHeight
         })
         .catch(function(err){
         })
@@ -212,8 +214,8 @@ export default {
 
     // 웹 소켓 통신 Connect
     function connect(){
-      const url = "http://localhost:8080/api/v1/chat-server"
-      // const url = "http://i5a501.p.ssafy.io/api/v1/chat-server" // 배포용
+      //const url = "https://i5a501.p.ssafy.io/api/v1/chat-server" // 배포용
+      const url = "https://localhost:8081/api/v1/chat-server"
       socket = new SockJS(url, { transports: ['websocket', 'xhr-streaming', 'xhr-polling']})
       client = Stomp.over(socket)
       client.connect({withCredentials : true, userId : userId }
@@ -243,27 +245,34 @@ export default {
       el.value.scrollTop = 99999
     }
 
-    function scroll(state){ // 요기
-      console.log(divs)
-      if(divs.value.scrollTop == 0  && !chat.noMore){
-        chat.now = divs.value.scrollHeight
-        console.log(divs.value.scrollHeight)
-        chat.page += 1
+    async function scroll(state){ // 요기
+      const scrollTop = divs.value.scrollTop;
+      const scrollHeight = divs.value.scrollHeight;
+      const clientHeight = divs.value.clientHeight;
 
-        fetchMessageLogs()
-        divs.value.scrollTop = chat.now+30
+      if(scrollTop  == 0  && !chat.noMore){
+        console.log('불러와1')
+        console.log(divs)
+
+        chat.page += 1
+        chat.prev = divs.value.scrollHeight
+        await fetchMessageLogs()
+
         console.log(divs.value.scrollTop)
         console.log("prev", chat.prev)
         console.log("now", chat.now)
+        divs.value.scrollTop += 1800;
       }
       console.log("scrollTo", divs.value.scrollTop);
     }
 
     onUpdated(()=> {
       if(chat.init){ // 처음 화면을 불러올 때만 스크롤을 맨 아래로 배치
+        console.log(divs)
         chat.init = false;
         scrollToBottom(divs)
       }
+      chat.now = divs.value.scrollHeight
     })
 
     connect()

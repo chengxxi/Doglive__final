@@ -29,12 +29,13 @@ import static com.ssafy.db.entity.community.QCommunity.community;
                         @ColumnResult(name="title", type = String.class),
                         @ColumnResult(name="user_id", type = String.class),
                         @ColumnResult(name="name", type = String.class),
+                        @ColumnResult(name="profile_image_url", type = String.class),
                         @ColumnResult(name="category", type = String.class),
                 })
 )
 @NamedNativeQuery(
         name="CommunityAndUser",
-        query="select c.id, c.description, c.title, c.user_id, u.name, c.category from community.community c inner join auth.user_profile u where c.user_id = u.user_id",
+        query="select c.id, c.description, c.title, c.user_id, u.name, u.profile_image_url, c.category from community.community c inner join auth.user_profile u where c.user_id = u.user_id",
         resultSetMapping="CommunityAndUserMapping")
 @Getter
 @Setter
