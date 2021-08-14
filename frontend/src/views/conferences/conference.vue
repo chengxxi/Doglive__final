@@ -147,7 +147,6 @@ user-video {
 .chatlog {
   width: 100%;
   height: calc(100% - 140px);
-  background-color: aqua;
   padding: 9px;
   overflow: auto;
 }
