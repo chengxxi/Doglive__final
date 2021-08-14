@@ -74,13 +74,13 @@
               class="chatContent"
             />
           </div>
-          <el-divider>🐶</el-divider>
-          <textarea
-            class='chatinput'
-            v-model='chatString'
-            @keyup.enter='sendMessage'
-          />
-        </div>
+            <el-divider>🐶</el-divider>
+            <textarea
+              class='chatinput'
+              v-model='chatString'
+              @keyup.enter='sendMessage'
+            />
+          </div>
       </el-col>
     </el-row>
     </el-main>
@@ -147,7 +147,7 @@ user-video {
 .chatlog {
   width: 100%;
   height: calc(100% - 140px);
-  background-color: white;
+  background-color: aqua;
   padding: 9px;
   overflow: auto;
 }
@@ -254,7 +254,7 @@ export default {
         this.chatArray.push(JSON.parse(event.data))
         console.log(this.chatArray)
         var chatlogScroll = document.getElementById('chatlog');
-        chatlogScroll.scrollTop = chatlogScroll.scrollHeight;
+        chatlogScroll.scrollTop = chatlogScroll.scrollHeight + chatlogScroll.clientHeight;
       })
 
       this.session.on('streamCreated', ({ stream }) => {
