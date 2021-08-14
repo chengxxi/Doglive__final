@@ -10,7 +10,7 @@
       v-for="(card, idx) in state.roomList"
       :key="idx"
       :card="card"
-      @click="enterRoom(card.chatRoom)"
+      @click="enterRoom(card)"
     />
   </div>
   <div class="chat-footer"/>
@@ -87,10 +87,10 @@ export default {
     })
 
     // 채팅방에 입장할 때, chatRoom 정보를 넘겨줌
-    const enterRoom = function(chatRoom){
+    const enterRoom = function(card){
       store.commit('root/setChatMenu', 1); // chat-detail.vue로 이동
-      store.commit('root/setChatRoomId', chatRoom.id);
-      store.commit('root/setChatTitle', chatRoom.name);
+      store.commit('root/setChatRoomId', card.chatRoom.id);
+      store.commit('root/setChatTitle', card.boardTitle)
     }
 
     // 현재 로그인한 유저의 userId 쿠키를 헤더에 포함하여 전송
@@ -100,9 +100,10 @@ export default {
       for(var i = 0; i < chatRoomList.length; i++){
         state.roomList.push({
           chatRoom : chatRoomList[i].chatRoom,
+          boardTitle: chatRoomList[i].counselingHistory.boardTitle,
           user1 : chatRoomList[i].userNameList[0],
           user2 : chatRoomList[i].userNameList[1],
-          unRead : chatRoomList[i].unReadCount
+          unRead : chatRoomList[i].unReadCount,
         })
       }
     })

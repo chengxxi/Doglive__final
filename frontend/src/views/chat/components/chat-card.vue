@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <div class="room-title">
-      {{ card.chatRoom.name }}
+      {{ card.boardTitle }}
     </div>
     <div class="room-user">
       <i class="el-icon-user-solid"></i>
