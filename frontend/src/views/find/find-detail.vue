@@ -1,152 +1,152 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " shadow="hover">
+    <div style="width:100%; ">
       <bread-crumb></bread-crumb>
-      <div style="margin-top:40px; margin-left:60px;"></div>
+      <el-card class="box-card " shadow="none" style="border:none;">
+        <div style="margin-top:80px; margin-left:60px;"></div>
 
-      <el-row class="vertical-center" :gutter="20" style="margin-top:10px;">
-        <el-col :span="12" style="margin-left:50px;">
-          <img
-            class="dog-thumbnail"
-            :src="require('@/assets/images/mbti_isfp.png')"
-          />
-        </el-col>
-        <el-col :span="12">
-          <div class="dog-info-box" style="margin-right:50px;">
-            <el-tag
-              v-if="state.board.boardType.id == 3"
-              class="mb-3"
-              color="#B4D9A7"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:14pt;"
-              >{{ state.board.boardType.name }}</el-tag
-            >
-            <el-tag
-              v-if="state.board.boardType.id != 3"
-              class="mb-3"
-              color="#87CEDC"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:14pt;"
-              >{{ state.board.boardType.name }}</el-tag
-            >
-            <div class="vertical-center row">
-              <div class="col-md-9">
-                <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
-                  state.board.dogType.name
-                }}</span>
-              </div>
-              <div class="col-md-3 ms-auto">
-                <div
-                  class="align-self-center vertical-center"
-                  style="text-align: center;"
-                >
-                  <font-awesome-icon
-                    :icon="[state.board.isbookmarked ? 'fas' : 'far', 'star']"
-                    @click="clickBookmark()"
-                    aria-hidden="true"
-                    style="color: rgb(255, 226, 95); font-size: 40px; cursor: pointer;"
+        <el-row class="vertical-center" :gutter="20" style="margin-top:10px;">
+          <el-col :span="12" style="margin-left:50px;">
+            <img class="dog-thumbnail" :src="state.board.fileList[0]" />
+          </el-col>
+          <el-col :span="12">
+            <div class="dog-info-box" style="margin-right:50px;">
+              <el-tag
+                v-if="state.board.boardType.id == 3"
+                class="mb-3"
+                color="#B4D9A7"
+                effect="dark"
+                size="large"
+                style="border:none; border-radius: 30px; font-size:14pt;"
+                >{{ state.board.boardType.name }}</el-tag
+              >
+              <el-tag
+                v-if="state.board.boardType.id != 3"
+                class="mb-3"
+                color="#87CEDC"
+                effect="dark"
+                size="large"
+                style="border:none; border-radius: 30px; font-size:14pt;"
+                >{{ state.board.boardType.name }}</el-tag
+              >
+              <div class="vertical-center row">
+                <div class="col-md-9">
+                  <span
+                    :style="{ 'font-size': '30pt', 'font-weight': '700' }"
+                    >{{ state.board.dogType.name }}</span
                   >
-                  </font-awesome-icon>
+                </div>
+                <div class="col-md-3 ms-auto">
+                  <div
+                    class="align-self-center vertical-center"
+                    style="text-align: center;"
+                  >
+                    <font-awesome-icon
+                      :icon="[state.board.isbookmarked ? 'fas' : 'far', 'star']"
+                      @click="clickBookmark()"
+                      aria-hidden="true"
+                      style="color: rgb(255, 226, 95); font-size: 40px; cursor: pointer;"
+                    >
+                    </font-awesome-icon>
 
-                  <img
-                    @click="kakaoShare"
-                    style="margin-left:15px; cursor: pointer;"
-                    src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
-                    width="40"
-                  />
+                    <img
+                      @click="kakaoShare"
+                      style="margin-left:15px; cursor: pointer;"
+                      src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
+                      width="40"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <el-divider class="mt-4 mb-4" />
+
+              <el-descriptions class="margin-top mt-3" :column="1" :size="size">
+                <el-descriptions-item label="성별"
+                  >{{ state.board.gender.name }}
+                </el-descriptions-item>
+                <el-descriptions-item label="연령">{{
+                  state.board.ageType.name
+                }}</el-descriptions-item>
+                <el-descriptions-item label="크기">{{
+                  state.board.weight.name
+                }}</el-descriptions-item>
+                <el-descriptions-item label="컬러">{{
+                  state.board.colorType.name
+                }}</el-descriptions-item>
+                <el-descriptions-item label="품종">{{
+                  state.board.dogType.name
+                }}</el-descriptions-item>
+                <el-descriptions-item label="실종/보호주소"
+                  >{{ state.board.sido.name }} {{ state.board.gugun.name }}
+                </el-descriptions-item>
+                <el-descriptions-item label="상세주소">{{
+                  state.board.address
+                }}</el-descriptions-item>
+              </el-descriptions>
+
+              <el-divider class="mb-3" />
+
+              <div>
+                <div v-if="!state.board.isOwner">
+                  <el-button
+                    style="width:100%; background : #755744;"
+                    @click="goChat(state.board.boardId)"
+                    >채팅 보내기</el-button
+                  >
+                </div>
+                <div v-if="state.board.isOwner">
+                  <el-row>
+                    <el-col :span="12"
+                      ><el-button
+                        class="m-2"
+                        style="width:100%;   background : #755744;"
+                        @click="goModify(state.board.boardId)"
+                        >공고 수정</el-button
+                      ></el-col
+                    >
+                    <el-col :span="12"
+                      ><el-button
+                        class="m-2"
+                        style="width:100%;   background : #C4C4C4;"
+                        @click="doDelete(state.board.boardId)"
+                        >공고 삭제</el-button
+                      ></el-col
+                    >
+                  </el-row>
                 </div>
               </div>
             </div>
-
-            <el-divider class="mt-4 mb-4" />
-
-            <el-descriptions class="margin-top mt-3" :column="1" :size="size">
-              <el-descriptions-item label="성별"
-                >{{ state.board.gender.name }}
-              </el-descriptions-item>
-              <el-descriptions-item label="연령">{{
-                state.board.ageType.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="크기">{{
-                state.board.weight.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="컬러">{{
-                state.board.colorType.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="품종">{{
-                state.board.dogType.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="실종/보호주소"
-                >{{ state.board.sido.name }} {{ state.board.gugun.name }}
-              </el-descriptions-item>
-              <el-descriptions-item label="상세주소">{{
-                state.board.address
-              }}</el-descriptions-item>
-            </el-descriptions>
-
-            <el-divider class="mb-3" />
-
-            <div>
-              <div v-if="!state.board.isOwner">
-                <el-button
-                  style="width:100%; background : #755744;"
-                  @click="goChat(state.board.boardId)"
-                  >채팅 보내기</el-button
-                >
-              </div>
-              <div v-if="state.board.isOwner">
-                <el-row>
-                  <el-col :span="12"
-                    ><el-button
-                      class="m-2"
-                      style="width:100%;   background : #755744;"
-                      @click="goModify(state.board.boardId)"
-                      >공고 수정</el-button
-                    ></el-col
-                  >
-                  <el-col :span="12"
-                    ><el-button
-                      class="m-2"
-                      style="width:100%;   background : #C4C4C4;"
-                      @click="doDelete(state.board.boardId)"
-                      >공고 삭제</el-button
-                    ></el-col
-                  >
-                </el-row>
-              </div>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-      <div class="box">
-        <h4
-          class="mb-2
+          </el-col>
+        </el-row>
+        <div class="box">
+          <h4
+            class="mb-2
         "
-        >
-          <b>{{ state.board.title }}</b>
-        </h4>
-        <div style="margin-top:20px; white-space:pre;">
-          {{ state.board.description }}
+          >
+            <b>{{ state.board.title }}</b>
+          </h4>
+          <div style="margin-top:20px; white-space:pre;">
+            {{ state.board.description }}
+          </div>
         </div>
-      </div>
-      <el-divider />
+        <el-divider />
 
-      <div class="dog-image-box">
-        <el-carousel :interval="4000" type="card" height="500px">
-          <el-carousel-item v-for="item in 6" :key="item">
-            <img
-              style="  width: 100%;
+        <div class="dog-image-box">
+          <el-carousel :interval="4000" type="card" height="500px">
+            <el-carousel-item v-for="img in state.board.fileList" :key="img">
+              <img
+                style="  width: 100%;
 	height: auto;
 
 "
-              :src="require('@/assets/images/mbti_infj.png')"
-            />
-          </el-carousel-item>
-        </el-carousel>
-      </div>
-    </el-card>
+                :src="img"
+              />
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+      </el-card>
+    </div>
   </div>
 </template>
 
@@ -176,7 +176,7 @@ h3 {
 
 .dog-thumbnail {
   width: 90%;
-  height: auto;
+  max-height: 500px;
   margin-right: 20px;
   margin: 10px;
 }

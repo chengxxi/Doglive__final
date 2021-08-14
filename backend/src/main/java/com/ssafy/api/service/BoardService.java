@@ -47,6 +47,8 @@ public interface BoardService {
     /* Board로 BoardImage 전부 지우기 */
     void deleteAllBoardImagesByBoard(Board board);
 
+    void deleteSomeBoardImagesByUrl(List<String> delList);
+
     /* Board로 BoardComment 전부 지우기 */
     void deleteAllBoardCommentsByBoard(Board board);
 

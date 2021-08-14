@@ -34,6 +34,9 @@ public class BoardRegisterPostReq {
     List<MultipartFile> fileList;
 
     @ApiModelProperty
+    List<String> delList;
+
+    @ApiModelProperty
     String colorType;
 
     @ApiModelProperty

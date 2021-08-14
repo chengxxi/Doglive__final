@@ -552,7 +552,17 @@ export default {
 
   methods: {
     submitForm(formName) {
-      if (this.state.sendFile.length >= 2) {
+      if (this.state.sendFile.length > 5) {
+        createToast("사진은 5장까지만 업로드 가능해요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      } else if (this.state.sendFile.length >= 2) {
         const mbti =
           [this.ruleForm.energy == "에너지있는" ? "E" : "I"] +
           [this.ruleForm.obedience == "충성심 강한" ? "S" : "N"] +
@@ -618,13 +628,6 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
     }
   },
 

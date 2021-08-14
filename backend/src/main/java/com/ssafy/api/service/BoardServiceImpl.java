@@ -258,14 +258,14 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public Board updateBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq) throws IOException {
 
+        System.out.println(boardRegisterPostReq.toString());
 
         Board board = getBoardByBoardId(boardId); //수정할 Board 찾기
         DogInformation dogInformation = getDogInformationByBoard(board); //수정할 dogInformation 찾기
 
         //boardImage 수정
-        if(board!=null) {
-            deleteAllBoardImagesByBoard(board);
-            deleteAllBoardCommentsByBoard(board);
+        if(boardRegisterPostReq.getDelList()!=null) {
+            deleteSomeBoardImagesByUrl(boardRegisterPostReq.getDelList());
         }
 
 
@@ -409,6 +409,24 @@ public class BoardServiceImpl implements  BoardService{
                 s3Uploader.delete(tgt.getFilename());
             }
         }
+
+
+    }
+    
+    /* 파일 수정 시 삭제해야 되는 사진들 */
+    @Override
+    public void deleteSomeBoardImagesByUrl(List<String> delList) {
+        if(delList!=null){
+            for(String url : delList){
+                Optional<List<BoardImage>> delImgList = boardImageRepository.findBoardImagesByImgFullPath(url);
+                if(delImgList.isPresent()){
+                    for(BoardImage img : delImgList.get()){
+                        s3Uploader.delete(img.getFilename());
+                    }
+                }
+            }
+        }
+
 
 
     }

@@ -66,34 +66,6 @@ public class S3Uploader {
         return fileName;
     }
 
-    public String update(String currentFilePath, MultipartFile multipartFile, String dirName) throws IOException {
-        File uploadFile = convert(multipartFile)
-                .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
-
-        return update(currentFilePath, uploadFile, dirName);
-    }
-
-    private String update(String currentFilePath, File uploadFile, String dirName) {
-
-        SimpleDateFormat date = new SimpleDateFormat("yyyymmddHHmmss");
-        String orgName = uploadFile.getName();
-        if(orgName.length()>30) orgName = orgName.substring(0,30);
-        String fileName = dirName + "/" + date.format(new Date()) + "-" + orgName;
-
-        // key가 존재하면 기존 파일은 삭제
-        if ("".equals(currentFilePath) == false && currentFilePath != null) {
-            boolean isExistObject = amazonS3Client.doesObjectExist(bucket, currentFilePath);
-
-            if (isExistObject == true) {
-                amazonS3Client.deleteObject(bucket, currentFilePath);
-            }
-        }
-
-        String uploadImageUrl = putS3(uploadFile, fileName);
-        removeNewFile(uploadFile);
-        return fileName;
-    }
-
     public void delete(String currentFilePath){
         if ("".equals(currentFilePath) == false && currentFilePath != null) {
             boolean isExistObject = amazonS3Client.doesObjectExist(bucket, currentFilePath);

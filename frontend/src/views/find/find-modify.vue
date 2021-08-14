@@ -35,11 +35,11 @@
               <el-form-item label="공고 타입" prop="type" label-width="40%">
                 <el-select
                   style="width:60%;"
-                  v-model="ruleForm.type"
+                  v-model="state.board.boardType.id"
                   placeholder="분류"
                 >
-                  <el-option label="실종" value="3"></el-option>
-                  <el-option label="보호" value="4"></el-option>
+                  <el-option label="실종" :value="3"></el-option>
+                  <el-option label="보호" :value="4"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -53,15 +53,15 @@
                   <el-form-item label="컬러" prop="color" label-width="100%">
                     <el-select
                       style="width:90%;"
-                      v-model="ruleForm.color"
+                      v-model="state.board.colorType"
                       placeholder="컬러"
                     >
-                      <el-option label="White" value="12"></el-option>
-                      <el-option label="Beige" value="13"></el-option>
-                      <el-option label="Gray" value="14"></el-option>
-                      <el-option label="Brown" value="15"></el-option>
-                      <el-option label="Black" value="16"></el-option>
-                      <el-option label="기타" value="17"></el-option>
+                      <el-option label="White" :value="12"></el-option>
+                      <el-option label="Beige" :value="13"></el-option>
+                      <el-option label="Gray" :value="14"></el-option>
+                      <el-option label="Brown" :value="15"></el-option>
+                      <el-option label="Black" :value="16"></el-option>
+                      <el-option label="기타" :value="17"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -69,17 +69,20 @@
                   <el-form-item label="연령대" prop="age">
                     <el-select
                       style="width:90%;"
-                      v-model="ruleForm.age"
+                      v-model="state.board.ageType.id"
                       placeholder="연령대"
                     >
-                      <el-option label="Puppy(~ 6개월)" value="4"></el-option>
+                      <el-option label="Puppy(~ 6개월)" :value="4"></el-option>
                       <el-option
                         label="Junior(7개월 ~ 2살)"
                         value="5"
                       ></el-option>
-                      <el-option label="Adult(3살 ~ 8살)" value="6"></el-option>
-                      <el-option label="Senior(9살 ~)" value="7"></el-option>
-                      <el-option label="기타" value="17"></el-option>
+                      <el-option
+                        label="Adult(3살 ~ 8살)"
+                        :value="6"
+                      ></el-option>
+                      <el-option label="Senior(9살 ~)" :value="7"></el-option>
+                      <el-option label="기타" :value="17"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -91,23 +94,23 @@
                   <el-form-item label="크기" prop="size">
                     <el-select
                       style="width:90%;"
-                      v-model="ruleForm.size"
+                      v-model="state.board.weight.id"
                       placeholder="크기"
                     >
-                      <el-option label="소(8kg 미만)" value="1"></el-option>
+                      <el-option label="소(8kg 미만)" :value="1"></el-option>
                       <el-option
                         label="중(8kg-18kg 미만)"
-                        value="2"
+                        :value="2"
                       ></el-option>
-                      <el-option label="대(18kg 이상)" value="3"></el-option>
-                      <el-option label="기타" value="17"></el-option>
+                      <el-option label="대(18kg 이상)" :value="3"></el-option>
+                      <el-option label="기타" :value="17"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
                   <el-form-item label-width="100%" label="품종" prop="dogType">
                     <el-select
-                      v-model="ruleForm.dogType"
+                      v-model="ruleForm.dogType.id"
                       placeholder="품종"
                       style="width:90%;"
                     >
@@ -217,51 +220,54 @@
           </div>
 
           <el-row class="mt-4">
-            <el-upload
-              action="#"
-              list-type="picture-card"
-              :auto-upload="false"
-              limit="5"
-              on-exceed=""
-            >
-              <template #default>
-                <i class="el-icon-plus"></i>
-              </template>
-              <template #file="{file}">
-                <div>
-                  <img
-                    class="el-upload-list__item-thumbnail"
-                    :src="file.url"
-                    alt=""
-                  />
-                  <span class="el-upload-list__item-actions">
-                    <span
-                      class="el-upload-list__item-preview"
-                      @click="handlePictureCardPreview(file)"
+            <div class="mb-3" id="imgFileUploadInsertWrapper">
+              <div id="imgFileUploadInsertThumbnail" class="thumbnail-wrapper">
+                <el-image
+                  style="width: 200px; height:200px; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%); cursor:pointer; position:relative; margin-right:20px; border-radius:20px; float:left;"
+                  v-for="(file, index) in state.board.fileList"
+                  v-bind:src="file"
+                  v-bind:key="index"
+                  @click="deleteOriginFile(index)"
+                  :fit="fit"
+                  :hover="state.hover"
+                ></el-image>
+                <el-image
+                  style="width: 200px; height:200px; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%); cursor:pointer; position:relative; margin-right:20px; border-radius:20px; float:left;"
+                  v-for="(file, index) in state.thumbnailList"
+                  v-bind:src="file"
+                  v-bind:key="index"
+                  @click="deleteNewFile(index)"
+                  :fit="fit"
+                  :hover="state.hover"
+                ></el-image>
+
+                <input
+                  @change="changeFile"
+                  type="file"
+                  id="inputFileUploadInsert"
+                  style="display:none"
+                  multiple
+                />
+                <div style="float:left;">
+                  <label for="inputFileUploadInsert" style="cursor:pointer;">
+                    <div
+                      style="background:linear-gradient( to top, #f3ede7, #f5e9e4 );
+                      text-align:center;
+display:table-cell;
+vertical-align:middle; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%);
+                      width:200px; height:200px; border-radius:20px;
+                    "
                     >
-                      <i class="el-icon-zoom-in"></i>
-                    </span>
-                    <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleDownload(file)"
-                    >
-                      <i class="el-icon-download"></i>
-                    </span>
-                    <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleRemove(file)"
-                    >
-                      <i class="el-icon-delete"></i>
-                    </span>
-                  </span>
+                      <i
+                        class="el-icon-plus "
+                        style="margin-left : 10px;
+                    font-size:40px; color:#D8D8D8;"
+                      />
+                    </div>
+                  </label>
                 </div>
-              </template>
-            </el-upload>
-            <el-dialog v-model="dialogVisible">
-              <img width="100%" :src="dialogImageUrl" alt="" />
-            </el-dialog>
+              </div>
+            </div>
           </el-row>
           <el-row
             class="mt-5"
@@ -406,52 +412,51 @@ export default {
 
   methods: {
     submitForm(formName) {
-      const data = {
-        thumbnailUrl: "",
-        filePath: [],
-        dogName: this.ruleForm.name,
-        boardType: Number(this.ruleForm.type),
-        userId: this.state.userId.userId,
-
-        title: this.ruleForm.title,
-        description: this.ruleForm.desc,
-        colorType: Number(this.ruleForm.color),
-        dogType: this.ruleForm.dogType,
-        gender:
-          this.ruleForm.gender == "여"
-            ? 8
-            : this.ruleForm.gender == "남"
-            ? 9
-            : 17,
-        age: Number(this.ruleForm.age),
-        address: this.ruleForm.address,
-        weight: Number(this.ruleForm.size),
-        gugun: this.ruleForm.gugun
-      };
-      console.log(data);
-
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.modifyData(data);
-          console.log(this.ruleForm);
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+      if (this.state.board.fileList.length + this.state.newAddFile.length > 5) {
+        createToast("사진은 5장까지만 업로드 가능해요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      } else if (
+        this.state.board.fileList.length + this.state.newAddFile.length >=
+        2
+      ) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.modifyData();
+            console.log(this.ruleForm);
+          } else {
+            createToast("작성하지 않은 항목이 있어요 💬💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            });
+            return false;
+          }
+        });
+      } else {
+        createToast("사진은 두 장 이상 업로드해주세요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
-    handleRemove(file) {
-      console.log(file);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
-    handleDownload(file) {
-      console.log(file);
     }
   },
 
@@ -465,7 +470,9 @@ export default {
         console.log(store.getters["root/getBoardDetail"]);
         return store.getters["root/getBoardDetail"];
       }),
-
+      deleteList: [],
+      newAddFile: [],
+      thumbnailList: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"];
       }),
@@ -473,11 +480,41 @@ export default {
       gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }]
     });
 
-    const modifyData = function(data) {
+    const modifyData = function() {
+      const formData = new FormData();
+      formData.append("userId", state.userId.userId);
+      formData.append("boardType", state.board.boardType.id);
+      formData.append("title", state.board.title);
+      formData.append("description", state.board.description);
+      formData.append("colorType", state.board.colorType.id);
+      formData.append("age", state.board.ageType.id);
+      formData.append("address", state.board.address);
+      formData.append("dogType", state.board.dogType.id);
+      formData.append(
+        "gender",
+        state.board.gender.name == "여"
+          ? 8
+          : state.board.gender.name == "남"
+          ? 9
+          : 17
+      );
+
+      formData.append("weight", state.board.weight.id);
+      formData.append("gugun", state.board.gugun.id);
+
+      const cnt = this.state.deleteList.length;
+      for (var i = 0; i < cnt; i++) {
+        formData.append("delList", this.deleteList[i]);
+      }
+
+      for (var j = 0; j < this.state.newAddFile.length; j++) {
+        formData.append("fileList", this.state.newAddFile[j]);
+      }
+
       store
         .dispatch("root/requestModifyBoard", {
           boardId: state.board.boardId,
-          data: data
+          data: formData
         })
         .then(function(result) {
           store
@@ -577,6 +614,29 @@ export default {
         });
     };
 
+    //파일 업로드 시 호출
+    const changeFile = function(fileEvent) {
+      if (fileEvent.target.files && fileEvent.target.files.length > 0) {
+        for (var i = 0; i < fileEvent.target.files.length; i++) {
+          const file = fileEvent.target.files[i];
+          state.thumbnailList.push(URL.createObjectURL(file));
+          state.newAddFile.push(file);
+        }
+      }
+    };
+
+    //원래 있던 사진 삭제하고 삭제한 사진 리스트 저장
+    const deleteOriginFile = function(index) {
+      state.deleteList.push(state.board.fileList[index]);
+      state.board.fileList.splice(index, 1);
+    };
+
+    //새로 넣은 사진 지우기
+    const deleteNewFile = function(index) {
+      state.thumbnailList.splice(index, 1);
+      state.newAddFile.splice(index, 1);
+    };
+
     onMounted(() => {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
@@ -589,7 +649,15 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state, modifyData, gugunList, readDogTypeList };
+    return {
+      state,
+      modifyData,
+      changeFile,
+      deleteOriginFile,
+      deleteNewFile,
+      gugunList,
+      readDogTypeList
+    };
   }
 };
 </script>
