@@ -406,7 +406,11 @@ export default {
     const clickBookmark = function() {
       const isBookmarked = store.getters["root/getIsbookmarked"];
 
-      if (state.userId === null) {
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
         createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -488,7 +492,11 @@ export default {
     };
 
     const goChat = function(id) {
-      if (state.userId === null) {
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
         createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
           hideProgressBar: "true",
           timeout: 4500,

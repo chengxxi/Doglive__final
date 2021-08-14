@@ -7,8 +7,6 @@
         style="width:100%; height:auto;  border:none;"
         shadow="none"
       >
-        <bread-crumb></bread-crumb>
-
         <div style="margin-left:30px; margin:right:30px;">
           <el-form
             style=" margin:100px;"

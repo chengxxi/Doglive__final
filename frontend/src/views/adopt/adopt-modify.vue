@@ -609,6 +609,7 @@ export default {
     submitForm(formName) {
       console.log("!!!!!!!!!!!!!!");
       if (this.state.board.fileList.length + this.state.newAddFile.length > 5) {
+        console.log("1");
         createToast("사진은 5장까지만 업로드 가능해요 💬💦", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -622,6 +623,7 @@ export default {
         this.state.board.fileList.length + this.state.newAddFile.length >=
         2
       ) {
+        console.log("2");
         const mbti =
           [this.ruleForm.energy == "에너지있는" ? "E" : "I"] +
           [this.ruleForm.obedience == "충성심 강한" ? "S" : "N"] +
@@ -630,6 +632,7 @@ export default {
 
         this.$refs[formName].validate(valid => {
           if (valid) {
+            console.log("3");
             this.modifyData(mbti);
             console.log(this.ruleForm);
           } else {
@@ -682,6 +685,7 @@ export default {
     });
 
     const modifyData = function(mbti) {
+      console.log("4");
       const formData = new FormData();
       formData.append("userId", state.userId.userId);
       formData.append("boardType", state.board.boardType.id);
