@@ -1,28 +1,26 @@
 // setter
 
-
-export function setIsbookmarked(state, isbookmarked){
+export function setIsbookmarked(state, isbookmarked) {
   state.board.isbookmarked = isbookmarked;
 }
 
-export function setLoginUserInfo (state, loginUserInfo) {
+export function setLoginUserInfo(state, loginUserInfo) {
   state.loginUserInfo.userId = loginUserInfo;
-
 }
 
-export function setCurrentPath (state, currentPath) {
-  state.currentPath = currentPath
+export function setCurrentPath(state, currentPath) {
+  state.currentPath = currentPath;
 }
 
-export function setCurrentPathParam (state, currentPathParam) {
-  state.currentPathParam = currentPathParam
+export function setCurrentPathParam(state, currentPathParam) {
+  state.currentPathParam = currentPathParam;
 }
 
-export function setBreadcrumbInfo(state, breadCrumbInfo){
+export function setBreadcrumbInfo(state, breadCrumbInfo) {
   state.breadCrumbInfo = breadCrumbInfo;
 }
 
-export function setBoardDetail(state, payload){
+export function setBoardDetail(state, payload) {
   state.board.boardId = payload.boardId;
   state.board.boardType = payload.boardType;
   state.board.title = payload.title;
@@ -30,7 +28,7 @@ export function setBoardDetail(state, payload){
   state.board.mbti = payload.mbti;
   state.board.colorType = payload.colorType;
   state.board.gender = payload.gender;
-  state.board.hairType = payload.hairType;
+  state.board.dogType = payload.dogType;
   state.board.neutralization = payload.neutralization;
   state.board.writer = payload.writer;
   state.board.weight = payload.weight;
@@ -41,11 +39,25 @@ export function setBoardDetail(state, payload){
   state.board.isOwner = payload.isOwner;
   state.board.thumbnailUrl = payload.thumbnailUrl;
   state.board.dogName = payload.dogName;
+  state.board.isbookmarked = payload.isBookmarked;
+  state.board.sido = payload.sido;
+  state.board.gugun = payload.gugun;
 }
-export function setProfile(state, payload){
+export function setProfile(state, payload) {
   state.userProfile.imgURL = payload.imgURL;
   state.userProfile.name = payload.name;
   state.userProfile.email = payload.email;
   state.userProfile.birth = payload.birth;
-  state.userProfile.phone = payload.phone;
+  state.userProfile.phoneNumber = payload.phoneNumber;
+}
+
+export function setBoardId(state, payload) {
+  state.board.boardId = payload;
+}
+
+export function setCommunityBoard(state, payload) {
+  state.community.communityId = payload.communityId;
+  state.community.title = payload.title;
+  state.community.category = payload.category;
+  state.community.description = payload.description;
 }

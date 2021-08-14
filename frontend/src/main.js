@@ -1,17 +1,13 @@
-
 // 기본 플러그인 Import
-import { createApp, h } from 'vue'
-import store from './common/lib/store'
-import ElementPlus from './common/lib/element-plus'
-import App from './App.vue'
-import VueAxios from './common/lib/axios'
-import axios from './common/lib/axios'
-import i18n from './common/lib/i18n'
-import router from './common/lib/vue-router'
-
-
-import { WebRTC } from 'vue-webrtc'
-
+import { createApp, h } from "vue";
+import store from "./common/lib/store";
+import ElementPlus from "./common/lib/element-plus";
+import App from "./App.vue";
+import VueAxios from "./common/lib/axios";
+import axios from "./common/lib/axios";
+import i18n from "./common/lib/i18n";
+import router from "./common/lib/vue-router";
+import { WebRTC } from "vue-webrtc";
 
 // Element UI Components [시작]
 import {
@@ -85,6 +81,7 @@ import {
   ElSubmenu,
   ElSwitch,
   ElTabPane,
+  ElEmpty,
   ElTable,
   ElTableColumn,
   ElTabs,
@@ -101,8 +98,8 @@ import {
   ElLoading,
   ElMessage,
   ElMessageBox,
-  ElNotification,
-} from 'element-plus';
+  ElNotification
+} from "element-plus";
 
 const components = [
   ElAlert,
@@ -177,6 +174,7 @@ const components = [
   ElTabPane,
   ElTable,
   ElTableColumn,
+  ElEmpty,
   ElTabs,
   ElTag,
   ElTimePicker,
@@ -186,11 +184,11 @@ const components = [
   ElTooltip,
   ElTransfer,
   ElTree,
-  ElUpload,
-]
+  ElUpload
+];
 
 //fort-awesome
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faSearch,
   faStar as fasStar,
@@ -211,6 +209,8 @@ import {
   faUserEdit,
   faEraser,
   faAngleLeft,
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
   faPaperclip,
   faKey,
   faImage,
@@ -219,10 +219,14 @@ import {
   faInfoCircle,
   faSignInAlt,
   faUserPlus,
-
-} from '@fortawesome/free-solid-svg-icons';
-import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  faComments,
+  faFile,
+  faCheck,
+  faCheckCircle,
+  faHeart
+} from "@fortawesome/free-solid-svg-icons";
+import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(
   faSearch,
@@ -245,6 +249,8 @@ library.add(
   faUserEdit,
   faEraser,
   faAngleLeft,
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
   faPaperclip,
   faKey,
   faImage,
@@ -253,6 +259,11 @@ library.add(
   faInfoCircle,
   faSignInAlt,
   faUserPlus,
+  faComments,
+  faFile,
+  faCheck,
+  faCheckCircle,
+  faHeart
 );
 
 const plugins = [
@@ -260,31 +271,29 @@ const plugins = [
   ElLoading,
   ElMessage,
   ElMessageBox,
-  ElNotification,
-]
+  ElNotification
+];
 // Element UI Components [끝]
 
 const app = createApp({
-  render: ()=>h(App)
-})
-app.use(ElementPlus)
-app.use(VueAxios, axios)
-app.use(store)
-app.use(i18n)
-app.use(router)
-app.use(WebRTC)
-app.component('font-awesome-icon', FontAwesomeIcon);
-
+  render: () => h(App)
+});
+app.use(ElementPlus);
+app.use(VueAxios, axios);
+app.use(store);
+app.use(i18n);
+app.use(router);
+app.use(WebRTC);
+app.component("font-awesome-icon", FontAwesomeIcon);
 
 components.forEach(component => {
-  app.component(component.name, component)
-})
+  app.component(component.name, component);
+});
 
 plugins.forEach(plugin => {
-  app.use(plugin)
-})
+  app.use(plugin);
+});
 
 /* Kakao javascript Key 설정 */
 
-
-app.mount('#app')
+app.mount("#app");

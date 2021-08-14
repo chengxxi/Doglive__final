@@ -2,7 +2,9 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.db.entity.auth.*;
+import com.ssafy.db.entity.board.Board;
 import com.ssafy.db.repository.auth.*;
+import com.ssafy.db.repository.board.BoardImageRepository;
 import com.ssafy.db.repository.board.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,6 +52,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     BoardRepository boardRepository;
 
+    @Autowired
+    BoardImageRepository boardImageRepository;
 
 
     @Override
@@ -95,7 +99,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getUserById(String id) {
         // 디비에 유저 정보 조회 (userId 를 통한 조회).
-        Optional<User> user = userRepositorySupport.findUserById(id);
+        Optional<User> user = userRepository.findUserById(id);
 
         if(user.isPresent()) return user.get();
         return null;
@@ -138,18 +142,21 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq) {
-        User user = userRepositorySupport.findUserById(id).get();
-        System.out.println(user + " " + userUpdatePutReq);
+        User user = userRepository.findById(id).get();
+        System.out.println(user + " " + userUpdatePutReq.getBirth() + " " + userUpdatePutReq.getEmail() + " " +  userUpdatePutReq.getPhoneNumber() + " " + userUpdatePutReq.getName());
 
         Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
         userProfile.get().setName(userUpdatePutReq.getName());
+        userProfile.get().setEmail(userUpdatePutReq.getEmail());
+        userProfile.get().setPhoneNumber(userUpdatePutReq.getPhoneNumber());
+        userProfile.get().setBirth(userUpdatePutReq.getBirth());
         userProfileRepository.save(userProfile.get());
         return userProfile.get();
     }
 
     @Override
     public UserProfile getUserProfile(String id) {
-        Optional<User> user = userRepositorySupport.findUserById(id);
+        Optional<User> user = userRepository.findById(id);
         if(user.isPresent()) {
             Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
             if(userProfile.isPresent()){
@@ -168,11 +175,23 @@ public class UserServiceImpl implements UserService{
             if(userProfile.isPresent()) {
                 Optional<UserToken> userToken = userTokenRepository.findByUserId(user);
                 Optional<List<Bookmark>> bookmarkList = bookmarkRepository.findBookmarksByUserId(userProfile.get());
+                Optional<List<Board>> boardList = boardRepository.findBoardsByUserId(id);
+                Optional<List<CounselingHistory>> counselingHistoryList = counselingHistoryRepository.findCounselingHistoriesByWriter(id);
+                Optional<List<CounselingHistory>> applicantList = counselingHistoryRepository.findCounselingHistoriesByApplicantId(userProfile.get());
                 if(bookmarkList.isPresent()){
-//                    for (Bookmark bookmark:
-//                         ) {
-//
-//                    }
+                    bookmarkRepository.deleteBookmarksByUserId(userProfile.get());
+                }
+                if(boardList.isPresent()){
+                    for (Board board:boardList.get()) {
+                        boardImageRepository.deleteBoardImagesByBoardId(board);
+                    }
+                    boardRepository.deleteBoardsByUserId(id);
+                }
+                if(counselingHistoryList.isPresent()){
+                    counselingHistoryRepository.deleteCounselingHistoriesByWriter(id);
+                }
+                if(applicantList.isPresent()){
+                    counselingHistoryRepository.deleteCounselingHistoriesByApplicantId(userProfile.get());
                 }
                 if(userToken.isPresent()){
                     userTokenRepository.delete(userToken.get());

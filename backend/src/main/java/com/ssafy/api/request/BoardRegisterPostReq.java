@@ -6,8 +6,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+
+/**
+ * Board 등록 시 요청 Req
+ */
 
 @Getter
 @Setter
@@ -17,7 +22,7 @@ public class BoardRegisterPostReq {
     String userId;
 
     @ApiModelProperty
-    Long boardType;
+    String boardType;
 
     @ApiModelProperty
     String dogName;
@@ -26,31 +31,31 @@ public class BoardRegisterPostReq {
     String title;
 
     @ApiModelProperty
-    String thumbnailUrl;
+    List<MultipartFile> fileList;
 
     @ApiModelProperty
-    List<String> filePath;
+    List<String> delList;
 
     @ApiModelProperty
-    Long colorType;
+    String colorType;
 
     @ApiModelProperty
     String description;
 
     @ApiModelProperty
-    Long gender;
+    String gender;
 
     @ApiModelProperty
-    Long hairType;
+    String dogType;
 
     @ApiModelProperty
-    Long age;
+    String age;
 
     @ApiModelProperty
     boolean neutralization;
 
     @ApiModelProperty
-    Long weight;
+    String weight;
 
     @ApiModelProperty
     String mbti;
@@ -58,4 +63,27 @@ public class BoardRegisterPostReq {
     @ApiModelProperty
     String address;
 
+    @ApiModelProperty
+    String gugun;
+
+    @Override
+    public String toString() {
+        return "BoardRegisterPostReq{" +
+                "userId='" + userId + '\'' +
+                ", boardType=" + boardType +
+                ", dogName='" + dogName + '\'' +
+                ", title='" + title + '\'' +
+                ", fileList=" + fileList +
+                ", colorType=" + colorType +
+                ", description='" + description + '\'' +
+                ", gender=" + gender +
+                ", dogType=" + dogType +
+                ", age=" + age +
+                ", neutralization=" + neutralization +
+                ", weight=" + weight +
+                ", mbti='" + mbti + '\'' +
+                ", address='" + address + '\'' +
+                ", gugun='" + gugun + '\'' +
+                '}';
+    }
 }

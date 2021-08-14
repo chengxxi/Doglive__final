@@ -26,9 +26,13 @@ public class QCounselingHistory extends EntityPathBase<CounselingHistory> {
 
     public final NumberPath<Long> boardId = createNumber("boardId", Long.class);
 
-    public final NumberPath<Long> boardType = createNumber("boardType", Long.class);
+    public final StringPath boardTitle = createString("boardTitle");
+
+    public final StringPath boardType = createString("boardType");
 
     public final StringPath content = createString("content");
+
+    public final StringPath dogName = createString("dogName");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

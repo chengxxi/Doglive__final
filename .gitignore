@@ -16,6 +16,9 @@ dist/
 # Log files
 *.log
 
+#aws
+application-aws.yml
+
 # Package files
 *.jar
 

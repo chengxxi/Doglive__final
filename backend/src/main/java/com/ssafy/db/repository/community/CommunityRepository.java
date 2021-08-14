@@ -10,9 +10,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CommunityRepository extends JpaRepository<Community, Long> {
+
+    Optional<List<Community>> findCommunitiesByUserId(String id);
+
+    Optional<Community> findCommunityById(Long id);
 
 }
 
