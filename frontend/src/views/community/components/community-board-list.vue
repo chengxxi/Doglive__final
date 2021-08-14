@@ -6,14 +6,14 @@
         
       </div>
 
-        <div class="chat-body"
+        <!-- <div class="chat-body"
         @scroll="scroll"
         v-loading="communities.loading"
         :ref="el => { if(el) divs = el}"
-    >
-    
+    > -->
+   
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
-      
+       <div>
       <div class="button-group" v-if="item.userId==state.userId">
           <el-button-group>
             <el-button type="info" plain icon="el-icon-edit" size="mini" @click="updateCommunity(item.id)"></el-button>
@@ -76,9 +76,18 @@
         {{item.name}}</span>
         <span class="boardcontent">{{item.description}}</span>
       </div>
+        <div style="margin-left: 2%; margin-right: 2%;">
+          <div style="margin-bottom: 2%;">
+            <el-input placeholder="Please input" v-model="input3" class="input-with-select">
+              <template #append>
+                <el-button icon="el-icon-s-promotion"></el-button>
+              </template>
+            </el-input>
+          </div>
+        </div>
+      </div>
     </el-row>
 
-  </div>
   </div>
 </template>
 

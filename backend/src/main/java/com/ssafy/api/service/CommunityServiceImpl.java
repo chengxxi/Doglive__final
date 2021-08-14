@@ -154,4 +154,12 @@ public class CommunityServiceImpl implements  CommunityService{
 
         communityCommentRepository.save(communityComment);
     }
+
+    @Override
+    public List<CommunityComment> commentList(Long id) {
+        Community community = communityRepository.findCommunityById(id).get();
+        List<CommunityComment> communityCommentList = communityCommentRepository.findCommunityCommentsByCommunityIdOrderByIdDesc(community).get();
+
+        return communityCommentList;
+    }
 }

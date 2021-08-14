@@ -40,6 +40,8 @@ public interface CommunityService {
     CommunityComment addComment(CommentPostReq commentPostReq);
 
     /* 댓글 삭제 */
-    public void deleteComment(Long id);
+    void deleteComment(Long id);
+
+    List<CommunityComment> commentList(Long id);
 
 }

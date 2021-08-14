@@ -35,6 +35,8 @@ public class QCommunityComment extends EntityPathBase<CommunityComment> {
 
     public final StringPath name = createString("name");
 
+    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+
     public final StringPath userId = createString("userId");
 
     public QCommunityComment(String variable) {
