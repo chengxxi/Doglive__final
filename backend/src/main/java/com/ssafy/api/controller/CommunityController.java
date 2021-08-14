@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.CommentPostReq;
 import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.CommunityRegisterPostReq;
 import com.ssafy.api.response.BoardListGetRes;
@@ -8,6 +9,7 @@ import com.ssafy.api.response.CommunityListGetRes;
 import com.ssafy.api.service.CommunityService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.community.Community;
+import com.ssafy.db.entity.community.CommunityComment;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -109,6 +111,33 @@ public class CommunityController {
     public ResponseEntity<CommunityBoardGetRes> findCommunityById(@PathVariable("communityId") Long id){
         Community community = communityService.getCommunityById(id);
         return ResponseEntity.ok(CommunityBoardGetRes.of(200, "Success", community));
+    }
+
+    @PostMapping("/comment")
+    @ApiOperation(value = "커뮤니티 댓글 등록", notes = "커뮤니티 댓글을 등록한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> registerCommunityComment(@RequestBody @ApiParam(value="커뮤니티 댓글 정보", required = true) CommentPostReq commentPostReq){
+        CommunityComment communityComment = communityService.addComment(commentPostReq);
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "댓글이 정상적으로 등록되었습니다"));
+    }
+
+    @DeleteMapping("/comment/{id}")
+    @ApiOperation(value = "커뮤니티 게시글 삭제", notes = "커뮤니티의 게시글을 삭제한다")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> deleteCommunityComment(@PathVariable("id") Long id){
+        communityService.deleteComment(id);
+        return ResponseEntity.status(204).body(BaseResponseBody.of(204, "댓글이 정상적으로 삭제되었습니다"));
     }
 
 }

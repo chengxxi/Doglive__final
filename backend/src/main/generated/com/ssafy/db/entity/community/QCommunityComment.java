@@ -31,9 +31,11 @@ public class QCommunityComment extends EntityPathBase<CommunityComment> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
+    public final BooleanPath isDelete = createBoolean("isDelete");
+
     public final TimePath<java.util.Date> regDate = createTime("regDate", java.util.Date.class);
 
-    public final StringPath userId = createString("userId");
+    public final com.ssafy.db.entity.auth.QUserProfile user;
 
     public QCommunityComment(String variable) {
         this(CommunityComment.class, forVariable(variable), INITS);
@@ -54,6 +56,7 @@ public class QCommunityComment extends EntityPathBase<CommunityComment> {
     public QCommunityComment(Class<? extends CommunityComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.communityId = inits.isInitialized("communityId") ? new QCommunity(forProperty("communityId")) : null;
+        this.user = inits.isInitialized("user") ? new com.ssafy.db.entity.auth.QUserProfile(forProperty("user"), inits.get("user")) : null;
     }
 
 }

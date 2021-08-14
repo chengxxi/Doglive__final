@@ -1,10 +1,14 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.CommentPostReq;
 import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.CommunityRegisterPostReq;
+import com.ssafy.db.entity.auth.User;
+import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.community.Community;
 import com.ssafy.db.entity.community.CommunityComment;
 import com.ssafy.db.entity.community.CommunityImage;
+import com.ssafy.db.repository.auth.UserProfileRepository;
 import com.ssafy.db.repository.auth.UserRepository;
 import com.ssafy.db.repository.community.CommunityCommentRepository;
 import com.ssafy.db.repository.community.CommunityImageRepository;
@@ -12,12 +16,12 @@ import com.ssafy.db.repository.community.CommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @Service("communityService")
 public class CommunityServiceImpl implements  CommunityService{
@@ -33,6 +37,9 @@ public class CommunityServiceImpl implements  CommunityService{
 
     @Autowired
     CommunityCommentRepository communityCommentRepository;
+
+    @Autowired
+    UserProfileRepository userProfileRepository;
 
     /* 커뮤니티 글 작성하기 */
     @Override
@@ -122,5 +129,32 @@ public class CommunityServiceImpl implements  CommunityService{
         System.out.println("Total Count : " + communityList.getTotalElements());
         System.out.println("Next : " + communityList.nextPageable());
         return communityList.getContent();
+    }
+
+    /* 댓글 달기 */
+    @Override
+    public CommunityComment addComment(CommentPostReq commentPostReq) {
+        CommunityComment comment = new CommunityComment();
+        Community community = communityRepository.findCommunityById(commentPostReq.getCommunityId()).get();
+        User user = userRepository.findUserById(commentPostReq.getUserId()).get();
+        UserProfile userProfile = userProfileRepository.findByUserId(user).get();
+
+        comment.setCommunityId(community);
+        comment.setUser(userProfile);
+        comment.setComment(commentPostReq.getComment());
+        comment.setIsDelete(true);
+
+        communityCommentRepository.save(comment);
+
+        return comment;
+    }
+
+    @Override
+    public void deleteComment(Long id) {
+        CommunityComment communityComment = communityCommentRepository.findById(id).get();
+        communityComment.setIsDelete(false);
+
+        communityCommentRepository.save(communityComment);
+
     }
 }
