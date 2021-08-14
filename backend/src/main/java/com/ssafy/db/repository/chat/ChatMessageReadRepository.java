@@ -34,4 +34,6 @@ public interface ChatMessageReadRepository extends JpaRepository<ChatMessageRead
     )
     void updateIsRead(@Param("roomId") ChatRoom roomId, @Param("userId") String userId);
 
+    @Transactional
+    void deleteChatMessageReadByRoomId(ChatRoom roomId);
 }

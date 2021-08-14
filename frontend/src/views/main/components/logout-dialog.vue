@@ -49,6 +49,9 @@ export default {
 
         store.commit("root/setBoardDetail", boardDetail);
         store.commit("root/setChatOpen", false);
+        store.commit("root/setChatTitle", "");
+        store.commit("root/setChatRoomId", "");
+        store.commit("root/setChatMenu", 0);
 
         createToast(
           {

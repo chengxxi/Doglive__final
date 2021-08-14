@@ -173,4 +173,12 @@ public class ChatServiceImpl implements ChatService{
         return 0;
     }
 
+    @Override
+    public void deleteChatRoom(ChatRoom roomId) {
+        chatMessageReadRepository.deleteChatMessageReadByRoomId(roomId);
+        chatMessageRepository.deleteChatMessageByRoomId(roomId);
+        chatRoomJoinRepository.deleteChatRoomJoinByRoomId(roomId);
+        chatRoomRepository.delete(roomId);
+    }
+
 }

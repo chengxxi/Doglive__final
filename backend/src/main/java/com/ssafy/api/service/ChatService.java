@@ -48,4 +48,6 @@ public interface ChatService {
     /* 채팅방에서 읽지않은 메세지의 개수 가져오기 */
     int getUnReadMessage(ChatRoom roomId, String userId);
 
+    /* 채팅방 삭제 (게시글 삭제 시, 함께 삭제!) */
+    void deleteChatRoom(ChatRoom roomId);
 }
