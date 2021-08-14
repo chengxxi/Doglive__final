@@ -17,7 +17,7 @@
         >
           <h5
             class="pt-3 pb-3"
-            style="font-weight:600; padding-left:20px; background:linear-gradient( to top, #f0ebe0, #f6ede9 );"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to top,  #f3ede7, #f5e9e4);"
           >
             📑 기본정보를 입력해주세요
           </h5>
@@ -227,14 +227,14 @@
 
           <h5
             class="pt-3 pb-3"
-            style="font-weight:600; padding-left:20px; background:linear-gradient( to top, #f0ebe0, #f6ede9 );"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to top,  #f3ede7, #f5e9e4 );"
           >
             🐶 성격을 소개해주세요
           </h5>
 
-          <el-row class="mt-4 mb-3">
+          <el-row class="mt-4 mb-3" style="margin-left:5%; margin:right:5%;">
             <el-col :span="12">
-              <el-form-item label="활동성향" prop="energy">
+              <el-form-item label="활동성향" prop="energy" label-width="30%">
                 <el-radio-group v-model="ruleForm.energy">
                   <el-popover placement="top" width="200" trigger="hover">
                     <h6 style="font-weight:600">에너지 Energetic</h6>
@@ -244,7 +244,9 @@
                     </template>
                   </el-popover>
                   <el-popover placement="top" width="200" trigger="hover">
-                    <h6 style="font-weight:600">침착한 Introversion</h6>
+                    <h6 style="font-weight:600 ;">
+                      침착한 Introversion
+                    </h6>
                     차분한, 일관적인
                     <template #reference>
                       <el-radio label="침착한" border></el-radio>
@@ -254,7 +256,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="순종성향" prop="obedience">
+              <el-form-item label="순종성향" prop="obedience" label-width="30%">
                 <el-radio-group v-model="ruleForm.obedience">
                   <el-popover placement="top" width="200" trigger="hover">
                     <h6 style="font-weight:600">충성심 강한 Supportive</h6>
@@ -274,9 +276,13 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row style="margin-left:5%; margin:right:5%;">
             <el-col :span="12">
-              <el-form-item label="관계성향" prop="relationship">
+              <el-form-item
+                label="관계성향"
+                prop="relationship"
+                label-width="30%"
+              >
                 <el-radio-group v-model="ruleForm.relationship">
                   <el-popover placement="bottom" width="200" trigger="hover">
                     <h6 style="font-weight:600">관계지향 Friendly</h6>
@@ -296,7 +302,11 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="적응성향" prop="adaptability">
+              <el-form-item
+                label="적응성향"
+                prop="adaptability"
+                label-width="30%"
+              >
                 <div>
                   <el-radio-group v-model="ruleForm.adaptability">
                     <el-popover placement="bottom" width="200" trigger="hover">
@@ -322,59 +332,52 @@
           <div class="mb-3" style="margin-top:100px;"></div>
           <div
             class="pt-3 pb-3"
-            style="font-weight:600; padding-left:20px; background:linear-gradient( to top, #f0ebe0, #f6ede9 );"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to top,  #f3ede7, #f5e9e4);"
           >
             <span style="font-size: 1.25rem; font-weight:600">
               📷 사진을 업로드 해주세요
             </span>
-            <span> (최대 5장)</span>
+            <span> (최대 5장 / 최소 2장)</span>
           </div>
           <el-row class="mt-4">
-            <el-upload
-              action="#"
-              list-type="picture-card"
-              :auto-upload="false"
-              limit="5"
-              on-exceed=""
-            >
-              <template #default>
-                <i class="el-icon-plus"></i>
-              </template>
-              <template #file="{file}">
-                <div>
-                  <img
-                    class="el-upload-list__item-thumbnail"
-                    :src="file.url"
-                    alt=""
-                  />
-                  <span class="el-upload-list__item-actions">
-                    <span
-                      class="el-upload-list__item-preview"
-                      @click="handlePictureCardPreview(file)"
+            <div class="mb-3" id="imgFileUploadInsertWrapper">
+              <div id="imgFileUploadInsertThumbnail" class="thumbnail-wrapper">
+                <el-image
+                  style="width: 200px; height:200px; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%); cursor:pointer; position:relative; margin-right:20px; border-radius:20px; float:left;"
+                  v-for="(file, index) in state.fileList"
+                  v-bind:src="file"
+                  v-bind:key="index"
+                  @click="deleteFile(index)"
+                  :fit="fit"
+                ></el-image>
+
+                <input
+                  @change="changeFile"
+                  type="file"
+                  id="inputFileUploadInsert"
+                  style="display:none"
+                  multiple
+                />
+                <div style="float:left;">
+                  <label for="inputFileUploadInsert" style="cursor:pointer;">
+                    <div
+                      style="background:linear-gradient( to top, #f3ede7, #f5e9e4 );
+                      text-align:center;
+display:table-cell;
+vertical-align:middle; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%);
+                      width:200px; height:200px; border-radius:20px;
+                    "
                     >
-                      <i class="el-icon-zoom-in"></i>
-                    </span>
-                    <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleDownload(file)"
-                    >
-                      <i class="el-icon-download"></i>
-                    </span>
-                    <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleRemove(file)"
-                    >
-                      <i class="el-icon-delete"></i>
-                    </span>
-                  </span>
+                      <i
+                        class="el-icon-plus "
+                        style="margin-left : 10px;
+                    font-size:40px; color:#D8D8D8;"
+                      />
+                    </div>
+                  </label>
                 </div>
-              </template>
-            </el-upload>
-            <el-dialog v-model="dialogVisible">
-              <img width="100%" :src="dialogImageUrl" alt="" />
-            </el-dialog>
+              </div>
+            </div>
           </el-row>
           <el-row
             class="mt-5"
@@ -425,18 +428,14 @@ export default {
         energy: "",
         obedience: "",
         relationship: "",
-        adaptability: "",
-        disabled: false,
-        dialogImageUrl: "",
-        dialogVisible: false,
-        disabled: false
+        adaptability: ""
       },
       rules: {
         type: [
           {
             required: true,
             message: "공고 타입을 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         title: [
@@ -445,7 +444,7 @@ export default {
             min: 3,
             max: 20,
             message: "3글자 이상, 20글자 이하로 입력해주세요.",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         name: [
@@ -454,7 +453,7 @@ export default {
             min: 1,
             max: 10,
             message: "10글자 이하로 입력해주세요.",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         gender: [
@@ -464,7 +463,7 @@ export default {
           {
             required: true,
             message: "품종을 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         sido: [
@@ -485,20 +484,24 @@ export default {
           {
             required: true,
             message: "컬러타입을 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         age: [
-          { required: true, message: "연령대를 선택해주세요", trigger: "blur" }
+          {
+            required: true,
+            message: "연령대를 선택해주세요",
+            trigger: "change"
+          }
         ],
         size: [
-          { required: true, message: "크기를 선택해주세요", trigger: "blur" }
+          { required: true, message: "크기를 선택해주세요", trigger: "change" }
         ],
         neutralization: [
           {
             required: true,
             message: "중성화여부를 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
 
@@ -506,41 +509,41 @@ export default {
           {
             required: true,
             message: "설명을 입력해주세요 (소개글, 특이사항 등)",
-            trigger: "blur"
+            trigger: "change"
           },
           {
             min: 50,
             max: 1000,
             message: "50글자 이상, 1000글자 이하로 입력해주세요.",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         energy: [
           {
             required: true,
             message: "활동성향을 관찰 후 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         obedience: [
           {
             required: true,
             message: "순종성향을 관찰 후 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         relationship: [
           {
             required: true,
             message: "관계성향을 관찰 후 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         adaptability: [
           {
             required: true,
             message: "적응성향을 관찰 후 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ]
       }
@@ -549,53 +552,82 @@ export default {
 
   methods: {
     submitForm(formName) {
-      const mbti =
-        [this.ruleForm.energy == "에너지있는" ? "E" : "I"] +
-        [this.ruleForm.obedience == "충성심 강한" ? "S" : "N"] +
-        [this.ruleForm.relationship == "의존적인" ? "F" : "T"] +
-        [this.ruleForm.adaptability == "친화적인" ? "J" : "P"];
+      if (this.state.sendFile.length > 5) {
+        createToast("사진은 5장까지만 업로드 가능해요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      } else if (this.state.sendFile.length >= 2) {
+        const mbti =
+          [this.ruleForm.energy == "에너지있는" ? "E" : "I"] +
+          [this.ruleForm.obedience == "충성심 강한" ? "S" : "N"] +
+          [this.ruleForm.relationship == "의존적인" ? "F" : "T"] +
+          [this.ruleForm.adaptability == "친화적인" ? "J" : "P"];
 
-      const data = {
-        thumbnailUrl: "",
-        filePath: [],
-        dogName: this.ruleForm.name,
-        boardType: Number(this.ruleForm.type),
-        userId: this.state.userId.userId,
-        mbti: mbti,
-        title: this.ruleForm.title,
-        description: this.ruleForm.desc,
-        colorType: Number(this.ruleForm.color),
-        dogType: this.ruleForm.dogType,
-        gender: this.ruleForm.gender == "여" ? 8 : 9,
-        age: Number(this.ruleForm.age),
-        neutralization: this.ruleForm.neutralization == "O" ? true : false,
-        weight: Number(this.ruleForm.size),
-        gugun: this.ruleForm.gugun
-      };
-      console.log(data);
+        const formData = new FormData();
 
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.registerData(data);
-          console.log(this.ruleForm);
-        } else {
-          console.log("error submit!!");
-          return false;
+        formData.append("userId", this.state.userId.userId);
+        formData.append("boardType", this.ruleForm.type);
+        formData.append("dogName", this.ruleForm.name);
+        formData.append("mbti", mbti);
+        formData.append("title", this.ruleForm.title);
+        formData.append("description", this.ruleForm.desc);
+        formData.append("colorType", this.ruleForm.color);
+        formData.append("age", this.ruleForm.age);
+        formData.append("address", this.ruleForm.address);
+        formData.append("dogType", this.ruleForm.dogType);
+        formData.append("gender", this.ruleForm.gender == "여" ? 8 : 9);
+        formData.append(
+          "neutralization",
+          this.ruleForm.neutralization == "O" ? true : false
+        );
+        formData.append("weight", this.ruleForm.size);
+        formData.append("gugun", this.ruleForm.gugun);
+
+        console.log(this.state.fileList);
+
+        const cnt = this.state.sendFile.length;
+        for (var i = 0; i < cnt; i++) {
+          formData.append("fileList", this.state.sendFile[i]);
         }
-      });
+
+        console.log(formData);
+
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.registerData(formData);
+            console.log(this.ruleForm);
+          } else {
+            createToast("작성하지 않은 항목이 있어요 💬💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            });
+          }
+        });
+      } else {
+        createToast("사진은 두 장 이상 업로드해주세요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
-    handleRemove(file) {
-      console.log(file);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
-    handleDownload(file) {
-      console.log(file);
     }
   },
 
@@ -604,6 +636,8 @@ export default {
     const router = new useRouter();
 
     const state = reactive({
+      fileList: [],
+      sendFile: [],
       dogTypeList: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"];
@@ -627,19 +661,54 @@ export default {
       store
         .dispatch("root/requestRegisterBoard", data)
         .then(function(result) {
-          createToast("공고가 등록되었어요 📜🐾", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "success"
-          });
           console.log("등록 성공");
 
-          store.commit("root/setBoardId", result.data.boardId);
-          router.push({ name: "AdoptDetail" });
+          store
+            .dispatch("root/requestBoardDetail", {
+              boardId: result.data.boardId,
+              userId: state.userId.userId
+            })
+            .then(function(result) {
+              console.log(result);
+
+              const boardDetail = {
+                boardId: result.data.dogInformation.boardId.id,
+                boardType: result.data.dogInformation.boardId.type,
+                thumbnailUrl: result.data.dogInformation.boardId.thumbnail,
+                title: result.data.dogInformation.boardId.title,
+                address: result.data.dogInformation.address,
+                mbti: result.data.dogInformation.mbti,
+                colorType: result.data.dogInformation.colorType,
+                gender: result.data.dogInformation.gender,
+                dogType: result.data.dogInformation.dogType,
+                neutralization: result.data.dogInformation.neutralization,
+                writer: result.data.writer,
+                weight: result.data.dogInformation.weight,
+                ageType: result.data.dogInformation.age,
+                regDate: result.data.dogInformation.boardId.regDate,
+                fileList: result.data.boardImageList,
+                isOwner: result.data.owner,
+                gugun: result.data.dogInformation.gugun,
+                sido: result.data.dogInformation.gugun.sidoCode,
+                description: result.data.dogInformation.description,
+                dogName: result.data.dogInformation.dogName,
+                isBookmarked: result.data.bookmarked
+              };
+              createToast("공고가 등록되었어요 📜🐾", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "success"
+              });
+              store.commit("root/setBoardDetail", boardDetail);
+              router.push({ name: "AdoptDetail" });
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
         })
         .catch(function(err) {
           createToast("공고 등록에 실패했어요 💬💦", {
@@ -680,6 +749,24 @@ export default {
         });
     };
 
+    //파일 업로드 시 호출
+    const changeFile = function(fileEvent) {
+      if (fileEvent.target.files && fileEvent.target.files.length > 0) {
+        for (var i = 0; i < fileEvent.target.files.length; i++) {
+          const file = fileEvent.target.files[i];
+          state.fileList.push(URL.createObjectURL(file));
+          state.sendFile.push(file);
+        }
+      }
+    };
+
+    const deleteFile = function(index) {
+      console.log(state.sendFile);
+      state.fileList.splice(index, 1);
+      state.sendFile.splice(index, 1);
+      console.log(state.sendFile);
+    };
+
     onMounted(() => {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
@@ -692,7 +779,14 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state, gugunList, registerData, readDogTypeList };
+    return {
+      state,
+      gugunList,
+      changeFile,
+      registerData,
+      readDogTypeList,
+      deleteFile
+    };
   }
 };
 </script>
@@ -794,5 +888,16 @@ li.el-select-dropdown__item.selected {
 :deep(.el-form-item__label) {
   font-size: 12pt;
   font-weight: 500;
+}
+
+.thumbnail-wrapper {
+  margin-top: 5px;
+  float: left;
+}
+
+.thumbnail-wrapper img {
+  width: 100px !important;
+  margin-right: 5px;
+  max-width: 100%;
 }
 </style>

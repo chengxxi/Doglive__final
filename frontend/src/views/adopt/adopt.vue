@@ -97,7 +97,7 @@
 
           <el-row
             v-show="showFilter"
-            style="background:linear-gradient( to top, #f0ebe0, #f6ede9 ); margin-bottom:10px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
+            style="background:linear-gradient( to top,  #f3ede7, #f5e9e4 ); margin-bottom:10px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
           >
             <el-col :span="20">
               <el-row style="height:50%; " class="select-wrapper" :gutter="20">
@@ -363,7 +363,7 @@ export default {
       weightCode: "",
       boardTypeCode: "",
       genderCode: "",
-      sort: "",
+      sort: "boardId.regDate,desc",
 
       //페이지네이션
       listRowCount: 12,
@@ -412,7 +412,7 @@ export default {
       state.weightCode = "";
       state.boardTypeCode = "";
       state.genderCode = "";
-      state.sort = "";
+      state.sort = "boardId.regDate,desc";
 
       readData();
     };
@@ -421,7 +421,7 @@ export default {
     const searchData = function() {
       state.currentPageIndex = 1;
       state.offset = 0;
-      state.sort = "";
+      state.sort = "boardId.regDate,desc";
       readData();
     };
 
@@ -455,13 +455,13 @@ export default {
 
     //날짜 최신순 정렬(default)
     const newestSort = function() {
-      state.sort = "";
+      state.sort = "boardId.regDate,desc";
       readData();
     };
 
     //날짜 오래된 순 정렬
     const oldestSort = function() {
-      state.sort = "boardId.regDate,desc";
+      state.sort = "";
       readData();
     };
 

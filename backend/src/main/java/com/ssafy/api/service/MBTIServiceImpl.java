@@ -93,5 +93,10 @@ public class MBTIServiceImpl implements MBTIService{
         return boardList;
     }
 
+    @Override
+    public List<MBTI> getMbtiList() {
+        return mbtiRepository.findAll();
+    }
+
 
 }
