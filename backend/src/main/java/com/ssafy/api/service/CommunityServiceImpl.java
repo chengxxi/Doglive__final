@@ -3,7 +3,6 @@ package com.ssafy.api.service;
 import com.ssafy.api.request.CommentPostReq;
 import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.CommunityRegisterPostReq;
-import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.community.Community;
 import com.ssafy.db.entity.community.CommunityComment;
@@ -136,8 +135,7 @@ public class CommunityServiceImpl implements  CommunityService{
     public CommunityComment addComment(CommentPostReq commentPostReq) {
         CommunityComment comment = new CommunityComment();
         Community community = communityRepository.findCommunityById(commentPostReq.getCommunityId()).get();
-        User user = userRepository.findUserById(commentPostReq.getUserId()).get();
-        UserProfile userProfile = userProfileRepository.findByUserId(user).get();
+        UserProfile userProfile = userProfileRepository.findByUserId(userRepository.findUserById(commentPostReq.getUserId()).get()).get();
 
         comment.setCommunityId(community);
         comment.setUser(userProfile);
