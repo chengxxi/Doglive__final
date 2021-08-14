@@ -23,10 +23,10 @@ export function requestKakaoLogout({ state }) {
 }
 
 // 채팅방 생성 요청
-export function createChatRoom({ state }, payload) {
-  const url = "/chatroom";
-  let roomName = payload;
-  return $axios.post(url, roomName);
+export function requestCreateChatRoom({ state }, payload) {
+  const url = "/chatroom"
+  let body = payload
+  return $axios.post(url, body);
 }
 
 // 채팅방 입장 요청

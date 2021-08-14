@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.ChatMessagePostReq;
 import com.ssafy.api.response.ChatMessageGetRes;
+import com.ssafy.api.response.ChatRoomGetRes;
 import com.ssafy.db.entity.chat.ChatMessage;
 import com.ssafy.db.entity.chat.ChatMessageRead;
 import com.ssafy.db.entity.chat.ChatRoom;
@@ -12,10 +13,16 @@ import java.util.List;
 public interface ChatService {
 
     /* 채팅방 생성 */
-    ChatRoom createChatRoom(String name);
+    ChatRoom createChatRoom(Long counseling_id);
+
+    /* 채팅방 생성 시, 해당 채팅방에 참가할 userId 등록 */
+    ChatRoomJoin saveChatRoomJoin(ChatRoom roomId, String userId);
 
     /* 회원의 채팅방 Join 목록 가져오기 */
-    List<ChatRoomJoin> getChatroomListByUser(String userId);
+    List<ChatRoomJoin> getChatroomJoinListByUser(String userId);
+
+    /* 회원의 속한 채팅방 목록 가져오기 */
+    List<ChatRoomGetRes> getChatroomList(List<ChatRoomJoin> list, String userId);
 
     /* 회원이 Join 중인 채팅방의 정보 가져오기 */
     ChatRoom getChatRoomInfo(Long roomId);
@@ -40,7 +47,5 @@ public interface ChatService {
 
     /* 채팅방에서 읽지않은 메세지의 개수 가져오기 */
     int getUnReadMessage(ChatRoom roomId, String userId);
-
-    /* 채팅을 전송할 때 메시지 읽음 여부 저장하기 -> 보내는 사람은 true(1), 받는 사람은 false(0)*/
 
 }

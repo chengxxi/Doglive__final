@@ -16,14 +16,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ChatRoom extends BaseEntity {
 
-//    @Column(name="counseling_id")
-//    private Long counselingId;   //상담신청 아이디 연결
-
-    @Column
-    private String name;
-
-    public ChatRoom(Long id, String name){
-        this.id = id;
-        this.name = name;
-    }
+    @Column(name="counseling_id")
+    private Long counselingId;   //상담신청 아이디 연결
 }
