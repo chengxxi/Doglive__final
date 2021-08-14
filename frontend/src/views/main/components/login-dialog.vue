@@ -75,14 +75,9 @@ export default {
     // 카카오 로그인
     const loginWithKakao = function() {
       Kakao.Auth.authorize({
-<<<<<<< HEAD
         redirectUri: "https://i5a501.p.ssafy.io/kakao/callback"
         // redirectUri: "http://i5a501.p.ssafy.io:8081/kakao/callback" // 배포용
         // redirectUri: 'https://localhost:8081/kakao/callback'
-=======
-        redirectUri: "https://i5a501.p.ssafy.io:8081/kakao/callback" // 배포용
-        //redirectUri: 'https://localhost:8081/kakao/callback'
->>>>>>> 050052c2f09a08d132b9d3b5bd7bdbe128410178
       });
     };
     return { loginWithKakao };
