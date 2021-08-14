@@ -43,10 +43,16 @@ export default {
 
     const readDetail = function(id) {
       console.log("read");
+
+      var checkId = state.userId;
+      if (checkId === undefined || checkId === null || checkId == "") {
+        checkId = "none";
+      }
+
       store
         .dispatch("root/requestBoardDetail", {
           boardId: id,
-          userId: state.userId == null ? " " : state.userId
+          userId: checkId
         })
         .then(function(result) {
           console.log(result);

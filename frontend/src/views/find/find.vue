@@ -267,7 +267,7 @@ export default {
       colorCode: "",
       boardTypeCode: "",
       dogTypeCode: "",
-      sort: "",
+      sort: "boardId.regDate,desc",
 
       //페이지네이션
       listRowCount: 12,
@@ -280,7 +280,11 @@ export default {
     });
     //글 등록하기
     const goRegister = function() {
-      if (state.userId === null) {
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
         createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -338,7 +342,7 @@ export default {
       state.sidoCode = "";
       state.boardTypeCode = "";
       state.dogTypeCode = "";
-      state.sort = "";
+      state.sort = "boardId.regDate,desc";
 
       readData();
     };
@@ -347,7 +351,7 @@ export default {
     const searchData = function() {
       state.currentPageIndex = 1;
       state.offset = 0;
-      state.sort = "";
+      state.sort = "boardId.regDate,desc";
       readData();
     };
 
@@ -381,13 +385,13 @@ export default {
 
     //날짜 최신순 정렬(default)
     const newestSort = function() {
-      state.sort = "";
+      state.sort = "boardId.regDate,desc";
       readData();
     };
 
     //날짜 오래된 순 정렬
     const oldestSort = function() {
-      state.sort = "boardId.regDate,desc";
+      state.sort = "";
       readData();
     };
 

@@ -377,7 +377,13 @@ export default {
 
     //글 등록하기
     const goRegister = function() {
-      router.push({ name: "AdoptRegister" });
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
+        router.push({ name: "AdoptRegister" });
+      }
     };
 
     //목록 정보 가져오기

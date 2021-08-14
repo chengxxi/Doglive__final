@@ -43,10 +43,15 @@ export default {
 
     const readDetail = function(id) {
       console.log("read");
+      var checkId = state.userId;
+      if (checkId === undefined || checkId === null || checkId == "") {
+        checkId = "none";
+      }
+
       store
         .dispatch("root/requestBoardDetail", {
           boardId: id,
-          userId: state.userId == null ? " " : state.userId
+          userId: checkId
         })
         .then(function(result) {
           console.log(result);
@@ -79,20 +84,12 @@ export default {
           router.push({ name: "AdoptDetail" });
         })
         .catch(function(err) {
+          console.log(state.userId);
           console.log(err);
         });
     };
 
-    const goRegister = function() {
-      if (state.userId === null) {
-        alert("로그인해주세요");
-        router.push({ name: "Login" });
-      } else {
-        router.push({ name: "AdoptRegister" });
-      }
-    };
-
-    return { state, readDetail, goRegister };
+    return { state, readDetail };
   }
 };
 </script>
