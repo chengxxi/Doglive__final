@@ -31,7 +31,9 @@ public class QCommunityComment extends EntityPathBase<CommunityComment> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
-    public final TimePath<java.util.Date> regDate = createTime("regDate", java.util.Date.class);
+    public final BooleanPath isDelete = createBoolean("isDelete");
+
+    public final StringPath name = createString("name");
 
     public final StringPath userId = createString("userId");
 

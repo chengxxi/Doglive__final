@@ -1,10 +1,14 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.CommentPostReq;
 import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.CommunityRegisterPostReq;
+import com.ssafy.db.entity.auth.User;
+import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.community.Community;
 import com.ssafy.db.entity.community.CommunityComment;
 import com.ssafy.db.entity.community.CommunityImage;
+import com.ssafy.db.repository.auth.UserProfileRepository;
 import com.ssafy.db.repository.auth.UserRepository;
 import com.ssafy.db.repository.community.CommunityCommentRepository;
 import com.ssafy.db.repository.community.CommunityImageRepository;
@@ -24,6 +28,9 @@ public class CommunityServiceImpl implements  CommunityService{
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserProfileRepository userProfileRepository;
 
     @Autowired
     CommunityRepository communityRepository;
@@ -122,5 +129,29 @@ public class CommunityServiceImpl implements  CommunityService{
         System.out.println("Total Count : " + communityList.getTotalElements());
         System.out.println("Next : " + communityList.nextPageable());
         return communityList.getContent();
+    }
+
+    @Override
+    public CommunityComment addComment(CommentPostReq commentPostReq) {
+        CommunityComment comment = new CommunityComment();
+        Community community = communityRepository.findCommunityById(commentPostReq.getCommunityId()).get();
+
+        comment.setCommunityId(community);
+        comment.setUserId(commentPostReq.getUserId());
+        comment.setName(commentPostReq.getName());
+        comment.setComment(commentPostReq.getComment());
+        comment.setIsDelete(true);
+
+        communityCommentRepository.save(comment);
+
+        return comment;
+    }
+
+    @Override
+    public void deleteComment(Long id) {
+        CommunityComment communityComment = communityCommentRepository.findById(id).get();
+        communityComment.setIsDelete(false);
+
+        communityCommentRepository.save(communityComment);
     }
 }

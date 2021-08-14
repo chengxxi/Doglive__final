@@ -22,12 +22,15 @@ public class CommunityComment extends BaseEntity {
     @Column(name="user_id")
     private String userId;                    // 사용자 아이디
 
+    @Column(name="user_name")
+    private String name;                    // 사용자 이름
+
     @Column(columnDefinition = "TEXT")
     private String comment;                   // 커뮤니티 댓글내용
 
-    @Column(name="reg_date")
-    @Temporal(TemporalType.TIME)
-    private java.util.Date regDate;  // 커뮤니티 댓글 작성 시간
+
+    @Column(name="is_delete")
+    private Boolean isDelete;         // 댓글 삭제 유무
 
 
 }
