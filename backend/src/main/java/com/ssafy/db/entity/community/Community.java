@@ -56,7 +56,7 @@ public class Community extends BaseEntity {
     @Column(name="reg_date", columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
     private LocalDateTime regDate;
 
-//    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)
+//    @OneToMany(mappedBy = "community_id", cascade = {CascadeType.ALL}, orphanRemoval=true)
 //    private List<CommunityComment> communityComments;
 //
 //    @OneToMany(mappedBy = "communityId", cascade = {CascadeType.ALL}, orphanRemoval=true)

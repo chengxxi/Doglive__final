@@ -20,7 +20,7 @@
             <el-button type="info" plain icon="el-icon-delete" size="mini" @click="deleteCommunity(item.id)"></el-button>
           </el-button-group>
       </div>
-      <div class="title">
+      <div class="title" v-if="item.userId!=state.userId">
         {{item.title}}
       </div>
       <div class="image">
@@ -76,9 +76,9 @@
         {{item.name}}</span>
         <span class="boardcontent">{{item.description}}</span>
       </div>
-        <div style="margin-left: 2%; margin-right: 2%;">
-          <div style="margin-bottom: 2%;">
-            <el-input placeholder="Please input" v-model="input3" class="input-with-select">
+        <div style="margin-left: 5%; margin-right: 5%;">
+          <div style="margin-bottom: 5%;">
+            <el-input placeholder="댓글을 입력해주세요" v-model="input3" class="input-with-select">
               <template #append>
                 <el-button icon="el-icon-s-promotion"></el-button>
               </template>
@@ -173,6 +173,7 @@ export default {
 
     const state = reactive({
       boardList:[],
+      comments:[],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       }),
@@ -190,9 +191,22 @@ export default {
     function fetchCommunityList(){
        store.dispatch('root/requestCommunityBoardList', communities.page )
         .then(function(result){
-           var size = result.data.length;
-          for(var i = 0; i < size; i++)
+          var size = result.data.length;
+          for(var i = 0; i < size; i++){
             state.boardList.push(result.data[i])
+            console.log(result.data[i]);
+            const id = result.data[i].id;
+            store.dispatch('root/requestCommunityComment', id)
+              .then(function(result){
+                var size = result.data.commentList.length;
+                for(var i = 0; i < size; i++){
+                  state.comments.push(result.data.commentList[i])
+                  console.log(result.data.commentList[i]);
+                }
+              }).catch(function(err){
+                console.log(err)
+            });
+          } 
           // 다 받아왔으면
           // if(size < 10)
           //   communities.noMore = true

@@ -124,6 +124,24 @@ export function requestMyCommunity({state}, payload){
   return $axios.get(url);
 }
 
+// 커뮤니티 댓글 목록 가져오기
+export function requestCommunityComment({state}, payload){
+  const url = "/community/comment/" + payload
+  return $axios.get(url)
+}
+
+// 커뮤니티 댓글 등록
+export function requestRegisterComment({state}, payload){
+  const url = "/comment"
+  return $axios.post(url, payload);
+}
+
+// 커뮤니티 댓글 삭제
+export function requestDeleteComment({state}, payload){
+  const url = "/comment/" + payload;
+  return $axios.delete(url);
+}
+
 // 커뮤니티 게시글 삭제
 export function requestDeleteCommunity({state}, payload){
   const url = "/community/" + payload
