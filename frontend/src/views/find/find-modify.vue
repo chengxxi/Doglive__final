@@ -1,287 +1,302 @@
 <template>
   <div class="main-body main-padding">
-    <el-card
-      class="box-card"
-      style="width:100%; height:auto;  border:none;"
-      shadow="none"
-    >
+    <div style="width:100%; ">
       <bread-crumb></bread-crumb>
-
-      <div>
-        <el-form
-          style=" margin:100px; padding-left:10px; padding-right:10px;"
-          label-position="left"
-          :model="ruleForm"
-          :rules="rules"
-          ref="ruleForm"
-        >
-          <h5
-            class="pt-3 pb-3"
-            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+      <el-card
+        class="box-card"
+        style="width:100%; height:auto;  border:none;"
+        shadow="none"
+      >
+        <div>
+          <el-form
+            style=" margin:100px; padding-left:10px; padding-right:10px;"
+            label-position="left"
+            :model="ruleForm"
+            :rules="rules"
+            ref="ruleForm"
           >
-            📑 기본정보를 입력해주세요
-          </h5>
+            <h5
+              class="pt-3 pb-3"
+              style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+            >
+              📑 기본정보를 입력해주세요
+            </h5>
 
-          <el-row class="mt-4 mb-3">
-            <el-col :span="14">
-              <el-form-item label="제목" prop="title" label-width="20%">
-                <el-input
-                  style="width:70%;"
-                  v-model="ruleForm.title"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="10">
-              <el-form-item label="공고 타입" prop="type" label-width="40%">
-                <el-select
-                  style="width:60%;"
-                  v-model="state.board.boardType.id"
-                  placeholder="분류"
+            <el-row class="mt-4 mb-3">
+              <el-col :span="14">
+                <el-form-item label="제목" prop="title" label-width="20%">
+                  <el-input
+                    style="width:70%;"
+                    v-model="ruleForm.title"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="10">
+                <el-form-item label="공고 타입" prop="type" label-width="40%">
+                  <el-select
+                    style="width:60%;"
+                    v-model="state.board.boardType.id"
+                    placeholder="분류"
+                  >
+                    <el-option label="실종" :value="3"></el-option>
+                    <el-option label="보호" :value="4"></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row> </el-row>
+
+            <el-row class="mt-3 mb-3">
+              <el-col :span="10">
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="컬러" prop="color" label-width="100%">
+                      <el-select
+                        style="width:90%;"
+                        v-model="state.board.colorType"
+                        placeholder="컬러"
+                      >
+                        <el-option label="White" :value="12"></el-option>
+                        <el-option label="Beige" :value="13"></el-option>
+                        <el-option label="Gray" :value="14"></el-option>
+                        <el-option label="Brown" :value="15"></el-option>
+                        <el-option label="Black" :value="16"></el-option>
+                        <el-option label="기타" :value="17"></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="연령대" prop="age">
+                      <el-select
+                        style="width:90%;"
+                        v-model="state.board.ageType.id"
+                        placeholder="연령대"
+                      >
+                        <el-option
+                          label="Puppy(~ 6개월)"
+                          :value="4"
+                        ></el-option>
+                        <el-option
+                          label="Junior(7개월 ~ 2살)"
+                          value="5"
+                        ></el-option>
+                        <el-option
+                          label="Adult(3살 ~ 8살)"
+                          :value="6"
+                        ></el-option>
+                        <el-option label="Senior(9살 ~)" :value="7"></el-option>
+                        <el-option label="기타" :value="17"></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col :span="10">
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="크기" prop="size">
+                      <el-select
+                        style="width:90%;"
+                        v-model="state.board.weight.id"
+                        placeholder="크기"
+                      >
+                        <el-option label="소(8kg 미만)" :value="1"></el-option>
+                        <el-option
+                          label="중(8kg-18kg 미만)"
+                          :value="2"
+                        ></el-option>
+                        <el-option label="대(18kg 이상)" :value="3"></el-option>
+                        <el-option label="기타" :value="17"></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item
+                      label-width="100%"
+                      label="품종"
+                      prop="dogType"
+                    >
+                      <el-select
+                        v-model="ruleForm.dogType.id"
+                        placeholder="품종"
+                        style="width:90%;"
+                      >
+                        <el-option
+                          v-for="dog in state.dogTypeList"
+                          :key="dog.id"
+                          :label="dog.name"
+                          :value="dog.id"
+                        >
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col :span="4">
+                <el-form-item label="성별" label-width="100%" prop="gender">
+                  <el-radio-group v-model="ruleForm.gender" style="width:100%;">
+                    <el-radio
+                      style="margin-left:10%; margin-right:10%;"
+                      label="남"
+                      border
+                    ></el-radio>
+                    <el-radio label="여" border></el-radio>
+                  </el-radio-group>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="15">
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item
+                      label="거주지(시/도)"
+                      prop="sido"
+                      label-width="100%"
+                    >
+                      <el-select
+                        v-model="ruleForm.sido"
+                        placeholder="시/도"
+                        style="width:95% ;"
+                        :change="gugunList(ruleForm.sido)"
+                      >
+                        <el-option
+                          v-for="(sido, idx) in state.sidoList"
+                          :key="idx"
+                          :label="sido.name"
+                          :value="sido.id"
+                        >
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item
+                      label="거주지(구/군)"
+                      prop="gugun"
+                      label-width="100%"
+                    >
+                      <el-select
+                        style="width:95% ;"
+                        v-model="ruleForm.gugun"
+                        placeholder="구/군"
+                      >
+                        <el-option
+                          v-for="(gugun, idx) in state.gugunList"
+                          :key="idx"
+                          :label="gugun.name"
+                          :value="gugun.id"
+                        >
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col :span="9">
+                <el-form-item
+                  label="상세주소"
+                  prop="address"
+                  label-width="100%"
                 >
-                  <el-option label="실종" :value="3"></el-option>
-                  <el-option label="보호" :value="4"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row> </el-row>
+                  <el-input
+                    style="width:100%;"
+                    v-model="ruleForm.address"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
 
-          <el-row class="mt-3 mb-3">
-            <el-col :span="10">
-              <el-row>
-                <el-col :span="12">
-                  <el-form-item label="컬러" prop="color" label-width="100%">
-                    <el-select
-                      style="width:90%;"
-                      v-model="state.board.colorType"
-                      placeholder="컬러"
-                    >
-                      <el-option label="White" :value="12"></el-option>
-                      <el-option label="Beige" :value="13"></el-option>
-                      <el-option label="Gray" :value="14"></el-option>
-                      <el-option label="Brown" :value="15"></el-option>
-                      <el-option label="Black" :value="16"></el-option>
-                      <el-option label="기타" :value="17"></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="연령대" prop="age">
-                    <el-select
-                      style="width:90%;"
-                      v-model="state.board.ageType.id"
-                      placeholder="연령대"
-                    >
-                      <el-option label="Puppy(~ 6개월)" :value="4"></el-option>
-                      <el-option
-                        label="Junior(7개월 ~ 2살)"
-                        value="5"
-                      ></el-option>
-                      <el-option
-                        label="Adult(3살 ~ 8살)"
-                        :value="6"
-                      ></el-option>
-                      <el-option label="Senior(9살 ~)" :value="7"></el-option>
-                      <el-option label="기타" :value="17"></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-col>
-            <el-col :span="10">
-              <el-row>
-                <el-col :span="12">
-                  <el-form-item label="크기" prop="size">
-                    <el-select
-                      style="width:90%;"
-                      v-model="state.board.weight.id"
-                      placeholder="크기"
-                    >
-                      <el-option label="소(8kg 미만)" :value="1"></el-option>
-                      <el-option
-                        label="중(8kg-18kg 미만)"
-                        :value="2"
-                      ></el-option>
-                      <el-option label="대(18kg 이상)" :value="3"></el-option>
-                      <el-option label="기타" :value="17"></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label-width="100%" label="품종" prop="dogType">
-                    <el-select
-                      v-model="ruleForm.dogType.id"
-                      placeholder="품종"
-                      style="width:90%;"
-                    >
-                      <el-option
-                        v-for="dog in state.dogTypeList"
-                        :key="dog.id"
-                        :label="dog.name"
-                        :value="dog.id"
-                      >
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-col>
-            <el-col :span="4">
-              <el-form-item label="성별" label-width="100%" prop="gender">
-                <el-radio-group v-model="ruleForm.gender" style="width:100%;">
-                  <el-radio
-                    style="margin-left:10%; margin-right:10%;"
-                    label="남"
-                    border
-                  ></el-radio>
-                  <el-radio label="여" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="15">
-              <el-row>
-                <el-col :span="12">
-                  <el-form-item
-                    label="거주지(시/도)"
-                    prop="sido"
-                    label-width="100%"
-                  >
-                    <el-select
-                      v-model="ruleForm.sido"
-                      placeholder="시/도"
-                      style="width:95% ;"
-                      :change="gugunList(ruleForm.sido)"
-                    >
-                      <el-option
-                        v-for="(sido, idx) in state.sidoList"
-                        :key="idx"
-                        :label="sido.name"
-                        :value="sido.id"
-                      >
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item
-                    label="거주지(구/군)"
-                    prop="gugun"
-                    label-width="100%"
-                  >
-                    <el-select
-                      style="width:95% ;"
-                      v-model="ruleForm.gugun"
-                      placeholder="구/군"
-                    >
-                      <el-option
-                        v-for="(gugun, idx) in state.gugunList"
-                        :key="idx"
-                        :label="gugun.name"
-                        :value="gugun.id"
-                      >
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-col>
-            <el-col :span="9">
-              <el-form-item label="상세주소" prop="address" label-width="100%">
+            <el-row class="mt-3 mb-3">
+              <el-form-item label="부가 설명" prop="desc">
                 <el-input
-                  style="width:100%;"
-                  v-model="ruleForm.address"
+                  type="textarea"
+                  :rows="7"
+                  maxlength="1000"
+                  v-model="ruleForm.desc"
                 ></el-input>
               </el-form-item>
-            </el-col>
-          </el-row>
+            </el-row>
 
-          <el-row class="mt-3 mb-3">
-            <el-form-item label="부가 설명" prop="desc">
-              <el-input
-                type="textarea"
-                :rows="7"
-                maxlength="1000"
-                v-model="ruleForm.desc"
-              ></el-input>
-            </el-form-item>
-          </el-row>
+            <div class="mb-3" style="margin-top:100px;"></div>
+            <div
+              class="pt-3 pb-3"
+              style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+            >
+              <span style="font-size: 1.25rem; font-weight:600">
+                📷 사진을 업로드 해주세요
+              </span>
+              <span> (최대 5장)</span>
+            </div>
 
-          <div class="mb-3" style="margin-top:100px;"></div>
-          <div
-            class="pt-3 pb-3"
-            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
-          >
-            <span style="font-size: 1.25rem; font-weight:600">
-              📷 사진을 업로드 해주세요
-            </span>
-            <span> (최대 5장)</span>
-          </div>
+            <el-row class="mt-4  mb-3">
+              <div class="mb-3" id="imgFileUploadInsertWrapper">
+                <div
+                  id="imgFileUploadInsertThumbnail"
+                  class="thumbnail-wrapper"
+                >
+                  <el-image
+                    style="width: 200px; height:200px; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%); cursor:pointer; position:relative; margin-right:20px; border-radius:20px; float:left;"
+                    v-for="(file, index) in state.board.fileList"
+                    v-bind:src="file"
+                    v-bind:key="index"
+                    @click="deleteOriginFile(index)"
+                    :fit="fit"
+                    :hover="state.hover"
+                  ></el-image>
+                  <el-image
+                    style="width: 200px; height:200px; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%); cursor:pointer; position:relative; margin-right:20px; border-radius:20px; float:left;"
+                    v-for="(file, index) in state.thumbnailList"
+                    v-bind:src="file"
+                    v-bind:key="index"
+                    @click="deleteNewFile(index)"
+                    :fit="fit"
+                    :hover="state.hover"
+                  ></el-image>
 
-          <el-row class="mt-4">
-            <div class="mb-3" id="imgFileUploadInsertWrapper">
-              <div id="imgFileUploadInsertThumbnail" class="thumbnail-wrapper">
-                <el-image
-                  style="width: 200px; height:200px; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%); cursor:pointer; position:relative; margin-right:20px; border-radius:20px; float:left;"
-                  v-for="(file, index) in state.board.fileList"
-                  v-bind:src="file"
-                  v-bind:key="index"
-                  @click="deleteOriginFile(index)"
-                  :fit="fit"
-                  :hover="state.hover"
-                ></el-image>
-                <el-image
-                  style="width: 200px; height:200px; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%); cursor:pointer; position:relative; margin-right:20px; border-radius:20px; float:left;"
-                  v-for="(file, index) in state.thumbnailList"
-                  v-bind:src="file"
-                  v-bind:key="index"
-                  @click="deleteNewFile(index)"
-                  :fit="fit"
-                  :hover="state.hover"
-                ></el-image>
-
-                <input
-                  @change="changeFile"
-                  type="file"
-                  id="inputFileUploadInsert"
-                  style="display:none"
-                  multiple
-                />
-                <div style="float:left;">
-                  <label for="inputFileUploadInsert" style="cursor:pointer;">
-                    <div
-                      style="background:linear-gradient( to top, #f3ede7, #f5e9e4 );
+                  <input
+                    @change="changeFile"
+                    type="file"
+                    id="inputFileUploadInsert"
+                    style="display:none"
+                    multiple
+                  />
+                  <div style="float:left;">
+                    <label for="inputFileUploadInsert" style="cursor:pointer;">
+                      <div
+                        style="background:linear-gradient( to top, #f3ede7, #f5e9e4 );
                       text-align:center;
 display:table-cell;
 vertical-align:middle; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%);
                       width:200px; height:200px; border-radius:20px;
                     "
-                    >
-                      <i
-                        class="el-icon-plus "
-                        style="margin-left : 10px;
+                      >
+                        <i
+                          class="el-icon-plus "
+                          style="margin-left : 10px;
                     font-size:40px; color:#D8D8D8;"
-                      />
-                    </div>
-                  </label>
+                        />
+                      </div>
+                    </label>
+                  </div>
                 </div>
               </div>
-            </div>
-          </el-row>
-          <el-row
-            class="mt-5"
-            style=" display: flex;
+            </el-row>
+            <el-row
+              class="mt-5"
+              style=" display: flex;
   justify-content: center;"
-          >
-            <el-button type="primary" @click="submitForm('ruleForm')"
-              >작성</el-button
             >
-            <el-button @click="resetForm('ruleForm')">초기화</el-button>
-          </el-row>
-        </el-form>
-      </div>
-    </el-card>
+              <el-button type="primary" @click="submitForm('ruleForm')"
+                >작성</el-button
+              >
+              <el-button @click="resetForm('ruleForm')">초기화</el-button>
+            </el-row>
+          </el-form>
+        </div>
+      </el-card>
+    </div>
   </div>
 </template>
 
