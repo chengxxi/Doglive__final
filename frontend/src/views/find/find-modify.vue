@@ -337,35 +337,43 @@ export default {
           {
             required: true,
             message: "공고 타입을 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         title: [
-          { required: true, message: "제목을 입력해주세요.", trigger: "blur" },
+          {
+            required: true,
+            message: "제목을 입력해주세요.",
+            trigger: "change"
+          },
           {
             min: 3,
             max: 20,
             message: "3글자 이상, 20글자 이하로 입력해주세요.",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         name: [
-          { required: true, message: "이름을 입력해주세요.", trigger: "blur" },
+          {
+            required: true,
+            message: "이름을 입력해주세요.",
+            trigger: "change"
+          },
           {
             min: 1,
             max: 10,
             message: "10글자 이하로 입력해주세요.",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         gender: [
-          { required: true, message: "성별을 선택해주세요", trigger: "blur" }
+          { required: true, message: "성별을 선택해주세요", trigger: "change" }
         ],
         dogType: [
           {
             required: true,
             message: "품종을 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         sido: [
@@ -386,39 +394,43 @@ export default {
           {
             required: true,
             message: "컬러타입을 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         age: [
-          { required: true, message: "연령대를 선택해주세요", trigger: "blur" }
+          {
+            required: true,
+            message: "연령대를 선택해주세요",
+            trigger: "change"
+          }
         ],
         size: [
-          { required: true, message: "크기를 선택해주세요", trigger: "blur" }
+          { required: true, message: "크기를 선택해주세요", trigger: "change" }
         ],
         address: [
           {
             required: true,
             message: "상세 주소를 입력해주세요",
-            trigger: "blur"
+            trigger: "change"
           },
           {
             min: 3,
             max: 20,
             message: "3글자 이상, 20글자 이하로 입력해주세요.",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         desc: [
           {
             required: true,
             message: "설명을 입력해주세요 (소개글, 특이사항 등)",
-            trigger: "blur"
+            trigger: "change"
           },
           {
             min: 50,
             max: 1000,
             message: "50글자 이상, 1000글자 이하로 입력해주세요.",
-            trigger: "blur"
+            trigger: "change"
           }
         ]
       }
@@ -532,6 +544,7 @@ export default {
           data: formData
         })
         .then(function(result) {
+          console.log(result);
           store
             .dispatch("root/requestBoardDetail", {
               boardId: state.board.boardId,
