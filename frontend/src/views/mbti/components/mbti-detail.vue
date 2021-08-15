@@ -20,14 +20,14 @@
                 effect="dark"
                 size="large"
                 style="border:none; border-radius: 30px; font-size:14pt; float:left;"
-                >{{ state.mbti.name }}</el-tag
+                >{{ state.mbtiList.name }}</el-tag
               >
             </el-row>
 
             <div class="vertical-center row">
               <div class="col-md-9">
                 <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
-                  state.mbti.name
+                  state.mbtiList.name
                 }}</span>
               </div>
               <div class="col-md-3 ms-auto">
@@ -48,7 +48,7 @@
                   class="mb-2"
                   effect="dark"
                   style="height:30px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none;font-weight:700; color: #606266; "
-                  >{{ state.mbti.id }}</el-tag
+                  >{{ state.mbtiList.id }}</el-tag
                 >
 
                 <el-popover placement="bottom" width="200" trigger="hover">
