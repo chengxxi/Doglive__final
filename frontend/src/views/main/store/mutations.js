@@ -44,7 +44,7 @@ export function setBoardDetail(state, payload) {
   state.board.gugun = payload.gugun;
 }
 export function setProfile(state, payload) {
-  state.userProfile.imgURL = payload.imgURL;
+  state.userProfile.profileImageUrl = payload.profileImageUrl;
   state.userProfile.name = payload.name;
   state.userProfile.email = payload.email;
   state.userProfile.birth = payload.birth;

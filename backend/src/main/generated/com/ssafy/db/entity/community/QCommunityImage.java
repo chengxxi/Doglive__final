@@ -26,6 +26,8 @@ public class QCommunityImage extends EntityPathBase<CommunityImage> {
 
     public final QCommunity communityId;
 
+    public final StringPath filename = createString("filename");
+
     public final StringPath filePath = createString("filePath");
 
     //inherited

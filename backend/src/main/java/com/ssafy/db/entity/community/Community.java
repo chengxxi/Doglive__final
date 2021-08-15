@@ -4,6 +4,7 @@ import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.community.CommunityComment;
 import com.ssafy.db.entity.community.CommunityImage;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -54,8 +55,14 @@ public class Community extends BaseEntity {
     @Column(length = 10)
     private String category;                  // 게시글 종류
 
-    @Column(name="reg_date", columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
+    @Column(name="reg_date")
     private LocalDateTime regDate;
+
+
+    public Community() {
+        regDate = LocalDateTime.now();
+    }
+
 
 //    @OneToMany(mappedBy = "community_id", cascade = {CascadeType.ALL}, orphanRemoval=true)
 //    private List<CommunityComment> communityComments;

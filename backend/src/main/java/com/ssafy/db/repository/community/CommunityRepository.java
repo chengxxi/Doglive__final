@@ -26,5 +26,9 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
     @Query(name = "CommunityAndUser", nativeQuery = true)
     Optional<Page<CommunityParamDto>> findAllDesc(Pageable paging);
 
+    @Query( value="select c.id, c.description, c.title, c.user_id, u.name, u.profile_image_url, c.category from community.community c inner join auth.user_profile u where c.user_id = u.user_id order by id desc limit 4",
+            nativeQuery = true)
+    Optional<List<Community>> findfourCommunities();
+
 }
 

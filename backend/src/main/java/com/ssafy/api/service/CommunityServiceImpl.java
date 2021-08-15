@@ -19,7 +19,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,9 +43,14 @@ public class CommunityServiceImpl implements  CommunityService{
     @Autowired
     CommunityCommentRepository communityCommentRepository;
 
+    @Autowired
+    S3Uploader s3Uploader;
+
     /* 커뮤니티 글 작성하기 */
     @Override
-    public Community registerCommunityBoard(CommunityRegisterPostReq communityRegisterPostReq) {
+    public Community registerCommunityBoard(CommunityRegisterPostReq communityRegisterPostReq) throws IOException {
+
+
         Community community = new Community();
         community.setUserId(communityRegisterPostReq.getUserId());
         community.setTitle(communityRegisterPostReq.getTitle());
@@ -51,6 +58,17 @@ public class CommunityServiceImpl implements  CommunityService{
         community.setCategory(communityRegisterPostReq.getCategory());
 
         communityRepository.save(community);
+
+        // 이미지 저장
+        for(MultipartFile file : communityRegisterPostReq.getFileList()){
+            String saveUrl = s3Uploader.upload(file, "static");
+            CommunityImage image = new CommunityImage();
+//            image.setCommunityId(community);
+            image.setFilename(saveUrl);
+            image.setFilePath("https://"+S3Uploader.CLOUD_FRONT_DOMAIN_NAME+"/"+saveUrl);
+            image.addCommunity(community);
+            communityImageRepository.save(image);
+        }
 
         return community;
     }
@@ -67,10 +85,26 @@ public class CommunityServiceImpl implements  CommunityService{
     }
     /* 커뮤니티 글 수정하기 */
     @Override
-    public Community updateCommunityBoard(Long id, CommunityRegisterPostReq communityRegisterPostReq) {
+    public Community updateCommunityBoard(Long id, CommunityRegisterPostReq communityRegisterPostReq) throws IOException {
         Optional<Community> community = communityRepository.findById(id);
-        System.out.println(communityRegisterPostReq);
+
         if(community.isPresent()){
+            if(communityRegisterPostReq.getDelList()!=null){
+                System.out.println("========= delete List ! ");
+                deleteSomeCommunityImagesByUrl(communityRegisterPostReq.getDelList());
+            }
+
+            if(communityRegisterPostReq.getFileList()!=null){
+                for(MultipartFile file : communityRegisterPostReq.getFileList()){
+                    String saveUrl = s3Uploader.upload(file, "static");
+                    CommunityImage image = new CommunityImage();
+//            image.setCommunityId(community);
+                    image.setFilename(saveUrl);
+                    image.setFilePath("https://"+S3Uploader.CLOUD_FRONT_DOMAIN_NAME+"/"+saveUrl);
+                    image.addCommunity(community.get());
+                    communityImageRepository.save(image);
+                }
+            }
             community.get().setTitle(communityRegisterPostReq.getTitle());
             community.get().setCategory(communityRegisterPostReq.getCategory());
             community.get().setDescription(communityRegisterPostReq.getDescription());
@@ -97,6 +131,15 @@ public class CommunityServiceImpl implements  CommunityService{
         return null;
     }
 
+    @Override
+    public List<CommunityImage> getCommunityImagesByCommunity(Community community) {
+        Optional<List<CommunityImage>> communityImageList = communityImageRepository.findCommunityImagesByCommunityId(community);
+        if(communityImageList.isPresent()){
+            return communityImageList.get();
+        }
+        return null;
+    }
+
 
     /* CommunityBoard로 CommunityImage 전부 지우기 */
     @Override
@@ -105,9 +148,26 @@ public class CommunityServiceImpl implements  CommunityService{
         if(communityImages.isPresent()){
             for (CommunityImage communityImage: communityImages.get()) {
                 communityImageRepository.delete(communityImage);
+                s3Uploader.delete(communityImage.getFilename());
             }
         }
     }
+
+    @Override
+    public void deleteSomeCommunityImagesByUrl(List<String> delList) {
+        if(delList!=null){
+            for (String url: delList) {
+                Optional<List<CommunityImage>> delImgList = communityImageRepository.findCommunityImagesByImgFullPath(url);
+                if(delImgList.isPresent()){
+                    for (CommunityImage image: delImgList.get()) {
+                        communityImageRepository.delete(image);
+                        s3Uploader.delete(image.getFilename());
+                    }
+                }
+            }
+        }
+    }
+
     /* CommunityBoard로 CommunityComment 전부 지우기 */
     @Override
     public void deleteAllCommunityCommentsByCommunity(Community community) {
@@ -142,9 +202,9 @@ public class CommunityServiceImpl implements  CommunityService{
         comment.setComment(commentPostReq.getComment());
         comment.setIsDelete(true);
 
-        communityCommentRepository.save(comment);
+        CommunityComment newComment = communityCommentRepository.save(comment);
 
-        return comment;
+        return newComment;
     }
 
     @Override
@@ -158,8 +218,18 @@ public class CommunityServiceImpl implements  CommunityService{
     @Override
     public List<CommunityComment> commentList(Long id) {
         Community community = communityRepository.findCommunityById(id).get();
-        List<CommunityComment> communityCommentList = communityCommentRepository.findCommunityCommentsByCommunityIdOrderByIdDesc(community).get();
+        List<CommunityComment> communityCommentList = communityCommentRepository.findCommunityCommentsByCommunityId(community).get();
 
         return communityCommentList;
+    }
+
+    @Override
+    public List<Community> getFourCommunities() {
+        Optional<List<Community>> communityList = communityRepository.findfourCommunities();
+
+        if(communityList.isPresent()){
+            return communityList.get();
+        }
+        return null;
     }
 }
