@@ -1,8 +1,8 @@
 <template>
-  <el-row :gutter="20">
+  <el-row>
     <el-col :span="12" v-for="(o, idx) in result" :key="idx">
-      <el-row :gutter="20" class=" grid-content bg-beige">
-        <el-col :span="4">
+      <el-row class=" grid-content bg-beige">
+        <el-col :span="5">
           <div class="tag">
             <el-tag
               v-if="o.result == '승인'"
@@ -31,7 +31,7 @@
           </div>
         </el-col>
 
-        <el-col :span="12">
+        <el-col :span="14">
           <div class="apply-content">
             <p style="font-size:11pt;">
               분류 : {{ o.boardType }} | 제목 :
@@ -49,17 +49,15 @@
           </div>
         </el-col>
 
-        <el-col :span="3">
-          <div class="icon">
-            <font-awesome-icon
-              icon="file"
-              aria-hidden="true"
-              @click="readAdoptForm(o.id)"
-              style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-left:350%;"
-              class="scale-up-3"
-            >
-            </font-awesome-icon>
-          </div>
+        <el-col :span="5">
+          <font-awesome-icon
+            icon="file"
+            aria-hidden="true"
+            @click="readAdoptForm(o.id)"
+            style="color: rgb(78, 78, 78); font-size: 20px; margin-right: 10px; cursor: pointer;"
+            class="scale-up-3"
+          >
+          </font-awesome-icon>
         </el-col>
       </el-row>
     </el-col>
@@ -81,9 +79,11 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  padding: 10px 0 10px 20px;
+  padding: 10px;
   border-radius: 15px;
   min-height: 36px;
+  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 20px;
 }
 .row-bg {
