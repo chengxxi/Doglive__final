@@ -59,7 +59,8 @@ export default {
     isOwner: false,
     isbookmarked: false,
     sido: "",
-    gugun: ""
+    gugun: "",
+    similarList: [],
   },
 
   chat: {

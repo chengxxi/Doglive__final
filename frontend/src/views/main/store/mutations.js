@@ -42,6 +42,7 @@ export function setBoardDetail(state, payload) {
   state.board.isbookmarked = payload.isBookmarked;
   state.board.sido = payload.sido;
   state.board.gugun = payload.gugun;
+  state.board.similarList = payload.listSimilarDog;
 }
 export function setProfile(state, payload) {
   state.userProfile.imgURL = payload.imgURL;

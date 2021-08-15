@@ -146,6 +146,7 @@
           </el-carousel>
         </div>
 
+        <!-- 유사공고 -->
         <div class="dog-image-box">
           <h5
             class="pt-3 pb-3"
@@ -153,6 +154,15 @@
           >
             🐶🔎 혹시 저는 아닐까요❔
           </h5>
+          <el-carousel :interval="4000" type="card" height="100px">
+            <el-carousel-item v-for="card in state.similarList" :key="card">
+              <FindCard
+                :card="card"
+                @click="readDetail(card.boardId.id)"
+                style="margin:10px; "
+              />
+            </el-carousel-item>
+          </el-carousel>
         </div>
       </el-card>
     </div>
@@ -173,7 +183,8 @@ export default {
   name: "FindDetail",
   components: {
     BreadCrumb,
-    createToast
+    createToast,
+    FindCard
   },
   data() {
     return {
@@ -203,6 +214,10 @@ export default {
       board: computed(() => {
         console.log(store.getters["root/getBoardDetail"]);
         return store.getters["root/getBoardDetail"];
+      }),
+      similarList: computed(() => {
+        console.log(state.board);
+        return store.getters['root/getBoardDetail'].similarList
       })
     });
 
