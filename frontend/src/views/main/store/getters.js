@@ -53,3 +53,8 @@ export function getCommunityBoard(state) {
 export function getBoardId(state) {
   return state.board.getBoardId;
 }
+
+// 화상회의 정보 가져오기
+export function getConference(state) {
+  return state.conference;
+}

@@ -20,7 +20,7 @@
   <div class="chat-input">
     <el-input type="textarea" v-model="state.content" @keyup.enter="sendMessage"></el-input>
     <el-button class="send-btn" :class="{active : !state.activeButton}" @click="sendMessage">전송</el-button>
-    <a class="video-btn" href="/conference" @click="createConference(chat.title)"><font-awesome-icon  :icon="[ 'fas' , 'video']"></font-awesome-icon></a>
+    <a class="video-btn" href="/conference" @click="createConference(chat.title, roomId)"><font-awesome-icon  :icon="[ 'fas' , 'video']"></font-awesome-icon></a>
     <!-- <i class="el-icon-video-camera video-btn"></i> -->
   </div>
 </template>
@@ -267,12 +267,26 @@ export default {
     }
 
     // 화상회의 연결
-    function createConference(title) {
+    function createConference(title, roomId) {
       // 세션 열기?
       // 공고 정보 받아오기
       console.log(title);
+      console.log(roomId);
+      const conference = {
+        roomId: roomId,
+        title: title,
+        thumbnailUrl:'',
+        writer:'',
+        reader:'',
+        fromChat:true,
+      }
+      console.log(conference.roomId)
+      console.log(conference.title)
       // 채팅창 닫기
       changeOpen()
+      store.commit('root/setConference', conference)
+      store.getters('root/getConference').title
+
     }
 
     onUpdated(()=> {

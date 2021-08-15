@@ -233,9 +233,3 @@ export function reqestBoardDetail({ state }, payload) {
   return $axios.get(url);
 }
 
-// 화상회의 개설
-export function createConference({state}, payload) {
-  const url='/conference';
-  console.log(payload.data);
-  return $axios.post(url, payload.data);
-}

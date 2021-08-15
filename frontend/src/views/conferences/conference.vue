@@ -11,7 +11,7 @@
         </el-col>
         <el-col :span="14">
           <div class="div-boardTitle">
-            <h2>공고 제목</h2>
+            {{state.conference.title}}
           </div>
 
         </el-col>
@@ -112,8 +112,8 @@ video {
   height: 10%;
 }
 .con-join-wrapper {
-  width: 400px;
-  height: 250px;
+  width: auto;
+  height: auto;
   margin: auto;
   border-radius: 5px;
   text-align: center;
@@ -180,6 +180,7 @@ video {
   height: 100%;
   text-align: center;
   padding-top: 25%;
+  font-size: 150%;
 }
 /* textarea 우측 하단 /// 안보이게 + 스크롤 기능 O + 스크롤바 X */
 textarea {
@@ -199,7 +200,8 @@ import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideo from './components/UserVideo';
 import ConferenceChatMessage from './components/conferenceChatMessage.vue'
-import { computed, reactive } from 'vue';
+import { computed, onBeforeMount, reactive } from 'vue';
+import { useStore } from 'vuex';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 const OPENVIDU_SERVER_URL = "https://i5a501.p.ssafy.io:8443";
@@ -212,6 +214,7 @@ export default {
 	},
 
   setup(props) {
+    const store = useStore()
     const state = reactive({
       OV: undefined,
 			session: undefined,
@@ -219,7 +222,8 @@ export default {
 			publisher: undefined,
 			subscribers: [],
 			mySessionId: 'SessionA',
-			myUserName: 'Participant' + Math.floor(Math.random() * 100),
+      userId:'',
+			myUserName: '',
       videoEnabled: true,
       audioEnabled : true,
       chatEnabled : true,
@@ -240,11 +244,27 @@ export default {
         if(state.spanEachVideo == 1) return true;
         else return false;
       }),
-      userProfile:{}
+      userProfile:{},
+      conference:{},
     })
 
+    onBeforeMount(() => {
+      state.conference = store.getters['root/getConference'];
+      console.log(state.conference);
+
+    })
     const joinSession = function() {
       // --- Get an OpenVidu object ---
+      // 사용자 아이디
+      state.userId = store.getters['root/getLoginUserInfo'].userId;
+      // 사용자 이름
+      state.myUserName = store.getters['root/getUpdateUserInfo'].name;
+      // 채팅방 번호로 seesionId 만들기
+      state.sessionId = state.conference.roomId;
+      console.log('joinSession 클릭 후 정보🔽');
+      console.log(state.userId);
+      console.log(state.myUserName);
+      console.log(state.sessionId);
       state.OV = new OpenVidu();
       // --- Init a session ---
       state.session = state.OV.initSession();
@@ -320,6 +340,15 @@ export default {
       state.subscribers = [];
       state.OV = undefined;
       state.chatArray = [];  // Session 나가면 채팅 사라짐
+
+      const conferenceInfo = {
+        titll:'',
+        thumbnailUrl:'',
+        writer:'',    // 글 작성자
+        reader:'',    // 신청자
+        fromChat:false,
+      }
+      store.commit('root/setConference',conferenceInfo)
       window.removeEventListener('beforeunload', state.leaveSession);
     }
 
@@ -441,7 +470,7 @@ export default {
       }
       console.log('채팅창 표시 변경 버튼 클릭 > ');
     }
-    return {state, joinSession, leaveSession, getToken, createSession, createToken, sendMessage, turnCamera, turnAudio, turnChat }
+    return {store, state, onBeforeMount, joinSession, leaveSession, getToken, createSession, createToken, sendMessage, turnCamera, turnAudio, turnChat }
   }
 }
 </script>

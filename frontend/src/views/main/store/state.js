@@ -71,5 +71,14 @@ export default {
     //   'user1' : '',
     //   'user2' : '',
     // }
+  },
+
+  conference: {
+    roomId: '',
+    title:'',
+    thumbnailUrl:'',
+    writer:'',    // 글 작성자
+    reader:'',    // 신청자
+    fromChat:false,
   }
 };

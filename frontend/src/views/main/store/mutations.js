@@ -82,3 +82,15 @@ export function setChatParticipants(state, payload) {
   state.chat.participants.user1 = payload.user1;
   state.chat.participants.user2 = payload.user2;
 }
+
+export function setConference(state, payload) {
+  state.conference.roomId = payload.roomId;
+  state.conference.title = payload.title;
+  state.conference.fromChat = true;
+  // conference: {
+  //   title:'',
+  //   thumbnailUrl:'',
+  //   writer:'',    // 글 작성자
+  //   reader:'',    // 신청자
+  // }
+}
