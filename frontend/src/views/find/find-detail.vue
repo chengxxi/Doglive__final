@@ -38,6 +38,7 @@
                 </div>
                 <div class="col-md-3 ms-auto">
                   <div
+                    v-if="!state.board.isOwner"
                     class="align-self-center vertical-center"
                     style="text-align: center;"
                   >
