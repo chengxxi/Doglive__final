@@ -478,74 +478,74 @@ export default {
             });
           });
       }
+    };
 
-      const DeleteComment = function(id) {
-        store
-          .dispatch("root/requestDeleteComment", id)
-          .then(function(result) {
-            createToast("댓글이 삭제되었어요 💨💨", {
-              hideProgressBar: "true",
-              timeout: 4500,
-              showIcon: "true",
-              toastBackgroundColor: "#7eaa72",
-              position: "bottom-left",
-              transition: "bounce",
-              type: "success"
-            });
-          })
-          .catch(function(err) {
-            createToast("댓글 삭제에 실패했어요 😱💦", {
-              hideProgressBar: "true",
-              timeout: 4500,
-              showIcon: "true",
-              toastBackgroundColor: "#c49d83",
-              position: "bottom-left",
-              transition: "bounce",
-              type: "warning"
-            });
-            console.log(err);
+    const DeleteComment = function(id) {
+      store
+        .dispatch("root/requestDeleteComment", id)
+        .then(function(result) {
+          createToast("댓글이 삭제되었어요 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#7eaa72",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "success"
           });
-      };
-
-      const goRegister = function() {
-        if (state.userId === null) {
-          createToast("로그인을 진행해주세요 💨💨", {
+        })
+        .catch(function(err) {
+          createToast("댓글 삭제에 실패했어요 😱💦", {
             hideProgressBar: "true",
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
             position: "bottom-left",
             transition: "bounce",
-            type: "success"
+            type: "warning"
           });
-          router.push({ name: "Login" });
-        } else {
-          router.push({ name: "community-board-register" });
-        }
-      };
-
-      onMounted(() => {
-        store.commit("root/setBreadcrumbInfo", {
-          isHome: false,
-          title: "Community",
-          subTitle: "게시글 구경하기"
+          console.log(err);
         });
-        fetchCommunityList();
-      });
+    };
 
-      return {
-        state,
-        deleteCommunity,
-        goRegister,
-        updateCommunity,
-        communities,
-        fetchCommunityList,
-        scroll,
-        images,
-        comment,
-        RegisterComment,
-        DeleteComment
-      };
+    const goRegister = function() {
+      if (state.userId === null) {
+        createToast("로그인을 진행해주세요 💨💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "success"
+        });
+        router.push({ name: "Login" });
+      } else {
+        router.push({ name: "community-board-register" });
+      }
+    };
+
+    onMounted(() => {
+      store.commit("root/setBreadcrumbInfo", {
+        isHome: false,
+        title: "Community",
+        subTitle: "게시글 구경하기"
+      });
+      fetchCommunityList();
+    });
+
+    return {
+      state,
+      deleteCommunity,
+      goRegister,
+      updateCommunity,
+      communities,
+      fetchCommunityList,
+      scroll,
+      images,
+      comment,
+      RegisterComment,
+      DeleteComment
     };
   }
 };
