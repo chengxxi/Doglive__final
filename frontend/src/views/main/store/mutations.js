@@ -81,3 +81,20 @@ export function setChatMenu(state, payload) {
 export function setAdoptFormId(state, payload) {
   state.adoptForm.formId = payload;
 }
+
+export function setChatParticipants(state, payload) {
+  state.chat.participants.user1 = payload.user1;
+  state.chat.participants.user2 = payload.user2;
+}
+
+export function setConference(state, payload) {
+  state.conference.roomId = payload.roomId;
+  state.conference.title = payload.title;
+  state.conference.fromChat = payload.fromChat;
+  // conference: {
+  //   title:'',
+  //   thumbnailUrl:'',
+  //   writer:'',    // 글 작성자
+  //   reader:'',    // 신청자
+  // }
+}
