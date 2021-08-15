@@ -289,7 +289,7 @@ vertical-align:middle; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%);
 
 <script>
 import $axios from "axios";
-import BreadCrumb from "./components/bread-crumb.vue";
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";

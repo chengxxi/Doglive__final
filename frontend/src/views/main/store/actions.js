@@ -115,8 +115,8 @@ export function requestUserProfile({ state }, payload) {
 }
 
 // 커뮤니티 게시글 목록 가져오기
-export function requestCommunityBoardList({state}, payload){
-  const url = "/community/list/" + payload
+export function requestCommunityBoardList({ state }, payload) {
+  const url = "/community/list/" + payload;
   return $axios.get(url);
 }
 
@@ -127,19 +127,19 @@ export function requestMyCommunity({ state }, payload) {
 }
 
 // 커뮤니티 댓글 목록 가져오기
-export function requestCommunityComment({state}, payload){
-  const url = "/community/comment/" + payload
-  return $axios.get(url)
+export function requestCommunityComment({ state }, payload) {
+  const url = "/community/comment/" + payload;
+  return $axios.get(url);
 }
 
 // 커뮤니티 댓글 등록
-export function requestRegisterComment({state}, payload){
-  const url = "/community/comment"
+export function requestRegisterComment({ state }, payload) {
+  const url = "/community/comment";
   return $axios.post(url, payload);
 }
 
 // 커뮤니티 댓글 삭제
-export function requestDeleteComment({state}, payload){
+export function requestDeleteComment({ state }, payload) {
   const url = "/community/comment/" + payload;
   return $axios.delete(url);
 }
@@ -263,5 +263,11 @@ export function createConference({ state }, payload) {
 //입양 신청서 정보 가져오기
 export function readAdoptForm({ state }, formId) {
   const url = "/adopt/" + formId;
+  return $axios.get(url);
+}
+
+//최근 게시판 공고 읽어오기
+export function readRecentBoard({ state }) {
+  const url = "/board/recent";
   return $axios.get(url);
 }

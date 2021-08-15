@@ -80,6 +80,23 @@ public class BoardController {
 
     }
 
+    @GetMapping("/recent")
+    @ApiOperation(value = "입양/임보/실종/보호 최신 공고 목록", notes = "입양/임보/실종/보호 최신 공고 목록을 가져온다")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<BoardRecentListRes> recentAdoptBoardList() {
+
+        List<DogInformation> resultAdoptList = boardService.getRecentAdoptBoard();
+        List<DogInformation> resultFindList = boardService.getRecentFindBoard();
+        return ResponseEntity.ok(BoardRecentListRes.of(200, "Success", resultAdoptList, resultFindList));
+
+
+    }
+
     @GetMapping("/find")
     @ApiOperation(value = "실종/보호 공고 목록", notes = "실종/보호 공고 목록을 가져온다")
     @ApiResponses({

@@ -20,6 +20,12 @@ public interface BoardService {
     Page<DogInformation> filterFindBoardList(Pageable pageable, Long boardType,  Long sido, Long color, Long dogType, String searchWord); //필터링 결과 리스트 불러오기
 
 
+    /* 입양/임보 최신게시물 4개 가져오기 */
+    List<DogInformation> getRecentAdoptBoard();
+
+    /* 실종/보호 최신게시물 4개 가져오기 */
+    List<DogInformation> getRecentFindBoard();
+
     /* 유기동물 관련 게시물 작성하기 */
     Board registerBoard(BoardRegisterPostReq boardRegisterPostReq) throws IOException;
 
