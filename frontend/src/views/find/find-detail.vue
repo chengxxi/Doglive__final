@@ -145,6 +145,12 @@
             </el-carousel-item>
           </el-carousel>
         </div>
+        <el-divider />
+        <div class="dog-image-box">
+          <h4 class="mb-3" style="font-weight:600;">
+            혹시 저는 아닐까요? 🐶🔎
+          </h4>
+        </div>
       </el-card>
     </div>
   </div>
@@ -364,7 +370,7 @@ export default {
           description: state.board.description,
           imageUrl: "@/assets/images/mbti_isfp.png",
           link: {
-            mobileWebUrl: "http://i5a501.p.ssafy.io/",
+            mobileWebUrl: "https://i5a501.p.ssafy.io/",
             androidExecutionParams: "test"
           }
         },
@@ -372,7 +378,7 @@ export default {
           {
             title: "독립으로 이동",
             link: {
-              mobileWebUrl: "http://i5a501.p.ssafy.io/"
+              mobileWebUrl: "https://i5a501.p.ssafy.io/"
             }
           }
         ]
