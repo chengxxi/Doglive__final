@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="20">
-    <el-col :span="12" v-for="(o, idx) in applicant" :key="idx">
+    <el-col :span="10" v-for="(o, idx) in applicant" :key="idx" style="margin-right:2%;">
       <el-row :gutter="20" class="grid-content bg-beige">
         <el-col :span="4">
           <div class="image">
@@ -67,7 +67,6 @@
     border-radius: 4px;
     min-height: 36px;
     margin-bottom: 20px;
-    margin-right:2%;
   }
   .row-bg {
     padding: 10px 0;
