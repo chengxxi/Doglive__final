@@ -303,11 +303,11 @@ export default {
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       }),
-      userProfile : computed(() => {
-          return store.getters["root/getUpdateUserInfo"];
+      userProfile: computed(() => {
+        return store.getters["root/getUpdateUserInfo"];
       }),
-      isLoading : computed(()=> comments.loading),
-   });
+      isLoading: computed(() => comments.loading)
+    });
 
     const communities = reactive({
       init: true,
@@ -448,97 +448,104 @@ export default {
         });
         router.push({ name: "Login" });
       } else {
-        store.dispatch("root/requestRegisterComment",{communityId:id, userId : state.userId, name : state.userProfile.name, comment:comment.input})
-        .then(function(result){
-        createToast("댓글이 등록되었어요 💨💨", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "success"
+        store
+          .dispatch("root/requestRegisterComment", {
+            communityId: id,
+            userId: state.userId,
+            name: state.userProfile.name,
+            comment: comment.input
+          })
+          .then(function(result) {
+            createToast("댓글이 등록되었어요 💨💨", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#7eaa72",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "success"
+            });
+          })
+          .catch(function(err) {
+            createToast("댓글 등록에 실패했어요 😱💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            });
           });
-      })
-      .catch(function(err) {
-          createToast("댓글 등록에 실패했어요 😱💦", {
+      }
+
+      const DeleteComment = function(id) {
+        store
+          .dispatch("root/requestDeleteComment", id)
+          .then(function(result) {
+            createToast("댓글이 삭제되었어요 💨💨", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#7eaa72",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "success"
+            });
+          })
+          .catch(function(err) {
+            createToast("댓글 삭제에 실패했어요 😱💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            });
+            console.log(err);
+          });
+      };
+
+      const goRegister = function() {
+        if (state.userId === null) {
+          createToast("로그인을 진행해주세요 💨💨", {
             hideProgressBar: "true",
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
             position: "bottom-left",
             transition: "bounce",
-            type: "warning"
-          });
-      }
-    };
-
-    const DeleteComment = function(id) {
-      store
-        .dispatch("root/requestDeleteComment", id)
-        .then(function(result) {
-          createToast("댓글이 삭제되었어요 💨💨", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-left",
-            transition: "bounce",
             type: "success"
           });
-      })
-      .catch(function(err) {
-          createToast("댓글 삭제에 실패했어요 😱💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "warning"
-          });
-          console.log(err);
-        });
-    };
+          router.push({ name: "Login" });
+        } else {
+          router.push({ name: "community-board-register" });
+        }
+      };
 
-    const goRegister = function() {
-      if (state.userId === null) {
-        createToast("로그인을 진행해주세요 💨💨", {
-          hideProgressBar: "true",
-          timeout: 4500,
-          showIcon: "true",
-          toastBackgroundColor: "#c49d83",
-          position: "bottom-left",
-          transition: "bounce",
-          type: "success"
+      onMounted(() => {
+        store.commit("root/setBreadcrumbInfo", {
+          isHome: false,
+          title: "Community",
+          subTitle: "게시글 구경하기"
         });
-        router.push({ name: "Login" });
-      } else {
-        router.push({ name: "community-board-register" });
-      }
-    };
-
-    onMounted(() => {
-      store.commit("root/setBreadcrumbInfo", {
-        isHome: false,
-        title: "Community",
-        subTitle: "게시글 구경하기"
+        fetchCommunityList();
       });
-      fetchCommunityList();
-    });
 
-    return {
-      state,
-      deleteCommunity,
-      goRegister,
-      updateCommunity,
-      communities,
-      fetchCommunityList,
-      scroll,
-      images,
-      comment,
-      RegisterComment,
-      DeleteComment
+      return {
+        state,
+        deleteCommunity,
+        goRegister,
+        updateCommunity,
+        communities,
+        fetchCommunityList,
+        scroll,
+        images,
+        comment,
+        RegisterComment,
+        DeleteComment
+      };
     };
   }
 };
