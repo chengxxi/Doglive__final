@@ -57,7 +57,7 @@ public class CommunityController {
         return ResponseEntity.status(204).body(BaseResponseBody.of(204, "게시글이 정상적으로 삭제되었습니다"));
     }
 
-    @PutMapping("/{communityId}", consumes = {"multipart/form-data"})
+    @PutMapping(value = "/{communityId}", consumes = {"multipart/form-data"})
     @ApiOperation(value = "커뮤니티 게시글 수정", notes = "커뮤니티 게시글을 수정한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
