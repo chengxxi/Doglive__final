@@ -303,11 +303,11 @@ export default {
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       }),
-      userProfile: computed(() => {
-        return store.getters["root/getUpdateUserInfo"];
+      userProfile : computed(() => {
+          return store.getters["root/getUpdateUserInfo"];
       }),
-      isLoading: computed(() => comments.loading)
-    });
+      isLoading : computed(()=> comments.loading),
+   });
 
     const communities = reactive({
       init: true,
@@ -448,35 +448,27 @@ export default {
         });
         router.push({ name: "Login" });
       } else {
-        store
-          .dispatch("root/requestRegisterComment", {
-            communityId: id,
-            userId: state.userId,
-            name: state.userProfile.name,
-            comment: comment.input
-          })
-          .then(function(result) {
-            createToast("댓글이 등록되었어요 💨💨", {
-              hideProgressBar: "true",
-              timeout: 4500,
-              showIcon: "true",
-              toastBackgroundColor: "#7eaa72",
-              position: "bottom-left",
-              transition: "bounce",
-              type: "success"
-            });
-          })
-          .catch(function(err) {
-            createToast("댓글 등록에 실패했어요 😱💦", {
-              hideProgressBar: "true",
-              timeout: 4500,
-              showIcon: "true",
-              toastBackgroundColor: "#c49d83",
-              position: "bottom-left",
-              transition: "bounce",
-              type: "warning"
-            });
-            console.log(err);
+        store.dispatch("root/requestRegisterComment",{communityId:id, userId : state.userId, name : state.userProfile.name, comment:comment.input})
+        .then(function(result){
+        createToast("댓글이 등록되었어요 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#7eaa72",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "success"
+          });
+      })
+      .catch(function(err) {
+          createToast("댓글 등록에 실패했어요 😱💦", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "warning"
           });
       }
     };
@@ -494,8 +486,8 @@ export default {
             transition: "bounce",
             type: "success"
           });
-        })
-        .catch(function(err) {
+      })
+      .catch(function(err) {
           createToast("댓글 삭제에 실패했어요 😱💦", {
             hideProgressBar: "true",
             timeout: 4500,
