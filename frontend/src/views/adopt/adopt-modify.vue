@@ -710,7 +710,7 @@ export default {
       for (var i = 0; i < cnt; i++) {
         formData.append("delList", this.state.deleteList[i]);
       }
-      console.log("6");
+      console.log("cnt");
       for (var j = 0; j < this.state.newAddFile.length; j++) {
         formData.append("fileList", this.state.newAddFile[j]);
       }
