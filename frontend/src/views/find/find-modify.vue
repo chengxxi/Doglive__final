@@ -530,8 +530,9 @@ export default {
       formData.append("gugun", state.board.gugun.id);
 
       const cnt = this.state.deleteList.length;
+
       for (var i = 0; i < cnt; i++) {
-        formData.append("delList", this.deleteList[i]);
+        formData.append("delList", this.state.deleteList[i]);
       }
 
       for (var j = 0; j < this.state.newAddFile.length; j++) {

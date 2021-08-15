@@ -704,18 +704,18 @@ export default {
       );
       formData.append("weight", state.board.weight.id);
       formData.append("gugun", state.board.gugun.id);
+      console.log("5");
 
       const cnt = this.state.deleteList.length;
       for (var i = 0; i < cnt; i++) {
-        formData.append("delList", this.deleteList[i]);
+        formData.append("delList", this.state.deleteList[i]);
       }
-
+      console.log("cnt");
       for (var j = 0; j < this.state.newAddFile.length; j++) {
         formData.append("fileList", this.state.newAddFile[j]);
       }
-
       console.log(formData);
-
+      console.log("7");
       store
         .dispatch("root/requestModifyBoard", {
           boardId: state.board.boardId,
@@ -755,6 +755,8 @@ export default {
                 dogName: result.data.dogInformation.dogName,
                 isBookmarked: result.data.bookmarked
               };
+
+              console.log("8");
               createToast("공고가 수정되었어요 📜🐾", {
                 hideProgressBar: "true",
                 timeout: 4500,

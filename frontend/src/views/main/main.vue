@@ -41,10 +41,16 @@ export default {
     const router = useRouter();
 
     // URL이 변경되기전 거쳐가는 함수
-    router.beforeEach(function(to, from, next){
-      if(to.matched.some(record => record.meta.requiresAuth)){ // 로그인이 필요한 페이지라면
-        if(store.getters["root/getLoginUserInfo"].userId === null){ // 현재 로그인된 상태인지 확인
-           createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+    router.beforeEach(function(to, from, next) {
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+        // 로그인이 필요한 페이지라면
+        if (
+          store.getters["root/getLoginUserInfo"].userId === null ||
+          store.getters["root/getLoginUserInfo"].userId === undefined ||
+          store.getters["root/getLoginUserInfo"].userId == ""
+        ) {
+          // 현재 로그인된 상태인지 확인
+          createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
             hideProgressBar: "true",
             timeout: 4500,
             showIcon: "true",
@@ -53,14 +59,14 @@ export default {
             transition: "bounce",
             type: "warning"
           });
-          next({ path: '/login'})
-        }else{
-          next()
+          next({ path: "/login" });
+        } else {
+          next();
         }
-      }else{
-        next()
+      } else {
+        next();
       }
-    })
+    });
 
     // URL이 변경된 후, 현재 Path를 저장하는 함수
     router.afterEach((to, from, next) => {

@@ -265,6 +265,7 @@ public class BoardServiceImpl implements  BoardService{
 
         //boardImage 수정
         if(boardRegisterPostReq.getDelList()!=null) {
+            System.out.println("========= delete List ! ");
             deleteSomeBoardImagesByUrl(boardRegisterPostReq.getDelList());
         }
 
@@ -421,6 +422,7 @@ public class BoardServiceImpl implements  BoardService{
                 Optional<List<BoardImage>> delImgList = boardImageRepository.findBoardImagesByImgFullPath(url);
                 if(delImgList.isPresent()){
                     for(BoardImage img : delImgList.get()){
+                        boardImageRepository.delete(img);
                         s3Uploader.delete(img.getFilename());
                     }
                 }
