@@ -255,7 +255,8 @@ export default {
       }),
       userProfile : computed(() => {
           return store.getters["root/getUpdateUserInfo"];
-        })
+      }),
+      isLoading : computed(()=> comments.loading),
    });
 
     const communities = reactive({
@@ -401,7 +402,6 @@ export default {
             transition: "bounce",
             type: "success"
           });
-          router.go(router.currentRoute)
       })
       .catch(function(err) {
           createToast("댓글 등록에 실패했어요 😱💦", {
@@ -430,7 +430,6 @@ export default {
             transition: "bounce",
             type: "success"
           });
-          router.go(router.currentRoute)
       })
       .catch(function(err) {
           createToast("댓글 삭제에 실패했어요 😱💦", {
