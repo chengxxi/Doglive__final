@@ -24,8 +24,8 @@ export function requestKakaoLogout({ state }) {
 
 // 채팅방 생성 요청
 export function requestCreateChatRoom({ state }, payload) {
-  const url = "/chatroom"
-  let body = payload
+  const url = "/chatroom";
+  let body = payload;
   return $axios.post(url, body);
 }
 
@@ -43,10 +43,10 @@ export function requestChatRoomList({ state }) {
 }
 
 // 채팅방 이전 로그 목록 요청
-export function requestChatMessageList({ state }, payload){
+export function requestChatMessageList({ state }, payload) {
   let roomId = payload.roomId;
   let page = payload.page;
-  const url = '/chatroom/' + roomId + '/messages/' + page; // 요기
+  const url = "/chatroom/" + roomId + "/messages/" + page; // 요기
   return $axios.get(url);
 }
 
@@ -236,8 +236,14 @@ export function requestBoardDetail({ state }, payload) {
 }
 
 // 화상회의 개설
-export function createConference({state}, payload) {
-  const url='/conference';
+export function createConference({ state }, payload) {
+  const url = "/conference";
   console.log(payload.data);
   return $axios.post(url, payload.data);
+}
+
+//입양 신청서 정보 가져오기
+export function readAdoptForm({ state }, formId) {
+  const url = "/adopt/" + formId;
+  return $axios.get(url);
 }

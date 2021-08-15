@@ -9,6 +9,7 @@
       >
         <div style="margin-left:30px; margin-right:30px;">
           <el-form
+            class="mt-5"
             style=" margin:100px;"
             label-position="left"
             :model="form"
@@ -22,32 +23,25 @@
 
             <el-row class="mt-3 mb-3">
               <el-col>
-                <el-form-item
-                  label="신청자 이름"
-                  prop="name"
-                  style="width:100%"
-                >
-                  <el-input v-model="form.name" placeholder="조다운"></el-input>
+                <el-form-item label="신청자 이름" style="width:100%">
+                  <el-input
+                    v-model="state.adoptForm.name"
+                    placeholder=""
+                    disabled
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row class="mt-3 mb-3">
               <el-col :span="12">
-                <el-form-item
-                  label="이메일 주소"
-                  prop="email"
-                  style="width:95%"
-                >
-                  <el-input v-model="form.email" placeholder="ssafy@ssafy.com">
+                <el-form-item label="이메일 주소" style="width:95%">
+                  <el-input v-model="state.adoptForm.email" disabled>
                   </el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="연락처" prop="phone" style="width:100%">
-                  <el-input
-                    v-model="form.phone"
-                    placeholder="010-0000-0000"
-                  ></el-input>
+                <el-form-item label="연락처" style="width:100%">
+                  <el-input v-model="state.adoptForm.phone" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -56,46 +50,21 @@
               <el-col :span="15">
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item
-                      label="거주지(시/도)"
-                      prop="sido"
-                      label-width="100%"
-                    >
-                      <el-select
-                        v-model="form.sido"
-                        placeholder="시/도"
+                    <el-form-item label="거주지(시/도)" label-width="100%">
+                      <el-input
+                        v-model="state.adoptForm.sido"
                         style="width:95% ;"
-                        :change="gugunList(form.sido)"
-                      >
-                        <el-option
-                          v-for="(sido, idx) in state.sidoList"
-                          :key="idx"
-                          :label="sido.name"
-                          :value="sido.id"
-                        >
-                        </el-option>
-                      </el-select>
+                        disabled
+                      ></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item
-                      label="거주지(구/군)"
-                      prop="gugun"
-                      label-width="100%"
-                    >
-                      <el-select
+                    <el-form-item label="거주지(구/군)" label-width="100%">
+                      <el-input
+                        v-model="state.adoptForm.gugun"
                         style="width:95% ;"
-                        v-model="form.gugun"
-                        placeholder="구/군"
-                      >
-                        <el-option
-                          v-for="(gugun, idx) in state.gugunList"
-                          :key="idx"
-                          :label="gugun.name"
-                          :value="gugun.id"
-                        >
-                        </el-option>
-                      </el-select>
+                        disabled
+                      ></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -103,36 +72,23 @@
               <el-col :span="5">
                 <el-row>
                   <el-col :span="24">
-                    <el-form-item
-                      label="결혼여부"
-                      prop="isMarried"
-                      label-width="100%"
-                    >
-                      <el-radio-group
-                        style="width:100%"
-                        v-model="form.isMarried"
-                      >
-                        <el-radio
-                          style="margin-left:10%; "
-                          label="Yes"
-                          border
-                        ></el-radio>
-                        <el-radio label="No" border></el-radio>
-                      </el-radio-group>
+                    <el-form-item label="결혼여부" label-width="100%">
+                      <el-input
+                        v-model="state.adoptForm.isMarried"
+                        style="width:95% ;"
+                        disabled
+                      ></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
               </el-col>
               <el-col :span="4">
-                <el-form-item label="성별" label-width="100%" prop="gender">
-                  <el-radio-group v-model="form.gender" style="width:100%;">
-                    <el-radio
-                      style="margin-left:10%; "
-                      label="남"
-                      border
-                    ></el-radio>
-                    <el-radio label="여" border></el-radio>
-                  </el-radio-group>
+                <el-form-item label="성별" label-width="100%">
+                  <el-input
+                    v-model="state.adoptForm.gender"
+                    style="width:95% ;"
+                    disabled
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -145,27 +101,23 @@
             <el-divider />
             <el-row class="mt-3 mb-3">
               <el-col :span="24">
-                <el-form-item label="공고 제목" prop="title" style="width:100%">
-                  <el-input v-model="state.board.title" disabled></el-input>
+                <el-form-item label="공고 제목" style="width:100%">
+                  <el-input v-model="state.adoptForm.title" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row class="mt-3 mb-3">
               <el-col :span="12">
-                <el-form-item
-                  label="강아지 이름"
-                  prop="dogName"
-                  style="width:95%"
-                >
-                  <el-input v-model="state.board.dogName" disabled></el-input>
+                <el-form-item label="강아지 이름" style="width:95%">
+                  <el-input
+                    v-model="state.adoptForm.dogName"
+                    disabled
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="공고 타입" prop="type" style="width:100%">
-                  <el-input
-                    v-model="state.board.boardType.name"
-                    disabled
-                  ></el-input>
+                <el-form-item label="공고 타입" style="width:100%">
+                  <el-input v-model="state.adoptForm.type" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -173,27 +125,27 @@
               <el-col>
                 <el-form-item
                   :label="question.q1"
-                  prop="answer1"
                   style="width:100%"
                   label-width="70%"
                 >
-                  <el-radio-group v-model="form.answer1">
-                    <el-radio label="Yes" border></el-radio>
-                    <el-radio label="No" border></el-radio>
-                  </el-radio-group>
+                  {{ state.adoptForm.answer1 }}
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row v-if="form.answer1 === 'Yes'" class="mt-3 mb-3">
+            <el-row
+              v-if="
+                state.adoptForm.answer1 === 'Yes' &&
+                  state.adoptForm.answer1sub != null &&
+                  state.adoptForm.answer1sub != ''
+              "
+              class="mt-3 mb-3"
+            >
               <el-col>
-                <el-form-item
-                  :label="question.q1sub"
-                  prop="answer1sub"
-                  style="width:100%"
-                >
+                <el-form-item :label="question.q1sub" style="width:100%">
                   <el-input
-                    v-model="form.answer1sub"
+                    v-model="state.adoptForm.answer1sub"
                     type="textarea"
+                    disabled
                     :rows="3"
                   ></el-input>
                 </el-form-item>
@@ -203,26 +155,26 @@
               <el-col>
                 <el-form-item
                   :label="question.q2"
-                  prop="answer2"
                   style="width:100%"
                   label-width="70%"
                 >
-                  <el-radio-group v-model="form.answer2">
-                    <el-radio label="Yes" border></el-radio>
-                    <el-radio label="No" border></el-radio>
-                  </el-radio-group>
+                  {{ state.adoptForm.answer2 }}
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row v-if="form.answer2 === 'Yes'" class="mt-3 mb-3">
+            <el-row
+              v-if="
+                state.adoptForm.answer2 === 'Yes' &&
+                  state.adoptForm.answer2sub != null &&
+                  state.adoptForm.answer2sub != ''
+              "
+              class="mt-3 mb-3"
+            >
               <el-col>
-                <el-form-item
-                  :label="question.q2sub"
-                  prop="answer2sub"
-                  style="width:100%"
-                >
+                <el-form-item :label="question.q2sub" style="width:100%">
                   <el-input
-                    v-model="form.answer2sub"
+                    v-model="state.adoptForm.answer2sub"
+                    disabled
                     type="textarea"
                     :rows="3"
                   ></el-input>
@@ -233,15 +185,10 @@
               <el-col>
                 <el-form-item
                   :label="question.q3"
-                  prop="answer3"
                   style="width:100%"
                   label-width="70%"
                 >
-                  <el-input-number
-                    v-model="form.answer3"
-                    :min="1"
-                    :max="10"
-                  ></el-input-number>
+                  {{ state.adoptForm.answer3 }}
                 </el-form-item>
               </el-col>
             </el-row>
@@ -249,15 +196,10 @@
               <el-col>
                 <el-form-item
                   :label="question.q3sub"
-                  prop="answer3sub"
                   style="width:100%"
                   label-width="70%"
                 >
-                  <el-radio-group v-model="form.answer3sub">
-                    <el-radio label="동의" border></el-radio>
-                    <el-radio label="일부동의" border></el-radio>
-                    <el-radio label="반대" border></el-radio>
-                  </el-radio-group>
+                  {{ state.adoptForm.answer3sub }}
                 </el-form-item>
               </el-col>
             </el-row>
@@ -265,17 +207,10 @@
               <el-col>
                 <el-form-item
                   :label="question.q4"
-                  prop="answer4"
                   style="width:100%"
                   label-width="70%"
                 >
-                  <el-select v-model="form.answer4" placeholder="거주형태">
-                    <el-option label="아파트" value="아파트"></el-option>
-                    <el-option label="단독주택" value="단독주택"></el-option>
-                    <el-option label="빌라" value="빌라"></el-option>
-                    <el-option label="원룸" value="원룸"></el-option>
-                    <el-option label="기타" value="기타"></el-option>
-                  </el-select>
+                  {{ state.adoptForm.answer4 }}
                 </el-form-item>
               </el-col>
             </el-row>
@@ -284,14 +219,10 @@
               <el-col>
                 <el-form-item
                   :label="question.q5"
-                  prop="answer5"
                   style="width:100%"
                   label-width="70%"
                 >
-                  <el-radio-group v-model="form.answer5">
-                    <el-radio label="Yes" border></el-radio>
-                    <el-radio label="No" border></el-radio>
-                  </el-radio-group>
+                  {{ state.adoptForm.answer5 }}
                 </el-form-item>
               </el-col>
             </el-row>
@@ -299,26 +230,19 @@
               <el-col>
                 <el-form-item
                   :label="question.q6"
-                  prop="answer6"
                   style="width:100%"
                   label-width="70%"
                 >
-                  <el-radio-group v-model="form.answer6">
-                    <el-radio label="Yes" border></el-radio>
-                    <el-radio label="No" border></el-radio>
-                  </el-radio-group>
+                  {{ state.adoptForm.answer6 }}
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row class="mt-3 mb-3">
               <el-col>
-                <el-form-item
-                  :label="question.q7"
-                  prop="answer7"
-                  style="width:100%"
-                >
+                <el-form-item :label="question.q7" style="width:100%">
                   <el-input
-                    v-model="form.answer7"
+                    v-model="state.adoptForm.answer7"
+                    disabled
                     type="textarea"
                     :rows="4"
                   ></el-input>
@@ -327,13 +251,10 @@
             </el-row>
             <el-row class="mt-3 mb-3">
               <el-col>
-                <el-form-item
-                  :label="question.q8"
-                  prop="answer8"
-                  style="width:100%"
-                >
+                <el-form-item :label="question.q8" style="width:100%">
                   <el-input
-                    v-model="form.answer8"
+                    v-model="state.adoptForm.answer8"
+                    disabled
                     type="textarea"
                     :rows="4"
                   ></el-input>
@@ -342,13 +263,10 @@
             </el-row>
             <el-row class="mt-3 mb-3">
               <el-col>
-                <el-form-item
-                  :label="question.q9"
-                  prop="answer9"
-                  style="width:100%"
-                >
+                <el-form-item :label="question.q9" style="width:100%">
                   <el-input
-                    v-model="form.answer9"
+                    v-model="state.adoptForm.answer9"
+                    disabled
                     type="textarea"
                     :rows="4"
                   ></el-input>
@@ -357,13 +275,10 @@
             </el-row>
             <el-row class="mt-3 mb-3">
               <el-col>
-                <el-form-item
-                  :label="question.q10"
-                  prop="answer10"
-                  style="width:100%"
-                >
+                <el-form-item :label="question.q10" style="width:100%">
                   <el-input
-                    v-model="form.answer10"
+                    v-model="state.adoptForm.answer10"
+                    disabled
                     type="textarea"
                     :rows="4"
                   ></el-input>
@@ -375,9 +290,12 @@
               style=" display: flex;
   justify-content: center;"
             >
-              <el-button type="primary" @click="submitForm('form')"
-                >제출</el-button
-              >
+              <el-button
+                type="primary"
+                @click="goBack"
+                style=" margin-top:20px; font-weight:600;  margin-right:5px; height:40px;"
+                >마이페이지 돌아가기
+              </el-button>
             </el-row>
           </el-form>
         </div>
@@ -401,32 +319,6 @@ export default {
   },
   data() {
     return {
-      form: {
-        email: "",
-        name: "",
-        phone: "",
-        gender: "",
-        age: "",
-        sido: "",
-        gugun: "",
-        job: "",
-
-        isMarried: "",
-
-        answer1: "",
-        answer1sub: "",
-        answer2: "",
-        answer2sub: "",
-        answer3: 0,
-        answer3sub: "",
-        answer4: "",
-        answer5: false,
-        answer6: "",
-        answer7: "",
-        answer8: "",
-        answer9: "",
-        disabled: true
-      },
       question: {
         q1: "1. 이전에 반려동물을 키우신 적이 있으신가요?",
         q1sub:
@@ -449,293 +341,35 @@ export default {
           "10. 앞으로 결혼, 임신, 출산 등 가족의 변화가 있는 경우 반려동물의 거취문제에 대해 어떻게 생각하십니까?",
         q10:
           "11. 그 외에 입양 신청에 관해 덧붙이고자 하시는 말씀이 있으시면 적어주시기 바랍니다."
-      },
-      rules: {
-        //유효성 검사
-        email: [
-          {
-            required: true,
-            message: "이메일을 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        name: [
-          {
-            required: true,
-            message: "이름을 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        phone: [
-          {
-            required: true,
-            message: "연락처를 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        gender: [
-          {
-            required: true,
-            message: "성별을 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        age: [
-          {
-            required: true,
-            message: "나이를 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        sido: [
-          {
-            required: true,
-            message: "주소지를 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        gugun: [
-          {
-            required: true,
-            message: "주소지를 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        isMarried: [
-          {
-            required: true,
-            message: "결혼 여부를 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        job: [
-          {
-            required: true,
-            message: "직업을 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        answer1: [
-          {
-            required: true,
-            message: "답변을 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        answer2: [
-          {
-            required: true,
-            message: "답변을 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        answer3: [
-          {
-            required: true,
-            message: "답변을 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        answer3sub: [
-          {
-            required: true,
-            message: "답변을 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        answer4: [
-          {
-            required: true,
-            message: "답변을 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        answer5: [
-          {
-            required: true,
-            message: "답변을 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        answer6: [
-          {
-            required: true,
-            message: "답변을 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        answer7: [
-          {
-            required: true,
-            message: "답변을 입력해주세요.",
-            trigger: "change"
-          },
-          {
-            min: 10,
-            message: "10글자 이상 작성해주세요.",
-            trigger: "change"
-          },
-          {
-            max: 500,
-            message: "500글자 이하로 작성해주세요.",
-            trigger: "change"
-          }
-        ],
-        answer8: [
-          {
-            required: true,
-            message: "답변을 입력해주세요.",
-            trigger: "change"
-          },
-          {
-            min: 20,
-            message: "20글자 이상 작성해주세요.",
-            trigger: "change"
-          },
-          {
-            max: 500,
-            message: "500글자 이하로 작성해주세요.",
-            trigger: "change"
-          }
-        ],
-        answer9: [
-          {
-            required: true,
-            message: "답변을 입력해주세요.",
-            trigger: "change"
-          },
-          {
-            min: 20,
-            message: "20글자 이상 작성해주세요.",
-            trigger: "change"
-          },
-          {
-            max: 500,
-            message: "500글자 이하로 작성해주세요.",
-            trigger: "change"
-          }
-        ]
       }
     };
   },
-  methods: {
-    submitForm(formName) {
-      const data = {
-        userId: this.state.userInfo.userId,
-        data: {
-          boardId: this.state.board.boardId,
-          boardType: this.state.board.boardType.name,
-          dogName: this.state.board.dogName,
-          content: this.form
-        }
-      };
 
-      console.log(data);
-
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.submitAdoptForm(data);
-          console.log(this.ruleForm);
-        } else {
-          createToast("작성하지 않은 필수항목이 있어요 💬💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
-            transition: "bounce",
-            type: "warning"
-          });
-          return false;
-        }
-      });
-    }
-  },
   setup() {
     const store = new useStore();
     const router = new useRouter();
-    const ruleForm = ref(null);
 
     const state = reactive({
-      board: computed(() => {
-        console.log(store.getters["root/getBoardDetail"]);
-        return store.getters["root/getBoardDetail"];
+      adoptFormId: computed(() => {
+        console.log(store.getters["root/getAdoptFormId"]);
+        return store.getters["root/getAdoptFormId"];
       }),
-      userInfo: computed(() => {
-        return store.getters["root/getLoginUserInfo"];
-      }),
-      sidoList: [],
-      gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }]
+      adoptForm: {}
     });
 
-    store
-      .dispatch("root/requestSidoCodeList")
-      .then(function(result) {
-        console.log("call : sidocode");
-        state.sidoList = result.data.sidoList;
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-
-    const clickEmailCheck = function() {
-      createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
-        hideProgressBar: "true",
-        timeout: 4500,
-        showIcon: "true",
-        toastBackgroundColor: "#c49d83",
-        position: "bottom-right",
-        transition: "bounce",
-        type: "warning"
-      });
-    };
-
-    const submitAdoptForm = function(data) {
+    const readAdoptForm = function() {
       store
-        .dispatch("root/registerAdoptForm", data)
+        .dispatch("root/readAdoptForm", state.adoptFormId)
         .then(function(result) {
-          createToast("입양 신청서가 제출 되었어요 📬🐾", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
-            transition: "bounce",
-            type: "success"
-          });
-
-          router.push({ name: "AdoptDetail" });
-          //1.채팅방으로 이동하는 로직 구현(?)
-          //2. 마이페이지 제출 확인 페이지로 이동
-          console.log(result);
+          state.adoptForm = result.data.content;
         })
-        .catch(function(error) {
-          createToast("입양 신청서 제출에 실패했어요 💬💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
-            transition: "bounce",
-            type: "warning"
-          });
-          console.log(error);
+        .catch(function(err) {
+          console.log(err);
         });
     };
 
-    const gugunList = function(selectedSidoCode) {
-      console.log(selectedSidoCode);
-
-      store
-        .dispatch("root/requestGugunCodeList", selectedSidoCode)
-        .then(function(result) {
-          console.log("call : guguncode");
-
-          state.gugunList = result.data.gugunList;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+    const goBack = function() {
+      router.push({ name: "Mypage" });
     };
 
     onMounted(() => {
@@ -744,12 +378,13 @@ export default {
         isHome: false,
         title: "입양/임보",
         path: "/adopt",
-        subTitle: "입양/임보 신청서 작성"
+        subTitle: "입양/임보 신청서 조회"
       });
+      readAdoptForm();
       window.scrollTo(0, 0);
     });
 
-    return { state, gugunList, clickEmailCheck, submitAdoptForm };
+    return { state, readAdoptForm, goBack };
   }
 };
 </script>
@@ -836,7 +471,6 @@ li.el-select-dropdown__item.selected {
 
 :deep(.el-form-item__label) {
   font-size: 12pt;
-  font-weight: 500;
 }
 
 .box {
@@ -847,13 +481,24 @@ li.el-select-dropdown__item.selected {
 }
 
 :deep(.el-input.is-disabled .el-input__inner) {
-  background-color: #f9f0e7;
-  border-color: #f9f0e7;
+  background-color: #fffbf7;
+  border-color: #fffbf7;
+  font-size: 11pt;
   color: #616161;
+  cursor: auto;
 }
 
 .center {
   display: flex;
   justify-content: center;
+}
+
+:deep(.el-textarea.is-disabled .el-textarea__inner) {
+  background-color: #fffbf7;
+  border-color: #fffbf7;
+  font-size: 11pt;
+  color: #616161;
+  cursor: auto;
+  resize: none;
 }
 </style>

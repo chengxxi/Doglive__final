@@ -9,6 +9,7 @@
       >
         <div style="margin-left:30px; margin-right:30px;">
           <el-form
+            class="mt-5"
             style=" margin:100px;"
             label-position="left"
             :model="form"
@@ -627,7 +628,7 @@ export default {
           boardType: this.state.board.boardType.name,
           boardTitle: this.state.board.title,
           dogName: this.state.board.dogName,
-          content: this.form
+          content: JSON.stringify(this.form)
         }
       };
 
@@ -655,7 +656,6 @@ export default {
   setup() {
     const store = new useStore();
     const router = new useRouter();
-    const ruleForm = ref(null);
 
     const state = reactive({
       board: computed(() => {
@@ -880,7 +880,7 @@ li.el-select-dropdown__item.selected {
 .box {
   margin-top: 30px;
   margin-bottom: 40px;
-  padding: 20px;
+  padding: 40px;
   background-color: #faf4ef;
 }
 
