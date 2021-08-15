@@ -38,11 +38,12 @@
                 </div>
                 <div class="col-md-3 ms-auto">
                   <div
-                    v-if="!state.board.isOwner"
                     class="align-self-center vertical-center"
                     style="text-align: center;"
                   >
                     <font-awesome-icon
+                      v-if="!state.board.isOwner"
+                      class="scale-up-2"
                       :icon="[state.board.isbookmarked ? 'fas' : 'far', 'star']"
                       @click="clickBookmark()"
                       aria-hidden="true"
@@ -52,6 +53,7 @@
 
                     <img
                       @click="kakaoShare"
+                      class="scale-up-2"
                       style="margin-left:15px; cursor: pointer;"
                       src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
                       width="40"
@@ -146,13 +148,32 @@
           </el-carousel>
         </div>
 
-        <div class="dog-image-box">
-          <h5
-            class="pt-3 pb-3"
+        <div v-if="state.board.listSimilar != null" class="dog-image-box">
+          <h4
+            class="pt-4 pb-4"
             style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
           >
-            🐶🔎 혹시 저는 아닐까요❔
-          </h5>
+            🔎 혹시 이 친구🐶는 아닐까요❔
+          </h4>
+          <div
+            style=" display: flex;
+  justify-content: center; "
+          >
+            <div style="max-width:1080px; margin-top:20px; width:95%;">
+              <div
+                style="white-space:nowrap;
+    overflow-x: auto; "
+              >
+                <span v-for="(card, idx) in state.board.listSimilar" :key="idx">
+                  <FindCard
+                    :card="card"
+                    @click="readDetail(card.boardId.id)"
+                    style="margin:10px; "
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </el-card>
     </div>
@@ -173,7 +194,8 @@ export default {
   name: "FindDetail",
   components: {
     BreadCrumb,
-    createToast
+    createToast,
+    FindCard
   },
   data() {
     return {
@@ -279,17 +301,18 @@ export default {
         content: {
           title: state.board.title,
           description: state.board.description,
-          imageUrl: "@/assets/images/mbti_isfp.png",
+          imageUrl: state.board.fileList[0],
           link: {
             mobileWebUrl: "https://i5a501.p.ssafy.io/",
-            androidExecutionParams: "test"
+            webUrl: "https://i5a501.p.ssafy.io/"
           }
         },
         buttons: [
           {
             title: "독립으로 이동",
             link: {
-              mobileWebUrl: "https://i5a501.p.ssafy.io/"
+              mobileWebUrl: "https://i5a501.p.ssafy.io/",
+              webUrl: "https://i5a501.p.ssafy.io/"
             }
           }
         ]
@@ -502,5 +525,22 @@ h3 {
   display: flex;
   align-items: center;
   margin-right: auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #f3e8dc, #f5edea);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(192, 186, 178);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
 }
 </style>

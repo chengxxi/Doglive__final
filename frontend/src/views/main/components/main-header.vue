@@ -10,31 +10,19 @@
           </li>
           <li>
             <a href="#" @mouseover="changeDisplay('over')">독립</a>
-            <ul class="depth1" :style="{ display: state.showHiddenMenu }">
-              <li><a href="#">About 독립</a></li>
-              <li><a href="/conference">화상회의 구현중</a></li>
-              <li><a href="/chat">채팅 구현중</a></li>
-            </ul>
           </li>
           <li>
-            <a href="#" @mouseover="changeDisplay('over')">입양/임보</a>
-            <ul class="depth1" :style="{ display: state.showHiddenMenu }">
-              <li><a href="/adopt">입양/임시보호</a></li>
-              <li><a href="/mbti">나와 맞는 강아지 MBTI</a></li>
-            </ul>
+            <a href="/adopt" @mouseover="changeDisplay('over')">입양/임보</a>
+          </li>
+
+          <li>
+            <a href="/find" @mouseover="changeDisplay('over')">실종/보호</a>
           </li>
           <li>
-            <a href="#" @mouseover="changeDisplay('over')">실종/보호</a>
-            <ul class="depth1" :style="{ display: state.showHiddenMenu }">
-              <li><a href="/find">실종/보호</a></li>
-            </ul>
+            <a href="/mbti" @mouseover="changeDisplay('over')">DBTI</a>
           </li>
           <li>
-            <a href="#" @mouseover="changeDisplay('over')">커뮤니티</a>
-            <ul class="depth1" :style="{ display: state.showHiddenMenu }">
-              <li><a href="/community">게시글 구경하기</a></li>
-              <li><a href="/community/mylist">내 피드 확인하기</a></li>
-            </ul>
+            <a href="/community" @mouseover="changeDisplay('over')">독립신문</a>
           </li>
           <li>
             <!-- User 아이콘에 마우스 hover했을 때 나올 popover 정의 -->
