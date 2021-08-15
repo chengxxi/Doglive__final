@@ -1,7 +1,6 @@
 <template>
   <el-row>
     <el-col :span="12" v-for="(o, idx) in result" :key="idx">
-<<<<<<< HEAD
       <el-row class=" grid-content bg-beige">
         <el-col :span="5">
           <div class="tag">
@@ -59,49 +58,9 @@
             class="scale-up-3"
           >
           </font-awesome-icon>
-=======
-      <el-row :gutter="20" class="grid-content bg-beige" >
-        <el-col :span="3">
-          <div class="tag">
-          <el-tag
-              v-if="o.result=='승인'"
-              color="#99CC00"
-              effect="dark"
-              size="medium"
-              style="border:none; border-radius: 30px; font-size:10pt;">{{o.result}}</el-tag>
-              <el-tag
-              v-if="o.result=='거절'"
-              color="#CC0033"
-              effect="dark"
-              size="medium"
-              style="border:none; border-radius: 30px; font-size:10pt;">{{o.result}}</el-tag>
-              <el-tag
-              v-if="o.result=='대기'"
-              color="#FFFF33"
-              effect="dark"
-              size="medium"
-              style="border:none; border-radius: 30px; font-size:10pt;">{{o.result}}</el-tag>
-        </div>
-        </el-col>
-        <el-col :span="10">
-          <div class="apply-content"><p>분류 : {{o.boardType}}</p><p>강아지 이름 : {{o.dogName}}</p></div>
-        </el-col>
-        <el-col :span="3">
-        </el-col>
-        <el-col :span="3">
-          <div class="icon">
-          <font-awesome-icon
-                        icon="file"
-                        aria-hidden="true"
-                        style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-left:350%;"
-                        class="scale-up-5">
-          </font-awesome-icon>
-        </div>
->>>>>>> feat-36/comment2
         </el-col>
       </el-row>
     </el-col>
-    
   </el-row>
 </template>
 
