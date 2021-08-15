@@ -63,10 +63,44 @@ export default {
         } else {
           next();
         }
-      } else {
-        next();
+      } else if(to.matched.some(record => record.meta.requiredFromChat)) {
+        if(store.getters['root/getConference'].fromChat == false) {
+          createToast("비정상적인 접근이개🐕‍🦺💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "warning"
+          });
+          next({ path: '/'})
+          }else{
+          next()
+        }
+      } else if(from.name == 'conference') {        // 화상회의에서 나올 때
+        console.log('from > 화상회의에서 나온다')
+        store.commit('root/setConference', {
+          roomID: '',
+          thumbnailUrl:'',
+          writer:'',    // 글 작성자
+          reader:'',    // 신청자
+          fromChat:false,
+        })
+        next()
+      // } else if(to.name == 'conference') {          // 화상회의로 들어갈 때
+      //   console.log(store.getters['root/getConference'].fromChat)
+      //   if(store.getters['root/getConference'].fromChat) {
+      //     next()
+      //   } else {
+      //     next('/Main')
+      //   }
+      } else{
+        next()
       }
-    });
+
+
+    })
 
     // URL이 변경된 후, 현재 Path를 저장하는 함수
     router.afterEach((to, from, next) => {

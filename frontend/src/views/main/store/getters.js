@@ -58,3 +58,8 @@ export function getBoardId(state) {
 export function getAdoptFormId(state) {
   return state.adoptForm.formId;
 }
+
+// 화상회의 정보 가져오기
+export function getConference(state) {
+  return state.conference;
+}

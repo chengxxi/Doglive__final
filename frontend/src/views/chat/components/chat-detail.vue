@@ -20,7 +20,7 @@
   <div class="chat-input">
     <el-input type="textarea" v-model="state.content" @keyup.enter="sendMessage"></el-input>
     <el-button class="send-btn" :class="{active : !state.activeButton}" @click="sendMessage">전송</el-button>
-    <i class="video-btn" href="../../conferences/conference.vue"><font-awesome-icon  :icon="[ 'fas' , 'video']"></font-awesome-icon></i>
+    <a class="video-btn" @click="createConference(chat.title)"><font-awesome-icon  :icon="[ 'fas' , 'video']"></font-awesome-icon></a>
     <!-- <i class="el-icon-video-camera video-btn"></i> -->
   </div>
 </template>
@@ -120,7 +120,8 @@
 <script>
 import svg from '@/assets/svgs/loading.js'
 import ChatMessage from './chat-message.vue'
-import { useStore } from 'vuex'
+import { useStore} from 'vuex'
+import { useRouter } from "vue-router";
 import { ref, reactive, computed, onUpdated, onMounted } from 'vue'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
@@ -139,6 +140,7 @@ export default {
 
   setup () {
     const store = useStore()
+    const router = useRouter();
     const userId = store.getters['root/getLoginUserInfo'].userId;
     const roomId = store.getters['root/getChat'].roomId;
     const divs = ref(null); // 요기
@@ -214,8 +216,8 @@ export default {
 
     // 웹 소켓 통신 Connect
     function connect(){
-      const url = "https://i5a501.p.ssafy.io/api/v1/chat-server" // 배포용
-      //const url = "https://localhost:8081/api/v1/chat-server"
+      //const url = "https://i5a501.p.ssafy.io/api/v1/chat-server" // 배포용
+      const url = "https://localhost:8081/api/v1/chat-server"
       socket = new SockJS(url, { transports: ['websocket', 'xhr-streaming', 'xhr-polling']})
       client = Stomp.over(socket)
       client.connect({withCredentials : true, userId : userId }
@@ -266,6 +268,34 @@ export default {
       console.log("scrollTo", divs.value.scrollTop);
     }
 
+    // 화상회의 연결
+    function createConference(title) {
+      // 세션 열기?
+      // 공고 정보 받아오기
+      console.log(title);
+      console.log(store.getters['root/getChat'].roomId);
+      const conference = {
+        roomId: store.getters['root/getChat'].roomId,
+        title: title,
+        thumbnailUrl:'',
+        writer:'',
+        reader:'',
+        fromChat:true,
+      }
+      console.log(conference.roomId)
+      console.log(conference.title)
+      // 채팅창 닫기
+      changeOpen()
+      store.commit('root/setConference', conference)
+      console.log(store.getters['root/getConference'].title)
+      console.log(store.getters['root/getConference'].fromChat)
+
+      moveConference()
+    }
+
+    function moveConference() {
+      router.push({name : 'conference'});
+    }
     onUpdated(()=> {
       if(chat.init){ // 처음 화면을 불러올 때만 스크롤을 맨 아래로 배치
         console.log(divs)
@@ -277,7 +307,7 @@ export default {
 
     connect()
 
-    return { sendMessage, state, chat, changeOpen, goBack, svgInfo, divs, scroll }
+    return { sendMessage, router, state, chat, changeOpen, goBack, svgInfo, divs, scroll, createConference }
   }
 }
 </script>
