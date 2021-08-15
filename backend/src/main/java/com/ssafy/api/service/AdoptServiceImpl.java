@@ -1,11 +1,13 @@
 package com.ssafy.api.service;
 
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafy.api.request.AdoptFormReq;
 
 import com.ssafy.api.request.StatusUpdatePutReq;
 
+import com.ssafy.api.response.AdoptFormData;
 import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
@@ -16,6 +18,7 @@ import com.ssafy.db.repository.auth.UserProfileRepository;
 import com.ssafy.db.repository.auth.UserRepository;
 import com.ssafy.db.repository.board.*;
 
+import org.h2.util.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,13 +55,18 @@ public class AdoptServiceImpl implements AdoptService{
     @Autowired
     CodeRepository codeRepository;
 
+    @Autowired
+    GugunRepository gugunRepository;
+
+    @Autowired
+    SidoRepository sidoRepository;
+
     /* 입양신청서 작성하기 */
     @Override
     public CounselingHistory insertAdoptForm(String userId, AdoptFormReq adoptFormReq) {
 
         CounselingHistory counselingHistory = new CounselingHistory();
 
-        JsonParser parser = new JsonParser();
         System.out.println(adoptFormReq.getContent());
 
         UserProfile userProfile = findByUserId(userId);
@@ -108,6 +116,56 @@ public class AdoptServiceImpl implements AdoptService{
         return null;
     }
 
+    /* 입양 신청서 읽기 */
+    @Override
+    public AdoptFormData readAdoptForm(Long formId) {
+        Optional<CounselingHistory> counselingHistory = counselingHistoryRepository.findById(formId);
+        if(counselingHistory.isPresent()){
+            CounselingHistory form = counselingHistory.get();
+            String content = form.getContent();
+
+            System.out.println(content);
+            //String type의 JSON Content를 DTO에 매핑하여 front단으로 전달해야한다.
+
+            JsonParser jsonParser = new JsonParser();
+            JsonElement element = jsonParser.parse(content);
+
+
+
+            AdoptFormData adoptFormData = new AdoptFormData(
+                    element.getAsJsonObject().get("name").getAsString(),
+                    element.getAsJsonObject().get("email").getAsString(),
+                    element.getAsJsonObject().get("phone").getAsString(),
+                    sidoRepository.findById(Long.parseLong(element.getAsJsonObject().get("sido").getAsString())).get().getName(),
+                    gugunRepository.findById(Long.parseLong(element.getAsJsonObject().get("gugun").getAsString())).get().getName(),
+                    element.getAsJsonObject().get("age").getAsString(),
+                    element.getAsJsonObject().get("isMarried").getAsString(),
+                    element.getAsJsonObject().get("gender").getAsString(),
+                    form.getBoardTitle(),
+                    form.getDogName(),
+                    form.getBoardType(),
+                    element.getAsJsonObject().get("answer1").getAsString(),
+                    element.getAsJsonObject().get("answer1sub").getAsString(),
+                    element.getAsJsonObject().get("answer2").getAsString(),
+                    element.getAsJsonObject().get("answer2sub").getAsString(),
+                    element.getAsJsonObject().get("answer3").getAsString(),
+                    element.getAsJsonObject().get("answer3sub").getAsString(),
+                    element.getAsJsonObject().get("answer4").getAsString(),
+                    element.getAsJsonObject().get("answer5").getAsString(),
+                    element.getAsJsonObject().get("answer6").getAsString(),
+                    element.getAsJsonObject().get("answer7").getAsString(),
+                    element.getAsJsonObject().get("answer8").getAsString(),
+                    element.getAsJsonObject().get("answer9").getAsString(),
+                    element.getAsJsonObject().get("answer10").getAsString()
+                    );
+
+            return adoptFormData;
+
+        }
+        return null;
+    }
+
+    /* 입양 신청 중복인지 아닌지 체크 */
     @Override
     public boolean canAdoptForm(String userId, Long boardId) {
 

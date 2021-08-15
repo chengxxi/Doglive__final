@@ -62,18 +62,22 @@ export function setCommunityBoard(state, payload) {
   state.community.description = payload.description;
 }
 
-export function setChatOpen(state, payload){
-  state.chat.open = payload
+export function setChatOpen(state, payload) {
+  state.chat.open = payload;
 }
 
-export function setChatTitle(state, payload){
-  state.chat.title = payload
+export function setChatTitle(state, payload) {
+  state.chat.title = payload;
 }
 
-export function setChatRoomId(state, payload){
-  state.chat.roomId = payload
+export function setChatRoomId(state, payload) {
+  state.chat.roomId = payload;
 }
 
-export function setChatMenu(state, payload){
-  state.chat.menu = payload
+export function setChatMenu(state, payload) {
+  state.chat.menu = payload;
+}
+
+export function setAdoptFormId(state, payload) {
+  state.adoptForm.formId = payload;
 }

@@ -118,8 +118,8 @@ const routes = [
   {
     path: "/adopt/form/review",
     name: "AdoptFormReview",
-    component: AdoptFormReview
-    // meta: { requiresAuth: true }
+    component: AdoptFormReview,
+    meta: { requiresAuth: true }
   },
   {
     path: "/adopt/modify",

@@ -51,5 +51,10 @@ export function getCommunityBoard(state) {
 
 //현재 게시판 번호 가져오기
 export function getBoardId(state) {
-  return state.board.getBoardId;
+  return state.board.boardId;
+}
+
+//현재 AdoptForm 아이디 가져오기
+export function getAdoptFormId(state) {
+  return state.adoptForm.formId;
 }

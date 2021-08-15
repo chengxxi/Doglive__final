@@ -5,6 +5,7 @@ import com.ssafy.api.request.AdoptFormReq;
 
 import com.ssafy.api.request.StatusUpdatePutReq;
 
+import com.ssafy.api.response.AdoptFormData;
 import com.ssafy.api.response.AdoptFormGetRes;
 import com.ssafy.api.response.CounselingHistoryGetRes;
 import com.ssafy.api.service.AdoptService;
@@ -45,19 +46,20 @@ public class AdoptController {
     }
 
 
-//    @GetMapping("/{userId}/{boardId}")
-//    @ApiOperation(value = "입양신청서 읽기", notes = "제출된 입양 신청서를 read한다..")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "성공"),
-//            @ApiResponse(code = 401, message = "인증 실패"),
-//            @ApiResponse(code = 404, message = "사용자 없음"),
-//            @ApiResponse(code = 409, message = "이미 존재하는 유저"),
-//            @ApiResponse(code = 500, message = "서버 오류")
-//    })
-//    public ResponseEntity<AdoptFormGetRes> readAdoptForm(@PathVariable("userId") String userId, @PathVariable("boardId") Long boardId){
-//        JSONObject
-//        return ResponseEntity.status(200).body(AdoptFormGetRes.of(200, "입양 신청서 읽기 성공"));
-//    }
+    @GetMapping("/{formId}")
+    @ApiOperation(value = "입양신청서 읽기", notes = "제출된 입양 신청서를 read한다..")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 409, message = "이미 존재하는 유저"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<AdoptFormGetRes> readAdoptForm(@PathVariable("formId") Long formId){
+        AdoptFormData adoptForm = adoptService.readAdoptForm(formId);
+
+        return ResponseEntity.status(200).body(AdoptFormGetRes.of(200, "입양 신청서 읽기 성공", adoptForm));
+    }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "신청서 현황 수정", notes = "신청서 현황을 수정한다.")
