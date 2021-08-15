@@ -28,7 +28,10 @@
                   prop="name"
                   style="width:100%"
                 >
-                  <el-input v-model="form.name" placeholder="조다운"></el-input>
+                  <el-input
+                    v-model="form.name"
+                    placeholder="실명을 기재해주세요"
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
