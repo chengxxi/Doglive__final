@@ -630,10 +630,18 @@ export default {
           [this.ruleForm.relationship == "의존적인" ? "F" : "T"] +
           [this.ruleForm.adaptability == "친화적인" ? "J" : "P"];
 
+        const data = {
+          mbti: mbti,
+          title: this.ruleForm.title,
+          dogName: this.ruleForm.name,
+          gender: this.ruleForm.gender,
+          desc: this.ruleForm.desc,
+          neutralization: this.rulefRom.neutralization
+        };
         this.$refs[formName].validate(valid => {
           if (valid) {
             console.log("3");
-            this.modifyData(mbti);
+            this.modifyData(data);
             console.log(this.ruleForm);
           } else {
             createToast("작성하지 않은 항목이 있어요 💬💦", {
@@ -684,23 +692,22 @@ export default {
       gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }]
     });
 
-    const modifyData = function(mbti) {
+    const modifyData = function(data) {
       console.log("4");
       const formData = new FormData();
       formData.append("userId", state.userId.userId);
       formData.append("boardType", state.board.boardType.id);
-      formData.append("dogName", state.board.dogName);
-      formData.append("mbti", mbti);
-      formData.append("title", state.board.title);
-      formData.append("description", state.board.description);
+      formData.append("dogName", data.dogName);
+      formData.append("mbti", data.mbti);
+      formData.append("title", data.title);
+      formData.append("description", data.desc);
       formData.append("colorType", state.board.colorType.id);
       formData.append("age", state.board.ageType.id);
-      formData.append("address", state.board.address);
       formData.append("dogType", state.board.dogType.id);
-      formData.append("gender", state.board.gender.name == "여" ? 8 : 9);
+      formData.append("gender", data.gender == "여" ? 8 : 9);
       formData.append(
         "neutralization",
-        state.board.neutralization == "O" ? true : false
+        data.neutralization == "O" ? true : false
       );
       formData.append("weight", state.board.weight.id);
       formData.append("gugun", state.board.gugun.id);
