@@ -266,11 +266,8 @@ library.add(
   faCheck,
   faCheckCircle,
   faHeart,
-<<<<<<< HEAD
-  faVideo
-=======
+  faVideo,
   faTrashAlt,
->>>>>>> feat-36/comment2
 );
 
 const plugins = [
