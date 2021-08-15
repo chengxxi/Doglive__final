@@ -1,5 +1,6 @@
 // 비동기 API
 import $axios from "axios";
+import store from "../../../common/lib/store";
 import { getLoginUserInfo } from "./getters";
 
 // Kakao 서버로 받은 code로 AccessToken 가져오기
@@ -227,9 +228,8 @@ export function requestFindBoardList({ state }, payload) {
   });
 }
 
-//보드 디테일 정보 가졍괴
+//보드 디테일 정보 가져오기
 export function reqestBoardDetail({ state }, payload) {
   const url = "/board/" + payload.boardId + "/" + payload.userId;
   return $axios.get(url);
 }
-

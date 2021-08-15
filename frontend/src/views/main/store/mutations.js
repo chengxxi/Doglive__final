@@ -86,7 +86,7 @@ export function setChatParticipants(state, payload) {
 export function setConference(state, payload) {
   state.conference.roomId = payload.roomId;
   state.conference.title = payload.title;
-  state.conference.fromChat = true;
+  state.conference.fromChat = payload.fromChat;
   // conference: {
   //   title:'',
   //   thumbnailUrl:'',

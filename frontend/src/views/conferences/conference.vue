@@ -202,6 +202,7 @@ import UserVideo from './components/UserVideo';
 import ConferenceChatMessage from './components/conferenceChatMessage.vue'
 import { computed, onBeforeMount, reactive } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 const OPENVIDU_SERVER_URL = "https://i5a501.p.ssafy.io:8443";
@@ -214,6 +215,7 @@ export default {
 	},
 
   setup(props) {
+    const router = useRouter()
     const store = useStore()
     const state = reactive({
       OV: undefined,
@@ -349,7 +351,11 @@ export default {
         fromChat:false,
       }
       store.commit('root/setConference',conferenceInfo)
+      console.log(store.getters['root/getConference'])
+      router.push({name : 'Main'});
+
       window.removeEventListener('beforeunload', state.leaveSession);
+
     }
 
     const getToken = function(mySessionId) {
@@ -470,7 +476,7 @@ export default {
       }
       console.log('채팅창 표시 변경 버튼 클릭 > ');
     }
-    return {store, state, onBeforeMount, joinSession, leaveSession, getToken, createSession, createToken, sendMessage, turnCamera, turnAudio, turnChat }
+    return {router, store, state, onBeforeMount, joinSession, leaveSession, getToken, createSession, createToken, sendMessage, turnCamera, turnAudio, turnChat }
   }
 }
 </script>

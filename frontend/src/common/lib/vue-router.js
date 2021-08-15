@@ -35,15 +35,17 @@ const routes = [
     path: "/conference",
     name: "conference",
     component: Conference,
-    meta: { requiredAuth: true },
-    beforeEnter: function(to, from, next) {
-      console.log(store.state.conference);
-      if(store.state.conference.fromChat) {
-        next();
-      } else {
-        next('/');
-      }
-    }
+    // meta: { requiredAuth: true },
+    meta: {requiredFromChat:true},
+    // beforeEnter: function(to, from, next) {
+    //   console.log(to)
+    //   console.log(store.state.conference);
+    //   if(store.state.conference.fromChat) {
+    //     next();
+    //   } else {
+    //     next('/');
+    //   }
+    // }
   },
   {
     path: "/login",
