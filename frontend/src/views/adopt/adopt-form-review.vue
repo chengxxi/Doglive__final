@@ -1,22 +1,21 @@
 <template>
   <div class="main-body main-padding">
-    <div style="width:100%; ">
+    <div style="width:100%;  ">
       <bread-crumb></bread-crumb>
       <el-card
         class="box-card"
-        style="width:100%; height:auto;  border:none;"
+        style="width:100%; height:auto; border:none;"
         shadow="none"
       >
-        <div style="margin-left:30px; margin:right:30px;">
+        <div style="margin-left:30px; margin-right:30px;">
           <el-form
             style=" margin:100px;"
             label-position="left"
             :model="form"
             :rules="rules"
             ref="form"
-            class="mt-5"
           >
-            <h4 class="mt-1 mb-3" style="font-weight:600;">
+            <h4 class="mb-3" style="font-weight:600;">
               🙋‍♀️ 기본 인적 사항
             </h4>
             <el-divider />
@@ -40,11 +39,6 @@
                   style="width:95%"
                 >
                   <el-input v-model="form.email" placeholder="ssafy@ssafy.com">
-                    <template #append
-                      ><el-button @click="clickEmailCheck"
-                        >인증</el-button
-                      ></template
-                    >
                   </el-input>
                 </el-form-item>
               </el-col>
@@ -58,83 +52,91 @@
               </el-col>
             </el-row>
 
-            <el-row class="mt-3 mb-3">
-              <el-col :span="12">
-                <el-form-item label="직업/직장명" prop="job" style="width:95%">
-                  <el-input v-model="form.job" placeholder="개발자"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="나이" prop="age" style="width:100%">
-                  <el-input v-model="form.age" placeholder="25"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row class="mt-3 mb-3">
-              <el-col>
-                <el-form-item
-                  label="거주지"
-                  prop="sido"
-                  style="width:100%"
-                  label-width="25%"
-                >
-                  <el-select
-                    v-model="form.sido"
-                    placeholder="시/도"
-                    :change="gugunList(form.sido)"
-                  >
-                    <el-option
-                      v-for="(sido, idx) in state.sidoList"
-                      :key="idx"
-                      :label="sido.name"
-                      :value="sido.id"
+            <el-row>
+              <el-col :span="15">
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item
+                      label="거주지(시/도)"
+                      prop="sido"
+                      label-width="100%"
                     >
-                    </el-option>
-                  </el-select>
-                  <el-select
-                    v-model="form.gugun"
-                    style="margin-left: 20px;"
-                    placeholder="구/군"
-                  >
-                    <el-option
-                      v-for="(gugun, idx) in state.gugunList"
-                      :key="idx"
-                      :label="gugun.name"
-                      :value="gugun.id"
+                      <el-select
+                        v-model="form.sido"
+                        placeholder="시/도"
+                        style="width:95% ;"
+                        :change="gugunList(form.sido)"
+                      >
+                        <el-option
+                          v-for="(sido, idx) in state.sidoList"
+                          :key="idx"
+                          :label="sido.name"
+                          :value="sido.id"
+                        >
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item
+                      label="거주지(구/군)"
+                      prop="gugun"
+                      label-width="100%"
                     >
-                    </el-option>
-                  </el-select>
-                </el-form-item>
+                      <el-select
+                        style="width:95% ;"
+                        v-model="form.gugun"
+                        placeholder="구/군"
+                      >
+                        <el-option
+                          v-for="(gugun, idx) in state.gugunList"
+                          :key="idx"
+                          :label="gugun.name"
+                          :value="gugun.id"
+                        >
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
               </el-col>
-            </el-row>
-            <el-row class="mt-3 mb-3">
-              <el-col :span="12">
-                <el-form-item
-                  label="결혼여부"
-                  prop="isMarried"
-                  style="width:100%"
-                  label-width="50%"
-                >
-                  <el-radio-group v-model="form.isMarried">
-                    <el-radio label="Yes" border></el-radio>
-                    <el-radio label="No" border></el-radio>
-                  </el-radio-group>
-                </el-form-item>
+              <el-col :span="5">
+                <el-row>
+                  <el-col :span="24">
+                    <el-form-item
+                      label="결혼여부"
+                      prop="isMarried"
+                      label-width="100%"
+                    >
+                      <el-radio-group
+                        style="width:100%"
+                        v-model="form.isMarried"
+                      >
+                        <el-radio
+                          style="margin-left:10%; "
+                          label="Yes"
+                          border
+                        ></el-radio>
+                        <el-radio label="No" border></el-radio>
+                      </el-radio-group>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
               </el-col>
-              <el-col :span="12">
-                <el-form-item
-                  label="성별"
-                  prop="gender"
-                  style="width:100%"
-                  label-width="50%"
-                >
-                  <el-radio-group v-model="form.gender">
-                    <el-radio label="남" border></el-radio>
+              <el-col :span="4">
+                <el-form-item label="성별" label-width="100%" prop="gender">
+                  <el-radio-group v-model="form.gender" style="width:100%;">
+                    <el-radio
+                      style="margin-left:10%; "
+                      label="남"
+                      border
+                    ></el-radio>
                     <el-radio label="여" border></el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
             </el-row>
+
             <div style="margin-top:100px;">
               <h4 class="mt-1 mb-3" style="font-weight:600; ">
                 ✍ 입양 관련 설문

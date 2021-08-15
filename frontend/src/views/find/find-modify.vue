@@ -289,7 +289,7 @@ vertical-align:middle; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%);
   justify-content: center;"
             >
               <el-button type="primary" @click="submitForm('ruleForm')"
-                >작성</el-button
+                >수정</el-button
               >
               <el-button @click="resetForm('ruleForm')">초기화</el-button>
             </el-row>
@@ -453,9 +453,17 @@ export default {
         this.state.board.fileList.length + this.state.newAddFile.length >=
         2
       ) {
+        const data = {
+          title: this.ruleForm.title,
+          dogName: this.ruleForm.name,
+          gender: this.ruleForm.gender,
+          desc: this.ruleForm.desc,
+          address: this.ruleForm.address
+        };
+
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.modifyData();
+            this.modifyData(data);
             console.log(this.ruleForm);
           } else {
             createToast("작성하지 않은 항목이 있어요 💬💦", {
@@ -507,23 +515,19 @@ export default {
       gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }]
     });
 
-    const modifyData = function() {
+    const modifyData = function(data) {
       const formData = new FormData();
       formData.append("userId", state.userId.userId);
       formData.append("boardType", state.board.boardType.id);
-      formData.append("title", state.board.title);
-      formData.append("description", state.board.description);
+      formData.append("title", data.title);
+      formData.append("description", data.desc);
       formData.append("colorType", state.board.colorType.id);
       formData.append("age", state.board.ageType.id);
-      formData.append("address", state.board.address);
+      formData.append("address", data.address);
       formData.append("dogType", state.board.dogType.id);
       formData.append(
         "gender",
-        state.board.gender.name == "여"
-          ? 8
-          : state.board.gender.name == "남"
-          ? 9
-          : 17
+        data.gender == "여" ? 8 : data.gender == "남" ? 9 : 17
       );
 
       formData.append("weight", state.board.weight.id);
