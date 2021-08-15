@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <el-row>
       <el-col :span="6" v-for="(o, idx) in card" :key="idx">
         <!-- :offset="index > 0 ? 2 : 0" -->
@@ -25,11 +26,72 @@
           </div>
         </el-card>
       </el-col>
+=======
+    <el-row :gutter="20">
+    <el-col :span="6" v-for="(o, idx) in card" :key="idx"> 
+      <el-card :body-style="{ padding: '10px' }" style="background-color:#f9f4f0; width:90%; height:360px;" shadow="hover">
+        <el-row style="margin-top:1%; margin-right:1%; margin-left:1%;">
+          <el-tag
+            v-if="o.type.name == '입양'"
+            class="mb-2"
+            color="#D7AFA4"
+            effect="dark"
+            size="small"
+            style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF; float:right; "
+            >{{ o.type.name }}</el-tag
+          >
+          <el-tag
+            v-if="o.type.name == '임보'"
+            class="mb-2"
+            color="#E9CDA4"
+            effect="dark"
+            size="small"
+            style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
+            >{{ o.type.name }}</el-tag
+          >
+          <el-tag
+            v-if="o.type.name == '실종'"
+            class="mb-2"
+            color="#bdaf9f"
+            effect="dark"
+            size="small"
+            style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
+            >{{ o.type.name }}</el-tag
+          >
+          <el-tag
+            v-if="o.type.name == '보호'"
+            class="mb-2"
+            color="#a3723c"
+            effect="dark"
+            size="small"
+            style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
+            >{{ o.type.name }}</el-tag
+          >
+        </el-row>
+        <el-row style="margin-top:1%; display:flex; display: flex; justify-content: center;">
+          <img src="https://placedog.net/500/500?random" class="image" />
+        </el-row>
+        <el-row style="margin-top:3%; margin-right:2.5%; margin-left:2.5%; vertical-align: middle;">
+          <h6 style="font-weight:700; margin-top:10%;" class="mb-0">
+            {{ o.title.length < 15
+                ? o.title
+                : o.title.substr(0, 12) + "..."}}
+          </h6>
+        </el-row>
+        <el-row>
+          <div class="bottom" style="padding: 2%;">
+            <div class="detail"><el-button style="color:black;" type="text" class="button" @click="readDetail(o.id)" >글 보러가기</el-button></div>
+          </div>
+        </el-row>
+      </el-card>
+    </el-col>
+>>>>>>> feat-36/comment2
     </el-row>
   </div>
 </template>
 
 <style scoped>
+<<<<<<< HEAD
 .type {
   margin-top: 10px;
   float: left;
@@ -60,6 +122,26 @@
   float: right;
   display: block;
 }
+=======
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+    display: right;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+  .detail{
+    float : right;
+    display: block;
+  }
+
+
+>>>>>>> feat-36/comment2
 </style>
 
 <script>

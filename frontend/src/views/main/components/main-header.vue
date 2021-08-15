@@ -72,7 +72,7 @@
 
 <style scoped>
 .main-header {
-  z-index: 1; /* 헤더 맨위 고정 */
+  z-index: 100; /* 헤더 맨위 고정 */
   position: fixed;
   top: 0;
   left: 0;

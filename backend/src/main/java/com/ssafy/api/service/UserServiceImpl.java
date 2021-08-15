@@ -134,7 +134,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq) {
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findUserById(id).get();
+
         System.out.println(user + " " + userUpdatePutReq.getBirth() + " " + userUpdatePutReq.getEmail() + " " +  userUpdatePutReq.getPhoneNumber() + " " + userUpdatePutReq.getName());
 
         Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user);
@@ -148,7 +149,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserProfile getUserProfile(String id) {
-        Optional<User> user = userRepository.findById(id);
+        Optional<User> user = userRepository.findUserById(id);
         if(user.isPresent()) {
             Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
             if(userProfile.isPresent()){
@@ -162,8 +163,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean deleteUser(String id) {
         if(getUserById(id)!=null){
+
             User user = userRepository.findById(id).get();
             Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user);
+
             if(userProfile.isPresent()) {
                 Optional<UserToken> userToken = userTokenRepository.findByUserId(user);
                 Optional<List<Bookmark>> bookmarkList = bookmarkRepository.findBookmarksByUserId(userProfile.get());

@@ -115,8 +115,8 @@ export function requestUserProfile({ state }, payload) {
 }
 
 // 커뮤니티 게시글 목록 가져오기
-export function requestCommunityBoardList({ state }) {
-  const url = "/community/list";
+export function requestCommunityBoardList({state}, payload){
+  const url = "/community/list/" + payload
   return $axios.get(url);
 }
 
@@ -124,6 +124,24 @@ export function requestCommunityBoardList({ state }) {
 export function requestMyCommunity({ state }, payload) {
   const url = "/community/" + payload;
   return $axios.get(url);
+}
+
+// 커뮤니티 댓글 목록 가져오기
+export function requestCommunityComment({state}, payload){
+  const url = "/community/comment/" + payload
+  return $axios.get(url)
+}
+
+// 커뮤니티 댓글 등록
+export function requestRegisterComment({state}, payload){
+  const url = "/community/comment"
+  return $axios.post(url, payload);
+}
+
+// 커뮤니티 댓글 삭제
+export function requestDeleteComment({state}, payload){
+  const url = "/community/comment/" + payload;
+  return $axios.delete(url);
 }
 
 // 커뮤니티 게시글 삭제

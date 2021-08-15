@@ -1,8 +1,12 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.CommentPostReq;
 import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.CommunityRegisterPostReq;
 import com.ssafy.db.entity.community.Community;
+import com.ssafy.db.entity.community.CommunityComment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -30,6 +34,14 @@ public interface CommunityService {
     void deleteAllCommunityCommentsByCommunity(Community community);
 
     /* community 모든 게시글 출력 */
-    List<CommunityParamDto> communityList();
+    List<CommunityParamDto> communityList(int page);
+
+    /* 댓글 달기 */
+    CommunityComment addComment(CommentPostReq commentPostReq);
+
+    /* 댓글 삭제 */
+    void deleteComment(Long id);
+
+    List<CommunityComment> commentList(Long id);
 
 }
