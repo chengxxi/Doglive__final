@@ -20,7 +20,7 @@
   <div class="chat-input">
     <el-input type="textarea" v-model="state.content" @keyup.enter="sendMessage"></el-input>
     <el-button class="send-btn" :class="{active : !state.activeButton}" @click="sendMessage">전송</el-button>
-    <i class="video-btn" href="../../conferences/conference.vue"><font-awesome-icon  :icon="[ 'fas' , 'video']"></font-awesome-icon></i>
+    <a class="video-btn" href="/conference" @click="createConference(chat.title)"><font-awesome-icon  :icon="[ 'fas' , 'video']"></font-awesome-icon></a>
     <!-- <i class="el-icon-video-camera video-btn"></i> -->
   </div>
 </template>
@@ -266,6 +266,15 @@ export default {
       console.log("scrollTo", divs.value.scrollTop);
     }
 
+    // 화상회의 연결
+    function createConference(title) {
+      // 세션 열기?
+      // 공고 정보 받아오기
+      console.log(title);
+      // 채팅창 닫기
+      changeOpen()
+    }
+
     onUpdated(()=> {
       if(chat.init){ // 처음 화면을 불러올 때만 스크롤을 맨 아래로 배치
         console.log(divs)
@@ -277,7 +286,7 @@ export default {
 
     connect()
 
-    return { sendMessage, state, chat, changeOpen, goBack, svgInfo, divs, scroll }
+    return { sendMessage, state, chat, changeOpen, goBack, svgInfo, divs, scroll, createConference }
   }
 }
 </script>

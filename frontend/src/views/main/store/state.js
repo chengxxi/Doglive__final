@@ -66,6 +66,10 @@ export default {
     open: false,
     menu: 0 /* 0: 채팅 목록, 1: 채팅방, 2: 화상회의 목록 */,
     title: "",
-    roomId: ""
+    roomId: "",
+    // participants: {
+    //   'user1' : '',
+    //   'user2' : '',
+    // }
   }
 };

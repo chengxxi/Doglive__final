@@ -77,3 +77,8 @@ export function setChatRoomId(state, payload){
 export function setChatMenu(state, payload){
   state.chat.menu = payload
 }
+
+export function setChatParticipants(state, payload) {
+  state.chat.participants.user1 = payload.user1;
+  state.chat.participants.user2 = payload.user2;
+}
