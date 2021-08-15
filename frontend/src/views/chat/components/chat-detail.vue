@@ -2,7 +2,13 @@
   <div class="chat-header">
     <i class="el-icon-arrow-left back-btn" @click="goBack"></i>
     <i class="el-icon-close close-btn" @click="changeOpen"></i>
-    <span class="title">{{ chat.title }}</span>
+    <span class="title">
+      {{ chat.title }}
+    <a class="video-btn" @click="createConference(chat.title)"
+      ><font-awesome-icon :icon="['fas', 'video']"></font-awesome-icon
+    ></a>
+    </span>
+
   </div>
   <div
     class="chat-body"
@@ -34,9 +40,7 @@
       @click="sendMessage"
       >전송</el-button
     >
-    <a class="video-btn" @click="createConference(chat.title)"
-      ><font-awesome-icon :icon="['fas', 'video']"></font-awesome-icon
-    ></a>
+
 
     <!-- <i class="el-icon-video-camera video-btn"></i> -->
   </div>
@@ -121,10 +125,9 @@
 }
 .video-btn {
   cursor: pointer;
-  position: absolute;
   bottom: 10px;
   left: 15px;
-  color: rgb(150, 150, 150);
+  color: rgb(255, 255, 255);
 }
 .close-btn {
   cursor: pointer;
