@@ -119,7 +119,7 @@
             </div>
           </el-col>
         </el-row>
-        <div class="box">
+        <div class="box mt-5">
           <h4
             class="mb-2
         "
@@ -130,9 +130,8 @@
             {{ state.board.description }}
           </div>
         </div>
-        <el-divider />
 
-        <div class="dog-image-box">
+        <div class="dog-image-box mt-5 mb-5">
           <el-carousel :interval="4000" type="card" height="500px">
             <el-carousel-item v-for="img in state.board.fileList" :key="img">
               <img
@@ -145,11 +144,14 @@
             </el-carousel-item>
           </el-carousel>
         </div>
-        <el-divider />
+
         <div class="dog-image-box">
-          <h4 class="mb-3" style="font-weight:600;">
-            혹시 저는 아닐까요? 🐶🔎
-          </h4>
+          <h5
+            class="pt-3 pb-3"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
+          >
+            🐶🔎 혹시 저는 아닐까요❔
+          </h5>
         </div>
       </el-card>
     </div>

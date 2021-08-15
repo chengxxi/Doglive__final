@@ -269,7 +269,7 @@
             </div>
           </el-col>
         </el-row>
-        <div class="box">
+        <div class="box mt-5">
           <h4
             class="mb-2
         "
@@ -280,9 +280,8 @@
             {{ state.board.description }}
           </div>
         </div>
-        <el-divider />
 
-        <div class="dog-image-box">
+        <div class="dog-image-box mt-5 ">
           <el-carousel :interval="4000" type="card" height="500px">
             <el-carousel-item v-for="img in state.board.fileList" :key="img">
               <img
