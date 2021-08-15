@@ -31,15 +31,16 @@
           </div>
         </el-col>
 
-        <el-col :span="9">
+        <el-col :span="12">
           <div class="apply-content">
-            {{ o.boardType }} /
-            {{
-              o.boardTitle.length < 15
-                ? o.boardTitle
-                : o.boardTitle.substr(0, 14) + "..."
-            }}
-
+            <p style="font-size:11pt;">
+              분류 : {{ o.boardType }} | 제목 :
+              {{
+                o.boardTitle.length < 15
+                  ? o.boardTitle
+                  : o.boardTitle.substr(0, 4) + "..."
+              }}
+            </p>
             <h3 style="font-weight:800;  ">
               {{
                 o.dogName.length < 6 ? o.dogName : o.dogName.substr(0, 5) + ".."
@@ -47,7 +48,7 @@
             </h3>
           </div>
         </el-col>
-        <el-col :span="3"> </el-col>
+
         <el-col :span="3">
           <div class="icon">
             <font-awesome-icon
