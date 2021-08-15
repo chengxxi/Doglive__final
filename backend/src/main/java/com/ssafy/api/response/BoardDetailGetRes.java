@@ -40,8 +40,13 @@ public class BoardDetailGetRes extends BaseResponseBody {
     @ApiModelProperty
     List<BoardComment> boardCommentList;
 
+    @ApiModelProperty
+    List<Board> listSimilar;
 
-    public static BoardDetailGetRes of(Integer statusCode, String message, boolean isBookmarked, boolean isOwner, String writer, DogInformation dogInformation, List<String> boardImageList, List<BoardComment> boardComments) {
+    @ApiModelProperty
+    List<DogInformation> listSimilarDog;
+
+    public static BoardDetailGetRes of(Integer statusCode, String message, boolean isBookmarked, boolean isOwner, String writer, DogInformation dogInformation, List<String> boardImageList, List<BoardComment> boardComments, List<Board> listSimilar, List<DogInformation> listSimilarDog) {
         BoardDetailGetRes res = new BoardDetailGetRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
@@ -51,6 +56,8 @@ public class BoardDetailGetRes extends BaseResponseBody {
         res.setDogInformation(dogInformation);
         res.setBoardImageList(boardImageList);
         res.setBoardCommentList(boardComments);
+        res.setListSimilar(listSimilar);
+        res.setListSimilarDog(listSimilarDog);
         return res;
     }
 
