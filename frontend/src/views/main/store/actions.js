@@ -132,13 +132,13 @@ export function requestCommunityComment({state}, payload){
 
 // 커뮤니티 댓글 등록
 export function requestRegisterComment({state}, payload){
-  const url = "/comment"
+  const url = "/community/comment"
   return $axios.post(url, payload);
 }
 
 // 커뮤니티 댓글 삭제
 export function requestDeleteComment({state}, payload){
-  const url = "/comment/" + payload;
+  const url = "/community/comment/" + payload;
   return $axios.delete(url);
 }
 

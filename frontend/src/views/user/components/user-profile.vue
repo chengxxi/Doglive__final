@@ -127,6 +127,7 @@ export default {
     const userId = store.getters['root/getLoginUserInfo'].userId;
     store.dispatch('root/requestUserProfile', userId)
       .then(function(result){
+        console.log(result)
         const Profile = {
           imageURL : result.data.userProfile.profileImageUrl,
           name : result.data.userProfile.name,

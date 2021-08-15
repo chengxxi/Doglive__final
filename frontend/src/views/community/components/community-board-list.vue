@@ -13,19 +13,20 @@
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
       <div>
 
-      <div class="title" v-if="item.userId!=state.userId">
+      <div class="title">
         <div class="user">
           <img class="user-profile" :src="item.profileImageUrl" />
           <span>{{item.name}}</span>
         </div>
         <!-- 자신의 글만 수정, 삭제 가능 -->
         <!-- <div class="button-group" v-if="item.userId==state.userId"> -->
-        <span class="button-group">
-        <el-button-group>
-          <el-button type="info" plain icon="el-icon-edit" size="mini" @click="updateCommunity(item.id)"></el-button>
-          <el-button type="info" plain icon="el-icon-delete" size="mini" @click="deleteCommunity(item.id)"></el-button>
-        </el-button-group>
-      </span>
+        <span class="button-group" v-if="item.userId==state.userId">
+          <el-button-group>
+            <el-button type="info" plain icon="el-icon-edit" size="mini" @click="updateCommunity(item.id)"></el-button>
+            <el-button type="info" plain icon="el-icon-delete" size="mini" @click="deleteCommunity(item.id)"></el-button>
+          </el-button-group>
+        </span>
+        
       </div>
       <div class="body">
         <el-carousel class="image-carousel" indicator-position="none" trigger="click" autoplay="true" interval="10000">
@@ -64,7 +65,7 @@
               >
         </div>
         <div class="content">
-          <span style="font-weight: 600; font-size: 16px;">
+          <span style="font-weight: 600; font-size: 18px;">
             <!-- <font-awesome-icon
               icon="heart"
               aria-hidden="true"
@@ -77,10 +78,18 @@
         </div>
       </div>
       <div class="comment">
-         <img class="icon" :src="require('@/assets/images/icon.png')" />
+         <img class="icon" :src="require('@/assets/images/icon.png')" style="margin-left:2%;"/>
         <el-input placeholder="댓글을 입력해주세요" v-model="comment.input" class="comment-input">
         </el-input>
-        <el-button class="comment-button" icon="el-icon-s-promotion"></el-button>
+        <el-button class="comment-button" icon="el-icon-s-promotion"  @click="RegisterComment(item.id)"></el-button>
+        <div v-for="(i, index) in state.comments" :key="index" style="margin:2%;">
+          <div v-if="i.communityId.id==item.id && i.isDelete==true">
+            <span style="margin-right:2%; font-weight:bold; font-size: 16px;">{{i.name}}</span>
+            <span style="margin-right:2%; font-size: 16px;">{{i.comment}}</span>
+            <span><el-button class="close-button" icon="el-icon-close" style="position: absolute; right: 0; padding:1%; margin-right:3%;" @click="DeleteComment(i.id)"></el-button></span>
+          </div>
+        </div>
+  
         <!--
         <div style="margin-left: 5%; margin-right: 5%;">
           <div style="margin-bottom: 5%;">
@@ -177,7 +186,7 @@
   color: #755744;
 }
 .comment{
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   border-top: solid 1px rgb(240, 240, 240);
 }
 .comment-input{
@@ -244,7 +253,10 @@ export default {
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       }),
-    });
+      userProfile : computed(() => {
+          return store.getters["root/getUpdateUserInfo"];
+        })
+   });
 
     const communities = reactive({
       init: true,
@@ -336,7 +348,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "success"
           });
@@ -348,7 +360,85 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "warning"
+          });
+          console.log(err);
+        });
+    }
+
+
+    store.dispatch('root/requestUserProfile', state.userId)
+      .then(function(result){
+        console.log(result.data);
+        state.userProfile = result.data;
+      }).catch(function(err){
+        console.log(err)
+      });
+
+    const RegisterComment = function(id){
+      if (state.userId === null) {
+        createToast("로그인을 진행해주세요 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "success"
+          });
+          router.push({ name: "Login" });
+      } else {
+        store.dispatch("root/requestRegisterComment",{communityId:id, userId : state.userId, name : state.userProfile.name, comment:comment.input})
+        .then(function(result){
+        createToast("댓글이 등록되었어요 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#7eaa72",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "success"
+          });
+          router.go(router.currentRoute)
+      })
+      .catch(function(err) {
+          createToast("댓글 등록에 실패했어요 😱💦", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "warning"
+          });
+          console.log(err);
+        });
+      }
+    }
+
+    const DeleteComment = function(id){
+      store.dispatch("root/requestDeleteComment", id)
+      .then(function(result){
+        createToast("댓글이 삭제되었어요 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#7eaa72",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "success"
+          });
+          router.go(router.currentRoute)
+      })
+      .catch(function(err) {
+          createToast("댓글 삭제에 실패했어요 😱💦", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-left",
             transition: "bounce",
             type: "warning"
           });
@@ -363,7 +453,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "success"
           });
@@ -385,7 +475,7 @@ export default {
 
 
 
-    return { state, deleteCommunity, goRegister, updateCommunity, communities,fetchCommunityList,scroll, images, comment };
+    return { state, deleteCommunity, goRegister, updateCommunity, communities,fetchCommunityList,scroll, images, comment,RegisterComment,DeleteComment };
   }
 }
 </script>

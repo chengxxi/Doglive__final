@@ -26,9 +26,6 @@ public class UserServiceImpl implements UserService{
     UserRepository userRepository;
 
     @Autowired
-    UserRepositorySupport userRepositorySupport;
-
-    @Autowired
     UserProfileRepository userProfileRepository;
 
     @Autowired
@@ -142,7 +139,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq) {
-        User user = userRepositorySupport.findUserById(id).get();
+        User user = userRepository.findUserById(id).get();
         System.out.println(user + " " + userUpdatePutReq.getBirth() + " " + userUpdatePutReq.getEmail() + " " +  userUpdatePutReq.getPhoneNumber() + " " + userUpdatePutReq.getName());
 
         Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
@@ -156,7 +153,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserProfile getUserProfile(String id) {
-        Optional<User> user = userRepositorySupport.findUserById(id);
+        Optional<User> user = userRepository.findUserById(id);
         if(user.isPresent()) {
             Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
             if(userProfile.isPresent()){
@@ -170,7 +167,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean deleteUser(String id) {
         if(getUserById(id)!=null){
-            User user = userRepositorySupport.findUserById(id).get();
+            User user = userRepository.findUserById(id).get();
             Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
             if(userProfile.isPresent()) {
                 Optional<UserToken> userToken = userTokenRepository.findByUserId(user);
