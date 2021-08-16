@@ -179,18 +179,20 @@
             <el-divider class="mb-3" />
 
 
-
           </div>
         </el-col>
       </el-row>
       <div class="box">
-        <h6 class="mb-2">
+        <h6 class="mb-2" style="line-height: 0.5rem;">
           {{ state.MbtiDetail.desc }}
         </h6>
       </div>
       <el-divider />
 
     </el-card>
+
+
+
 
     <!-- 유사 공고 -->
   </div>
