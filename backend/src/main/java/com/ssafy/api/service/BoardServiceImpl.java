@@ -170,7 +170,9 @@ public class BoardServiceImpl implements  BoardService{
 
     /* 유기동물 관련 게시물 작성하기 */
     @Override
+
     public Board registerBoard(BoardRegisterPostReq boardRegisterPostReq) throws IOException {
+
 
         String thumbnailUrl = "";
 
@@ -193,10 +195,9 @@ public class BoardServiceImpl implements  BoardService{
         }
         boardRepository.save(board);
 
-
-
         //이미지 저장
         DogInformation dogInformation = new DogInformation();
+
 
         for(MultipartFile file : boardRegisterPostReq.getFileList()){
             String saveUrl = s3Uploader.upload(file, "static");
@@ -278,6 +279,7 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public Board updateBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq) throws IOException {
 
+
         System.out.println(boardRegisterPostReq.toString());
 
         Board board = getBoardByBoardId(boardId); //수정할 Board 찾기
@@ -288,8 +290,6 @@ public class BoardServiceImpl implements  BoardService{
             System.out.println("========= delete List ! ");
             deleteSomeBoardImagesByUrl(boardRegisterPostReq.getDelList());
         }
-
-
 
 
         //썸네일 및 이미지  저장

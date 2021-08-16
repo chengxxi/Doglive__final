@@ -380,6 +380,20 @@ export default {
             trigger: "change"
           }
         ],
+        sido: [
+          {
+            required: true,
+            message: "주소지를 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        gugun: [
+          {
+            required: true,
+            message: "주소지를 입력해주세요.",
+            trigger: "change"
+          }
+        ],
         color: [
           {
             required: true,

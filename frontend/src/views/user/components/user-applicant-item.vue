@@ -1,7 +1,12 @@
 <template>
-  <el-row>
-    <el-col v-for="(o, idx) in applicant" :key="idx" style="margin-right:1%; margin-left:1%; width: 48%">
-      <el-row class="grid-content bg-beige">
+  <el-row :gutter="20">
+    <el-col
+      :span="12"
+      v-for="(o, idx) in applicant"
+      :key="idx"
+      style="margin-right:1%;"
+    >
+      <el-row :gutter="20" class="grid-content bg-beige">
         <el-col :span="4">
           <div class="image">
             <el-avatar
@@ -46,8 +51,12 @@
         </el-col>
         <!-- 승인, 거절 태그 -->
         <el-col :span="3">
-          <div class="button" style="text-align:center;" v-if="o.result === '대기'">
-             <!-- 클릭 되는 태그 -->
+          <div
+            class="button"
+            style="text-align:center;"
+            v-if="o.result === '대기'"
+          >
+            <!-- 클릭 되는 태그 -->
             <el-tag
               color="#D7AFA4"
               effect="dark"
@@ -67,18 +76,22 @@
           </div>
           <div v-else>
             <!-- 클릭 되지 않는 태그 -->
-            <el-tag v-if="o.result === '승인'"
+            <el-tag
+              v-if="o.result === '승인'"
               color="#D7AFA4"
               effect="dark"
               size="medium"
               style="border:none; border-radius: 30px; font-size:9pt; display:block; cursor: default"
-              >승인</el-tag>
-            <el-tag v-if="o.result === '거절'"
+              >승인</el-tag
+            >
+            <el-tag
+              v-if="o.result === '거절'"
               color="#BDBDBD"
               effect="dark"
               size="medium"
               style="border:none; border-radius: 30px; font-size:9pt; display:block; cursor: default"
-              >거절</el-tag>
+              >거절</el-tag
+            >
           </div>
         </el-col>
       </el-row>
@@ -130,7 +143,6 @@
   text-align: right;
   vertical-align: middle;
 }
-
 </style>
 
 <script>
@@ -198,12 +210,12 @@ export default {
     };
 
     // 승인여부에 따른 span 값 지정
-    const isPassed = function(result){
-      if(result === "승인") // 승인되었을 때는 span: 2
+    const isPassed = function(result) {
+      if (result === "승인")
+        // 승인되었을 때는 span: 2
         return 2;
-      else
-        return 4; // 승인 안되었을 때는 span: 4
-    }
+      else return 4; // 승인 안되었을 때는 span: 4
+    };
 
     // 상담채팅방 생성
     const createChatting = function(counselingId) {
@@ -246,22 +258,35 @@ export default {
     const openChatting = function(counselingId) {
       store
         .dispatch("root/requestChatRoomByCounseling", {
-          counselingId : counselingId,
-          withCredentials : true
+          counselingId: counselingId,
+          withCredentials: true
         })
-        .then(function(result){
+        .then(function(result) {
           // 채팅방에 입장할 때, chatRoom 정보를 넘겨줌
-          store.commit('root/setChatMenu', 1); // chat-detail.vue로 이동
-          store.commit('root/setChatRoomId', result.data.chatRoomList[0].chatRoom.id);
-          store.commit('root/setChatTitle', result.data.chatRoomList[0].counselingHistory.boardTitle)
-          store.commit('root/setChatOpen', true); // 모두 설정해준 다음 OPEN
+          store.commit("root/setChatMenu", 1); // chat-detail.vue로 이동
+          store.commit(
+            "root/setChatRoomId",
+            result.data.chatRoomList[0].chatRoom.id
+          );
+          store.commit(
+            "root/setChatTitle",
+            result.data.chatRoomList[0].counselingHistory.boardTitle
+          );
+          store.commit("root/setChatOpen", true); // 모두 설정해준 다음 OPEN
         })
-        .catch(function(err){
-          console.log(err)
-        })
-    }
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
 
-    return { state, clickAccept, clickReject, readAdoptForm, isPassed, openChatting };
+    return {
+      state,
+      clickAccept,
+      clickReject,
+      readAdoptForm,
+      isPassed,
+      openChatting
+    };
   }
 };
 </script>

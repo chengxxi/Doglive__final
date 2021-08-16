@@ -11,15 +11,25 @@
       <!-- 상세 소개 내용 수정 필요 -->
     </div>
 
+    <span v-for="(idx, card) in state.MbtiList" :key="idx">
+      <el-col :span="6">
+        <MbtiCard
+          :card="card"
+          @click="readDetail(card.id)"
+        />
+      </el-col>
+    </span>
 
+<!--
     <el-row class="mbtiBox">
       <MbtiCard
         v-for="(idx, card) in 16"
         :key="idx"
         :card="card"
+        @click="readDetail(card.boardId.id)"
         :span="6"
       />
-    </el-row>
+    </el-row> -->
 
 
 
@@ -53,6 +63,10 @@
 
 <script>
 import MbtiCard from './mbti-card.vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { reactive, onMounted } from 'vue'
+
 
 
 export default {
@@ -63,5 +77,49 @@ export default {
   //       card.flipped = !card.flipped;
   //   },
   // }
+  props: {
+    boardList: Array
+  },
+  setup() {
+    const store = new useStore();
+    const router = new useRouter();
+    const state = reactive({
+      mbtiList: []
+
+    });
+
+
+    const readDetail = function(id) {
+      store.dispatch('root/requestMbtiDetail', id).then(function(result) {
+        console.log('Mbti:', result);
+        store.commit('root/setMbtiDetail', result.data.mbti)
+        store.push({ name : 'MbtiDetail' })
+      });
+
+      router.push({ name: 'MbtiDetail' });
+
+    };
+
+
+    // MBTI 읽어오기
+    const readMbtiList = function() {
+      store.dispatch('root/requestMbtiList').then(function(result) {
+        console.log('Mbti:', result);
+        state.MbtiList = result.data.mbtiList
+      });
+    };
+
+    onMounted(() => {
+      readMbtiList();
+    })
+
+
+
+    return { state, readDetail, readMbtiList, };
+  }
+
+
+
+
 }
 </script>

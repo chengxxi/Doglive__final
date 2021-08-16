@@ -125,6 +125,7 @@ public class BoardController {
     })
     public ResponseEntity<BoardRegisterRes> registerAdoptBoard(@ModelAttribute BoardRegisterPostReq boardRegisterPostReq) throws IOException {
         Board board = boardService.registerBoard(boardRegisterPostReq);
+
         System.out.println(board);
         return ResponseEntity.ok(BoardRegisterRes.of(200, "공고가 정상적으로 등록되었습니다", board.getId()));
     }

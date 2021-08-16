@@ -63,3 +63,8 @@ export function getAdoptFormId(state) {
 export function getConference(state) {
   return state.conference;
 }
+
+// MBTI detail 가져오기
+export function getMbti(state) {
+  return state.mbti;
+}
