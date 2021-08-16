@@ -515,10 +515,22 @@ export default {
             boardId: state.board.boardId
           })
           .then(function(result) {
-            router.push({ name: "AdoptFormConfirm" });
+            if(result.status == 204){ // 입양 신청서가 존재하지 않음
+              router.push({ name: "AdoptFormConfirm" });
+            }else{
+              createToast("이미 신청서를 작성했던 공고입니다 💬💦", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#c49d83",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "warning"
+              });
+            }
           })
           .catch(function(err) {
-            createToast("이미 신청서를 작성했던 공고입니다 💬💦", {
+            createToast("상담 신청에 실패했어요. 💬💦", {
               hideProgressBar: "true",
               timeout: 4500,
               showIcon: "true",

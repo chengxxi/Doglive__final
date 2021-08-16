@@ -89,9 +89,10 @@ public class AdoptController {
     })
     public ResponseEntity<? extends BaseResponseBody> CheckAdoptBoard(@PathVariable("userId") String userId, @PathVariable("boardId") Long boardId){
 
-        if(adoptService.canAdoptForm(userId, boardId))
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "입양 신청이 가능합니다."));
-        return ResponseEntity.status(409).body(BaseResponseBody.of(409, "이미 작성한 신청폼이 있습니다."));
+        CounselingHistory counselingHistory = adoptService.canAdoptForm(userId, boardId);
+        if(counselingHistory == null)
+            return ResponseEntity.status(204).body(CounselingHistoryGetRes.of(204, "입양 신청이 가능합니다.", null)); // No Content
+        return ResponseEntity.status(200).body(CounselingHistoryGetRes.of(200, "이미 작성한 신청폼이 있습니다.", counselingHistory));
 
     }
 }

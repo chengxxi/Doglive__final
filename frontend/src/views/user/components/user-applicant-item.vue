@@ -27,7 +27,7 @@
               aria-hidden="true"
               @click="openChatting(o.id)"
               style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:15px"
-              class="scale-up-5"
+              class="scale-up-3"
             >
             </font-awesome-icon>
           </div>
@@ -39,7 +39,7 @@
               aria-hidden="true"
               @click="readAdoptForm(o.id)"
               style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:10px"
-              class="scale-up-5"
+              class="scale-up-3"
             >
             </font-awesome-icon>
           </div>
@@ -71,13 +71,13 @@
               color="#D7AFA4"
               effect="dark"
               size="medium"
-              style="border:none; border-radius: 30px; font-size:9pt; display:block;"
+              style="border:none; border-radius: 30px; font-size:9pt; display:block; cursor: default"
               >승인</el-tag>
             <el-tag v-if="o.result === '거절'"
               color="#BDBDBD"
               effect="dark"
               size="medium"
-              style="border:none; border-radius: 30px; font-size:9pt; display:block;"
+              style="border:none; border-radius: 30px; font-size:9pt; display:block; cursor: default"
               >거절</el-tag>
           </div>
         </el-col>

@@ -33,6 +33,7 @@
     <a class="video-btn" @click="createConference(chat.title)"
       ><font-awesome-icon :icon="['fas', 'video']"></font-awesome-icon
     ></a>
+    <font-awesome-icon class="exit-btn" :icon="['fa', 'door-open']"></font-awesome-icon>
 
     <!-- <i class="el-icon-video-camera video-btn"></i> -->
   </div>
@@ -120,6 +121,13 @@
   position: absolute;
   bottom: 10px;
   left: 15px;
+  color: rgb(150, 150, 150);
+}
+.exit-btn{
+  cursor: pointer;
+  position: absolute;
+  bottom: 15px;
+  left: 55px;
   color: rgb(150, 150, 150);
 }
 .close-btn {
@@ -238,8 +246,8 @@ export default {
 
     // 웹 소켓 통신 Connect
     function connect(){
-      //const url = "https://i5a501.p.ssafy.io/api/v1/chat-server" // 배포용
-      const url = "https://localhost:8081/api/v1/chat-server"
+      const url = "https://i5a501.p.ssafy.io/api/v1/chat-server" // 배포용
+      //const url = "https://localhost:8081/api/v1/chat-server"
       socket = new SockJS(url, { transports: ['websocket', 'xhr-streaming', 'xhr-polling']})
       client = Stomp.over(socket)
       client.connect({withCredentials : true, userId : userId }

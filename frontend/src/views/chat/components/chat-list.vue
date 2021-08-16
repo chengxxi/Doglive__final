@@ -13,7 +13,6 @@
       @click="enterRoom(card)"
     />
   </div>
-  <div class="chat-footer"/>
 </template>
 
 <style scoped>
@@ -41,6 +40,8 @@
   font-weight: 400;
 }
 .chat-body{
+  min-height: 400px;
+  max-height: 470px;
   position: relative;
   margin: 0;
   padding: 10px;
@@ -48,13 +49,6 @@
 }
 .chat-body::-webkit-scrollbar{
   display: none;
-}
-.chat-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  border-top: solid 1px rgb(230, 230, 230);
 }
 .close-btn{
   cursor: pointer;
@@ -65,7 +59,6 @@
 </style>
 
 <script>
-import svg from '@/assets/svgs/loading.js'
 import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 import ChatCard from "./chat-card.vue";

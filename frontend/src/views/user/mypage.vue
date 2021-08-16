@@ -9,6 +9,7 @@
 /* 페이지 만들 때, 이 구조가 기준이 됩니다! (양옆 여백 10%, 위 여백 50px) */
 .main-body{
   width: 100%;
+  min-height: calc(100vh - 140px);
   margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
   margin-right: 10%;
 }

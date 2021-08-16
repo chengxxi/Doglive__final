@@ -1,11 +1,11 @@
 <template>
-  <el-container class="main-wrapper">
+  <div class="main-wrapper">
     <main-header :height="`70px`" />
     <el-container class="main-container">
       <router-view></router-view>
     </el-container>
     <main-footer :height="`70px`" />
-  </el-container>
+  </div>
   <chat />
 </template>
 

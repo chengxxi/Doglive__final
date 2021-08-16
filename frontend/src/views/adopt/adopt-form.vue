@@ -712,8 +712,6 @@ export default {
             transition: "bounce",
             type: "warning"
           });
-          // openChatting(result.data.counselingHistory.id);
-
           router.push({ name: "AdoptDetail" });
         })
         .catch(function(error) {

@@ -61,7 +61,7 @@
 <style scoped>
 .main-header {
   z-index: 100; /* 헤더 맨위 고정 */
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   text-align: center;

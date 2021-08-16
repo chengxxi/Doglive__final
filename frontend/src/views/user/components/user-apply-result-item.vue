@@ -54,7 +54,7 @@
               aria-hidden="true"
               @click="openChatting(o.id)"
               style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:15px"
-              class="scale-up-5"
+              class="scale-up-3"
             >
             </font-awesome-icon>
           </div>
@@ -66,7 +66,7 @@
               aria-hidden="true"
               @click="readAdoptForm(o.id)"
               style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:10px"
-              class="scale-up-5"
+              class="scale-up-3"
             >
             </font-awesome-icon>
           </div>

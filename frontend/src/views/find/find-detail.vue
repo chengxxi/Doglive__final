@@ -430,16 +430,110 @@ export default {
       }
     };
 
+    const data = {
+      userId: state.userId,
+      data: {
+        boardId: state.board.boardId,
+        boardType: state.board.boardType.name,
+        boardTitle: state.board.title,
+        dogName: null,
+        content: null
+      }
+    };
+
+    //입양신청서 제출
+    const submitAdoptForm = function(data) {
+      store
+        .dispatch("root/registerAdoptForm", data)
+        .then(function(result) {
+          console.log(result);
+          console.log("counseling history 저장")
+          createChatting(result.data.counselingHistory.id) // 성공하면 상담채팅방 생성
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    };
+
+    // 상담채팅방 생성
+    const createChatting = function(counselingId) {
+      store
+        .dispatch("root/requestCreateChatRoom", {
+          counseling_id: counselingId,
+          withCredentials: true // userId를 헤더 쿠키에 담아서 보냄
+        })
+        .then(function(result) {
+            openChatting(counselingId)
+        })
+        .catch(function() {
+
+        });
+    };
+
+    // 상담채팅방 열기
+    const openChatting = function(counselingId) {
+      store
+        .dispatch("root/requestChatRoomByCounseling", {
+          counselingId : counselingId,
+          withCredentials : true
+        })
+        .then(function(result){
+          // 채팅방에 입장할 때, chatRoom 정보를 넘겨줌
+          store.commit('root/setChatMenu', 1); // chat-detail.vue로 이동
+          store.commit('root/setChatRoomId', result.data.chatRoomList[0].chatRoom.id);
+          store.commit('root/setChatTitle', result.data.chatRoomList[0].counselingHistory.boardTitle)
+          store.commit('root/setChatOpen', true); // 모두 설정해준 다음 OPEN
+        })
+        .catch(function(err){
+          console.log(err)
+        })
+    }
+
+    // 채팅 시작하기 클릭 시, 수행되는 메소드
     const goChat = function(id) {
-      createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
-        hideProgressBar: "true",
-        timeout: 4500,
-        showIcon: "true",
-        toastBackgroundColor: "#c49d83",
-        position: "bottom-right",
-        transition: "bounce",
-        type: "warning"
-      });
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-right",
+          transition: "bounce",
+          type: "warning"
+        });
+        router.push({ name: "Login" });
+      } else {
+        // 채팅방이 이미 존재하는지 체크
+        store
+          .dispatch("root/existedForm", {
+            userId: state.userId,
+            boardId: state.board.boardId
+          })
+          .then(function(result) {
+            console.log(result)
+            if(result.status == 204){ // counseling history가 존재하지 않음
+              submitAdoptForm(data); // 1. counseling history 생성   2. 채팅방 생성  3. 채팅방 오픈
+            }else{
+              var counselingId = result.data.counselingHistory.id;
+              openChatting(counselingId) // 1. 채팅방 오픈
+            }
+          })
+          .catch(function(err) {
+            createToast("채팅을 시작할 수 없어요.💬💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            });
+          });
+        }
     };
 
     const readDetail = function(id) {

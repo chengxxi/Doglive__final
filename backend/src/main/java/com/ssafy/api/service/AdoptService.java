@@ -22,5 +22,5 @@ public interface AdoptService {
 
     AdoptFormData readAdoptForm(Long formId);
 
-    boolean canAdoptForm(String userId, Long boardId); //입양신청서 작성한 적 있는지 체크
+    CounselingHistory canAdoptForm(String userId, Long boardId); //입양신청서 작성한 적 있는지 체크 (있으면 해당 신청서의 Id, 없으면 -1 반환)
 }
