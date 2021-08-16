@@ -23,7 +23,7 @@ public interface CommunityImageRepository extends JpaRepository<CommunityImage, 
     void deleteCommunityImageByCommunityId(Community community);
 
     @Transactional
-    Optional<List<CommunityImage>> findCommunityImagesByImgFullPath(String url);
+    Optional<List<CommunityImage>> findCommunityImagesByFilePath(String url);
 
 }
 

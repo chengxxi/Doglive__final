@@ -60,6 +60,7 @@ export function setCommunityBoard(state, payload) {
   state.community.title = payload.title;
   state.community.category = payload.category;
   state.community.description = payload.description;
+  state.community.fileList = payload.fileList;
 }
 
 export function setChatOpen(state, payload) {

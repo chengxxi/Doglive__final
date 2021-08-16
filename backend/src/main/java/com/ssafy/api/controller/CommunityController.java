@@ -10,12 +10,14 @@ import com.ssafy.api.service.CommunityService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.community.Community;
 import com.ssafy.db.entity.community.CommunityComment;
+import com.ssafy.db.entity.community.CommunityImage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -108,7 +110,13 @@ public class CommunityController {
     })
     public ResponseEntity<CommunityBoardGetRes> findCommunityById(@PathVariable("communityId") Long id){
         Community community = communityService.getCommunityById(id);
-        return ResponseEntity.ok(CommunityBoardGetRes.of(200, "Success", community));
+        List<CommunityImage> communityImages = communityService.getCommunityImagesByCommunity(community);
+        List<String> fileList = new ArrayList<>();
+        for (CommunityImage communityImage: communityImages) {
+            fileList.add(communityImage.getFilePath());
+        }
+
+        return ResponseEntity.ok(CommunityBoardGetRes.of(200, "Success", community,fileList));
     }
 
     @PostMapping("/comment")
@@ -159,8 +167,9 @@ public class CommunityController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public List<Community> findNewCommunity(){
-        List<Community> communityList = communityService.getFourCommunities();
+    public List<CommunityParamDto> findNewCommunity(){
+        List<CommunityParamDto> communityList = communityService.getThreeCommunities();
+
         return communityList;
     }
 

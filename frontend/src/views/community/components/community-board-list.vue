@@ -39,9 +39,10 @@
           <el-carousel
             class="image-carousel"
             indicator-position="none"
+            style="margin-top:3%; margin-bottom:3%;"
           >
-            <el-carousel-item v-for="(item, index) in images" :key="index">
-              <img class="image" :src="item" />
+            <el-carousel-item v-for="(img, index) in item.fileList" :key="index">
+              <img class="image" :src="img" />
             </el-carousel-item>
           </el-carousel>
           <div class="tag">
@@ -322,7 +323,6 @@ export default {
                 var size = result.data.commentList.length;
                 for (var i = 0; i < size; i++) {
                   state.comments.push(result.data.commentList[i]);
-                  console.log(result.data.commentList[i]);
                 }
                 state.reverseList = [...state.comments].reverse();
               })
@@ -371,7 +371,8 @@ export default {
             communityId: result.data.community.id,
             title: result.data.community.title,
             category: result.data.community.category,
-            description: result.data.community.description
+            description: result.data.community.description,
+            fileList : result.data.filePath
           };
           store.commit("root/setCommunityBoard", CommunityDetail);
           router.push({ name: "community-board-update" });

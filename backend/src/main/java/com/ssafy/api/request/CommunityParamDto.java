@@ -1,11 +1,14 @@
 package com.ssafy.api.request;
 
 
+import com.ssafy.db.entity.community.CommunityImage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,6 +34,9 @@ public class CommunityParamDto {
 
     @ApiModelProperty
     String category;
+
+    @ApiModelProperty
+    List<String> fileList;
 
     public CommunityParamDto(Long id, String description, String title, String userId, String name, String profileImageUrl, String category) {
         this.id = id;

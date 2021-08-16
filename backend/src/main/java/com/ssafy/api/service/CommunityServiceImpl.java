@@ -13,6 +13,7 @@ import com.ssafy.db.repository.auth.UserRepository;
 import com.ssafy.db.repository.community.CommunityCommentRepository;
 import com.ssafy.db.repository.community.CommunityImageRepository;
 import com.ssafy.db.repository.community.CommunityRepository;
+import org.h2.store.fs.FilePath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -157,7 +159,7 @@ public class CommunityServiceImpl implements  CommunityService{
     public void deleteSomeCommunityImagesByUrl(List<String> delList) {
         if(delList!=null){
             for (String url: delList) {
-                Optional<List<CommunityImage>> delImgList = communityImageRepository.findCommunityImagesByImgFullPath(url);
+                Optional<List<CommunityImage>> delImgList = communityImageRepository.findCommunityImagesByFilePath(url);
                 if(delImgList.isPresent()){
                     for (CommunityImage image: delImgList.get()) {
                         communityImageRepository.delete(image);
@@ -182,9 +184,19 @@ public class CommunityServiceImpl implements  CommunityService{
     /* 커뮤니티 게시글 전체 목록 불러오기 */
     @Override
     public List<CommunityParamDto> communityList(int page){
-        PageRequest pageRequest = PageRequest.of(page,10,Sort.Direction.DESC, "regDate");
+        PageRequest pageRequest = PageRequest.of(page,20);
         System.out.println("page : " + page + " pageRequest: " + pageRequest);
         Page<CommunityParamDto> communityList = communityRepository.findAllDesc(pageRequest).orElse(null);
+        for (CommunityParamDto dto : communityList) {
+            Community community = communityRepository.findCommunityById(dto.getId()).get();
+            List<CommunityImage> communityImages = getCommunityImagesByCommunity(community);
+            List<String> fileList = new ArrayList<>();
+            for (CommunityImage communityImage: communityImages) {
+                String filePath = communityImage.getFilePath();
+                fileList.add(filePath);
+            }
+            dto.setFileList(fileList);
+        }
         System.out.println("Total Pages : " + communityList.getTotalPages());
         System.out.println("Total Count : " + communityList.getTotalElements());
         System.out.println("Next : " + communityList.nextPageable());
@@ -224,12 +236,22 @@ public class CommunityServiceImpl implements  CommunityService{
     }
 
     @Override
-    public List<Community> getFourCommunities() {
-        Optional<List<Community>> communityList = communityRepository.findfourCommunities();
-
-        if(communityList.isPresent()){
-            return communityList.get();
+    public List<CommunityParamDto> getThreeCommunities() {
+        List<CommunityParamDto> communities = new ArrayList<>();
+        List<CommunityParamDto> AllList = communityList(0);
+        for(int i=0; i<3; i++){
+            System.out.println(AllList.get(i));
+            List<String> fileList = new ArrayList<>();
+            Community community = getCommunityById(AllList.get(i).getId());
+            List<CommunityImage> images = getCommunityImagesByCommunity(community);
+            for (CommunityImage communityImage: images) {
+                String filePath = communityImage.getFilePath();
+                fileList.add(filePath);
+            }
+            CommunityParamDto dto = AllList.get(i);
+            dto.setFileList(fileList);
+            communities.add(dto);
         }
-        return null;
+        return communities;
     }
 }

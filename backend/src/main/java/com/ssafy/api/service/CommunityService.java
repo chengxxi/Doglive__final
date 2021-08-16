@@ -53,8 +53,8 @@ public interface CommunityService {
 
     List<CommunityComment> commentList(Long id);
 
-    /* 메인화면에 띄울 최신 커뮤니티 4건 불러오기 */
-    List<Community> getFourCommunities();
+    /* 메인화면에 띄울 최신 커뮤니티 3건 불러오기 */
+    List<CommunityParamDto> getThreeCommunities();
 
 
 

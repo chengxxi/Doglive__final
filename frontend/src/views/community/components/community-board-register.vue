@@ -12,6 +12,7 @@
         >
         <h5 class="mt-1 mb-2" style="font-weight:600">
           👨‍👩‍👧 당신의 이야기를 들려주세요 !
+
         </h5>
         <el-divider />
           <el-row class="mb-4">
@@ -35,10 +36,54 @@
           <span style="font-size: 1.25rem; font-weight:600">
             📷 사진을 업로드 해주세요
           </span>
-          <span> (최대 5장)</span>
+          <span> (최대 3장, 최소 1장)</span>
           <el-divider />
 
-          <el-row class="mb-5">
+          <el-row class="mt-4 mb-3">
+              <div class="mb-3" id="imgFileUploadInsertWrapper">
+                <div
+                  class="thumbnail-wrapper"
+                >
+                  <el-image
+                    style="width: 200px; height:200px; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%); cursor:pointer; position:relative; margin-right:20px; border-radius:20px; float:left;"
+                    v-for="(file, index) in state.fileList"
+                    v-bind:src="file"
+                    v-bind:key="index"
+                    @click="deleteFile(index)"
+                    :fit="fit"
+                  ></el-image>
+
+                  <input
+                    @change="changeFile"
+                    type="file"
+                    id="inputFileUploadInsert"
+                    style="display:none"
+                    multiple
+                  />
+                  <div style="float:left;">
+                    <label for="inputFileUploadInsert" style="cursor:pointer;">
+                      <div
+                        style="background:linear-gradient( to top, #f3ede7, #f5e9e4 );
+                      text-align:center;
+                      display:table-cell;
+                      vertical-align:middle; 
+                      box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%);
+                      width:200px; height:200px; border-radius:20px;
+                    "
+                      >
+                        <i
+                          class="el-icon-plus "
+                          style="margin-left : 10px;
+                    font-size:40px; color:#D8D8D8;"
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </el-row>
+
+          <!-- <el-row class="mb-5">
             <el-upload
               action="#"
               list-type="picture-card"
@@ -84,7 +129,7 @@
             <el-dialog v-model="dialogVisible">
               <img width="100%" :src="dialogImageUrl" alt="" />
             </el-dialog>
-          </el-row>
+          </el-row> -->
 
           <span style="font-size: 1.25rem; font-weight:600">
             📝 내용을 작성해주세요
@@ -92,7 +137,7 @@
           <el-divider />
           <el-row class="mb-3">
           <el-form-item label="내용" prop="description">
-            <el-input class="textarea" type="textarea" v-model="boardForm.description" style="resize: none; white-space:pre;"></el-input>
+            <el-input class="textarea" type="textarea" v-model="boardForm.description"></el-input>
           </el-form-item>
             
           </el-row>
@@ -130,6 +175,12 @@ li.el-select-dropdown__item.selected {
   color: #f9f0e7;
   border-color: #755744;
   background-color: #755744;
+}
+
+:deep(.el-textarea__inner) {
+  resize: none;
+  height:200px;
+  white-space:pre;
 }
 
 :deep(.el-input__inner:focus) {
@@ -226,23 +277,52 @@ export default {
   },
   methods:{
     submitForm(formName) {
-      const data = {
-        userId: this.state.userId.userId,
-        title: this.boardForm.title,
-        category : this.boardForm.category,
-        description: this.boardForm.description,
-      };
-      console.log(data);
+      if (this.state.sendFile.length > 3) {
+        createToast("사진은 3장까지만 업로드 가능해요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      }else if (this.state.sendFile.length >= 1) {
+        const formData = new FormData();
 
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.registerData(data);
-        } else {
-          console.log("error submit!!");
-          return false;
+        formData.append("userId", this.state.userId.userId);
+        formData.append("title", this.boardForm.title);
+        formData.append("category", this.boardForm.category);
+        formData.append("description", this.boardForm.description);
+
+        const cnt = this.state.sendFile.length;
+        for (var i = 0; i < cnt; i++) {
+          formData.append("fileList", this.state.sendFile[i]);
         }
-      });
+        console.log(this.state.fileList);
+
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            console.log(this.boardForm);
+            this.registerData(formData);
+          } else {
+            console.log("error submit!!");
+            return false;
+          }
+        });
+      } else {
+        createToast("사진은 두 장 이상 업로드해주세요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      }
     },
+
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
@@ -262,6 +342,8 @@ export default {
     const store = new useStore();
     const router = new useRouter();
     const state = reactive({
+      fileList: [],
+      sendFile: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"];
       }),
@@ -299,6 +381,24 @@ export default {
         });
     };
 
+    //파일 업로드 시 호출
+    const changeFile = function(fileEvent) {
+      if (fileEvent.target.files && fileEvent.target.files.length > 0) {
+        for (var i = 0; i < fileEvent.target.files.length; i++) {
+          const file = fileEvent.target.files[i];
+          state.fileList.push(URL.createObjectURL(file));
+          state.sendFile.push(file);
+        }
+      }
+    };
+
+    const deleteFile = function(index) {
+      console.log(state.sendFile);
+      state.fileList.splice(index, 1);
+      state.sendFile.splice(index, 1);
+      console.log(state.sendFile);
+    };
+
 
     
 
@@ -312,7 +412,7 @@ export default {
 
    
 
-    return { state , registerData};
+    return { state , registerData,changeFile,deleteFile};
   }
 }
 </script>
