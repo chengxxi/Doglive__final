@@ -277,7 +277,7 @@
           >
             <b>{{ state.board.title }}</b>
           </h4>
-          <div style="margin-top:20px; white-space:pre;">
+          <div style="margin-top:20px; white-space:pre-wrap;">
             {{ state.board.description }}
           </div>
         </div>

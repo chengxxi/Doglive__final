@@ -141,7 +141,7 @@
           <div class="col-md-6">
             <img
               class="img-fluid mb-5 mb-md-0"
-              src="https://d2ud6j7vlf3xy9.cloudfront.net/img/mbti_isfp.png"
+              src="https://d2ud6j7vlf3xy9.cloudfront.net/img/%ED%97%88%EC%8A%A4%ED%82%A4_%EB%A9%94%EC%9D%B82.png"
               width="480"
               alt=""
             />
