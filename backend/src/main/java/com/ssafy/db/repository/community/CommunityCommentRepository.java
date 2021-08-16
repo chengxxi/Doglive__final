@@ -21,7 +21,5 @@ public interface CommunityCommentRepository extends JpaRepository<CommunityComme
     Optional<List<CommunityComment>> findCommunityCommentsByCommunityId(Community communityId);
 
 
-    Optional <List<CommunityComment>> findCommunityCommentsByCommunityIdOrderByIdDesc(Community communityId);
-
 }
 

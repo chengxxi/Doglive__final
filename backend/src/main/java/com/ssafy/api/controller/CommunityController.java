@@ -10,11 +10,14 @@ import com.ssafy.api.service.CommunityService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.community.Community;
 import com.ssafy.db.entity.community.CommunityComment;
+import com.ssafy.db.entity.community.CommunityImage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +32,7 @@ public class CommunityController {
     @Autowired
     CommunityService communityService;
 
-    @PostMapping()
+    @PostMapping(consumes = {"multipart/form-data"})
     @ApiOperation(value = "커뮤니티 게시글 등록", notes = "커뮤니티 게시글을 등록한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -37,7 +40,7 @@ public class CommunityController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> registerCommunityBoard(@RequestBody @ApiParam(value="커뮤니티 게시글 정보", required = true)CommunityRegisterPostReq communityRegisterPostReq){
+    public ResponseEntity<? extends BaseResponseBody> registerCommunityBoard(@ModelAttribute CommunityRegisterPostReq communityRegisterPostReq) throws IOException {
         Community community = communityService.registerCommunityBoard(communityRegisterPostReq);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "게시글이 정상적으로 등록되었습니다"));
@@ -56,7 +59,7 @@ public class CommunityController {
         return ResponseEntity.status(204).body(BaseResponseBody.of(204, "게시글이 정상적으로 삭제되었습니다"));
     }
 
-    @PutMapping("/{communityId}")
+    @PutMapping(value = "/{communityId}", consumes = {"multipart/form-data"})
     @ApiOperation(value = "커뮤니티 게시글 수정", notes = "커뮤니티 게시글을 수정한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -64,7 +67,7 @@ public class CommunityController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> updateCommunityBoard(@PathVariable("communityId") Long id, @RequestBody @ApiParam(value="커뮤니티 수정 정보", required = true) CommunityRegisterPostReq communityRegisterPostReq){
+    public ResponseEntity<? extends BaseResponseBody> updateCommunityBoard(@PathVariable("communityId") Long id, @ModelAttribute CommunityRegisterPostReq communityRegisterPostReq) throws IOException {
         Community community = communityService.updateCommunityBoard(id, communityRegisterPostReq);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "게시글이 정상적으로 수정되었습니다"));
     }
@@ -107,7 +110,13 @@ public class CommunityController {
     })
     public ResponseEntity<CommunityBoardGetRes> findCommunityById(@PathVariable("communityId") Long id){
         Community community = communityService.getCommunityById(id);
-        return ResponseEntity.ok(CommunityBoardGetRes.of(200, "Success", community));
+        List<CommunityImage> communityImages = communityService.getCommunityImagesByCommunity(community);
+        List<String> fileList = new ArrayList<>();
+        for (CommunityImage communityImage: communityImages) {
+            fileList.add(communityImage.getFilePath());
+        }
+
+        return ResponseEntity.ok(CommunityBoardGetRes.of(200, "Success", community,fileList));
     }
 
     @PostMapping("/comment")
@@ -118,10 +127,10 @@ public class CommunityController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> registerCommunityComment(@RequestBody @ApiParam(value="커뮤니티 댓글 정보", required = true) CommentPostReq commentPostReq){
+    public ResponseEntity<CommunityComment> registerCommunityComment(@RequestBody @ApiParam(value="커뮤니티 댓글 정보", required = true) CommentPostReq commentPostReq){
         CommunityComment communityComment = communityService.addComment(commentPostReq);
 
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "댓글이 정상적으로 등록되었습니다"));
+        return ResponseEntity.ok(communityComment);
     }
 
     @DeleteMapping("/comment/{id}")
@@ -148,6 +157,20 @@ public class CommunityController {
     public ResponseEntity<CommentListGetRes> commentList(@PathVariable("id") Long id){
         List<CommunityComment> communityCommentLsit = communityService.commentList(id);
         return ResponseEntity.ok(CommentListGetRes.of(200, "Success", communityCommentLsit, communityCommentLsit.size()));
+    }
+
+    @GetMapping("/newcommunity")
+    @ApiOperation(value = "커뮤니티 최신 정보", notes = "커뮤니티 최신정보를 가져온다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public List<CommunityParamDto> findNewCommunity(){
+        List<CommunityParamDto> communityList = communityService.getThreeCommunities();
+
+        return communityList;
     }
 
 }

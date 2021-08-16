@@ -139,7 +139,7 @@ export default {
       .then(function(result){
         console.log(result)
         const Profile = {
-          imageURL : result.data.userProfile.profileImageUrl,
+          profileImageUrl : result.data.userProfile.profileImageUrl,
           name : result.data.userProfile.name,
           email :  result.data.userProfile.email,
           birth : result.data.userProfile.birth,

@@ -3,7 +3,17 @@
     <div style="border:none; width:100%;">
       <div>
         <bread-crumb></bread-crumb>
-
+        <div class="title" style="margin-top:3%;">
+          <h2>독닢신문</h2>
+        </div>
+        <div class="button" style="text-align:left; margin-top:2%;">
+          <el-button type="outline-primary" round @click="goRegister"
+            >글 작성하기</el-button
+          >
+          <el-button type="outline-primary" round @click="goRegister"
+            >내 피드 보러가기</el-button
+          >
+        </div>
         <el-card
           class="box-card "
           style="width:100%;border:none; margin-left:1%; margin-right:1%;"
@@ -34,6 +44,14 @@
 .el-button {
   margin-right: 1%;
 }
+.button .el-button {
+  border: solid 1px lightgray !important;
+}
+.button .el-button:hover {
+  color: black !important;
+  background-color: #f9f0e7 !important;
+  border: solid 1px #f9f0e7 !important;
+}
 </style>
 
 <script>
@@ -62,6 +80,27 @@ export default {
       })
     });
 
+    const goRegister = function() {
+      if (
+        state.userId === null ||
+        state.userId === undefined ||
+        state.userId == ""
+      ) {
+        createToast("로그인을 진행해주세요 💨💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "success"
+        });
+        router.push({ name: "Login" });
+      } else {
+        router.push({ name: "community-board-register" });
+      }
+    };
+
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
@@ -73,7 +112,7 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state };
+    return { state, goRegister };
   }
 };
 </script>
