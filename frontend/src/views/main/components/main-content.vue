@@ -7,7 +7,7 @@
 
       <div class="container position-relative">
         <div class="row align-items-center">
-          <div class="col-md-5 col-lg-6 order-md-1 pt-8">
+          <div class="col-md-5 col-lg-6 order-md-1 pt-6">
             <img
               class="img-fluid"
               src="https://d2ud6j7vlf3xy9.cloudfront.net/img/%EC%9B%B0%EC%8B%9C%EC%BD%94%EA%B8%B0_%EB%A9%94%EC%9D%B8.png"
@@ -197,7 +197,7 @@
                       />
 
                       <div
-                        class="d-md-flex align-items-md-center mt-5 text-center text-md-start"
+                        class="d-md-flex align-items-md-center text-center text-md-start"
                       >
                         <AdoptCard
                           v-for="(card, idx) in state.adoptList"
@@ -279,184 +279,422 @@
           </div>
         </div>
       </div>
-    </div>
-    <div>
-      <div class="container-lg py-6 py-lg-8">
-        <div class="row flex-center">
-          <div class="col-auto text-center">
-            <h2 class="fw-bold">독립신문</h2>
-            <hr class="mx-auto text-dark" style="height:2px;width:50px" />
-            <p class="mb-3">
-              독립신문은 행복한 유기동물 입양 경험을 공유하는 독립만의
-              커뮤니티입니다. <br />
-              자신의 유기동물 입양 경험을 나누면 또 다른 입양자가 나타날 수
-              있습니다.<br />
-              행복한 입양 후기를 통한 나비효과를 기대합니다. <br />
-            </p>
-          </div>
-        </div>
-        <div class="row h-100 justify-content-center pt-3">
-          <div class="col-12 col-sm-9 col-md-4 mt-4">
-            <div class="card h-100 hover-top rounded-3 shadow">
-              <div class="card-body">
-                <h6 class="text-gradient fs--1 fw-bold">입양일기</h6>
-                <hr class="text-100" />
-
-                <div class="d-flex align-items-center">
-                  <img
-                    class="me-3 me-md-3"
-                    style="width:100%; height:300px;"
-                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/static/20210415120439-puppy-1207816_960_720.webp"
-                    alt="blog"
-                  />
-                </div>
-                <div class="my-3 fs--1">
-                  <p class="mb-0 fw-bold">Jessica Parker</p>
-                  <p class="fw-normal mb-0">
-                    May, 2020 .<span>5 mins read</span>
-                  </p>
-                </div>
-              </div>
+      <div>
+        <div class="container-lg py-6 py-lg-8" style="margin-top:80px;">
+          <div class="row flex-center">
+            <div class="col-auto text-center">
+              <h2 class="fw-bold">독립신문</h2>
+              <hr class="mx-auto text-dark" style="height:2px;width:50px" />
+              <p class="mb-3">
+                독립신문은 행복한 유기동물 입양 경험을 공유하는 독립만의
+                커뮤니티입니다. <br />
+                자신의 유기동물 입양 경험을 나누면 또 다른 입양자가 나타날 수
+                있습니다.<br />
+                행복한 입양 후기를 통한 희망의 나비효과를 기대합니다. <br />
+              </p>
             </div>
           </div>
-          <div class="col-12 col-sm-9 col-md-4 mt-4">
-            <div class="card h-100 hover-top rounded-3 shadow">
-              <div class="card-body">
-                <h6 class="text-gradient fs--1 fw-bold">입양일기</h6>
-                <hr class="text-100" />
-
-                <div class="d-flex align-items-center">
-                  <img
-                    class="me-3 me-md-3"
-                    style="width:100%; height:300px;"
-                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/static/20210415120439-puppy-1207816_960_720.webp"
-                    alt="blog"
-                  />
-                </div>
-                <div class="my-3 fs--1">
-                  <p class="mb-0 fw-bold">Jessica Parker</p>
-                  <p class="fw-normal mb-0">
-                    May, 2020 .<span>5 mins read</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-9 col-md-4 mt-4">
-            <div class="card h-100 hover-top rounded-3 shadow">
-              <div class="card-body">
-                <h6 class="text-gradient fs--1 fw-bold">입양일기</h6>
-                <hr class="text-100" />
-
-                <div class="d-flex align-items-center">
-                  <img
-                    class="me-3 me-md-3"
-                    style="width:100%; height:300px;"
-                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/static/20210415120439-puppy-1207816_960_720.webp"
-                    alt="blog"
-                  />
-                </div>
-                <div class="my-3 fs--1">
-                  <p class="mb-0 fw-bold">Jessica Parker</p>
-                  <p class="fw-normal mb-0">
-                    May, 2020 .<span>5 mins read</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center pt-4 z-index-2">
-            <el-button
-              type="primary"
-              @clcik="goCommunity"
-              class="btn btn-lg btn-primary rounded-pill hover-top"
-              >더보기</el-button
+          <div class="row h-100 justify-content-center pt-3">
+            <div
+              class="col-12 col-sm-9 col-md-4 mt-4"
+              v-for="(card, idx) in state.communityList"
+              :key="idx"
+              :card="card"
+              @click="goCommunity"
+              style="cursor:pointer;"
             >
+              <div class="card h-100 hover-top rounded-3 shadow">
+                <div class="card-body">
+                  <el-tag
+                    v-if="card.category == '입양일기'"
+                    color="#D7AFA4"
+                    effect="dark"
+                    style="border:none; border-radius: 30px; font-size:14px;"
+                    >{{ card.category }}</el-tag
+                  >
+                  <el-tag
+                    v-if="card.category == '임보일기'"
+                    color="#E9CDA4"
+                    effect="dark"
+                    style="border:none; border-radius: 30px; font-size:14px;"
+                    >{{ card.category }}</el-tag
+                  >
+                  <el-tag
+                    v-if="card.category == '자유게시판'"
+                    color="#87CEDC"
+                    effect="dark"
+                    style="border:none; border-radius: 30px; font-size:14px;"
+                    >{{ card.category }}</el-tag
+                  >
+                  <el-tag
+                    v-if="card.category == '나눔'"
+                    color="#B4D9A7"
+                    effect="dark"
+                    style="border:none; border-radius: 30px; font-size:14px;"
+                    >{{ card.category }}</el-tag
+                  >
+                  <hr class="text-100" />
+
+                  <div class="d-flex align-items-center">
+                    <img
+                      class="me-3 me-md-3"
+                      style="width:100%; height:300px;"
+                      :src="card.fileList[0]"
+                      alt="blog"
+                    />
+                  </div>
+                  <div class="my-3 fs--1">
+                    <div class="user">
+                      <img class="user-profile" :src="card.profileImageUrl" />
+                      <span class="mb-0 fw-bold">{{ card.name }}</span>
+                    </div>
+                    <div
+                      style="padding-top:10px; margin-left:10px; margin-right:10px;"
+                    >
+                      <p class="mb-0 fw-bold" style="font-size:12pt;">
+                        {{ card.title }}
+                      </p>
+                      <p class=" mb-0" style="font-size:11pt;">
+                        <span>{{
+                          card.description.length < 28
+                            ? card.description
+                            : card.description.substr(0, 27) + ".."
+                        }}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-center pt-4 z-index-2">
+              <el-button
+                type="primary"
+                @clcik="goCommunity"
+                class="btn btn-lg btn-primary rounded-pill hover-top"
+                >더보기</el-button
+              >
+            </div>
           </div>
         </div>
       </div>
-
       <div class="container-lg py-6 py-lg-8">
         <div class="row flex-center">
           <div class="col-auto text-center">
             <h2 class="fw-bold">팀 소개</h2>
             <hr class="mx-auto text-dark" style="height:2px;width:50px" />
             <p class="mb-3">
-              당신과 강아지의 행복한 삶을 위해, <br />"독립" 서비스를 만들고
-              있는 <b>犬과You</b> 팀을 소개합니다.
+              당신과 강아지의 행복한 삶을 위해, <br /><span
+                style="font-size:13pt; font-weight:700;"
+                >독립</span
+              >
+              서비스를 만들고 있는<span
+                style="font-size:13pt; font-weight:700;"
+              >
+                犬과You </span
+              >팀을 소개합니다.
             </p>
           </div>
         </div>
         <div class="row h-100 justify-content-center pt-3">
           <div class="col-12 col-sm-9 col-md-4 mt-4">
-            <div class="card h-100 hover-top rounded-3 shadow">
+            <div
+              class="card h-90 hover-top shadow "
+              OnClick="location.href ='https://github.com/jodawoooon'"
+              style="cursor:pointer; background:#fbf6f3"
+            >
               <div class="card-body">
-                <h6 class="text-gradient fs--1 fw-bold">입양일기</h6>
-                <hr class="text-100" />
+                <h6 class="text-gradient fs--1 fw-bold">
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#564c2e; color:#ffffff; margin-right:10px;"
+                  >
+                    Backend🔨
+                  </p>
+
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#c6bba8; margin-right:10px;"
+                  >
+                    Frontend🎨
+                  </p>
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#fddf86 "
+                  >
+                    팀장👑
+                  </p>
+                </h6>
 
                 <div class="d-flex align-items-center">
                   <img
-                    class="me-3 me-md-3"
-                    style="width:100%; height:300px;"
-                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/static/20210415120439-puppy-1207816_960_720.webp"
+                    style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
+                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/img/image.png"
                     alt="blog"
                   />
                 </div>
-                <div class="my-3 fs--1">
-                  <p class="mb-0 fw-bold">Jessica Parker</p>
-                  <p class="fw-normal mb-0">
-                    May, 2020 .<span>5 mins read</span>
+                <div
+                  class="my-3 fs--1"
+                  style="margin-left:5%; margin-right:5%;"
+                >
+                  <span class="mb-0 fw-bold" style="font-size:15pt;"
+                    >조다운
+                  </span>
+                  <span class="mb-0 fw-bold" style="font-size:13pt;"
+                    >DAUN JO
+                  </span>
+
+                  <p class=" mb-0" style="font-size:11pt;">
+                    삼성청년SW아카데미 5기
+                  </p>
+                  <p class="mb-0">
+                    <i class="el-icon-message " />
+                    jodawooooon@naver.com
+                  </p>
+                  <p class="mb-0">
+                    @jodawooooon
                   </p>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-12 col-sm-9 col-md-4 mt-4">
-            <div class="card h-100 hover-top rounded-3 shadow">
+            <div
+              class="card h-90 hover-top shadow "
+              OnClick="location.href ='https://github.com/kimkuan'"
+              style="cursor:pointer; background:#fbf6f3"
+            >
               <div class="card-body">
-                <h6 class="text-gradient fs--1 fw-bold">입양일기</h6>
-                <hr class="text-100" />
+                <h6 class="text-gradient fs--1 fw-bold">
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#564c2e; color:#ffffff; margin-right:10px;"
+                  >
+                    Backend🔨
+                  </p>
+
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#c6bba8; margin-right:10px;"
+                  >
+                    Frontend🎨
+                  </p>
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#a0d4d9 "
+                  >
+                    팀원💎
+                  </p>
+                </h6>
 
                 <div class="d-flex align-items-center">
                   <img
-                    class="me-3 me-md-3"
-                    style="width:100%; height:300px;"
-                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/static/20210415120439-puppy-1207816_960_720.webp"
+                    style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
+                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/img/image+(1).png"
                     alt="blog"
                   />
                 </div>
-                <div class="my-3 fs--1">
-                  <p class="mb-0 fw-bold">Jessica Parker</p>
-                  <p class="fw-normal mb-0">
-                    May, 2020 .<span>5 mins read</span>
+                <div
+                  class="my-3 fs--1"
+                  style="margin-left:5%; margin-right:5%;"
+                >
+                  <span class="mb-0 fw-bold" style="font-size:15pt;"
+                    >이상현
+                  </span>
+                  <span class="mb-0 fw-bold" style="font-size:13pt;"
+                    >SANGHYUN LEE
+                  </span>
+
+                  <p class=" mb-0" style="font-size:11pt;">
+                    삼성청년SW아카데미 5기
+                  </p>
+                  <p class="mb-0">
+                    <i class="el-icon-message " />
+                    jodawooooon@naver.com
+                  </p>
+                  <p class="mb-0">
+                    @sang_hyun_98
                   </p>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-12 col-sm-9 col-md-4 mt-4">
-            <div class="card h-100 hover-top rounded-3 shadow">
+            <div
+              class="card h-90 hover-top shadow "
+              OnClick="location.href ='https://github.com/0JUUU/'"
+              style="cursor:pointer; background:#fbf6f3"
+            >
               <div class="card-body">
-                <h6 class="text-gradient fs--1 fw-bold">입양일기</h6>
-                <hr class="text-100" />
+                <h6 class="text-gradient fs--1 fw-bold">
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#564c2e; color:#ffffff; margin-right:10px;"
+                  >
+                    Backend🔨
+                  </p>
+
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#c6bba8; margin-right:10px;"
+                  >
+                    Frontend🎨
+                  </p>
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#d0bdea "
+                  >
+                    팀원✨
+                  </p>
+                </h6>
 
                 <div class="d-flex align-items-center">
                   <img
-                    class="me-3 me-md-3"
-                    style="width:100%; height:300px;"
-                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/static/20210415120439-puppy-1207816_960_720.webp"
+                    style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
+                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/img/image+(2).png"
                     alt="blog"
                   />
                 </div>
-                <div class="my-3 fs--1">
-                  <p class="mb-0 fw-bold">Jessica Parker</p>
-                  <p class="fw-normal mb-0">
-                    May, 2020 .<span>5 mins read</span>
+                <div
+                  class="my-3 fs--1"
+                  style="margin-left:5%; margin-right:5%;"
+                >
+                  <span class="mb-0 fw-bold" style="font-size:15pt;"
+                    >이영주
+                  </span>
+                  <span class="mb-0 fw-bold" style="font-size:13pt;"
+                    >YOUNGJOO LEE
+                  </span>
+
+                  <p class=" mb-0" style="font-size:11pt;">
+                    삼성청년SW아카데미 5기
+                  </p>
+                  <p class="mb-0">
+                    <i class="el-icon-message " />
+                    jodawooooon@naver.com
+                  </p>
+                  <p class="mb-0">
+                    @0__jxxu
                   </p>
                 </div>
               </div>
             </div>
           </div>
+          <div class="col-12 col-sm-9 col-md-4 mt-4">
+            <div
+              class="card h-90 hover-top shadow "
+              OnClick="location.href ='https://github.com/hiii456'"
+              style="cursor:pointer; background:#fbf6f3"
+            >
+              <div class="card-body">
+                <h6 class="text-gradient fs--1 fw-bold">
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#564c2e; color:#ffffff; margin-right:10px;"
+                  >
+                    Backend🔨
+                  </p>
+
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#c6bba8; margin-right:10px;"
+                  >
+                    Frontend🎨
+                  </p>
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#f0a7a7 "
+                  >
+                    팀원🍰
+                  </p>
+                </h6>
+
+                <div class="d-flex align-items-center">
+                  <img
+                    style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
+                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/img/image+(3).png"
+                    alt="blog"
+                  />
+                </div>
+                <div
+                  class="my-3 fs--1"
+                  style="margin-left:5%; margin-right:5%;"
+                >
+                  <span class="mb-0 fw-bold" style="font-size:15pt;"
+                    >최혜원
+                  </span>
+                  <span class="mb-0 fw-bold" style="font-size:13pt;"
+                    >HYEWON CHOI
+                  </span>
+
+                  <p class=" mb-0" style="font-size:11pt;">
+                    삼성청년SW아카데미 5기
+                  </p>
+                  <p class="mb-0">
+                    <i class="el-icon-message " />
+                    jodawooooon@naver.com
+                  </p>
+                  <p class="mb-0">
+                    @hyeonlovesmacaron
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-9 col-md-4 mt-4">
+            <div
+              class="card h-90 hover-top shadow "
+              OnClick="location.href ='https://github.com/chengxxi'"
+              style="cursor:pointer; background:#fbf6f3"
+            >
+              <div class="card-body">
+                <h6 class="text-gradient fs--1 fw-bold">
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#c6bba8; margin-right:10px;"
+                  >
+                    Frontend🎨
+                  </p>
+                  <p
+                    class="p-1"
+                    style="display:inline-block; background-color:#b4d8bd "
+                  >
+                    팀원💡
+                  </p>
+                </h6>
+
+                <div class="d-flex align-items-center">
+                  <img
+                    style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
+                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/img/image+(4).png"
+                    alt="blog"
+                  />
+                </div>
+                <div
+                  class="my-3 fs--1"
+                  style="margin-left:5%; margin-right:5%;"
+                >
+                  <span class="mb-0 fw-bold" style="font-size:15pt;"
+                    >한승희
+                  </span>
+                  <span class="mb-0 fw-bold" style="font-size:13pt;"
+                    >SEUNGHEE HAN
+                  </span>
+
+                  <p class=" mb-0" style="font-size:11pt;">
+                    삼성청년SW아카데미 5기
+                  </p>
+                  <p class="mb-0">
+                    <i class="el-icon-message " />
+                    jodawooooon@naver.com
+                  </p>
+                  <p class="mb-0">
+                    @chengxxi
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="text-center pt-4 z-index-2">
             <el-button
               type="primary"
@@ -498,12 +736,22 @@ export default {
       })
     });
 
+    //최신 커뮤니티 글 읽어오기
+
+    store
+      .dispatch("root/readRecentCommunity")
+      .then(function(result) {
+        state.communityList = result.data;
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+
     //최신 공고 읽어오기
 
     store
       .dispatch("root/readRecentBoard")
       .then(function(result) {
-        console.log("readRecentData" + result.data.adoptList);
         state.adoptList = result.data.adoptList;
         state.findList = result.data.findList;
       })
@@ -512,8 +760,6 @@ export default {
       });
 
     const readDetail = function(id) {
-      console.log("read");
-
       var checkId = state.userId;
       if (checkId === undefined || checkId === null || checkId == "") {
         checkId = "none";
@@ -620,5 +866,12 @@ export default {
 
 * {
   color: rgb(51, 44, 44);
+}
+.user-profile {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  margin-left: 8px;
+  margin-right: 10px;
 }
 </style>

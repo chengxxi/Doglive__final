@@ -33,26 +33,28 @@
           />
         </div>
         <div class="my-3 fs--1">
-          <h3 style="font-weight:800; float:right;" class="mb-0 ">
-            {{
-              card.dogType.name.length < 6
-                ? card.dogType.name
-                : card.dogType.name.substr(0, 5) + ".."
-            }}
-          </h3>
-          <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
-            {{ card.gugun.sidoCode.name }} {{ card.gugun.name }}
-          </p>
+          <div style="margin-left:10px; margin-right:10px;">
+            <h3 style="font-weight:800; float:right;" class="mb-0 ">
+              {{
+                card.dogType.name.length < 6
+                  ? card.dogType.name
+                  : card.dogType.name.substr(0, 5) + ".."
+              }}
+            </h3>
+            <p style="font-size:16px; font-weight:600; margin-bottom:0px;">
+              {{ card.gugun.sidoCode.name }} {{ card.gugun.name }}
+            </p>
 
-          <p
-            style="font-size:11px; margin-top:0px;  font-weight:600; color:#727272;"
-          >
-            <i v-if="card.gender.name == '여'" class="el-icon-female " />
-            <i v-if="card.gender.name == '남'" class="el-icon-male " />
-            <i v-if="card.gender.name == '기타'" class="el-icon-question" />
-            / {{ card.weight.name.split("(")[0] }} /
-            {{ card.boardId.regDate.split(" ")[0] }}
-          </p>
+            <p
+              style="font-size:14px; margin-top:0px;  font-weight:600; color:#727272;"
+            >
+              <i v-if="card.gender.name == '여'" class="el-icon-female " />
+              <i v-if="card.gender.name == '남'" class="el-icon-male " />
+              <i v-if="card.gender.name == '기타'" class="el-icon-question" />
+              / {{ card.weight.name.split("(")[0] }} /
+              {{ card.boardId.regDate.split(" ")[0] }}
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -42,30 +42,32 @@
           />
         </div>
         <div class="my-3 fs--1">
-          <h3 style="font-weight:800; float:right;" class="mb-0 ">
-            {{
-              card.dogName.length < 6
-                ? card.dogName
-                : card.dogName.substr(0, 5) + ".."
-            }}
-          </h3>
-          <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
-            {{
-              card.boardId.title.length < 7
-                ? card.boardId.title
-                : card.boardId.title.substr(0, 6) + ".."
-            }}
-          </p>
+          <div style="margin-left:10px; margin-right:10px;">
+            <h2 style="font-weight:800; float:right;" class="mb-0 ">
+              {{
+                card.dogName.length < 6
+                  ? card.dogName
+                  : card.dogName.substr(0, 5) + ".."
+              }}
+            </h2>
+            <p style="font-size:16px; font-weight:600; margin-bottom:0px;">
+              {{
+                card.boardId.title.length < 10
+                  ? card.boardId.title
+                  : card.boardId.title.substr(0, 10) + ".."
+              }}
+            </p>
 
-          <p
-            style="font-size:11px; margin-top:0px;  font-weight:600; color:#727272;"
-          >
-            <i v-if="card.gender.name == '여'" class="el-icon-female " />
-            <i v-if="card.gender.name == '남'" class="el-icon-male " /> /
-            <i v-if="card.gender.name == '기타'" class="el-icon-question" />
-            {{ card.age.name.split("(")[0] }} /
-            {{ card.dogType.name }}
-          </p>
+            <p
+              style="font-size:14px; margin-top:0px;  font-weight:600; color:#727272;"
+            >
+              <i v-if="card.gender.name == '여'" class="el-icon-female " />
+              <i v-if="card.gender.name == '남'" class="el-icon-male " /> /
+              <i v-if="card.gender.name == '기타'" class="el-icon-question" />
+              {{ card.age.name.split("(")[0] }} /
+              {{ card.dogType.name }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
