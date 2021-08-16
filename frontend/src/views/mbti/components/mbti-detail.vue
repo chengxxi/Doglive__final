@@ -184,15 +184,15 @@
         </el-col>
       </el-row>
       <div class="box">
-        <h4 class="mb-2">
-          <b>{{ state.MbtiDetail.desc }}</b>
-        </h4>
+        <h6 class="mb-2">
+          {{ state.MbtiDetail.desc }}
+        </h6>
       </div>
       <el-divider />
 
-<!-- 유사공고 -->
-
     </el-card>
+
+    <!-- 유사 공고 -->
   </div>
 </template>
 
