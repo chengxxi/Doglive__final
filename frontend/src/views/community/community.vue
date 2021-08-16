@@ -4,7 +4,7 @@
       <div>
         <bread-crumb></bread-crumb>
         <div class="title" style="margin-top:3%;">
-          <h2>독닢신문</h2>
+          <h2>독립신문</h2>
         </div>   
         
         <el-card

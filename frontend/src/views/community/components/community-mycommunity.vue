@@ -13,12 +13,6 @@
             @click="goRegister"
             >글 작성하기</el-button
           >
-          <el-button
-            type="outline-primary"
-            round
-            @click="goMyCommunity"
-            >내 피드 보러가기</el-button
-          >
       </div>
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
       <div>
@@ -336,34 +330,18 @@ export default {
       }
     };
 
-    const goMyCommunity = function(){
-      if (state.userId === null) {
-        createToast("로그인을 진행해주세요 💨💨", {
-          hideProgressBar: "true",
-          timeout: 4500,
-          showIcon: "true",
-          toastBackgroundColor: "#c49d83",
-          position: "bottom-left",
-          transition: "bounce",
-          type: "success"
-        });
-        router.push({ name: "Login" });
-      } else {
-        router.push({ name: "community-mycommunity" });
-      }
-
-    }
-
+    const userId = store.getters['root/getLoginUserInfo'].userId;
     // 다음 커뮤니티 목록 가져오기
     function fetchCommunityList() {
       store
-        .dispatch("root/requestCommunityBoardList", communities.page)
+        .dispatch('root/requestMyCommunity', userId)
         .then(function(result) {
-          var size = result.data.length;
+          console.log(result)
+          var size = result.data.communityList.length;
           for (var i = 0; i < size; i++) {
-            state.boardList.push(result.data[i]);
-            console.log(result.data[i]);
-            const id = result.data[i].id;
+            state.boardList.push(result.data.communityList[i]);
+            console.log(result.data.communityList[i]);
+            const id = result.data.communityList[i].id;
             store
               .dispatch("root/requestCommunityComment", id)
               .then(function(result) {
@@ -458,7 +436,6 @@ export default {
         });
     };
 
-  
     store
       .dispatch("root/requestUserProfile", state.userId)
       .then(function(result) {
@@ -591,8 +568,7 @@ export default {
       comment,
       RegisterComment,
       DeleteComment,
-      goRegister,
-      goMyCommunity
+      goRegister
 
     };
   }
