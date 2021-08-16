@@ -97,7 +97,7 @@
                   style="width:100%; height:50%; padding-left:5px; padding-right:20px; margin-top:20px;"
                 >
                   <el-input
-                    placeholder="상세주소 또는 상세내용으로 검색 가능합니다"
+                    placeholder="품종 또는 상세주소로 검색 가능합니다"
                     v-on:keyup.enter="readData"
                     v-model="state.searchWord"
                   ></el-input>
@@ -176,7 +176,7 @@
 <script>
 import FindList from "./components/find-list.vue";
 import Pagination from "./components/pagination.vue";
-import BreadCrumb from "./components/bread-crumb.vue";
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
 import { reactive, computed, onMounted } from "vue"; // ref
 
 // import $axios from 'axios'

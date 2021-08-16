@@ -20,7 +20,7 @@ public class CommentListGetRes extends BaseResponseBody {
     @ApiModelProperty
     int size;
 
-    public static CommentListGetRes of(Integer statusCode, String message, List<CommunityComment> commentList, Integer size){
+    public static CommentListGetRes of(Integer statusCode, String message, List<CommunityComment> commentList,Integer size){
         CommentListGetRes res = new CommentListGetRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);

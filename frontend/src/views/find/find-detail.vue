@@ -38,11 +38,12 @@
                 </div>
                 <div class="col-md-3 ms-auto">
                   <div
-                    v-if="!state.board.isOwner"
                     class="align-self-center vertical-center"
                     style="text-align: center;"
                   >
                     <font-awesome-icon
+                      v-if="!state.board.isOwner"
+                      class="scale-up-2"
                       :icon="[state.board.isbookmarked ? 'fas' : 'far', 'star']"
                       @click="clickBookmark()"
                       aria-hidden="true"
@@ -52,6 +53,7 @@
 
                     <img
                       @click="kakaoShare"
+                      class="scale-up-2"
                       style="margin-left:15px; cursor: pointer;"
                       src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
                       width="40"
@@ -127,7 +129,7 @@
           >
             <b>{{ state.board.title }}</b>
           </h4>
-          <div style="margin-top:20px; white-space:pre;">
+          <div style="margin-top:20px; white-space:pre-wrap;">
             {{ state.board.description }}
           </div>
         </div>
@@ -146,34 +148,72 @@
           </el-carousel>
         </div>
 
-        <div class="dog-image-box">
-          <h5
-            class="pt-3 pb-3"
-            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
-          >
-            🐶🔎 혹시 저는 아닐까요❔
-          </h5>
+        <!-- 유사공고 -->
+        <div v-if="state.listSimilarDog.length != 0">
+          <!-- 조건 걸기 -->
+          <div class="dog-image-box">
+            <h5
+              class="pt-3 pb-3"
+              style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
+            >
+              🐶🔎 혹시 저는 아닐까요❔
+            </h5>
+            <el-scrollbar>
+              <div class="flex-content">
+                <p
+                  class="item"
+                  v-for="(card, idx) in state.listSimilarDog"
+                  :key="idx"
+                  style="width:360px; margin: 5px; display:inline-block"
+                >
+                  <FindCard
+                    :card="card"
+                    @click="readDetail(card.boardId.id)"
+                    style="margin:10px; width:360px;"
+                  />
+                </p>
+              </div>
+            </el-scrollbar>
+            <!-- <el-carousel :interval="4000" type="card" height="400px">
+              <el-carousel-item v-for="(card, idx) in state.listSimilarDog" :key="idx">
+                <FindCard
+                  :card="card"
+                  @click="readDetail(card.boardId.id)"
+                  style="margin:10px; width:auto;"
+                />
+              </el-carousel-item>
+            </el-carousel> -->
+          </div>
         </div>
       </el-card>
     </div>
   </div>
 </template>
-
+<style scoped>
+.flex-content {
+  white-space: nowrap;
+  width: 500px;
+}
+:deep(.el-carousel__item--card) {
+  width: 30%;
+  align-content: center;
+}
+</style>
 <script>
 import $axios from "axios";
-import BreadCrumb from "./components/bread-crumb.vue";
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
-import FindCard from "@/views/find/components/find-card.vue";
+import FindCard from "./components/find-card.vue";
 
 export default {
   name: "FindDetail",
   components: {
-    BreadCrumb,
-    createToast
+    FindCard,
+    BreadCrumb
   },
   data() {
     return {
@@ -203,6 +243,11 @@ export default {
       board: computed(() => {
         console.log(store.getters["root/getBoardDetail"]);
         return store.getters["root/getBoardDetail"];
+      }),
+      listSimilarDog: computed(() => {
+        console.log("해당 공고 유사 강아지 🔽");
+        console.log(state.board.listSimilarDog);
+        return store.getters["root/getBoardDetail"].listSimilarDog;
       })
     });
 
@@ -279,17 +324,18 @@ export default {
         content: {
           title: state.board.title,
           description: state.board.description,
-          imageUrl: "@/assets/images/mbti_isfp.png",
+          imageUrl: state.board.fileList[0],
           link: {
             mobileWebUrl: "https://i5a501.p.ssafy.io/",
-            androidExecutionParams: "test"
+            webUrl: "https://i5a501.p.ssafy.io/"
           }
         },
         buttons: [
           {
             title: "독립으로 이동",
             link: {
-              mobileWebUrl: "https://i5a501.p.ssafy.io/"
+              mobileWebUrl: "https://i5a501.p.ssafy.io/",
+              webUrl: "https://i5a501.p.ssafy.io/"
             }
           }
         ]
@@ -396,6 +442,55 @@ export default {
       });
     };
 
+    const readDetail = function(id) {
+      console.log("read");
+
+      var checkId = state.userId;
+      if (checkId === undefined || checkId === null || checkId == "") {
+        checkId = "none";
+      }
+
+      store
+        .dispatch("root/requestBoardDetail", {
+          boardId: id,
+          userId: checkId
+        })
+        .then(function(result) {
+          console.log(result);
+          console.log(result.data.listSimilarDog);
+          const boardDetail = {
+            boardId: result.data.dogInformation.boardId.id,
+            boardType: result.data.dogInformation.boardId.type,
+            thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+            title: result.data.dogInformation.boardId.title,
+            address: result.data.dogInformation.address,
+            mbti: result.data.dogInformation.mbti,
+            colorType: result.data.dogInformation.colorType,
+            gender: result.data.dogInformation.gender,
+            dogType: result.data.dogInformation.dogType,
+            neutralization: result.data.dogInformation.neutralization,
+            writer: result.data.writer,
+            weight: result.data.dogInformation.weight,
+            ageType: result.data.dogInformation.age,
+            regDate: result.data.dogInformation.boardId.regDate,
+            fileList: result.data.boardImageList,
+            isOwner: result.data.owner,
+            gugun: result.data.dogInformation.gugun,
+            sido: result.data.dogInformation.gugun.sidoCode,
+            description: result.data.dogInformation.description,
+            dogName: result.data.dogInformation.dogName,
+            isBookmarked: result.data.bookmarked,
+            listSimilarDog: result.data.listSimilarDog
+          };
+
+          store.commit("root/setBoardDetail", boardDetail);
+          router.push({ name: "FindDetail" });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
+
     onMounted(() => {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
@@ -407,7 +502,16 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify };
+    return {
+      state,
+      goChat,
+      clickBookmark,
+      kakaoShare,
+      doDelete,
+      goModify,
+      readDetail,
+      onMounted
+    };
   }
 };
 </script>
@@ -502,5 +606,22 @@ h3 {
   display: flex;
   align-items: center;
   margin-right: auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #f3e8dc, #f5edea);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(192, 186, 178);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
 }
 </style>

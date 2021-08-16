@@ -117,9 +117,11 @@ public class BoardServiceImpl implements  BoardService{
 
 
         Specification<DogInformation> spec = Specification.where(DogInformationSpecification.likeAddress(searchWord));
-        spec = spec.or(DogInformationSpecification.likeDesc(searchWord));
+        spec = spec.or(DogInformationSpecification.likeSido(searchWord));
+        spec = spec.or(DogInformationSpecification.likeGugun(searchWord));
+        spec = spec.or(DogInformationSpecification.likeDogType(searchWord));
 
-        //제목, 상세주소 검색
+        //품종종, 상세주소 색
 
         if(color!=null){
             spec = spec.and(DogInformationSpecification.eqColor(codeRepository.findById(color).get()));
@@ -145,6 +147,24 @@ public class BoardServiceImpl implements  BoardService{
                         spec,
                         pageable);
 
+    }
+
+    @Override
+    public List<DogInformation> getRecentAdoptBoard() {
+        Optional<List<DogInformation>> res = dogInformationRepository.findRecentAdoptBoard();
+        if(res.isPresent()){
+            return res.get();
+        }
+        return null;
+    }
+
+    @Override
+    public List<DogInformation> getRecentFindBoard() {
+        Optional<List<DogInformation>> res = dogInformationRepository.findRecentFindBoard();
+        if(res.isPresent()){
+            return res.get();
+        }
+        return null;
     }
 
 

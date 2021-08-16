@@ -56,7 +56,7 @@ export default {
         })
         .then(function(result) {
           console.log(result);
-
+          console.log(result.data.listSimilarDog)
           const boardDetail = {
             boardId: result.data.dogInformation.boardId.id,
             boardType: result.data.dogInformation.boardId.type,
@@ -78,7 +78,8 @@ export default {
             sido: result.data.dogInformation.gugun.sidoCode,
             description: result.data.dogInformation.description,
             dogName: result.data.dogInformation.dogName,
-            isBookmarked: result.data.bookmarked
+            isBookmarked: result.data.bookmarked,
+            listSimilarDog: result.data.listSimilarDog,
           };
 
           store.commit("root/setBoardDetail", boardDetail);

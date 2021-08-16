@@ -301,7 +301,7 @@ vertical-align:middle; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%);
 </template>
 
 <script>
-import BreadCrumb from "./components/bread-crumb.vue";
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -556,6 +556,7 @@ export default {
               userId: state.userId.userId
             })
             .then(function(result) {
+              console.log("수정 후 requestBoardDetail");
               console.log(result);
 
               const boardDetail = {
@@ -579,7 +580,8 @@ export default {
                 sido: result.data.dogInformation.gugun.sidoCode,
                 description: result.data.dogInformation.description,
                 dogName: result.data.dogInformation.dogName,
-                isBookmarked: result.data.bookmarked
+                isBookmarked: result.data.bookmarked,
+                listSimilarDog: result.data.listSimilarDog,
               };
               createToast("공고가 수정되었어요 📜🐾", {
                 hideProgressBar: "true",

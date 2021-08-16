@@ -44,6 +44,7 @@
                     style="text-align: center;"
                   >
                     <font-awesome-icon
+                      v-if="!state.board.isOwner"
                       class="scale-up-2"
                       :icon="[state.board.isbookmarked ? 'fas' : 'far', 'star']"
                       @click="clickBookmark()"
@@ -276,7 +277,7 @@
           >
             <b>{{ state.board.title }}</b>
           </h4>
-          <div style="margin-top:20px; white-space:pre;">
+          <div style="margin-top:20px; white-space:pre-wrap;">
             {{ state.board.description }}
           </div>
         </div>
@@ -388,14 +389,15 @@ export default {
           imageUrl: state.board.fileList[0],
           link: {
             mobileWebUrl: "https://i5a501.p.ssafy.io/",
-            androidExecutionParams: "test"
+            webUrl: "https://i5a501.p.ssafy.io/"
           }
         },
         buttons: [
           {
             title: "독립으로 이동",
             link: {
-              mobileWebUrl: "https://i5a501.p.ssafy.io/"
+              mobileWebUrl: "https://i5a501.p.ssafy.io/",
+              webUrl: "https://i5a501.p.ssafy.io/"
             }
           }
         ]

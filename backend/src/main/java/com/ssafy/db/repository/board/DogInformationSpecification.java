@@ -35,6 +35,38 @@ public class DogInformationSpecification {
     }
 
 
+    public static Specification<DogInformation> likeSido(final String keyword) {
+
+        return new Specification<DogInformation>() {
+            @Override
+            public Predicate toPredicate(Root<DogInformation> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.like(root.get("gugun").get("sidoCode").get("name"), "%" + keyword + "%");
+            }
+        };
+    }
+
+    public static Specification<DogInformation> likeGugun(final String keyword) {
+
+        return new Specification<DogInformation>() {
+            @Override
+            public Predicate toPredicate(Root<DogInformation> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.like(root.get("gugun").get("name") , "%" + keyword + "%");
+            }
+        };
+    }
+
+
+    public static Specification<DogInformation> likeDogType(final String keyword) {
+
+        return new Specification<DogInformation>() {
+            @Override
+            public Predicate toPredicate(Root<DogInformation> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.like(root.get("dogType").get("name"), "%" + keyword + "%");
+            }
+        };
+    }
+
+
     public static Specification<DogInformation> likeTitle(final String keyword) {
 
         return new Specification<DogInformation>() {
