@@ -1,13 +1,13 @@
 <template>
   <div></div>
 
-  <div class="main-body  main-padding" id="top">
+  <div class="main-body main-padding" id="top">
     <div class="py-0">
       <!--/.bg-holder-->
 
       <div class="container position-relative">
         <div class="row align-items-center">
-          <div class="col-md-5 col-lg-6 order-md-1 pt-6">
+          <div class="col-md-5 col-lg-6 order-md-1 pt-3">
             <img
               class="img-fluid"
               src="https://d2ud6j7vlf3xy9.cloudfront.net/img/%EC%9B%B0%EC%8B%9C%EC%BD%94%EA%B8%B0_%EB%A9%94%EC%9D%B8.png"
@@ -367,7 +367,7 @@
             <div class="text-center pt-4 z-index-2">
               <el-button
                 type="primary"
-                @clcik="goCommunity"
+                @click="goCommunity"
                 class="btn btn-lg btn-primary rounded-pill hover-top"
                 >더보기</el-button
               >
@@ -426,7 +426,7 @@
                 <div class="d-flex align-items-center">
                   <img
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
-                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/img/image.png"
+                    src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image.png"
                     alt="blog"
                   />
                 </div>
@@ -487,7 +487,7 @@
                 <div class="d-flex align-items-center">
                   <img
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
-                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/img/image+(1).png"
+                    src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(1).png"
                     alt="blog"
                   />
                 </div>
@@ -548,19 +548,19 @@
                 <div class="d-flex align-items-center">
                   <img
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
-                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/img/image+(2).png"
+                    src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(2).png"
                     alt="blog"
                   />
                 </div>
                 <div
                   class="my-3 fs--1"
-                  style="margin-left:5%; margin-right:5%;"
+                  style="margin-left:5%; margin-right:5%; "
                 >
-                  <span class="mb-0 fw-bold" style="font-size:15pt;"
+                  <span class="mb-0 fw-bold" style="font-size:15pt; "
                     >이영주
                   </span>
                   <span class="mb-0 fw-bold" style="font-size:13pt;"
-                    >YOUNGJOO LEE
+                    >YOUNGJU LEE
                   </span>
 
                   <p class=" mb-0" style="font-size:11pt;">
@@ -609,7 +609,7 @@
                 <div class="d-flex align-items-center">
                   <img
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
-                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/img/image+(3).png"
+                    src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(3).png"
                     alt="blog"
                   />
                 </div>
@@ -663,7 +663,7 @@
                 <div class="d-flex align-items-center">
                   <img
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
-                    src="https://doglive.s3.ap-northeast-2.amazonaws.com/img/image+(4).png"
+                    src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(4).png"
                     alt="blog"
                   />
                 </div>
@@ -834,8 +834,8 @@ export default {
   margin-right: 15%;
 }
 .main-padding {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 :deep(.el-button--primary) {

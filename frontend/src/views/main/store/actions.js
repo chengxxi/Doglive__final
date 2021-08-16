@@ -276,3 +276,9 @@ export function readRecentCommunity({ state }) {
   const url = "/community/new";
   return $axios.get(url);
 }
+
+//MBTI 매칭 결과 가져오기
+export function requestMBTIResult({ state }, payload) {
+  const url = "/mbti";
+  return $axios.post(url, payload.data);
+}

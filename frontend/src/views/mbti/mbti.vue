@@ -5,21 +5,18 @@
         <h1 class="title">나와 맞는 강아지 찾기</h1>
         <p>강아지 성향 기반 MBTI를 통한 나와 맞는 성향의 강아지 찾기</p>
         <!-- 상세 문구 수정 필요 -->
-
       </div>
 
       <MbtiIntro />
 
       <!-- 테스트 하기 버튼 -->
-        <!-- <MbtiDescription /> -->
-        <!-- <MbtiQuestion /> -->
+      <!-- <MbtiDescription /> -->
+      <!-- <MbtiQuestion /> -->
       <!-- 유형 알아보기 버튼 -->
-        <!-- <MbtiResult /> -->
-
+      <!-- <MbtiResult /> -->
     </div>
   </div>
 </template>
-
 
 <style>
 /* 페이지 만들 때, 이 구조가 기준이 됩니다! (양옆 여백 10%, 위 여백 50px) */
@@ -36,19 +33,15 @@
   font-size: 2.5rem;
   font-weight: normal;
 }
-
-
 </style>
 
-
-
 <script>
-import MbtiIntro from './components/mbti-intro.vue'
+import MbtiIntro from "./components/mbti-intro.vue";
 
 export default {
-  name: 'mbti',
+  name: "mbti",
   components: {
-    MbtiIntro,
-  },
-}
+    MbtiIntro
+  }
+};
 </script>

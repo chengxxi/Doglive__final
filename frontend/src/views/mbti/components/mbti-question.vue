@@ -1,28 +1,38 @@
 <template>
-<div class="block">
-  <!-- 활동성향 질문 -->
-  <div class="question"> <!-- question 1 -->
-    <p class="demonstration">
-      내가 원하는 것을 얻기 위해 때로는 불쌍한 척을 해요.
-    </p>
+  <div class="block">
+    <!-- 활동성향 질문 -->
+    <div class="question">
+      <!-- question 1 -->
+      <p class="demonstration">
+        내가 원하는 것을 얻기 위해 때로는 불쌍한 척을 해요.
+      </p>
 
-    <el-radio-item>
-      <el-radio-group v-model="radio1" class="rating">
-        <span style="color: #755744; font-weight: 530;">별로예요</span>
-        <el-radio class="radioBtn-lg-lf"
-          v-bind:class="{'radioBtn-lg-lf': !clicked, 'radioBtn-lg-lf2': clicked}"
-          v-on:click ="clicked = !clicked"
-        ></el-radio> <!-- 매우 아니다 -->
-        <el-radio class="radioBtn-md-lf"></el-radio> <!-- 조금 아니다 -->
-        <el-radio class="radioBtn-sm"></el-radio> <!-- 보통이다 -->
-        <el-radio class="radioBtn-md-rt"></el-radio> <!-- 조금 그렇다 -->
-        <el-radio class="radioBtn-lg-rt"></el-radio> <!-- 매우 그렇다 -->
-        <span style="color: #c58676; font-weight: 530;">좋아요</span>
-      </el-radio-group>
-    </el-radio-item>
-  </div> <!-- question 1 -->
-
-</div>
+      <el-radio-item>
+        <el-radio-group v-model="radio1" class="rating">
+          <span style="color: #755744; font-weight: 530;">별로예요</span>
+          <el-radio
+            class="radioBtn-lg-lf"
+            v-bind:class="{
+              'radioBtn-lg-lf': !clicked,
+              'radioBtn-lg-lf2': clicked
+            }"
+            v-on:click="clicked = !clicked"
+          ></el-radio>
+          <!-- 매우 아니다 -->
+          <el-radio class="radioBtn-md-lf"></el-radio>
+          <!-- 조금 아니다 -->
+          <el-radio class="radioBtn-sm"></el-radio>
+          <!-- 보통이다 -->
+          <el-radio class="radioBtn-md-rt"></el-radio>
+          <!-- 조금 그렇다 -->
+          <el-radio class="radioBtn-lg-rt"></el-radio>
+          <!-- 매우 그렇다 -->
+          <span style="color: #c58676; font-weight: 530;">좋아요</span>
+        </el-radio-group>
+      </el-radio-item>
+    </div>
+    <!-- question 1 -->
+  </div>
 </template>
 
 <style scoped>
@@ -104,7 +114,6 @@
   margin: 0 25px;
 }
 
-
 .radioBtn-md-lf {
   width: 2rem;
   height: 2rem;
@@ -116,7 +125,7 @@
 .radioBtn-sm {
   width: 1.5rem;
   height: 1.5rem;
-  border: 2px solid #E9CDA4;
+  border: 2px solid #e9cda4;
   border-radius: 50%;
   margin: 0 25px;
 }
@@ -124,7 +133,7 @@
 .radioBtn-md-rt {
   width: 2rem;
   height: 2rem;
-  border: 2px solid #D7AEA4;
+  border: 2px solid #d7aea4;
   border-radius: 50%;
   margin: 0 25px;
 }
@@ -136,9 +145,6 @@
   border-radius: 50%;
   margin: 0 25px;
 }
-
-
-
 
 /* radio 안에 체크하는 원 부분 삭제 */
 :deep(.el-radio__inner) {
@@ -157,7 +163,6 @@
   display: none;
 }
 
-
 :deep(.el-radio__input.is-checked + .el-radio__label) {
   border-color: #755744;
   color: #755744;
@@ -168,21 +173,14 @@
   background-color: #755744;
   background: #755744;
 }
-
-
-
-
-
-
 </style>
 
 <script>
-import { ref } from 'vue'
+import { ref } from "vue";
 
 export default {
-  name: 'MbtiQuestion',
+  name: "MbtiQuestion",
   setup() {
-
     // const clicked =  false;
 
     return {
@@ -192,11 +190,9 @@ export default {
       radio4: ref(null),
       radio5: ref(null),
       radio6: ref(null),
-      colors: ['red', 'green', 'blue', 'yellow'],
-      backgroundColor: undefined,
-    }
-  },
-}
+      colors: ["red", "green", "blue", "yellow"],
+      backgroundColor: undefined
+    };
+  }
+};
 </script>
-
-
