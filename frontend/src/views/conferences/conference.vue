@@ -30,14 +30,12 @@
       <el-row class="con-row-button">
         <!-- <h1 id='session-title'>{{ state.mySessionId }}</h1> -->
         <el-button type='button' id='buttonLeaveSession' @click='leaveSession'>Leave Session</el-button>
-        <el-button v-if='state.videoEnabled' type='info' @click='turnCamera'>
-          <font-awesome-icon :icon="[ 'fas' , 'video']"/>
-        </el-button>
-        <el-button v-else type='danger' icon='el-icon-loading' @click='turnCamera'></el-button>
-        <el-button v-if='state.audioEnabled' type='info' icon='el-icon-microphone' @click='turnAudio' />
-        <el-button v-else type='danger' icon='el-icon-turn-off-microphone' @click='turnAudio' />
-        <el-button v-if='state.chatEnabled' @click="turnChat" type="info" icon='el-icon-chat-round'/>
-        <el-button v-else type="primary" icon="el-icon-chat-dot-round" @click="turnChat"/>
+        <el-button v-if='state.videoEnabled' class = "off-content" icon='el-icon-video-camera' @click='turnCamera'></el-button>
+        <el-button v-else type='info' icon='el-icon-loading' @click='turnCamera'></el-button>
+        <el-button v-if='state.audioEnabled' class = "off-content" icon='el-icon-microphone' @click='turnAudio' />
+        <el-button v-else type='info' icon='el-icon-turn-off-microphone' @click='turnAudio' />
+        <el-button v-if='state.chatEnabled' class = "off-content" @click="turnChat" icon='el-icon-chat-round'/>
+        <el-button v-else type='info' icon="el-icon-chat-dot-round" @click="turnChat"/>
         <!-- <el-drawer v-model="drawer" :with-header='false'>
           <conferenceChat
             class='chat'
@@ -181,6 +179,40 @@ video {
   text-align: center;
   padding-top: 25%;
   font-size: 150%;
+}
+/* 화상회의 나가기 버튼 커스텀 */
+#buttonLeaveSession {
+  border:#F9F0E7 1px solid;
+  font-size: 20px;
+}
+#buttonLeaveSession:hover {
+  background: #F9F0E7;
+  border:#F9F0E7 1px solid;
+  color: black;
+}
+:deep(.el-icon-turn-off-microphone::before) {
+  font-size: 20px;
+}
+:deep(.el-icon-microphone::before) {
+  font-size: 20px;
+}
+:deep(.el-icon-video-camera::before) {
+  font-size: 20px;
+}
+:deep(.el-icon-loading::before) {
+  font-size: 20px;
+}
+:deep(.el-icon-chat-round::before) {
+  font-size: 20px;
+}
+:deep(.el-icon-chat-dot-round::before) {
+  font-size: 20px;
+}
+/* off 버튼 커스텀 */
+.off-content {
+  color: white;
+  background: #d7aea4;
+  border-color: #d7aea4;
 }
 /* textarea 우측 하단 /// 안보이게 + 스크롤 기능 O + 스크롤바 X */
 textarea {
