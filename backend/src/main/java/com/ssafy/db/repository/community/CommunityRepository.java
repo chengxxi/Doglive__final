@@ -26,5 +26,6 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
     @Query(name = "CommunityAndUser", nativeQuery = true)
     Optional<Page<CommunityParamDto>> findAllDesc(Pageable paging);
 
+
 }
 

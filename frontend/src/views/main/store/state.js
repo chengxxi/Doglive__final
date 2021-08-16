@@ -23,7 +23,8 @@ export default {
     communityId: "",
     title: "",
     category: "",
-    description: ""
+    description: "",
+    fileList: [],
   },
 
   currentPath: "", // 현재 경로의 Path 파트 ex) /login?code=1234 에서 '/login'

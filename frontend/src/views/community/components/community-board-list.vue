@@ -1,15 +1,6 @@
 <template>
   <div>
-    <div style="text-align:right;">
-      <el-button
-        class="regist-button"
-        type="outline-primary"
-        round
-        @click="goRegister"
-        >글 작성하기</el-button
-      >
-    </div>
-
+    
     <!-- <div class="chat-body"
         @scroll="scroll"
         v-loading="communities.loading"
@@ -48,12 +39,10 @@
           <el-carousel
             class="image-carousel"
             indicator-position="none"
-            trigger="click"
-            autoplay="true"
-            interval="10000"
+            style="margin-top:3%; margin-bottom:3%;"
           >
-            <el-carousel-item v-for="(item, index) in images" :key="index">
-              <img class="image" :src="item" />
+            <el-carousel-item v-for="(img, index) in item.fileList" :key="index">
+              <img class="image" :src="img" />
             </el-carousel-item>
           </el-carousel>
           <div class="tag">
@@ -118,7 +107,7 @@
             @click="RegisterComment(item.id)"
           ></el-button>
           <div
-            v-for="(i, index) in state.comments"
+            v-for="(i, index) in state.reverseList"
             :key="index"
             style="margin:2%;"
           >
@@ -132,6 +121,7 @@
               }}</span>
               <span
                 ><el-button
+                  v-if="state.userId == i.userId"
                   class="close-button"
                   icon="el-icon-close"
                   style="position: absolute; right: 0; padding:1%; margin-right:3%;"
@@ -158,13 +148,7 @@
 </template>
 
 <style scoped>
-.regist-button {
-  border: solid 1px lightgray !important;
-}
-.regist-button:hover {
-  background-color: #f9f0e7 !important;
-  border: solid 1px #f9f0e7 !important;
-}
+
 .board {
   max-width: 600px;
   max-width: 850px;
@@ -299,6 +283,7 @@ export default {
 
     const state = reactive({
       boardList: [],
+      reverseList :[],
       comments: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
@@ -306,7 +291,7 @@ export default {
       userProfile: computed(() => {
         return store.getters["root/getUpdateUserInfo"];
       }),
-      isLoading: computed(() => comments.loading)
+      isLoading: computed(() => state.comments)
     });
 
     const communities = reactive({
@@ -338,8 +323,8 @@ export default {
                 var size = result.data.commentList.length;
                 for (var i = 0; i < size; i++) {
                   state.comments.push(result.data.commentList[i]);
-                  console.log(result.data.commentList[i]);
                 }
+                state.reverseList = [...state.comments].reverse();
               })
               .catch(function(err) {
                 console.log(err);
@@ -386,7 +371,8 @@ export default {
             communityId: result.data.community.id,
             title: result.data.community.title,
             category: result.data.community.category,
-            description: result.data.community.description
+            description: result.data.community.description,
+            fileList : result.data.filePath
           };
           store.commit("root/setCommunityBoard", CommunityDetail);
           router.push({ name: "community-board-update" });
@@ -456,6 +442,7 @@ export default {
             comment: comment.input
           })
           .then(function(result) {
+            console.log(result)
             createToast("댓글이 등록되었어요 💨💨", {
               hideProgressBar: "true",
               timeout: 4500,
@@ -465,6 +452,9 @@ export default {
               transition: "bounce",
               type: "success"
             });
+            state.comments.push(result.data);
+            comment.input = "";
+            state.reverseList = [...state.comments].reverse();
           })
           .catch(function(err) {
             createToast("댓글 등록에 실패했어요 😱💦", {
@@ -493,6 +483,8 @@ export default {
             transition: "bounce",
             type: "success"
           });
+          console.log(result);
+          state.comments.pop(result.data);
         })
         .catch(function(err) {
           createToast("댓글 삭제에 실패했어요 😱💦", {
@@ -508,22 +500,7 @@ export default {
         });
     };
 
-    const goRegister = function() {
-      if (state.userId === null) {
-        createToast("로그인을 진행해주세요 💨💨", {
-          hideProgressBar: "true",
-          timeout: 4500,
-          showIcon: "true",
-          toastBackgroundColor: "#c49d83",
-          position: "bottom-left",
-          transition: "bounce",
-          type: "success"
-        });
-        router.push({ name: "Login" });
-      } else {
-        router.push({ name: "community-board-register" });
-      }
-    };
+    
 
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {
@@ -537,7 +514,6 @@ export default {
     return {
       state,
       deleteCommunity,
-      goRegister,
       updateCommunity,
       communities,
       fetchCommunityList,

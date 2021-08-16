@@ -45,7 +45,7 @@ export function setBoardDetail(state, payload) {
   state.board.listSimilarDog = payload.listSimilarDog;
 }
 export function setProfile(state, payload) {
-  state.userProfile.imgURL = payload.imgURL;
+  state.userProfile.profileImageUrl = payload.profileImageUrl;
   state.userProfile.name = payload.name;
   state.userProfile.email = payload.email;
   state.userProfile.birth = payload.birth;
@@ -61,6 +61,7 @@ export function setCommunityBoard(state, payload) {
   state.community.title = payload.title;
   state.community.category = payload.category;
   state.community.description = payload.description;
+  state.community.fileList = payload.fileList;
 }
 
 export function setChatOpen(state, payload) {
