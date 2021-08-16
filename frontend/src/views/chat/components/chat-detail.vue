@@ -86,23 +86,21 @@
 }
 .notice-bar-close {
     padding: 10px;
-    width: 94%;
+    width: 90%;
     position: absolute;
     top: 5rem;
     display: flex;
-    flex-direction: row;
     z-index: 99;
-    margin-left: 3%;
-    margin-right: 3%;
 }
 .open-conference {
-  margin-left: 80%;
+  margin-left: 85%;
   background: rgba(0,0,0,0.5);
   border: 0px solid black;
   border-radius: 100%;
   width: 12%;
   height: 40px;
   padding-top: 4px;
+  margin-right: 0;
 }
 :deep(.el-icon-arrow-up) {
   cursor: pointer;
@@ -225,7 +223,7 @@ export default {
         if (state.content.trim().length > 0) return true;
         else return false;
       }),
-      isOpenConference: true,
+      isOpenConference: false,
     });
     const chat = reactive({
       init: true,
