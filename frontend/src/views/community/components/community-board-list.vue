@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <!-- <div class="chat-body"
         @scroll="scroll"
         v-loading="communities.loading"
@@ -41,7 +40,10 @@
             indicator-position="none"
             style="margin-top:3%; margin-bottom:3%;"
           >
-            <el-carousel-item v-for="(img, index) in item.fileList" :key="index">
+            <el-carousel-item
+              v-for="(img, index) in item.fileList"
+              :key="index"
+            >
               <img class="image" :src="img" />
             </el-carousel-item>
           </el-carousel>
@@ -148,7 +150,6 @@
 </template>
 
 <style scoped>
-
 .board {
   max-width: 600px;
   max-width: 850px;
@@ -283,7 +284,7 @@ export default {
 
     const state = reactive({
       boardList: [],
-      reverseList :[],
+      reverseList: [],
       comments: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
@@ -372,7 +373,7 @@ export default {
             title: result.data.community.title,
             category: result.data.community.category,
             description: result.data.community.description,
-            fileList : result.data.filePath
+            fileList: result.data.filePath
           };
           store.commit("root/setCommunityBoard", CommunityDetail);
           router.push({ name: "community-board-update" });
@@ -442,7 +443,7 @@ export default {
             comment: comment.input
           })
           .then(function(result) {
-            console.log(result)
+            console.log(result);
             createToast("댓글이 등록되었어요 💨💨", {
               hideProgressBar: "true",
               timeout: 4500,
@@ -499,8 +500,6 @@ export default {
           console.log(err);
         });
     };
-
-    
 
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {

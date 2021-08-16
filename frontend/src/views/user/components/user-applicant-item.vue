@@ -1,6 +1,11 @@
 <template>
   <el-row :gutter="20">
-    <el-col :span="12" v-for="(o, idx) in applicant" :key="idx" style="margin-right:1%;">
+    <el-col
+      :span="12"
+      v-for="(o, idx) in applicant"
+      :key="idx"
+      style="margin-right:1%;"
+    >
       <el-row :gutter="20" class="grid-content bg-beige">
         <el-col :span="4">
           <div class="image">
