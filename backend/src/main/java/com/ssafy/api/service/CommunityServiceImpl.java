@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -116,17 +117,39 @@ public class CommunityServiceImpl implements  CommunityService{
     }
     /* userId로 커뮤니티 글 찾기 */
     @Override
-    public List<Community> getCommunityListByUserId(String userId) {
-        Optional<List<Community>> communityList = communityRepository.findCommunitiesByUserId(userId);
-        if(communityList.isPresent()){
-            return communityList.get();
+    public List<CommunityParamDto> getCommunityListByUserId(String userId) {
+        List<Community> userCommunity = communityRepository.findCommunitiesByUserId(userId).get();
+        User user = userRepository.findUserById(userId).get();
+        UserProfile profile = userProfileRepository.findByUserId(user).get();
+        List<CommunityParamDto> dtoList = new ArrayList<>();
+        for (Community community:userCommunity) {
+            CommunityParamDto dto = new CommunityParamDto(null,null,null,null,null,null,null);
+            List<CommunityImage> communityImages = communityImageRepository.findCommunityImagesByCommunityId(community).get();
+            List<String> fileList = new ArrayList<>();
+            for (CommunityImage communityImage: communityImages) {
+                String filePath = communityImage.getFilePath();
+                fileList.add(filePath);
+            }
+            dto.setUserId(userId);
+            dto.setName(profile.getName());
+            dto.setDescription(community.getDescription());
+            dto.setProfileImageUrl(profile.getProfileImageUrl());
+            dto.setTitle(community.getTitle());
+            dto.setCategory(community.getCategory());
+            dto.setId(community.getId());
+            dto.setFileList(fileList);
+            dtoList.add(dto);
+        }
+        if(dtoList!=null){
+            Collections.reverse(dtoList);
+            return dtoList;
         }
         return null;
     }
 
     @Override
     public Community getCommunityById(Long id) {
-        Optional<Community> community = communityRepository.findCommunityById(id);
+        Optional<Community> community = communityRepository.findCommunityByIdOrderByIdDesc(id);
         if(community.isPresent()){
             return community.get();
         }
@@ -188,7 +211,7 @@ public class CommunityServiceImpl implements  CommunityService{
         System.out.println("page : " + page + " pageRequest: " + pageRequest);
         Page<CommunityParamDto> communityList = communityRepository.findAllDesc(pageRequest).orElse(null);
         for (CommunityParamDto dto : communityList) {
-            Community community = communityRepository.findCommunityById(dto.getId()).get();
+            Community community = communityRepository.findCommunityByIdOrderByIdDesc(dto.getId()).get();
             List<CommunityImage> communityImages = getCommunityImagesByCommunity(community);
             List<String> fileList = new ArrayList<>();
             for (CommunityImage communityImage: communityImages) {
@@ -206,7 +229,7 @@ public class CommunityServiceImpl implements  CommunityService{
     @Override
     public CommunityComment addComment(CommentPostReq commentPostReq) {
         CommunityComment comment = new CommunityComment();
-        Community community = communityRepository.findCommunityById(commentPostReq.getCommunityId()).get();
+        Community community = communityRepository.findCommunityByIdOrderByIdDesc(commentPostReq.getCommunityId()).get();
 
         comment.setCommunityId(community);
         comment.setUserId(commentPostReq.getUserId());
@@ -229,7 +252,7 @@ public class CommunityServiceImpl implements  CommunityService{
 
     @Override
     public List<CommunityComment> commentList(Long id) {
-        Community community = communityRepository.findCommunityById(id).get();
+        Community community = communityRepository.findCommunityByIdOrderByIdDesc(id).get();
         List<CommunityComment> communityCommentList = communityCommentRepository.findCommunityCommentsByCommunityId(community).get();
 
         return communityCommentList;
@@ -239,19 +262,36 @@ public class CommunityServiceImpl implements  CommunityService{
     public List<CommunityParamDto> getThreeCommunities() {
         List<CommunityParamDto> communities = new ArrayList<>();
         List<CommunityParamDto> AllList = communityList(0);
-        for(int i=0; i<3; i++){
-            System.out.println(AllList.get(i));
-            List<String> fileList = new ArrayList<>();
-            Community community = getCommunityById(AllList.get(i).getId());
-            List<CommunityImage> images = getCommunityImagesByCommunity(community);
-            for (CommunityImage communityImage: images) {
-                String filePath = communityImage.getFilePath();
-                fileList.add(filePath);
+        if(AllList.size()>=3){
+            for(int i=0; i<3; i++){
+                System.out.println(AllList.get(i));
+                List<String> fileList = new ArrayList<>();
+                Community community = getCommunityById(AllList.get(i).getId());
+                List<CommunityImage> images = getCommunityImagesByCommunity(community);
+                for (CommunityImage communityImage: images) {
+                    String filePath = communityImage.getFilePath();
+                    fileList.add(filePath);
+                }
+                CommunityParamDto dto = AllList.get(i);
+                dto.setFileList(fileList);
+                communities.add(dto);
             }
-            CommunityParamDto dto = AllList.get(i);
-            dto.setFileList(fileList);
-            communities.add(dto);
+        }else{
+            for(int i=0; i<AllList.size(); i++){
+                System.out.println(AllList.get(i));
+                List<String> fileList = new ArrayList<>();
+                Community community = getCommunityById(AllList.get(i).getId());
+                List<CommunityImage> images = getCommunityImagesByCommunity(community);
+                for (CommunityImage communityImage: images) {
+                    String filePath = communityImage.getFilePath();
+                    fileList.add(filePath);
+                }
+                CommunityParamDto dto = AllList.get(i);
+                dto.setFileList(fileList);
+                communities.add(dto);
+            }
         }
         return communities;
     }
 }
+

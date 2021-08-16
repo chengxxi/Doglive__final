@@ -95,7 +95,7 @@ public class CommunityController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<CommunityListGetRes> findCommunityList(@PathVariable("id") String id){
-        List<Community> communityList = communityService.getCommunityListByUserId(id);
+        List<CommunityParamDto> communityList = communityService.getCommunityListByUserId(id);
         return ResponseEntity.ok(CommunityListGetRes.of(200, "Success", communityList, communityList.size()));
     }
 
@@ -174,3 +174,4 @@ public class CommunityController {
     }
 
 }
+

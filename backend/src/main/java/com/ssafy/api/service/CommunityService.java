@@ -26,7 +26,7 @@ public interface CommunityService {
     Community updateCommunityBoard(Long id,CommunityRegisterPostReq communityRegisterPostReq ) throws IOException;
 
     /* userId로 커뮤니티 글 찾기 */
-    List<Community> getCommunityListByUserId(String userId);
+    List<CommunityParamDto> getCommunityListByUserId(String userId);
 
     /* Id로 커뮤니티 글 찾기 */
     Community getCommunityById(Long id);
@@ -59,3 +59,4 @@ public interface CommunityService {
 
 
 }
+

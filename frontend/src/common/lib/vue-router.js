@@ -183,15 +183,16 @@ const routes = [
         name: "community-board-update",
         component: () =>
           import("@/views/community/components/community-board-update.vue")
+      },
+      {
+        path: "mycommunity",
+        name: "community-mycommunity",
+        component: () =>
+          import("@/views/community/components/community-mycommunity.vue")
       }
     ]
   },
-  {
-    path: "/community/mylist",
-    name: "MyCommunity",
-    component: MyCommunity,
-    component: () => import("@/views/community/mycommunity.vue")
-  },
+
   {
     path: "/mbti", // introduction page
     name: "MBTI",
