@@ -6,8 +6,6 @@
       </h3>
       <br>
       <p>MBTI 개별 유형 설명 페이지</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium at illo molestias possimus nihil minus? Magnam dolor, voluptas minus vitae ab odio excepturi velit provident unde saepe itaque reiciendis nesciunt!</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem dolor laboriosam, neque veritatis maiores culpa quis, molestiae quisquam eius necessitatibus dolorum. Itaque esse laboriosam, similique atque tempora corrupti architecto asperiores.</p>
       <!-- 상세 소개 내용 수정 필요 -->
     </div>
 
@@ -92,6 +90,7 @@ export default {
     const readDetail = function(id) {
       store.dispatch('root/requestMbtiDetail', id).then(function(result) {
         console.log('Mbti:', result);
+        // console.log(result.data.mbtiList)
         store.commit('root/setMbtiDetail', result.data.mbti)
         store.push({ name : 'MbtiDetail' })
       });
@@ -105,6 +104,8 @@ export default {
     const readMbtiList = function() {
       store.dispatch('root/requestMbtiList').then(function(result) {
         console.log('Mbti:', result);
+        // console.log(result.data.mbtiList)
+
         state.MbtiList = result.data.mbtiList
       });
     };
