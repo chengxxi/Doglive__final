@@ -27,7 +27,7 @@
             <div class="vertical-center row">
               <div class="col-md-9">
                 <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
-                  state.MbtiDetail.name
+                  state.MbtiDetail.title
                 }}</span>
               </div>
               <div class="col-md-3 ms-auto">
@@ -44,13 +44,6 @@
 
             <el-descriptions class="margin-top mt-3" :column="1" :size="size">
               <el-descriptions-item label="MBTI">
-                <el-tag
-                  class="mb-2"
-                  effect="dark"
-                  style="height:30px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none;font-weight:700; color: #606266; "
-                  >{{ state.mbtiList.id }}</el-tag
-                >
-
                 <el-popover placement="bottom" width="200" trigger="hover">
                   <div class="content">
                     <h3 style="font-weight:700;">강아지 MBTI 해석하기</h3>
@@ -185,27 +178,20 @@
 
             <el-divider class="mb-3" />
 
+
+
           </div>
         </el-col>
       </el-row>
-      <!-- <div class="box">
+      <div class="box">
         <h4 class="mb-2">
-          <b>{{ state.title }}</b>
+          <b>{{ state.MbtiDetail.desc }}</b>
         </h4>
-      </div> -->
+      </div>
       <el-divider />
 
-      <!-- <div class="dog-image-box">
-        <el-carousel :interval="4000" type="card" height="500px">
-          <el-carousel-item v-for="item in 6" :key="item">
-            <img
-              style="  width: 100%;
-              height: auto;"
-              :src="require('@/assets/images/mbti_infj.png')"
-            />
-          </el-carousel-item>
-        </el-carousel>
-      </div> -->
+<!-- 유사공고 -->
+
     </el-card>
   </div>
 </template>
