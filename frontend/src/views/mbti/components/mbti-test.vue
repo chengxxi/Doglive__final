@@ -5,7 +5,7 @@
       <div class="box-card " style="width:100%; border:none;">
         <div class="container-lg ">
           <div v-if="state.index == 0">
-            <div class="row flex-center" style="margin-top:10%;">
+            <div class="row flex-center" style="margin-top:12%;">
               <div class="col-auto text-center">
                 <h5 class="fw-bold">16 Pupsonality</h5>
                 <h1 class="fw-bold" style="font-size:60pt; ">
@@ -34,9 +34,12 @@
           </div>
 
           <div v-if="state.index >= 1 && state.index <= 20">
-            <div class="row flex-center" style="margin-top:10%;">
+            <div class="row flex-center" style="margin-top:12%;">
               <div class="col-auto text-center">
                 <h3 class="fw-bold">{{ state.question[state.index - 1] }}</h3>
+                <p class="mb-3">
+                  제가 마음에 드는 만큼 막대⚪를 이동시켜주세요
+                </p>
               </div>
             </div>
             <div class="row h-100 justify-content-center pt-5">
@@ -84,18 +87,24 @@
                   :percentage="state.index * 5"
                   :color="state.colors"
                 ></el-progress> -->
+                <p
+                  style="font-size:11pt;"
+                  v-if="state.index >= 16 && state.index <= 20"
+                >
+                  얼마 안남았다개❕❗
+                </p>
               </div>
             </div>
           </div>
 
           <div v-if="state.index > 20">
-            <div class="row flex-center">
+            <div class="row flex-center" style="margin-top:12%;">
               <div class="col-auto text-center">
                 <h1 class="fw-bold">테스트가 끝났다개🐶</h1>
 
                 <hr class="mx-auto text-dark" style="height:2px;width:50px" />
                 <p class="mb-3">
-                  두근두근💞 <br />
+                  🤍두근두근🤍 <br />
                   당신의 강아지를 만나러 갈 준비 되셨나요?
                 </p>
               </div>
@@ -107,7 +116,7 @@
                     type="primary"
                     @click="goResult"
                     class="btn btn-lg btn-primary rounded-pill hover-top"
-                    >결과보기</el-button
+                    >결과보기 💌</el-button
                   >
                 </div>
               </div>
@@ -140,25 +149,25 @@ export default {
       isLoading: computed(() => state.score),
       index: 0,
       question: [
-        "나는 잘 때를 제외하고 가만히 있는 것을 참지 못해요❗",
+        "나는 잘 때를 제외하고 가만히 있는 것을 참지 못해요🤸‍♂️🤸‍♀️",
         "혼날 때, 한껏 주눅들어 있어요😥",
-        "저는 애견카페에서 다른 강아지랑 노는 것보다 단둘이 산책🐾하는게 좋아요!",
+        "저는 애견카페에서 다른 강아지랑 노는 것보다 단둘이 산책🌿🌳하는게 좋아요!",
         "다른 강아지들과 어울리는 데 시간이 좀 걸려요👀",
         "우리 집에 손님이 왔을 때, 나는 무척 신나요🎉",
         "나는 이 세상에서 반려인만 있으면 돼요💞 ",
-        "저는 애정표현💘에 매우 적극적이에요!",
-        "모르는 사람과 같이 있는 시간은 견디기 힘들어요..🌫",
+        "저는 애정표현💘에 매우 적극적이에요! 🥰😘",
+        "모르는 사람과 같이 있는 시간은 견디기 힘들어요..😓💦",
         "에너지가 넘쳐서 집에 들어가기 싫어요 산책 한 바퀴 더 돌아요🦮",
         "교육받을 때, 간식이 없으면 나🐶를 교육하기 힘들거에요❗ ",
         "우리 집에 강아지는 💛나 혼자🤍였으면 좋겠어요!",
         "낯선 장난감🏈은 천천히 알아보고 싶어요.",
 
-        "반려인이 누워있을 때🛏, 같이 누워있어요",
-        "반려인이 바빠도, 내가 심심하면 놀아줘야돼요.😝",
-        "자는 공간🛏은 분리되었으면 좋겠어요!",
+        "반려인이 누워있을 때, 같이 누워있어요🛏",
+        "반려인이 바빠도, 내가 심심하면 놀아줘야해요😝",
+        "자는 공간은 분리되었으면 좋겠어요 🙄",
 
-        "나는야 우리 동네 최고 인싸 강아지!🐕‍🦺 친화력이 좋아요.",
-        "쉽게 흥분하는 일은 거의 없어요🙂",
+        "나는야 우리 동네 최고 인싸 강아지!🐕‍🦺✨ 친화력이 좋아요.",
+        "쉽게 흥분하는 일은 거의 없어요🙂🧘‍♂️",
 
         "내가 원하는 것을 얻기 위해 때로는 불쌍한 척🥺을 해요.",
 
@@ -170,7 +179,6 @@ export default {
     });
 
     const nextPage = function() {
-      console.log(state.answer);
       state.answer.push(state.score);
       state.score = 0;
       state.index += 1;
@@ -233,12 +241,29 @@ export default {
           }
         }
 
-        store.dispatch("root/requestMBTIResult", result).then(function(result) {
-          console.log(result);
-        });
-      }
+        console.log(result);
+        store
+          .dispatch("root/requestMBTIResult", result)
+          .then(function(result) {
+            console.log(result);
+            store.commit("root/setMbtiDetail", result.data.mbti);
 
-      router.push({ name: "Main" });
+            createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-right",
+              transition: "bounce",
+              type: "warning"
+            });
+            router.push({ name: "Main" });
+            // router.push({ name: "MbtiDetail" });
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+      }
     };
     onMounted(() => {
       console.log("breadcrumb");
@@ -276,7 +301,7 @@ export default {
 }
 
 :deep(.el-slider__button) {
-  border: 2px solid #d7afa4;
+  border: 2px solid #d5cdc7;
 }
 
 :deep(.el-button--primary) {
@@ -295,7 +320,7 @@ export default {
 }
 
 :deep(.el-slider__bar) {
-  background-color: #d7afa4;
+  background-color: #d5cdc7;
 }
 
 :deep(.el-slider__runway) {

@@ -280,7 +280,7 @@ export function readRecentCommunity({ state }) {
 //MBTI 매칭 결과 가져오기
 export function requestMBTIResult({ state }, payload) {
   const url = "/mbti";
-  return $axios.post(url, payload.data);
+  return $axios.post(url, payload);
 }
 
 // MBTI 전체 정보 가져오기
