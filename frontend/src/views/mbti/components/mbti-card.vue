@@ -102,10 +102,11 @@ export default {
   },
   data() {
     return {
-      name: this.name,
-      title: this.title,
-      desc: this.desc,
-      image_url: this.image_url,
+      card: this.card,
+      // name: this.name,
+      // title: this.title,
+      // desc: this.desc,
+      // image_url: this.image_url,
 
     };
   }

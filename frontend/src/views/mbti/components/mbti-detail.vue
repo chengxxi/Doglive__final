@@ -8,7 +8,7 @@
         <el-col :span="12" style="margin-left:50px;">
           <img
             class="dog-thumbnail"
-            :src="require('@/assets/images/mbti_infj.png')"
+            :src="require('@/assets/images/mbti_isfp.png')"
           />
         </el-col>
         <el-col :span="12">

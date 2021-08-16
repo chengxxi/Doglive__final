@@ -5,7 +5,7 @@
         🐕 강아지 MBTI란? 🐾
       </h3>
       <br>
-      <p>MBTI 개별 유형 설명 페이지</p>
+      <p>'독립'이 만든 강아지 성향 MBTI</p>
       <!-- 상세 소개 내용 수정 필요 -->
     </div>
 
@@ -76,7 +76,7 @@ export default {
   //   },
   // }
   props: {
-    boardList: Array
+    mbtiList: Array
   },
   setup() {
     const store = new useStore();
@@ -103,7 +103,7 @@ export default {
     // MBTI 읽어오기
     const readMbtiList = function() {
       store.dispatch('root/requestMbtiList').then(function(result) {
-        console.log('Mbti:', result);
+        console.log('MBTI:', result);
         // console.log(result.data.mbtiList)
 
         state.MbtiList = result.data.mbtiList
@@ -111,16 +111,12 @@ export default {
     };
 
     onMounted(() => {
+      // readDetail();
       readMbtiList();
     })
 
 
-
     return { state, readDetail, readMbtiList, };
   }
-
-
-
-
 }
 </script>
