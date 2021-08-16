@@ -191,10 +191,7 @@
                       <h2 class="fw-bold text-center">
                         ✨ 당신을 기다리고 있어요 ✨
                       </h2>
-                      <hr
-                        class="text-dark mx-auto "
-                        style="height:2px;width:50px"
-                      />
+                      <hr class="mx-auto" style="height:1px;width:20%" />
 
                       <div
                         class="d-md-flex align-items-md-center text-center text-md-start"
@@ -219,9 +216,9 @@
                       <h2 class="fw-bold text-center text-dark">
                         🐕‍🦺 집에 돌아가고 싶어요 🐕
                       </h2>
-                      <hr class="mx-auto" style="height:2px;width:50px" />
+                      <hr class="mx-auto" style="height:1px;width:20%" />
                       <div
-                        class="d-md-flex align-items-md-center mt-5 text-center text-md-start"
+                        class="d-md-flex align-items-md-center text-center text-md-start"
                       >
                         <FindCard
                           v-for="(card, idx) in state.findList"

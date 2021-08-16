@@ -35,8 +35,8 @@
 
         <div class="d-flex align-items-center ">
           <img
-            class="me-3 me-md-3 rounded-2 "
-            style="width:100%; height:300px;"
+            class="rounded-2 "
+            style="width:100%; height:300px; margin-left:5px margin-right:5px"
             :src="card.boardId.thumbnailUrl"
             alt="blog"
           />
