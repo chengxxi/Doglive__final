@@ -607,7 +607,6 @@ export default {
 
   methods: {
     submitForm(formName) {
-      console.log("!!!!!!!!!!!!!!");
       if (this.state.board.fileList.length + this.state.newAddFile.length > 5) {
         console.log("1");
         createToast("사진은 5장까지만 업로드 가능해요 💬💦", {

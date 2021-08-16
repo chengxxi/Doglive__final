@@ -251,7 +251,7 @@ export default {
           {
             required: true,
             message: "게시글 카테고리를 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         title: [
@@ -260,7 +260,7 @@ export default {
             min: 3,
             max: 20,
             message: "3글자 이상, 20글자 이하로 입력해주세요.",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         description: [
@@ -269,7 +269,7 @@ export default {
             min: 10,
             max: 1000,
             message: "10글자 이상, 1000글자 이하로 입력해주세요.",
-            trigger: "blur"
+            trigger: "change"
           }
         ]
       }
