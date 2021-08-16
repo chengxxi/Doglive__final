@@ -22,8 +22,6 @@ import MBTI from "@/views/mbti/mbti.vue";
 import MBTItest from "@/views/mbti/components/mbti-test.vue";
 import MBTIinfo from "@/views/mbti/components/mbti-info.vue";
 import Community from "@/views/community/community.vue";
-import MyCommunity from "@/views/community/mycommunity.vue";
-import store from '../../views/main/store/index.js'
 
 const routes = [
   {

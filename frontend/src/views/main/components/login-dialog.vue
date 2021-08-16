@@ -37,7 +37,8 @@
   width: 500px;
   margin: auto;
   text-align: center;
-  margin-top: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 .login-wrapper .login-title {
   height: 20px;
