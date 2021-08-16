@@ -1,7 +1,7 @@
 <template>
   <el-card
     shadow="hover"
-    style="background:linear-gradient( to top, #f3ede7, #f5e9e4  ); height:360px;"
+    style="background:linear-gradient( to top, #f3ede7, #f5e9e4  ); border-radius:6px; height:360px;"
     class="scale-up-2"
   >
     <el-row style="margin-top:15px; margin-right:15px; margin-left:15px;">
@@ -14,7 +14,7 @@
       >
       <el-tag
         v-if="card.boardId.type.id == 1"
-        class="mb-2 scale-up-2"
+        class="mb-2 "
         color="#D7AFA4"
         effect="dark"
         size="small"
@@ -23,7 +23,7 @@
       >
       <el-tag
         v-if="card.boardId.type.id != 1"
-        class="mb-2 scale-up-2"
+        class="mb-2 "
         color="#E9CDA4"
         effect="dark"
         size="small"

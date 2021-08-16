@@ -263,5 +263,10 @@ export function readAdoptForm({ state }, formId) {
 //보드 디테일 정보 가져오기
 export function requestBoardDetail({ state }, payload) {
   const url = "/board/" + payload.boardId + "/" + payload.userId;
+}
+
+//최근 게시판 공고 읽어오기
+export function readRecentBoard({ state }) {
+  const url = "/board/recent";
   return $axios.get(url);
 }
