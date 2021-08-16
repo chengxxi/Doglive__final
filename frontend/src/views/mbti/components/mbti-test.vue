@@ -5,7 +5,7 @@
       <div class="box-card " style="width:100%; border:none;">
         <div class="container-lg ">
           <div v-if="state.index == 0">
-            <div class="row flex-center" style="margin-top:12%;">
+            <div class="row flex-center" style="margin-top:10%;">
               <div class="col-auto text-center">
                 <h5 class="fw-bold">16 Pupsonality</h5>
                 <h1 class="fw-bold" style="font-size:60pt; ">
@@ -20,13 +20,13 @@
               </div>
             </div>
             <div class="row h-100 justify-content-center pt-1">
-              <div class="col-12 col-sm-9 col-md-4 mt-4">
+              <div class="col-12 col-sm-9 col-md-4 mt-2">
                 <div class="text-center pt-2 z-index-2">
                   <el-button
                     type="primary"
                     @click="nextPage"
                     class="btn btn-lg btn-primary rounded-pill hover-top"
-                    >시작하기</el-button
+                    >테스트 시작하기</el-button
                   >
                 </div>
               </div>
@@ -109,7 +109,7 @@
                 </p>
               </div>
             </div>
-            <div class="row h-100 justify-content-center pt-3">
+            <div class="row h-100 justify-content-center pt-3 ">
               <div class="col-12 col-sm-9 col-md-4 mt-4">
                 <div class="text-center pt-2 z-index-2">
                   <el-button
@@ -134,6 +134,9 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
+
 export default {
   name: "mbti-test",
   components: {
