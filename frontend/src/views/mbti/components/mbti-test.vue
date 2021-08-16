@@ -304,7 +304,7 @@ export default {
 }
 
 :deep(.el-slider__button) {
-  border: 2px solid #d5cdc7;
+  border: 2px solid #dfc6bd;
 }
 
 :deep(.el-button--primary) {
@@ -323,7 +323,7 @@ export default {
 }
 
 :deep(.el-slider__bar) {
-  background-color: #d5cdc7;
+  background-color: #dfc6bd;
 }
 
 :deep(.el-slider__runway) {
