@@ -305,11 +305,11 @@ export default {
       // 사용자 이름
       state.myUserName = store.getters['root/getUpdateUserInfo'].name;
       // 채팅방 번호로 seesionId 만들기
-      state.sessionId = state.conference.roomId;
+      state.mySessionId = state.conference.roomId;
       console.log('joinSession 클릭 후 정보🔽');
       console.log(state.userId);
       console.log(state.myUserName);
-      console.log(state.sessionId);
+      console.log(state.mySessionId);
       state.OV = new OpenVidu();
       // --- Init a session ---
       state.session = state.OV.initSession();
