@@ -148,16 +148,16 @@
           </el-carousel>
         </div>
 
-        <!-- 유사공고 -->
-        <div v-if="state.listSimilarDog.length != 0">
           <!-- 조건 걸기 -->
-          <div class="dog-image-box">
-            <h5
-              class="pt-3 pb-3"
-              style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
-            >
-              🐶🔎 혹시 저는 아닐까요❔
-            </h5>
+        <div class="dog-image-box">
+          <h5
+            class="pt-3 pb-3"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
+          >
+            🐶🔎 혹시 저는 아닐까요❔
+          </h5>
+                   <!-- 유사공고 -->
+          <div v-if="state.listSimilarDog != null">
             <el-scrollbar>
               <div class="flex-content">
                 <p
@@ -174,31 +174,16 @@
                 </p>
               </div>
             </el-scrollbar>
-            <!-- <el-carousel :interval="4000" type="card" height="400px">
-              <el-carousel-item v-for="(card, idx) in state.listSimilarDog" :key="idx">
-                <FindCard
-                  :card="card"
-                  @click="readDetail(card.boardId.id)"
-                  style="margin:10px; width:auto;"
-                />
-              </el-carousel-item>
-            </el-carousel> -->
+          </div>
+          <div v-else>
+            <el-empty description="유사한 강아지가 없네요😢"  image="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a64dccc8-fca1-4e37-abb5-1a7d9372e8da/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210816%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210816T133035Z&X-Amz-Expires=86400&X-Amz-Signature=60fd991c704c35d144170be22ee9a8c50c8574031914aa46be89408b9b8a5aee&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22" image-size="300">
+            </el-empty>
           </div>
         </div>
       </el-card>
     </div>
   </div>
 </template>
-<style scoped>
-.flex-content {
-  white-space: nowrap;
-  width: 500px;
-}
-:deep(.el-carousel__item--card) {
-  width: 30%;
-  align-content: center;
-}
-</style>
 <script>
 import $axios from "axios";
 import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
@@ -623,5 +608,12 @@ h3 {
   background-color: rgb(192, 186, 178);
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px white;
+}
+
+div {
+  white-space: nowrap;
+  overflow-x: auto;
+  margin: 0;
+
 }
 </style>
