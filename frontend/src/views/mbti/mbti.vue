@@ -1,8 +1,12 @@
 <template>
   <div class="main-body main-padding">
     <div class="box-card " style="width:100%; border:none;">
-      <div style="margin-top:50px">
-        <h1 class="title">나와 맞는 강아지 찾기</h1>
+      <div style="margin-top:50px ">
+        <h5 class="fw-bold mb-0">16 Pupsonality</h5>
+        <h1 class="fw-bold mt-0" style="font-size:60pt; ">
+          MPTI
+        </h1>
+        <h4 class="fw-bold mt-0">My Puppy Type Indicator</h4>
         <p>강아지 성향 기반 MBTI를 통한 나와 맞는 성향의 강아지 찾기</p>
         <!-- 상세 문구 수정 필요 -->
       </div>
@@ -14,6 +18,7 @@
       <!-- <MbtiQuestion /> -->
       <!-- 유형 알아보기 버튼 -->
       <!-- <MbtiResult /> -->
+      <div style="padding:50px;"></div>
     </div>
   </div>
 </template>

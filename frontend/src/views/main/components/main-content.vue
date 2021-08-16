@@ -157,18 +157,19 @@
               style="height:2px;width:50px"
             />
             <p class="pt-3">
-              asfsadfsafsdfs sfsfsfsad sfsfsfsdfsd asfsadfsadfasdf asfasdfsdf s
-              asfsad sfsdfsd asfsadfsadfasdf asfasdsfsdfsd asfsadfsadfasdf
-              asfasdsfsdfsd asfsadfsadfasdf asfasdsfsdfsd asfsadfsadfasdf
-              asfasd<br />
-              DBTI(*가제) 서비스를 제공합니다.
+              '독립'의
+              <b>16 Pupsonality, MPTI(My Puppy Type Indicator)</b>는<br />
+              강아지들의 성격을 총 16가지로 분류해 정리했어요. <br />원하는
+              성향을 선택하면 나와 꼭 맞는 강아지를 추천해 준답니다. 강아지
+              MBTI를 통해 새롭게 우리 가족이 될 강아지를 발견해 보세요! <br />
+              MPTI(*가제) 서비스를 제공합니다. 어쩌고
             </p>
             <div class="py-3">
               <el-button
                 type="primary"
                 class="btn btn-lg btn-primary rounded-pill hover-top"
-                @click="goAdopt"
-                >DBTI 하러가기</el-button
+                @click="goMbti"
+                >MPTI 테스트</el-button
               >
             </div>
           </div>
@@ -815,12 +816,16 @@ export default {
       router.push({ name: "Adopt" });
     };
 
+    const goMbti = function() {
+      router.push({ name: "Mbti" });
+    };
+
     onMounted(() => {
       // readRecentBoard();
       window.scrollTo(0, 0);
     });
 
-    return { state, readDetail, goCommunity, goAdopt, goFind };
+    return { state, readDetail, goCommunity, goAdopt, goFind, goMbti };
   }
 };
 </script>
