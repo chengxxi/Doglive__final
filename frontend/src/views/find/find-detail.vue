@@ -213,12 +213,7 @@ export default {
   name: "FindDetail",
   components: {
     FindCard,
-    BreadCrumb,
-<<<<<<< HEAD
-    createToast,
-    FindCard
-=======
->>>>>>> 515996710b458dbf602a22a853b4c63c173650ae
+    BreadCrumb
   },
   data() {
     return {
@@ -250,9 +245,9 @@ export default {
         return store.getters["root/getBoardDetail"];
       }),
       listSimilarDog: computed(() => {
-        console.log('해당 공고 유사 강아지 🔽')
+        console.log("해당 공고 유사 강아지 🔽");
         console.log(state.board.listSimilarDog);
-        return store.getters['root/getBoardDetail'].listSimilarDog
+        return store.getters["root/getBoardDetail"].listSimilarDog;
       })
     });
 
@@ -462,7 +457,7 @@ export default {
         })
         .then(function(result) {
           console.log(result);
-          console.log(result.data.listSimilarDog)
+          console.log(result.data.listSimilarDog);
           const boardDetail = {
             boardId: result.data.dogInformation.boardId.id,
             boardType: result.data.dogInformation.boardId.type,
@@ -485,7 +480,7 @@ export default {
             description: result.data.dogInformation.description,
             dogName: result.data.dogInformation.dogName,
             isBookmarked: result.data.bookmarked,
-            listSimilarDog: result.data.listSimilarDog,
+            listSimilarDog: result.data.listSimilarDog
           };
 
           store.commit("root/setBoardDetail", boardDetail);
@@ -507,7 +502,16 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify, readDetail, onMounted };
+    return {
+      state,
+      goChat,
+      clickBookmark,
+      kakaoShare,
+      doDelete,
+      goModify,
+      readDetail,
+      onMounted
+    };
   }
 };
 </script>
