@@ -94,15 +94,15 @@ public class FindServiceImpl implements FindService {
         List<DogInformation> listSimilarDog = new ArrayList<>();
         List<DogInfoWithScore> listDogByScore = new ArrayList<>();
         // 기준이 될 색, 나이, 무게, 구
-        int colorIndex = Math.toIntExact(boardDogInfo.get().getColorType().getId()) - 12;
-        int ageIndex = Math.toIntExact(boardDogInfo.get().getAge().getId()) - 4;
-        int weightIndex = Math.toIntExact(boardDogInfo.get().getWeight().getId()) - 1;
+        int colorIndex = Math.toIntExact(boardDogInfo.get().getColorType().getId()) == 17 ? 17 : Math.toIntExact(boardDogInfo.get().getColorType().getId()) - 12;
+        int ageIndex = Math.toIntExact(boardDogInfo.get().getAge().getId()) == 17 ? 17 : Math.toIntExact(boardDogInfo.get().getAge().getId()) - 4;
+        int weightIndex = Math.toIntExact(boardDogInfo.get().getWeight().getId()) == 17 ? 17 : Math.toIntExact(boardDogInfo.get().getWeight().getId()) - 1;
         int gugunIndex = Math.toIntExact(boardDogInfo.get().getGugun().getId());
         System.out.println("현재 공고에 있는 강아지 특징 >>> 컬러 : " + boardDogInfo.get().getColorType().getName()
                 +" / 나이 : "+ boardDogInfo.get().getAge().getName() + " / 무게  : " + boardDogInfo.get().getWeight().getName()
                 +" / 구  : "+ boardDogInfo.get().getGugun().getName());
 
-        
+        if(colorIndex == 17 || ageIndex == 17 || weightIndex == 17) return null;
         for(int i = 0; i<listByOption.get().size();i++) {
             // 각 공고에 맞는 강아지 정보 불러오기
             int score = 0;

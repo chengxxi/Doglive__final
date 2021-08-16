@@ -285,3 +285,9 @@ export function readRecentBoard({ state }) {
   const url = "/board/recent";
   return $axios.get(url);
 }
+
+//최근 커뮤니티 게시물 불러오기
+export function readRecentCommunity({ state }) {
+  const url = "/community/new";
+  return $axios.get(url);
+}

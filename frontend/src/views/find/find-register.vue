@@ -565,7 +565,8 @@ export default {
                 sido: result.data.dogInformation.gugun.sidoCode,
                 description: result.data.dogInformation.description,
                 dogName: result.data.dogInformation.dogName,
-                isBookmarked: result.data.bookmarked
+                isBookmarked: result.data.bookmarked,
+                listSimilarDog: result.data.listSimilarDog,
               };
               createToast("공고가 등록되었어요 📜🐾", {
                 hideProgressBar: "true",

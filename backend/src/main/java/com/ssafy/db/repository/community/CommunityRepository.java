@@ -21,11 +21,11 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
 
     Optional<List<Community>> findCommunitiesByUserId(String id);
 
-    Optional<Community> findCommunityById(Long id);
+    Optional<Community> findCommunityByIdOrderByIdDesc(Long id);
 
     @Query(name = "CommunityAndUser", nativeQuery = true)
     Optional<Page<CommunityParamDto>> findAllDesc(Pageable paging);
 
-
 }
+
 

@@ -48,3 +48,4 @@ public class CommunityParamDto {
         this.category = category;
     }
 }
+
