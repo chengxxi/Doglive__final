@@ -60,7 +60,7 @@ export default {
     isbookmarked: false,
     sido: "",
     gugun: "",
-    similarList: [],
+    listSimilarDog: [],
   },
 
   chat: {

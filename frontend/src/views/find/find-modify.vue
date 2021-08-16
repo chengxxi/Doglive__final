@@ -556,6 +556,7 @@ export default {
               userId: state.userId.userId
             })
             .then(function(result) {
+              console.log("수정 후 requestBoardDetail");
               console.log(result);
 
               const boardDetail = {
@@ -580,7 +581,7 @@ export default {
                 description: result.data.dogInformation.description,
                 dogName: result.data.dogInformation.dogName,
                 isBookmarked: result.data.bookmarked,
-                similarList: result.data.listSimilarDog,
+                listSimilarDog: result.data.listSimilarDog,
               };
               createToast("공고가 수정되었어요 📜🐾", {
                 hideProgressBar: "true",
