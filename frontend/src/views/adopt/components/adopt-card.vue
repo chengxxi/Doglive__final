@@ -14,7 +14,7 @@
       >
       <el-tag
         v-if="card.boardId.type.id == 1"
-        class="mb-2 scale-up-2"
+        class="mb-2 "
         color="#D7AFA4"
         effect="dark"
         size="small"
@@ -23,7 +23,7 @@
       >
       <el-tag
         v-if="card.boardId.type.id != 1"
-        class="mb-2 scale-up-2"
+        class="mb-2 "
         color="#E9CDA4"
         effect="dark"
         size="small"

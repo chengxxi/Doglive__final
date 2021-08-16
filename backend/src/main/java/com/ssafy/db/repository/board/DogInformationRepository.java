@@ -36,7 +36,7 @@ public interface DogInformationRepository extends JpaRepository<DogInformation, 
                     "ON b.id = d.board_id " +
                     "WHERE b.board_type = 1 or b.board_type = 2 " +
                     "ORDER BY d.id DESC " +
-                    "LIMIT 4 " +
+                    "LIMIT 3 " +
                     "OFFSET 0; ",
             nativeQuery = true
     )
@@ -49,7 +49,7 @@ public interface DogInformationRepository extends JpaRepository<DogInformation, 
                     "ON b.id = d.board_id " +
                     "WHERE b.board_type = 3 or b.board_type = 4 " +
                     "ORDER BY d.id DESC " +
-                    "LIMIT 4 " +
+                    "LIMIT 3 " +
                     "OFFSET 0; ",
             nativeQuery = true
     )

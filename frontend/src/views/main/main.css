@@ -1,11 +1,12 @@
 /* 공통으로 적용되어야할 css */
 @media (max-width: 700px) {
   .main-container {
-    height: calc(100% - 275px) !important;
+    height: calc(100% - 275px);
   }
 }
 
-#app, .main-wrapper {
+#app,
+.main-wrapper {
   height: 100%;
   display: block !important;
 }
@@ -28,9 +29,9 @@
   display: inline-block;
 }
 
-.vertical-center{
+.vertical-center {
   display: flex;
-align-items: center;
+  align-items: center;
 }
 
 .main-container {
@@ -46,4 +47,3 @@ align-items: center;
   margin-right: 0 !important;
   border-top: 1px solid #dcdfe6;
 }
-

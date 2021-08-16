@@ -7,7 +7,7 @@
     <el-row style="margin-top:15px; margin-right:15px; margin-left:15px;">
       <el-tag
         v-if="card.boardId.type.id == 3"
-        class="mb-2 scale-up-2"
+        class="mb-2"
         color="#B4D9A7"
         effect="dark"
         size="small"
@@ -16,7 +16,7 @@
       >
       <el-tag
         v-if="card.boardId.type.id != 3"
-        class="mb-2 scale-up-2"
+        class="mb-2 "
         color="#87CEDC"
         effect="dark"
         size="small"
@@ -86,13 +86,9 @@
 </style>
 
 <script>
-import FindDetail from "../find-detail.vue";
-
 export default {
   name: "FindCard",
-  components: {
-    FindDetail
-  },
+
   props: {
     card: Object
   },
