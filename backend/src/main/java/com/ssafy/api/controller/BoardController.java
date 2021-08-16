@@ -157,6 +157,15 @@ public class BoardController {
         System.out.println(userId);
         Board board = boardService.getBoardByBoardId(Long.parseLong(boardId));
 
+        // 공고 -> 실종 / 보호 (유사공고 찾기)
+        List<Board> listSimilar = null;
+        List<DogInformation> listSimilarDog = null;
+        if(board.getType().getId() > 2) {
+            listSimilarDog = findService.getBoardSimilarListByBoard(board);
+            //listSimilarDog
+            System.out.println("글 상세 보기 : listSimilar >>> " + listSimilar);
+            System.out.println("글 상세 보기 : listSimilarDog >>> " + listSimilarDog);
+        }
 
         DogInformation dogInformation = boardService.getDogInformationByBoard(board);
         List<BoardComment> boardComments = boardService.getBoardCommentsByBoard(board);
@@ -188,7 +197,7 @@ public class BoardController {
         }
 
         System.out.println("북마크체크"+isBookmarked+" "+userId+" "+board.getUserId());
-        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner,  writer, dogInformation, fileList, boardComments));
+        return ResponseEntity.ok(BoardDetailGetRes.of(200, "Success", isBookmarked, isOwner,  writer, dogInformation, fileList, boardComments, listSimilar, listSimilarDog));
     }
 
 

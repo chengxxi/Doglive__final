@@ -5,14 +5,17 @@
         <h5>내 프로필</h5>
       </div>
       <div class="mypage-content">
-        <!-- 사용자 프로필 이미지 -->
-        <div class="image-wrapper">
-          <el-avatar shape="circle" :size="200" :src="require('@/assets/images/profile-image.jpg')" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}"/>
-          <!-- <el-avatar shape="circle" :size="200" :src="formData.userProfile.imageURL" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}" style="background-size:cover;"/> -->
-        </div>
-
         <!-- 사용자 프로필 정보 -->
         <el-form class="userinfo-wrapper" :model="formData" label-width="120px" label-position="right">
+          <!-- 사용자 프로필 이미지 -->
+          <div class="image-wrapper">
+            <el-image
+              class="user-profile"
+              v-model="formData.userProfile.profileImageUrl"
+              :fit="fit"></el-image>
+            <!-- <el-avatar shape="circle" :size="200" :src="require('@/assets/images/profile-image.jpg')" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}"/> -->
+            <!-- <el-avatar shape="circle" :size="200" :src="formData.userProfile.imageURL" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}" style="background-size:cover;"/> -->
+          </div>
         <el-form-item
           label="닉네임"
           :rules="{ required: true, message: '닉네임을 입력해주세요', trigger: 'change' }">
@@ -97,6 +100,13 @@
   border-color: #D7AEA4;
   font-weight: 600;
 }
+.user-profile{
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  margin-left: 8px;
+  margin-right: 10px;
+}
 
 </style>
 
@@ -127,6 +137,7 @@ export default {
     const userId = store.getters['root/getLoginUserInfo'].userId;
     store.dispatch('root/requestUserProfile', userId)
       .then(function(result){
+        console.log(result)
         const Profile = {
           imageURL : result.data.userProfile.profileImageUrl,
           name : result.data.userProfile.name,

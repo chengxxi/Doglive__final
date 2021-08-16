@@ -77,6 +77,26 @@ public class ChatSubController {
         return ResponseEntity.ok(ChatRoomListGetRes.of(200, "Success", chatRoomList));
     }
 
+    @GetMapping(value="/counseling/{counselingId}")
+    @ApiOperation(value = "유저의 전체 채팅방 목록 조회", notes = "현재 로그인한 사용자의 채팅방 목록을 불러온다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity getChatRoomByCounselingId(@CookieValue("userId") Cookie userIdCookie,
+                                                    @PathVariable("counselingId") Long counselingId){
+        String userId = userIdCookie.getValue();
+        ChatRoom chatroom = chatService.getChatRoomInfoByCounselingId(counselingId);
+        ChatRoomGetRes result = chatService.getChatRoomGetRes(chatroom, userId);
+
+        List<ChatRoomGetRes> chatRoomList = new ArrayList<>();
+        chatRoomList.add(result); // 또 만들기 귀찮아서 이미 만들어둔 List에 넣어서 보내줌
+
+        return ResponseEntity.ok(ChatRoomListGetRes.of(200, "Success", chatRoomList));
+    }
+
     @GetMapping(value="/{roomId}/messages/{page}")
     @ApiOperation(value = "채팅방의 채팅 목록 조회", notes = "선택한 채팅방에서 이전 채팅 로그들을 페이징 처리하여 불러온다.")
     @ApiResponses({
@@ -94,6 +114,21 @@ public class ChatSubController {
         List<ChatMessageGetRes> list = chatService.getChatMessageListWithUserName(messageList);
         System.out.println("검색된 채팅 로그의 개수" + list.size());
         return ResponseEntity.ok(ChatMessageListGetRes.of(200, "Success", list));
+    }
+
+    @PutMapping(value="/exit/{roomId}")
+    @ApiOperation(value = "채팅 메세지 업데이트", notes = "해당 채팅방을 나갈 때, 자신이 읽은 메세지를 Read로 업데이트한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity updateUnReadMessages(@CookieValue("userId") Cookie userIdCookie, @PathVariable("roomId") Long roomId){
+        String userId = userIdCookie.getValue();
+        ChatRoom chatRoom = chatService.getChatRoomInfo(roomId);
+        chatService.updateRead(chatRoom, userId);
+        return ResponseEntity.ok(BaseResponseBody.of(200, "업데이트 되었습니다."));
     }
 
     @DeleteMapping(value="/{roomId}")

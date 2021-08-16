@@ -47,7 +47,7 @@ export default {
   components:{
     ApplicantItem,
   },
-  
+
   setup () {
     const store = new useStore()
     const router = new useRouter()
@@ -58,7 +58,6 @@ export default {
 
     store.dispatch('root/requestApplicant', userId)
       .then(function(result){
-        console.log(result)
         state.Applicant = result.data.counselingHistoryList;
       }).catch(function(err){
         console.log(err)

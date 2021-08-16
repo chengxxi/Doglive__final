@@ -1,15 +1,23 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.CommentPostReq;
 import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.CommunityRegisterPostReq;
+import com.ssafy.db.entity.auth.User;
+import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.community.Community;
 import com.ssafy.db.entity.community.CommunityComment;
 import com.ssafy.db.entity.community.CommunityImage;
+import com.ssafy.db.repository.auth.UserProfileRepository;
 import com.ssafy.db.repository.auth.UserRepository;
 import com.ssafy.db.repository.community.CommunityCommentRepository;
 import com.ssafy.db.repository.community.CommunityImageRepository;
 import com.ssafy.db.repository.community.CommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +28,9 @@ public class CommunityServiceImpl implements  CommunityService{
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserProfileRepository userProfileRepository;
 
     @Autowired
     CommunityRepository communityRepository;
@@ -110,9 +121,45 @@ public class CommunityServiceImpl implements  CommunityService{
 
     /* 커뮤니티 게시글 전체 목록 불러오기 */
     @Override
-    public List<CommunityParamDto> communityList(){
-        Optional<List<CommunityParamDto>> communityList = communityRepository.findAllDesc();
+    public List<CommunityParamDto> communityList(int page){
+        PageRequest pageRequest = PageRequest.of(page,10,Sort.Direction.DESC, "regDate");
+        System.out.println("page : " + page + " pageRequest: " + pageRequest);
+        Page<CommunityParamDto> communityList = communityRepository.findAllDesc(pageRequest).orElse(null);
+        System.out.println("Total Pages : " + communityList.getTotalPages());
+        System.out.println("Total Count : " + communityList.getTotalElements());
+        System.out.println("Next : " + communityList.nextPageable());
+        return communityList.getContent();
+    }
 
-        return communityList.get();
+    @Override
+    public CommunityComment addComment(CommentPostReq commentPostReq) {
+        CommunityComment comment = new CommunityComment();
+        Community community = communityRepository.findCommunityById(commentPostReq.getCommunityId()).get();
+
+        comment.setCommunityId(community);
+        comment.setUserId(commentPostReq.getUserId());
+        comment.setName(commentPostReq.getName());
+        comment.setComment(commentPostReq.getComment());
+        comment.setIsDelete(true);
+
+        communityCommentRepository.save(comment);
+
+        return comment;
+    }
+
+    @Override
+    public void deleteComment(Long id) {
+        CommunityComment communityComment = communityCommentRepository.findById(id).get();
+        communityComment.setIsDelete(false);
+
+        communityCommentRepository.save(communityComment);
+    }
+
+    @Override
+    public List<CommunityComment> commentList(Long id) {
+        Community community = communityRepository.findCommunityById(id).get();
+        List<CommunityComment> communityCommentList = communityCommentRepository.findCommunityCommentsByCommunityIdOrderByIdDesc(community).get();
+
+        return communityCommentList;
     }
 }

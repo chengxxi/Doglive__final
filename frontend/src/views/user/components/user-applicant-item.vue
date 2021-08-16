@@ -1,164 +1,267 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :span="12" v-for="(o, idx) in applicant" :key="idx">
-      <div class="grid-content bg-beige">
-        <div class="image">
-          <el-avatar shape="circle" :size="70" :src="require('@/assets/images/profile-image.jpg')" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}"/>
-        </div>
-        <div class="apply-content"><p>이름 : {{o.applicantId.name}}</p><p>{{o.applicantId.phoneNumber}}</p></div>
-        
-        <div class="icon">
-          <font-awesome-icon
-                        icon="file"
-                        aria-hidden="true"
-                        style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:20px"
-                        class="scale-up-5">
-          </font-awesome-icon>
-          <font-awesome-icon
-                        icon="comments"
-                        aria-hidden="true"
-                        style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-top: 10px;"
-                        class="scale-up-5">
-          </font-awesome-icon>
-        </div>
-        <div class="button">
-          <el-tag
+  <el-row>
+    <el-col v-for="(o, idx) in applicant" :key="idx" style="margin-right:1%; margin-left:1%; width: 48%">
+      <el-row class="grid-content bg-beige">
+        <el-col :span="4">
+          <div class="image">
+            <el-avatar
+              s4hape="circle"
+              :size="60"
+              :src="o.applicantId.profileImageUrl"
+              :style="{ border: 'solid 1px rgb(212, 212, 212)' }"
+            />
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div class="apply-content">
+            <p>이름 : {{ o.applicantId.name }}</p>
+            <!-- <p>{{ o.applicantId.phoneNumber }}</p> -->
+            <p>{{ o.applicantId.email }}</p>
+          </div>
+        </el-col>
+        <!-- 채팅방, 입양신청서 버튼 -->
+        <el-col :span="2" v-if="o.result == '승인'">
+          <div>
+            <font-awesome-icon
+              icon="comments"
+              aria-hidden="true"
+              @click="openChatting(o.id)"
+              style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:15px"
+              class="scale-up-5"
+            >
+            </font-awesome-icon>
+          </div>
+        </el-col>
+        <el-col :span="isPassed(o.result)">
+          <div>
+            <font-awesome-icon
+              icon="file"
+              aria-hidden="true"
+              @click="readAdoptForm(o.id)"
+              style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:10px"
+              class="scale-up-5"
+            >
+            </font-awesome-icon>
+          </div>
+        </el-col>
+        <!-- 승인, 거절 태그 -->
+        <el-col :span="3">
+          <div class="button" style="text-align:center;" v-if="o.result === '대기'">
+             <!-- 클릭 되는 태그 -->
+            <el-tag
               color="#D7AFA4"
               effect="dark"
               size="medium"
-              style="border:none; border-radius: 30px; font-size:7pt; display:block; margin-bottom: 5px"
-              @click="clickAccept(o.id)">승인</el-tag>
-          <el-tag
+              style="border:none; border-radius: 30px; font-size:9pt; display:block; margin-bottom: 5px; cursor: pointer"
+              @click="clickAccept(o.id)"
+              >승인</el-tag
+            >
+            <el-tag
               color="#BDBDBD"
               effect="dark"
               size="medium"
-              style="border:none; border-radius: 30px; font-size:7pt; display:block;"
-              @click="clickReject(o.id)">거절</el-tag>
-        </div>
-      </div>
+              style="border:none; border-radius: 30px; font-size:9pt; display:block; ; cursor: pointer"
+              @click="clickReject(o.id)"
+              >거절</el-tag
+            >
+          </div>
+          <div v-else>
+            <!-- 클릭 되지 않는 태그 -->
+            <el-tag v-if="o.result === '승인'"
+              color="#D7AFA4"
+              effect="dark"
+              size="medium"
+              style="border:none; border-radius: 30px; font-size:9pt; display:block;"
+              >승인</el-tag>
+            <el-tag v-if="o.result === '거절'"
+              color="#BDBDBD"
+              effect="dark"
+              size="medium"
+              style="border:none; border-radius: 30px; font-size:9pt; display:block;"
+              >거절</el-tag>
+          </div>
+        </el-col>
+      </el-row>
     </el-col>
-
   </el-row>
 </template>
 
 <style scoped>
-  /* .el-row{
+/* .el-row{
     display: inline-block;
   } */
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-beige {
-    background: #F9F0E7;
-    height : 90px;
-  }
-  .grid-content {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    padding: 10px 0 10px 20px;
-    border-radius: 4px;
-    min-height: 36px;
-    margin-bottom: 20px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  } 
-  .image{
-    display: flex;
-    align-items: center;
-    float : left;
-    vertical-align: middle; 
-    margin-right: 20px;
-  }
-  .apply-content{
-    vertical-align: middle; 
-    margin-right: 20px;
-  }
-  .apply-content p{
-    text-align: left;
-    margin: 5px 0 5px 0;
-  }
-  .button{
-    text-align: right;
-    vertical-align: middle; 
+.el-col {
+  border-radius: 4px;
+}
+.bg-beige {
+  /* background: #F9F0E7; */
+  border: solid 1px lightgray;
+  height: 90px;
+}
+.grid-content {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px 0 10px 20px;
+  border-radius: 4px;
+  min-height: 36px;
+  margin-bottom: 20px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
+.image {
+  display: flex;
+  align-items: center;
+  float: left;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+.apply-content {
+  vertical-align: middle;
+  margin-right: 20px;
+}
+.apply-content p {
+  text-align: left;
+  margin: 5px 0 5px 0;
+}
+.button {
+  text-align: right;
+  vertical-align: middle;
+}
 
-  }
-  .icon{
-    text-align: right;
-    margin-right: 20px;
-    margin-left:30px;
-
-  }
 </style>
 
 <script>
 import { onBeforeMount, onMounted, reactive, computed } from "vue";
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router';
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
 
 export default {
-  name: 'user-applicant-item',
-  props:{
-      applicant :{
-          type: String
-      }
-
+  name: "user-applicant-item",
+  props: {
+    applicant: {
+      type: String
+    }
   },
-  setup () {
-    const store = new useStore()
-    const router = new useRouter()
+  setup() {
+    const store = new useStore();
+    const router = new useRouter();
     const userid = store.getters["root/getLoginUserInfo"].userId;
     const state = reactive({
-        boardList: [],
-        board : computed(()=>{
-          console.log(store.getters['root/getBoardDetail'])
-          return store.getters['root/getBoardDetail']
-
-        })
+      boardList: [],
+      board: computed(() => {
+        console.log(store.getters["root/getBoardDetail"]);
+        return store.getters["root/getBoardDetail"];
       })
+    });
 
-    const clickAccept = function(id){
-      store.dispatch('root/changeResult', {id : id, status : { result : '승인'}})
-      .then(function(result){
-        createToast("신청 결과가 등록되었습니다 💨💨", {
-                hideProgressBar: "true",
-                timeout: 4500,
-                showIcon: "true",
-                toastBackgroundColor: "#7eaa72",
-                position: "bottom-right",
-                transition: "bounce",
-                type: "success"
-            });
-        router.push({name : 'mypage-applicant-list'})
-      }).catch(function(err){
-        console.log(err)
-      });
+    const clickAccept = function(id) {
+      router.push({ name: "mypage-applicant-list" });
+      store
+        .dispatch("root/changeResult", { id: id, status: { result: "승인" } })
+        .then(function(result) {
+          createChatting(id); // 채팅방 생성
+          router.go(router.currentRoute); // 승인 후 강제 새로고침
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
+
+    const clickReject = function(id) {
+      store
+        .dispatch("root/changeResult", { id: id, status: { result: "거절" } })
+        .then(function(result) {
+          createToast("신청 결과가 등록되었습니다 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#7eaa72",
+            position: "bottom-right",
+            transition: "bounce",
+            type: "success"
+          });
+          router.push({ name: "mypage-applicant-list" });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
+
+    const readAdoptForm = function(id) {
+      store.commit("root/setAdoptFormId", id);
+      router.push({ name: "AdoptFormReview" });
+    };
+
+    // 승인여부에 따른 span 값 지정
+    const isPassed = function(result){
+      if(result === "승인") // 승인되었을 때는 span: 2
+        return 2;
+      else
+        return 4; // 승인 안되었을 때는 span: 4
     }
 
-    const clickReject = function(id){
-      store.dispatch('root/changeResult', {id : id,  status : { result : '거절'} })
-      .then(function(result){
-        createToast("신청 결과가 등록되었습니다 💨💨", {
-                hideProgressBar: "true",
-                timeout: 4500,
-                showIcon: "true",
-                toastBackgroundColor: "#7eaa72",
-                position: "bottom-right",
-                transition: "bounce",
-                type: "success"
-            });
-        router.push({name : 'mypage-applicant-list'})
-      }).catch(function(err){
-        console.log(err)
-      });
+    // 상담채팅방 생성
+    const createChatting = function(counselingId) {
+      store
+        .dispatch("root/requestCreateChatRoom", {
+          counseling_id: counselingId,
+          withCredentials: true // userId를 헤더 쿠키에 담아서 보냄
+        })
+        .then(function(result) {
+          createToast(
+            "신청 결과가 등록되었습니다 💨💨 채팅방에서 상담을 시작해보세요!🐾💌",
+            {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#7eaa72",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "success"
+            }
+          );
+        })
+        .catch(function() {
+          createToast(
+            "상담채팅방을 생성하지 못하였습니다. 다시 시도해주세요.💬💦",
+            {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            }
+          );
+        });
+    };
+
+    // 상담채팅방 열기
+    const openChatting = function(counselingId) {
+      store
+        .dispatch("root/requestChatRoomByCounseling", {
+          counselingId : counselingId,
+          withCredentials : true
+        })
+        .then(function(result){
+          // 채팅방에 입장할 때, chatRoom 정보를 넘겨줌
+          store.commit('root/setChatMenu', 1); // chat-detail.vue로 이동
+          store.commit('root/setChatRoomId', result.data.chatRoomList[0].chatRoom.id);
+          store.commit('root/setChatTitle', result.data.chatRoomList[0].counselingHistory.boardTitle)
+          store.commit('root/setChatOpen', true); // 모두 설정해준 다음 OPEN
+        })
+        .catch(function(err){
+          console.log(err)
+        })
     }
 
-    return {state, clickAccept, clickReject}
-
+    return { state, clickAccept, clickReject, readAdoptForm, isPassed, openChatting };
   }
-}
+};
 </script>

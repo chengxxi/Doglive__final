@@ -52,7 +52,7 @@
         {{
           card.boardId.title.length < 15
             ? card.boardId.title
-            : card.boardId.title.substr(0, 10) + "..."
+            : card.boardId.title.substr(0, 14) + "..."
         }}
       </p>
 

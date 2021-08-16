@@ -224,7 +224,8 @@ import {
   faCheck,
   faCheckCircle,
   faHeart,
-  faVideo
+  faVideo,
+  faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -265,7 +266,8 @@ library.add(
   faCheck,
   faCheckCircle,
   faHeart,
-  faVideo
+  faVideo,
+  faTrashAlt,
 );
 
 const plugins = [

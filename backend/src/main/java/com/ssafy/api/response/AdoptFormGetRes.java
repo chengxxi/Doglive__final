@@ -15,10 +15,12 @@ import org.h2.util.json.JSONObject;
 @Setter
 @ApiModel("AdoptFormGetRes")
 public class AdoptFormGetRes extends BaseResponseBody {
-    @ApiModelProperty
-    JSONObject content;
 
-    public static AdoptFormGetRes of(Integer statusCode, String message, JSONObject content){
+
+    @ApiModelProperty
+    AdoptFormData content;
+
+    public static AdoptFormGetRes of(Integer statusCode, String message, AdoptFormData content){
         AdoptFormGetRes res = new AdoptFormGetRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);

@@ -9,6 +9,7 @@
       >
         <div style="margin-left:30px; margin-right:30px;">
           <el-form
+            class="mt-5"
             style=" margin:100px;"
             label-position="left"
             :model="form"
@@ -27,7 +28,10 @@
                   prop="name"
                   style="width:100%"
                 >
-                  <el-input v-model="form.name" placeholder="조다운"></el-input>
+                  <el-input
+                    v-model="form.name"
+                    placeholder="실명을 기재해주세요"
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -627,7 +631,7 @@ export default {
           boardType: this.state.board.boardType.name,
           boardTitle: this.state.board.title,
           dogName: this.state.board.dogName,
-          content: this.form
+          content: JSON.stringify(this.form)
         }
       };
 
@@ -655,7 +659,6 @@ export default {
   setup() {
     const store = new useStore();
     const router = new useRouter();
-    const ruleForm = ref(null);
 
     const state = reactive({
       board: computed(() => {
@@ -699,11 +702,18 @@ export default {
         .dispatch("root/registerAdoptForm", data)
         .then(function(result) {
           console.log(result);
-          // 상담친성이 되었다면 채팅방을 열어주기
-          //1.채팅방으로 이동하는 로직 구현(?)
-          openChatting(result.data.counselingHistory.id);
-
           //2. 마이페이지 제출 확인 페이지로 이동
+           createToast("입양 신청서가 제출 되었어요. 마이페이지에서 승인 결과를 확인할 수 있습니다!🐾💌", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "warning"
+          });
+          // openChatting(result.data.counselingHistory.id);
+
           router.push({ name: "AdoptDetail" });
         })
         .catch(function(error) {
@@ -732,43 +742,6 @@ export default {
         })
         .catch(function(error) {
           console.log(error);
-        });
-    };
-
-    // 상담채팅방 열기
-    const openChatting = function(counselingId) {
-      store
-        .dispatch("root/requestCreateChatRoom", {
-          counseling_id: counselingId,
-          withCredentials: true // userId를 헤더 쿠키에 담아서 보냄
-        })
-        .then(function(result) {
-          createToast(
-            "입양 신청서가 제출 되었어요. 채팅방에서 상담을 시작해보세요!🐾💌",
-            {
-              hideProgressBar: "true",
-              timeout: 4500,
-              showIcon: "true",
-              toastBackgroundColor: "#7eaa72",
-              position: "bottom-left",
-              transition: "bounce",
-              type: "success"
-            }
-          );
-        })
-        .catch(function() {
-          createToast(
-            "상담채팅방을 생성하지 못하였습니다. 다시 시도해주세요.💬💦",
-            {
-              hideProgressBar: "true",
-              timeout: 4500,
-              showIcon: "true",
-              toastBackgroundColor: "#c49d83",
-              position: "bottom-left",
-              transition: "bounce",
-              type: "warning"
-            }
-          );
         });
     };
 
@@ -880,7 +853,7 @@ li.el-select-dropdown__item.selected {
 .box {
   margin-top: 30px;
   margin-bottom: 40px;
-  padding: 20px;
+  padding: 40px;
   background-color: #faf4ef;
 }
 

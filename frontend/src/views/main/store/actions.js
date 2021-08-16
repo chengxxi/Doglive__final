@@ -1,5 +1,6 @@
 // 비동기 API
 import $axios from "axios";
+import store from "../../../common/lib/store";
 import { getLoginUserInfo } from "./getters";
 
 // Kakao 서버로 받은 code로 AccessToken 가져오기
@@ -24,8 +25,8 @@ export function requestKakaoLogout({ state }) {
 
 // 채팅방 생성 요청
 export function requestCreateChatRoom({ state }, payload) {
-  const url = "/chatroom"
-  let body = payload
+  const url = "/chatroom";
+  let body = payload;
   return $axios.post(url, body);
 }
 
@@ -43,11 +44,25 @@ export function requestChatRoomList({ state }) {
 }
 
 // 채팅방 이전 로그 목록 요청
-export function requestChatMessageList({ state }, payload){
+export function requestChatMessageList({ state }, payload) {
   let roomId = payload.roomId;
   let page = payload.page;
-  const url = '/chatroom/' + roomId + '/messages/' + page; // 요기
+  const url = "/chatroom/" + roomId + "/messages/" + page; // 요기
   return $axios.get(url);
+}
+
+// 채팅방 정보 요청 (counseling id 에 해당하는)
+export function requestChatRoomByCounseling({state}, payload){
+  let counselingId = payload.counselingId;
+  const url = "/chatroom/counseling/" + counselingId;
+  return $axios.get(url);
+}
+
+// 채팅방 나갈 때, 메세지 Read 업데이트
+export function requestChatMessageUpdate({state}, payload){
+  let roomId = payload.roomId;
+  const url = "/chatroom/exit/" + roomId;
+  return $axios.put(url);
 }
 
 // 사용자 북마크 리스트를 불러오기
@@ -115,8 +130,8 @@ export function requestUserProfile({ state }, payload) {
 }
 
 // 커뮤니티 게시글 목록 가져오기
-export function requestCommunityBoardList({ state }) {
-  const url = "/community/list";
+export function requestCommunityBoardList({ state }, payload) {
+  const url = "/community/list/" + payload;
   return $axios.get(url);
 }
 
@@ -124,6 +139,24 @@ export function requestCommunityBoardList({ state }) {
 export function requestMyCommunity({ state }, payload) {
   const url = "/community/" + payload;
   return $axios.get(url);
+}
+
+// 커뮤니티 댓글 목록 가져오기
+export function requestCommunityComment({ state }, payload) {
+  const url = "/community/comment/" + payload;
+  return $axios.get(url);
+}
+
+// 커뮤니티 댓글 등록
+export function requestRegisterComment({ state }, payload) {
+  const url = "/community/comment";
+  return $axios.post(url, payload);
+}
+
+// 커뮤니티 댓글 삭제
+export function requestDeleteComment({ state }, payload) {
+  const url = "/community/comment/" + payload;
+  return $axios.delete(url);
 }
 
 // 커뮤니티 게시글 삭제
@@ -229,15 +262,20 @@ export function requestFindBoardList({ state }, payload) {
   });
 }
 
-//보드 디테일 정보 가졍괴
+// 화상회의 개설
+export function createConference({ state }, payload) {
+  const url = "/conference";
+  console.log(payload.data);
+  return $axios.post(url, payload.data);
+}
+
+//입양 신청서 정보 가져오기
+export function readAdoptForm({ state }, formId) {
+  const url = "/adopt/" + formId;
+  return $axios.get(url);
+}
+//보드 디테일 정보 가져오기
 export function requestBoardDetail({ state }, payload) {
   const url = "/board/" + payload.boardId + "/" + payload.userId;
   return $axios.get(url);
-}
-
-// 화상회의 개설
-export function createConference({state}, payload) {
-  const url='/conference';
-  console.log(payload.data);
-  return $axios.post(url, payload.data);
 }

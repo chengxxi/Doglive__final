@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { useStore } from "vuex";
+import { storeKey, useStore } from "vuex";
 import Main from "@/views/main/components/main-content.vue";
 import Login from "@/views/main/components/login-dialog.vue";
 import Logout from "@/views/main/components/logout-dialog.vue";
@@ -23,6 +23,7 @@ import MBTItest from "@/views/mbti/components/mbti-test.vue";
 import MBTIinfo from "@/views/mbti/components/mbti-info.vue";
 import Community from "@/views/community/community.vue";
 import MyCommunity from "@/views/community/mycommunity.vue";
+import store from '../../views/main/store/index.js'
 
 const routes = [
   {
@@ -34,7 +35,17 @@ const routes = [
     path: "/conference",
     name: "conference",
     component: Conference,
-    meta: { requiredAuth: true }
+    // meta: { requiredAuth: true },
+    meta: {requiredFromChat:true},
+    // beforeEnter: function(to, from, next) {
+    //   console.log(to)
+    //   console.log(store.state.conference);
+    //   if(store.state.conference.fromChat) {
+    //     next();
+    //   } else {
+    //     next('/');
+    //   }
+    // }
   },
   {
     path: "/login",
@@ -118,8 +129,8 @@ const routes = [
   {
     path: "/adopt/form/review",
     name: "AdoptFormReview",
-    component: AdoptFormReview
-    // meta: { requiresAuth: true }
+    component: AdoptFormReview,
+    meta: { requiresAuth: true }
   },
   {
     path: "/adopt/modify",
@@ -210,9 +221,11 @@ const routes = [
   }
 ];
 
+
 const router = createRouter({
   history: createWebHistory(),
   routes
 });
+
 
 export default router;

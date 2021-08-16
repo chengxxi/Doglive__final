@@ -94,6 +94,8 @@ public class ChatServiceImpl implements ChatService{
         return chatRoomList;
     }
 
+
+
     @Override
     public ChatRoom getChatRoomInfo(Long roomId) {
         Optional<ChatRoom> chatRoom = chatRoomRepository.findById(roomId);
@@ -119,6 +121,9 @@ public class ChatServiceImpl implements ChatService{
     public ChatMessageRead saveRead(ChatMessageRead read) {
         return chatMessageReadRepository.save(read);
     }
+
+    @Override
+    public void updateRead(ChatRoom roomId, String userId) {chatMessageReadRepository.updateIsRead(roomId, userId);}
 
     @Override
     public List<ChatMessage> getChatMessageList(ChatRoom roomId, String userId, int page) {
@@ -179,6 +184,24 @@ public class ChatServiceImpl implements ChatService{
         chatMessageRepository.deleteChatMessageByRoomId(roomId);
         chatRoomJoinRepository.deleteChatRoomJoinByRoomId(roomId);
         chatRoomRepository.delete(roomId);
+    }
+
+    @Override
+    public ChatRoom getChatRoomInfoByCounselingId(Long counselingId) {
+        Optional<ChatRoom> room = chatRoomRepository.findByCounselingId(counselingId);
+        if(room.isPresent())
+            return room.get();
+        return null;
+    }
+
+    @Override
+    public ChatRoomGetRes getChatRoomGetRes(ChatRoom roomId, String userId) {
+        ChatRoomGetRes chatRoom = new ChatRoomGetRes();
+        chatRoom.setChatRoom(roomId);
+        chatRoom.setCounselingHistory(userService.getCounselingById(roomId.getCounselingId()));
+        chatRoom.setUserNameList(getUserNameList(roomId));
+        chatRoom.setUnReadCount(getUnReadMessage(roomId, userId));
+        return chatRoom;
     }
 
 }
