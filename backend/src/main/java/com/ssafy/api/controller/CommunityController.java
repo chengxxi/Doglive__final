@@ -159,7 +159,7 @@ public class CommunityController {
         return ResponseEntity.ok(CommentListGetRes.of(200, "Success", communityCommentLsit, communityCommentLsit.size()));
     }
 
-    @GetMapping("/newcommunity")
+    @GetMapping("/new")
     @ApiOperation(value = "커뮤니티 최신 정보", notes = "커뮤니티 최신정보를 가져온다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
