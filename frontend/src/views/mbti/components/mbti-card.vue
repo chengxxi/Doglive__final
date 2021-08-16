@@ -11,7 +11,7 @@
         size="small"
         style="height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;"
       >
-        {{ card.mbtiList.name }}
+        {{ card.name }}
       </el-tag>
       <el-tag
         class="mb-2 scale-up-2"
@@ -20,7 +20,7 @@
         size="small"
         style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF; float:right; "
       >
-        {{ card.mbtiList.title }}
+        {{ card.title }}
       </el-tag>
     </el-row>
     <el-row
@@ -32,7 +32,7 @@
     <el-row
       style="margin-top:10px; margin-right:15px; margin-left:15px; vertical-align: middle; ">
       <h3 style="font-weight:800; float:right;" class="mb-0 ">
-        {{ card.mbtiList.id }}
+        {{ card.id }}
       </h3>
     </el-row>
 
@@ -102,7 +102,6 @@ export default {
   },
   data() {
     return {
-      card: this.card,
       // name: this.name,
       // title: this.title,
       // desc: this.desc,

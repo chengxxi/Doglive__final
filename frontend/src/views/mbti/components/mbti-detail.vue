@@ -8,7 +8,7 @@
         <el-col :span="12" style="margin-left:50px;">
           <img
             class="dog-thumbnail"
-            :src="require('@/assets/images/mbti_isfp.png')"
+            :src="state.MbtiDetail.image_url"
           />
         </el-col>
         <el-col :span="12">
@@ -20,14 +20,14 @@
                 effect="dark"
                 size="large"
                 style="border:none; border-radius: 30px; font-size:14pt; float:left;"
-                >{{ state.mbtiList.name }}</el-tag
+                >{{ state.MbtiDetail.name }}</el-tag
               >
             </el-row>
 
             <div class="vertical-center row">
               <div class="col-md-9">
                 <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
-                  state.mbtiList.name
+                  state.MbtiDetail.name
                 }}</span>
               </div>
               <div class="col-md-3 ms-auto">

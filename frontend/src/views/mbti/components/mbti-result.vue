@@ -9,7 +9,7 @@
       <!-- 상세 소개 내용 수정 필요 -->
     </div>
 
-    <span v-for="(idx, card) in state.MbtiList" :key="idx">
+    <span v-for="(card, idx) in state.MbtiList" :key="idx">
       <el-col :span="6">
         <MbtiCard
           :card="card"
@@ -87,11 +87,23 @@ export default {
     });
 
 
+
     const readDetail = function(id) {
       store.dispatch('root/requestMbtiDetail', id).then(function(result) {
         console.log('Mbti:', result);
         // console.log(result.data.mbtiList)
-        store.commit('root/setMbtiDetail', result.data.mbti)
+
+        const data = {
+          id: result.data.mbti.id,
+          name: result.data.mbti.name,
+          title: result.data.mbti.title,
+          desc: result.data.mbti.desc,
+          imageUrl: result.data.mbti.imageUrl,
+        }
+
+        store.commit('root/setMbtiDetail', data)
+
+
         store.push({ name : 'MbtiDetail' })
       });
 
@@ -107,6 +119,7 @@ export default {
         // console.log(result.data.mbtiList)
 
         state.MbtiList = result.data.mbtiList
+
       });
     };
 
