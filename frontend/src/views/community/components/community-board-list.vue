@@ -6,7 +6,20 @@
         v-loading="communities.loading"
         :ref="el => { if(el) divs = el}"
     > -->
-
+    <div class="button" style="text-align:right; margin-top:2%;">
+          <el-button
+            type="outline-primary"
+            round
+            @click="goRegister"
+            >글 작성하기</el-button
+          >
+          <el-button
+            type="outline-primary"
+            round
+            @click="goRegister"
+            >내 피드 보러가기</el-button
+          >
+      </div>
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
       <div>
         <div class="title">
@@ -86,7 +99,8 @@
           </font-awesome-icon> -->
               {{ item.title }}</span
             >
-            <div class="boardcontent">{{ item.description }}</div>
+            <div class="boardcontent" style="margin-top:2%; white-space:pre-wrap;">
+            {{ item.description }}</div>
           </div>
         </div>
         <div class="comment">
@@ -130,17 +144,6 @@
               ></span>
             </div>
           </div>
-
-          <!--
-        <div style="margin-left: 5%; margin-right: 5%;">
-          <div style="margin-bottom: 5%;">
-            <el-input placeholder="댓글을 입력해주세요" v-model="input3" class="input-with-select">
-              <template #append>
-                <el-button icon="el-icon-s-promotion"></el-button>
-              </template>
-            </el-input>
-          </div>
-        </div> -->
         </div>
       </div>
     </el-row>
@@ -171,6 +174,15 @@
   font-weight: 500;
   border-bottom: solid 1px rgb(240, 240, 240);
   padding: 10px;
+}
+.button .el-button{
+  border: solid 1px lightgray !important;
+  margin-right: 1%;
+}
+.button .el-button:hover {
+  color: black !important;
+  background-color: #f9f0e7 !important;
+  border: solid 1px #f9f0e7 !important;
 }
 .user {
   display: table-cell;
@@ -307,6 +319,23 @@ export default {
       input: ""
     });
 
+    const goRegister = function() {
+      if (state.userId === null) {
+        createToast("로그인을 진행해주세요 💨💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "success"
+        });
+        router.push({ name: "Login" });
+      } else {
+        router.push({ name: "community-board-register" });
+      }
+    };
+
     // 다음 커뮤니티 목록 가져오기
     function fetchCommunityList() {
       store
@@ -422,7 +451,18 @@ export default {
       });
 
     const RegisterComment = function(id) {
-      if (state.userId === null) {
+      if(comment.input == null || comment.input==""){
+        createToast("댓글 내용을 적어주세요 😱💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "success"
+        });
+      }else{
+        if (state.userId === null) {
         createToast("로그인을 진행해주세요 💨💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -468,6 +508,9 @@ export default {
             });
           });
       }
+
+      }
+      
     };
 
     const DeleteComment = function(id) {
@@ -483,8 +526,15 @@ export default {
             transition: "bounce",
             type: "success"
           });
-          console.log(result);
-          state.comments.pop(result.data);
+
+          for(var i=0; i<state.comments.length; i++){
+              if(state.comments[i].id == id){ 
+                console.log(state.comments[i].id)
+                state.comments.splice(i,1);
+              }
+          }
+          state.reverseList = [...state.comments].reverse();
+
         })
         .catch(function(err) {
           createToast("댓글 삭제에 실패했어요 😱💦", {
@@ -521,7 +571,9 @@ export default {
       images,
       comment,
       RegisterComment,
-      DeleteComment
+      DeleteComment,
+      goRegister
+
     };
   }
 };
