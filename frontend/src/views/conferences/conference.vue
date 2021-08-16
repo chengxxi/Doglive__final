@@ -19,7 +19,7 @@
       <el-row style="height:20px;"></el-row>
       <el-form>
         <p class='text-center'>
-          <el-button class='joinBtn' @click="joinSession">Join!</el-button>
+          <el-button id='joinBtn' @click="joinSession">Join!</el-button>
         </p>
       </el-form>
     </el-card>
@@ -180,6 +180,16 @@ video {
   padding-top: 25%;
   font-size: 150%;
 }
+/* 화상회의 참여 버튼 커스텀 */
+#joinBtn {
+  border:#F9F0E7 1px solid;
+  font-size: 17px;
+}
+#joinBtn:hover {
+  background: #F9F0E7;
+  border:#F9F0E7 1px solid;
+  color: black;
+}
 /* 화상회의 나가기 버튼 커스텀 */
 #buttonLeaveSession {
   border:#F9F0E7 1px solid;
@@ -190,6 +200,7 @@ video {
   border:#F9F0E7 1px solid;
   color: black;
 }
+/* icon 크기 조절 */
 :deep(.el-icon-turn-off-microphone::before) {
   font-size: 20px;
 }
