@@ -147,28 +147,51 @@
         </div>
 
         <!-- 유사공고 -->
-        <div class="dog-image-box">
-          <h5
-            class="pt-3 pb-3"
-            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
-          >
-            🐶🔎 혹시 저는 아닐까요❔
-          </h5>
-          <el-carousel :interval="4000" type="card" height="100px">
-            <el-carousel-item v-for="card in state.similarList" :key="card">
-              <FindCard
-                :card="card"
-                @click="readDetail(card.boardId.id)"
-                style="margin:10px; "
-              />
-            </el-carousel-item>
-          </el-carousel>
+        <div v-if="state.listSimilarDog.length != 0">     <!-- 조건 걸기 -->
+          <div class="dog-image-box">
+            <h5
+              class="pt-3 pb-3"
+              style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
+            >
+              🐶🔎 혹시 저는 아닐까요❔
+            </h5>
+            <el-scrollbar>
+              <div class="flex-content">
+                <p class="item" v-for="(card, idx) in state.listSimilarDog" :key="idx" style="width:360px; margin: 5px; display:inline-block">
+                  <FindCard
+                    :card="card"
+                    @click="readDetail(card.boardId.id)"
+                    style="margin:10px; width:360px;"
+                  />
+                </p>
+              </div>
+            </el-scrollbar>
+            <!-- <el-carousel :interval="4000" type="card" height="400px">
+              <el-carousel-item v-for="(card, idx) in state.listSimilarDog" :key="idx">
+                <FindCard
+                  :card="card"
+                  @click="readDetail(card.boardId.id)"
+                  style="margin:10px; width:auto;"
+                />
+              </el-carousel-item>
+            </el-carousel> -->
+          </div>
         </div>
       </el-card>
     </div>
   </div>
 </template>
+<style scoped>
+.flex-content {
+  white-space: nowrap;
+  width: 500px;
+}
+:deep(.el-carousel__item--card) {
+  width:30%;
+  align-content: center;
+}
 
+</style>
 <script>
 import $axios from "axios";
 import BreadCrumb from "./components/bread-crumb.vue";
@@ -177,14 +200,13 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
-import FindCard from "@/views/find/components/find-card.vue";
+import FindCard from "./components/find-card.vue";
 
 export default {
   name: "FindDetail",
   components: {
+    FindCard,
     BreadCrumb,
-    createToast,
-    FindCard
   },
   data() {
     return {
@@ -215,9 +237,10 @@ export default {
         console.log(store.getters["root/getBoardDetail"]);
         return store.getters["root/getBoardDetail"];
       }),
-      similarList: computed(() => {
-        console.log(state.board);
-        return store.getters['root/getBoardDetail'].similarList
+      listSimilarDog: computed(() => {
+        console.log('해당 공고 유사 강아지 🔽')
+        console.log(state.board.listSimilarDog);
+        return store.getters['root/getBoardDetail'].listSimilarDog
       })
     });
 
@@ -411,6 +434,55 @@ export default {
       });
     };
 
+    const readDetail = function(id) {
+      console.log("read");
+
+      var checkId = state.userId;
+      if (checkId === undefined || checkId === null || checkId == "") {
+        checkId = "none";
+      }
+
+      store
+        .dispatch("root/requestBoardDetail", {
+          boardId: id,
+          userId: checkId
+        })
+        .then(function(result) {
+          console.log(result);
+          console.log(result.data.listSimilarDog)
+          const boardDetail = {
+            boardId: result.data.dogInformation.boardId.id,
+            boardType: result.data.dogInformation.boardId.type,
+            thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+            title: result.data.dogInformation.boardId.title,
+            address: result.data.dogInformation.address,
+            mbti: result.data.dogInformation.mbti,
+            colorType: result.data.dogInformation.colorType,
+            gender: result.data.dogInformation.gender,
+            dogType: result.data.dogInformation.dogType,
+            neutralization: result.data.dogInformation.neutralization,
+            writer: result.data.writer,
+            weight: result.data.dogInformation.weight,
+            ageType: result.data.dogInformation.age,
+            regDate: result.data.dogInformation.boardId.regDate,
+            fileList: result.data.boardImageList,
+            isOwner: result.data.owner,
+            gugun: result.data.dogInformation.gugun,
+            sido: result.data.dogInformation.gugun.sidoCode,
+            description: result.data.dogInformation.description,
+            dogName: result.data.dogInformation.dogName,
+            isBookmarked: result.data.bookmarked,
+            listSimilarDog: result.data.listSimilarDog,
+          };
+
+          store.commit("root/setBoardDetail", boardDetail);
+          router.push({ name: "FindDetail" });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
+
     onMounted(() => {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
@@ -422,7 +494,7 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify };
+    return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify, readDetail, onMounted };
   }
 };
 </script>
