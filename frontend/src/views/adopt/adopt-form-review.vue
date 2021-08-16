@@ -1,377 +1,388 @@
 <template>
   <div class="main-body main-padding">
-    <el-card
-      class="box-card"
-      style="width:100%; height:auto;  border:none;"
-      shadow="none"
-    >
+    <div style="width:100%;  ">
       <bread-crumb></bread-crumb>
-
-      <div style="margin-left:30px; margin:right:30px;">
-        <el-form
-          style=" margin:100px;"
-          label-position="left"
-          :model="form"
-          :rules="rules"
-          ref="form"
-          class="mt-5"
-        >
-          <h4 class="mt-1 mb-3" style="font-weight:600;">
-            🙋‍♀️ 기본 인적 사항
-          </h4>
-          <el-divider />
-
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item label="신청자 이름" prop="name" style="width:100%">
-                <el-input v-model="form.name" placeholder="조다운"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item label="이메일 주소" prop="email" style="width:95%">
-                <el-input v-model="form.email" placeholder="ssafy@ssafy.com">
-                  <template #append
-                    ><el-button @click="clickEmailCheck"
-                      >인증</el-button
-                    ></template
-                  >
-                </el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="연락처" prop="phone" style="width:100%">
-                <el-input
-                  v-model="form.phone"
-                  placeholder="010-0000-0000"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item label="직업/직장명" prop="job" style="width:95%">
-                <el-input v-model="form.job" placeholder="개발자"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="나이" prop="age" style="width:100%">
-                <el-input v-model="form.age" placeholder="25"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                label="거주지"
-                prop="sido"
-                style="width:100%"
-                label-width="25%"
-              >
-                <el-select
-                  v-model="form.sido"
-                  placeholder="시/도"
-                  :change="gugunList(form.sido)"
-                >
-                  <el-option
-                    v-for="(sido, idx) in state.sidoList"
-                    :key="idx"
-                    :label="sido.name"
-                    :value="sido.id"
-                  >
-                  </el-option>
-                </el-select>
-                <el-select
-                  v-model="form.gugun"
-                  style="margin-left: 20px;"
-                  placeholder="구/군"
-                >
-                  <el-option
-                    v-for="(gugun, idx) in state.gugunList"
-                    :key="idx"
-                    :label="gugun.name"
-                    :value="gugun.id"
-                  >
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item
-                label="결혼여부"
-                prop="isMarried"
-                style="width:100%"
-                label-width="50%"
-              >
-                <el-radio-group v-model="form.isMarried">
-                  <el-radio label="Yes" border></el-radio>
-                  <el-radio label="No" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item
-                label="성별"
-                prop="gender"
-                style="width:100%"
-                label-width="50%"
-              >
-                <el-radio-group v-model="form.gender">
-                  <el-radio label="남" border></el-radio>
-                  <el-radio label="여" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <div style="margin-top:100px;">
-            <h4 class="mt-1 mb-3" style="font-weight:600; ">
-              ✍ 입양 관련 설문
-            </h4>
-          </div>
-          <el-divider />
-          <el-row class="mt-3 mb-3">
-            <el-col :span="24">
-              <el-form-item label="공고 제목" prop="title" style="width:100%">
-                <el-input v-model="state.board.title" disabled></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col :span="12">
-              <el-form-item
-                label="강아지 이름"
-                prop="dogName"
-                style="width:95%"
-              >
-                <el-input v-model="state.board.dogName" disabled></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="공고 타입" prop="type" style="width:100%">
-                <el-input
-                  v-model="state.board.boardType.name"
-                  disabled
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q1"
-                prop="answer1"
-                style="width:100%"
-                label-width="70%"
-              >
-                <el-radio-group v-model="form.answer1">
-                  <el-radio label="Yes" border></el-radio>
-                  <el-radio label="No" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row v-if="form.answer1 === 'Yes'" class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q1sub"
-                prop="answer1sub"
-                style="width:100%"
-              >
-                <el-input
-                  v-model="form.answer1sub"
-                  type="textarea"
-                  :rows="3"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q2"
-                prop="answer2"
-                style="width:100%"
-                label-width="70%"
-              >
-                <el-radio-group v-model="form.answer2">
-                  <el-radio label="Yes" border></el-radio>
-                  <el-radio label="No" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row v-if="form.answer2 === 'Yes'" class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q2sub"
-                prop="answer2sub"
-                style="width:100%"
-              >
-                <el-input
-                  v-model="form.answer2sub"
-                  type="textarea"
-                  :rows="3"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q3"
-                prop="answer3"
-                style="width:100%"
-                label-width="70%"
-              >
-                <el-input-number
-                  v-model="form.answer3"
-                  :min="1"
-                  :max="10"
-                ></el-input-number>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q3sub"
-                prop="answer3sub"
-                style="width:100%"
-                label-width="70%"
-              >
-                <el-radio-group v-model="form.answer3sub">
-                  <el-radio label="동의" border></el-radio>
-                  <el-radio label="일부동의" border></el-radio>
-                  <el-radio label="반대" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q4"
-                prop="answer4"
-                style="width:100%"
-                label-width="70%"
-              >
-                <el-select v-model="form.answer4" placeholder="거주형태">
-                  <el-option label="아파트" value="아파트"></el-option>
-                  <el-option label="단독주택" value="단독주택"></el-option>
-                  <el-option label="빌라" value="빌라"></el-option>
-                  <el-option label="원룸" value="원룸"></el-option>
-                  <el-option label="기타" value="기타"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q5"
-                prop="answer5"
-                style="width:100%"
-                label-width="70%"
-              >
-                <el-radio-group v-model="form.answer5">
-                  <el-radio label="Yes" border></el-radio>
-                  <el-radio label="No" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q6"
-                prop="answer6"
-                style="width:100%"
-                label-width="70%"
-              >
-                <el-radio-group v-model="form.answer6">
-                  <el-radio label="Yes" border></el-radio>
-                  <el-radio label="No" border></el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q7"
-                prop="answer7"
-                style="width:100%"
-              >
-                <el-input
-                  v-model="form.answer7"
-                  type="textarea"
-                  :rows="4"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q8"
-                prop="answer8"
-                style="width:100%"
-              >
-                <el-input
-                  v-model="form.answer8"
-                  type="textarea"
-                  :rows="4"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q9"
-                prop="answer9"
-                style="width:100%"
-              >
-                <el-input
-                  v-model="form.answer9"
-                  type="textarea"
-                  :rows="4"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row class="mt-3 mb-3">
-            <el-col>
-              <el-form-item
-                :label="question.q10"
-                prop="answer10"
-                style="width:100%"
-              >
-                <el-input
-                  v-model="form.answer10"
-                  type="textarea"
-                  :rows="4"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row
-            class="mt-5"
-            style=" display: flex;
-  justify-content: center;"
+      <el-card
+        class="box-card"
+        style="width:100%; height:auto; border:none;"
+        shadow="none"
+      >
+        <div style="margin-left:30px; margin-right:30px;">
+          <el-form
+            style=" margin:100px;"
+            label-position="left"
+            :model="form"
+            :rules="rules"
+            ref="form"
           >
-            <el-button type="primary" @click="submitForm('form')"
-              >제출</el-button
+            <h4 class="mb-3" style="font-weight:600;">
+              🙋‍♀️ 기본 인적 사항
+            </h4>
+            <el-divider />
+
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  label="신청자 이름"
+                  prop="name"
+                  style="width:100%"
+                >
+                  <el-input v-model="form.name" placeholder="조다운"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col :span="12">
+                <el-form-item
+                  label="이메일 주소"
+                  prop="email"
+                  style="width:95%"
+                >
+                  <el-input v-model="form.email" placeholder="ssafy@ssafy.com">
+                  </el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="연락처" prop="phone" style="width:100%">
+                  <el-input
+                    v-model="form.phone"
+                    placeholder="010-0000-0000"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="15">
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item
+                      label="거주지(시/도)"
+                      prop="sido"
+                      label-width="100%"
+                    >
+                      <el-select
+                        v-model="form.sido"
+                        placeholder="시/도"
+                        style="width:95% ;"
+                        :change="gugunList(form.sido)"
+                      >
+                        <el-option
+                          v-for="(sido, idx) in state.sidoList"
+                          :key="idx"
+                          :label="sido.name"
+                          :value="sido.id"
+                        >
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item
+                      label="거주지(구/군)"
+                      prop="gugun"
+                      label-width="100%"
+                    >
+                      <el-select
+                        style="width:95% ;"
+                        v-model="form.gugun"
+                        placeholder="구/군"
+                      >
+                        <el-option
+                          v-for="(gugun, idx) in state.gugunList"
+                          :key="idx"
+                          :label="gugun.name"
+                          :value="gugun.id"
+                        >
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col :span="5">
+                <el-row>
+                  <el-col :span="24">
+                    <el-form-item
+                      label="결혼여부"
+                      prop="isMarried"
+                      label-width="100%"
+                    >
+                      <el-radio-group
+                        style="width:100%"
+                        v-model="form.isMarried"
+                      >
+                        <el-radio
+                          style="margin-left:10%; "
+                          label="Yes"
+                          border
+                        ></el-radio>
+                        <el-radio label="No" border></el-radio>
+                      </el-radio-group>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col :span="4">
+                <el-form-item label="성별" label-width="100%" prop="gender">
+                  <el-radio-group v-model="form.gender" style="width:100%;">
+                    <el-radio
+                      style="margin-left:10%; "
+                      label="남"
+                      border
+                    ></el-radio>
+                    <el-radio label="여" border></el-radio>
+                  </el-radio-group>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <div style="margin-top:100px;">
+              <h4 class="mt-1 mb-3" style="font-weight:600; ">
+                ✍ 입양 관련 설문
+              </h4>
+            </div>
+            <el-divider />
+            <el-row class="mt-3 mb-3">
+              <el-col :span="24">
+                <el-form-item label="공고 제목" prop="title" style="width:100%">
+                  <el-input v-model="state.board.title" disabled></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col :span="12">
+                <el-form-item
+                  label="강아지 이름"
+                  prop="dogName"
+                  style="width:95%"
+                >
+                  <el-input v-model="state.board.dogName" disabled></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="공고 타입" prop="type" style="width:100%">
+                  <el-input
+                    v-model="state.board.boardType.name"
+                    disabled
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q1"
+                  prop="answer1"
+                  style="width:100%"
+                  label-width="70%"
+                >
+                  <el-radio-group v-model="form.answer1">
+                    <el-radio label="Yes" border></el-radio>
+                    <el-radio label="No" border></el-radio>
+                  </el-radio-group>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row v-if="form.answer1 === 'Yes'" class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q1sub"
+                  prop="answer1sub"
+                  style="width:100%"
+                >
+                  <el-input
+                    v-model="form.answer1sub"
+                    type="textarea"
+                    :rows="3"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q2"
+                  prop="answer2"
+                  style="width:100%"
+                  label-width="70%"
+                >
+                  <el-radio-group v-model="form.answer2">
+                    <el-radio label="Yes" border></el-radio>
+                    <el-radio label="No" border></el-radio>
+                  </el-radio-group>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row v-if="form.answer2 === 'Yes'" class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q2sub"
+                  prop="answer2sub"
+                  style="width:100%"
+                >
+                  <el-input
+                    v-model="form.answer2sub"
+                    type="textarea"
+                    :rows="3"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q3"
+                  prop="answer3"
+                  style="width:100%"
+                  label-width="70%"
+                >
+                  <el-input-number
+                    v-model="form.answer3"
+                    :min="1"
+                    :max="10"
+                  ></el-input-number>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q3sub"
+                  prop="answer3sub"
+                  style="width:100%"
+                  label-width="70%"
+                >
+                  <el-radio-group v-model="form.answer3sub">
+                    <el-radio label="동의" border></el-radio>
+                    <el-radio label="일부동의" border></el-radio>
+                    <el-radio label="반대" border></el-radio>
+                  </el-radio-group>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q4"
+                  prop="answer4"
+                  style="width:100%"
+                  label-width="70%"
+                >
+                  <el-select v-model="form.answer4" placeholder="거주형태">
+                    <el-option label="아파트" value="아파트"></el-option>
+                    <el-option label="단독주택" value="단독주택"></el-option>
+                    <el-option label="빌라" value="빌라"></el-option>
+                    <el-option label="원룸" value="원룸"></el-option>
+                    <el-option label="기타" value="기타"></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q5"
+                  prop="answer5"
+                  style="width:100%"
+                  label-width="70%"
+                >
+                  <el-radio-group v-model="form.answer5">
+                    <el-radio label="Yes" border></el-radio>
+                    <el-radio label="No" border></el-radio>
+                  </el-radio-group>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q6"
+                  prop="answer6"
+                  style="width:100%"
+                  label-width="70%"
+                >
+                  <el-radio-group v-model="form.answer6">
+                    <el-radio label="Yes" border></el-radio>
+                    <el-radio label="No" border></el-radio>
+                  </el-radio-group>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q7"
+                  prop="answer7"
+                  style="width:100%"
+                >
+                  <el-input
+                    v-model="form.answer7"
+                    type="textarea"
+                    :rows="4"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q8"
+                  prop="answer8"
+                  style="width:100%"
+                >
+                  <el-input
+                    v-model="form.answer8"
+                    type="textarea"
+                    :rows="4"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q9"
+                  prop="answer9"
+                  style="width:100%"
+                >
+                  <el-input
+                    v-model="form.answer9"
+                    type="textarea"
+                    :rows="4"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row class="mt-3 mb-3">
+              <el-col>
+                <el-form-item
+                  :label="question.q10"
+                  prop="answer10"
+                  style="width:100%"
+                >
+                  <el-input
+                    v-model="form.answer10"
+                    type="textarea"
+                    :rows="4"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row
+              class="mt-5"
+              style=" display: flex;
+  justify-content: center;"
             >
-          </el-row>
-        </el-form>
-      </div>
-    </el-card>
+              <el-button type="primary" @click="submitForm('form')"
+                >제출</el-button
+              >
+            </el-row>
+          </el-form>
+        </div>
+      </el-card>
+    </div>
   </div>
 </template>
 

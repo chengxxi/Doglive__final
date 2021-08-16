@@ -3,6 +3,11 @@
       <div v-for="chat in state.chatArray" :key="chat" class="chatContent">
         {{chat}}
       </div>
+      <ChatMessage
+        v-for="(message, index) in state.chatArray"
+        :key="index"
+        :message="message"
+      />
     </el-scrollbar>
     <el-divider>🐶</el-divider>
     <textarea

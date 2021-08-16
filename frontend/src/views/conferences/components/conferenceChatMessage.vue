@@ -1,9 +1,10 @@
 <template>
+<!-- 메시지만 보여주는 component -->
   <el-row>
     <div class="message my-card" v-if="mine">
       <el-card class="message-card mine">{{message.chatMessage}}</el-card>
     </div>
-    <div class="username" v-if="!mine"> {{message.username}}</div>
+    <div class="username" v-if="!mine"> {{message.userName}}</div>
     <div class="message your-card" v-if="!mine">
       <el-card class="message-card yours">{{message.chatMessage}}</el-card>
     </div>
@@ -68,26 +69,36 @@
 </style>
 
 <script>
+import { reactive } from 'vue';
 import { useStore } from 'vuex'
 export default {
   name: 'chat-message',
 
   props: {
     message: Object,
+    userName: String
   },
 
   setup(props){
-    const store = useStore()
-    const userId = '18456';
+    console.log('conferenceChatMessage vue 에 입장');
+    console.log(props)
+    console.log('현재 사용자 이름 🔽')
+    console.log(props.userName)
+    console.log('온 채팅 내용 🔽')
+    console.log(props.message.userName)
+    console.log(props.message.chatMessage)
+    const state = reactive({
+
+    })
     const isMine = function(){
-      if(props.message.userId == userId) // 내 메시지면 true
+      if(props.message.userName == props.userName) // 내 메시지면 true
         return true
       else
         return false
     }
     const mine = isMine()
 
-    return { mine }
+    return { state, mine }
   }
 }
 </script>

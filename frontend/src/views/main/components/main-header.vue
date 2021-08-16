@@ -162,9 +162,12 @@ export default {
       showHiddenMenu: "none",
       showUserModal: false,
       userMenu: computed(() => {
-        if (store.getters["root/getLoginUserInfo"].userId === null)
+        const userId = store.getters["root/getLoginUserInfo"].userId;
+        if (userId === null || userId === undefined || userId == "") {
           return notLoggedIn;
-        else return loggedIn;
+        } else {
+          return loggedIn;
+        }
       })
     });
 

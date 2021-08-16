@@ -1,7 +1,7 @@
 <template>
   <el-card
     shadow="hover"
-    style="background:linear-gradient( to bottom,#f0ebe0, #f6ede9 );"
+    style="background:linear-gradient( to bottom,#f3e8dc, #f5edea ); height:360px;"
     class="scale-up-2"
   >
     <el-row style="margin-top:15px; margin-right:15px; margin-left:15px;">
@@ -28,14 +28,18 @@
       style="margin-top:5px; display:flex; display: flex;
   justify-content: center;"
     >
-      <img src="https://placedog.net/500/500?random" class="image" />
+      <img :src="card.boardId.thumbnailUrl" class="image" />
     </el-row>
 
     <el-row
       style="margin-top:10px; margin-right:15px; margin-left:15px; vertical-align: middle; "
     >
       <h3 style="font-weight:800; float:right;" class="mb-0 ">
-        {{ card.dogType.name }}
+        {{
+          card.dogType.name.length < 6
+            ? card.dogType.name
+            : card.dogType.name.substr(0, 5) + ".."
+        }}
       </h3>
       <!-- <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
         {{ card.boardId.title }}

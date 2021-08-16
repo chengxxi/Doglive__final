@@ -1,117 +1,132 @@
 <template>
   <div>
     <el-row>
-    <el-col :span="6" v-for="(o, idx) in card" :key="idx"> <!-- :offset="index > 0 ? 2 : 0" -->
-      <el-card :body-style="{ padding: '10px' }" style="margin: 10px !important;" shadow="hover">
-        <img :src="require('@/assets/images/logo2.png')" class="image" />
-        <div style="padding: 14px;">
-          <!-- 입양/임보 구분 -->
-          <el-tag class="type" style="mini">{{o.type.name}}</el-tag>
-          <div class="cardtitle"><p>{{o.title}}</p></div>
-          <div class="bottom">
-            <div class="detail"><el-button type="text" class="button" @click="readDetail(o.id)" >글 보러가기</el-button></div>
+      <el-col :span="6" v-for="(o, idx) in card" :key="idx">
+        <!-- :offset="index > 0 ? 2 : 0" -->
+        <el-card
+          :body-style="{ padding: '10px' }"
+          style="margin: 10px !important;"
+          shadow="hover"
+        >
+          <img :src="require('@/assets/images/logo2.png')" class="image" />
+          <div style="padding: 14px;">
+            <!-- 입양/임보 구분 -->
+            <el-tag class="type" style="mini">{{ o.type.name }}</el-tag>
+            <div class="cardtitle">
+              <p>{{ o.title }}</p>
+            </div>
+            <div class="bottom">
+              <div class="detail">
+                <el-button type="text" class="button" @click="readDetail(o.id)"
+                  >글 보러가기</el-button
+                >
+              </div>
+            </div>
           </div>
-        </div>
-      </el-card>
-    </el-col>
+        </el-card>
+      </el-col>
     </el-row>
   </div>
-
-
 </template>
 
 <style scoped>
-  .type{
-    margin-top:10px;
-    float : left;
-  }
-  .bottom {
-    margin-top: 13px;
-    line-height: 12px;
-    display: right;
-    justify-content: space-between;
-    align-items: center;
-  }
+.type {
+  margin-top: 10px;
+  float: left;
+}
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+  display: right;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  /* .button {
+/* .button {
     padding: 0;
     min-height: auto;
   } */
 
-  .image {
-    width: 100%;
-    display: block;
-  }
-  .cardtitle{
-    float : left;
-    display: block;
-    margin : auto;
-
-  }
-  .detail{
-    float : right;
-    display: block;
-  }
-
-
+.image {
+  width: 100%;
+  display: block;
+}
+.cardtitle {
+  float: left;
+  display: block;
+  margin: auto;
+}
+.detail {
+  float: right;
+  display: block;
+}
 </style>
 
 <script>
-import $axios from 'axios'
+import $axios from "axios";
 import { onBeforeMount, onMounted, reactive, computed } from "vue";
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router';
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
-  name: 'post-list-card',
-  props:{
-      card :{
-          type: String
-      }
- 
+  name: "post-list-card",
+  props: {
+    card: {
+      type: String
+    }
   },
-  setup () {
-    const store = new useStore()
-    const router = new useRouter()
+  setup() {
+    const store = new useStore();
+    const router = new useRouter();
+
     const readDetail = function(id) {
       const userid = store.getters["root/getLoginUserInfo"].userId;
 
-      $axios
-        .get("/board/" + id + "/" + userid)
+      store
+        .dispatch("root/requestBoardDetail", {
+          boardId: id,
+          userId: userid
+        })
         .then(function(result) {
           console.log(result);
 
           const boardDetail = {
-            boardId: result.data.board.id,
-            boardType: result.data.board.type,
-            thumbnailUrl: result.data.board.thumbnailUrl,
-            title: result.data.board.title,
+            boardId: result.data.dogInformation.boardId.id,
+            boardType: result.data.dogInformation.boardId.type,
+            thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+            title: result.data.dogInformation.boardId.title,
             address: result.data.dogInformation.address,
             mbti: result.data.dogInformation.mbti,
             colorType: result.data.dogInformation.colorType,
             gender: result.data.dogInformation.gender,
-            hairType: result.data.dogInformation.hairType,
+            dogType: result.data.dogInformation.dogType,
             neutralization: result.data.dogInformation.neutralization,
             writer: result.data.writer,
             weight: result.data.dogInformation.weight,
             ageType: result.data.dogInformation.age,
-            regDate: result.data.board.regDate,
+            regDate: result.data.dogInformation.boardId.regDate,
             fileList: result.data.boardImageList,
             isOwner: result.data.owner,
+            gugun: result.data.dogInformation.gugun,
+            sido: result.data.dogInformation.gugun.sidoCode,
             description: result.data.dogInformation.description,
-            dogName: result.data.dogInformation.dogName
+            dogName: result.data.dogInformation.dogName,
+            isBookmarked: result.data.bookmarked
           };
 
           store.commit("root/setBoardDetail", boardDetail);
 
-          router.push({ name: "AdoptDetail" });
+          if (result.data.dogInformation.boardId.type.id <= 2) {
+            router.push({ name: "AdoptDetail" });
+          } else {
+            router.push({ name: "FindDetail" });
+          }
         })
         .catch(function(err) {
           console.log(err);
         });
     };
-    return {readDetail}
-
+    return { readDetail };
   }
-}
+};
 </script>

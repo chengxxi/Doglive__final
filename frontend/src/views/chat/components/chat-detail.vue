@@ -20,7 +20,7 @@
   <div class="chat-input">
     <el-input type="textarea" v-model="state.content" @keyup.enter="sendMessage"></el-input>
     <el-button class="send-btn" :class="{active : !state.activeButton}" @click="sendMessage">전송</el-button>
-    <i class="video-btn"><font-awesome-icon  :icon="[ 'fas' , 'video']"></font-awesome-icon></i>
+    <i class="video-btn" href="../../conferences/conference.vue"><font-awesome-icon  :icon="[ 'fas' , 'video']"></font-awesome-icon></i>
     <!-- <i class="el-icon-video-camera video-btn"></i> -->
   </div>
 </template>
