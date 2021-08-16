@@ -4,11 +4,20 @@
     <i class="el-icon-close close-btn" @click="changeOpen"></i>
     <span class="title">
       {{ chat.title }}
-    <a class="video-btn" @click="createConference(chat.title)"
-      ><font-awesome-icon :icon="['fas', 'video']"></font-awesome-icon
-    ></a>
     </span>
 
+  </div>
+  <div v-if="state.isOpenConference" class="notice-bar-open">
+    <a class="el-icon-arrow-up" @click="changeOpenConference"></a>
+    <a class="video-btn" @click="createConference(chat.title)" style="align">
+      <font-awesome-icon :icon="['fas', 'video']"></font-awesome-icon>
+      화상회의 하러가기
+    </a>
+  </div>
+  <div v-else style="width:100%" class="notice-bar-close" >
+    <button class="open-conference " type="button" @click="changeOpenConference" style="align-content:center;">
+      <i class="el-icon-message-solid"></i>
+    </button>
   </div>
   <div
     class="chat-body"
@@ -63,6 +72,45 @@
   font-weight: 500;
   vertical-align: super;
 }
+.notice-bar-open {
+    padding: 10px;
+    width: 94%;
+    position: absolute;
+    top: 5rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: row;
+    z-index: 99;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.notice-bar-close {
+    padding: 10px;
+    width: 94%;
+    position: absolute;
+    top: 5rem;
+    display: flex;
+    flex-direction: row;
+    z-index: 99;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.open-conference {
+  margin-left: 80%;
+  background: rgba(0,0,0,0.5);
+  border: 0px solid black;
+  border-radius: 100%;
+  width: 12%;
+  height: 40px;
+  padding-top: 4px;
+}
+:deep(.el-icon-arrow-up) {
+  cursor: pointer;
+}
+:deep(.el-icon-message-solid) {
+  color: white;
+  font-size: 1.45rem;
+}
 .chat-body {
   height: calc(100% - 140px); /* input 높이(80) + margin 높이(25) */
   position: relative;
@@ -70,6 +118,7 @@
   padding: 10px;
   overflow-y: auto;
 }
+
 .chat-body::-webkit-scrollbar {
   display: none;
 }
@@ -127,7 +176,8 @@
   cursor: pointer;
   bottom: 10px;
   left: 15px;
-  color: rgb(255, 255, 255);
+  margin-left: 22%;
+  color: rgb(0, 0, 0);
 }
 .close-btn {
   cursor: pointer;
@@ -174,7 +224,8 @@ export default {
       activeButton: computed(() => {
         if (state.content.trim().length > 0) return true;
         else return false;
-      })
+      }),
+      isOpenConference: true,
     });
     const chat = reactive({
       init: true,
@@ -246,8 +297,8 @@ export default {
 
     // 웹 소켓 통신 Connect
     function connect() {
-      const url = "https://i5a501.p.ssafy.io/api/v1/chat-server"; // 배포용
-      //const url = "https://localhost:8081/api/v1/chat-server";
+      //const url = "https://i5a501.p.ssafy.io/api/v1/chat-server"; // 배포용
+      const url = "https://localhost:8082/api/v1/chat-server";
       socket = new SockJS(url, {
         transports: ["websocket", "xhr-streaming", "xhr-polling"]
       });
@@ -267,6 +318,12 @@ export default {
     // 닫기 버튼 : 채팅 Open 여부 변경
     function changeOpen() {
       store.commit("root/setChatOpen", !chat.open);
+    }
+
+    // 닫기 버튼 : 화상회의 Open 여부 변경
+    function changeOpenConference() {
+      console.log('화상회의 공지사항 버튼 클릭')
+      state.isOpenConference = !state.isOpenConference
     }
 
     // 뒤로가기 버튼 : 채팅방 목록으로 넘어감
@@ -353,7 +410,8 @@ export default {
       svgInfo,
       divs,
       scroll,
-      createConference
+      createConference,
+      changeOpenConference
     };
   }
 };
