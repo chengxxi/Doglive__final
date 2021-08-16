@@ -305,7 +305,7 @@ export default {
       // 사용자 이름
       state.myUserName = store.getters['root/getUpdateUserInfo'].name;
       // 채팅방 번호로 seesionId 만들기
-      state.mySessionId = state.conference.roomId;
+      state.mySessionId = 'Session' + state.conference.roomId;
       console.log('joinSession 클릭 후 정보🔽');
       console.log(state.userId);
       console.log(state.myUserName);
