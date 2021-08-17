@@ -85,10 +85,9 @@
 </style>
 
 <script>
-import FindDetail from "../find-detail.vue";
-
 export default {
   name: "FindCard",
+
   props: {
     card: Object
   },
