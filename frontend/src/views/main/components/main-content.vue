@@ -510,7 +510,7 @@
                   </p>
                   <p class="mb-0">
                     <i class="el-icon-message " />
-                    jodawooooon@naver.com
+                    zxd9857@gmail.com
                   </p>
                   <p class="mb-0">
                     @sang_hyun_98
@@ -571,7 +571,7 @@
                   </p>
                   <p class="mb-0">
                     <i class="el-icon-message " />
-                    jodawooooon@naver.com
+                    clleo97@naver.com
                   </p>
                   <p class="mb-0">
                     @0__jxxu
@@ -632,7 +632,7 @@
                   </p>
                   <p class="mb-0">
                     <i class="el-icon-message " />
-                    jodawooooon@naver.com
+                    hyywon97@gmail.com
                   </p>
                   <p class="mb-0">
                     @hyeonlovesmacaron
@@ -686,7 +686,7 @@
                   </p>
                   <p class="mb-0">
                     <i class="el-icon-message " />
-                    jodawooooon@naver.com
+                    heeya121hs@gmail.com
                   </p>
                   <p class="mb-0">
                     @chengxxi
