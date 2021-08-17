@@ -699,13 +699,13 @@
           <div class="text-center pt-4 z-index-2">
             <el-button
               type="primary"
-              onClick="location.href ='https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501'"
+              OnClick="location.href ='https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501'"
               class="btn btn-lg btn-primary rounded-pill hover-top"
               >견과류 팀 GitLab</el-button
             >
             <el-button
               type="primary"
-              onClick="location.href = 'https://www.notion.so/ssafyseoul5-1/1-a1fcecce811a42f4bc399dd562d1ce2f'"
+              OnClick="location.href = 'https://www.notion.so/ssafyseoul5-1/1-a1fcecce811a42f4bc399dd562d1ce2f'"
               class="btn btn-lg btn-primary rounded-pill hover-top"
               >견과류 팀 Notion</el-button
             >
