@@ -19,7 +19,6 @@ public interface BoardService {
     /* 실종보호 게시판 목록 가져오기 (필터링, 페이지네이션 추가) */
     Page<DogInformation> filterFindBoardList(Pageable pageable, Long boardType,  Long sido, Long color, Long dogType, String searchWord); //필터링 결과 리스트 불러오기
 
-
     /* 입양/임보 최신게시물 4개 가져오기 */
     List<DogInformation> getRecentAdoptBoard();
 
@@ -29,11 +28,14 @@ public interface BoardService {
     /* 유기동물 관련 게시물 작성하기 */
     Board registerBoard(BoardRegisterPostReq boardRegisterPostReq) throws IOException;
 
+
     /* 유기동물 관련 게시물 삭제하기 */
     boolean deleteBoard(Long boardId);
 
     /* 유기동물 관련 게시물 수정하기 */
+
     Board updateBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq) throws IOException;
+
 
     /* BoardId로 Board 찾기 */
     Board getBoardByBoardId(Long boardId);

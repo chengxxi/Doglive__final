@@ -298,3 +298,21 @@ export function readRecentCommunity({ state }) {
   const url = "/community/new";
   return $axios.get(url);
 }
+
+//MBTI 매칭 결과 가져오기
+export function requestMBTIResult({ state }, payload) {
+  const url = "/mbti";
+  return $axios.post(url, payload);
+}
+
+// MBTI 전체 정보 가져오기
+export function requestMbtiList({ state }, payload) {
+  const url = "/mbti";
+  return $axios.get(url);
+}
+
+// MBTI detail 가져오기
+export function requestMbtiDetail({ state }, payload) {
+  const url = "/mbti/id/" + payload;
+  return $axios.get(url);
+}

@@ -66,7 +66,6 @@
   width: 90%;
   height: 250px;
 }
-
 * {
   color: #606266;
   cursor: pointer;

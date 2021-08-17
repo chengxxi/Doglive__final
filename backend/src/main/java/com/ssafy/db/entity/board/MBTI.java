@@ -21,6 +21,7 @@ public class MBTI extends BaseEntity{
 
     String title;
 
+    @Column(length = 1000)
     String desc;
 
     @Column(name="image_url")

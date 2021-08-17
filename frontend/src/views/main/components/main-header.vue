@@ -9,9 +9,6 @@
             <div class="logo" @click="clickLogo"></div>
           </li>
           <li>
-            <a href="/" @mouseover="changeDisplay('over')">독립</a>
-          </li>
-          <li>
             <a href="/adopt" @mouseover="changeDisplay('over')">입양/임보</a>
           </li>
 
@@ -19,7 +16,7 @@
             <a href="/find" @mouseover="changeDisplay('over')">실종/보호</a>
           </li>
           <li>
-            <a href="/mbti" @mouseover="changeDisplay('over')">DBTI</a>
+            <a href="/mbti" @mouseover="changeDisplay('over')">MPTI</a>
           </li>
           <li>
             <a href="/community" @mouseover="changeDisplay('over')">독립신문</a>

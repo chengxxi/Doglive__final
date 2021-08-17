@@ -23,12 +23,6 @@ import { onBeforeMount, onMounted, reactive, computed } from "vue";
 export default {
   name: "FindList",
   components: { FindCard },
-  // props: {
-  //   // boardList: Object,
-  //   // title: String,
-  //   // boardType: String,
-  //   // cards: Array,
-  // },
   props: {
     boardList: Array
   },
@@ -56,7 +50,7 @@ export default {
         })
         .then(function(result) {
           console.log(result);
-          console.log(result.data.listSimilarDog)
+          console.log(result.data.listSimilarDog);
           const boardDetail = {
             boardId: result.data.dogInformation.boardId.id,
             boardType: result.data.dogInformation.boardId.type,
@@ -79,7 +73,7 @@ export default {
             description: result.data.dogInformation.description,
             dogName: result.data.dogInformation.dogName,
             isBookmarked: result.data.bookmarked,
-            listSimilarDog: result.data.listSimilarDog,
+            listSimilarDog: result.data.listSimilarDog
           };
 
           store.commit("root/setBoardDetail", boardDetail);

@@ -88,13 +88,6 @@ export default {
           fromChat:false,
         })
         next()
-      // } else if(to.name == 'conference') {          // 화상회의로 들어갈 때
-      //   console.log(store.getters['root/getConference'].fromChat)
-      //   if(store.getters['root/getConference'].fromChat) {
-      //     next()
-      //   } else {
-      //     next('/Main')
-      //   }
       } else{
         next()
       }

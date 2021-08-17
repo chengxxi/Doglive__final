@@ -176,7 +176,7 @@
 <script>
 import FindList from "./components/find-list.vue";
 import Pagination from "./components/pagination.vue";
-import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
+import BreadCrumb from "./components/bread-crumb.vue";
 import { reactive, computed, onMounted } from "vue"; // ref
 
 // import $axios from 'axios'
@@ -537,7 +537,6 @@ li.el-select-dropdown__item.selected {
   color: #755744;
   font-weight: 700;
 }
-
 /* :deep(.el-collapse-item__arrow) {
   display: none;
 } */

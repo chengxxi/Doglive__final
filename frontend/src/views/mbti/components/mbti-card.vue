@@ -1,26 +1,60 @@
 <template>
-  <el-col>
-    <!-- <div v-if="isHovered">
-      <el-card class="mbtiCard" shadow="hover" style="background-color: snowflake; ">
-        <img :src="require('@/assets/images/profile-image.jpg')" class="img"/>
-        <h3 class="mbtiTitle">
-          MBTI
-        </h3>
-      </el-card>
+  <div class="row h-100 justify-content-center pt-3 mbtiCard">
+    <div class="card h-100 hover-top rounded-3 shadow">
+      <div class="card-body">
+        <el-tag
+          class="mb-2"
+          effect="dark"
+          size="small"
+          style="height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;"
+        >
+          {{ card.name }}
+        </el-tag>
+        <div class="mt-5"></div>
+
+        <div class="d-flex align-items-center">
+          <img
+            style="max-width:95%; height:auto; margin-left:5px margin-right:5px"
+            :src="card.imageUrl"
+            alt="blog"
+          />
+        </div>
+
+        <div class="my-3 fs--1">
+          <div
+            style="padding-top:10px; margin-left:10px; margin-right:10px; text-align:right;"
+          >
+            <p class="mb-0 fw-bold" style="font-size:26pt; font-weight:700;">
+              {{ card.name }}
+            </p>
+            <p class=" mb-0" style="font-size:11pt;">
+              {{ card.title }}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div v-else> -->
-      <el-card class="mbtiCard" shadow="hover" style="background-color: snowflake; ">
-        <img :src="require('@/assets/images/profile-image.jpg')" class="img"/>
-        <h3 class="mbtiTitle">
-          MBTI
-        </h3>
-        <p>description</p>
+  <!-- <el-card
+    shadow="hover"
+    style="background:linear-gradient( to top,#f0ebe0, #f6ede9  );"
+    class="mbtiCard scale-up-2"
 
-      </el-card>
-    <!-- </div> -->
-  </el-col>
+    <el-row
+      style="margin-top:5px; display:flex; display: flex;
+      justify-content: center;">
+      <img :src="card.imageUrl" class="image" />
+    </el-row>
 
+    <el-row
+      style="margin-bottom:10px; margin-right:15px; margin-left:15px; vertical-align: middle; ">
+      <h3 style="font-weight:800; float: right;">
+        {{ card.name }}
+      </h3>
+    </el-row>
+
+  </el-card> -->
 </template>
 
 <style scoped>
@@ -34,6 +68,10 @@
 
 .img {
   width: 100%;
+}
+
+.image {
+  width: 200px;
 }
 
 .mbtiTitle {
@@ -51,33 +89,26 @@ el-col {
 .el-card:hover {
   box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.25);
 }
-
-
-
 </style>
 
 <script>
-// import MbtiDetail from "./mbti-detail.vue";
+import MbtiDetail from "./mbti-detail.vue";
 
 export default {
-  name: 'mbti-card',
-    components: {
-    // MbtiDetail
+  name: "MbtiCard",
+  components: {
+    MbtiDetail
   },
-  // props: {
-  //   card: Object
-  // },
-  // data() {
-  //   return {
-  //     age: this.card.age.name.split("(")[0],
-  //     weight: this.card.weight.name.split("(")[0],
-  //     title:
-  //       this.card.boardId.title.length <= 12
-  //         ? this.card.boardId.title
-  //         : this.card.boardId.title.substr(0, 10) + "..."
-  //   };
-  // }
-
-
-}
+  props: {
+    card: Object
+  },
+  data() {
+    return {
+      // name: this.name,
+      // title: this.title,
+      // desc: this.desc,
+      // image_url: this.image_url,
+    };
+  }
+};
 </script>

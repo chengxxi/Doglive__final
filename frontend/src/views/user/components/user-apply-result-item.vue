@@ -84,7 +84,7 @@
   border-radius: 4px;
 }
 .bg-beige {
-  /* background: linear-gradient(to top, #f3ede7, #f5e9e4); */
+  /* background: #F9F0E7; */
   border: solid 1px lightgray;
   height: 90px;
 }
@@ -92,8 +92,8 @@
   display: flex;
   align-items: center;
   flex-direction: row;
+  padding: 10px 0 10px 20px;
   border-radius: 4px;
-  padding: 10px;
   min-height: 36px;
   margin-bottom: 20px;
 }

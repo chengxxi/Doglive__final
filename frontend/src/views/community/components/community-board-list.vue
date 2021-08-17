@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!-- <div class="chat-body"
         @scroll="scroll"
         v-loading="communities.loading"
@@ -54,7 +53,10 @@
             indicator-position="none"
             style="margin-top:3%; margin-bottom:3%;"
           >
-            <el-carousel-item v-for="(img, index) in item.fileList" :key="index">
+            <el-carousel-item
+              v-for="(img, index) in item.fileList"
+              :key="index"
+            >
               <img class="image" :src="img" />
             </el-carousel-item>
           </el-carousel>
@@ -119,6 +121,7 @@
             class="comment-button"
             icon="el-icon-s-promotion"
             @click="RegisterComment(item.id)"
+            @keyup.enter="RegisterComment(item.id)"
           ></el-button>
           <div
             v-for="(i, index) in state.reverseList"
@@ -151,7 +154,6 @@
 </template>
 
 <style scoped>
-
 .board {
   max-width: 600px;
   max-width: 850px;
@@ -295,7 +297,7 @@ export default {
 
     const state = reactive({
       boardList: [],
-      reverseList :[],
+      reverseList: [],
       comments: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
@@ -320,7 +322,9 @@ export default {
     });
 
     const goRegister = function() {
-      if (state.userId === null) {
+      if (state.userId === null ||
+          state.userId == "" ||
+          state.userId === undefined) {
         createToast("로그인을 진행해주세요 💨💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -337,7 +341,9 @@ export default {
     };
 
     const goMyCommunity = function(){
-      if (state.userId === null) {
+      if (state.userId === null ||
+          state.userId == "" ||
+          state.userId === undefined) {
         createToast("로그인을 진행해주세요 💨💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -419,7 +425,7 @@ export default {
             title: result.data.community.title,
             category: result.data.community.category,
             description: result.data.community.description,
-            fileList : result.data.filePath
+            fileList: result.data.filePath
           };
           store.commit("root/setCommunityBoard", CommunityDetail);
           router.push({ name: "community-board-update" });
@@ -459,7 +465,11 @@ export default {
     };
 
     const RegisterComment = function(id) {
-      if(comment.input == null || comment.input==""){
+      if(comment.input == null ||
+        comment.input=="" ||
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined){
         createToast("댓글 내용을 적어주세요 😱💦", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -489,7 +499,7 @@ export default {
             comment: comment.input
           })
           .then(function(result) {
-            console.log(result)
+            console.log(result);
             createToast("댓글이 등록되었어요 💨💨", {
               hideProgressBar: "true",
               timeout: 4500,
@@ -556,8 +566,6 @@ export default {
           console.log(err);
         });
     };
-
-
 
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {

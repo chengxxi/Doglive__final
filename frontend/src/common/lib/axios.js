@@ -4,8 +4,8 @@ import axios from 'axios'
 import store from './store'
 import { createToast } from 'mosha-vue-toastify'
 
-const BASE_URL = '/api/v1'
-const DEFAULT_ACCEPT_TYPE = 'application/json'
+const BASE_URL = "/api/v1";
+const DEFAULT_ACCEPT_TYPE = "application/json";
 
 axios.defaults.baseURL = BASE_URL
 axios.defaults.headers['Content-Type'] = DEFAULT_ACCEPT_TYPE
@@ -62,4 +62,4 @@ axios.interceptors.response.use((response) => response, (error) => {
   throw error;
 });
 
-export default { VueAxios, axios }
+export default { VueAxios, axios };

@@ -11,7 +11,7 @@
               description="북마크한 글이 없다개 💨"
             ></el-empty>
           </el-row>
-          <el-row v-if="state.tableData.length != 0">
+          <el-row v-if="state.tableData.length != 0" style="margin-bottom : 200px;">
             <bookmark-card :card="state.tableData"></bookmark-card>
           </el-row> 
         </div>
