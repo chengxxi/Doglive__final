@@ -635,7 +635,7 @@ export default {
           dogName: this.ruleForm.name,
           gender: this.ruleForm.gender,
           desc: this.ruleForm.desc,
-          neutralization: this.rulefRom.neutralization
+          neutralization: this.ruleForm.neutralization
         };
         this.$refs[formName].validate(valid => {
           if (valid) {

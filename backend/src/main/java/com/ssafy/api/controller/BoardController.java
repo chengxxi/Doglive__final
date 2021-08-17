@@ -110,8 +110,6 @@ public class BoardController {
 
         Page<DogInformation> resultFilterList = boardService.filterFindBoardList(pageable, boardType, sido, color, dogType, searchWord.replace(" ", ""));
         return ResponseEntity.ok(BoardDetailListGetRes.of(200, "Success", resultFilterList));
-
-
     }
 
 

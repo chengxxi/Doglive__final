@@ -80,6 +80,17 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public Page<DogInformation> filterBoardList(Pageable pageable, Long boardType, Long weight, Long age, Long gender, String searchWord) {
 
+
+        if(boardType==null&&weight==null&&age==null&&gender==null&&(searchWord==null||searchWord.equals(""))){
+            Specification<DogInformation> spec = Specification.where( DogInformationSpecification.inType(
+                    boardCategoryRepository.findById(Long.parseLong("1")).get(),
+                    boardCategoryRepository.findById(Long.parseLong("2")).get()));
+
+            return dogInformationRepository.
+                    findAll(
+                            spec,
+                            pageable);
+        }
         Specification<DogInformation> spec = Specification.where(DogInformationSpecification.likeDogName(searchWord));
         spec = spec.or(DogInformationSpecification.likeTitle(searchWord));
 
@@ -115,14 +126,28 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public Page<DogInformation> filterFindBoardList(Pageable pageable, Long boardType, Long sido, Long color, Long dogType, String searchWord) {
 
+        if(boardType==null&&sido==null&&color==null&&dogType==null&&(searchWord==null||searchWord.equals(""))){
+            Specification<DogInformation> spec = Specification.where( DogInformationSpecification.inType(
+                    boardCategoryRepository.findById(Long.parseLong("3")).get(),
+                    boardCategoryRepository.findById(Long.parseLong("4")).get()));
 
+            return dogInformationRepository.
+                    findAll(
+                            spec,
+                            pageable);
+        }
         Specification<DogInformation> spec = Specification.where(DogInformationSpecification.likeAddress(searchWord));
         spec = spec.or(DogInformationSpecification.likeSido(searchWord));
         spec = spec.or(DogInformationSpecification.likeGugun(searchWord));
         spec = spec.or(DogInformationSpecification.likeDogType(searchWord));
 
         //품종종, 상세주소 색
-
+        if(searchWord!=null){
+            spec = spec.and(DogInformationSpecification.likeAddress(searchWord));
+            spec = spec.or(DogInformationSpecification.likeSido(searchWord));
+            spec = spec.or(DogInformationSpecification.likeGugun(searchWord));
+            spec = spec.or(DogInformationSpecification.likeDogType(searchWord));
+        }
         if(color!=null){
             spec = spec.and(DogInformationSpecification.eqColor(codeRepository.findById(color).get()));
         }
@@ -134,7 +159,7 @@ public class BoardServiceImpl implements  BoardService{
         }
         if(boardType!=null){
             spec = spec.and(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(boardType).get()));
-        }else{
+        }if(boardType==null){
 
             spec = spec.and( DogInformationSpecification.inType(
                     boardCategoryRepository.findById(Long.parseLong("3")).get(),
