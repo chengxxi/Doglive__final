@@ -21,11 +21,10 @@
         </div>
 
         <div class="my-3 fs--1">
-          <div style="padding-top:10px; margin-left:10px; margin-right:10px;">
-            <p
-              class="mb-0 fw-bold"
-              style="font-size:18pt; font-weight:700; float: right;"
-            >
+          <div
+            style="padding-top:10px; margin-left:10px; margin-right:10px; text-align:right;"
+          >
+            <p class="mb-0 fw-bold" style="font-size:26pt; font-weight:700;">
               {{ card.name }}
             </p>
             <p class=" mb-0" style="font-size:11pt;">

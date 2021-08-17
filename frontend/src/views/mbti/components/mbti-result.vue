@@ -1,26 +1,34 @@
 <template>
-  <div>
+  <div class="mbtibox">
     <div class="box">
-      <h3 class="description">
-        🐕 강아지 MBTI란? 🐾
-      </h3>
-      <br />
+      <h3 class="description"></h3>
+      <!-- <br /> -->
       <p>'독립'이 만든 강아지 성향 MBTI</p>
       <!-- 상세 소개 내용 수정 필요 -->
     </div>
 
     <span v-for="(card, idx) in state.MbtiList" :key="idx">
       <el-col :span="6">
-        <MbtiCard :card="card" @click="readDetail(card.id)" />
+        <MbtiCard
+          style="cursor:pointer;"
+          :card="card"
+          @click="readDetail(card.id)"
+        />
       </el-col>
     </span>
   </div>
 </template>
 
 <style scoped>
+:deep(.el-container) {
+  padding-bottom: 50px !important;
+}
+.mbtibox {
+  padding-bottom: 50px !important;
+}
 .box {
   margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 80px;
   margin-left: 50px;
   margin-right: 50px;
   padding: 40px;
@@ -101,8 +109,7 @@ export default {
       // readDetail();
       readMbtiList();
       window.scrollTo(0, 0);
-    })
-
+    });
 
     return { state, readDetail, readMbtiList };
   }
