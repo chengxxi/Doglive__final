@@ -1,6 +1,5 @@
 <template>
   <div class="row h-100 justify-content-center pt-3 mbtiCard">
-
     <div class="card h-100 hover-top rounded-3 shadow">
       <div class="my-3 fs--1">
         <div style="padding-top:10px; margin-left:10px; margin-right:10px;">
@@ -21,21 +20,45 @@
 
 
       <div class="card-body">
-        <hr class="text-100" />
+        <el-tag
+          class="mb-2"
+          effect="dark"
+          size="small"
+          style="height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;"
+        >
+          {{ card.name }}
+        </el-tag>
+        <div class="mt-5"></div>
 
         <div class="d-flex align-items-center">
           <img
-            style="width:100%; margin-left:5px margin-right:5px"
+            style="max-width:95%; height:auto; margin-left:5px margin-right:5px"
             :src="card.imageUrl"
             :alt="card.name"
           />
         </div>
       </div>
 
+<<<<<<< HEAD
 
+=======
+        <div class="my-3 fs--1">
+          <div style="padding-top:10px; margin-left:10px; margin-right:10px;">
+            <p
+              class="mb-0 fw-bold"
+              style="font-size:18pt; font-weight:700; float: right;"
+            >
+              {{ card.name }}
+            </p>
+            <p class=" mb-0" style="font-size:11pt;">
+              {{ card.title }}
+            </p>
+          </div>
+        </div>
+      </div>
+>>>>>>> 3418bfe028f15af08aa7733786e357dd2f8ed533
     </div>
   </div>
-
 
   <!-- <el-card
     shadow="hover"
@@ -56,7 +79,6 @@
     </el-row>
 
   </el-card> -->
-
 </template>
 
 <style scoped>
@@ -91,18 +113,15 @@ el-col {
 .el-card:hover {
   box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.25);
 }
-
 </style>
 
-
-
 <script>
-import MbtiDetail from './mbti-detail.vue'
+import MbtiDetail from "./mbti-detail.vue";
 
 export default {
-  name: 'MbtiCard',
+  name: "MbtiCard",
   components: {
-    MbtiDetail,
+    MbtiDetail
   },
   props: {
     card: Object
@@ -113,11 +132,7 @@ export default {
       // title: this.title,
       // desc: this.desc,
       // image_url: this.image_url,
-
     };
   }
-
-
-
-}
+};
 </script>
