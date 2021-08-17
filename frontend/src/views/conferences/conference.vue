@@ -6,7 +6,7 @@
           <img
             class="dog-thumbnail"
             :src="require('@/assets/images/mbti_isfp.png')"
-            style="max-width: 100%; height:auto;"
+            style="max-width: 60%;"
           />
         </el-col>
         <el-col :span="14">
@@ -111,7 +111,7 @@ video {
 }
 .con-join-wrapper {
   width: auto;
-  height: auto;
+  height: 500px;
   margin: auto;
   border-radius: 5px;
   text-align: center;
