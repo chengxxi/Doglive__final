@@ -113,6 +113,7 @@
             class="comment-button"
             icon="el-icon-s-promotion"
             @click="RegisterComment(item.id)"
+             @keyup.enter="RegisterComment(item.id)"
           ></el-button>
           <div
             v-for="(i, index) in state.reverseList"

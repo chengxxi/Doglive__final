@@ -1,6 +1,7 @@
 package com.ssafy.db.repository.auth;
 
 import com.ssafy.db.entity.auth.User;
+import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.auth.UserToken;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,4 +16,8 @@ import java.util.Optional;
 public interface UserTokenRepository extends JpaRepository<UserToken, Long> {
 
     Optional<UserToken> findByUserId(User userId);
+
+    Optional<UserProfile> findUserProfilesById(User userId);
+
+
 }

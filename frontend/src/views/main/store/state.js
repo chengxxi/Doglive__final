@@ -6,7 +6,7 @@ export default {
   },
 
   userProfile: {
-    imageURL: "",
+    profileImageUrl: "",
     name: "",
     email: "",
     birth: "",

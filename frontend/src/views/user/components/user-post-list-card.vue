@@ -48,7 +48,7 @@
           <el-row
             style="margin-top:1%; display:flex; display: flex; justify-content: center;"
           >
-            <img src="https://placedog.net/500/500?random" class="image" />
+            <img :src="o.thumbnailUrl" class="image" style="max-height:200px;"/>
           </el-row>
           <el-row
             style="margin-top:3%; margin-right:2.5%; margin-left:2.5%; vertical-align: middle;"
