@@ -194,7 +194,7 @@
           class="pt-3 pb-3"
           style="font-weight:600; padding-left:20px; margin-right:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
         >
-          🐶🔎 혹시 저는 아닐까요❔
+          저랑 잘 맞으실 것 같아요😘🐶
         </h5>
         <!-- 유사공고 -->
         <div v-if="state.MbtiDetail.matchedBoardList != null">
@@ -255,6 +255,54 @@ export default {
       })
     });
 
+    const readDetail = function(id) {
+      console.log("read");
+      var checkId = state.userId;
+      if (checkId === undefined || checkId === null || checkId == "") {
+        checkId = "none";
+      }
+
+      store
+        .dispatch("root/requestBoardDetail", {
+          boardId: id,
+          userId: checkId
+        })
+        .then(function(result) {
+          console.log(result);
+
+          const boardDetail = {
+            boardId: result.data.dogInformation.boardId.id,
+            boardType: result.data.dogInformation.boardId.type,
+            thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+            title: result.data.dogInformation.boardId.title,
+            address: result.data.dogInformation.address,
+            mbti: result.data.dogInformation.mbti,
+            colorType: result.data.dogInformation.colorType,
+            gender: result.data.dogInformation.gender,
+            dogType: result.data.dogInformation.dogType,
+            neutralization: result.data.dogInformation.neutralization,
+            writer: result.data.writer,
+            weight: result.data.dogInformation.weight,
+            ageType: result.data.dogInformation.age,
+            regDate: result.data.dogInformation.boardId.regDate,
+            fileList: result.data.boardImageList,
+            isOwner: result.data.owner,
+            gugun: result.data.dogInformation.gugun,
+            sido: result.data.dogInformation.gugun.sidoCode,
+            description: result.data.dogInformation.description,
+            dogName: result.data.dogInformation.dogName,
+            isBookmarked: result.data.bookmarked
+          };
+
+          store.commit("root/setBoardDetail", boardDetail);
+          router.push({ name: "AdoptDetail" });
+        })
+        .catch(function(err) {
+          console.log(state.userId);
+          console.log(err);
+        });
+    };
+
     onMounted(() => {
       console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
@@ -266,7 +314,7 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state };
+    return { state, readDetail };
   }
 };
 </script>

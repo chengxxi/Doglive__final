@@ -9,9 +9,6 @@
             <div class="logo" @click="clickLogo"></div>
           </li>
           <li>
-            <a href="/" @mouseover="changeDisplay('over')">독립</a>
-          </li>
-          <li>
             <a href="/adopt" @mouseover="changeDisplay('over')">입양/임보</a>
           </li>
 
