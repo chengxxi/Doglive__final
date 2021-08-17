@@ -374,32 +374,49 @@ export default {
     };
 
     const doDelete = function(id) {
-      store
-        .dispatch("root/requestDeleteBoard", id)
-        .then(function(result) {
-          createToast("공고가 삭제되었어요 💨💨", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "success"
-          });
-          router.push({ name: "Adopt" });
-        })
-        .catch(function(err) {
-          createToast("공고 삭제에 실패했어요 😱💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "warning"
-          });
-          console.log(err);
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
         });
+        router.push({ name: "Login" });
+      } else {
+        store
+          .dispatch("root/requestDeleteBoard", id)
+          .then(function(result) {
+            createToast("공고가 삭제되었어요 💨💨", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#7eaa72",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "success"
+            });
+            router.push({ name: "Adopt" });
+          })
+          .catch(function(err) {
+            createToast("공고 삭제에 실패했어요 😱💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            });
+            console.log(err);
+          });
+      }
     };
 
     const kakaoShare = function() {
