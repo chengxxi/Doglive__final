@@ -1,31 +1,30 @@
 <template>
-  <div class="main-body main-padding">
-    <div style="width:100%; ">
-      <!-- <bread-crumb></bread-crumb> -->
-      <div class="box-card " style="width:100%; border:none;">
-        <div class="container-lg ">
-          <div v-if="state.index == 0">
-            <div class="row flex-center" style="margin-top:10%;">
-              <div class="col-auto text-center">
-                <h5 class="fw-bold">16 Pupsonality</h5>
-                <h1 class="fw-bold" style="font-size:60pt; ">
+  <div class='main-body main-padding'>
+    <div style='width:100%; '>
+      <div class='box-card ' style='width:100%; border:none;'>
+        <div class='container-lg '>
+          <div v-if='state.index == 0'>
+            <div class='row flex-center' style='margin-top:10%;'>
+              <div class='col-auto text-center'>
+                <h5 class='fw-bold'>16 Pupsonality</h5>
+                <h1 class='fw-bold' style='font-size:60pt; '>
                   MPTI
                 </h1>
-                <h4 class="fw-bold">My Puppy Type Indicator</h4>
-                <hr class="mx-auto text-dark" style="height:2px;width:50px" />
-                <p class="mb-3">
+                <h4 class='fw-bold'>My Puppy Type Indicator</h4>
+                <hr class='mx-auto text-dark' style='height:2px;width:50px' />
+                <p class='mb-3'>
                   당신과 찰떡💛궁합 반려견🐶은 어떤 성향일까요❔ <br />
                   테스트 할 준비가 되셨나요?
                 </p>
               </div>
             </div>
-            <div class="row h-100 justify-content-center pt-1">
-              <div class="col-12 col-sm-9 col-md-4 mt-2">
-                <div class="text-center pt-2 z-index-2">
+            <div class='row h-100 justify-content-center pt-1'>
+              <div class='col-12 col-sm-9 col-md-4 mt-2'>
+                <div class='text-center pt-2 z-index-2'>
                   <el-button
-                    type="primary"
-                    @click="nextPage"
-                    class="btn btn-lg btn-primary rounded-pill hover-top"
+                    type='primary'
+                    @click='nextPage'
+                    class='btn btn-lg btn-primary rounded-pill hover-top'
                     >테스트 시작하기</el-button
                   >
                 </div>
@@ -33,28 +32,28 @@
             </div>
           </div>
 
-          <div v-if="state.index >= 1 && state.index <= 20">
-            <div class="row flex-center" style="margin-top:12%;">
-              <div class="col-auto text-center">
-                <h3 class="fw-bold">{{ state.question[state.index - 1] }}</h3>
-                <p class="mb-3">
+          <div v-if='state.index >= 1 && state.index <= 20'>
+            <div class='row flex-center' style='margin-top:12%;'>
+              <div class='col-auto text-center'>
+                <h3 class='fw-bold'>{{ state.question[state.index - 1] }}</h3>
+                <p class='mb-3'>
                   제가 마음에 드는 만큼 막대⚪를 이동시켜주세요
                 </p>
               </div>
             </div>
-            <div class="row h-100 justify-content-center pt-5">
+            <div class='row h-100 justify-content-center pt-5'>
               <img
-                style="width:150px;cursor:pointer; margin-left:10p; margin-right:10px;"
-                src="https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_233837503.png
-"
+                style='width:150px;cursor:pointer; margin-left:10p; margin-right:10px;'
+                src='https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_233837503.png
+'
               />
 
-              <div class="col">
-                <div class="block" style="padding-top:4%;">
+              <div class='col'>
+                <div class='block' style='padding-top:4%;'>
                   <el-slider
-                    v-model="state.score"
-                    :step="20"
-                    show-tooltip="false"
+                    v-model='state.score'
+                    :step='20'
+                    show-tooltip='false'
                     show-stops
                   >
                   </el-slider>
@@ -62,65 +61,65 @@
               </div>
 
               <img
-                style="width:150px;cursor:pointer; margin-left:10p; margin-right:10px;"
-                src="https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_233822105.png"
+                style='width:150px;cursor:pointer; margin-left:10p; margin-right:10px;'
+                src='https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_233822105.png'
               />
             </div>
             <div
-              class="row h-100 justify-content-center"
-              style="padding-top:10px;"
+              class='row h-100 justify-content-center'
+              style='padding-top:10px;'
             >
-              <div class="text-center pt-2 z-index-2  mt-2">
+              <div class='text-center pt-2 z-index-2  mt-2'>
                 <el-button
-                  min="1"
-                  max="101"
-                  type="primary"
-                  @click="nextPage"
-                  class="btn btn-lg btn-primary rounded-pill hover-top"
+                  min='1'
+                  max='101'
+                  type='primary'
+                  @click='nextPage'
+                  class='btn btn-lg btn-primary rounded-pill hover-top'
                   >다음</el-button
                 >
               </div>
-              <div class="col-auto text-center mt-2">
+              <div class='col-auto text-center mt-2'>
                 {{ state.index }} / 20
                 <!-- <el-progress
-                  :percentage="state.index * 5"
-                  :color="state.colors"
+                  :percentage='state.index * 5'
+                  :color='state.colors'
                 ></el-progress> -->
-                <p style="font-size:11pt;" v-if="state.index == 10">
+                <p style='font-size:11pt;' v-if='state.index == 10'>
                   📢이제 절반 왔다개❕❗
                 </p>
                 <p
-                  style="font-size:11pt;"
-                  v-if="state.index >= 16 && state.index <= 19"
+                  style='font-size:11pt;'
+                  v-if='state.index >= 16 && state.index <= 19'
                 >
                   얼마 안남았다개❕❗
                 </p>
-                <p style="font-size:11pt;" v-if="state.index == 20">
+                <p style='font-size:11pt;' v-if='state.index == 20'>
                   한 문제 남았다개🥰
                 </p>
               </div>
             </div>
           </div>
 
-          <div v-if="state.index > 20">
-            <div class="row flex-center" style="margin-top:12%;">
-              <div class="col-auto text-center">
-                <h1 class="fw-bold">테스트가 끝났다개🐶</h1>
+          <div v-if='state.index > 20'>
+            <div class='row flex-center' style='margin-top:12%;'>
+              <div class='col-auto text-center'>
+                <h1 class='fw-bold'>테스트가 끝났다개🐶</h1>
 
-                <hr class="mx-auto text-dark" style="height:2px;width:50px" />
-                <p class="mb-3">
+                <hr class='mx-auto text-dark' style='height:2px;width:50px' />
+                <p class='mb-3'>
                   🤍두근두근🤍 <br />
                   당신의 강아지를 만나러 갈 준비 되셨나요?
                 </p>
               </div>
             </div>
-            <div class="row h-100 justify-content-center pt-3 ">
-              <div class="col-12 col-sm-9 col-md-4 mt-4">
-                <div class="text-center pt-2 z-index-2">
+            <div class='row h-100 justify-content-center pt-3 '>
+              <div class='col-12 col-sm-9 col-md-4 mt-4'>
+                <div class='text-center pt-2 z-index-2'>
                   <el-button
-                    type="primary"
-                    @click="goResult"
-                    class="btn btn-lg btn-primary rounded-pill hover-top"
+                    type='primary'
+                    @click='goResult'
+                    class='btn btn-lg btn-primary rounded-pill hover-top'
                     >결과보기 💌</el-button
                   >
                 </div>
@@ -134,19 +133,16 @@
 </template>
 
 <script>
-import MbtiDescription from "./mbti-description.vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
-import { computed, reactive, onMounted } from "vue";
-import { createToast } from "mosha-vue-toastify";
-import "mosha-vue-toastify/dist/style.css";
+import MbtiDescription from './mbti-description.vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import BreadCrumb from '@/views/adopt/components/bread-crumb.vue';
+import { computed, reactive, onMounted } from 'vue';
 
 export default {
-  name: "mbti-test",
+  name: 'mbti-test',
   components: {
     MbtiDescription,
-    BreadCrumb
   },
   setup() {
     const store = new useStore();
@@ -157,31 +153,31 @@ export default {
       isLoading: computed(() => state.score),
       index: 0,
       question: [
-        "나는 잘 때를 제외하고 가만히 있는 것을 참지 못해요🤸‍♂️🤸‍♀️",
-        "혼날 때, 한껏 주눅들어 있어요😥",
-        "저는 애견카페에서 다른 강아지랑 노는 것보다 단둘이 산책🌿🌳하는게 좋아요!",
-        "다른 강아지들과 어울리는 데 시간이 좀 걸려요👀",
-        "우리 집에 손님이 왔을 때, 나는 무척 신나요🎉",
-        "나는 이 세상에서 반려인만 있으면 돼요💞 ",
-        "저는 애정표현💘에 매우 적극적이에요! 🥰😘",
-        "모르는 사람과 같이 있는 시간은 견디기 힘들어요..😓💦",
-        "에너지가 넘쳐서 집에 들어가기 싫어요 산책 한 바퀴 더 돌아요🦮",
-        "교육받을 때, 간식이 없으면 나🐶를 교육하기 힘들거에요❗ ",
-        "우리 집에 강아지는 💛나 혼자🤍였으면 좋겠어요!",
-        "낯선 장난감🏈은 천천히 알아보고 싶어요.",
+        '나는 잘 때를 제외하고 가만히 있는 것을 참지 못해요🤸‍♂️🤸‍♀️',
+        '혼날 때, 한껏 주눅들어 있어요😥',
+        '저는 애견카페에서 다른 강아지랑 노는 것보다 단둘이 산책🌿🌳하는게 좋아요!',
+        '다른 강아지들과 어울리는 데 시간이 좀 걸려요👀',
+        '우리 집에 손님이 왔을 때, 나는 무척 신나요🎉',
+        '나는 이 세상에서 반려인만 있으면 돼요💞 ',
+        '저는 애정표현💘에 매우 적극적이에요! 🥰😘',
+        '모르는 사람과 같이 있는 시간은 견디기 힘들어요..😓💦',
+        '에너지가 넘쳐서 집에 들어가기 싫어요 산책 한 바퀴 더 돌아요🦮',
+        '교육받을 때, 간식이 없으면 나🐶를 교육하기 힘들거에요❗ ',
+        '우리 집에 강아지는 💛나 혼자🤍였으면 좋겠어요!',
+        '낯선 장난감🏈은 천천히 알아보고 싶어요.',
 
-        "반려인이 누워있을 때, 같이 누워있어요🛏",
-        "반려인이 바빠도, 내가 심심하면 놀아줘야해요😝",
-        "자는 공간은 분리되었으면 좋겠어요 🙄",
+        '반려인이 누워있을 때, 같이 누워있어요🛏',
+        '반려인이 바빠도, 내가 심심하면 놀아줘야해요😝',
+        '자는 공간은 분리되었으면 좋겠어요 🙄',
 
-        "나는야 우리 동네 최고 인싸 강아지!🐕‍🦺✨ 친화력이 좋아요.",
-        "쉽게 흥분하는 일은 거의 없어요🙂🧘‍♂️",
+        '나는야 우리 동네 최고 인싸 강아지!🐕‍🦺✨ 친화력이 좋아요.',
+        '쉽게 흥분하는 일은 거의 없어요🙂🧘‍♂️',
 
-        "내가 원하는 것을 얻기 위해 때로는 불쌍한 척🥺을 해요.",
+        '내가 원하는 것을 얻기 위해 때로는 불쌍한 척🥺을 해요.',
 
-        "저만의 영역🏠을 존중해주면 좋겠어요!",
+        '저만의 영역🏠을 존중해주면 좋겠어요!',
 
-        "처음 가 보는 익숙하지 않은 장소🌎도 두렵지 않아요."
+        '처음 가 보는 익숙하지 않은 장소🌎도 두렵지 않아요.'
       ],
       answer: []
     });
@@ -252,34 +248,24 @@ export default {
 
       console.log(result);
       store
-        .dispatch("root/requestMBTIResult", result)
+        .dispatch('root/requestMBTIResult', result)
         .then(function(result) {
           console.log(result);
-          store.commit("root/setMbtiDetail", result.data.mbti);
+          store.commit('root/setMbtiDetail', result.data.mbti);
 
-          // createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
-          //   hideProgressBar: "true",
-          //   timeout: 4500,
-          //   showIcon: "true",
-          //   toastBackgroundColor: "#c49d83",
-          //   position: "bottom-right",
-          //   transition: "bounce",
-          //   type: "warning"
-          // });
-          //router.push({ name: "Main" });
-          router.push({ name: "MbtiDetail" });
+          router.push({ name: 'MbtiDetail' });
         })
         .catch(function(err) {
           console.log(err);
         });
     };
     onMounted(() => {
-      console.log("breadcrumb");
-      store.commit("root/setBreadcrumbInfo", {
+      console.log('breadcrumb');
+      store.commit('root/setBreadcrumbInfo', {
         isHome: false,
-        title: "MPTI",
-        path: "/mbti",
-        subTitle: "16Pupsonality MPTI"
+        title: 'MPTI',
+        path: '/mbti',
+        subTitle: '16Pupsonality MPTI'
       });
       window.scrollTo(0, 0);
       state.index = 0;
@@ -291,7 +277,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../../common/css/main-content.css";
+@import '../../../common/css/main-content.css';
 
 /* 페이지 만들 때, 이 구조가 기준이 됩니다! (양옆 여백 10%, 위 여백 50px) */
 .main-body {

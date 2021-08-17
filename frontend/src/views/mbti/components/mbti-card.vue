@@ -93,7 +93,7 @@ el-col {
 </style>
 
 <script>
-import MbtiDetail from ''./mbti-detail.vue';
+import MbtiDetail from './mbti-detail.vue'
 
 export default {
   name: 'MbtiCard',
