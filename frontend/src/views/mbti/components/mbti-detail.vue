@@ -204,7 +204,7 @@
           class="pt-3 pb-3"
           style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
         >
-          🐶🔎 혹시 저는 아닐까요❔
+          저랑 잘 맞으실 것 같아요😘🐶
         </h5>
         <!-- 유사공고 -->
         <div v-if="state.MbtiDetail.matchedBoardList != null">
