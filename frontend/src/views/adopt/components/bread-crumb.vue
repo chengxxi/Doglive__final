@@ -1,16 +1,12 @@
 <template>
-  <div>
+  <div style="height:18px">
     <main class="content">
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/' }"
-          ><font-awesome-icon :icon="['fas', 'home']"
-        /></el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: state.breadCrumbInfo.path }">{{
-          state.breadCrumbInfo.title
-        }}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/' }">{{
-          state.breadCrumbInfo.subTitle
-        }}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/' }">
+          <font-awesome-icon :icon="['fas', 'home']"/>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: state.breadCrumbInfo.path }"> {{ state.breadCrumbInfo.title }}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/' }">{{ state.breadCrumbInfo.subTitle }}</el-breadcrumb-item>
       </el-breadcrumb>
     </main>
   </div>
