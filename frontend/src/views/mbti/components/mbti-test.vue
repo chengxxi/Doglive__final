@@ -1,52 +1,69 @@
 <template>
-  <div class="main-body main-padding">
-    <div class="box-card " style="width:100%; border:none;">
-      <div style="margin-top:50px">
-        <h1 class="title">나와 맞는 강아지 찾기: test page</h1>
-        <p>강아지 성향 기반 MBTI를 통한 나와 맞는 성향의 강아지 찾기</p>
-        <!-- 상세 문구 수정 필요 -->
-
+    <div class="mypage-body">
+      <div class="hide-on-small">
+        <div class="menu-title">
+          <h5>신청자 목록 보기</h5>
+        </div>
+        <div class="mypage-content">
+          <applicant-item :applicant="state.Applicant"></applicant-item>
+        </div>
       </div>
-
-      <MbtiDescription />
-      <MbtiQuestion />
-
-
     </div>
-  </div>
 </template>
 
-
-<style>
-/* 페이지 만들 때, 이 구조가 기준이 됩니다! (양옆 여백 10%, 위 여백 50px) */
-.main-body {
-  width: 100%;
-  margin-left: 10%;
-  margin-right: 10%;
+<style scoped>
+.mypage-body{
+  float: left;
+  width: calc(100% - 240px);
+  height: 100%;
 }
-.main-padding {
-  padding-top: 50px;
+/* .mypage-body .menu-title{
+  width: inherit;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px rgb(212, 212, 212);
+} */
+.mypage-body .menu-title {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px rgb(212, 212, 212);
 }
-
-.title {
-  font-size: 2.5rem;
-  font-weight: normal;
+.mypage-body .mypage-content {
+  padding-top: 40px;
+  text-align: center;
+  margin: 0 auto;
 }
-
-
 </style>
 
-
-
 <script>
-import MbtiDescription from './mbti-description.vue'
-import MbtiQuestion from './mbti-question.vue'
+import { computed, reactive, onMounted } from 'vue';
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router';
+import ApplicantItem from './user-applicant-item.vue';
 
 export default {
-  name: 'mbti-test',
-  components: {
-    MbtiDescription,
-    MbtiQuestion,
+  name: 'user-applicant-list',
+  components:{
+    ApplicantItem,
   },
+
+  setup () {
+    const store = new useStore()
+    const router = new useRouter()
+    const state = reactive({
+      Applicant : [],
+    })
+    const userId = store.getters['root/getLoginUserInfo'].userId;
+
+    store.dispatch('root/requestApplicant', userId)
+      .then(function(result){
+        state.Applicant = result.data.counselingHistoryList;
+      }).catch(function(err){
+        console.log(err)
+      });
+
+    return { state }
+  }
 }
 </script>
