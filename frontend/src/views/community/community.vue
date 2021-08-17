@@ -3,10 +3,7 @@
     <div style="border:none; width:100%;">
       <div>
         <bread-crumb></bread-crumb>
-        <div class="title" style="margin-top:3%;">
-          <h2>독립신문</h2>
-        </div>   
-        
+
         <el-card
           class="box-card "
           style="width:100%;border:none; margin-left:1%; margin-right:1%;"
@@ -34,8 +31,6 @@
   font-size: 2.5rem;
   font-weight: normal;
 }
-
-
 </style>
 
 <script>
@@ -63,8 +58,6 @@ export default {
         return store.getters["root/getLoginUserInfo"].userId;
       })
     });
-
-    
 
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {

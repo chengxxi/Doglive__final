@@ -205,8 +205,8 @@ export default {
           { required: true, message: "제목을 입력해주세요.", trigger: "blur" },
           {
             min: 3,
-            max: 20,
-            message: "3글자 이상, 20글자 이하로 입력해주세요.",
+            max: 25,
+            message: "3글자 이상, 25글자 이하로 입력해주세요.",
             trigger: "change"
           }
         ],
