@@ -321,7 +321,6 @@ public class BoardServiceImpl implements  BoardService{
         if(boardRegisterPostReq.getFileList()!=null){
             String thumbnailUrl = s3Uploader.upload(boardRegisterPostReq.getFileList().get(0), "static");
 
-            board.setTitle(boardRegisterPostReq.getTitle());
             board.setThumbnailUrl("https://"+S3Uploader.CLOUD_FRONT_DOMAIN_NAME+"/"+thumbnailUrl);
 
 
@@ -342,6 +341,7 @@ public class BoardServiceImpl implements  BoardService{
         if(boardCategory.isPresent()){
             board.setType(boardCategory.get());
         }
+        board.setTitle(boardRegisterPostReq.getTitle());
         boardRepository.save(board);
 
 
