@@ -7,6 +7,7 @@ import com.ssafy.api.response.MBTIListGetRes;
 import com.ssafy.api.response.MBTIResultPostRes;
 import com.ssafy.api.service.MBTIService;
 import com.ssafy.db.entity.board.Board;
+import com.ssafy.db.entity.board.DogInformation;
 import com.ssafy.db.entity.board.MBTI;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class MBTIController {
         MBTI mbti = mbtiService.calMbti(mbtiCalPostReq);
         if(mbti==null) return ResponseEntity.ok(MBTIResultPostRes.of(404, "Fail", null, null));
 
-        List<Board> matchedBoardList = mbtiService.getSameMbtiDogBoard(mbti.getName());
+        List<DogInformation> matchedBoardList = mbtiService.getSameMbtiDogBoard(mbti.getName());
         return ResponseEntity.ok(MBTIResultPostRes.of(200, "Success", mbti, matchedBoardList));
     }
 

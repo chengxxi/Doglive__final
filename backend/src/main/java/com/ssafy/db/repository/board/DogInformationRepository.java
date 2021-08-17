@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -54,4 +55,15 @@ public interface DogInformationRepository extends JpaRepository<DogInformation, 
             nativeQuery = true
     )
     Optional<List<DogInformation>> findRecentFindBoard();
+
+    @Query(
+            value = "SELECT * " +
+                    "FROM dog_information d " +
+                    "ORDER BY d.id DESC " +
+                    "WHERE d.mbti = :mbti " +
+                    "LIMIT 10 " +
+                    "OFFSET 0; ",
+            nativeQuery = true
+    )
+    Optional<List<DogInformation>> findSameMBTI(@Param("mbti") String mbti);
 }
