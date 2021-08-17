@@ -139,7 +139,6 @@ export default {
   }
 };
 </script>
-
 <style scoped>
 .page-item.active .page-link {
   color: #755744;
