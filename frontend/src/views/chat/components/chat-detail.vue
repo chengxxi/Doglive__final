@@ -226,7 +226,7 @@ export default {
         if (state.content.trim().length > 0) return true;
         else return false;
       }),
-      isOpenConference: false,
+      isOpenConference: true,
     });
     const chat = reactive({
       init: true,
