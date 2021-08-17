@@ -5,13 +5,11 @@
         🐕 강아지 MBTI란? 🐾
       </h3>
       <br>
-      <p>MBTI 개별 유형 설명 페이지</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium at illo molestias possimus nihil minus? Magnam dolor, voluptas minus vitae ab odio excepturi velit provident unde saepe itaque reiciendis nesciunt!</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem dolor laboriosam, neque veritatis maiores culpa quis, molestiae quisquam eius necessitatibus dolorum. Itaque esse laboriosam, similique atque tempora corrupti architecto asperiores.</p>
+      <p>'독립'이 만든 강아지 성향 MBTI</p>
       <!-- 상세 소개 내용 수정 필요 -->
     </div>
 
-    <span v-for="(idx, card) in state.MbtiList" :key="idx">
+    <span v-for="(card, idx) in state.MbtiList" :key="idx">
       <el-col :span="6">
         <MbtiCard
           :card="card"
@@ -19,19 +17,6 @@
         />
       </el-col>
     </span>
-
-<!--
-    <el-row class="mbtiBox">
-      <MbtiCard
-        v-for="(idx, card) in 16"
-        :key="idx"
-        :card="card"
-        @click="readDetail(card.boardId.id)"
-        :span="6"
-      />
-    </el-row> -->
-
-
 
   </div>
 
@@ -78,7 +63,7 @@ export default {
   //   },
   // }
   props: {
-    boardList: Array
+    mbtiList: Array
   },
   setup() {
     const store = new useStore();
@@ -89,10 +74,23 @@ export default {
     });
 
 
+
     const readDetail = function(id) {
       store.dispatch('root/requestMbtiDetail', id).then(function(result) {
         console.log('Mbti:', result);
-        store.commit('root/setMbtiDetail', result.data.mbti)
+        // console.log(result.data.mbtiList)
+
+        const data = {
+          id: result.data.mbti.id,
+          name: result.data.mbti.name,
+          title: result.data.mbti.title,
+          desc: result.data.mbti.desc,
+          imageUrl: result.data.mbti.imageUrl,
+        }
+
+        store.commit('root/setMbtiDetail', data)
+
+
         store.push({ name : 'MbtiDetail' })
       });
 
@@ -104,22 +102,21 @@ export default {
     // MBTI 읽어오기
     const readMbtiList = function() {
       store.dispatch('root/requestMbtiList').then(function(result) {
-        console.log('Mbti:', result);
+        console.log('MBTI:', result);
+        // console.log(result.data.mbtiList)
+
         state.MbtiList = result.data.mbtiList
+
       });
     };
 
     onMounted(() => {
+      // readDetail();
       readMbtiList();
     })
 
 
-
     return { state, readDetail, readMbtiList, };
   }
-
-
-
-
 }
 </script>

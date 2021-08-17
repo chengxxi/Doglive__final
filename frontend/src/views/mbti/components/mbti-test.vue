@@ -74,7 +74,6 @@
                 <el-button
                   min="1"
                   max="101"
-                  :disabled="state.score == 0"
                   type="primary"
                   @click="nextPage"
                   class="btn btn-lg btn-primary rounded-pill hover-top"
@@ -87,11 +86,17 @@
                   :percentage="state.index * 5"
                   :color="state.colors"
                 ></el-progress> -->
+                <p style="font-size:11pt;" v-if="state.index == 10">
+                  📢이제 절반 왔다개❕❗
+                </p>
                 <p
                   style="font-size:11pt;"
-                  v-if="state.index >= 16 && state.index <= 20"
+                  v-if="state.index >= 16 && state.index <= 19"
                 >
                   얼마 안남았다개❕❗
+                </p>
+                <p style="font-size:11pt;" v-if="state.index == 20">
+                  한 문제 남았다개🥰
                 </p>
               </div>
             </div>
@@ -243,30 +248,30 @@ export default {
             result.scoreP += 101 - state.answer[i];
           }
         }
-
-        console.log(result);
-        store
-          .dispatch("root/requestMBTIResult", result)
-          .then(function(result) {
-            console.log(result);
-            store.commit("root/setMbtiDetail", result.data.mbti);
-
-            createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
-              hideProgressBar: "true",
-              timeout: 4500,
-              showIcon: "true",
-              toastBackgroundColor: "#c49d83",
-              position: "bottom-right",
-              transition: "bounce",
-              type: "warning"
-            });
-            router.push({ name: "Main" });
-            // router.push({ name: "MbtiDetail" });
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
       }
+
+      console.log(result);
+      store
+        .dispatch("root/requestMBTIResult", result)
+        .then(function(result) {
+          console.log(result);
+          store.commit("root/setMbtiDetail", result.data.mbti);
+
+          // createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
+          //   hideProgressBar: "true",
+          //   timeout: 4500,
+          //   showIcon: "true",
+          //   toastBackgroundColor: "#c49d83",
+          //   position: "bottom-right",
+          //   transition: "bounce",
+          //   type: "warning"
+          // });
+          //router.push({ name: "Main" });
+          router.push({ name: "MbtiDetail" });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     };
     onMounted(() => {
       console.log("breadcrumb");
@@ -294,13 +299,22 @@ export default {
   margin-left: 10%;
   margin-right: 10%;
 }
-.main-padding {
-  padding-top: 50px;
+/* .mypage-body .menu-title{
+  width: inherit;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px rgb(212, 212, 212);
+} */
+.mypage-body .menu-title {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px rgb(212, 212, 212);
 }
-
-.title {
-  font-size: 2.5rem;
-  font-weight: normal;
+.mypage-body .mypage-content {
+  padding-top: 40px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 :deep(.el-slider__button) {

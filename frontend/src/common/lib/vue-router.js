@@ -195,6 +195,39 @@ const routes = [
   },
 
   {
+    path: "/community",
+    redirect: "/community/list",
+    name: "Community",
+    component: Community,
+    children: [
+      {
+        path: "list",
+        name: "community-board-list",
+        component: () =>
+          import("@/views/community/components/community-board-list.vue")
+      },
+      {
+        path: "register",
+        name: "community-board-register",
+        component: () =>
+          import("@/views/community/components/community-board-register.vue")
+      },
+      {
+        path: "update",
+        name: "community-board-update",
+        component: () =>
+          import("@/views/community/components/community-board-update.vue")
+      },
+      {
+        path: "mycommunity",
+        name: "community-mycommunity",
+        component: () =>
+          import("@/views/community/components/community-mycommunity.vue")
+      }
+    ]
+  },
+
+  {
     path: "/mbti", // introduction page
     name: "MBTI",
     component: MBTI

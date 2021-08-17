@@ -85,6 +85,20 @@ export default {
     fromChat: false
   },
 
+  adoptForm: {
+    formId: "",
+    roomId: ""
+  },
+
+  conference: {
+    roomId: "",
+    title: "",
+    thumbnailUrl: "",
+    writer: "", // 글 작성자
+    reader: "", // 신청자
+    fromChat: false
+  },
+
   mbti: {
     id: "",
     name: "",
