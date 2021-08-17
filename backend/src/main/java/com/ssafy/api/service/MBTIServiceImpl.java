@@ -75,22 +75,26 @@ public class MBTIServiceImpl implements MBTIService{
 
 
     @Override
-    public List<Board> getSameMbtiDogBoard(String mbti) {
-        List<Board> boardList = new ArrayList<>();
+    public List<DogInformation> getSameMbtiDogBoardByName(String mbti) {
 
-        Optional<List<DogInformation>> dogInformations = dogInformationRepository.findDogInformationsByMbti(mbti);
+        Optional<List<DogInformation>> dogInformations = dogInformationRepository.findTop10ByMbtiOrderByIdDesc(mbti);
         if (dogInformations.isPresent()){
-            for (DogInformation dog : dogInformations.get()){
-                Board board = boardRepository.findById(dog.getBoardId().getId()).get();
-
-                if((board.getType().getId()==1)||(board.getType().getId()==2)){
-                    boardList.add(board);
-                }
-            }
+            if(dogInformations.get().size()!=0) return dogInformations.get();
         }
 
-        if(boardList.size()==0) return null;
-        return boardList;
+        return null;
+    }
+
+
+    @Override
+    public List<DogInformation> getSameMbtiDogBoardById(Long id) {
+       MBTI mbti = mbtiRepository.findById(id).get();
+        Optional<List<DogInformation>> dogInformations = dogInformationRepository.findTop10ByMbtiOrderByIdDesc(mbti.getName());
+        if (dogInformations.isPresent()){
+            if(dogInformations.get().size()!=0) return dogInformations.get();
+        }
+
+        return null;
     }
 
     @Override

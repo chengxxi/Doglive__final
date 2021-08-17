@@ -24,6 +24,7 @@ public class DogInformationSpecification {
         };
     }
 
+
     public static Specification<DogInformation> likeAddress(final String keyword) {
 
         return new Specification<DogInformation>() {

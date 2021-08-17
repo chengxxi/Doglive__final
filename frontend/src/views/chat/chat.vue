@@ -15,9 +15,9 @@
   right: 25px;
   bottom: 25px;
   width: 360px;
-  height: 80%;
+  height: 100%;
   min-height: 520px;
-  max-height: 720px;
+  max-height: 580px;
   border-radius: 16px;
   background-color: rgb(250, 250, 250);
   box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.1);

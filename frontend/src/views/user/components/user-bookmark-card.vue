@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row :gutter="20">
-    <el-col :span="6" v-for="(o, idx) in card" :key="idx"> 
+    <el-col :span="6" v-for="(o, idx) in card" :key="idx">
       <el-card :body-style="{ padding: '10px' }" style="background-color:#f9f4f0; width:90%; height:360px;" shadow="hover">
         <el-row style="margin-top:1%; margin-right:1%; margin-left:1%;">
           <el-tag
@@ -50,7 +50,7 @@
                 ? o.title
                 : o.title.substr(0, 12) + "..."}}
           </h6>
-        </el-row>  
+        </el-row>
         <el-row>
           <div style="padding-top:7%; text-align:right; maring-right:4%;">
             <el-button style="justify-content: space-between; align-items: center; margin-right:5%; color:black;" type="text" class="button" @click="readDetail(o.id)"  >글 보러가기</el-button>
@@ -63,7 +63,7 @@
           </div>
         </el-row>
       </el-card>
-      
+
     </el-col>
     </el-row>
   </div>
@@ -158,7 +158,7 @@ export default {
                 timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#7eaa72",
-                position: "bottom-right",
+                position: "bottom-left",
                 transition: "bounce",
                 type: "success"
               });
@@ -170,7 +170,7 @@ export default {
                 timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#c49d83",
-                position: "bottom-right",
+                position: "bottom-left",
                 transition: "bounce",
                 type: "warning"
               });

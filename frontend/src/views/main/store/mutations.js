@@ -100,3 +100,12 @@ export function setConference(state, payload) {
   //   reader:'',    // 신청자
   // }
 }
+
+export function setMbtiDetail(state, data) {
+  state.mbti.id = data.id;
+  state.mbti.title = data.title;
+  state.mbti.name = data.name;
+  state.mbti.desc = data.desc;
+  state.mbti.image_url = data.imageUrl;
+  state.mbti.matchedBoardList = data.matchedBoardList;
+}

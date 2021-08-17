@@ -49,6 +49,9 @@ export default {
 
         store.commit("root/setBoardDetail", boardDetail);
         store.commit("root/setChatOpen", false);
+        store.commit("root/setChatTitle", "");
+        store.commit("root/setChatRoomId", "");
+        store.commit("root/setChatMenu", 0);
 
         createToast(
           {
@@ -60,7 +63,7 @@ export default {
             timeout: 4000,
             showIcon: "true",
             toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "success"
           }
@@ -74,7 +77,7 @@ export default {
           timeout: 4000,
           showIcon: "true",
           toastBackgroundColor: "#c49d83",
-          position: "bottom-right",
+          position: "bottom-left",
           transition: "bounce",
           type: "warning"
         });

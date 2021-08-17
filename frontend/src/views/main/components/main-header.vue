@@ -19,7 +19,7 @@
             <a href="/find" @mouseover="changeDisplay('over')">실종/보호</a>
           </li>
           <li>
-            <a href="/mbti" @mouseover="changeDisplay('over')">DBTI</a>
+            <a href="/mbti" @mouseover="changeDisplay('over')">MPTI</a>
           </li>
           <li>
             <a href="/community" @mouseover="changeDisplay('over')">독립신문</a>
@@ -61,7 +61,7 @@
 <style scoped>
 .main-header {
   z-index: 100; /* 헤더 맨위 고정 */
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   text-align: center;

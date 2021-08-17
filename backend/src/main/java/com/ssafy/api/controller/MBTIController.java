@@ -7,6 +7,7 @@ import com.ssafy.api.response.MBTIListGetRes;
 import com.ssafy.api.response.MBTIResultPostRes;
 import com.ssafy.api.service.MBTIService;
 import com.ssafy.db.entity.board.Board;
+import com.ssafy.db.entity.board.DogInformation;
 import com.ssafy.db.entity.board.MBTI;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,13 @@ public class MBTIController {
             @ApiResponse(code = 404, message = "데이터 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<MBTIDetailGetRes> mbtiDetailById(@PathVariable("id") Long id){
+    public ResponseEntity<MBTIResultPostRes> mbtiDetailById(@PathVariable("id") Long id){
         MBTI mbti = mbtiService.getMbtiById(id);
-        if(mbti==null) return ResponseEntity.ok(MBTIDetailGetRes.of(404, "Fail", null));
 
-        return ResponseEntity.ok(MBTIDetailGetRes.of(200, "Success", mbti));
+        List<DogInformation> matchedBoardList = mbtiService.getSameMbtiDogBoardById(mbti.getId());
+        if(mbti==null) return ResponseEntity.ok(MBTIResultPostRes.of(404, "Fail", null, null));
+        return ResponseEntity.ok(MBTIResultPostRes.of(200, "Success", mbti, matchedBoardList));
     }
-
 
     @GetMapping("/name/{name}")
     @ApiOperation(value = "MBTI 별 상세 정보 (2)", notes = "name으로 MBTI 상세 정보를 가져온다")
@@ -73,7 +74,7 @@ public class MBTIController {
         MBTI mbti = mbtiService.calMbti(mbtiCalPostReq);
         if(mbti==null) return ResponseEntity.ok(MBTIResultPostRes.of(404, "Fail", null, null));
 
-        List<Board> matchedBoardList = mbtiService.getSameMbtiDogBoard(mbti.getName());
+        List<DogInformation> matchedBoardList = mbtiService.getSameMbtiDogBoardByName(mbti.getName());
         return ResponseEntity.ok(MBTIResultPostRes.of(200, "Success", mbti, matchedBoardList));
     }
 

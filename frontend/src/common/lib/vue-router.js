@@ -21,6 +21,7 @@ import FindModify from "@/views/find/find-modify.vue";
 import MBTI from "@/views/mbti/mbti.vue";
 import MBTItest from "@/views/mbti/components/mbti-test.vue";
 import MBTIinfo from "@/views/mbti/components/mbti-info.vue";
+import MbtiDetail from "@/views/mbti/components/mbti-detail.vue";
 import Community from "@/views/community/community.vue";
 import store from '../../views/main/store/index.js'
 
@@ -35,7 +36,7 @@ const routes = [
     name: "conference",
     component: Conference,
     // meta: { requiredAuth: true },
-    meta: {requiredFromChat:true},
+    meta: { requiredFromChat: true }
     // beforeEnter: function(to, from, next) {
     //   console.log(to)
     //   console.log(store.state.conference);
@@ -193,21 +194,42 @@ const routes = [
   },
 
   {
+    path: "/community",
+    redirect: "/community/list",
+    name: "Community",
+    component: Community,
+    children: [
+      {
+        path: "list",
+        name: "community-board-list",
+        component: () =>
+          import("@/views/community/components/community-board-list.vue")
+      },
+      {
+        path: "register",
+        name: "community-board-register",
+        component: () =>
+          import("@/views/community/components/community-board-register.vue")
+      },
+      {
+        path: "update",
+        name: "community-board-update",
+        component: () =>
+          import("@/views/community/components/community-board-update.vue")
+      },
+      {
+        path: "mycommunity",
+        name: "community-mycommunity",
+        component: () =>
+          import("@/views/community/components/community-mycommunity.vue")
+      }
+    ]
+  },
+
+  {
     path: "/mbti", // introduction page
     name: "MBTI",
     component: MBTI
-    // children: [
-    //   {
-    //     path: 'intro',
-    //     name: 'mbti-intro',
-    //     component: () => import('@/views/mbti/components/mbti-intro.vue')
-    //   },
-    //   {
-    //     path: 'test',
-    //     name: 'mbti-test',
-    //     component: () => import('@/views/mbti/components/mbti-test.vue')
-    //   }
-    // ]
   },
   {
     path: "/mbti/test", // test page
@@ -218,14 +240,17 @@ const routes = [
     path: "/mbti/info", // information page
     name: "MBTIinfo",
     component: MBTIinfo
+  },
+  {
+    path: "/mbtis/detail",
+    name: "MbtiDetail",
+    component: MbtiDetail
   }
 ];
-
 
 const router = createRouter({
   history: createWebHistory(),
   routes
 });
-
 
 export default router;

@@ -390,6 +390,20 @@ export default {
             trigger: "change"
           }
         ],
+        sido: [
+          {
+            required: true,
+            message: "주소지를 입력해주세요.",
+            trigger: "change"
+          }
+        ],
+        gugun: [
+          {
+            required: true,
+            message: "주소지를 입력해주세요.",
+            trigger: "change"
+          }
+        ],
         color: [
           {
             required: true,
@@ -581,7 +595,7 @@ export default {
                 description: result.data.dogInformation.description,
                 dogName: result.data.dogInformation.dogName,
                 isBookmarked: result.data.bookmarked,
-                listSimilarDog: result.data.listSimilarDog,
+                listSimilarDog: result.data.listSimilarDog
               };
               createToast("공고가 수정되었어요 📜🐾", {
                 hideProgressBar: "true",
@@ -790,7 +804,6 @@ li.el-select-dropdown__item.selected {
   border-color: #755744;
   background-color: #755744;
 }
-
 :deep(.el-form-item__label) {
   font-size: 12pt;
   font-weight: 500;

@@ -1,11 +1,11 @@
 <template>
-  <el-container class="main-wrapper">
+  <div class="main-wrapper">
     <main-header :height="`70px`" />
     <el-container class="main-container">
       <router-view></router-view>
     </el-container>
     <main-footer :height="`70px`" />
-  </el-container>
+  </div>
   <chat />
 </template>
 
@@ -88,13 +88,6 @@ export default {
           fromChat:false,
         })
         next()
-      // } else if(to.name == 'conference') {          // 화상회의로 들어갈 때
-      //   console.log(store.getters['root/getConference'].fromChat)
-      //   if(store.getters['root/getConference'].fromChat) {
-      //     next()
-      //   } else {
-      //     next('/Main')
-      //   }
       } else{
         next()
       }

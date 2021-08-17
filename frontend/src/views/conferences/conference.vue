@@ -6,7 +6,7 @@
           <img
             class="dog-thumbnail"
             :src="require('@/assets/images/mbti_isfp.png')"
-            style="max-width: 100%; height:auto;"
+            style="max-width: 60%"
           />
         </el-col>
         <el-col :span="14">
@@ -19,7 +19,7 @@
       <el-row style="height:20px;"></el-row>
       <el-form>
         <p class='text-center'>
-          <el-button class='joinBtn' @click="joinSession">Join!</el-button>
+          <el-button id='joinBtn' @click="joinSession">Join!</el-button>
         </p>
       </el-form>
     </el-card>
@@ -30,14 +30,12 @@
       <el-row class="con-row-button">
         <!-- <h1 id='session-title'>{{ state.mySessionId }}</h1> -->
         <el-button type='button' id='buttonLeaveSession' @click='leaveSession'>Leave Session</el-button>
-        <el-button v-if='state.videoEnabled' type='info' @click='turnCamera'>
-          <font-awesome-icon :icon="[ 'fas' , 'video']"/>
-        </el-button>
-        <el-button v-else type='danger' icon='el-icon-loading' @click='turnCamera'></el-button>
-        <el-button v-if='state.audioEnabled' type='info' icon='el-icon-microphone' @click='turnAudio' />
-        <el-button v-else type='danger' icon='el-icon-turn-off-microphone' @click='turnAudio' />
-        <el-button v-if='state.chatEnabled' @click="turnChat" type="info" icon='el-icon-chat-round'/>
-        <el-button v-else type="primary" icon="el-icon-chat-dot-round" @click="turnChat"/>
+        <el-button v-if='state.videoEnabled' class = "off-content" icon='el-icon-video-camera' @click='turnCamera'></el-button>
+        <el-button v-else type='info' icon='el-icon-loading' @click='turnCamera'></el-button>
+        <el-button v-if='state.audioEnabled' class = "off-content" icon='el-icon-microphone' @click='turnAudio' />
+        <el-button v-else type='info' icon='el-icon-turn-off-microphone' @click='turnAudio' />
+        <el-button v-if='state.chatEnabled' class = "off-content" @click="turnChat" icon='el-icon-chat-round'/>
+        <el-button v-else type='info' icon="el-icon-chat-dot-round" @click="turnChat"/>
         <!-- <el-drawer v-model="drawer" :with-header='false'>
           <conferenceChat
             class='chat'
@@ -113,7 +111,7 @@ video {
 }
 .con-join-wrapper {
   width: auto;
-  height: auto;
+  height: 500px;
   margin: auto;
   border-radius: 5px;
   text-align: center;
@@ -181,6 +179,51 @@ video {
   text-align: center;
   padding-top: 25%;
   font-size: 150%;
+}
+/* 화상회의 참여 버튼 커스텀 */
+#joinBtn {
+  border:#F9F0E7 1px solid;
+  font-size: 17px;
+}
+#joinBtn:hover {
+  background: #F9F0E7;
+  border:#F9F0E7 1px solid;
+  color: black;
+}
+/* 화상회의 나가기 버튼 커스텀 */
+#buttonLeaveSession {
+  border:#F9F0E7 1px solid;
+  font-size: 20px;
+}
+#buttonLeaveSession:hover {
+  background: #F9F0E7;
+  border:#F9F0E7 1px solid;
+  color: black;
+}
+/* icon 크기 조절 */
+:deep(.el-icon-turn-off-microphone::before) {
+  font-size: 20px;
+}
+:deep(.el-icon-microphone::before) {
+  font-size: 20px;
+}
+:deep(.el-icon-video-camera::before) {
+  font-size: 20px;
+}
+:deep(.el-icon-loading::before) {
+  font-size: 20px;
+}
+:deep(.el-icon-chat-round::before) {
+  font-size: 20px;
+}
+:deep(.el-icon-chat-dot-round::before) {
+  font-size: 20px;
+}
+/* off 버튼 커스텀 */
+.off-content {
+  color: white;
+  background: #d7aea4;
+  border-color: #d7aea4;
 }
 /* textarea 우측 하단 /// 안보이게 + 스크롤 기능 O + 스크롤바 X */
 textarea {
@@ -262,11 +305,11 @@ export default {
       // 사용자 이름
       state.myUserName = store.getters['root/getUpdateUserInfo'].name;
       // 채팅방 번호로 seesionId 만들기
-      state.sessionId = state.conference.roomId;
+      state.mySessionId = 'Session' + state.conference.roomId;
       console.log('joinSession 클릭 후 정보🔽');
       console.log(state.userId);
       console.log(state.myUserName);
-      console.log(state.sessionId);
+      console.log(state.mySessionId);
       state.OV = new OpenVidu();
       // --- Init a session ---
       state.session = state.OV.initSession();

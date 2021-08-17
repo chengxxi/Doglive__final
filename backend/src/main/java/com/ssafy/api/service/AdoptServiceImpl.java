@@ -77,14 +77,16 @@ public class AdoptServiceImpl implements AdoptService{
         Long boardId = adoptFormReq.getBoardId();
         counselingHistory.setBoardId(boardId);
         counselingHistory.setBoardType(adoptFormReq.getBoardType());
-        counselingHistory.setDogName(adoptFormReq.getDogName());
-        counselingHistory.setContent(adoptFormReq.getContent().toString());
         counselingHistory.setBoardTitle(adoptFormReq.getBoardTitle());
-        counselingHistory.setResult("대기");
+
+        if(adoptFormReq.getBoardType().equals("입양") || adoptFormReq.getBoardType().equals("임보")){
+            counselingHistory.setResult("대기");
+            counselingHistory.setDogName(adoptFormReq.getDogName());
+            counselingHistory.setContent(adoptFormReq.getContent().toString());
+        }
+
         counselingHistory.setWriter(boardRepository.findById(boardId).get().getUserId());
-
         counselingHistoryRepository.save(counselingHistory);
-
 
         return counselingHistory;
     }
@@ -167,7 +169,7 @@ public class AdoptServiceImpl implements AdoptService{
 
     /* 입양 신청 중복인지 아닌지 체크 */
     @Override
-    public boolean canAdoptForm(String userId, Long boardId) {
+    public CounselingHistory canAdoptForm(String userId, Long boardId) {
 
         UserProfile userProfile = findByUserId(userId);
         if(userProfile!=null) {
@@ -175,12 +177,11 @@ public class AdoptServiceImpl implements AdoptService{
                     counselingHistoryRepository.
                             findCounselingHistoryByApplicantIdAndBoardId(userProfile, boardId);
 
-            if(counselingHistories.isPresent()){
-                 return false;
+            if(counselingHistories.isPresent()){ // 존재하면
+                 return counselingHistories.get();
             }
         }
-
-        return true;
+        return null;
 
     }
 

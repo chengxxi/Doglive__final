@@ -3,7 +3,7 @@
     <div style="width:100%; ">
       <bread-crumb></bread-crumb>
       <el-card class="box-card " shadow="none" style="border:none;">
-        <div style="margin-top:80px; margin-left:60px;"></div>
+        <div style="margin-top:50px; margin-left:60px;"></div>
 
         <el-row class="vertical-center" :gutter="20">
           <el-col :span="12" style="margin-left:50px;">
@@ -96,120 +96,142 @@
 
                   <el-popover placement="bottom" width="200" trigger="hover">
                     <div class="content">
-                      <h3 style="font-weight:700;">강아지 MBTI 해석하기</h3>
+                      <h4 style="font-weight:700;">강아지 MBTI 해석하기</h4>
                       <hr />
 
                       <table class="table table-borderless">
                         <thead>
                           <tr style="text-align:center;">
                             <th scope="col">
-                              <h5 style="font-weight:700; color:#606266;">
+                              <h6 style="font-weight:700; color:#606266;">
                                 활동성향
-                              </h5>
+                              </h6>
                             </th>
                             <th scope="col">
-                              <h5 style="font-weight:700; color:#606266;">
+                              <h6 style="font-weight:700; color:#606266;">
                                 순종성향
-                              </h5>
+                              </h6>
                             </th>
 
                             <th scope="col">
-                              <h5 style="font-weight:700; color:#606266;">
+                              <h6 style="font-weight:700; color:#606266;">
                                 관계성향
-                              </h5>
+                              </h6>
                             </th>
                             <th scope="col">
-                              <h5 style="font-weight:700; color:#606266;">
+                              <h6 style="font-weight:700; color:#606266;">
                                 적응성향
-                              </h5>
+                              </h6>
                             </th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
                             <td>
-                              <el-tag
-                                class="m-3"
-                                color="#D7AFA4"
-                                effect="dark"
-                                size="large"
-                                :style="{ border: '3px solid #D7AFA4' }"
-                                >E</el-tag
-                              >에너지 (E) Energetic
+                              <el-col>
+                                <el-tag
+                                  class="m-3"
+                                  color="#D7AFA4"
+                                  effect="dark"
+                                  size="large"
+                                  :style="{ border: '3px solid #D7AFA4' }"
+                                  >E</el-tag
+                                >에너지 <br />
+                                Energetic</el-col
+                              >
                             </td>
                             <td>
-                              <el-tag
-                                class="m-3"
-                                color="#E9CDA4"
-                                effect="dark"
-                                size="large"
-                                :style="{ border: '3px solid #E9CDA4' }"
-                                >S</el-tag
-                              >충성심 강한 (S) Supportive
+                              <el-col>
+                                <el-tag
+                                  class="m-3"
+                                  color="#E9CDA4"
+                                  effect="dark"
+                                  size="large"
+                                  :style="{ border: '3px solid #E9CDA4' }"
+                                  >S</el-tag
+                                >충성심강한 <br />
+                                Supportive</el-col
+                              >
                             </td>
 
                             <td>
-                              <el-tag
-                                class="m-3"
-                                color="#B4D9A7"
-                                effect="dark"
-                                size="large"
-                                :style="{ border: '3px solid #B4D9A7' }"
-                                >F</el-tag
-                              >관계지향 (F) Friendly
+                              <el-col>
+                                <el-tag
+                                  class="m-3"
+                                  color="#B4D9A7"
+                                  effect="dark"
+                                  size="large"
+                                  :style="{ border: '3px solid #B4D9A7' }"
+                                  >F</el-tag
+                                >관계지향 <br />
+                                Friendly</el-col
+                              >
                             </td>
                             <td>
-                              <el-tag
-                                class="m-3"
-                                color="#87CEDC"
-                                effect="dark"
-                                size="large"
-                                :style="{ border: '3px solid #87CEDC' }"
-                                >P</el-tag
-                              >신중한 (P) Prudent
+                              <el-col>
+                                <el-tag
+                                  class="m-3"
+                                  color="#87CEDC"
+                                  effect="dark"
+                                  size="large"
+                                  :style="{ border: '3px solid #87CEDC' }"
+                                  >P</el-tag
+                                >신중한 <br />Prudent</el-col
+                              >
                             </td>
                           </tr>
                           <tr>
                             <td>
-                              <el-tag
-                                class="m-3"
-                                color="#FFFFFF"
-                                style="border: 3px solid #D7AFA4; color: #606266;"
-                                effect="dark"
-                                size="large"
-                                >I</el-tag
-                              >침착한 (I) Introversion
+                              <el-col>
+                                <el-tag
+                                  class="m-3"
+                                  color="#FFFFFF"
+                                  style="border: 3px solid #D7AFA4; color: #606266;"
+                                  effect="dark"
+                                  size="large"
+                                  >I</el-tag
+                                >침착한 <br />Introversion</el-col
+                              >
                             </td>
                             <td>
-                              <el-tag
-                                class="m-3"
-                                color="#FFFFFF"
-                                style="border: 3px solid #E9CDA4; color: #606266;"
-                                effect="dark"
-                                size="large"
-                                >N</el-tag
-                              >영리한 (N) Naughty
+                              <el-col>
+                                <el-tag
+                                  class="m-3"
+                                  color="#FFFFFF"
+                                  style="border: 3px solid #E9CDA4; color: #606266;"
+                                  effect="dark"
+                                  size="large"
+                                  >N</el-tag
+                                >영리한 <br />
+                                Naughty</el-col
+                              >
                             </td>
 
                             <td>
-                              <el-tag
-                                class="m-3"
-                                color="#FFFFFF"
-                                style="border: 3px solid #B4D9A7; color: #606266;"
-                                effect="dark"
-                                size="large"
-                                >T</el-tag
-                              >독립지향 (T) independenT
+                              <el-col>
+                                <el-tag
+                                  class="m-3"
+                                  color="#FFFFFF"
+                                  style="border: 3px solid #B4D9A7; color: #606266;"
+                                  effect="dark"
+                                  size="large"
+                                  >T</el-tag
+                                >독립지향 <br />
+                                independenT</el-col
+                              >
                             </td>
                             <td>
-                              <el-tag
-                                class="m-3"
-                                color="#FFFFFF"
-                                style="border: 3px solid #87CEDC; color: #606266;"
-                                effect="dark"
-                                size="large"
-                                >J</el-tag
-                              >친화적인 (J) Jolly
+                              <el-col>
+                                <el-tag
+                                  class="m-3"
+                                  color="#FFFFFF"
+                                  style="border: 3px solid #87CEDC; color: #606266;"
+                                  effect="dark"
+                                  size="large"
+                                  >J</el-tag
+                                >친화적인 <br />
+                                Jolly</el-col
+                              >
                             </td>
                           </tr>
                         </tbody>
@@ -515,10 +537,23 @@ export default {
             boardId: state.board.boardId
           })
           .then(function(result) {
-            router.push({ name: "AdoptFormConfirm" });
+            if (result.status == 204) {
+              // 입양 신청서가 존재하지 않음
+              router.push({ name: "AdoptFormConfirm" });
+            } else {
+              createToast("이미 신청서를 작성했던 공고입니다 💬💦", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#c49d83",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "warning"
+              });
+            }
           })
           .catch(function(err) {
-            createToast("이미 신청서를 작성했던 공고입니다 💬💦", {
+            createToast("상담 신청에 실패했어요. 💬💦", {
               hideProgressBar: "true",
               timeout: 4500,
               showIcon: "true",

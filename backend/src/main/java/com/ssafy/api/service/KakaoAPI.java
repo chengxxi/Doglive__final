@@ -37,8 +37,6 @@ public class KakaoAPI {
 //            sb.append("&redirect_uri=https://localhost:8082/kakao/callback");
             sb.append("&redirect_uri=https://i5a501.p.ssafy.io/kakao/callback"); // 배포용
 
-//            sb.append("&redirect_uri=http://localhost:8081/kakao/callback");
-
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();

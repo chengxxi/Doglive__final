@@ -80,6 +80,17 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public Page<DogInformation> filterBoardList(Pageable pageable, Long boardType, Long weight, Long age, Long gender, String searchWord) {
 
+
+        if(boardType==null&&weight==null&&age==null&&gender==null&&(searchWord==null||searchWord.equals(""))){
+            Specification<DogInformation> spec = Specification.where( DogInformationSpecification.inType(
+                    boardCategoryRepository.findById(Long.parseLong("1")).get(),
+                    boardCategoryRepository.findById(Long.parseLong("2")).get()));
+
+            return dogInformationRepository.
+                    findAll(
+                            spec,
+                            pageable);
+        }
         Specification<DogInformation> spec = Specification.where(DogInformationSpecification.likeDogName(searchWord));
         spec = spec.or(DogInformationSpecification.likeTitle(searchWord));
 
@@ -115,14 +126,28 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public Page<DogInformation> filterFindBoardList(Pageable pageable, Long boardType, Long sido, Long color, Long dogType, String searchWord) {
 
+        if(boardType==null&&sido==null&&color==null&&dogType==null&&(searchWord==null||searchWord.equals(""))){
+            Specification<DogInformation> spec = Specification.where( DogInformationSpecification.inType(
+                    boardCategoryRepository.findById(Long.parseLong("3")).get(),
+                    boardCategoryRepository.findById(Long.parseLong("4")).get()));
 
+            return dogInformationRepository.
+                    findAll(
+                            spec,
+                            pageable);
+        }
         Specification<DogInformation> spec = Specification.where(DogInformationSpecification.likeAddress(searchWord));
         spec = spec.or(DogInformationSpecification.likeSido(searchWord));
         spec = spec.or(DogInformationSpecification.likeGugun(searchWord));
         spec = spec.or(DogInformationSpecification.likeDogType(searchWord));
 
         //품종종, 상세주소 색
-
+        if(searchWord!=null){
+            spec = spec.and(DogInformationSpecification.likeAddress(searchWord));
+            spec = spec.or(DogInformationSpecification.likeSido(searchWord));
+            spec = spec.or(DogInformationSpecification.likeGugun(searchWord));
+            spec = spec.or(DogInformationSpecification.likeDogType(searchWord));
+        }
         if(color!=null){
             spec = spec.and(DogInformationSpecification.eqColor(codeRepository.findById(color).get()));
         }
@@ -134,7 +159,7 @@ public class BoardServiceImpl implements  BoardService{
         }
         if(boardType!=null){
             spec = spec.and(DogInformationSpecification.eqBoardType(boardCategoryRepository.findById(boardType).get()));
-        }else{
+        }if(boardType==null){
 
             spec = spec.and( DogInformationSpecification.inType(
                     boardCategoryRepository.findById(Long.parseLong("3")).get(),
@@ -170,7 +195,9 @@ public class BoardServiceImpl implements  BoardService{
 
     /* 유기동물 관련 게시물 작성하기 */
     @Override
+
     public Board registerBoard(BoardRegisterPostReq boardRegisterPostReq) throws IOException {
+
 
         String thumbnailUrl = "";
 
@@ -193,10 +220,9 @@ public class BoardServiceImpl implements  BoardService{
         }
         boardRepository.save(board);
 
-
-
         //이미지 저장
         DogInformation dogInformation = new DogInformation();
+
 
         for(MultipartFile file : boardRegisterPostReq.getFileList()){
             String saveUrl = s3Uploader.upload(file, "static");
@@ -278,6 +304,7 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public Board updateBoard(Long boardId, BoardRegisterPostReq boardRegisterPostReq) throws IOException {
 
+
         System.out.println(boardRegisterPostReq.toString());
 
         Board board = getBoardByBoardId(boardId); //수정할 Board 찾기
@@ -288,8 +315,6 @@ public class BoardServiceImpl implements  BoardService{
             System.out.println("========= delete List ! ");
             deleteSomeBoardImagesByUrl(boardRegisterPostReq.getDelList());
         }
-
-
 
 
         //썸네일 및 이미지  저장

@@ -4,27 +4,17 @@
       <h3 class="description">
         🐕 강아지 MBTI란? 🐾
       </h3>
-      <br>
-      <p>MBTI 개별 유형 설명 페이지</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium at illo molestias possimus nihil minus? Magnam dolor, voluptas minus vitae ab odio excepturi velit provident unde saepe itaque reiciendis nesciunt!</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem dolor laboriosam, neque veritatis maiores culpa quis, molestiae quisquam eius necessitatibus dolorum. Itaque esse laboriosam, similique atque tempora corrupti architecto asperiores.</p>
+      <br />
+      <p>'독립'이 만든 강아지 성향 MBTI</p>
       <!-- 상세 소개 내용 수정 필요 -->
     </div>
 
-
-    <el-row class="mbtiBox">
-      <MbtiCard
-        v-for="(idx, card) in 16"
-        :key="idx"
-        :card="card"
-        :span="6"
-      />
-    </el-row>
-
-
-
+    <span v-for="(card, idx) in state.MbtiList" :key="idx">
+      <el-col :span="6">
+        <MbtiCard :card="card" @click="readDetail(card.id)" />
+      </el-col>
+    </span>
   </div>
-
 </template>
 
 <style scoped>
@@ -46,22 +36,75 @@
   margin: 30px 50px;
   padding: 40px;
 }
-
-
 </style>
 
-
 <script>
-import MbtiCard from './mbti-card.vue'
-
+import MbtiCard from "./mbti-card.vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { reactive, onMounted } from "vue";
 
 export default {
-  name: 'mbti-result',
+  name: "mbti-result",
   components: { MbtiCard },
   // methods: {
   //   toggleCard: function(card) {
   //       card.flipped = !card.flipped;
   //   },
   // }
-}
+  props: {
+    mbtiList: Array
+  },
+  setup() {
+    const store = new useStore();
+    const router = new useRouter();
+    const state = reactive({
+      mbtiList: []
+    });
+
+    const readDetail = function(id) {
+      store
+        .dispatch("root/requestMbtiDetail", id)
+        .then(function(result) {
+          console.log("Mbti:", result);
+          // console.log(result.data.mbtiList)
+
+          const data = {
+            id: result.data.mbti.id,
+            name: result.data.mbti.name,
+            title: result.data.mbti.title,
+            desc: result.data.mbti.desc,
+            imageUrl: result.data.mbti.imageUrl,
+            matchedBoardList: result.data.matchedBoardList
+          };
+
+          store.commit("root/setMbtiDetail", data);
+
+          router.push({ name: "MbtiDetail" });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
+
+    // MBTI 읽어오기
+    const readMbtiList = function() {
+      store.dispatch("root/requestMbtiList").then(function(result) {
+        console.log("MBTI:", result);
+        // console.log(result.data.mbtiList)
+
+        state.MbtiList = result.data.mbtiList;
+      });
+    };
+
+    onMounted(() => {
+      // readDetail();
+      readMbtiList();
+      window.scrollTo(0, 0);
+    })
+
+
+    return { state, readDetail, readMbtiList };
+  }
+};
 </script>

@@ -20,6 +20,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ChatMessageGetRes {
 
+    private Long id; // message id
+
     private String userId;
 
     private String username;
@@ -31,9 +33,11 @@ public class ChatMessageGetRes {
     // DB 저장용인 ChatMessage에서 사용자에게 보여줄 만큼의 정보만 가져옴
     public static ChatMessageGetRes copy(ChatMessage message){
         ChatMessageGetRes res = new ChatMessageGetRes();
+        res.setId(message.getId());
         res.setUserId(message.getUserId());
         res.setChatMessage(message.getMessage());
         res.setSendTimeAt(message.getSendTimeAt());
         return res;
     }
+
 }

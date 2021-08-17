@@ -61,4 +61,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
                                            @Param("sort") DogType sort,
                                            @Param("sidoCode") Long sidoCode);
 
+
 }

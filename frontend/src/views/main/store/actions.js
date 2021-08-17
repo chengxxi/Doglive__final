@@ -51,6 +51,20 @@ export function requestChatMessageList({ state }, payload) {
   return $axios.get(url);
 }
 
+// 채팅방 정보 요청 (counseling id 에 해당하는)
+export function requestChatRoomByCounseling({state}, payload){
+  let counselingId = payload.counselingId;
+  const url = "/chatroom/counseling/" + counselingId;
+  return $axios.get(url);
+}
+
+// 채팅방 나갈 때, 메세지 Read 업데이트
+export function requestChatMessageUpdate({state}, payload){
+  let roomId = payload.roomId;
+  const url = "/chatroom/exit/" + roomId;
+  return $axios.put(url);
+}
+
 // 사용자 북마크 리스트를 불러오기
 export function requestBookmarkList({ state }, payload) {
   const url = "/users/bookmark/" + payload;
@@ -275,5 +289,23 @@ export function readRecentBoard({ state }) {
 //최근 커뮤니티 게시물 불러오기
 export function readRecentCommunity({ state }) {
   const url = "/community/new";
+  return $axios.get(url);
+}
+
+//MBTI 매칭 결과 가져오기
+export function requestMBTIResult({ state }, payload) {
+  const url = "/mbti";
+  return $axios.post(url, payload);
+}
+
+// MBTI 전체 정보 가져오기
+export function requestMbtiList({ state }, payload) {
+  const url = "/mbti";
+  return $axios.get(url);
+}
+
+// MBTI detail 가져오기
+export function requestMbtiDetail({ state }, payload) {
+  const url = "/mbti/id/" + payload;
   return $axios.get(url);
 }
