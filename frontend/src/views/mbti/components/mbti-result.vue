@@ -1,14 +1,5 @@
 <template>
   <div>
-    <div class='box'>
-      <h3 class='description'>
-        🐕 강아지 MBTI란? 🐾
-      </h3>
-      <br />
-      <p>'독립'이 만든 강아지 성향 MBTI</p>
-      <!-- 상세 소개 내용 수정 필요 -->
-    </div>
-
     <span v-for='(card, idx) in state.MbtiList' :key='idx'>
       <el-col :span='6'>
         <MbtiCard
@@ -100,6 +91,7 @@ export default {
     onMounted(() => {
       // readDetail();
       readMbtiList();
+      window.scrollTo(0, 0);
     });
 
     return { state, readDetail, readMbtiList };
