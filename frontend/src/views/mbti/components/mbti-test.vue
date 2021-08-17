@@ -251,9 +251,26 @@ export default {
         .dispatch('root/requestMBTIResult', result)
         .then(function(result) {
           console.log(result);
+<<<<<<< HEAD
           store.commit('root/setMbtiDetail', result.data.mbti);
 
           router.push({ name: 'MbtiDetail' });
+=======
+
+          const data = {
+            id: result.data.mbti.id,
+            name: result.data.mbti.name,
+            title: result.data.mbti.title,
+            desc: result.data.mbti.desc,
+            imageUrl: result.data.mbti.imageUrl,
+            matchedBoardList: result.data.matchedBoardList
+          };
+
+          store.commit("root/setMbtiDetail", data);
+
+          //router.push({ name: "Main" });
+          router.push({ name: "MbtiDetail" });
+>>>>>>> 192c156102415ac06bbfbdd639704f02bf3c5ae0
         })
         .catch(function(err) {
           console.log(err);

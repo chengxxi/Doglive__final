@@ -2,6 +2,7 @@ package com.ssafy.api.response;
 
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.board.Board;
+import com.ssafy.db.entity.board.DogInformation;
 import com.ssafy.db.entity.board.MBTI;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,9 +19,9 @@ public class MBTIResultPostRes extends BaseResponseBody {
     MBTI mbti;
 
     @ApiModelProperty
-    List<Board> matchedBoardList;
+    List<DogInformation> matchedBoardList;
 
-    public static MBTIResultPostRes of(Integer statusCode, String message, MBTI mbti, List<Board> list) {
+    public static MBTIResultPostRes of(Integer statusCode, String message, MBTI mbti, List<DogInformation> list) {
         MBTIResultPostRes res = new MBTIResultPostRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);

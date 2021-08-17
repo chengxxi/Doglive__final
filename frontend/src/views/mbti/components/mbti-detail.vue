@@ -2,7 +2,6 @@
   <div class="main-body main-padding">
     <el-card class="box-card" shadow="none" style="border:none;">
       <div style="margin-top:40px; margin-left:60px;"></div>
-
       <el-row class="vertical-center" :gutter="20">
         <el-col :span="12" style="margin-left:50px;">
           <img class="dog-thumbnail" :src="state.MbtiDetail.image_url" />
@@ -38,6 +37,13 @@
 
             <el-descriptions class="margin-top mt-3" :column="1" :size="size">
               <el-descriptions-item label="MBTI">
+                <el-tag
+                  class="mb-2"
+                  effect="dark"
+                  style="height:30px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none;font-weight:700; color: #606266; "
+                  >{{ state.MbtiDetail.name }}</el-tag
+                >
+
                 <el-popover placement="bottom" width="200" trigger="hover">
                   <div class="content">
                     <h3 style="font-weight:700;">강아지 MBTI 해석하기</h3>
@@ -179,47 +185,48 @@
           {{ state.MbtiDetail.desc }}
         </h6>
       </div>
+
       <el-divider />
-    </el-card>
 
-    <!-- 유사 공고 -->
+      <!-- 유사 공고 -->
+      <!-- 조건 걸기 -->
 
-    <div class="dog-image-box">
-      <h5
-        class="pt-3 pb-3"
-        style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
-      >
-        🐶🔎 저와 같은 MPTI를 가진 친구는 누가 있을까요❔
-      </h5>
-      <!-- 유사공고 -->
-      <div v-if="state.listSimilarDog != null">
-        <el-scrollbar>
-          <div class="flex-content">
-            <p
-              class="item"
-              v-for="(card, idx) in state.listSimilarDog"
-              :key="idx"
-              style="width:360px; margin: 5px; display:inline-block"
-            >
-              <FindCard
-                :card="card"
-                @click="readDetail(card.boardId.id)"
-                style="margin:10px; width:360px;"
-              />
-            </p>
-          </div>
-        </el-scrollbar>
-      </div>
-
-      <div v-else>
-        <el-empty
-          description="유사한 강아지가 없네요😢"
-          image="https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_223416590.png"
-          image-size="300"
+      <div class="dog-image-box">
+        <h5
+          class="pt-3 pb-3"
+          style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
         >
-        </el-empty>
+          🐶🔎 혹시 저는 아닐까요❔
+        </h5>
+        <!-- 유사공고 -->
+        <div v-if="state.MbtiDetail.matchedBoardList != null">
+          <el-scrollbar>
+            <div class="flex-content">
+              <p
+                class="item"
+                v-for="(card, idx) in state.MbtiDetail.matchedBoardList"
+                :key="idx"
+                style="width:360px; margin: 5px; display:inline-block"
+              >
+                <AdoptCard
+                  :card="card"
+                  @click="readDetail(card.boardId.id)"
+                  style="margin:10px; width:360px;"
+                />
+              </p>
+            </div>
+          </el-scrollbar>
+        </div>
+        <div v-else>
+          <el-empty
+            description="같은 MPTI를 가진 아이가 없네요😢"
+            image="https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_223416590.png"
+            image-size="300"
+          >
+          </el-empty>
+        </div>
       </div>
-    </div>
+    </el-card>
   </div>
 </template>
 
@@ -227,10 +234,14 @@
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import "mosha-vue-toastify/dist/style.css";
+import AdoptCard from "@/views/adopt/components/adopt-card.vue";
 
 export default {
   name: "MbtiDetail",
-
+  components: {
+    AdoptCard
+  },
   setup() {
     const store = new useStore();
     const router = new useRouter();
@@ -243,31 +254,7 @@ export default {
       })
     });
 
-    const kakaoShare = function() {
-      Kakao.Link.sendDefault({
-        objectType: "mpti",
-        content: {
-          title: state.MbtiDetail.title,
-          desc: state.MbtiDetail.desc,
-          imageUrl: state.MbtiDetail.image_url,
-          link: {
-            mobileWebUrl: "https://i5a501.p.ssafy.io/",
-            webUrl: "https://i5a501.p.ssafy.io/"
-          }
-        },
-        buttons: [
-          {
-            title: "독립으로 이동",
-            link: {
-              mobileWebUrl: "https://i5a501.p.ssafy.io/",
-              webUrl: "https://i5a501.p.ssafy.io/"
-            }
-          }
-        ]
-      });
-    };
-
-    return { state, kakaoShare };
+    return { state };
   }
 };
 </script>
@@ -370,5 +357,29 @@ h3 {
   display: flex;
   align-items: center;
   margin-right: auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #f3e8dc, #f5edea);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(192, 186, 178);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+
+.flex-content {
+  white-space: nowrap;
+  overflow-x: auto;
+  margin: 0;
+  max-width: 99%;
 }
 </style>
