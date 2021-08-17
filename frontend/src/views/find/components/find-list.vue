@@ -23,12 +23,6 @@ import { onBeforeMount, onMounted, reactive, computed } from "vue";
 export default {
   name: "FindList",
   components: { FindCard },
-  // props: {
-  //   // boardList: Object,
-  //   // title: String,
-  //   // boardType: String,
-  //   // cards: Array,
-  // },
   props: {
     boardList: Array
   },

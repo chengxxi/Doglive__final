@@ -176,6 +176,7 @@
       </el-card>
   </div>
 </template>
+
 <script>
 import $axios from "axios";
 import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
