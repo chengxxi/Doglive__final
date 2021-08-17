@@ -42,7 +42,7 @@
           >
         </el-row>
         <el-row style="margin-top:1%; display:flex; display: flex; justify-content: center;">
-          <img :src="o.thumbnailUrl" class="image" style="min-height:200px; max-height:200px;"/>
+          <img :src="o.thumbnailUrl" class="image fit-image" style="min-height:200px; max-height:200px;"/>
         </el-row>
         <el-row style="margin-top:3%; margin-right:2.5%; margin-left:2.5%; vertical-align: middle;">
           <h6 style="font-weight:700; margin-top:10%;" class="mb-0">
@@ -103,6 +103,9 @@
       display: flex;
      justify-content: space-between;
      margin-top:10px;
+  }
+  .fit-image{
+    object-fit: cover;
   }
 
 </style>
