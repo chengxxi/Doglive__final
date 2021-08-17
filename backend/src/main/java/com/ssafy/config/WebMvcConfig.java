@@ -99,16 +99,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new KakaoAuthHandler())
-                .excludePathPatterns("/api/v1/board/adopt")
-                .excludePathPatterns("/api/v1/board/recent")
-                .excludePathPatterns("/api/v1/board/find")
-                .excludePathPatterns("/api/v1/board/**/**")
-                .excludePathPatterns("/api/v1/users/present/**")
-                .excludePathPatterns("/api/v1/community/detail")
+                .addPathPatterns("/api/v1/adopt/**")
+                .addPathPatterns("/api/v1/chatroom/**")
+                .addPathPatterns("/api/v1/community/**")
+                .addPathPatterns("/api/v1/users/**")
                 .excludePathPatterns("/api/v1/community/list/**")
+                .excludePathPatterns("/api/v1/community/detail/**")
                 .excludePathPatterns("/api/v1/community/comment/**")
-                .excludePathPatterns("/api/v1/community/new")
-                .excludePathPatterns("/api/v1/kakao/**");
+                .excludePathPatterns("/api/v1/community/new/**")
+                .excludePathPatterns("/api/v1/users/present/**");
     }
 
     class KakaoAuthHandler extends HandlerInterceptorAdapter {
