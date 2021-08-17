@@ -284,7 +284,7 @@ export default {
               transition: "bounce",
               type: "success"
             });
-            router.push({ name: "Adopt" });
+            router.push({ name: "Find" });
           })
           .catch(function(err) {
             createToast("공고 삭제에 실패했어요 😱💦", {

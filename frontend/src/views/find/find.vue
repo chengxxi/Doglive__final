@@ -176,7 +176,7 @@
 <script>
 import FindList from "./components/find-list.vue";
 import Pagination from "./components/pagination.vue";
-import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
+import BreadCrumb from "./components/bread-crumb.vue";
 import { reactive, computed, onMounted } from "vue"; // ref
 
 // import $axios from 'axios'
