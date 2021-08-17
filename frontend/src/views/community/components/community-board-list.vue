@@ -45,7 +45,6 @@
           <el-carousel
             class="image-carousel"
             indicator-position="none"
-            style="margin-top:3%; margin-bottom:3%;"
           >
             <el-carousel-item
               v-for="(img, index) in item.fileList"
@@ -203,14 +202,19 @@
   margin-right: 3%;
 }
 .image-carousel {
+  position: relative;
   width: inherit; /*정방향 크기 */
-  margin-top: 2%;
-  text-align: center;
-  margin: auto 0;
+  margin-bottom: 10px;
 }
 .image {
+  position: absolute;
   width: 100%;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  object-fit: cover;
 }
+
 .title > span {
   display: inline-block;
   margin-bottom: 2%;

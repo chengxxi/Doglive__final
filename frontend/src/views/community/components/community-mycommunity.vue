@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+
     <!-- <div class="chat-body"
         @scroll="scroll"
         v-loading="communities.loading"
@@ -49,7 +49,7 @@
             style="margin-top:3%; margin-bottom:3%;"
           >
             <el-carousel-item v-for="(img, index) in item.fileList" :key="index">
-              <img class="image" :src="img" />
+              <img class="image fit-image" :src="img" />
             </el-carousel-item>
           </el-carousel>
           <div class="tag">
@@ -259,6 +259,9 @@
   position: relative;
   width: 100%;
   padding-top: 100%; /* 정방향 */
+}
+.fit-image{
+  object-fit: cover;
 }
 </style>
 
@@ -507,7 +510,7 @@ export default {
       }
 
       }
-      
+
     };
 
     const DeleteComment = function(id) {
@@ -525,7 +528,7 @@ export default {
           });
 
           for(var i=0; i<state.comments.length; i++){
-              if(state.comments[i].id == id){ 
+              if(state.comments[i].id == id){
                 console.log(state.comments[i].id)
                 state.comments.splice(i,1);
               }
@@ -547,7 +550,7 @@ export default {
         });
     };
 
-    
+
 
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {

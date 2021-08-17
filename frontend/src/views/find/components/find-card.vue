@@ -28,7 +28,7 @@
       style="margin-top:5px; display:flex; display: flex;
   justify-content: center;"
     >
-      <img :src="card.boardId.thumbnailUrl" class="image" />
+      <img :src="card.boardId.thumbnailUrl" class="image fit-image" />
     </el-row>
 
     <el-row
@@ -81,6 +81,10 @@
 
 .scale-up-hover-2:hover .scale {
   transform: scale(1.03);
+}
+
+.fit-image{
+  object-fit: cover;
 }
 </style>
 
