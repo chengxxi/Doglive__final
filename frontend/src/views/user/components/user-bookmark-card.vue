@@ -42,7 +42,7 @@
           >
         </el-row>
         <el-row style="margin-top:1%; display:flex; display: flex; justify-content: center;">
-          <img src="https://placedog.net/500/500?random" class="image" />
+          <img :src="o.thumbnailUrl" class="image" style="min-height:200px; max-height:200px;"/>
         </el-row>
         <el-row style="margin-top:3%; margin-right:2.5%; margin-left:2.5%; vertical-align: middle;">
           <h6 style="font-weight:700; margin-top:10%;" class="mb-0">
@@ -179,40 +179,52 @@ export default {
       };
 
       const readDetail = function(id) {
-        $axios
-          .get("/board/" + id + "/" + userid)
-          .then(function(result) {
-            console.log(result);
+      const userid = store.getters["root/getLoginUserInfo"].userId;
 
-            const boardDetail = {
-              boardId: result.data.board.id,
-              boardType: result.data.board.type,
-              thumbnailUrl: result.data.board.thumbnailUrl,
-              title: result.data.board.title,
-              address: result.data.dogInformation.address,
-              mbti: result.data.dogInformation.mbti,
-              colorType: result.data.dogInformation.colorType,
-              gender: result.data.dogInformation.gender,
-              hairType: result.data.dogInformation.hairType,
-              neutralization: result.data.dogInformation.neutralization,
-              writer: result.data.writer,
-              weight: result.data.dogInformation.weight,
-              ageType: result.data.dogInformation.age,
-              regDate: result.data.board.regDate,
-              fileList: result.data.boardImageList,
-              isOwner: result.data.owner,
-              description: result.data.dogInformation.description,
-              dogName: result.data.dogInformation.dogName
-            };
+      store
+        .dispatch("root/requestBoardDetail", {
+          boardId: id,
+          userId: userid
+        })
+        .then(function(result) {
+          console.log(result);
 
-            store.commit("root/setBoardDetail", boardDetail);
+          const boardDetail = {
+            boardId: result.data.dogInformation.boardId.id,
+            boardType: result.data.dogInformation.boardId.type,
+            thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+            title: result.data.dogInformation.boardId.title,
+            address: result.data.dogInformation.address,
+            mbti: result.data.dogInformation.mbti,
+            colorType: result.data.dogInformation.colorType,
+            gender: result.data.dogInformation.gender,
+            dogType: result.data.dogInformation.dogType,
+            neutralization: result.data.dogInformation.neutralization,
+            writer: result.data.writer,
+            weight: result.data.dogInformation.weight,
+            ageType: result.data.dogInformation.age,
+            regDate: result.data.dogInformation.boardId.regDate,
+            fileList: result.data.boardImageList,
+            isOwner: result.data.owner,
+            gugun: result.data.dogInformation.gugun,
+            sido: result.data.dogInformation.gugun.sidoCode,
+            description: result.data.dogInformation.description,
+            dogName: result.data.dogInformation.dogName,
+            isBookmarked: result.data.bookmarked
+          };
 
+          store.commit("root/setBoardDetail", boardDetail);
+
+          if (result.data.dogInformation.boardId.type.id <= 2) {
             router.push({ name: "AdoptDetail" });
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
-      };
+          } else {
+            router.push({ name: "FindDetail" });
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
 
       return { state, clickBookmark, readDetail}
 

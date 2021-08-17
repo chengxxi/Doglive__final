@@ -11,7 +11,7 @@
               description="작성한 글이 없다개 💨"
             ></el-empty>
           </el-row>
-          <el-row v-if="state.tableData.length != 0">
+          <el-row v-if="state.tableData.length != 0" style="margin-bottom : 200px;">
             <posting-card :card="state.tableData"></posting-card>
           </el-row> 
         </div>

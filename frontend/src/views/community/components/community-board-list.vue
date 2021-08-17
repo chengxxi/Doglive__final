@@ -121,6 +121,7 @@
             class="comment-button"
             icon="el-icon-s-promotion"
             @click="RegisterComment(item.id)"
+            @keyup.enter="RegisterComment(item.id)"
           ></el-button>
           <div
             v-for="(i, index) in state.reverseList"
@@ -321,7 +322,9 @@ export default {
     });
 
     const goRegister = function() {
-      if (state.userId === null) {
+      if (state.userId === null ||
+          state.userId == "" ||
+          state.userId === undefined) {
         createToast("로그인을 진행해주세요 💨💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -338,7 +341,9 @@ export default {
     };
 
     const goMyCommunity = function(){
-      if (state.userId === null) {
+      if (state.userId === null ||
+          state.userId == "" ||
+          state.userId === undefined) {
         createToast("로그인을 진행해주세요 💨💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -471,7 +476,11 @@ export default {
       });
 
     const RegisterComment = function(id) {
-      if(comment.input == null || comment.input==""){
+      if(comment.input == null || 
+        comment.input=="" || 
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined){
         createToast("댓글 내용을 적어주세요 😱💦", {
           hideProgressBar: "true",
           timeout: 4500,

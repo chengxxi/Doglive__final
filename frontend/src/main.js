@@ -184,7 +184,7 @@ const components = [
   ElTooltip,
   ElTransfer,
   ElTree,
-  ElUpload
+  ElUpload,
 ];
 
 //fort-awesome
@@ -227,6 +227,7 @@ import {
   faVideo,
   faTrashAlt,
   faDoorOpen,
+  faImages
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -270,6 +271,7 @@ library.add(
   faVideo,
   faTrashAlt,
   faDoorOpen,
+  faImages
 );
 
 const plugins = [

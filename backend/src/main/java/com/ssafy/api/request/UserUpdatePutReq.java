@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,6 +25,21 @@ public class UserUpdatePutReq {
 
     @ApiModelProperty
     String birth;
-//    @ApiModelProperty
-//    String profile_image_url;
+
+    @ApiModelProperty
+    MultipartFile file;
+
+    @ApiModelProperty
+    String delfile;
+
+    @Override
+    public String toString() {
+        return "UserUpdatePutReq{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", birth='" + birth + '\'' +
+                ", file=" + file +
+                '}';
+    }
 }
