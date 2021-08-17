@@ -77,7 +77,7 @@ public class MBTIServiceImpl implements MBTIService{
     @Override
     public List<DogInformation> getSameMbtiDogBoardByName(String mbti) {
 
-        Optional<List<DogInformation>> dogInformations = dogInformationRepository.findSameMBTI(mbti);
+        Optional<List<DogInformation>> dogInformations = dogInformationRepository.findTop10ByMbtiOrderByIdDesc(mbti);
         if (dogInformations.isPresent()){
             if(dogInformations.get().size()!=0) return dogInformations.get();
         }
@@ -89,7 +89,7 @@ public class MBTIServiceImpl implements MBTIService{
     @Override
     public List<DogInformation> getSameMbtiDogBoardById(Long id) {
        MBTI mbti = mbtiRepository.findById(id).get();
-        Optional<List<DogInformation>> dogInformations = dogInformationRepository.findSameMBTI(mbti.getName());
+        Optional<List<DogInformation>> dogInformations = dogInformationRepository.findTop10ByMbtiOrderByIdDesc(mbti.getName());
         if (dogInformations.isPresent()){
             if(dogInformations.get().size()!=0) return dogInformations.get();
         }

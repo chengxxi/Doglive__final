@@ -58,16 +58,17 @@ public interface DogInformationRepository extends JpaRepository<DogInformation, 
     Optional<List<DogInformation>> findRecentFindBoard();
 
 
-    @Query(
-            value = "SELECT * " +
-                    "FROM dog_information d " +
-                    "ORDER BY d.id DESC " +
-                    "WHERE d.mbti = ':mbti' " +
-                    "LIMIT 10 " +
-                    "OFFSET 0; ",
-            nativeQuery = true
-    )
-    Optional<List<DogInformation>> findSameMBTI(@Param("mbti") String mbti);
+//    @Query(
+//            value = "SELECT * " +
+//                    "FROM dog_information d " +
+//                    "ORDER BY d.id DESC " +
+//                    "WHERE d.mbti = :mbti ",
+//            nativeQuery = true
+//    )
+//    Optional<List<DogInformation>> findSameMBTI(@Param("mbti") String mbti);
+//
+
+    Optional<List<DogInformation>> findTop10ByMbtiOrderByIdDesc(String mbti);
 
 
 }
