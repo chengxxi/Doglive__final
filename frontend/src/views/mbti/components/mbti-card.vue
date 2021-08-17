@@ -1,5 +1,58 @@
 <template>
-<el-card
+  <div class="row h-100 justify-content-center pt-3">
+            <div
+              class="col-12 col-sm-9 col-md-4 mt-4"
+              v-for="(card, idx) in state.communityList"
+              :key="idx"
+              :card="card"
+              @click="goCommunity"
+              style="cursor:pointer;"
+            >
+              <div class="card h-100 hover-top rounded-3 shadow">
+                <div class="card-body">
+                  <el-tag
+                    v-if="card.category == '입양일기'"
+                    color="#D7AFA4"
+                    effect="dark"
+                    style="border:none; border-radius: 30px; font-size:14px;"
+                    >{{ card.category }}</el-tag
+                  >
+                  <hr class="text-100" />
+
+                  <div class="d-flex align-items-center">
+                    <img
+                      style="width:100%; height:300px;
+                    margin-left:5px margin-right:5px"
+                      :src="card.fileList[0]"
+                      alt="blog"
+                    />
+                  </div>
+                  <div class="my-3 fs--1">
+                    <div class="user">
+                      <img class="user-profile" :src="card.profileImageUrl" />
+                      <span class="mb-0 fw-bold">{{ card.name }}</span>
+                    </div>
+                    <div
+                      style="padding-top:10px; margin-left:10px; margin-right:10px;"
+                    >
+                      <p class="mb-0 fw-bold" style="font-size:12pt;">
+                        {{ card.title }}
+                      </p>
+                      <p class=" mb-0" style="font-size:11pt;">
+                        <span>{{
+                          card.description.length < 28
+                            ? card.description
+                            : card.description.substr(0, 27) + ".."
+                        }}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+  <el-card
     shadow="hover"
     style="background:linear-gradient( to top,#f0ebe0, #f6ede9  );"
     class="mbtiCard scale-up-2"
