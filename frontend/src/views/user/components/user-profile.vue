@@ -8,22 +8,23 @@
         <!-- 사용자 프로필 정보 -->
         <el-form class="userinfo-wrapper" :model="formData" label-width="120px" label-position="right">
           <!-- 사용자 프로필 이미지 -->
-          <div class="image-wrapper" style="margin-left:70px;">
+          <div class="image-wrapper">
+            <label for="changeProfile">
             <el-image
               class="user-profile"
               :src="formData.userProfile.profileImageUrl"
-              :fit="fit"></el-image>
-              <span>
-                <font-awesome-icon
-                  icon="images"
-                  aria-hidden="true"
-                  style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:15px"
-                  class="scale-up-3"
-                >
-                </font-awesome-icon>
-            </span>
+              :fit="fit"
+              style="cursor:pointer;"
+              ></el-image>
+            </label>
+              <input
+                id="changeProfile"
+                ref="file"
+                accept="image/*"
+                type="file"
+                style="display: none"
+                @change="changeFile"/>
           </div>
-          
         <el-form-item
           label="닉네임"
           :rules="{ required: true, message: '닉네임을 입력해주세요', trigger: 'change' }">
@@ -199,7 +200,21 @@ export default {
         console.log(err)
       });
     }
-    return { updateProfile, userDelete, formData }
+
+    //파일 업로드 시 호출
+    const changeFile = function(e) {
+      const file = e.target.files[0];
+      formData.userProfile.profileImageUrl = URL.createObjectURL(file);
+    };
+
+    const deleteFile = function(index) {
+      console.log(state.sendFile);
+      state.fileList.splice(index, 1);
+      state.sendFile.splice(index, 1);
+      console.log(state.sendFile);
+    };
+
+    return { updateProfile, userDelete, formData, changeFile }
   }
 }
 </script>
