@@ -66,7 +66,6 @@
   width: 90%;
   height: 250px;
 }
-
 * {
   color: #606266;
   cursor: pointer;
@@ -86,10 +85,9 @@
 </style>
 
 <script>
-import FindDetail from "../find-detail.vue";
-
 export default {
   name: "FindCard",
+
   props: {
     card: Object
   },

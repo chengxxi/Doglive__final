@@ -1,15 +1,10 @@
 <template>
   <div class="main-body main-padding">
     <el-card class="box-card" shadow="none" style="border:none;">
-
       <div style="margin-top:40px; margin-left:60px;"></div>
-
       <el-row class="vertical-center" :gutter="20">
         <el-col :span="12" style="margin-left:50px;">
-          <img
-            class="dog-thumbnail"
-            :src="state.MbtiDetail.image_url"
-          />
+          <img class="dog-thumbnail" :src="state.MbtiDetail.image_url" />
         </el-col>
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
@@ -42,9 +37,7 @@
                 <div
                   class="align-self-center vertical-center"
                   style="text-align: center;"
-                >
-
-                </div>
+                ></div>
               </div>
             </div>
 
@@ -52,6 +45,13 @@
 
             <el-descriptions class="margin-top mt-3" :column="1" :size="size">
               <el-descriptions-item label="MBTI">
+                <el-tag
+                  class="mb-2"
+                  effect="dark"
+                  style="height:30px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none;font-weight:700; color: #606266; "
+                  >{{ state.MbtiDetail.name }}</el-tag
+                >
+
                 <el-popover placement="bottom" width="200" trigger="hover">
                   <div class="content">
                     <h3 style="font-weight:700;">강아지 MBTI 해석하기</h3>
@@ -185,8 +185,6 @@
             </el-descriptions>
 
             <el-divider class="mb-3" />
-
-
           </div>
         </el-col>
       </el-row>
@@ -195,45 +193,79 @@
           {{ state.MbtiDetail.desc }}
         </h6>
       </div>
+
       <el-divider />
 
+      <!-- 유사 공고 -->
+      <!-- 조건 걸기 -->
+
+      <div class="dog-image-box">
+        <h5
+          class="pt-3 pb-3"
+          style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
+        >
+          저랑 잘 맞으실 것 같아요😘🐶
+        </h5>
+        <!-- 유사공고 -->
+        <div v-if="state.MbtiDetail.matchedBoardList != null">
+          <el-scrollbar>
+            <div class="flex-content">
+              <p
+                class="item"
+                v-for="(card, idx) in state.MbtiDetail.matchedBoardList"
+                :key="idx"
+                style="width:360px; margin: 5px; display:inline-block"
+              >
+                <AdoptCard
+                  :card="card"
+                  @click="readDetail(card.boardId.id)"
+                  style="margin:10px; width:360px;"
+                />
+              </p>
+            </div>
+          </el-scrollbar>
+        </div>
+        <div v-else>
+          <el-empty
+            description="같은 MPTI를 가진 아이가 없네요😢"
+            image="https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_223416590.png"
+            image-size="300"
+          >
+          </el-empty>
+        </div>
+      </div>
     </el-card>
-
-
-
-
-    <!-- 유사 공고 -->
   </div>
 </template>
 
-
-
 <script>
-import { computed, reactive, } from 'vue'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-
+import { computed, reactive } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import "mosha-vue-toastify/dist/style.css";
+import AdoptCard from "@/views/adopt/components/adopt-card.vue";
 
 export default {
-  name: 'MbtiDetail',
-
+  name: "MbtiDetail",
+  components: {
+    AdoptCard
+  },
   setup() {
     const store = new useStore();
     const router = new useRouter();
-    console.log(router)
+    console.log(router);
 
     const state = reactive({
       MbtiDetail: computed(() => {
-        console.log(store.getters['root/getMbti']);
-        return store.getters['root/getMbti'];
+        console.log(store.getters["root/getMbti"]);
+        return store.getters["root/getMbti"];
       })
     });
 
-    return { state, };
+    return { state };
   }
 };
 </script>
-
 
 <style scoped>
 .main-body {
@@ -303,7 +335,6 @@ h3 {
   margin: 0;
 }
 
-
 .el-col {
   display: flex;
 
@@ -334,5 +365,29 @@ h3 {
   display: flex;
   align-items: center;
   margin-right: auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #f3e8dc, #f5edea);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(192, 186, 178);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+
+.flex-content {
+  white-space: nowrap;
+  overflow-x: auto;
+  margin: 0;
+  max-width: 99%;
 }
 </style>

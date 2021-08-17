@@ -19,7 +19,6 @@ public interface BoardService {
     /* 실종보호 게시판 목록 가져오기 (필터링, 페이지네이션 추가) */
     Page<DogInformation> filterFindBoardList(Pageable pageable, Long boardType,  Long sido, Long color, Long dogType, String searchWord); //필터링 결과 리스트 불러오기
 
-
     /* 입양/임보 최신게시물 4개 가져오기 */
     List<DogInformation> getRecentAdoptBoard();
 

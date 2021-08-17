@@ -537,7 +537,6 @@ li.el-select-dropdown__item.selected {
   color: #755744;
   font-weight: 700;
 }
-
 /* :deep(.el-collapse-item__arrow) {
   display: none;
 } */
