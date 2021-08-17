@@ -37,7 +37,6 @@
 </style>
 
 <script>
-import $axios from "axios";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";

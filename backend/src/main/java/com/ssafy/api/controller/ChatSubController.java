@@ -139,10 +139,9 @@ public class ChatSubController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity deleteChatroom(@PathVariable("roomId") Long roomId){
+    public ResponseEntity deleteChatroom(@CookieValue("userId") Cookie userIdCookie, @PathVariable("roomId") Long roomId){
         ChatRoom chatRoom = chatService.getChatRoomInfo(roomId);
         chatService.deleteChatRoom(chatRoom);
-
         return ResponseEntity.ok(BaseResponseBody.of(200, "채팅방이 삭제되었습니다."));
     }
 }

@@ -65,6 +65,13 @@ export function requestChatMessageUpdate({state}, payload){
   return $axios.put(url);
 }
 
+// 채팅방 삭제
+export function requestDeleteChatRoom({state}, payload){
+  let roomId = payload.roomId;
+  const url = "/chatroom/" + roomId;
+  return $axios.delete(url);
+}
+
 // 사용자 북마크 리스트를 불러오기
 export function requestBookmarkList({ state }, payload) {
   const url = "/users/bookmark/" + payload;

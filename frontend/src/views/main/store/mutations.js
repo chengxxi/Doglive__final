@@ -80,6 +80,10 @@ export function setChatMenu(state, payload) {
   state.chat.menu = payload;
 }
 
+export function setExitMessage(state, payload) {
+  state.chat.exitMessage = payload;
+}
+
 export function setAdoptFormId(state, payload) {
   state.adoptForm.formId = payload;
 }

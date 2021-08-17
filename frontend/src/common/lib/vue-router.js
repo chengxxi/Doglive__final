@@ -6,7 +6,6 @@ import Logout from "@/views/main/components/logout-dialog.vue";
 import Mypage from "@/views/user/mypage.vue";
 import Conference from "@/views/conferences/conference.vue";
 import KakaoCallback from "@/views/main/components/kakao-callback.vue";
-import Chat from "@/views/chat/chat.vue";
 import AdoptDetail from "@/views/adopt/adopt-detail.vue";
 import Adopt from "@/views/adopt/adopt.vue";
 import AdoptRegister from "@/views/adopt/adopt-register.vue";

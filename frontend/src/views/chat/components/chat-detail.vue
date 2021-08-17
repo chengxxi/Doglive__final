@@ -33,9 +33,9 @@
     <a class="video-btn" @click="createConference(chat.title)"
       ><font-awesome-icon :icon="['fas', 'video']"></font-awesome-icon
     ></a>
-    <font-awesome-icon class="exit-btn" :icon="['fa', 'door-open']"></font-awesome-icon>
+    <font-awesome-icon class="exit-btn" :icon="['fa', 'door-open']" @click="deleteChatRoom()"></font-awesome-icon>
 
-    <!-- <i class="el-icon-video-camera video-btn"></i> -->
+    <chat-delete :roomId="chat.roomId"/>
   </div>
 </template>
 
@@ -141,22 +141,19 @@
 <script>
 import svg from "@/assets/svgs/loading.js";
 import ChatMessage from "./chat-message.vue";
+import ChatDelete from "./chat-delete.vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { ref, reactive, computed, onUpdated, onMounted } from "vue";
+import { ref, reactive, computed, onUpdated } from "vue";
 import Stomp from "webstomp-client";
 import SockJS from "sockjs-client";
-import _ from "lodash";
 
 export default {
   name: "chat-detail",
 
   components: {
-    ChatMessage
-  },
-
-  props: {
-    boardTitle: ""
+    ChatMessage,
+    ChatDelete
   },
 
   setup() {
@@ -181,6 +178,7 @@ export default {
       init: true,
       open: computed(() => store.getters["root/getChat"].open),
       title: computed(() => store.getters["root/getChat"].title),
+      roomId: computed(() => store.getters["root/getChat"].roomId),
       loading: true,
       isLoading: computed(() => chat.loading),
       page: 0,
@@ -263,6 +261,7 @@ export default {
     // 닫기 버튼 : 채팅 Open 여부 변경
     function changeOpen() {
       store.commit("root/setChatOpen", !chat.open);
+      store.commit("root/setExitMessage", false);
     }
 
     // 뒤로가기 버튼 : 채팅방 목록으로 넘어감
@@ -274,10 +273,14 @@ export default {
       }).catch(function(err){
         console.log(err)
       });
-
       store.commit("root/setChatMenu", 0);
       store.commit("root/setChatTitle", "");
       store.commit("root/setChatRoomId", "");
+      store.commit("root/setExitMessage", false);
+    }
+
+    function deleteChatRoom(){
+      store.commit("root/setExitMessage", true);
     }
 
     // 스크롤 하단 고정
@@ -349,7 +352,8 @@ export default {
       svgInfo,
       divs,
       scroll,
-      createConference
+      createConference,
+      deleteChatRoom
     };
   }
 };

@@ -626,7 +626,6 @@ h3 {
 
 .el-col {
   display: flex;
-
   align-items: center;
 }
 
