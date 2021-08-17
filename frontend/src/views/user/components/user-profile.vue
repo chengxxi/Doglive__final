@@ -121,12 +121,12 @@ import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: 'user-profile',
-  
+
   setup() {
     const store = new useStore();
     const router = new useRouter()
     const cookies = new Cookies()
-    
+
     const formData = reactive({
         userProfile : computed(() => {
           return store.getters["root/getUpdateUserInfo"];
@@ -162,7 +162,7 @@ export default {
                 timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#7eaa72",
-                position: "bottom-right",
+                position: "bottom-left",
                 transition: "bounce",
                 type: "success"
             });
