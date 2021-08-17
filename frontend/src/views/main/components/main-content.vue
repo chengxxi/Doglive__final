@@ -166,12 +166,13 @@
             </p>
             <div class="py-3">
               <a href="/mbti">
-              <el-button
-                type="primary"
-                class="btn btn-lg btn-primary rounded-pill hover-top"
-                @click="goMbti"
-                >MPTI 테스트</el-button
-              ></a>
+                <el-button
+                  type="primary"
+                  class="btn btn-lg btn-primary rounded-pill hover-top"
+                  @click="goMbti"
+                  >MPTI 테스트</el-button
+                ></a
+              >
             </div>
           </div>
         </div>
@@ -818,7 +819,7 @@ export default {
     };
 
     const goMbti = function() {
-      router.push({ name: "Mbti" });
+      router.push({ name: "MBTI" });
     };
 
     onMounted(() => {
