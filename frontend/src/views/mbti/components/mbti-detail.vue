@@ -1,5 +1,6 @@
 <template>
   <div class="main-body main-padding">
+    <bread-crumb></bread-crumb>
     <el-card class="box-card" shadow="none" style="border:none;">
       <div style="margin-top:40px; margin-left:60px;">
         <el-row>
@@ -233,11 +234,14 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import "mosha-vue-toastify/dist/style.css";
 import AdoptCard from "@/views/adopt/components/adopt-card.vue";
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
+import { onMounted } from "vue";
 
 export default {
   name: "MbtiDetail",
   components: {
-    AdoptCard
+    AdoptCard,
+    BreadCrumb
   },
   setup() {
     const store = new useStore();
@@ -249,6 +253,17 @@ export default {
         console.log(store.getters["root/getMbti"]);
         return store.getters["root/getMbti"];
       })
+    });
+
+    onMounted(() => {
+      console.log("breadcrumb");
+      store.commit("root/setBreadcrumbInfo", {
+        isHome: false,
+        title: "MPTI",
+        path: "/mbti",
+        subTitle: state.MbtiDetail.name
+      });
+      window.scrollTo(0, 0);
     });
 
     return { state };

@@ -1,5 +1,6 @@
 <template>
   <div class="main-body main-padding">
+    <bread-crumb></bread-crumb>
     <div class="box-card " style="width:100%; border:none; ">
       <div style="margin-top:50px; margin-left:50px; ">
         <h5 class="fw-bold">16 Pupsonality</h5>
@@ -39,11 +40,28 @@
 
 <script>
 import MbtiResult from "./mbti-result.vue";
-
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
+import { onMounted } from "vue";
+import { useStore } from "vuex";
 export default {
   name: "mbti-info",
   components: {
-    MbtiResult
+    MbtiResult,
+    BreadCrumb
+  },
+  setup() {
+    const store = new useStore();
+
+    onMounted(() => {
+      console.log("breadcrumb");
+      store.commit("root/setBreadcrumbInfo", {
+        isHome: false,
+        title: "MPTI",
+        path: "/mbti",
+        subTitle: "MPTI 유형"
+      });
+      window.scrollTo(0, 0);
+    });
   }
 };
 </script>

@@ -20,15 +20,12 @@
 </template>
 
 <style scoped>
-:deep(.el-container) {
-  padding-bottom: 50px !important;
-}
 .mbtibox {
   padding-bottom: 50px !important;
 }
 .box {
   margin-top: 30px;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   margin-left: 50px;
   margin-right: 50px;
   padding: 40px;
