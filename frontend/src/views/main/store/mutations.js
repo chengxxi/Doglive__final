@@ -107,4 +107,5 @@ export function setMbtiDetail(state, data) {
   state.mbti.name = data.name;
   state.mbti.desc = data.desc;
   state.mbti.image_url = data.imageUrl;
+  state.mbti.matchedBoardList = data.matchedBoardList;
 }

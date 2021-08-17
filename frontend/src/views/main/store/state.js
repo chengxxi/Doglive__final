@@ -104,6 +104,7 @@ export default {
     name: "",
     title: "",
     desc: "",
-    image_url: ""
+    image_url: "",
+    matchedBoardList: []
   }
 };

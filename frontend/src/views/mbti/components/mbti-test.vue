@@ -255,17 +255,18 @@ export default {
         .dispatch("root/requestMBTIResult", result)
         .then(function(result) {
           console.log(result);
-          store.commit("root/setMbtiDetail", result.data.mbti);
 
-          // createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
-          //   hideProgressBar: "true",
-          //   timeout: 4500,
-          //   showIcon: "true",
-          //   toastBackgroundColor: "#c49d83",
-          //   position: "bottom-right",
-          //   transition: "bounce",
-          //   type: "warning"
-          // });
+          const data = {
+            id: result.data.mbti.id,
+            name: result.data.mbti.name,
+            title: result.data.mbti.title,
+            desc: result.data.mbti.desc,
+            imageUrl: result.data.mbti.imageUrl,
+            matchedBoardList: result.data.matchedBoardList
+          };
+
+          store.commit("root/setMbtiDetail", data);
+
           //router.push({ name: "Main" });
           router.push({ name: "MbtiDetail" });
         })
