@@ -13,13 +13,25 @@
           />
         </div>
 
+
         <div class="my-3 fs--1">
           <div style="padding-top:10px; margin-left:10px; margin-right:10px;">
-            <p class="mb-0 fw-bold" style="font-size:20pt;">
-              {{ card.name }}
+            <el-tag
+                class='mb-2'
+                effect='dark'
+                size='small'
+                style='height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;'
+              >
+                {{ card.name }}
+            </el-tag>
+
+            <p class="mb-0 fw-bold" style="font-size:14pt; float: right;">
+              {{ card.title }}
             </p>
           </div>
         </div>
+
+
       </div>
     </div>
   </div>
