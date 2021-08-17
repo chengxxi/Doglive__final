@@ -1,6 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
     <span v-for='(card, idx) in state.MbtiList' :key='idx'>
       <el-col :span='6'>
         <MbtiCard
@@ -8,20 +7,6 @@
           style='cursor:pointer'
           @click='readDetail(card.id)'
         />
-=======
-    <div class="box">
-      <h3 class="description">
-        🐕 강아지 MBTI란? 🐾
-      </h3>
-      <br />
-      <p>'독립'이 만든 강아지 성향 MBTI</p>
-      <!-- 상세 소개 내용 수정 필요 -->
-    </div>
-
-    <span v-for="(card, idx) in state.MbtiList" :key="idx">
-      <el-col :span="6">
-        <MbtiCard :card="card" @click="readDetail(card.id)" />
->>>>>>> 192c156102415ac06bbfbdd639704f02bf3c5ae0
       </el-col>
     </span>
   </div>
@@ -49,17 +34,10 @@
 </style>
 
 <script>
-<<<<<<< HEAD
 import MbtiCard from './mbti-card.vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { reactive, onMounted } from 'vue';
-=======
-import MbtiCard from "./mbti-card.vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { reactive, onMounted } from "vue";
->>>>>>> 192c156102415ac06bbfbdd639704f02bf3c5ae0
 
 export default {
   name: "mbti-result",
