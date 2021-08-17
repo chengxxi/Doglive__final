@@ -18,14 +18,6 @@
               >
                 {{ state.MbtiDetail.name }}
               </el-tag>
-              <!-- <el-tag
-                class='mb-3  scale-up-2'
-                color='#D7AFA4'
-                effect='dark'
-                size='large'
-                style='border:none; border-radius: 30px; font-size:14pt; float:left;'
-                >{{ state.MbtiDetail.name }}</el-tag
-              > -->
             </el-row>
 
             <div class="vertical-center row">
