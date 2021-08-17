@@ -5,7 +5,15 @@
           <h5>북마크</h5>
         </div>
         <div class="mypage-content">
-          <bookmark-card :card="state.tableData"></bookmark-card>
+          <el-row v-if="state.tableData.length == 0">
+            <el-empty
+              style="margin-top:80px; margin-bottom:50px;"
+              description="북마크한 글이 없다개 💨"
+            ></el-empty>
+          </el-row>
+          <el-row v-if="state.tableData.length != 0">
+            <bookmark-card :card="state.tableData"></bookmark-card>
+          </el-row> 
         </div>
       </div>
     </div>

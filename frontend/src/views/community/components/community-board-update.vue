@@ -10,10 +10,10 @@
           ref="boardForm"
           label-width="120px"
         >
-        <h5 class="mt-1 mb-2" style="font-weight:600">
-          👨‍👩‍👧 당신의 이야기를 들려주세요 !
-        </h5>
-        <el-divider />
+          <h5 class="mt-1 mb-2" style="font-weight:600">
+            👨‍👩‍👧 당신의 이야기를 들려주세요 !
+          </h5>
+          <el-divider />
           <el-row class="mb-4">
             <el-col :span="18">
               <el-form-item label="제목" prop="title" style="margin-right:3%;">
@@ -35,55 +35,59 @@
           <span style="font-size: 1.25rem; font-weight:600">
             📷 사진을 업로드 해주세요
           </span>
-          <span> (최대 5장)</span>
+          <span> (최대 3장 / 최소 1장)</span>
           <el-divider />
 
-          <el-row class="mb-5">
-            <el-upload
-              action="#"
-              list-type="picture-card"
-              :auto-upload="false"
-              limit="5"
-              on-exceed=""
-            >
-              <template #default>
-                <i class="el-icon-plus"></i>
-              </template>
-              <template #file="{file}">
-                <div>
-                  <img
-                    class="el-upload-list__item-thumbnail"
-                    :src="file.url"
-                    alt=""
-                  />
-                  <span class="el-upload-list__item-actions">
-                    <span
-                      class="el-upload-list__item-preview"
-                      @click="handlePictureCardPreview(file)"
+          <el-row class="mt-4  mb-3">
+            <div class="mb-3" id="imgFileUploadInsertWrapper">
+              <div class="thumbnail-wrapper">
+                <el-image
+                  style="width: 200px; height:200px; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%); cursor:pointer; position:relative; margin-right:20px; border-radius:20px; float:left;"
+                  v-for="(file, index) in state.community.fileList"
+                  v-bind:src="file"
+                  v-bind:key="index"
+                  @click="deleteOriginFile(index)"
+                  :fit="fit"
+                  :hover="state.hover"
+                ></el-image>
+                <el-image
+                  style="width: 200px; height:200px; box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%); cursor:pointer; position:relative; margin-right:20px; border-radius:20px; float:left;"
+                  v-for="(file, index) in state.thumbnailList"
+                  v-bind:src="file"
+                  v-bind:key="index"
+                  @click="deleteNewFile(index)"
+                  :fit="fit"
+                  :hover="state.hover"
+                ></el-image>
+
+                <input
+                  @change="changeFile"
+                  type="file"
+                  id="inputFileUploadInsert"
+                  style="display:none"
+                  multiple
+                />
+                <div style="float:left;">
+                  <label for="inputFileUploadInsert" style="cursor:pointer;">
+                    <div
+                      style="background:linear-gradient( to top, #f3ede7, #f5e9e4 );
+                      text-align:center;
+                      display:table-cell;
+                      vertical-align:middle;
+                      box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%);
+                      width:200px; height:200px; border-radius:20px;
+                    "
                     >
-                      <i class="el-icon-zoom-in"></i>
-                    </span>
-                    <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleDownload(file)"
-                    >
-                      <i class="el-icon-download"></i>
-                    </span>
-                    <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleRemove(file)"
-                    >
-                      <i class="el-icon-delete"></i>
-                    </span>
-                  </span>
+                      <i
+                        class="el-icon-plus "
+                        style="margin-left : 10px;
+                    font-size:40px; color:#D8D8D8;"
+                      />
+                    </div>
+                  </label>
                 </div>
-              </template>
-            </el-upload>
-            <el-dialog v-model="dialogVisible">
-              <img width="100%" :src="dialogImageUrl" alt="" />
-            </el-dialog>
+              </div>
+            </div>
           </el-row>
 
           <span style="font-size: 1.25rem; font-weight:600">
@@ -91,12 +95,14 @@
           </span>
           <el-divider />
           <el-row class="mb-3">
-          <el-form-item label="내용" prop="description">
-            <el-input type="textarea" v-model="boardForm.description" style="resize: none; white-space:pre;"></el-input>
-          </el-form-item>
-            
+            <el-form-item label="내용" prop="description">
+              <el-input
+                type="textarea"
+                v-model="boardForm.description"
+                style="resize: none; white-space:pre;"
+              ></el-input>
+            </el-form-item>
           </el-row>
-          
 
           <el-row
             class="mt-5"
@@ -108,7 +114,6 @@
             >
             <el-button @click="resetForm('boardForm')">초기화</el-button>
           </el-row>
-
         </el-form>
       </div>
     </el-row>
@@ -116,8 +121,6 @@
 </template>
 
 <style scoped>
-
-
 li.el-select-dropdown__item.selected {
   color: #755744;
   font-weight: 700;
@@ -170,8 +173,6 @@ li.el-select-dropdown__item.selected {
   font-size: 12pt;
   font-weight: 500;
 }
-
-
 </style>
 
 <script>
@@ -183,21 +184,21 @@ import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "community-board-update",
-  data(){
-    return{
-      boardForm:{
+  data() {
+    return {
+      boardForm: {
         userId: this.state.userId.userId,
         communityId: this.state.community.communityId,
-        category : this.state.community.category,
-        title : this.state.community.title,
-        description : this.state.community.description,
+        category: this.state.community.category,
+        title: this.state.community.title,
+        description: this.state.community.description
       },
       rules: {
         category: [
           {
             required: true,
             message: "게시글 카테고리를 선택해주세요",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         title: [
@@ -206,7 +207,7 @@ export default {
             min: 3,
             max: 20,
             message: "3글자 이상, 20글자 이하로 입력해주세요.",
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         description: [
@@ -215,31 +216,66 @@ export default {
             min: 10,
             max: 1000,
             message: "10글자 이상, 1000글자 이하로 입력해주세요.",
-            trigger: "blur"
+            trigger: "change"
           }
         ]
       }
-    }
+    };
   },
-  methods:{
+  methods: {
     submitForm(formName) {
-      const data = {
-        userId: this.state.userId.userId,
-        communityId: this.boardForm.communityId,
-        title: this.boardForm.title,
-        category : this.boardForm.category,
-        description: this.boardForm.description,
-      };
-      console.log(data);
-
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.modifyData(data);
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+      if (
+        this.state.community.fileList.length + this.state.newAddFile.length >
+        5
+      ) {
+        createToast("사진은 3장까지만 업로드 가능해요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      } else if (
+        this.state.community.fileList.length + this.state.newAddFile.length >=
+        1
+      ) {
+        const data = {
+          userId: this.state.userId.userId,
+          communityId: this.boardForm.communityId,
+          title: this.boardForm.title,
+          category: this.boardForm.category,
+          description: this.boardForm.description,
+          fileList: this.boardForm.fileList
+        };
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.modifyData(data);
+            console.log(this.boardForm);
+          } else {
+            createToast("작성하지 않은 항목이 있어요 💬💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            });
+          }
+        });
+      } else {
+        createToast("사진은 한 장 이상 업로드해주세요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -254,7 +290,6 @@ export default {
     handleDownload(file) {
       console.log(file);
     }
-
   },
   setup() {
     const store = new useStore();
@@ -263,19 +298,38 @@ export default {
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
       }),
-      community : computed(() =>{
+      community: computed(() => {
         console.log(store.getters["root/getCommunityBoard"]);
-        return store.getters["root/getCommunityBoard"]
-      })
-
+        return store.getters["root/getCommunityBoard"];
+      }),
+      deleteList: [],
+      newAddFile: [],
+      thumbnailList: []
     });
 
+    const modifyData = function(data) {
+      const formData = new FormData();
+      formData.append("userId", this.state.userId.userId);
+      formData.append("title", data.title);
+      formData.append("category", data.category);
+      formData.append("description", data.description);
 
-
-    const modifyData = function(data){
-      store.dispatch("root/requestUpdateCommunity", {communityId : data.communityId, data: data })
-      .then(function(result){
-        createToast("게시글이 수정되었어요 📜🐾", {
+      const cnt = this.state.deleteList.length;
+      for (var i = 0; i < cnt; i++) {
+        formData.append("delList", this.state.deleteList[i]);
+      }
+      console.log("cnt");
+      for (var j = 0; j < this.state.newAddFile.length; j++) {
+        formData.append("fileList", this.state.newAddFile[j]);
+      }
+      console.log(formData);
+      store
+        .dispatch("root/requestUpdateCommunity", {
+          communityId: data.communityId,
+          data: formData
+        })
+        .then(function(result) {
+          createToast("게시글이 수정되었어요 📜🐾", {
             hideProgressBar: "true",
             timeout: 4500,
             showIcon: "true",
@@ -286,10 +340,29 @@ export default {
           });
           console.log("수정 성공");
           router.push({ name: "Community" });
-      })
-    }
+        });
+    };
 
-    
+    //파일 업로드 시 호출
+    const changeFile = function(fileEvent) {
+      if (fileEvent.target.files && fileEvent.target.files.length > 0) {
+        for (var i = 0; i < fileEvent.target.files.length; i++) {
+          const file = fileEvent.target.files[i];
+          state.thumbnailList.push(URL.createObjectURL(file));
+          state.newAddFile.push(file);
+        }
+      }
+    };
+
+    const deleteOriginFile = function(index) {
+      state.deleteList.push(state.community.fileList[index]);
+      state.community.fileList.splice(index, 1);
+    };
+
+    const deleteNewFile = function(index) {
+      state.thumbnailList.splice(index, 1);
+      state.newAddFile.splice(index, 1);
+    };
 
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {
@@ -299,9 +372,7 @@ export default {
       });
     });
 
-   
-
-    return { state , modifyData};
+    return { state, modifyData, changeFile, deleteOriginFile, deleteNewFile };
   }
-}
+};
 </script>

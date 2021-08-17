@@ -35,9 +35,10 @@
 }
 .login-wrapper {
   width: 500px;
-
   margin: auto;
   text-align: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 .login-wrapper .login-title {
   height: 20px;
@@ -75,9 +76,8 @@ export default {
     // 카카오 로그인
     const loginWithKakao = function() {
       Kakao.Auth.authorize({
-        redirectUri: "http://localhost:8080/kakao/callback"
-        // redirectUri: "http://i5a501.p.ssafy.io:8080/kakao/callback" // 배포용
-        // redirectUri: 'http://localhost:8081/kakao/callback'
+        redirectUri: "https://i5a501.p.ssafy.io/kakao/callback"
+        //redirectUri: "https://localhost:8082/kakao/callback"
       });
     };
     return { loginWithKakao };

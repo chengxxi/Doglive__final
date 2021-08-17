@@ -81,6 +81,7 @@ import {
   ElSubmenu,
   ElSwitch,
   ElTabPane,
+  ElEmpty,
   ElTable,
   ElTableColumn,
   ElTabs,
@@ -173,6 +174,7 @@ const components = [
   ElTabPane,
   ElTable,
   ElTableColumn,
+  ElEmpty,
   ElTabs,
   ElTag,
   ElTimePicker,
@@ -220,7 +222,11 @@ import {
   faComments,
   faFile,
   faCheck,
-  faCheckCircle
+  faCheckCircle,
+  faHeart,
+  faVideo,
+  faTrashAlt,
+  faDoorOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -259,7 +265,11 @@ library.add(
   faComments,
   faFile,
   faCheck,
-  faCheckCircle
+  faCheckCircle,
+  faHeart,
+  faVideo,
+  faTrashAlt,
+  faDoorOpen,
 );
 
 const plugins = [
@@ -289,6 +299,38 @@ components.forEach(component => {
 plugins.forEach(plugin => {
   app.use(plugin);
 });
+
+app.config.globalProperties.$filters = {
+  convertDate(datetime) {
+    // YYYY-MM-DD -> YYYY년 MM월 DD일
+    var dateStr = datetime.split(" ");
+    var dateArr = dateStr[0].split("-");
+    var date = "";
+
+    date += dateArr[0] + "년 ";
+    date += dateArr[1] + "월 ";
+    date += dateArr[2] + "일";
+    return date;
+  },
+
+  convertTime(datetime) {
+    // HH:MM:SS -> 오전/오후 HH:MM
+    var timeStr = datetime.split(" ");
+    var timeArr = timeStr[1].split(":");
+    var time = "";
+    var hour = parseInt(timeArr[0]);
+
+    if (hour < 12) {
+      time += "오전 ";
+      time += hour + ":";
+    } else {
+      time += "오후 ";
+      time += hour - 12 + ":";
+    }
+    time += timeArr[1];
+    return time;
+  }
+};
 
 /* Kakao javascript Key 설정 */
 

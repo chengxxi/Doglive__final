@@ -2,7 +2,6 @@
 
 // 현재 로그인 된 UserInfo 가져오기
 export function getLoginUserInfo(state) {
-  console.log("state 내용 : " + state);
   return state.loginUserInfo;
 }
 
@@ -44,6 +43,26 @@ export function getChat(state) {
   return state.chat;
 }
 
+// 현재 커뮤니티 글 가져오기
+export function getCommunityBoard(state) {
+  console.log(state);
+  return state.community;
+}
+
+//현재 게시판 번호 가져오기
+export function getBoardId(state) {
+  return state.board.boardId;
+}
+
+//현재 AdoptForm 아이디 가져오기
+export function getAdoptFormId(state) {
+  return state.adoptForm.formId;
+}
+
+// 화상회의 정보 가져오기
+export function getConference(state) {
+  return state.conference;
+}
 
 // MBTI detail 가져오기
 export function getMbti(state) {

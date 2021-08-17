@@ -1,13 +1,21 @@
 /* 공통으로 적용되어야할 css */
 @media (max-width: 700px) {
   .main-container {
-    height: calc(100% - 275px) !important;
+    min-height: calc(100vh - 140px);
   }
 }
 
-#app, .main-wrapper {
-  height: 100%;
+#app{
+  height: 100vh;
+}
+
+.main-wrapper {
+  min-height: calc(100vh - 140px) !important;
   display: block !important;
+}
+
+:deep(section){
+  padding-bottom: 0rem !important;
 }
 
 .el-header {
@@ -28,16 +36,18 @@
   display: inline-block;
 }
 
-.vertical-center{
+.vertical-center {
   display: flex;
-align-items: center;
+  align-items: center;
+}
+
+.el-container {
+  padding-bottom: 0;
 }
 
 .main-container {
   /* height: calc(100% - 70px); /* 전체 높이 - 헤더 높이 */
-  /* height: 100%; */ /* 높이를 지정해주지 않아야 푸터가 100%밑이 아닌 컨텐츠 아래에 붙음 */
-  min-height: calc(100% - 70px);
-  margin-top: 70px !important;
+  min-height: calc(100vh - 140px);
 }
 
 .el-footer.main-footer {
@@ -46,4 +56,3 @@ align-items: center;
   margin-right: 0 !important;
   border-top: 1px solid #dcdfe6;
 }
-

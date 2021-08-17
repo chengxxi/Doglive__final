@@ -43,18 +43,24 @@ export default {
 
     const readDetail = function(id) {
       console.log("read");
-      const userid = store.getters["root/getLoginUserInfo"].userId;
+      var checkId = state.userId;
+      if (checkId === undefined || checkId === null || checkId == "") {
+        checkId = "none";
+      }
 
-      $axios
-        .get("/board/" + id + "/" + userid)
+      store
+        .dispatch("root/requestBoardDetail", {
+          boardId: id,
+          userId: checkId
+        })
         .then(function(result) {
           console.log(result);
 
           const boardDetail = {
-            boardId: result.data.board.id,
-            boardType: result.data.board.type,
-            thumbnailUrl: result.data.board.thumbnailUrl,
-            title: result.data.board.title,
+            boardId: result.data.dogInformation.boardId.id,
+            boardType: result.data.dogInformation.boardId.type,
+            thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+            title: result.data.dogInformation.boardId.title,
             address: result.data.dogInformation.address,
             mbti: result.data.dogInformation.mbti,
             colorType: result.data.dogInformation.colorType,
@@ -64,42 +70,26 @@ export default {
             writer: result.data.writer,
             weight: result.data.dogInformation.weight,
             ageType: result.data.dogInformation.age,
-            regDate: result.data.board.regDate,
+            regDate: result.data.dogInformation.boardId.regDate,
             fileList: result.data.boardImageList,
             isOwner: result.data.owner,
+            gugun: result.data.dogInformation.gugun,
+            sido: result.data.dogInformation.gugun.sidoCode,
             description: result.data.dogInformation.description,
             dogName: result.data.dogInformation.dogName,
             isBookmarked: result.data.bookmarked
           };
 
           store.commit("root/setBoardDetail", boardDetail);
-
           router.push({ name: "AdoptDetail" });
         })
         .catch(function(err) {
+          console.log(state.userId);
           console.log(err);
         });
     };
 
-    const goRegister = function() {
-      if (state.userId === null) {
-        alert("로그인해주세요");
-        router.push({ name: "Login" });
-      } else {
-        router.push({ name: "AdoptRegister" });
-      }
-    };
-
-    onMounted(() => {
-      store.commit("root/setBreadcrumbInfo", {
-        isHome: false,
-        title: "Adopt",
-        subTitle: "입양 공고 목록"
-      });
-      window.scrollTo(0, 0);
-    });
-
-    return { state, readDetail, goRegister };
+    return { state, readDetail };
   }
 };
 </script>

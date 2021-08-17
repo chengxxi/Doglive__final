@@ -27,7 +27,7 @@
         <span class="filter-wrapper">
           <el-row
             v-show="showFilter"
-            style="background:linear-gradient( to bottom,#f0ebe0, #f6ede9 ); margin-bottom:10px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
+            style="background:linear-gradient( to bottom,#f3e8dc, #f5edea ); margin-bottom:10px; margin-left:10px; margin-right:10px; padding-left:15px; padding-right:15px; padding-top:20px;"
           >
             <el-col :span="20">
               <el-row style="height:50%; " class="select-wrapper" :gutter="20">
@@ -97,7 +97,7 @@
                   style="width:100%; height:50%; padding-left:5px; padding-right:20px; margin-top:20px;"
                 >
                   <el-input
-                    placeholder="상세주소 또는 상세내용으로 검색 가능합니다"
+                    placeholder="품종 또는 상세주소로 검색 가능합니다"
                     v-on:keyup.enter="readData"
                     v-model="state.searchWord"
                   ></el-input>
@@ -176,7 +176,7 @@
 <script>
 import FindList from "./components/find-list.vue";
 import Pagination from "./components/pagination.vue";
-import BreadCrumb from "./components/bread-crumb.vue";
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
 import { reactive, computed, onMounted } from "vue"; // ref
 
 // import $axios from 'axios'
@@ -267,7 +267,7 @@ export default {
       colorCode: "",
       boardTypeCode: "",
       dogTypeCode: "",
-      sort: "",
+      sort: "boardId.regDate,desc",
 
       //페이지네이션
       listRowCount: 12,
@@ -280,7 +280,11 @@ export default {
     });
     //글 등록하기
     const goRegister = function() {
-      if (state.userId === null) {
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
         createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -338,7 +342,7 @@ export default {
       state.sidoCode = "";
       state.boardTypeCode = "";
       state.dogTypeCode = "";
-      state.sort = "";
+      state.sort = "boardId.regDate,desc";
 
       readData();
     };
@@ -347,7 +351,7 @@ export default {
     const searchData = function() {
       state.currentPageIndex = 1;
       state.offset = 0;
-      state.sort = "";
+      state.sort = "boardId.regDate,desc";
       readData();
     };
 
@@ -381,13 +385,13 @@ export default {
 
     //날짜 최신순 정렬(default)
     const newestSort = function() {
-      state.sort = "";
+      state.sort = "boardId.regDate,desc";
       readData();
     };
 
     //날짜 오래된 순 정렬
     const oldestSort = function() {
-      state.sort = "boardId.regDate,desc";
+      state.sort = "";
       readData();
     };
 

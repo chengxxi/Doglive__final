@@ -1,24 +1,30 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " style="width:100%;" shadow="none">
-      <bread-crumb></bread-crumb>
-      <div style="margin-top:2%; margin-left:1%;">
-        <h1 class="title">Community</h1>
-        <p>강아지와 당신의 이야기</p>
+    <div style="border:none; width:100%;">
+      <div>
+        <bread-crumb></bread-crumb>
+        <div class="title" style="margin-top:3%;">
+          <h2>독립신문</h2>
+        </div>   
+        
+        <el-card
+          class="box-card "
+          style="width:100%;border:none; margin-left:1%; margin-right:1%;"
+          shadow="none"
+        >
+          <router-view></router-view>
+        </el-card>
       </div>
-
-      <router-view></router-view>
-    </el-card>
-    
+    </div>
   </div>
 </template>
 
 <style scoped>
 .main-body {
-  width: 90%;
-  margin-left: 25%; 
-  margin-right: 25%;
-  margin-bottom : 50px
+  width: 100%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 50px;
 }
 .main-padding {
   padding-top: 50px;
@@ -28,9 +34,8 @@
   font-size: 2.5rem;
   font-weight: normal;
 }
-.el-button{
-  margin-right:1%;
-}
+
+
 </style>
 
 <script>
@@ -39,16 +44,16 @@ import $axios from "axios";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
-import BreadCrumb from "./components/bread-crumb.vue";
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
 import CommunityBoardList from "./components/community-board-list.vue";
 import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
 
 export default {
   name: "community",
-  components:{
-      BreadCrumb,
-      CommunityBoardList,
+  components: {
+    BreadCrumb,
+    CommunityBoardList
   },
   setup() {
     const store = new useStore();
@@ -61,9 +66,18 @@ export default {
 
     
 
-    return {state}
+    onMounted(() => {
+      store.commit("root/setBreadcrumbInfo", {
+        isHome: false,
+        title: "독립신문",
+        path: "/community",
+        subTitle: "게시글 구경하기"
+      });
 
+      window.scrollTo(0, 0);
+    });
 
+    return { state };
   }
-}
+};
 </script>

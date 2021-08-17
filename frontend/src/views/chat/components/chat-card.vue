@@ -1,14 +1,14 @@
 <template>
   <el-card class="box-card">
     <div class="room-title">
-      {{ card.chatRoom.name }}
+      {{ card.boardTitle }}
     </div>
     <div class="room-user">
       <i class="el-icon-user-solid"></i>
       {{ card.user1 }}
       {{ card.user2 }}
     </div>
-    <el-badge :value="card.unRead" class="message-badge" type="danger"></el-badge>
+    <el-badge v-if="card.unRead > 0" :value="card.unRead" class="message-badge" type="danger"></el-badge>
   </el-card>
 </template>
 
@@ -20,12 +20,16 @@
   cursor: pointer;
   margin-bottom: 10px;
 }
+.box-card:hover{
+  background-color: rgb(248, 248, 248);
+}
+
 :deep(.el-card__body){
   height: inherit;
   padding: 15px;
 }
 .room-title{
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .room-user{
   font-size: 14px;

@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <!-- <div class="chat-body"
         @scroll="scroll"
         v-loading="communities.loading"
@@ -11,12 +12,6 @@
             round
             @click="goRegister"
             >글 작성하기</el-button
-          >
-          <el-button
-            type="outline-primary"
-            round
-            @click="goMyCommunity"
-            >내 피드 보러가기</el-button
           >
       </div>
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
@@ -53,10 +48,7 @@
             indicator-position="none"
             style="margin-top:3%; margin-bottom:3%;"
           >
-            <el-carousel-item
-              v-for="(img, index) in item.fileList"
-              :key="index"
-            >
+            <el-carousel-item v-for="(img, index) in item.fileList" :key="index">
               <img class="image" :src="img" />
             </el-carousel-item>
           </el-carousel>
@@ -153,6 +145,7 @@
 </template>
 
 <style scoped>
+
 .board {
   max-width: 600px;
   max-width: 850px;
@@ -296,7 +289,7 @@ export default {
 
     const state = reactive({
       boardList: [],
-      reverseList: [],
+      reverseList :[],
       comments: [],
       userId: computed(() => {
         return store.getters["root/getLoginUserInfo"].userId;
@@ -337,34 +330,18 @@ export default {
       }
     };
 
-    const goMyCommunity = function(){
-      if (state.userId === null) {
-        createToast("로그인을 진행해주세요 💨💨", {
-          hideProgressBar: "true",
-          timeout: 4500,
-          showIcon: "true",
-          toastBackgroundColor: "#c49d83",
-          position: "bottom-left",
-          transition: "bounce",
-          type: "success"
-        });
-        router.push({ name: "Login" });
-      } else {
-        router.push({ name: "community-mycommunity" });
-      }
-
-    }
-
+    const userId = store.getters['root/getLoginUserInfo'].userId;
     // 다음 커뮤니티 목록 가져오기
     function fetchCommunityList() {
       store
-        .dispatch("root/requestCommunityBoardList", communities.page)
+        .dispatch('root/requestMyCommunity', userId)
         .then(function(result) {
-          var size = result.data.length;
+          console.log(result)
+          var size = result.data.communityList.length;
           for (var i = 0; i < size; i++) {
-            state.boardList.push(result.data[i]);
-            console.log(result.data[i]);
-            const id = result.data[i].id;
+            state.boardList.push(result.data.communityList[i]);
+            console.log(result.data.communityList[i]);
+            const id = result.data.communityList[i].id;
             store
               .dispatch("root/requestCommunityComment", id)
               .then(function(result) {
@@ -420,7 +397,7 @@ export default {
             title: result.data.community.title,
             category: result.data.community.category,
             description: result.data.community.description,
-            fileList: result.data.filePath
+            fileList : result.data.filePath
           };
           store.commit("root/setCommunityBoard", CommunityDetail);
           router.push({ name: "community-board-update" });
@@ -459,7 +436,6 @@ export default {
         });
     };
 
-  
     store
       .dispatch("root/requestUserProfile", state.userId)
       .then(function(result) {
@@ -502,7 +478,7 @@ export default {
             comment: comment.input
           })
           .then(function(result) {
-            console.log(result);
+            console.log(result)
             createToast("댓글이 등록되었어요 💨💨", {
               hideProgressBar: "true",
               timeout: 4500,
@@ -570,6 +546,8 @@ export default {
         });
     };
 
+    
+
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
@@ -590,8 +568,7 @@ export default {
       comment,
       RegisterComment,
       DeleteComment,
-      goRegister,
-      goMyCommunity
+      goRegister
 
     };
   }

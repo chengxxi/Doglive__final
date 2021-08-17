@@ -1,5 +1,9 @@
 <template>
-  <el-card shadow="hover" style="background-color:#f9f4f0;">
+  <el-card
+    shadow="hover"
+    style="background:linear-gradient( to top, #f3ede7, #f5e9e4  ); border-radius:6px; height:360px;"
+    class="scale-up-2"
+  >
     <el-row style="margin-top:15px; margin-right:15px; margin-left:15px;">
       <el-tag
         class="mb-2"
@@ -10,7 +14,7 @@
       >
       <el-tag
         v-if="card.boardId.type.id == 1"
-        class="mb-2"
+        class="mb-2 "
         color="#D7AFA4"
         effect="dark"
         size="small"
@@ -19,7 +23,7 @@
       >
       <el-tag
         v-if="card.boardId.type.id != 1"
-        class="mb-2"
+        class="mb-2 "
         color="#E9CDA4"
         effect="dark"
         size="small"
@@ -31,26 +35,35 @@
       style="margin-top:5px; display:flex; display: flex;
   justify-content: center;"
     >
-      <img src="https://placedog.net/500/500?random" class="image" />
+      <img :src="card.boardId.thumbnailUrl" class="image" />
     </el-row>
 
     <el-row
       style="margin-top:10px; margin-right:15px; margin-left:15px; vertical-align: middle; "
     >
-      <h3 style="font-weight:800; float:right;" class="mb-0">
-        {{ card.dogName }}
+      <h3 style="font-weight:800; float:right;" class="mb-0 ">
+        {{
+          card.dogName.length < 6
+            ? card.dogName
+            : card.dogName.substr(0, 5) + ".."
+        }}
       </h3>
       <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
         {{
-          card.boardId.title.length < 12
+          card.boardId.title.length < 15
             ? card.boardId.title
-            : card.boardId.title.substr(0, 10) + "..."
+            : card.boardId.title.substr(0, 14) + "..."
         }}
       </p>
 
-      <p style="font-size:10px; margin-top:0px; color:#727272;">
-        {{ card.gender.name }} / {{ card.age.name.split("(")[0] }} /
-        {{ card.weight.name.split("(")[0] }}
+      <p
+        style="font-size:11px; margin-top:0px; font-weight:600; color:#727272;"
+      >
+        <i v-if="card.gender.name == '여'" class="el-icon-female " />
+        <i v-if="card.gender.name == '남'" class="el-icon-male " /> /
+        <i v-if="card.gender.name == '기타'" class="el-icon-question" />
+        {{ card.age.name.split("(")[0] }} /
+        {{ card.dogType.name }}
       </p>
     </el-row>
   </el-card>
@@ -69,6 +82,14 @@
 
 :deep(.el-card__body) {
   padding: 0px;
+}
+
+.scale-up-2:hover {
+  transform: scale(1.03);
+}
+
+.scale-up-hover-2:hover .scale {
+  transform: scale(1.03);
 }
 </style>
 

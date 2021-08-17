@@ -9,7 +9,7 @@ const root = {
   state,
   getters,
   mutations,
-  actions
+  actions,
 }
 
 export default root

@@ -1,18 +1,18 @@
 <template>
   <div class="chat-background"/>
   <div class="chat-header">
-    <span class="chat-title">독립</span>
+    <div class="chat-title">DOG-LIVE 💬</div>
     <i class="el-icon-close close-btn" @click="changeOpen"></i>
+    <div class="chat-subtitle">채팅을 통해 임보/입양을 상담해보세요</div>
   </div>
   <div class="chat-body">
     <ChatCard
       v-for="(card, idx) in state.roomList"
       :key="idx"
       :card="card"
-      @click="enterRoom(card.chatRoom)"
+      @click="enterRoom(card)"
     />
   </div>
-  <div class="chat-footer"/>
 </template>
 
 <style scoped>
@@ -32,8 +32,16 @@
 }
 .chat-title{
   font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.chat-subtitle{
+  font-size: 14px;
+  font-weight: 400;
 }
 .chat-body{
+  min-height: 400px;
+  max-height: 470px;
   position: relative;
   margin: 0;
   padding: 10px;
@@ -42,29 +50,20 @@
 .chat-body::-webkit-scrollbar{
   display: none;
 }
-.chat-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  border-top: solid 1px rgb(230, 230, 230);
-}
 .close-btn{
   cursor: pointer;
-  width: 30px;
-  height: 30px;
   position: absolute;
+  top: 20px;
+  right: 20px;
 }
 </style>
 
 <script>
 import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
 import ChatCard from "./chat-card.vue";
 
 export default {
-
   name: 'chat-list',
 
   components:{
@@ -73,35 +72,31 @@ export default {
 
   setup () {
     const store = useStore()
-    const router = useRouter()
     const state = reactive({
       roomList: [],
     })
     const chat = reactive({
       open: computed(()=> store.getters['root/getChat'].open),
-      isActive : false,
     })
 
     // 채팅방에 입장할 때, chatRoom 정보를 넘겨줌
-    const enterRoom = function(chatRoom){
-      console.log(chatRoom)
+    const enterRoom = function(card){
       store.commit('root/setChatMenu', 1); // chat-detail.vue로 이동
-      store.commit('root/setChatRoomId', chatRoom.id);
-      store.commit('root/setChatTitle', chatRoom.name);
-      // router.push({name: 'chat-detail', params: {roomId : id}})
+      store.commit('root/setChatRoomId', card.chatRoom.id);
+      store.commit('root/setChatTitle', card.boardTitle)
     }
 
     // 현재 로그인한 유저의 userId 쿠키를 헤더에 포함하여 전송
     store.dispatch('root/requestChatRoomList', {withCredentials: true})
     .then(function(result){
-      console.log(result.data.chatRoomList)
       var chatRoomList = result.data.chatRoomList
       for(var i = 0; i < chatRoomList.length; i++){
         state.roomList.push({
           chatRoom : chatRoomList[i].chatRoom,
+          boardTitle: chatRoomList[i].counselingHistory.boardTitle,
           user1 : chatRoomList[i].userNameList[0],
           user2 : chatRoomList[i].userNameList[1],
-          unRead : chatRoomList[i].unReadCount
+          unRead : chatRoomList[i].unReadCount,
         })
       }
     })
@@ -109,11 +104,12 @@ export default {
       console.log(err)
     })
 
+    // 닫기 버튼 : 채팅 Open 여부 변경
     function changeOpen(){
       store.commit('root/setChatOpen', !chat.open)
-      chat.isActive = true;
     }
-    return { state, chat, enterRoom, changeOpen,}
+
+    return { state, chat, enterRoom, changeOpen }
   }
 }
 </script>

@@ -40,26 +40,65 @@ export function setBoardDetail(state, payload) {
   state.board.thumbnailUrl = payload.thumbnailUrl;
   state.board.dogName = payload.dogName;
   state.board.isbookmarked = payload.isBookmarked;
+  state.board.sido = payload.sido;
+  state.board.gugun = payload.gugun;
+  state.board.listSimilarDog = payload.listSimilarDog;
 }
 export function setProfile(state, payload) {
-  state.userProfile.imgURL = payload.imgURL;
+  state.userProfile.profileImageUrl = payload.profileImageUrl;
   state.userProfile.name = payload.name;
   state.userProfile.email = payload.email;
   state.userProfile.birth = payload.birth;
   state.userProfile.phoneNumber = payload.phoneNumber;
 }
 
-export function setBoardList(state, payload) {
-  state.board.list = payload;
+export function setBoardId(state, payload) {
+  state.board.boardId = payload;
 }
 
-export function setBoardTotalListItemCnt(state, count) {
-  state.board.totalListItemCount = count;
+export function setCommunityBoard(state, payload) {
+  state.community.communityId = payload.communityId;
+  state.community.title = payload.title;
+  state.community.category = payload.category;
+  state.community.description = payload.description;
+  state.community.fileList = payload.fileList;
 }
 
-export function setBoardMovePage(state, index) {
-  state.board.offset = (index - 1) * state.board.listRowCount;
-  state.board.currentPageIndex = index;
+export function setChatOpen(state, payload) {
+  state.chat.open = payload;
+}
+
+export function setChatTitle(state, payload) {
+  state.chat.title = payload;
+}
+
+export function setChatRoomId(state, payload) {
+  state.chat.roomId = payload;
+}
+
+export function setChatMenu(state, payload) {
+  state.chat.menu = payload;
+}
+
+export function setAdoptFormId(state, payload) {
+  state.adoptForm.formId = payload;
+}
+
+export function setChatParticipants(state, payload) {
+  state.chat.participants.user1 = payload.user1;
+  state.chat.participants.user2 = payload.user2;
+}
+
+export function setConference(state, payload) {
+  state.conference.roomId = payload.roomId;
+  state.conference.title = payload.title;
+  state.conference.fromChat = payload.fromChat;
+  // conference: {
+  //   title:'',
+  //   thumbnailUrl:'',
+  //   writer:'',    // 글 작성자
+  //   reader:'',    // 신청자
+  // }
 }
 
 export function setMbtiDetail(state, data) {

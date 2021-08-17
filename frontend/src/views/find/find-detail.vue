@@ -1,278 +1,208 @@
 <template>
   <div class="main-body main-padding">
-    <el-card class="box-card " shadow="hover">
+    <div style="width:100%; ">
       <bread-crumb></bread-crumb>
-      <div style="margin-top:40px; margin-left:60px;"></div>
+      <el-card class="box-card " shadow="none" style="border:none;">
+        <div style="margin-top:50px; margin-left:60px;"></div>
 
-      <el-row class="vertical-center" :gutter="20" style="margin-top:10px;">
-        <el-col :span="12" style="margin-left:50px;">
-          <img
-            class="dog-thumbnail"
-            :src="require('@/assets/images/mbti_isfp.png')"
-          />
-        </el-col>
-        <el-col :span="12">
-          <div class="dog-info-box" style="margin-right:50px;">
-            <el-tag
-              v-if="state.board.boardType.id == 3"
-              class="mb-3"
-              color="#B4D9A7"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:14pt;"
-              >{{ state.board.boardType.name }}</el-tag
-            >
-            <el-tag
-              v-if="state.board.boardType.id != 3"
-              class="mb-3"
-              color="#87CEDC"
-              effect="dark"
-              size="large"
-              style="border:none; border-radius: 30px; font-size:14pt;"
-              >{{ state.board.boardType.name }}</el-tag
-            >
-            <div class="vertical-center row">
-              <div class="col-md-9">
-                <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
-                  state.board.dogType.name
-                }}</span>
-              </div>
-              <div class="col-md-3 ms-auto">
-                <div
-                  class="align-self-center vertical-center"
-                  style="text-align: center;"
-                >
-                  <font-awesome-icon
-                    :icon="[state.board.isbookmarked ? 'fas' : 'far', 'star']"
-                    @click="clickBookmark()"
-                    aria-hidden="true"
-                    style="color: rgb(255, 226, 95); font-size: 40px; cursor: pointer;"
+        <el-row class="vertical-center" :gutter="20" style="margin-top:10px;">
+          <el-col :span="12" style="margin-left:50px;">
+            <img class="dog-thumbnail" :src="state.board.fileList[0]" />
+          </el-col>
+          <el-col :span="12">
+            <div class="dog-info-box" style="margin-right:50px;">
+              <el-tag
+                v-if="state.board.boardType.id == 3"
+                class="mb-3"
+                color="#B4D9A7"
+                effect="dark"
+                size="large"
+                style="border:none; border-radius: 30px; font-size:14pt;"
+                >{{ state.board.boardType.name }}</el-tag
+              >
+              <el-tag
+                v-if="state.board.boardType.id != 3"
+                class="mb-3"
+                color="#87CEDC"
+                effect="dark"
+                size="large"
+                style="border:none; border-radius: 30px; font-size:14pt;"
+                >{{ state.board.boardType.name }}</el-tag
+              >
+              <div class="vertical-center row">
+                <div class="col-md-9">
+                  <span
+                    :style="{ 'font-size': '30pt', 'font-weight': '700' }"
+                    >{{ state.board.dogType.name }}</span
                   >
-                  </font-awesome-icon>
+                </div>
+                <div class="col-md-3 ms-auto">
+                  <div
+                    class="align-self-center vertical-center"
+                    style="text-align: center;"
+                  >
+                    <font-awesome-icon
+                      v-if="!state.board.isOwner"
+                      class="scale-up-2"
+                      :icon="[state.board.isbookmarked ? 'fas' : 'far', 'star']"
+                      @click="clickBookmark()"
+                      aria-hidden="true"
+                      style="color: rgb(255, 226, 95); font-size: 40px; cursor: pointer;"
+                    >
+                    </font-awesome-icon>
 
-                  <img
-                    @click="kakaoShare"
-                    style="margin-left:15px; cursor: pointer;"
-                    src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
-                    width="40"
-                  />
+                    <img
+                      @click="kakaoShare"
+                      class="scale-up-2"
+                      style="margin-left:15px; cursor: pointer;"
+                      src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
+                      width="40"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <el-divider class="mt-4 mb-4" />
+
+              <el-descriptions class="margin-top mt-3" :column="1" :size="size">
+                <el-descriptions-item label="성별"
+                  >{{ state.board.gender.name }}
+                </el-descriptions-item>
+                <el-descriptions-item label="연령">{{
+                  state.board.ageType.name
+                }}</el-descriptions-item>
+                <el-descriptions-item label="크기">{{
+                  state.board.weight.name
+                }}</el-descriptions-item>
+                <el-descriptions-item label="컬러">{{
+                  state.board.colorType.name
+                }}</el-descriptions-item>
+                <el-descriptions-item label="품종">{{
+                  state.board.dogType.name
+                }}</el-descriptions-item>
+                <el-descriptions-item label="실종/보호주소"
+                  >{{ state.board.sido.name }} {{ state.board.gugun.name }}
+                </el-descriptions-item>
+                <el-descriptions-item label="상세주소">{{
+                  state.board.address
+                }}</el-descriptions-item>
+              </el-descriptions>
+
+              <el-divider class="mb-3" />
+
+              <div>
+                <div v-if="!state.board.isOwner">
+                  <el-button
+                    style="width:100%; background : #755744;"
+                    @click="goChat(state.board.boardId)"
+                    >채팅 보내기</el-button
+                  >
+                </div>
+                <div v-if="state.board.isOwner">
+                  <el-row>
+                    <el-col :span="12"
+                      ><el-button
+                        class="m-2"
+                        style="width:100%;   background : #755744;"
+                        @click="goModify(state.board.boardId)"
+                        >공고 수정</el-button
+                      ></el-col
+                    >
+                    <el-col :span="12"
+                      ><el-button
+                        class="m-2"
+                        style="width:100%;   background : #C4C4C4;"
+                        @click="doDelete(state.board.boardId)"
+                        >공고 삭제</el-button
+                      ></el-col
+                    >
+                  </el-row>
                 </div>
               </div>
             </div>
-
-            <el-divider class="mt-4 mb-4" />
-
-            <el-descriptions class="margin-top mt-3" :column="1" :size="size">
-              <el-descriptions-item label="성별"
-                >{{ state.board.gender.name }}
-              </el-descriptions-item>
-              <el-descriptions-item label="연령">{{
-                state.board.ageType.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="크기">{{
-                state.board.weight.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="컬러">{{
-                state.board.colorType.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="품종">{{
-                state.board.dogType.name
-              }}</el-descriptions-item>
-              <el-descriptions-item label="실종/보호주소"
-                >{{ state.board.sido }} {{ state.board.gugun }}
-              </el-descriptions-item>
-              <el-descriptions-item label="상세주소">{{
-                state.board.address
-              }}</el-descriptions-item>
-            </el-descriptions>
-
-            <el-divider class="mb-3" />
-
-            <div>
-              <div v-if="!state.board.isOwner">
-                <el-button
-                  style="width:100%; background : #755744;"
-                  @click="goChat(state.board.boardId)"
-                  >채팅 보내기</el-button
-                >
-              </div>
-              <div v-if="state.board.isOwner">
-                <el-row>
-                  <el-col :span="12"
-                    ><el-button
-                      class="m-2"
-                      style="width:100%;   background : #755744;"
-                      @click="goModify(state.board.boardId)"
-                      >공고 수정</el-button
-                    ></el-col
-                  >
-                  <el-col :span="12"
-                    ><el-button
-                      class="m-2"
-                      style="width:100%;   background : #C4C4C4;"
-                      @click="doDelete(state.board.boardId)"
-                      >공고 삭제</el-button
-                    ></el-col
-                  >
-                </el-row>
-              </div>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-      <div class="box">
-        <h4
-          class="mb-2
+          </el-col>
+        </el-row>
+        <div class="box mt-5">
+          <h4
+            class="mb-2
         "
-        >
-          <b>{{ state.board.title }}</b>
-        </h4>
-        <div style="margin-top:20px; white-space:pre;">
-          {{ state.board.description }}
+          >
+            <b>{{ state.board.title }}</b>
+          </h4>
+          <div style="margin-top:20px; white-space:pre-wrap;">
+            {{ state.board.description }}
+          </div>
         </div>
-      </div>
-      <el-divider />
 
-      <div class="dog-image-box">
-        <el-carousel :interval="4000" type="card" height="500px">
-          <el-carousel-item v-for="item in 6" :key="item">
-            <img
-              style="  width: 100%;
+        <div class="dog-image-box mt-5 mb-5">
+          <el-carousel :interval="4000" type="card" height="500px">
+            <el-carousel-item v-for="img in state.board.fileList" :key="img">
+              <img
+                style="  width: 100%;
 	height: auto;
 
 "
-              :src="require('@/assets/images/mbti_infj.png')"
-            />
-          </el-carousel-item>
-        </el-carousel>
-      </div>
-    </el-card>
+                :src="img"
+              />
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+
+        <!-- 조건 걸기 -->
+        <div class="dog-image-box">
+          <h5
+            class="pt-3 pb-3"
+            style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
+          >
+            🐶🔎 혹시 저는 아닐까요❔
+          </h5>
+          <!-- 유사공고 -->
+          <div v-if="state.listSimilarDog != null">
+            <el-scrollbar>
+              <div class="flex-content">
+                <p
+                  class="item"
+                  v-for="(card, idx) in state.listSimilarDog"
+                  :key="idx"
+                  style="width:360px; margin: 5px; display:inline-block"
+                >
+                  <FindCard
+                    :card="card"
+                    @click="readDetail(card.boardId.id)"
+                    style="margin:10px; width:360px;"
+                  />
+                </p>
+              </div>
+            </el-scrollbar>
+          </div>
+          <div v-else>
+            <el-empty
+              description="유사한 강아지가 없네요😢"
+              image="https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_223416590.png"
+              image-size="300"
+            >
+            </el-empty>
+          </div>
+        </div>
+      </el-card>
+    </div>
   </div>
 </template>
-
-<style scoped>
-.main-body {
-  width: 100%;
-  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
-  margin-right: 10%;
-}
-.main-padding {
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-h3 {
-  margin-block-start: 0px;
-}
-
-:deep(.el-descriptions) {
-  font-size: 13pt;
-  font-weight: 500;
-}
-:deep(.el-descriptions__title) {
-  font-size: 30pt;
-  font-weight: 700;
-}
-
-.dog-thumbnail {
-  width: 90%;
-  height: auto;
-  margin-right: 20px;
-  margin: 10px;
-}
-
-.dog-info-box {
-  width: 100%;
-  margin-right: 30px;
-  margin: 10px;
-  padding-right: 20px;
-}
-
-:deep(.el-descriptions__label) {
-  display: inline-block;
-  width: 150px;
-  font-weight: 500;
-}
-
-:deep(.el-descriptions__content) {
-  display: inline-block;
-  font-weight: 500;
-}
-:deep(.el-button) {
-  font-size: 15pt;
-  font-family: NEXONLv1Gothic;
-  font-weight: 700;
-  color: #f9f0e7;
-}
-
-.dog-image-box {
-  margin: 30px;
-  padding: 10px;
-}
-
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 200px;
-  margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
-
-.el-col {
-  display: flex;
-
-  align-items: center;
-}
-
-.box-card {
-  margin-top: 20px;
-}
-
-.box {
-  margin-top: 30px;
-  margin-bottom: 40px;
-  margin-left: 50px;
-  margin-right: 50px;
-  padding: 40px;
-  background-color: #f9f0e7;
-}
-
-.content {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-}
-
-.el-card__body {
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-}
-</style>
-
 <script>
 import $axios from "axios";
-import BreadCrumb from "./components/bread-crumb.vue";
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
 import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
+import FindCard from "./components/find-card.vue";
 
 export default {
   name: "FindDetail",
   components: {
-    BreadCrumb,
-    createToast
+    FindCard,
+    BreadCrumb
   },
   data() {
     return {
@@ -302,41 +232,79 @@ export default {
       board: computed(() => {
         console.log(store.getters["root/getBoardDetail"]);
         return store.getters["root/getBoardDetail"];
+      }),
+      listSimilarDog: computed(() => {
+        console.log("해당 공고 유사 강아지 🔽");
+        console.log(state.board.listSimilarDog);
+        return store.getters["root/getBoardDetail"].listSimilarDog;
       })
     });
 
     const goModify = function(id) {
-      console.log(id, "go modify");
-      router.push({ name: "FindModify" });
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+        router.push({ name: "Login" });
+      } else {
+        router.push({ name: "FindModify" });
+      }
     };
 
     const doDelete = function(id) {
-      store
-        .dispatch("root/requestDeleteBoard", id)
-        .then(function(result) {
-          createToast("공고가 삭제되었어요 💨💨", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
-            transition: "bounce",
-            type: "success"
-          });
-          router.push({ name: "Adopt" });
-        })
-        .catch(function(err) {
-          createToast("공고 삭제에 실패했어요 😱💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-right",
-            transition: "bounce",
-            type: "warning"
-          });
-          console.log(err);
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
         });
+        router.push({ name: "Login" });
+      } else {
+        store
+          .dispatch("root/requestDeleteBoard", id)
+          .then(function(result) {
+            createToast("공고가 삭제되었어요 💨💨", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#7eaa72",
+              position: "bottom-right",
+              transition: "bounce",
+              type: "success"
+            });
+            router.push({ name: "Adopt" });
+          })
+          .catch(function(err) {
+            createToast("공고 삭제에 실패했어요 😱💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-right",
+              transition: "bounce",
+              type: "warning"
+            });
+            console.log(err);
+          });
+      }
     };
 
     const kakaoShare = function() {
@@ -345,17 +313,18 @@ export default {
         content: {
           title: state.board.title,
           description: state.board.description,
-          imageUrl: "@/assets/images/mbti_isfp.png",
+          imageUrl: state.board.fileList[0],
           link: {
-            mobileWebUrl: "http://i5a501.p.ssafy.io/",
-            androidExecutionParams: "test"
+            mobileWebUrl: "https://i5a501.p.ssafy.io/",
+            webUrl: "https://i5a501.p.ssafy.io/"
           }
         },
         buttons: [
           {
             title: "독립으로 이동",
             link: {
-              mobileWebUrl: "http://i5a501.p.ssafy.io/"
+              mobileWebUrl: "https://i5a501.p.ssafy.io/",
+              webUrl: "https://i5a501.p.ssafy.io/"
             }
           }
         ]
@@ -365,7 +334,11 @@ export default {
     const clickBookmark = function() {
       const isBookmarked = store.getters["root/getIsbookmarked"];
 
-      if (state.userId === null) {
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
         createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -446,52 +419,164 @@ export default {
       }
     };
 
-    //보드 디테일 정보 가져오기
-    $axios
-      .get("/board/" + state.board.boardId + "/" + state.userId)
-      .then(function(result) {
-        console.log(result);
+    const data = {
+      userId: state.userId,
+      data: {
+        boardId: state.board.boardId,
+        boardType: state.board.boardType.name,
+        boardTitle: state.board.title,
+        dogName: null,
+        content: null
+      }
+    };
 
-        const boardDetail = {
-          boardId: result.data.dogInformation.boardId.id,
-          boardType: result.data.dogInformation.boardId.type,
-          thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
-          title: result.data.dogInformation.boardId.title,
-          address: result.data.dogInformation.address,
-          mbti: result.data.dogInformation.mbti,
-          colorType: result.data.dogInformation.colorType,
-          gender: result.data.dogInformation.gender,
-          dogType: result.data.dogInformation.dogType,
-          neutralization: result.data.dogInformation.neutralization,
-          writer: result.data.writer,
-          weight: result.data.dogInformation.weight,
-          ageType: result.data.dogInformation.age,
-          regDate: result.data.dogInformation.boardId.regDate,
-          fileList: result.data.boardImageList,
-          isOwner: result.data.owner,
-          gugun: result.data.dogInformation.gugun.name,
-          sido: result.data.dogInformation.gugun.sidoCode.name,
-          description: result.data.dogInformation.description,
-          dogName: result.data.dogInformation.dogName,
-          isBookmarked: result.data.bookmarked
-        };
+    //입양신청서 제출
+    const submitAdoptForm = function(data) {
+      store
+        .dispatch("root/registerAdoptForm", data)
+        .then(function(result) {
+          console.log(result);
+          console.log("counseling history 저장");
+          createChatting(result.data.counselingHistory.id); // 성공하면 상담채팅방 생성
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    };
 
-        store.commit("root/setBoardDetail", boardDetail);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
+    // 상담채팅방 생성
+    const createChatting = function(counselingId) {
+      store
+        .dispatch("root/requestCreateChatRoom", {
+          counseling_id: counselingId,
+          withCredentials: true // userId를 헤더 쿠키에 담아서 보냄
+        })
+        .then(function(result) {
+          openChatting(counselingId);
+        })
+        .catch(function() {});
+    };
 
+    // 상담채팅방 열기
+    const openChatting = function(counselingId) {
+      store
+        .dispatch("root/requestChatRoomByCounseling", {
+          counselingId: counselingId,
+          withCredentials: true
+        })
+        .then(function(result) {
+          // 채팅방에 입장할 때, chatRoom 정보를 넘겨줌
+          store.commit("root/setChatMenu", 1); // chat-detail.vue로 이동
+          store.commit(
+            "root/setChatRoomId",
+            result.data.chatRoomList[0].chatRoom.id
+          );
+          store.commit(
+            "root/setChatTitle",
+            result.data.chatRoomList[0].counselingHistory.boardTitle
+          );
+          store.commit("root/setChatOpen", true); // 모두 설정해준 다음 OPEN
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
+
+    // 채팅 시작하기 클릭 시, 수행되는 메소드
     const goChat = function(id) {
-      createToast("🚧 아직 구현중🔨인 기능이에요 🚧", {
-        hideProgressBar: "true",
-        timeout: 4500,
-        showIcon: "true",
-        toastBackgroundColor: "#c49d83",
-        position: "bottom-right",
-        transition: "bounce",
-        type: "warning"
-      });
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-right",
+          transition: "bounce",
+          type: "warning"
+        });
+        router.push({ name: "Login" });
+      } else {
+        // 채팅방이 이미 존재하는지 체크
+        store
+          .dispatch("root/existedForm", {
+            userId: state.userId,
+            boardId: state.board.boardId
+          })
+          .then(function(result) {
+            console.log(result);
+            if (result.status == 204) {
+              // counseling history가 존재하지 않음
+              submitAdoptForm(data); // 1. counseling history 생성   2. 채팅방 생성  3. 채팅방 오픈
+            } else {
+              var counselingId = result.data.counselingHistory.id;
+              openChatting(counselingId); // 1. 채팅방 오픈
+            }
+          })
+          .catch(function(err) {
+            createToast("채팅을 시작할 수 없어요.💬💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            });
+          });
+      }
+    };
+
+    const readDetail = function(id) {
+      console.log("read");
+
+      var checkId = state.userId;
+      if (checkId === undefined || checkId === null || checkId == "") {
+        checkId = "none";
+      }
+
+      store
+        .dispatch("root/requestBoardDetail", {
+          boardId: id,
+          userId: checkId
+        })
+        .then(function(result) {
+          console.log(result);
+          console.log(result.data.listSimilarDog);
+          const boardDetail = {
+            boardId: result.data.dogInformation.boardId.id,
+            boardType: result.data.dogInformation.boardId.type,
+            thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+            title: result.data.dogInformation.boardId.title,
+            address: result.data.dogInformation.address,
+            mbti: result.data.dogInformation.mbti,
+            colorType: result.data.dogInformation.colorType,
+            gender: result.data.dogInformation.gender,
+            dogType: result.data.dogInformation.dogType,
+            neutralization: result.data.dogInformation.neutralization,
+            writer: result.data.writer,
+            weight: result.data.dogInformation.weight,
+            ageType: result.data.dogInformation.age,
+            regDate: result.data.dogInformation.boardId.regDate,
+            fileList: result.data.boardImageList,
+            isOwner: result.data.owner,
+            gugun: result.data.dogInformation.gugun,
+            sido: result.data.dogInformation.gugun.sidoCode,
+            description: result.data.dogInformation.description,
+            dogName: result.data.dogInformation.dogName,
+            isBookmarked: result.data.bookmarked,
+            listSimilarDog: result.data.listSimilarDog
+          };
+
+          store.commit("root/setBoardDetail", boardDetail);
+          router.push({ name: "FindDetail" });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     };
 
     onMounted(() => {
@@ -505,7 +590,132 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state, goChat, clickBookmark, kakaoShare, doDelete, goModify };
+    return {
+      state,
+      goChat,
+      clickBookmark,
+      kakaoShare,
+      doDelete,
+      goModify,
+      readDetail,
+      onMounted
+    };
   }
 };
 </script>
+
+<style scoped>
+.main-body {
+  width: 100%;
+  margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
+  margin-right: 10%;
+}
+.main-padding {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+h3 {
+  margin-block-start: 0px;
+}
+
+:deep(.el-descriptions) {
+  font-size: 13pt;
+  font-weight: 500;
+}
+:deep(.el-descriptions__title) {
+  font-size: 30pt;
+  font-weight: 700;
+}
+
+.dog-thumbnail {
+  width: 90%;
+  max-height: 500px;
+  margin-right: 20px;
+  margin: 10px;
+}
+
+.dog-info-box {
+  width: 100%;
+  margin-right: 30px;
+  margin: 10px;
+  padding-right: 20px;
+}
+
+:deep(.el-descriptions__label) {
+  display: inline-block;
+  width: 150px;
+  font-weight: 500;
+}
+
+:deep(.el-descriptions__content) {
+  display: inline-block;
+  font-weight: 500;
+}
+:deep(.el-button) {
+  font-size: 15pt;
+  font-family: NEXONLv1Gothic;
+  font-weight: 700;
+  color: #f9f0e7;
+}
+
+.dog-image-box {
+  margin: 30px;
+  padding: 10px;
+}
+
+.el-col {
+  display: flex;
+
+  align-items: center;
+}
+
+.box-card {
+  margin-top: 20px;
+}
+
+.box {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 40px;
+  background-color: #f9f0e7;
+}
+
+.content {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.el-card__body {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #f3e8dc, #f5edea);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(192, 186, 178);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+
+div {
+  white-space: nowrap;
+  overflow-x: auto;
+  margin: 0;
+}
+</style>
