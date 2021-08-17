@@ -113,6 +113,7 @@ export default {
     onMounted(() => {
       // readDetail();
       readMbtiList();
+      window.scrollTo(0, 0);
     })
 
 

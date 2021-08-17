@@ -190,8 +190,8 @@
           </div>
         </el-col>
       </el-row>
-      <div class="box">
-        <h6 class="mb-2" style="line-height: 3rem;">
+      <div class="box" style="white-space:pre-wrap;">
+        <h6 class="mb-2" style="line-height: 1.5rem;">
           {{ state.MbtiDetail.desc }}
         </h6>
       </div>

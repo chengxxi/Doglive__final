@@ -165,12 +165,13 @@
               MPTI(*가제) 서비스를 제공합니다. 어쩌고
             </p>
             <div class="py-3">
+              <a href="/mbti">
               <el-button
                 type="primary"
                 class="btn btn-lg btn-primary rounded-pill hover-top"
                 @click="goMbti"
                 >MPTI 테스트</el-button
-              >
+              ></a>
             </div>
           </div>
         </div>

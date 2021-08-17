@@ -1,7 +1,6 @@
 <template>
 <el-card
     shadow="hover"
-    style="background:linear-gradient( to top,#f0ebe0, #f6ede9  );"
     class="mbtiCard scale-up-2"
   >
     <el-row style="margin-right:15px; margin-left:15px;">
