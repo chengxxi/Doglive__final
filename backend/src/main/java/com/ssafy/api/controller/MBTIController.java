@@ -24,6 +24,7 @@ import java.util.List;
 @RequestMapping("/api/v1/mbti")
 public class MBTIController {
 
+
     @Autowired
     MBTIService mbtiService;
 
@@ -38,7 +39,6 @@ public class MBTIController {
     public ResponseEntity<MBTIDetailGetRes> mbtiDetailById(@PathVariable("id") Long id){
         MBTI mbti = mbtiService.getMbtiById(id);
         if(mbti==null) return ResponseEntity.ok(MBTIDetailGetRes.of(404, "Fail", null));
-
         return ResponseEntity.ok(MBTIDetailGetRes.of(200, "Success", mbti));
     }
 

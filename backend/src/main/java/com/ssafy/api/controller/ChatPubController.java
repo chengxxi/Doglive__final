@@ -47,26 +47,21 @@ public class ChatPubController {
         ChatRoom chatRoom = chatService.getChatRoomInfo(req.getRoomId());
 
         List<String> idList = chatService.getUserIdList(chatRoom);
-        for(int i = 0 ; i < idList.size(); i++){
+        for(int i = 0 ; i < idList.size(); i++) {
             ChatMessageRead read = new ChatMessageRead();
             read.setMessageId(msg);
             read.setUserId(idList.get(i));
             read.setRoomId(chatRoom);
 
-            if(req.getUserId().equals(idList.get(i))) // 자신이 보낸 메세지면 True (읽음 처리)
+            if (req.getUserId().equals(idList.get(i))) // 자신이 보낸 메세지면 True (읽음 처리)
                 read.setRead(true);
             else
                 read.setRead(false);
             chatService.saveRead(read);
         }
-
-        // username을 담은 객체로 변경하여 send
-        ChatMessageGetRes message = new ChatMessageGetRes();
-        message.setUserId(msg.getUserId());
+        ChatMessageGetRes message = ChatMessageGetRes.copy(msg);
         message.setUsername(userService.getUserName(msg.getUserId()));
-        message.setChatMessage(msg.getMessage());
-        message.setSendTimeAt(msg.getSendTimeAt());
+
         template.convertAndSend("/sub/chat/room/" + req.getRoomId(), message);
     }
-
 }

@@ -20,5 +20,8 @@ public interface BoardImageRepository extends JpaRepository<BoardImage, Long> {
 
     Optional<List<BoardImage>> findBoardImagesByBoardId(Board board);
     @Transactional
-    Optional<List<BoardImage>> deleteBoardImagesByBoardId(Board board);
+    void deleteBoardImagesByBoardId(Board board);
+
+    @Transactional
+    Optional<List<BoardImage>> findBoardImagesByImgFullPath(String url);
 }

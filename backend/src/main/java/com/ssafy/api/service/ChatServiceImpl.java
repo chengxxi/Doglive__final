@@ -2,6 +2,8 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.ChatMessagePostReq;
 import com.ssafy.api.response.ChatMessageGetRes;
+import com.ssafy.api.response.ChatRoomGetRes;
+import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.chat.ChatMessage;
 import com.ssafy.db.entity.chat.ChatMessageRead;
 import com.ssafy.db.entity.chat.ChatRoom;
@@ -11,7 +13,12 @@ import com.ssafy.db.repository.chat.ChatMessageRepository;
 import com.ssafy.db.repository.chat.ChatRoomJoinRepository;
 import com.ssafy.db.repository.chat.ChatRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,20 +43,58 @@ public class ChatServiceImpl implements ChatService{
     UserService userService;
 
     @Override
-    public ChatRoom createChatRoom(String name) {
-        ChatRoom newChatRoom = new ChatRoom();
-        newChatRoom.setName(name);
-        chatRoomRepository.save(newChatRoom);
-        return newChatRoom;
+    @Transactional
+    public ChatRoom createChatRoom(Long counseling_id) {
+        // 1. 채팅방을 만들고 Room ID를 반환받음
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.setCounselingId(counseling_id);
+        chatRoomRepository.save(chatRoom);
+
+        // 2. chat_room_join에 방금 만든 채팅방에 대해서
+        CounselingHistory counselingHistory = userService.getCounselingById(counseling_id);
+        System.out.println(counselingHistory);
+
+        saveChatRoomJoin(chatRoom, counselingHistory.getWriter()); // 글 작성자
+        saveChatRoomJoin(chatRoom, counselingHistory.getApplicantId().getUserId().getId()); // 상담 신청자
+
+        return chatRoom;
     }
 
     @Override
-    public List<ChatRoomJoin> getChatroomListByUser(String userId) {
+    public ChatRoomJoin saveChatRoomJoin(ChatRoom roomId, String userId) {
+        ChatRoomJoin join = new ChatRoomJoin();
+        join.setRoomId(roomId);
+        join.setUserId(userId);
+        chatRoomJoinRepository.save(join);
+        return join;
+    }
+
+    @Override
+    public List<ChatRoomJoin> getChatroomJoinListByUser(String userId) {
         Optional<List<ChatRoomJoin>> roomList = chatRoomJoinRepository.findChatRoomJoinsByUserId(userId);
         if(roomList.isPresent())
             return roomList.get();
         return null;
     }
+
+    @Override
+    public List<ChatRoomGetRes> getChatroomList(List<ChatRoomJoin> joinedRoomList, String userId) {
+        List<ChatRoomGetRes> chatRoomList = new ArrayList<>();
+
+        for(int i = 0; i < joinedRoomList.size(); i++){
+            ChatRoomGetRes chatRoom = new ChatRoomGetRes();
+            ChatRoom room = joinedRoomList.get(i).getRoomId(); // 채팅방 목록의 roomId
+            chatRoom.setChatRoom(room);
+            chatRoom.setCounselingHistory(userService.getCounselingById(room.getCounselingId()));
+            chatRoom.setUserNameList(getUserNameList(room));
+            chatRoom.setUnReadCount(getUnReadMessage(room, userId));
+            chatRoomList.add(chatRoom);
+            System.out.println("안읽은 메세지 개수" + chatRoom.getUnReadCount());
+        }
+        return chatRoomList;
+    }
+
+
 
     @Override
     public ChatRoom getChatRoomInfo(Long roomId) {
@@ -78,13 +123,21 @@ public class ChatServiceImpl implements ChatService{
     }
 
     @Override
-    public List<ChatMessage> getChatMessageList(ChatRoom roomId, String userId) {
-        // 채팅방에 입장했을 때, 이전 채팅 기록을 불러오는 메소드
-        List<ChatMessage> messageList = chatMessageRepository.findAllByRoomId(roomId).orElse(null);
+    public void updateRead(ChatRoom roomId, String userId) {chatMessageReadRepository.updateIsRead(roomId, userId);}
+
+    @Override
+    public List<ChatMessage> getChatMessageList(ChatRoom roomId, String userId, int page) {
+        // 채팅방에 입장했을 때, 이전 채팅 기록을 불러오는 메소드 (최신순 페이징 처리)
+        PageRequest pageRequest = PageRequest.of(page,30, Sort.Direction.DESC, "sendTimeAt");
+        Page<ChatMessage> messageList = chatMessageRepository.findAllByRoomId(roomId, pageRequest).orElse(null);
+        System.out.println("Total Pages : " + messageList.getTotalPages());
+        System.out.println("Total Count : " + messageList.getTotalElements());
+        System.out.println("Next : " + messageList.nextPageable());
+
         // 이 때, 안읽은 메시지가 있다면 isRead 값을 true로 변경해준다
         chatMessageReadRepository.updateIsRead(roomId, userId);
 
-        return messageList;
+        return messageList.getContent();
     }
 
     @Override
@@ -123,6 +176,32 @@ public class ChatServiceImpl implements ChatService{
         if(list.isPresent())
             return list.get().size();
         return 0;
+    }
+
+    @Override
+    public void deleteChatRoom(ChatRoom roomId) {
+        chatMessageReadRepository.deleteChatMessageReadByRoomId(roomId);
+        chatMessageRepository.deleteChatMessageByRoomId(roomId);
+        chatRoomJoinRepository.deleteChatRoomJoinByRoomId(roomId);
+        chatRoomRepository.delete(roomId);
+    }
+
+    @Override
+    public ChatRoom getChatRoomInfoByCounselingId(Long counselingId) {
+        Optional<ChatRoom> room = chatRoomRepository.findByCounselingId(counselingId);
+        if(room.isPresent())
+            return room.get();
+        return null;
+    }
+
+    @Override
+    public ChatRoomGetRes getChatRoomGetRes(ChatRoom roomId, String userId) {
+        ChatRoomGetRes chatRoom = new ChatRoomGetRes();
+        chatRoom.setChatRoom(roomId);
+        chatRoom.setCounselingHistory(userService.getCounselingById(roomId.getCounselingId()));
+        chatRoom.setUserNameList(getUserNameList(roomId));
+        chatRoom.setUnReadCount(getUnReadMessage(roomId, userId));
+        return chatRoom;
     }
 
 }

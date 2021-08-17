@@ -21,10 +21,10 @@ public class QChatRoom extends EntityPathBase<ChatRoom> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
+    public final NumberPath<Long> counselingId = createNumber("counselingId", Long.class);
+
     //inherited
     public final NumberPath<Long> id = _super.id;
-
-    public final StringPath name = createString("name");
 
     public QChatRoom(String variable) {
         super(ChatRoom.class, forVariable(variable));

@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class BoardRegisterPostReq {
     String userId;
 
     @ApiModelProperty
-    Long boardType;
+    String boardType;
 
     @ApiModelProperty
     String dogName;
@@ -30,31 +31,31 @@ public class BoardRegisterPostReq {
     String title;
 
     @ApiModelProperty
-    String thumbnailUrl;
+    List<MultipartFile> fileList;
 
     @ApiModelProperty
-    List<String> filePath;
+    List<String> delList;
 
     @ApiModelProperty
-    Long colorType;
+    String colorType;
 
     @ApiModelProperty
     String description;
 
     @ApiModelProperty
-    Long gender;
+    String gender;
 
     @ApiModelProperty
-    Long dogType;
+    String dogType;
 
     @ApiModelProperty
-    Long age;
+    String age;
 
     @ApiModelProperty
     boolean neutralization;
 
     @ApiModelProperty
-    Long weight;
+    String weight;
 
     @ApiModelProperty
     String mbti;
@@ -72,8 +73,7 @@ public class BoardRegisterPostReq {
                 ", boardType=" + boardType +
                 ", dogName='" + dogName + '\'' +
                 ", title='" + title + '\'' +
-                ", thumbnailUrl='" + thumbnailUrl + '\'' +
-                ", filePath=" + filePath +
+                ", fileList=" + fileList +
                 ", colorType=" + colorType +
                 ", description='" + description + '\'' +
                 ", gender=" + gender +
@@ -83,6 +83,7 @@ public class BoardRegisterPostReq {
                 ", weight=" + weight +
                 ", mbti='" + mbti + '\'' +
                 ", address='" + address + '\'' +
+                ", gugun='" + gugun + '\'' +
                 '}';
     }
 }

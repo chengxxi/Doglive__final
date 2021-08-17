@@ -2,6 +2,8 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.AdoptFormReq;
 import com.ssafy.api.request.StatusUpdatePutReq;
+import com.ssafy.api.response.AdoptFormData;
+import com.ssafy.api.response.AdoptFormGetRes;
 import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.board.DogInformation;
@@ -18,5 +20,7 @@ public interface AdoptService {
 
     UserProfile findByUserId(String userId);
 
-    boolean canAdoptForm(String userId, Long boardId); //입양신청서 작성한 적 있는지 체크
+    AdoptFormData readAdoptForm(Long formId);
+
+    CounselingHistory canAdoptForm(String userId, Long boardId); //입양신청서 작성한 적 있는지 체크 (있으면 해당 신청서의 Id, 없으면 -1 반환)
 }

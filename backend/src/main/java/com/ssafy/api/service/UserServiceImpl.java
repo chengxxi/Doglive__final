@@ -26,25 +26,17 @@ public class UserServiceImpl implements UserService{
     UserRepository userRepository;
 
     @Autowired
-    UserRepositorySupport userRepositorySupport;
-
-    @Autowired
     UserProfileRepository userProfileRepository;
 
-    @Autowired
-    UserProfileRepositorySupport userProfileRepositorySupport;
 
     @Autowired
     UserTokenRepository userTokenRepository;
 
-    @Autowired
-    UserTokenRepositorySupport userTokenRepositorySupport;
 
     @Autowired
     BookmarkRepository bookmarkRepository;
 
-    @Autowired
-    BookmarkRepositorySupport bookmarkRepositorySupport;
+
 
     @Autowired
     CounselingHistoryRepository counselingHistoryRepository;
@@ -142,10 +134,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq) {
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findUserById(id).get();
+
         System.out.println(user + " " + userUpdatePutReq.getBirth() + " " + userUpdatePutReq.getEmail() + " " +  userUpdatePutReq.getPhoneNumber() + " " + userUpdatePutReq.getName());
 
-        Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
+        Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user);
         userProfile.get().setName(userUpdatePutReq.getName());
         userProfile.get().setEmail(userUpdatePutReq.getEmail());
         userProfile.get().setPhoneNumber(userUpdatePutReq.getPhoneNumber());
@@ -156,7 +149,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserProfile getUserProfile(String id) {
-        Optional<User> user = userRepository.findById(id);
+        Optional<User> user = userRepository.findUserById(id);
         if(user.isPresent()) {
             Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
             if(userProfile.isPresent()){
@@ -170,8 +163,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean deleteUser(String id) {
         if(getUserById(id)!=null){
-            User user = userRepositorySupport.findUserById(id).get();
-            Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
+
+            User user = userRepository.findById(id).get();
+            Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user);
+
             if(userProfile.isPresent()) {
                 Optional<UserToken> userToken = userTokenRepository.findByUserId(user);
                 Optional<List<Bookmark>> bookmarkList = bookmarkRepository.findBookmarksByUserId(userProfile.get());
@@ -256,6 +251,14 @@ public class UserServiceImpl implements UserService{
         if(applicantList.isPresent()){
             return applicantList.get();
         }
+        return null;
+    }
+
+    @Override
+    public CounselingHistory getCounselingById(Long counselingId) {
+        Optional<CounselingHistory> counselingHistory = counselingHistoryRepository.findById(counselingId);
+        if(counselingHistory.isPresent())
+            return counselingHistory.get();
         return null;
     }
 

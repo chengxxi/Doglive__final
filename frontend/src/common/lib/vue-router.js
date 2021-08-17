@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { storeKey, useStore } from 'vuex';
 // import { useStore } from 'vuex';
 import Main from '@/views/main/components/main-content.vue';
 import Login from '@/views/main/components/login-dialog.vue';
@@ -23,6 +24,9 @@ import MBTI from '@/views/mbti/mbti.vue';
 import MBTItest from '@/views/mbti/components/mbti-test.vue';
 import MBTIinfo from '@/views/mbti/components/mbti-info.vue';
 import MbtiDetail from '@/views/mbti/components/mbti-detail.vue';
+import Community from '@/views/community/community.vue';
+import MyCommunity from '@/views/community/mycommunity.vue';
+import store from '../../views/main/store/index.js';
 
 
 const routes = [
@@ -176,6 +180,39 @@ const routes = [
     component: FindModify
   },
   {
+    path: '/community',
+    redirect: '/community/list',
+    name: 'Community',
+    component: Community,
+    children: [
+      {
+        path: 'list',
+        name: 'community-board-list',
+        component: () =>
+          import('@/views/community/components/community-board-list.vue')
+      },
+      {
+        path: 'register',
+        name: 'community-board-register',
+        component: () =>
+          import('@/views/community/components/community-board-register.vue')
+      },
+      {
+        path: 'update',
+        name: 'community-board-update',
+        component: () =>
+          import('@/views/community/components/community-board-update.vue')
+      },
+      {
+        path: 'mycommunity',
+        name: 'community-mycommunity',
+        component: () =>
+          import('@/views/community/components/community-mycommunity.vue')
+      }
+    ]
+  },
+
+  {
     path: '/mbti', // introduction page
     name: 'MBTI',
     component: MBTI,
@@ -203,17 +240,17 @@ const router = createRouter({
   routes
 });
 
-// URL이 변경되기전 거쳐가는 함수
-router.beforeEach(function(to, from, next) {
-  // if(to.matched.some(record => record.meta.requiresAuth)){ // 로그인이 필요한 페이지라면
-  //   if(store.getters['root/getLoginUserInfo'].userId === null){ // 현재 로그인된 상태인지 확인
-  //     next({ path: '/', query: {redirect: to.fullPath}})
-  //   }else{
-  //     next()
-  //   }
-  // }else{
-  next();
-  // }
-});
+// // URL이 변경되기전 거쳐가는 함수
+// router.beforeEach(function(to, from, next) {
+//   // if(to.matched.some(record => record.meta.requiresAuth)){ // 로그인이 필요한 페이지라면
+//   //   if(store.getters['root/getLoginUserInfo'].userId === null){ // 현재 로그인된 상태인지 확인
+//   //     next({ path: '/', query: {redirect: to.fullPath}})
+//   //   }else{
+//   //     next()
+//   //   }
+//   // }else{
+//   next();
+//   // }
+// });
 
 export default router;

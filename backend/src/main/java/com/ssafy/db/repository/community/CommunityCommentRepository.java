@@ -6,6 +6,7 @@ import com.ssafy.db.entity.community.CommunityImage;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Entity;
@@ -18,5 +19,7 @@ import java.util.Optional;
 public interface CommunityCommentRepository extends JpaRepository<CommunityComment, Long> {
 
     Optional<List<CommunityComment>> findCommunityCommentsByCommunityId(Community communityId);
+
+
 }
 

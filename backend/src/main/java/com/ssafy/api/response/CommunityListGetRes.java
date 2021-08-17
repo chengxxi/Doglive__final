@@ -1,5 +1,6 @@
 package com.ssafy.api.response;
 
+import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.community.Community;
 import io.swagger.annotations.ApiModel;
@@ -15,12 +16,12 @@ import java.util.List;
 public class CommunityListGetRes extends BaseResponseBody {
 
     @ApiModelProperty
-    List<Community> communityList;
+    List<CommunityParamDto> communityList;
 
     @ApiModelProperty
     int size;
 
-    public static CommunityListGetRes of(Integer statusCode, String message,List<Community> communityList,Integer size){
+    public static CommunityListGetRes of(Integer statusCode, String message,List<CommunityParamDto> communityList,Integer size){
         CommunityListGetRes res = new CommunityListGetRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);

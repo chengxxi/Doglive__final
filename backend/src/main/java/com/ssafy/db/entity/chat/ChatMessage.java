@@ -30,7 +30,10 @@ public class ChatMessage extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String message;         //채팅 Message 데이터
 
-    @Column(columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
-    private LocalDateTime sendTimeAt;    //채팅 보낸 시간
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime sendTimeAt;    //채팅 보낸 시간 (default CURRENT_TIMESTAMP)
 
+    public ChatMessage(){ // DB에서 저장하면 사용자가 보낸 Message를 바로 리턴해줄 때 저장한 값을 다시 받아와야함
+        sendTimeAt = LocalDateTime.now();
+    }
 }
