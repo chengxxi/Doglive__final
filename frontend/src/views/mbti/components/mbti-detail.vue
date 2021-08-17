@@ -15,13 +15,21 @@
           <div class="dog-info-box" style="margin-right:50px;">
             <el-row>
               <el-tag
+                class="mb-2"
+                effect="dark"
+                size="small"
+                style="height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;"
+              >
+                {{ state.MbtiDetail.name }}
+              </el-tag>
+              <!-- <el-tag
                 class="mb-3  scale-up-2"
                 color="#D7AFA4"
                 effect="dark"
                 size="large"
                 style="border:none; border-radius: 30px; font-size:14pt; float:left;"
                 >{{ state.MbtiDetail.name }}</el-tag
-              >
+              > -->
             </el-row>
 
             <div class="vertical-center row">
@@ -183,7 +191,7 @@
         </el-col>
       </el-row>
       <div class="box">
-        <h6 class="mb-2" style="line-height: 0.5rem;">
+        <h6 class="mb-2" style="line-height: 3rem;">
           {{ state.MbtiDetail.desc }}
         </h6>
       </div>

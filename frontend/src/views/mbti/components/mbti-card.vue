@@ -31,7 +31,7 @@
     </el-row>
 
     <el-row
-      style="margin-top:10px; margin-right:15px; margin-left:15px; vertical-align: middle; ">
+      style="margin-bottom:10px; margin-right:15px; margin-left:15px; vertical-align: middle; ">
       <h3 style="font-weight:800; float: right;">
         {{ card.name }}
       </h3>
