@@ -2,6 +2,24 @@
   <div class="row h-100 justify-content-center pt-3 mbtiCard">
 
     <div class="card h-100 hover-top rounded-3 shadow">
+      <div class="my-3 fs--1">
+        <div style="padding-top:10px; margin-left:10px; margin-right:10px;">
+          <el-tag
+            class='mb-2'
+            effect='dark'
+            size='small'
+            style='height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;'
+          >
+            {{ card.name }}
+          </el-tag>
+
+          <span class="mb-0 fw-bold" style="font-size:14pt; float: right;">
+            {{ card.title }}
+          </span>
+        </div>
+      </div>
+
+
       <div class="card-body">
         <hr class="text-100" />
 
@@ -9,30 +27,12 @@
           <img
             style="width:100%; margin-left:5px margin-right:5px"
             :src="card.imageUrl"
-            alt="blog"
+            :alt="card.name"
           />
         </div>
-
-
-        <div class="my-3 fs--1">
-          <div style="padding-top:10px; margin-left:10px; margin-right:10px;">
-            <el-tag
-                class='mb-2'
-                effect='dark'
-                size='small'
-                style='height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;'
-              >
-                {{ card.name }}
-            </el-tag>
-
-            <p class="mb-0 fw-bold" style="font-size:14pt; float: right;">
-              {{ card.title }}
-            </p>
-          </div>
-        </div>
-
-
       </div>
+
+
     </div>
   </div>
 
