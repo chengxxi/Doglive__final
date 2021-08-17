@@ -23,7 +23,7 @@
                 </font-awesome-icon>
             </span>
           </div>
-          
+
         <el-form-item
           label="닉네임"
           :rules="{ required: true, message: '닉네임을 입력해주세요', trigger: 'change' }">
@@ -114,6 +114,9 @@
   border-radius: 100%;
   margin-left: 8px;
   margin-right: 10px;
+}
+:deep(.el-image__inner){
+  object-fit: cover;
 }
 
 </style>
