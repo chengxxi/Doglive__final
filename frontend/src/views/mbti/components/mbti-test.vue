@@ -319,7 +319,8 @@ export default {
 }
 
 :deep(.el-slider__button) {
-  border: 2px solid #dfc6bd;
+  border: 15px solid #dfc6bd;
+  color: #dfc6bd;
 }
 
 :deep(.el-button--primary) {
