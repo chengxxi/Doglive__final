@@ -280,7 +280,7 @@ export default {
               timeout: 4500,
               showIcon: "true",
               toastBackgroundColor: "#7eaa72",
-              position: "bottom-right",
+              position: "bottom-left",
               transition: "bounce",
               type: "success"
             });
@@ -292,7 +292,7 @@ export default {
               timeout: 4500,
               showIcon: "true",
               toastBackgroundColor: "#c49d83",
-              position: "bottom-right",
+              position: "bottom-left",
               transition: "bounce",
               type: "warning"
             });
@@ -338,7 +338,7 @@ export default {
           timeout: 4500,
           showIcon: "true",
           toastBackgroundColor: "#c49d83",
-          position: "bottom-right",
+          position: "bottom-left",
           transition: "bounce",
           type: "warning"
         });
@@ -361,7 +361,7 @@ export default {
                 timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#7eaa72",
-                position: "bottom-right",
+                position: "bottom-left",
                 transition: "bounce",
                 type: "success"
               });
@@ -372,7 +372,7 @@ export default {
                 timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#c49d83",
-                position: "bottom-right",
+                position: "bottom-left",
                 transition: "bounce",
                 type: "warning"
               });
@@ -392,7 +392,7 @@ export default {
                 timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#7eaa72",
-                position: "bottom-right",
+                position: "bottom-left",
                 transition: "bounce",
                 type: "success"
               });
@@ -403,7 +403,7 @@ export default {
                 timeout: 4500,
                 showIcon: "true",
                 toastBackgroundColor: "#c49d83",
-                position: "bottom-right",
+                position: "bottom-left",
                 transition: "bounce",
                 type: "warning"
               });
@@ -426,16 +426,33 @@ export default {
 
     //입양신청서 제출
     const submitAdoptForm = function(data) {
-      store
-        .dispatch("root/registerAdoptForm", data)
-        .then(function(result) {
-          console.log(result);
-          console.log("counseling history 저장");
-          createChatting(result.data.counselingHistory.id); // 성공하면 상담채팅방 생성
-        })
-        .catch(function(error) {
-          console.log(error);
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
         });
+        router.push({ name: "Login" });
+      } else {
+        store
+          .dispatch("root/registerAdoptForm", data)
+          .then(function(result) {
+            console.log(result);
+            console.log("counseling history 저장");
+            createChatting(result.data.counselingHistory.id); // 성공하면 상담채팅방 생성
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     };
 
     // 상담채팅방 생성
@@ -488,7 +505,7 @@ export default {
           timeout: 4500,
           showIcon: "true",
           toastBackgroundColor: "#c49d83",
-          position: "bottom-right",
+          position: "bottom-left",
           transition: "bounce",
           type: "warning"
         });
