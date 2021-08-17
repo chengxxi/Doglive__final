@@ -1,12 +1,11 @@
 <template>
-  <el-row :gutter="20">
+  <el-row>
     <el-col
-      :span="12"
       v-for="(o, idx) in applicant"
       :key="idx"
-      style="margin-right:1%;"
+      style="margin-right:1%; margin-left:1%; width: 48%"
     >
-      <el-row :gutter="20" class="grid-content bg-beige">
+      <el-row class="grid-content bg-beige">
         <el-col :span="4">
           <div class="image">
             <el-avatar
@@ -107,7 +106,7 @@
   border-radius: 4px;
 }
 .bg-beige {
-  /* background: #F9F0E7; */
+  /* background: linear-gradient(to top, #f3ede7, #f5e9e4); */
   border: solid 1px lightgray;
   height: 90px;
 }
@@ -115,8 +114,8 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  padding: 10px 0 10px 20px;
   border-radius: 4px;
+  padding: 10px;
   min-height: 36px;
   margin-bottom: 20px;
 }

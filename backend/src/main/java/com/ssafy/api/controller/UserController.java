@@ -13,6 +13,7 @@ import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.board.Board;
 import io.swagger.annotations.*;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -68,6 +70,7 @@ public class UserController {
 //        return ResponseEntity.status(200).body(BaseResponseBody.of(200,"Success"));
 //    }
 
+    @SneakyThrows
     @PutMapping("/{id}")
     @ApiOperation(value = "회원 정보 수정", notes = "DB에 저장된 회원정보를 새로운 값으로 수정한다.")
     @ApiResponses({
@@ -77,7 +80,7 @@ public class UserController {
             @ApiResponse(code = 409, message = "이미 존재하는 유저"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> updateUser(@PathVariable("id") String id,  @RequestBody @ApiParam(value="회원정보수정", required = true) UserUpdatePutReq userUpdatePutReq){
+    public ResponseEntity<? extends BaseResponseBody> updateUser(@PathVariable("id") String id,  @RequestBody @ApiParam(value="회원정보수정", required = true) UserUpdatePutReq userUpdatePutReq) throws IOException {
         userService.updateUserProfile(id, userUpdatePutReq);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200,"Success"));
     }

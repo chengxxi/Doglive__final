@@ -8,21 +8,29 @@
         <!-- 사용자 프로필 정보 -->
         <el-form class="userinfo-wrapper" :model="formData" label-width="120px" label-position="right">
           <!-- 사용자 프로필 이미지 -->
-          <div class="image-wrapper">
+          <div class="image-wrapper" style="margin-left:70px;">
             <el-image
               class="user-profile"
-              v-model="formData.userProfile.profileImageUrl"
+              :src="formData.userProfile.profileImageUrl"
               :fit="fit"></el-image>
-            <!-- <el-avatar shape="circle" :size="200" :src="require('@/assets/images/profile-image.jpg')" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}"/> -->
-            <!-- <el-avatar shape="circle" :size="200" :src="formData.userProfile.imageURL" :style="{'border' : 'solid 1px rgb(212, 212, 212)'}" style="background-size:cover;"/> -->
+              <span>
+                <font-awesome-icon
+                  icon="images"
+                  aria-hidden="true"
+                  style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:15px"
+                  class="scale-up-3"
+                >
+                </font-awesome-icon>
+            </span>
           </div>
+          
         <el-form-item
           label="닉네임"
           :rules="{ required: true, message: '닉네임을 입력해주세요', trigger: 'change' }">
         <el-input v-model="formData.userProfile.name"></el-input>
         </el-form-item>
         <el-form-item
-          label="Email"
+          label="이메일"
           :rules="[
             { required: true, message: 'Please input email address', trigger: 'change' },
             { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
@@ -31,12 +39,12 @@
         </el-form-item>
         <el-form-item
           label="생년월일"
-          :rules="{ required: true, message: 'Please input email address', trigger: 'change' }">
+          :rules="{ required: true, message: 'Please input birthday', trigger: 'change' }">
         <el-date-picker type="date" v-model="formData.userProfile.birth"></el-date-picker>
         </el-form-item>
         <el-form-item
-          label="phoneNumber"
-          :rules="{ required: true, message: 'Please input email address', trigger: 'change' }">
+          label="연락처"
+          :rules="{ required: true, message: 'Please input phoneNumber', trigger: 'change' }">
         <el-input v-model="formData.userProfile.phoneNumber"></el-input>
         </el-form-item>
         </el-form>
@@ -129,6 +137,7 @@ export default {
     
     const formData = reactive({
         userProfile : computed(() => {
+          console.log(store.getters["root/getUpdateUserInfo"])
           return store.getters["root/getUpdateUserInfo"];
         }
       )

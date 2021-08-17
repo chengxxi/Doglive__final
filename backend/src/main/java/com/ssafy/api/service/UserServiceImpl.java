@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -32,11 +34,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserTokenRepository userTokenRepository;
 
-
     @Autowired
     BookmarkRepository bookmarkRepository;
-
-
 
     @Autowired
     CounselingHistoryRepository counselingHistoryRepository;
@@ -46,6 +45,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     BoardImageRepository boardImageRepository;
+
+    @Autowired
+    S3Uploader s3Uploader;
 
 
     @Override
@@ -98,53 +100,28 @@ public class UserServiceImpl implements UserService{
 
     }
 
-
-    @Value("${profileImg.path}")
-    private String uploadFolder;
-
-//    @Override
-//    public UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq, MultipartFile multipartFile) {
-//        User user = userRepositorySupport.findUserById(id).get();
-//        Optional<UserProfile> userProfile = userProfileRepositorySupport.findUserByUserId(user);
-//
-//        String imageFileName = user.getId() + "_" + multipartFile.getOriginalFilename();
-//        Path imageFilePath = Paths.get(uploadFolder + imageFileName);
-//
-//        // 파일이 업로드 되었는지 확인
-//        if(multipartFile.getSize() != 0){
-//            try{
-//                // 이미 프로필 사진이 있는 경우
-//                if(userProfile.get().getProfileImageUrl()!=null){
-//                    File file = new File(uploadFolder + userProfile.get().getProfileImageUrl());
-//                    file.delete();
-//                }
-//                Files.write(imageFilePath, multipartFile.getBytes());
-//                System.out.println("File Path: " + imageFilePath);
-//            } catch(Exception e){
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        userProfile.get().setName(userUpdatePutReq.getName());
-//        userProfile.get().setProfileImageUrl(imageFileName);
-//        userProfileRepository.save(userProfile.get());
-//
-//        return userProfile.get();
-//    }
-
     @Override
-    public UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq) {
+    public UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq) throws IOException {
         User user = userRepository.findUserById(id).get();
 
         System.out.println(user + " " + userUpdatePutReq.getBirth() + " " + userUpdatePutReq.getEmail() + " " +  userUpdatePutReq.getPhoneNumber() + " " + userUpdatePutReq.getName());
+        UserProfile userProfile = userProfileRepository.findByUserId(user).get();
 
-        Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user);
-        userProfile.get().setName(userUpdatePutReq.getName());
-        userProfile.get().setEmail(userUpdatePutReq.getEmail());
-        userProfile.get().setPhoneNumber(userUpdatePutReq.getPhoneNumber());
-        userProfile.get().setBirth(userUpdatePutReq.getBirth());
-        userProfileRepository.save(userProfile.get());
-        return userProfile.get();
+        if(userUpdatePutReq.getDelfile()!=null){
+            deleteUserProfileImageByUrl(userUpdatePutReq.getDelfile());
+        }
+
+        if(userUpdatePutReq.getFile()!=null){
+            String profileImageUrl = s3Uploader.upload(userUpdatePutReq.getFile(),"static");
+            userProfile.setProfileImageUrl("https://"+S3Uploader.CLOUD_FRONT_DOMAIN_NAME+"/"+profileImageUrl);
+        }
+
+        userProfile.setName(userUpdatePutReq.getName());
+        userProfile.setEmail(userUpdatePutReq.getEmail());
+        userProfile.setPhoneNumber(userUpdatePutReq.getPhoneNumber());
+        userProfile.setBirth(userUpdatePutReq.getBirth());
+        userProfileRepository.save(userProfile);
+        return userProfile;
     }
 
     @Override
@@ -232,15 +209,22 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<CounselingHistory> getCounselingResult(String id) {
         Optional<User> user = userRepository.findUserById(id);
-
+        List<CounselingHistory> resultList = new ArrayList<>();
         if(user.isPresent()){
             Optional<UserProfile> userProfile = userProfileRepository.findByUserId(user.get());
             if(userProfile.isPresent()){
-                Optional<List<CounselingHistory>> resultList = counselingHistoryRepository.findCounselingHistoriesByApplicantId(userProfile.get());
-                if(resultList.isPresent()){
-                    return resultList.get();
+                List<CounselingHistory> List = counselingHistoryRepository.findCounselingHistoriesByApplicantId(userProfile.get()).get();
+                for (CounselingHistory counselingHistory: List) {
+                    if(counselingHistory.getBoardType().equals("입양") || counselingHistory.getBoardType().equals("임보")){
+                        System.out.println(counselingHistory.getBoardType());
+                        resultList.add(counselingHistory);
+                    }
                 }
             }
+
+        }
+        if(resultList!=null){
+            return resultList;
         }
         return null;
     }
@@ -260,6 +244,13 @@ public class UserServiceImpl implements UserService{
         if(counselingHistory.isPresent())
             return counselingHistory.get();
         return null;
+    }
+
+    @Override
+    public void deleteUserProfileImageByUrl(String delfile) {
+        if(delfile!=null){
+            s3Uploader.delete(delfile);
+        }
     }
 
 }
