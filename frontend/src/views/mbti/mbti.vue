@@ -3,11 +3,6 @@
     <div class="box-card " style="width:100%; border:none;">
       <MbtiIntro />
 
-      <!-- 테스트 하기 버튼 -->
-      <!-- <MbtiDescription /> -->
-      <!-- <MbtiQuestion /> -->
-      <!-- 유형 알아보기 버튼 -->
-      <!-- <MbtiResult /> -->
       <div style="padding:50px;"></div>
     </div>
   </div>

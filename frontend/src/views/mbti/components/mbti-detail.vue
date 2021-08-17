@@ -6,6 +6,8 @@
         <el-col :span="12" style="margin-left:50px;">
           <img class="dog-thumbnail" :src="state.MbtiDetail.image_url" />
         </el-col>
+
+
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
             <el-row>
@@ -231,14 +233,14 @@
 </template>
 
 <script>
-import { computed, reactive } from "vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import "mosha-vue-toastify/dist/style.css";
-import AdoptCard from "@/views/adopt/components/adopt-card.vue";
+import { computed, reactive } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import 'mosha-vue-toastify/dist/style.css'
+import AdoptCard from '@/views/adopt/components/adopt-card.vue'
 
 export default {
-  name: "MbtiDetail",
+  name: 'MbtiDetail',
   components: {
     AdoptCard
   },
@@ -249,8 +251,8 @@ export default {
 
     const state = reactive({
       MbtiDetail: computed(() => {
-        console.log(store.getters["root/getMbti"]);
-        return store.getters["root/getMbti"];
+        console.log(store.getters['root/getMbti']);
+        return store.getters['root/getMbti'];
       })
     });
 

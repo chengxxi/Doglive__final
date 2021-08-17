@@ -95,10 +95,7 @@ export default {
     onMounted(() => {
       // readDetail();
       readMbtiList();
-<<<<<<< HEAD
       window.scrollTo(0, 0);
-=======
->>>>>>> 192c156102415ac06bbfbdd639704f02bf3c5ae0
     });
 
     return { state, readDetail, readMbtiList };
