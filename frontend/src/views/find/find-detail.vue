@@ -566,7 +566,7 @@ export default {
           };
 
           store.commit("root/setBoardDetail", boardDetail);
-          router.push({ name: "FindDetail" });
+          window.scrollTo(0,0);
         })
         .catch(function(err) {
           console.log(err);
