@@ -24,7 +24,6 @@
               >
                 {{ card.name }}
             </el-tag>
-            <hr>
 
             <p class="mb-0 fw-bold" style="font-size:14pt; float: right;">
               {{ card.title }}
