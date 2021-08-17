@@ -817,7 +817,7 @@ export default {
     };
 
     const goMbti = function() {
-      router.push({ name: "Mbti" });
+      router.push({ name: "mbti" });
     };
 
     onMounted(() => {
