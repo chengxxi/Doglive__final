@@ -2,15 +2,15 @@
 
 export default {
   loginUserInfo: {
-    userId: ""
+    userId: ''
   },
 
   userProfile: {
-    imageURL: "",
-    name: "",
-    email: "",
-    birth: "",
-    phoneNumber: ""
+    imageURL: '',
+    name: '',
+    email: '',
+    birth: '',
+    phoneNumber: ''
   },
 
   writeList: {},
@@ -20,33 +20,33 @@ export default {
   },
 
   community: {
-    communityId: "",
-    title: "",
-    category: "",
-    description: "",
+    communityId: '',
+    title: '',
+    category: '',
+    description: '',
     fileList: []
   },
 
-  currentPath: "", // 현재 경로의 Path 파트 ex) /login?code=1234 에서 '/login'
-  currentPathParam: "", // 현재 경로의 Param 파트 ex) /login?code=1234 에서 'code=1234',
+  currentPath: '', // 현재 경로의 Path 파트 ex) /login?code=1234 에서 '/login'
+  currentPathParam: '', // 현재 경로의 Param 파트 ex) /login?code=1234 에서 'code=1234',
 
   breadCrumbInfo: {
     isHome: false,
-    title: "Home",
-    subTitle: "test",
-    path: "/"
+    title: 'Home',
+    subTitle: 'test',
+    path: '/'
   },
 
   board: {
     // detail, update, delete
     boardId: 0,
     boardType: {},
-    dogName: "",
-    thumbnailUrl: "",
-    title: "",
-    address: "",
-    mbti: "",
-    description: "",
+    dogName: '',
+    thumbnailUrl: '',
+    title: '',
+    address: '',
+    mbti: '',
+    description: '',
     colorType: {},
     gender: {},
     dogType: {},
@@ -59,37 +59,37 @@ export default {
     fileList: [],
     isOwner: false,
     isbookmarked: false,
-    sido: "",
-    gugun: "",
+    sido: '',
+    gugun: '',
     listSimilarDog: []
   },
 
   chat: {
     open: false,
     menu: 0 /* 0: 채팅 목록, 1: 채팅방, 2: 화상회의 목록 */,
-    title: "",
-    roomId: ""
+    title: '',
+    roomId: ''
   },
 
   adoptForm: {
-    formId: "",
-    roomId: ""
+    formId: '',
+    roomId: ''
   },
 
   conference: {
-    roomId: "",
-    title: "",
-    thumbnailUrl: "",
-    writer: "", // 글 작성자
-    reader: "", // 신청자
+    roomId: '',
+    title: '',
+    thumbnailUrl: '',
+    writer: '', // 글 작성자
+    reader: '', // 신청자
     fromChat: false
   },
 
   mbti: {
-    id: "",
-    name: "",
-    title: "",
-    desc: "",
-    image_url: ""
+    id: '',
+    name: '',
+    title: '',
+    desc: '',
+    image_url: ''
   }
 };
