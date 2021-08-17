@@ -6,19 +6,13 @@
         :ref="el => { if(el) divs = el}"
     > -->
     <div class="button" style="text-align:right; margin-top:2%;">
-          <el-button
-            type="outline-primary"
-            round
-            @click="goRegister"
-            >글 작성하기</el-button
-          >
-          <el-button
-            type="outline-primary"
-            round
-            @click="goMyCommunity"
-            >내 피드 보러가기</el-button
-          >
-      </div>
+      <el-button type="outline-primary" round @click="goRegister"
+        >글 작성하기</el-button
+      >
+      <el-button type="outline-primary" round @click="goMyCommunity"
+        >내 피드 보러가기</el-button
+      >
+    </div>
     <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
       <div>
         <div class="title">
@@ -101,8 +95,12 @@
           </font-awesome-icon> -->
               {{ item.title }}</span
             >
-            <div class="boardcontent" style="margin-top:2%; white-space:pre-wrap;">
-            {{ item.description }}</div>
+            <div
+              class="boardcontent"
+              style="margin-top:2%; white-space:pre-wrap;"
+            >
+              {{ item.description }}
+            </div>
           </div>
         </div>
         <div class="comment">
@@ -177,7 +175,7 @@
   border-bottom: solid 1px rgb(240, 240, 240);
   padding: 10px;
 }
-.button .el-button{
+.button .el-button {
   border: solid 1px lightgray !important;
   margin-right: 1%;
 }
@@ -322,9 +320,11 @@ export default {
     });
 
     const goRegister = function() {
-      if (state.userId === null ||
-          state.userId == "" ||
-          state.userId === undefined) {
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
         createToast("로그인을 진행해주세요 💨💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -340,10 +340,12 @@ export default {
       }
     };
 
-    const goMyCommunity = function(){
-      if (state.userId === null ||
-          state.userId == "" ||
-          state.userId === undefined) {
+    const goMyCommunity = function() {
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
         createToast("로그인을 진행해주세요 💨💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -357,8 +359,7 @@ export default {
       } else {
         router.push({ name: "community-mycommunity" });
       }
-
-    }
+    };
 
     // 다음 커뮤니티 목록 가져오기
     function fetchCommunityList() {
@@ -465,11 +466,13 @@ export default {
     };
 
     const RegisterComment = function(id) {
-      if(comment.input == null ||
-        comment.input=="" ||
+      if (
+        comment.input == null ||
+        comment.input == "" ||
         state.userId === null ||
         state.userId == "" ||
-        state.userId === undefined){
+        state.userId === undefined
+      ) {
         createToast("댓글 내용을 적어주세요 😱💦", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -479,28 +482,76 @@ export default {
           transition: "bounce",
           type: "success"
         });
-      }else{
+      } else {
         if (state.userId === null) {
-        createToast("로그인을 진행해주세요 💨💨", {
+          createToast("로그인을 진행해주세요 💨💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "success"
+          });
+          router.push({ name: "Login" });
+        } else {
+          store
+            .dispatch("root/requestRegisterComment", {
+              communityId: id,
+              userId: state.userId,
+              comment: comment.input
+            })
+            .then(function(result) {
+              console.log(result);
+              createToast("댓글이 등록되었어요 💨💨", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "success"
+              });
+              state.comments.push(result.data);
+              comment.input = "";
+              state.reverseList = [...state.comments].reverse();
+            })
+            .catch(function(err) {
+              createToast("댓글 등록에 실패했어요 😱💦", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#c49d83",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "warning"
+              });
+            });
+        }
+      }
+    };
+
+    const DeleteComment = function(id) {
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
           hideProgressBar: "true",
           timeout: 4500,
           showIcon: "true",
           toastBackgroundColor: "#c49d83",
           position: "bottom-left",
           transition: "bounce",
-          type: "success"
+          type: "warning"
         });
         router.push({ name: "Login" });
       } else {
         store
-          .dispatch("root/requestRegisterComment", {
-            communityId: id,
-            userId: state.userId,
-            comment: comment.input
-          })
+          .dispatch("root/requestDeleteComment", id)
           .then(function(result) {
-            console.log(result);
-            createToast("댓글이 등록되었어요 💨💨", {
+            createToast("댓글이 삭제되었어요 💨💨", {
               hideProgressBar: "true",
               timeout: 4500,
               showIcon: "true",
@@ -509,12 +560,17 @@ export default {
               transition: "bounce",
               type: "success"
             });
-            state.comments.push(result.data);
-            comment.input = "";
+
+            for (var i = 0; i < state.comments.length; i++) {
+              if (state.comments[i].id == id) {
+                console.log(state.comments[i].id);
+                state.comments.splice(i, 1);
+              }
+            }
             state.reverseList = [...state.comments].reverse();
           })
           .catch(function(err) {
-            createToast("댓글 등록에 실패했어요 😱💦", {
+            createToast("댓글 삭제에 실패했어요 😱💦", {
               hideProgressBar: "true",
               timeout: 4500,
               showIcon: "true",
@@ -523,48 +579,9 @@ export default {
               transition: "bounce",
               type: "warning"
             });
+            console.log(err);
           });
       }
-
-      }
-
-    };
-
-    const DeleteComment = function(id) {
-      store
-        .dispatch("root/requestDeleteComment", id)
-        .then(function(result) {
-          createToast("댓글이 삭제되었어요 💨💨", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "success"
-          });
-
-          for(var i=0; i<state.comments.length; i++){
-              if(state.comments[i].id == id){
-                console.log(state.comments[i].id)
-                state.comments.splice(i,1);
-              }
-          }
-          state.reverseList = [...state.comments].reverse();
-
-        })
-        .catch(function(err) {
-          createToast("댓글 삭제에 실패했어요 😱💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "warning"
-          });
-          console.log(err);
-        });
     };
 
     onMounted(() => {
@@ -589,7 +606,6 @@ export default {
       DeleteComment,
       goRegister,
       goMyCommunity
-
     };
   }
 };
