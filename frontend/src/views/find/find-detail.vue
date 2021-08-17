@@ -3,7 +3,7 @@
     <div style="width:100%; ">
       <bread-crumb></bread-crumb>
       <el-card class="box-card " shadow="none" style="border:none;">
-        <div style="margin-top:80px; margin-left:60px;"></div>
+        <div style="margin-top:50px; margin-left:60px;"></div>
 
         <el-row class="vertical-center" :gutter="20" style="margin-top:10px;">
           <el-col :span="12" style="margin-left:50px;">
@@ -148,7 +148,7 @@
           </el-carousel>
         </div>
 
-          <!-- 조건 걸기 -->
+        <!-- 조건 걸기 -->
         <div class="dog-image-box">
           <h5
             class="pt-3 pb-3"
@@ -156,7 +156,7 @@
           >
             🐶🔎 혹시 저는 아닐까요❔
           </h5>
-                   <!-- 유사공고 -->
+          <!-- 유사공고 -->
           <div v-if="state.listSimilarDog != null">
             <el-scrollbar>
               <div class="flex-content">
@@ -176,7 +176,11 @@
             </el-scrollbar>
           </div>
           <div v-else>
-            <el-empty description="유사한 강아지가 없네요😢"  image="https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_223416590.png" image-size="300">
+            <el-empty
+              description="유사한 강아지가 없네요😢"
+              image="https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_223416590.png"
+              image-size="300"
+            >
             </el-empty>
           </div>
         </div>
@@ -432,8 +436,8 @@ export default {
         .dispatch("root/registerAdoptForm", data)
         .then(function(result) {
           console.log(result);
-          console.log("counseling history 저장")
-          createChatting(result.data.counselingHistory.id) // 성공하면 상담채팅방 생성
+          console.log("counseling history 저장");
+          createChatting(result.data.counselingHistory.id); // 성공하면 상담채팅방 생성
         })
         .catch(function(error) {
           console.log(error);
@@ -448,31 +452,35 @@ export default {
           withCredentials: true // userId를 헤더 쿠키에 담아서 보냄
         })
         .then(function(result) {
-            openChatting(counselingId)
+          openChatting(counselingId);
         })
-        .catch(function() {
-
-        });
+        .catch(function() {});
     };
 
     // 상담채팅방 열기
     const openChatting = function(counselingId) {
       store
         .dispatch("root/requestChatRoomByCounseling", {
-          counselingId : counselingId,
-          withCredentials : true
+          counselingId: counselingId,
+          withCredentials: true
         })
-        .then(function(result){
+        .then(function(result) {
           // 채팅방에 입장할 때, chatRoom 정보를 넘겨줌
-          store.commit('root/setChatMenu', 1); // chat-detail.vue로 이동
-          store.commit('root/setChatRoomId', result.data.chatRoomList[0].chatRoom.id);
-          store.commit('root/setChatTitle', result.data.chatRoomList[0].counselingHistory.boardTitle)
-          store.commit('root/setChatOpen', true); // 모두 설정해준 다음 OPEN
+          store.commit("root/setChatMenu", 1); // chat-detail.vue로 이동
+          store.commit(
+            "root/setChatRoomId",
+            result.data.chatRoomList[0].chatRoom.id
+          );
+          store.commit(
+            "root/setChatTitle",
+            result.data.chatRoomList[0].counselingHistory.boardTitle
+          );
+          store.commit("root/setChatOpen", true); // 모두 설정해준 다음 OPEN
         })
-        .catch(function(err){
-          console.log(err)
-        })
-    }
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
 
     // 채팅 시작하기 클릭 시, 수행되는 메소드
     const goChat = function(id) {
@@ -499,12 +507,13 @@ export default {
             boardId: state.board.boardId
           })
           .then(function(result) {
-            console.log(result)
-            if(result.status == 204){ // counseling history가 존재하지 않음
+            console.log(result);
+            if (result.status == 204) {
+              // counseling history가 존재하지 않음
               submitAdoptForm(data); // 1. counseling history 생성   2. 채팅방 생성  3. 채팅방 오픈
-            }else{
+            } else {
               var counselingId = result.data.counselingHistory.id;
-              openChatting(counselingId) // 1. 채팅방 오픈
+              openChatting(counselingId); // 1. 채팅방 오픈
             }
           })
           .catch(function(err) {
@@ -518,7 +527,7 @@ export default {
               type: "warning"
             });
           });
-        }
+      }
     };
 
     const readDetail = function(id) {
@@ -708,6 +717,5 @@ div {
   white-space: nowrap;
   overflow-x: auto;
   margin: 0;
-
 }
 </style>
