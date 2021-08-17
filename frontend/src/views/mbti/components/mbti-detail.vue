@@ -4,15 +4,15 @@
     <el-card class="box-card" shadow="none" style="border:none;">
       <div style="margin-top:40px; margin-left:60px;">
         <el-row>
-          <el-tag
+          <el-button
             class="mb-2"
             effect="dark"
             size="small"
-            style="height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;"
+            style="margin-left:10px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); font-size:16px; padding:7px; border:none; font-weight:600;  color:#FFFFFF; float:left;"
           >
             {{ state.MbtiDetail.name }}
-          </el-tag>
-          <el-popover placement="bottom" width="200" trigger="hover">
+          </el-button>
+          <el-popover placement="right" width="200" trigger="hover">
             <div class="content">
               <h4 style="font-weight:700;">강아지 MBTI 해석하기</h4>
               <hr />
