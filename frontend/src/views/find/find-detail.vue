@@ -1,10 +1,8 @@
 <template>
   <div class="main-body main-padding">
-    <div style="width:100%; ">
       <bread-crumb></bread-crumb>
       <el-card class="box-card " shadow="none" style="border:none;">
         <div style="margin-top:50px; margin-left:60px;"></div>
-
         <el-row class="vertical-center" :gutter="20" style="margin-top:10px;">
           <el-col :span="12" style="margin-left:50px;">
             <img class="dog-thumbnail" :src="state.board.fileList[0]" />
@@ -17,29 +15,27 @@
                 color="#B4D9A7"
                 effect="dark"
                 size="large"
-                style="border:none; border-radius: 30px; font-size:14pt;"
-                >{{ state.board.boardType.name }}</el-tag
-              >
+                style="border:none; border-radius: 30px; font-size:14pt;">{{ state.board.boardType.name }}
+              </el-tag>
               <el-tag
                 v-if="state.board.boardType.id != 3"
                 class="mb-3"
                 color="#87CEDC"
                 effect="dark"
                 size="large"
-                style="border:none; border-radius: 30px; font-size:14pt;"
-                >{{ state.board.boardType.name }}</el-tag
-              >
+                style="border:none; border-radius: 30px; font-size:14pt;" >{{ state.board.boardType.name }}
+              </el-tag>
               <div class="vertical-center row">
                 <div class="col-md-9">
                   <span
-                    :style="{ 'font-size': '30pt', 'font-weight': '700' }"
-                    >{{ state.board.dogType.name }}</span
-                  >
+                    :style="{ 'font-size': '30pt', 'font-weight': '700' }">
+                    {{ state.board.dogType.name }}
+                  </span>
                 </div>
                 <div class="col-md-3 ms-auto">
                   <div
                     class="align-self-center vertical-center"
-                    style="text-align: center;"
+                    style="text-align: center; height:80px"
                   >
                     <font-awesome-icon
                       v-if="!state.board.isOwner"
@@ -123,10 +119,7 @@
           </el-col>
         </el-row>
         <div class="box mt-5">
-          <h4
-            class="mb-2
-        "
-          >
+          <h4 class="mb-2">
             <b>{{ state.board.title }}</b>
           </h4>
           <div style="margin-top:20px; white-space:pre-wrap;">
@@ -148,7 +141,7 @@
           </el-carousel>
         </div>
 
-        <!-- 조건 걸기 -->
+          <!-- 조건 걸기 -->
         <div class="dog-image-box">
           <h5
             class="pt-3 pb-3"
@@ -156,7 +149,7 @@
           >
             🐶🔎 혹시 저는 아닐까요❔
           </h5>
-          <!-- 유사공고 -->
+                   <!-- 유사공고 -->
           <div v-if="state.listSimilarDog != null">
             <el-scrollbar>
               <div class="flex-content">
@@ -176,16 +169,11 @@
             </el-scrollbar>
           </div>
           <div v-else>
-            <el-empty
-              description="유사한 강아지가 없네요😢"
-              image="https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_223416590.png"
-              image-size="300"
-            >
+            <el-empty description="유사한 강아지가 없네요😢"  image="https://d2ud6j7vlf3xy9.cloudfront.net/img/KakaoTalk_20210816_223416590.png" image-size="300">
             </el-empty>
           </div>
         </div>
       </el-card>
-    </div>
   </div>
 </template>
 <script>
@@ -436,8 +424,8 @@ export default {
         .dispatch("root/registerAdoptForm", data)
         .then(function(result) {
           console.log(result);
-          console.log("counseling history 저장");
-          createChatting(result.data.counselingHistory.id); // 성공하면 상담채팅방 생성
+          console.log("counseling history 저장")
+          createChatting(result.data.counselingHistory.id) // 성공하면 상담채팅방 생성
         })
         .catch(function(error) {
           console.log(error);
@@ -452,35 +440,31 @@ export default {
           withCredentials: true // userId를 헤더 쿠키에 담아서 보냄
         })
         .then(function(result) {
-          openChatting(counselingId);
+            openChatting(counselingId)
         })
-        .catch(function() {});
+        .catch(function() {
+
+        });
     };
 
     // 상담채팅방 열기
     const openChatting = function(counselingId) {
       store
         .dispatch("root/requestChatRoomByCounseling", {
-          counselingId: counselingId,
-          withCredentials: true
+          counselingId : counselingId,
+          withCredentials : true
         })
-        .then(function(result) {
+        .then(function(result){
           // 채팅방에 입장할 때, chatRoom 정보를 넘겨줌
-          store.commit("root/setChatMenu", 1); // chat-detail.vue로 이동
-          store.commit(
-            "root/setChatRoomId",
-            result.data.chatRoomList[0].chatRoom.id
-          );
-          store.commit(
-            "root/setChatTitle",
-            result.data.chatRoomList[0].counselingHistory.boardTitle
-          );
-          store.commit("root/setChatOpen", true); // 모두 설정해준 다음 OPEN
+          store.commit('root/setChatMenu', 1); // chat-detail.vue로 이동
+          store.commit('root/setChatRoomId', result.data.chatRoomList[0].chatRoom.id);
+          store.commit('root/setChatTitle', result.data.chatRoomList[0].counselingHistory.boardTitle)
+          store.commit('root/setChatOpen', true); // 모두 설정해준 다음 OPEN
         })
-        .catch(function(err) {
-          console.log(err);
-        });
-    };
+        .catch(function(err){
+          console.log(err)
+        })
+    }
 
     // 채팅 시작하기 클릭 시, 수행되는 메소드
     const goChat = function(id) {
@@ -507,13 +491,12 @@ export default {
             boardId: state.board.boardId
           })
           .then(function(result) {
-            console.log(result);
-            if (result.status == 204) {
-              // counseling history가 존재하지 않음
+            console.log(result)
+            if(result.status == 204){ // counseling history가 존재하지 않음
               submitAdoptForm(data); // 1. counseling history 생성   2. 채팅방 생성  3. 채팅방 오픈
-            } else {
+            }else{
               var counselingId = result.data.counselingHistory.id;
-              openChatting(counselingId); // 1. 채팅방 오픈
+              openChatting(counselingId) // 1. 채팅방 오픈
             }
           })
           .catch(function(err) {
@@ -527,7 +510,7 @@ export default {
               type: "warning"
             });
           });
-      }
+        }
     };
 
     const readDetail = function(id) {
@@ -606,7 +589,7 @@ export default {
 
 <style scoped>
 .main-body {
-  width: 100%;
+  width: 80%;
   margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
   margin-right: 10%;
 }
@@ -713,9 +696,10 @@ h3 {
   box-shadow: inset 0px 0px 5px white;
 }
 
-div {
+.flex-content {
   white-space: nowrap;
   overflow-x: auto;
   margin: 0;
+  max-width: 99%;
 }
 </style>
