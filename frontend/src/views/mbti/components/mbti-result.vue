@@ -18,19 +18,6 @@
       </el-col>
     </span>
 
-<!--
-    <el-row class="mbtiBox">
-      <MbtiCard
-        v-for="(idx, card) in 16"
-        :key="idx"
-        :card="card"
-        @click="readDetail(card.boardId.id)"
-        :span="6"
-      />
-    </el-row> -->
-
-
-
   </div>
 
 </template>
