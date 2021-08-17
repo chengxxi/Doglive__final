@@ -172,18 +172,21 @@ const routes = [
       {
         path: "register",
         name: "community-board-register",
+        meta: { requiresAuth: true },
         component: () =>
           import("@/views/community/components/community-board-register.vue")
       },
       {
         path: "update",
         name: "community-board-update",
+        meta: { requiresAuth: true },
         component: () =>
           import("@/views/community/components/community-board-update.vue")
       },
       {
         path: "mycommunity",
         name: "community-mycommunity",
+        meta: { requiresAuth: true },
         component: () =>
           import("@/views/community/components/community-mycommunity.vue")
       }

@@ -121,7 +121,6 @@
 </style>
 
 <script>
-import $axios from "axios";
 import { onBeforeMount, onMounted, reactive, computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -174,6 +173,18 @@ export default {
         })
         .catch(function(err){
           console.log(err)
+          createToast(
+            "이미 종료된 상담입니다! 💬💦",
+            {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            }
+          );
         })
     }
 

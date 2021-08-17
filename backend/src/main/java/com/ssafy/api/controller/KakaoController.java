@@ -102,4 +102,5 @@ public class KakaoController {
         kakaoAPI.Logout(access_Token.getValue());
         return ResponseEntity.ok("로그아웃 되었습니다.");
     }
+
 }

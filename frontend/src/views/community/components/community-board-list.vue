@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+
     <!-- <div class="chat-body"
         @scroll="scroll"
         v-loading="communities.loading"
@@ -458,17 +458,6 @@ export default {
         });
     };
 
-  
-    store
-      .dispatch("root/requestUserProfile", state.userId)
-      .then(function(result) {
-        console.log(result.data);
-        state.userProfile = result.data;
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-
     const RegisterComment = function(id) {
       if(comment.input == null || comment.input==""){
         createToast("댓글 내용을 적어주세요 😱💦", {
@@ -497,7 +486,6 @@ export default {
           .dispatch("root/requestRegisterComment", {
             communityId: id,
             userId: state.userId,
-            name: state.userProfile.name,
             comment: comment.input
           })
           .then(function(result) {
@@ -529,7 +517,7 @@ export default {
       }
 
       }
-      
+
     };
 
     const DeleteComment = function(id) {
@@ -547,7 +535,7 @@ export default {
           });
 
           for(var i=0; i<state.comments.length; i++){
-              if(state.comments[i].id == id){ 
+              if(state.comments[i].id == id){
                 console.log(state.comments[i].id)
                 state.comments.splice(i,1);
               }
@@ -569,7 +557,7 @@ export default {
         });
     };
 
-    
+
 
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {

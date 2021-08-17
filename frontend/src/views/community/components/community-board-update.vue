@@ -75,7 +75,7 @@
                         style="background:linear-gradient( to top, #f3ede7, #f5e9e4 );
                       text-align:center;
                       display:table-cell;
-                      vertical-align:middle; 
+                      vertical-align:middle;
                       box-shadow:0 2px 12px 0 rgb(0 0 0 / 10%);
                       width:200px; height:200px; border-radius:20px;
                     "
@@ -100,9 +100,9 @@
           <el-form-item label="내용" prop="description">
             <el-input type="textarea" v-model="boardForm.description" style="resize: none; white-space:pre;"></el-input>
           </el-form-item>
-            
+
           </el-row>
-          
+
 
           <el-row
             class="mt-5"
@@ -333,7 +333,7 @@ export default {
             timeout: 4500,
             showIcon: "true",
             toastBackgroundColor: "#7eaa72",
-            position: "bottom-right",
+            position: "bottom-left",
             transition: "bounce",
             type: "success"
           });
@@ -363,7 +363,7 @@ export default {
       state.newAddFile.splice(index, 1);
     };
 
-    
+
 
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {
@@ -373,7 +373,7 @@ export default {
       });
     });
 
-   
+
 
     return { state , modifyData, changeFile, deleteOriginFile, deleteNewFile};
   }

@@ -196,6 +196,7 @@ export default {
           withCredentials: true
         })
         .then(function(result) {
+          console.log(result)
           var size = result.data.messageList.length;
           for (var i = 0; i < size; i++)
             state.recvList.push(result.data.messageList[i]);

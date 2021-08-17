@@ -52,6 +52,7 @@ export default {
         store.commit("root/setChatTitle", "");
         store.commit("root/setChatRoomId", "");
         store.commit("root/setChatMenu", 0);
+        store.commit("root/setExitMessage", false);
 
         createToast(
           {

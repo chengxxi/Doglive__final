@@ -233,7 +233,10 @@ public class CommunityServiceImpl implements  CommunityService{
 
         comment.setCommunityId(community);
         comment.setUserId(commentPostReq.getUserId());
-        comment.setName(commentPostReq.getName());
+
+        User user = userRepository.findUserById(commentPostReq.getUserId()).get(); // userID를 통해 username 받아오기
+        String username = userProfileRepository.findByUserId(user).get().getName();
+        comment.setName(username);
         comment.setComment(commentPostReq.getComment());
         comment.setIsDelete(true);
 

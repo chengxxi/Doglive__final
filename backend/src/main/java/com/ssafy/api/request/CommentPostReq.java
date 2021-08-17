@@ -20,9 +20,6 @@ public class CommentPostReq {
     String userId;
 
     @ApiModelProperty
-    String name;
-
-    @ApiModelProperty
     String comment;
 }
 

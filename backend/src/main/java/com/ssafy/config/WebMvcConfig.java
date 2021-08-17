@@ -1,18 +1,28 @@
 package com.ssafy.config;
 
+import com.ssafy.api.service.KakaoAPI;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.handler.WebRequestHandlerInterceptorAdapter;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import javax.servlet.Filter;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -85,4 +95,54 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registration.addUrlPatterns("/api/*");
         return registration;
     }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new KakaoAuthHandler())
+                .excludePathPatterns("/api/v1/board/adopt")
+                .excludePathPatterns("/api/v1/board/recent")
+                .excludePathPatterns("/api/v1/board/find")
+                .excludePathPatterns("/api/v1/board/**/**")
+                .excludePathPatterns("/api/v1/users/present/**")
+                .excludePathPatterns("/api/v1/community/detail")
+                .excludePathPatterns("/api/v1/community/list/**")
+                .excludePathPatterns("/api/v1/community/comment/**")
+                .excludePathPatterns("/api/v1/community/new")
+                .excludePathPatterns("/api/v1/kakao/**");
+    }
+
+    class KakaoAuthHandler extends HandlerInterceptorAdapter {
+        @Override
+        public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+            Cookie[] cookies = request.getCookies();
+            String accessToken = null;
+            String refreshToken = null;
+
+            // 현재 로그인 된 상태인지 체크
+            if(cookies == null || cookies.length == 0){
+                throw new AuthorizationServiceException("로그인이 필요합니다!");
+            }
+
+            for(Cookie cookie : cookies){
+                if(cookie.getName().equals("accessToken"))
+                    accessToken = cookie.getValue();
+                else if(cookie.getName().equals("refreshToken"))
+                    refreshToken = cookie.getValue();
+            }
+
+            // 현재 로그인 된 상태인지 체크
+            if(accessToken == null || refreshToken == null) {
+                throw new AuthorizationServiceException("로그인이 필요합니다!");
+            }
+
+            KakaoAPI kakaoAPI = new KakaoAPI();
+            int responseCode = kakaoAPI.checkAccessToken(accessToken, refreshToken); // 갱신 여부 체크
+            System.out.println("WebMvcConfig-ResponseCode : " + responseCode);
+            if(responseCode == 400 || responseCode == 401){
+                throw new AuthorizationServiceException("로그인이 필요합니다!");
+            }
+            return true;
+        }
+    }
+
 }

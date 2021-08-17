@@ -8,6 +8,7 @@ import com.ssafy.db.entity.chat.ChatMessage;
 import com.ssafy.db.entity.chat.ChatMessageRead;
 import com.ssafy.db.entity.chat.ChatRoom;
 import com.ssafy.db.entity.chat.ChatRoomJoin;
+import com.ssafy.db.repository.auth.CounselingHistoryRepository;
 import com.ssafy.db.repository.chat.ChatMessageReadRepository;
 import com.ssafy.db.repository.chat.ChatMessageRepository;
 import com.ssafy.db.repository.chat.ChatRoomJoinRepository;
@@ -38,6 +39,9 @@ public class ChatServiceImpl implements ChatService{
 
     @Autowired
     ChatMessageReadRepository chatMessageReadRepository;
+
+    @Autowired
+    CounselingHistoryRepository counselingHistoryRepository;
 
     @Autowired
     UserService userService;

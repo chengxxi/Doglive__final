@@ -83,7 +83,8 @@ export default {
     const router = useRouter()
     const state = reactive({
       login: computed(()=> {
-        if(store.getters['root/getLoginUserInfo'].userId === null)
+        var userId = store.getters['root/getLoginUserInfo'].userId;
+        if( userId === null || userId == "" || userId === undefined)
           return false
         else
           return true

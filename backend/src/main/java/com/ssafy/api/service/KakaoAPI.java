@@ -34,7 +34,7 @@ public class KakaoAPI {
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=bacd72f58ac01490602415c683ad8c05");
 
-//           sb.append("&redirect_uri=https://localhost:8082/kakao/callback");
+//            sb.append("&redirect_uri=https://localhost:8082/kakao/callback");
             sb.append("&redirect_uri=https://i5a501.p.ssafy.io/kakao/callback"); // 배포용
 
             sb.append("&code=" + authorize_code);
@@ -219,4 +219,79 @@ public class KakaoAPI {
             e.printStackTrace();
         }
     }
+
+    // Token 정보 보기 (토큰 만료 여부)
+    public int checkAccessToken(String accessToken, String refreshToken) {
+        int responseCode = -1;
+        String reqURL = "https://kapi.kakao.com/v1/user/access_token_info";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+            responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responseCode;
+    }
+
+
+    // Token 갱신
+    public HashMap<String, Object> refreshAccessToken(String accessToken, String refreshToken){
+        HashMap<String, Object> Token = new HashMap<>();
+        String reqURL = "https://kauth.kakao.com/oauth/token";
+
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            // POST 요청을 위해 기본값이 false인 setDoOutput을 true로
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+
+            // POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+            sb.append("grant_type=refresh_token");
+            sb.append("&client_id=bacd72f58ac01490602415c683ad8c05");
+            sb.append("&refresh_token=" + refreshToken);
+            bw.write(sb.toString());
+            bw.flush();
+
+            // 결과 코드가 200이라면 성공
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+            // 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line = "";
+            String result = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println("response body : " + result);
+
+            // Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(result);
+
+            accessToken = element.getAsJsonObject().get("access_token").getAsString(); // 갱신된 AccessToken
+            refreshToken = element.getAsJsonObject().get("refresh_token").getAsString(); // 갱신된 RefreshToken
+
+            Token.put("accessToken", accessToken);
+            Token.put("refreshToken", refreshToken);
+
+            br.close();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Token;
+    }
+
 }
