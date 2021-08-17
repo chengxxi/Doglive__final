@@ -6,6 +6,7 @@
         <el-col :span="12" style="margin-left:50px;">
           <img class="dog-thumbnail" :src="state.MbtiDetail.image_url" />
         </el-col>
+
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
             <el-row>
@@ -17,21 +18,13 @@
               >
                 {{ state.MbtiDetail.name }}
               </el-tag>
-              <!-- <el-tag
-                class="mb-3  scale-up-2"
-                color="#D7AFA4"
-                effect="dark"
-                size="large"
-                style="border:none; border-radius: 30px; font-size:14pt; float:left;"
-                >{{ state.MbtiDetail.name }}</el-tag
-              > -->
             </el-row>
 
             <div class="vertical-center row">
               <div class="col-md-9">
-                <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">{{
-                  state.MbtiDetail.title
-                }}</span>
+                <span :style="{ 'font-size': '30pt', 'font-weight': '700' }">
+                  {{ state.MbtiDetail.title }}
+                </span>
               </div>
               <div class="col-md-3 ms-auto">
                 <div
@@ -188,8 +181,8 @@
           </div>
         </el-col>
       </el-row>
-      <div class="box" style="white-space:pre-wrap;">
-        <h6 class="mb-2" style="line-height: 1.5rem;">
+      <div class="box">
+        <h6 class="mb-2" style="line-height: 3rem; white-space:pre-wrap;">
           {{ state.MbtiDetail.desc }}
         </h6>
       </div>
@@ -204,7 +197,7 @@
           class="pt-3 pb-3"
           style="font-weight:600; padding-left:20px; background:linear-gradient( to bottom,#f3e8dc, #f5edea );"
         >
-          저랑 잘 맞으실 것 같아요😘🐶
+          🐶🔎 혹시 저는 아닐까요❔
         </h5>
         <!-- 유사공고 -->
         <div v-if="state.MbtiDetail.matchedBoardList != null">

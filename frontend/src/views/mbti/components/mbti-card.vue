@@ -1,28 +1,47 @@
 <template>
-<el-card
-    shadow="hover"
-    class="mbtiCard scale-up-2"
-  >
-    <el-row style="margin-right:15px; margin-left:15px;">
-      <!-- <el-tag
-        class="mb-2"
-        effect="dark"
-        size="small"
-        style="height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;"
-      >
-        {{ card.name }}
-      </el-tag> -->
+  <div class="row h-100 justify-content-center pt-3 mbtiCard">
+    <div class="card h-100 hover-top rounded-3 shadow">
+      <div class="card-body">
+        <el-tag
+          class="mb-2"
+          effect="dark"
+          size="small"
+          style="height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;"
+        >
+          {{ card.name }}
+        </el-tag>
+        <div class="mt-5"></div>
 
-      <!-- <el-tag
-        class="mb-2 scale-up-2"
-        color="#D7AFA4"
-        effect="dark"
-        size="small"
-        style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF; float:right; "
-      >
-        {{ card.title }}
-      </el-tag> -->
-    </el-row>
+        <div class="d-flex align-items-center">
+          <img
+            style="max-width:95%; height:auto; margin-left:5px margin-right:5px"
+            :src="card.imageUrl"
+            alt="blog"
+          />
+        </div>
+
+        <div class="my-3 fs--1">
+          <div style="padding-top:10px; margin-left:10px; margin-right:10px;">
+            <p
+              class="mb-0 fw-bold"
+              style="font-size:18pt; font-weight:700; float: right;"
+            >
+              {{ card.name }}
+            </p>
+            <p class=" mb-0" style="font-size:11pt;">
+              {{ card.title }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <el-card
+    shadow="hover"
+    style="background:linear-gradient( to top,#f0ebe0, #f6ede9  );"
+    class="mbtiCard scale-up-2"
+
     <el-row
       style="margin-top:5px; display:flex; display: flex;
       justify-content: center;">
@@ -36,8 +55,7 @@
       </h3>
     </el-row>
 
-  </el-card>
-
+  </el-card> -->
 </template>
 
 <style scoped>
@@ -72,18 +90,15 @@ el-col {
 .el-card:hover {
   box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.25);
 }
-
 </style>
 
-
-
 <script>
-import MbtiDetail from './mbti-detail.vue'
+import MbtiDetail from "./mbti-detail.vue";
 
 export default {
-  name: 'MbtiCard',
+  name: "MbtiCard",
   components: {
-    MbtiDetail,
+    MbtiDetail
   },
   props: {
     card: Object
@@ -94,11 +109,7 @@ export default {
       // title: this.title,
       // desc: this.desc,
       // image_url: this.image_url,
-
     };
   }
-
-
-
-}
+};
 </script>
