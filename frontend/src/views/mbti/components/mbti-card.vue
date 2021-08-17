@@ -7,7 +7,7 @@
 
         <div class="d-flex align-items-center">
           <img
-            style="width:100%; height:300px; margin-left:5px margin-right:5px"
+            style="width:100%; margin-left:5px margin-right:5px"
             :src="card.imageUrl"
             alt="blog"
           />
@@ -24,6 +24,7 @@
               >
                 {{ card.name }}
             </el-tag>
+            <hr>
 
             <p class="mb-0 fw-bold" style="font-size:14pt; float: right;">
               {{ card.title }}
