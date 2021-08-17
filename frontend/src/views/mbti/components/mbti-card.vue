@@ -1,24 +1,6 @@
 <template>
   <div class="row h-100 justify-content-center pt-3 mbtiCard">
     <div class="card h-100 hover-top rounded-3 shadow">
-      <div class="my-3 fs--1">
-        <div style="padding-top:10px; margin-left:10px; margin-right:10px;">
-          <el-tag
-            class='mb-2'
-            effect='dark'
-            size='small'
-            style='height:20px; background:linear-gradient( to right, #D7AFA4, #E9CDA4, #B4D9A7, #87CEDC ); border:none; font-weight:600;  color:#FFFFFF; float:left;'
-          >
-            {{ card.name }}
-          </el-tag>
-
-          <span class="mb-0 fw-bold" style="font-size:14pt; float: right;">
-            {{ card.title }}
-          </span>
-        </div>
-      </div>
-
-
       <div class="card-body">
         <el-tag
           class="mb-2"
@@ -34,14 +16,10 @@
           <img
             style="max-width:95%; height:auto; margin-left:5px margin-right:5px"
             :src="card.imageUrl"
-            :alt="card.name"
+            alt="blog"
           />
         </div>
-      </div>
 
-<<<<<<< HEAD
-
-=======
         <div class="my-3 fs--1">
           <div style="padding-top:10px; margin-left:10px; margin-right:10px;">
             <p
@@ -56,7 +34,6 @@
           </div>
         </div>
       </div>
->>>>>>> 3418bfe028f15af08aa7733786e357dd2f8ed533
     </div>
   </div>
 
@@ -116,10 +93,10 @@ el-col {
 </style>
 
 <script>
-import MbtiDetail from "./mbti-detail.vue";
+import MbtiDetail from ''./mbti-detail.vue';
 
 export default {
-  name: "MbtiCard",
+  name: 'MbtiCard',
   components: {
     MbtiDetail
   },
