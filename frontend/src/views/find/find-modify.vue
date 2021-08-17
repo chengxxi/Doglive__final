@@ -161,6 +161,9 @@
                         style="width:95% ;"
                         :change="gugunList(ruleForm.sido)"
                       >
+                        <el-option value="empty" selected disabled
+                          >시/도
+                        </el-option>
                         <el-option
                           v-for="(sido, idx) in state.sidoList"
                           :key="idx"
@@ -182,6 +185,9 @@
                         v-model="ruleForm.gugun"
                         placeholder="구/군"
                       >
+                        <el-option value="empty" selected disabled
+                          >구/군
+                        </el-option>
                         <el-option
                           v-for="(gugun, idx) in state.gugunList"
                           :key="idx"
@@ -526,7 +532,7 @@ export default {
         return store.getters["root/getLoginUserInfo"];
       }),
       sidoList: [],
-      gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }]
+      gugunList: []
     });
 
     const modifyData = function(data) {
@@ -649,8 +655,9 @@ export default {
 
     //시도에 맞는 구군 리스트 가져오기
     const gugunList = function(selectedSidoCode) {
+      state.board.gugun = {};
+      console.log(state.board.gugun);
       console.log(selectedSidoCode);
-
       store
         .dispatch("root/requestGugunCodeList", selectedSidoCode)
         .then(function(result) {
