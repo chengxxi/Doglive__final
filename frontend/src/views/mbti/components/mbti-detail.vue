@@ -172,8 +172,16 @@
         </div>
       </div>
       <el-row class="vertical-center" :gutter="20">
+<<<<<<< HEAD
         <el-col :span="10" style="margin-left:50px;">
           <img class="dog-thumbnail" :src="state.MbtiDetail.image_url" />
+=======
+        <el-col :span="9">
+          <img
+            class="dog-thumbnail fit-image"
+            :src="state.MbtiDetail.image_url"
+          />
+>>>>>>> 8c8ae6a8578d9e54ebfbfe9062f19f103665ad98
         </el-col>
         <el-col :span="14">
           <div class="dog-info-box">
@@ -351,7 +359,6 @@ h3 {
 .fit-image {
   object-fit: contain;
 }
-
 
 .dog-info-box {
   width: 100%;
