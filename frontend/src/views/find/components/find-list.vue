@@ -36,7 +36,6 @@ export default {
     });
 
     const readDetail = function(id) {
-      console.log("read");
       var checkId = state.userId;
       if (checkId === undefined || checkId === null || checkId == "") {
         checkId = "none";
@@ -48,8 +47,6 @@ export default {
           userId: checkId
         })
         .then(function(result) {
-          console.log(result);
-          console.log(result.data.listSimilarDog);
           const boardDetail = {
             boardId: result.data.dogInformation.boardId.id,
             boardType: result.data.dogInformation.boardId.type,

@@ -222,12 +222,9 @@ export default {
         return store.getters["root/getIsbookmarked"];
       }),
       board: computed(() => {
-        console.log(store.getters["root/getBoardDetail"]);
         return store.getters["root/getBoardDetail"];
       }),
       listSimilarDog: computed(() => {
-        console.log("해당 공고 유사 강아지 🔽");
-        console.log(state.board.listSimilarDog);
         return store.getters["root/getBoardDetail"].listSimilarDog;
       })
     });
@@ -342,7 +339,6 @@ export default {
         });
         router.push({ name: "Login" });
       } else {
-        console.log("북마크 등록 ", isBookmarked);
         if (isBookmarked) {
           $axios
             .delete(
@@ -352,7 +348,6 @@ export default {
                 state.board.boardId
             )
             .then(function(result) {
-              console.log("deleteBookmark!!!!!!");
               store.commit("root/setIsbookmarked", false);
               createToast("북마크가 해제되었어요 💨💨", {
                 hideProgressBar: "true",
@@ -383,7 +378,6 @@ export default {
               boardId: state.board.boardId
             })
             .then(function(result) {
-              console.log("insertBookmark!!!!!!");
               store.commit("root/setIsbookmarked", true);
               createToast("북마크가 등록되었어요 🐾💌", {
                 hideProgressBar: "true",
@@ -443,8 +437,6 @@ export default {
         store
           .dispatch("root/registerAdoptForm", data)
           .then(function(result) {
-            console.log(result);
-            console.log("counseling history 저장");
             createChatting(result.data.counselingHistory.id); // 성공하면 상담채팅방 생성
           })
           .catch(function(error) {
@@ -516,7 +508,6 @@ export default {
             boardId: state.board.boardId
           })
           .then(function(result) {
-            console.log(result);
             if (result.status == 204) {
               // counseling history가 존재하지 않음
               submitAdoptForm(data); // 1. counseling history 생성   2. 채팅방 생성  3. 채팅방 오픈
@@ -540,8 +531,6 @@ export default {
     };
 
     const readDetail = function(id) {
-      console.log("read");
-
       var checkId = state.userId;
       if (checkId === undefined || checkId === null || checkId == "") {
         checkId = "none";
@@ -553,8 +542,6 @@ export default {
           userId: checkId
         })
         .then(function(result) {
-          console.log(result);
-          console.log(result.data.listSimilarDog);
           const boardDetail = {
             boardId: result.data.dogInformation.boardId.id,
             boardType: result.data.dogInformation.boardId.type,
@@ -589,7 +576,6 @@ export default {
     };
 
     onMounted(() => {
-      console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "실종/보호",

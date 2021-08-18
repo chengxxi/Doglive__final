@@ -798,8 +798,6 @@ export default {
           userId: checkId
         })
         .then(function(result) {
-          console.log(result);
-
           const boardDetail = {
             boardId: result.data.dogInformation.boardId.id,
             boardType: result.data.dogInformation.boardId.type,

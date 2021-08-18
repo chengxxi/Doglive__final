@@ -178,7 +178,10 @@
         <el-col :span="15">
           <div class="dog-info-box">
             <div class="box">
-              <h6 class="mb-2" style="text-size: 18px; line-height: 3rem; white-space:pre-wrap;">
+              <h6
+                class="mb-2"
+                style="text-size: 18px; line-height: 3rem; white-space:pre-wrap;"
+              >
                 {{ state.MbtiDetail.desc }}
               </h6>
             </div>
@@ -229,17 +232,16 @@
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-import 'mosha-vue-toastify/dist/style.css'
-import AdoptCard from '@/views/adopt/components/adopt-card.vue'
-import BreadCrumb from '@/views/adopt/components/bread-crumb.vue'
-import { onMounted } from 'vue'
-
+import { computed, reactive } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import "mosha-vue-toastify/dist/style.css";
+import AdoptCard from "@/views/adopt/components/adopt-card.vue";
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
+import { onMounted } from "vue";
 
 export default {
-  name: 'MbtiDetail',
+  name: "MbtiDetail",
   components: {
     AdoptCard,
     BreadCrumb
@@ -251,26 +253,25 @@ export default {
 
     const state = reactive({
       MbtiDetail: computed(() => {
-        console.log(store.getters['root/getMbti']);
-        return store.getters['root/getMbti'];
+        return store.getters["root/getMbti"];
+      }),
+      userId: computed(() => {
+        return store.getters["root/getLoginUserInfo"].userId;
       })
     });
 
     const readDetail = function(id) {
-      console.log('read');
       var checkId = state.userId;
-      if (checkId === undefined || checkId === null || checkId == '') {
-        checkId = 'none';
+      if (checkId === undefined || checkId === null || checkId == "") {
+        checkId = "none";
       }
 
       store
-        .dispatch('root/requestBoardDetail', {
+        .dispatch("root/requestBoardDetail", {
           boardId: id,
           userId: checkId
         })
         .then(function(result) {
-          console.log(result);
-
           const boardDetail = {
             boardId: result.data.dogInformation.boardId.id,
             boardType: result.data.dogInformation.boardId.type,
@@ -295,21 +296,20 @@ export default {
             isBookmarked: result.data.bookmarked
           };
 
-          store.commit('root/setBoardDetail', boardDetail);
-          router.push({ name: 'AdoptDetail' });
+          store.commit("root/setBoardDetail", boardDetail);
+          router.push({ name: "AdoptDetail" });
         })
         .catch(function(err) {
-          console.log(state.userId);
           console.log(err);
         });
     };
 
     onMounted(() => {
       // console.log("breadcrumb");
-      store.commit('root/setBreadcrumbInfo', {
+      store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: 'MPTI',
-        path: '/mbti',
+        title: "MPTI",
+        path: "/mbti",
         subTitle: state.MbtiDetail.name
       });
       window.scrollTo(0, 0);
