@@ -4,8 +4,8 @@
 
   <div class="main-body main-padding" id="top">
     <div class="py-0">
-      <!--/.bg-holder-->
 
+      <!-- 아이템 소개 -->
       <div class="container position-relative">
         <div class="row align-items-center">
           <div class="col-md-5 col-lg-6 order-md-1 pt-3">
@@ -32,16 +32,19 @@
               유기견들의 평생 가족이 되어 주세요. 어쩌고 저쩌고
             </p>
 
-            <el-button
+            <!-- <el-button
               type="primary"
               class="btn btn-lg btn-primary rounded-pill hover-top"
               @click="goAdopt"
               >새로운 가족 만나러가기</el-button
-            >
+            > -->
+
           </div>
         </div>
       </div>
     </div>
+
+    <!-- 입양/임보 소개 및 바로가기 -->
     <div class="py-3 mt-3"></div>
     <div class="py-6 py-lg-8" id="about">
       <div class="container">
@@ -90,6 +93,7 @@
       </div>
     </div>
 
+    <!-- 실종/보호 소개 및 바로가기 -->
     <div class="py-2 py-lg-4">
       <div class="container">
         <div class="row g-xl-0 align-items-center">
@@ -137,6 +141,7 @@
       </div>
     </div>
 
+    <!-- MPTI 소개 및 바로가기 -->
     <div class="py-6 py-lg-8" id="about">
       <div class="container">
         <div class="row g-xl-0 align-items-center">
@@ -158,12 +163,13 @@
               style="height:2px;width:50px"
             />
             <p class="pt-3">
-              '독립'의
-              <b>16 Pupsonality, MPTI(My Puppy Type Indicator)</b>는<br />
-              강아지들의 성격을 총 16가지로 분류해 정리했어요. <br />원하는
-              성향을 선택하면 나와 꼭 맞는 강아지를 추천해 준답니다. 강아지
-              MBTI를 통해 새롭게 우리 가족이 될 강아지를 발견해 보세요! <br />
-              MPTI(*가제) 서비스를 제공합니다. 어쩌고
+              "독립"의 <b>'MPTI(My Puppy Type Indicator)'</b>는 <br>
+              강아지들의 성격을 총 16가지로 분류해 정리했어요. <br>
+
+              원하는 강아지의 모습을 머릿속에 그리며, 하나씩 질문에 응답하다 보면 <br>
+              나와 꼭 맞는 강아지를 추천받을 수 있답니다! <br> <br>
+
+              "독립"의 'MPTI'를 통해 <b>새롭게 우리 가족이 될 강아지</b>를 발견해 보세요.
             </p>
             <div class="py-3">
               <a href="/mbti">
@@ -379,6 +385,8 @@
           </div>
         </div>
       </div>
+
+      <!-- 팀 소개 -->
       <div class="container-lg py-6 py-lg-8">
         <div class="row flex-center">
           <div class="col-auto text-center">
@@ -392,7 +400,7 @@
               서비스를 만들고 있는<span
                 style="font-size:13pt; font-weight:700;"
               >
-                犬과You </span
+                견과류(犬과You) </span
               >팀을 소개합니다.
             </p>
           </div>
