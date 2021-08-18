@@ -173,12 +173,12 @@
       </div>
       <el-row class="vertical-center" :gutter="20">
         <el-col :span="9">
-          <img class="dog-thumbnail" :src="state.MbtiDetail.image_url" />
+          <img class="dog-thumbnail fit-image" :src="state.MbtiDetail.image_url" />
         </el-col>
         <el-col :span="15">
           <div class="dog-info-box">
             <div class="box">
-              <h6 class="mb-2" style="text-size: 18px; line-height: 3rem; white-space:pre-wrap;">
+              <h6 class="mb-2" style="text-size: 20px; line-height: 3rem; white-space:pre-wrap;">
                 {{ state.MbtiDetail.desc }}
               </h6>
             </div>
@@ -346,10 +346,16 @@ h3 {
 
 .dog-thumbnail {
   width: 90%;
-  height: auto;
+  /* height: auto; */
+  height: 200px;
   margin-right: 20px;
   margin: 10px;
 }
+
+.fit-image {
+  object-fit: contain;
+}
+
 
 .dog-info-box {
   width: 100%;
