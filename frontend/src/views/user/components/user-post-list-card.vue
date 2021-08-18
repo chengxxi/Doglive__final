@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col :span="6" v-for="(o, idx) in card" :key="idx">
+      <el-col :span="6" v-for="(o, idx) in card" :key="idx" style="margin-bottom:20px;">
         <el-card
-          :body-style="{ padding: '10px' }"
+          :body-style="{ padding: '10px'}"
           style="background-color:#f9f4f0; width:90%; height:360px;"
           shadow="hover"
         >
@@ -29,7 +29,7 @@
             <el-tag
               v-if="o.type.name == '실종'"
               class="mb-2"
-              color="#bdaf9f"
+              color="#B4D9A7"
               effect="dark"
               size="small"
               style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
@@ -38,7 +38,7 @@
             <el-tag
               v-if="o.type.name == '보호'"
               class="mb-2"
-              color="#a3723c"
+              color="#87CEDC"
               effect="dark"
               size="small"
               style="border:none; font-size:14px; height:20px; font-weight:700; border-radius: 30px; color:#FFFFFF;  float:right;"
@@ -48,14 +48,14 @@
           <el-row
             style="margin-top:1%; display:flex; display: flex; justify-content: center;"
           >
-            <img :src="o.thumbnailUrl" class="image fit-image" style="max-height:200px;"/>
+            <img :src="o.thumbnailUrl" class="image fit-image"/>
           </el-row>
           <el-row
             style="margin-top:3%; margin-right:2.5%; margin-left:2.5%; vertical-align: middle;"
           >
             <h6 style="font-weight:700; margin-top:10%;" class="mb-0">
               {{
-                o.title.length < 15 ? o.title : o.title.substr(0, 12) + "..."
+                o.title.length < 20 ? o.title : o.title.substr(0, 20) + "..."
               }}
             </h6>
           </el-row>
@@ -98,6 +98,7 @@
 
 .image {
   width: 100%;
+  height: 200px;
   display: block;
 }
 .cardtitle {

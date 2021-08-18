@@ -133,7 +133,7 @@
           <el-carousel-item v-for="img in state.board.fileList" :key="img">
             <img
               class="fit-image"
-              style="width: 100%; height: auto;"
+              style="width: 100%; height: 500px;"
               :src="img"
             />
           </el-carousel-item>

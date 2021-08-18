@@ -345,8 +345,7 @@
 
                   <div class="d-flex align-items-center">
                     <img
-                      style="width:100%; height:300px;
-                    margin-left:5px margin-right:5px"
+                      style="width:100%; height:300px; margin-left:5px margin-right:5px; object-fit:cover;"
                       :src="card.fileList[0]"
                       alt="blog"
                     />
@@ -437,8 +436,9 @@
 
                 <div class="d-flex align-items-center">
                   <img
+                    class="fit-image"
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
-                    src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image.png"
+                    src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(5).png"
                     alt="blog"
                   />
                 </div>
@@ -498,6 +498,7 @@
 
                 <div class="d-flex align-items-center">
                   <img
+                    class="fit-image"
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
                     src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(1).png"
                     alt="blog"
@@ -559,6 +560,7 @@
 
                 <div class="d-flex align-items-center">
                   <img
+                    class="fit-image"
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
                     src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(2).png"
                     alt="blog"
@@ -620,6 +622,7 @@
 
                 <div class="d-flex align-items-center">
                   <img
+                    class="fit-image"
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
                     src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(3).png"
                     alt="blog"
@@ -674,6 +677,7 @@
 
                 <div class="d-flex align-items-center">
                   <img
+                    class="fit-image"
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
                     src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(4).png"
                     alt="blog"
@@ -895,5 +899,8 @@ export default {
   border-radius: 100%;
   margin-left: 8px;
   margin-right: 10px;
+}
+.fit-image{
+  object-fit: contain;
 }
 </style>

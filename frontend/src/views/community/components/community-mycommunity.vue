@@ -107,6 +107,7 @@
             placeholder="댓글을 입력해주세요"
             v-model="comment.input"
             class="comment-input"
+            @keyup.enter="RegisterComment(item.id)"
           >
           </el-input>
           <el-button
