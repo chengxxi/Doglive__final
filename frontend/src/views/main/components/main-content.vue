@@ -23,21 +23,22 @@
               독립<span style="font-size:30pt; "> Dog Live</span>
             </h1>
             <p class="mb-5 fs-0">
-              독립은 강아지들의 행복하고 안정적인 삶을 위해 노력합니다.
+              <b>"독립"</b>은 유기 및 실종된 강아지들이 불안한 생활으로부터 벗어나 <br>
+              행복하고 안정적인 삶을 영위할 수 있게 합니다.
               <br class="d-none d-lg-block" />
 
-              새로운 만남을 기다리는 아이들이 지금 여기, 어쩌고 저쩌고 어쩌고
-              저쩌고
+              비대면 상담과 매칭 알고리즘을 통해 강아지들과 예비 반려인을 연결해 줍니다.
               <br class="d-none d-lg-block" />
-              유기견들의 평생 가족이 되어 주세요. 어쩌고 저쩌고
+              <b>"독립"</b>을 통해 강아지들의 평생 가족이 되어주세요!
             </p>
 
-            <!-- <el-button
+
+            <a class="page-scroll" href="#scrollToHere">
+            <el-button
               type="primary"
               class="btn btn-lg btn-primary rounded-pill hover-top"
-              @click="goAdopt"
-              >새로운 가족 만나러가기</el-button
-            > -->
+              >독립 미리보기</el-button
+            ></a>
 
           </div>
         </div>
@@ -58,13 +59,13 @@
             />
           </div>
           <div class="col-md-6 text-center text-md-start">
-            <h2 class="fw-bold lh-base">
+            <h2 class="fw-bold lh-base" id="scrollToHere">
               유기견들의 <br /><span style="color:#D7AFA4;">따뜻한 새 가족</span
               >이 되어주세요
             </h2>
             <hr
               class="text-dark mx-auto mx-md-0"
-              style="height:2px;width:50px"
+              style="height:2px; width:50px"
             />
             <p class="pt-3">
               농림축산검역본부의 통계 자료에 따르면, 작년 한 해에만 13만 마리의
