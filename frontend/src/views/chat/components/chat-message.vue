@@ -1,14 +1,17 @@
 <template>
   <el-row>
-    <div class="message my-card" v-if="mine">
+    <div class="message my-card" v-if="isMine()">
       <span class="sendTime">{{ $filters.convertTime(message.sendTimeAt) }}</span>
       <el-card class="message-card mine">{{message.chatMessage}}</el-card>
     </div>
-    <div class="username" v-if="!mine"> {{message.username}}</div>
-    <div class="message your-card" v-if="!mine">
-      <el-card class="message-card yours">{{message.chatMessage}}</el-card>
-      <div class="sendTime">{{ $filters.convertTime(message.sendTimeAt) }}</div>
+    <div v-else>
+      <div class="username"> {{message.username}}</div>
+      <div class="message your-card">
+        <el-card class="message-card yours">{{message.chatMessage}}</el-card>
+        <div class="sendTime">{{ $filters.convertTime(message.sendTimeAt) }}</div>
+      </div>
     </div>
+
   </el-row>
 </template>
 
@@ -87,9 +90,8 @@ export default {
       else
         return false
     }
-    const mine = isMine()
 
-    return { mine }
+    return { isMine }
   }
 }
 </script>

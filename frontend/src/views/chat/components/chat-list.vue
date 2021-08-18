@@ -89,7 +89,6 @@ export default {
     // 현재 로그인한 유저의 userId 쿠키를 헤더에 포함하여 전송
     store.dispatch('root/requestChatRoomList', {withCredentials: true})
     .then(function(result){
-      console.log(result)
       var chatRoomList = result.data.chatRoomList
       for(var i = 0; i < chatRoomList.length; i++){
         state.roomList.push({
@@ -102,7 +101,6 @@ export default {
       }
     })
     .catch(function(err){
-      console.log(err)
     })
 
     // 닫기 버튼 : 채팅 Open 여부 변경

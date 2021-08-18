@@ -662,7 +662,6 @@ export default {
 
     const state = reactive({
       board: computed(() => {
-        console.log(store.getters["root/getBoardDetail"]);
         return store.getters["root/getBoardDetail"];
       }),
       userInfo: computed(() => {
@@ -676,7 +675,6 @@ export default {
     store
       .dispatch("root/requestSidoCodeList")
       .then(function(result) {
-        console.log("call : sidocode");
         state.sidoList = result.data.sidoList;
       })
       .catch(function(error) {
@@ -701,17 +699,19 @@ export default {
       store
         .dispatch("root/registerAdoptForm", data)
         .then(function(result) {
-          console.log(result);
           //2. 마이페이지 제출 확인 페이지로 이동
-           createToast("입양 신청서가 제출 되었어요. 마이페이지에서 승인 결과를 확인할 수 있습니다!🐾💌", {
-            hideProgressBar: "true",
-            timeout: 4000,
-            showIcon: "true",
-            toastBackgroundColor: "#7eaa72",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "success"
-          });
+          createToast(
+            "입양 신청서가 제출 되었어요. 마이페이지에서 승인 결과를 확인할 수 있습니다!🐾💌",
+            {
+              hideProgressBar: "true",
+              timeout: 4000,
+              showIcon: "true",
+              toastBackgroundColor: "#7eaa72",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "success"
+            }
+          );
           router.push({ name: "AdoptDetail" });
         })
         .catch(function(error) {
@@ -730,7 +730,6 @@ export default {
 
     //시도에 맞는 구군 리스트 가져오기
     const gugunList = function(selectedSidoCode) {
-      console.log(selectedSidoCode);
       store
         .dispatch("root/requestGugunCodeList", selectedSidoCode)
         .then(function(result) {
@@ -744,7 +743,6 @@ export default {
     };
 
     onMounted(() => {
-      console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "입양/임보",

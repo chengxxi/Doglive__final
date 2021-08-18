@@ -243,7 +243,6 @@
 </template>
 
 <script>
-import AdoptFilter from "./components/adopt-filter.vue";
 import AdoptList from "./components/adopt-list.vue";
 import Pagination from "./components/pagination.vue";
 import BreadCrumb from "./components/bread-crumb.vue";
@@ -412,8 +411,6 @@ export default {
           weight: state.weightCode
         })
         .then(function(result) {
-          console.log("success search!");
-          console.log(result);
           state.boardList = result.data.boardList.content;
           state.boardListCount = result.data.boardList.totalElements;
         });
@@ -466,7 +463,6 @@ export default {
     const movePage = function(pageIndex) {
       state.offset = (pageIndex - 1) * state.listRowCount;
       state.currentPageIndex = pageIndex;
-      console.log(state.offset, state.currentPageIndex);
       readData();
     };
 
@@ -483,7 +479,6 @@ export default {
     };
 
     onMounted(() => {
-      console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "입양/임보",
