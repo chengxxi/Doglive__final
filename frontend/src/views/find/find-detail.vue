@@ -5,7 +5,7 @@
       <div style="margin-top:50px; margin-left:60px;"></div>
       <el-row class="vertical-center" :gutter="20" style="margin-top:10px;">
         <el-col :span="12" style="margin-left:50px;">
-          <img class="dog-thumbnail" :src="state.board.fileList[0]" />
+          <img class="dog-thumbnail fit-image" :src="state.board.fileList[0]" />
         </el-col>
         <el-col :span="12">
           <div class="dog-info-box" style="margin-right:50px;">
@@ -132,10 +132,8 @@
         <el-carousel :interval="4000" type="card" height="500px">
           <el-carousel-item v-for="img in state.board.fileList" :key="img">
             <img
-              style="  width: 100%;
-	height: auto;
-
-"
+              class="fit-image"
+              style="width: 100%; height: auto;"
               :src="img"
             />
           </el-carousel-item>
@@ -729,5 +727,9 @@ h3 {
   overflow-x: auto;
   margin: 0;
   max-width: 99%;
+}
+
+.fit-image{
+  object-fit: contain;
 }
 </style>

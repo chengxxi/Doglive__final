@@ -45,9 +45,6 @@
       @click="sendMessage"
       >전송</el-button
     >
-    <a class="video-btn" @click="createConference(chat.title)"
-      ><font-awesome-icon :icon="['fas', 'video']"></font-awesome-icon
-    ></a>
     <font-awesome-icon class="exit-btn" :icon="['fa', 'door-open']" @click="deleteChatRoom()"></font-awesome-icon>
 
     <chat-delete :roomId="chat.roomId"/>
@@ -72,28 +69,27 @@
   vertical-align: super;
 }
 .notice-bar-open {
-    padding: 10px;
-    width: 94%;
     position: absolute;
-    top: 5rem;
-    background-color: rgba(255, 255, 255, 0.95);
+    top: 60px;
+    left: 0;
+    padding: 15px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.85);
     display: flex;
     flex-direction: row;
     z-index: 99;
-    margin-left: 3%;
-    margin-right: 3%;
 }
 .notice-bar-close {
     padding: 10px;
     width: 90%;
     position: absolute;
-    top: 5rem;
+    top: 60px;
     display: flex;
     z-index: 99;
 }
 .open-conference {
   margin-left: 85%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.4);
   border: 0px solid black;
   border-radius: 100%;
   width: 12%;
@@ -174,7 +170,7 @@
   bottom: 10px;
   left: 15px;
   margin-left: 22%;
-  color: rgb(0, 0, 0);
+  color: rgb(0, 0, 0, 0.85);
 }
 .exit-btn{
   cursor: pointer;

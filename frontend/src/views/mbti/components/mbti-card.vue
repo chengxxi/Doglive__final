@@ -14,6 +14,7 @@
 
         <div class="d-flex align-items-center">
           <img
+            class="fit-image"
             style="max-width:95%; height:auto; margin-left:5px margin-right:5px"
             :src="card.imageUrl"
             alt="blog"
@@ -72,6 +73,7 @@
 
 .image {
   width: 200px;
+  height: 200px;
 }
 
 .mbtiTitle {
@@ -88,6 +90,10 @@ el-col {
 
 .el-card:hover {
   box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.fit-image{
+  object-fit: cover;
 }
 </style>
 

@@ -48,7 +48,7 @@
           <el-row
             style="margin-top:1%; display:flex; display: flex; justify-content: center;"
           >
-            <img :src="o.thumbnailUrl" class="image" style="max-height:200px;"/>
+            <img :src="o.thumbnailUrl" class="image fit-image" style="max-height:200px;"/>
           </el-row>
           <el-row
             style="margin-top:3%; margin-right:2.5%; margin-left:2.5%; vertical-align: middle;"
@@ -108,6 +108,9 @@
 .detail {
   float: right;
   display: block;
+}
+.fit-image{
+  object-fit: cover;
 }
 </style>
 
