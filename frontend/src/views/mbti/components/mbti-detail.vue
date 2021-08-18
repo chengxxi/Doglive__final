@@ -172,25 +172,19 @@
         </div>
       </div>
       <el-row class="vertical-center" :gutter="20">
-<<<<<<< HEAD
-        <el-col :span="9">
-          <img class="dog-thumbnail fit-image" :src="state.MbtiDetail.image_url" />
-=======
         <el-col :span="10" style="margin-left:50px;">
-          <img class="dog-thumbnail" :src="state.MbtiDetail.image_url" />
->>>>>>> 026043b460649a41b7e8c464c154ebf17461c751
+          <img
+            class="dog-thumbnail fit-image"
+            :src="state.MbtiDetail.image_url"
+          />
         </el-col>
         <el-col :span="14">
           <div class="dog-info-box">
             <div class="box">
-<<<<<<< HEAD
-              <h6 class="mb-2" style="text-size: 20px; line-height: 3rem; white-space:pre-wrap;">
-=======
               <h6
-                class="mb-2"
-                style="font-size: 16px; line-height: 3rem; white-space:pre-wrap;"
+                class="mb-2 "
+                style="font-size:16px; line-height: 3rem; white-space:pre-wrap;"
               >
->>>>>>> 026043b460649a41b7e8c464c154ebf17461c751
                 {{ state.MbtiDetail.desc }}
               </h6>
             </div>
@@ -244,7 +238,7 @@
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import "mosha-vue-toastify/dist/style.css";
+// import 'mosha-vue-toastify/dist/style.css'
 import AdoptCard from "@/views/adopt/components/adopt-card.vue";
 import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
 import { onMounted } from "vue";
@@ -355,16 +349,15 @@ h3 {
 
 .dog-thumbnail {
   width: 90%;
-  /* height: auto; */
-  height: 200px;
+  height: auto;
   margin-right: 20px;
+
   margin: 10px;
 }
 
 .fit-image {
   object-fit: contain;
 }
-
 
 .dog-info-box {
   width: 100%;
