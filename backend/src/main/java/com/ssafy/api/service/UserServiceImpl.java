@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.UserUpdateNoImagePutReq;
 import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.db.entity.auth.*;
 import com.ssafy.db.entity.board.Board;
@@ -104,17 +105,32 @@ public class UserServiceImpl implements UserService{
     public UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq) throws IOException {
         User user = userRepository.findUserById(id).get();
 
-        System.out.println(user + " " + userUpdatePutReq.getBirth() + " " + userUpdatePutReq.getEmail() + " " +  userUpdatePutReq.getPhoneNumber() + " " + userUpdatePutReq.getName());
+        System.out.println(user + " " + userUpdatePutReq.getBirth() + " " + userUpdatePutReq.getEmail() + " " +  userUpdatePutReq.getPhoneNumber() + " " + userUpdatePutReq.getName() + " " + userUpdatePutReq.getFile());
+        System.out.println("userreq: " + userUpdatePutReq);
         UserProfile userProfile = userProfileRepository.findByUserId(user).get();
 
         if(userUpdatePutReq.getFile()!=null){
             String profileImageUrl = s3Uploader.upload(userUpdatePutReq.getFile(),"static");
             userProfile.setProfileImageUrl("https://"+S3Uploader.CLOUD_FRONT_DOMAIN_NAME+"/"+profileImageUrl);
         }
+
         userProfile.setName(userUpdatePutReq.getName());
         userProfile.setEmail(userUpdatePutReq.getEmail());
         userProfile.setPhoneNumber(userUpdatePutReq.getPhoneNumber());
         userProfile.setBirth(userUpdatePutReq.getBirth());
+        userProfileRepository.save(userProfile);
+        return userProfile;
+    }
+
+    @Override
+    public UserProfile updateUserNoImage(String id, UserUpdateNoImagePutReq userUpdateNoImagePutReq) {
+        User user = userRepository.findUserById(id).get();
+        UserProfile userProfile = userProfileRepository.findByUserId(user).get();
+
+        userProfile.setName(userUpdateNoImagePutReq.getName());
+        userProfile.setEmail(userUpdateNoImagePutReq.getEmail());
+        userProfile.setPhoneNumber(userUpdateNoImagePutReq.getPhoneNumber());
+        userProfile.setBirth(userUpdateNoImagePutReq.getBirth());
         userProfileRepository.save(userProfile);
         return userProfile;
     }

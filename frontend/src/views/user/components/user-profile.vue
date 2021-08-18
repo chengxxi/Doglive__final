@@ -143,6 +143,7 @@ export default {
         }
       ),
       imageFile : "",
+      null : "file",
      })
 
     const userId = store.getters['root/getLoginUserInfo'].userId;
@@ -165,29 +166,48 @@ export default {
 
 
     const updateProfile = function(){
-      const updateData = new FormData();
+      
+      if(formData.imageFile!=""){
+        const updateData = new FormData();
 
-      updateData.append("name", formData.userProfile.name);
-      updateData.append("email", formData.userProfile.email);
-      updateData.append("phoneNumber", formData.userProfile.phoneNumber);
-      updateData.append("birth", formData.userProfile.birth);
-      updateData.append("file", formData.imageFile);
-      console.log(updateData)
-      store.dispatch('root/changeUserInfo', {userId :userId, data :updateData})
-      .then(function(result){
-        createToast("프로필이 수정되었어요 💨💨", {
-                hideProgressBar: "true",
-                timeout: 4500,
-                showIcon: "true",
-                toastBackgroundColor: "#7eaa72",
-                position: "bottom-right",
-                transition: "bounce",
-                type: "success"
-            });
-        router.push({name : 'Mypage'})
-      }).catch(function(err){
-        console.log(err)
-      });
+        updateData.append("name", formData.userProfile.name);
+        updateData.append("email", formData.userProfile.email);
+        updateData.append("phoneNumber", formData.userProfile.phoneNumber);
+        updateData.append("birth", formData.userProfile.birth);
+        updateData.append("file", formData.imageFile);
+
+        store.dispatch('root/changeUserInfo', {userId :userId, data :updateData})
+        .then(function(result){
+          createToast("프로필이 수정되었어요 💨💨", {
+                  hideProgressBar: "true",
+                  timeout: 4500,
+                  showIcon: "true",
+                  toastBackgroundColor: "#7eaa72",
+                  position: "bottom-right",
+                  transition: "bounce",
+                  type: "success"
+              });
+          router.push({name : 'Mypage'})
+        }).catch(function(err){
+          console.log(err)
+        });
+      }else{
+        store.dispatch('root/changeUserInfoNoImage', {userId :userId, data :formData.userProfile})
+        .then(function(result){
+          createToast("프로필이 수정되었어요 💨💨", {
+                  hideProgressBar: "true",
+                  timeout: 4500,
+                  showIcon: "true",
+                  toastBackgroundColor: "#7eaa72",
+                  position: "bottom-right",
+                  transition: "bounce",
+                  type: "success"
+              });
+          router.push({name : 'Mypage'})
+        }).catch(function(err){
+          console.log(err)
+        });
+      }
     }
 
     const userDelete = function(){

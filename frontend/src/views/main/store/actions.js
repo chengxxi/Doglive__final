@@ -191,6 +191,14 @@ export function changeUserInfo({ state }, payload) {
   return $axios.put(url, payload.data);
 }
 
+// 사용자 프로필 수정 이미지 없는 경우
+export function changeUserInfoNoImage({ state }, payload) {
+  const userId = payload.userId;
+  console.log(payload.data);
+  const url = "/users/noimage/" + userId;
+  return $axios.put(url, payload.data);
+}
+
 // 신청결과 수정
 export function changeResult({ state }, payload) {
   const id = payload.id;
