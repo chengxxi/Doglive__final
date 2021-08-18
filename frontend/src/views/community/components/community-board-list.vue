@@ -115,13 +115,13 @@
             placeholder="댓글을 입력해주세요"
             v-model="comment.input"
             class="comment-input"
+            @keyup.enter="RegisterComment(item.id)"
           >
           </el-input>
           <el-button
             class="comment-button"
             icon="el-icon-s-promotion"
             @click="RegisterComment(item.id)"
-            @keyup.enter="RegisterComment(item.id)"
           ></el-button>
           <div
             v-for="(i, index) in state.reverseList"

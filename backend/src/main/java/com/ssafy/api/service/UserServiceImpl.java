@@ -211,7 +211,6 @@ public class UserServiceImpl implements UserService{
                 List<CounselingHistory> List = counselingHistoryRepository.findCounselingHistoriesByApplicantId(userProfile.get()).get();
                 for (CounselingHistory counselingHistory: List) {
                     if(counselingHistory.getBoardType().equals("입양") || counselingHistory.getBoardType().equals("임보")){
-                        System.out.println(counselingHistory.getBoardType());
                         resultList.add(counselingHistory);
                     }
                 }

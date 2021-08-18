@@ -11,10 +11,10 @@
           <div class="image-wrapper">
             <label for="changeProfile">
             <el-image
-              class="user-profile"
+              class="user-profile scale-up-2"
               :src="formData.userProfile.profileImageUrl"
               :fit="fit"
-              style="cursor:pointer;"
+              style="cursor:pointer"
               ></el-image>
             </label>
               <input
@@ -141,7 +141,8 @@ export default {
           console.log(store.getters["root/getUpdateUserInfo"])
           return store.getters["root/getUpdateUserInfo"];
         }
-      )
+      ),
+      imageFile : "",
      })
 
     const userId = store.getters['root/getLoginUserInfo'].userId;
@@ -164,8 +165,15 @@ export default {
 
 
     const updateProfile = function(){
-      console.log(formData.userProfile)
-      store.dispatch('root/changeUserInfo', {userId :userId, data :formData.userProfile})
+      const updateData = new FormData();
+
+      updateData.append("name", formData.userProfile.name);
+      updateData.append("email", formData.userProfile.email);
+      updateData.append("phoneNumber", formData.userProfile.phoneNumber);
+      updateData.append("birth", formData.userProfile.birth);
+      updateData.append("file", formData.imageFile);
+      console.log(updateData)
+      store.dispatch('root/changeUserInfo', {userId :userId, data :updateData})
       .then(function(result){
         createToast("프로필이 수정되었어요 💨💨", {
                 hideProgressBar: "true",
@@ -205,6 +213,7 @@ export default {
     const changeFile = function(e) {
       const file = e.target.files[0];
       formData.userProfile.profileImageUrl = URL.createObjectURL(file);
+      formData.imageFile = file;
     };
 
     const deleteFile = function(index) {
