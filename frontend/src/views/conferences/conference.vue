@@ -44,50 +44,50 @@
           />
         </el-drawer> -->
       </el-row>
-    <el-row class="con-row-body">
-      <el-col id='video-container' :span='state.spanVideo'>
-        <!-- 비디오 -->
-        <el-row>
-          <el-col class="video-container" :span="24/state.spanEachVideo" >
-            <user-video :stream-manager='state.publisher' :span-each-video='state.spanEachVideo'/>
-          </el-col>
-          <el-col class="video-container" :span="24/state.spanEachVideo">
-            <user-video
-              v-for='sub in state.subscribers'
-              :key='sub.stream.connection.connectionId'
-              :stream-manager='sub'
-              :span-each-video='state.spanEachVideo'
-            />
-          </el-col>
-        </el-row>
-      </el-col>
-      <!-- 채팅 -->
-      <el-col :span='4' class='con-col-wrapper' v-if='!state.chatEnabled'>
-        <div class="chat-main">
-          <div class="chat-header">
-            <i class="el-icon-arrow-right close-btn" @click="turnChat"></i>
-          </div>
-          <div @scroll="scroll" class="chatlog" dropzone="true" id = "chatlog">
-            <!-- <div v-for="chat in chatArray" :key="chat" class="chatContent">
-              {{chat}}
-            </div> -->
-            <ConferenceChatMessage
-              v-for="chat in state.chatArray"
-              :key="chat"
-              :message="chat"
-              :userName="state.myUserName"
-              class="chatContent"
-            />
-          </div>
-            <el-divider>🐶</el-divider>
-            <textarea
-              class='chatinput'
-              v-model='state.chatString'
-              @keyup.enter='sendMessage'
-            />
-          </div>
-      </el-col>
-    </el-row>
+      <el-row class="con-row-body">
+        <el-col id='video-container' :span='state.spanVideo'>
+          <!-- 비디오 -->
+          <el-row>
+            <el-col class="video-container" :span="24/state.spanEachVideo" >
+              <user-video :stream-manager='state.publisher' :span-each-video='state.spanEachVideo'/>
+            </el-col>
+            <el-col class="video-container" :span="24/state.spanEachVideo">
+              <user-video
+                v-for='sub in state.subscribers'
+                :key='sub.stream.connection.connectionId'
+                :stream-manager='sub'
+                :span-each-video='state.spanEachVideo'
+              />
+            </el-col>
+          </el-row>
+        </el-col>
+        <!-- 채팅 -->
+        <el-col :span='4' class='con-col-wrapper' v-if='!state.chatEnabled'>
+          <div class="chat-main">
+            <div class="chat-header">
+              <i class="el-icon-arrow-right close-btn" @click="turnChat"></i>
+            </div>
+            <div @scroll="scroll" class="chatlog" dropzone="true" id = "chatlog">
+              <!-- <div v-for="chat in chatArray" :key="chat" class="chatContent">
+                {{chat}}
+              </div> -->
+              <ConferenceChatMessage
+                v-for="chat in state.chatArray"
+                :key="chat"
+                :message="chat"
+                :userName="state.myUserName"
+                class="chatContent"
+              />
+            </div>
+              <el-divider>🐶</el-divider>
+              <textarea
+                class='chatinput'
+                v-model='state.chatString'
+                @keyup.enter='sendMessage'
+              />
+            </div>
+        </el-col>
+      </el-row>
     </el-main>
   </div>
 </template>
@@ -105,9 +105,16 @@ video {
   margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
   margin-right: 10%;
   margin: 0 auto;
+  overflow:hidden;
+}
+:deep(.el-main) {
+  overflow-y: hidden;
 }
 .con-row-button{
   height: 10%;
+}
+.con-row-body {
+  height : 80%
 }
 .con-join-wrapper {
   width: auto;
@@ -236,6 +243,9 @@ textarea::-webkit-scrollbar {
   display: none;
 }textarea:focus {
   outline: none;
+}
+div::-webkit-scrollbar {
+  display: none;
 }
 </style>
 <script>
