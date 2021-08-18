@@ -172,7 +172,7 @@
         </div>
       </div>
       <el-row class="vertical-center" :gutter="20">
-        <el-col :span="9">
+        <el-col :span="9" style="margin-left:50px;">
           <img
             class="dog-thumbnail fit-image"
             :src="state.MbtiDetail.image_url"
@@ -349,9 +349,10 @@ h3 {
 
 .dog-thumbnail {
   width: 90%;
-  /* height: auto; */
-  height: 200px;
+  height: auto;
+  /* height: 200px; */
   margin-right: 20px;
+
   margin: 10px;
 }
 
