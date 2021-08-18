@@ -7,7 +7,10 @@
 
         <el-row class="vertical-center" :gutter="20">
           <el-col :span="12" style="margin-left:50px;">
-            <img class="dog-thumbnail fit-image" :src="state.board.fileList[0]" />
+            <img
+              class="dog-thumbnail fit-image"
+              :src="state.board.fileList[0]"
+            />
           </el-col>
           <el-col :span="12">
             <div class="dog-info-box" style="margin-right:50px;">
@@ -367,8 +370,25 @@ export default {
     });
 
     const goModify = function(id) {
-      console.log(id, "go modify");
-      router.push({ name: "AdoptModify" });
+      if (
+        state.userId === null ||
+        state.userId == "" ||
+        state.userId === undefined
+      ) {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+        router.push({ name: "Login" });
+      } else {
+        console.log(id, "go modify");
+        router.push({ name: "AdoptModify" });
+      }
     };
 
     const doDelete = function(id) {
@@ -693,7 +713,7 @@ h3 {
   margin-right: auto;
 }
 
-.fit-image{
+.fit-image {
   object-fit: contain;
 }
 </style>
