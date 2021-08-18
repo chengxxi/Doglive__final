@@ -56,6 +56,7 @@
   margin-right: 50px;
   padding: 40px;
   background-color: #f9f0e7;
+  line-height: 2rem;
 }
 
 .description {
@@ -97,9 +98,6 @@
 <script>
 export default {
   name: 'MbtiIntro',
-  setup () {
-
-  }
 }
 </script>
 
