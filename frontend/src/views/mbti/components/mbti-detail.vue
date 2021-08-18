@@ -172,15 +172,15 @@
         </div>
       </div>
       <el-row class="vertical-center" :gutter="20">
-        <el-col :span="9">
+        <el-col :span="10" style="margin-left:50px;">
           <img class="dog-thumbnail" :src="state.MbtiDetail.image_url" />
         </el-col>
-        <el-col :span="15">
+        <el-col :span="14">
           <div class="dog-info-box">
             <div class="box">
               <h6
                 class="mb-2"
-                style="text-size: 18px; line-height: 3rem; white-space:pre-wrap;"
+                style="font-size: 16px; line-height: 3rem; white-space:pre-wrap;"
               >
                 {{ state.MbtiDetail.desc }}
               </h6>
@@ -376,7 +376,6 @@ h3 {
 }
 
 .dog-image-box {
-  margin: 30px;
   padding: 10px;
 }
 
@@ -401,8 +400,6 @@ h3 {
 .box {
   margin-top: 30px;
   margin-bottom: 40px;
-  margin-left: 50px;
-  margin-right: 50px;
   padding: 40px;
   background-color: #f9f0e7;
 }
