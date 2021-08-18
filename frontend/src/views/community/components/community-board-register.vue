@@ -293,7 +293,7 @@ export default {
         for (var i = 0; i < cnt; i++) {
           formData.append("fileList", this.state.sendFile[i]);
         }
-        console.log(this.state.fileList);
+        console.log(formData);
 
         this.$refs[formName].validate(valid => {
           if (valid) {

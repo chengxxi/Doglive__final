@@ -29,9 +29,6 @@ public class UserUpdatePutReq {
     @ApiModelProperty
     MultipartFile file;
 
-    @ApiModelProperty
-    String delfile;
-
     @Override
     public String toString() {
         return "UserUpdatePutReq{" +
