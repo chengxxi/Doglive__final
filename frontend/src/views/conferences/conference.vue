@@ -287,11 +287,9 @@ export default {
       spanVideo : 24,
       spanEachVideo : computed(() => {
         if(state.subscribers.length == 0) {
-          console.log('참가자 한명')
           return 1;
         }
         else {
-          console.log('참여자 한 명 또 들어왔다~');
           return 2;
         }
       }),
@@ -316,10 +314,6 @@ export default {
       state.myUserName = store.getters['root/getUpdateUserInfo'].name;
       // 채팅방 번호로 seesionId 만들기
       state.mySessionId = 'Session' + state.conference.roomId;
-      console.log('joinSession 클릭 후 정보🔽');
-      console.log(state.userId);
-      console.log(state.myUserName);
-      console.log(state.mySessionId);
       state.OV = new OpenVidu();
       // --- Init a session ---
       state.session = state.OV.initSession();
@@ -328,12 +322,7 @@ export default {
 
       // 채팅 내역 받기
       state.session.on('signal:chatSend', (event) => {
-        console.log('arrive chat')
-        console.log(event.data)
-        console.log(JSON.parse(event.data))
-        console.log('After arrive chat ')
         state.chatArray.push(JSON.parse(event.data))
-        console.log(state.chatArray)
         var chatlogScroll = document.getElementById('chatlog');
         chatlogScroll.scrollTop = chatlogScroll.scrollHeight + chatlogScroll.clientHeight;
       })
@@ -404,7 +393,6 @@ export default {
         fromChat:false,
       }
       store.commit('root/setConference',conferenceInfo)
-      console.log(store.getters['root/getConference'])
       router.push({name : 'Main'});
 
       window.removeEventListener('beforeunload', state.leaveSession);
@@ -476,9 +464,6 @@ export default {
 
     // 오픈비두 채팅
     const sendMessage = function() {
-      console.log('sendMessage > 사용자가 enter 쳤다')
-      console.log(state.chatString)
-      console.log(state.myUserName)
       if(state.chatString.trim().length == 0) return;
       // 사용자 아이디도 추가
       const msg = {
@@ -491,43 +476,30 @@ export default {
         type: 'chatSend'
       })
       .then(()=> {
-        console.log('Message successfully send❗')
         state.chatString='';
       })
       .catch(error => {
-        console.log(error)
       })
     }
     // turn on / off
     const turnCamera = function() {
-      console.log('변경 전 > : ' + state.videoEnabled);
       state.videoEnabled = !state.videoEnabled;
-      console.log('변경 후 > : ' + state.videoEnabled);
-
-      console.log('카메라 상태 변경 버튼 클릭 > ');
       state.publisher.publishVideo(state.videoEnabled);
     }
 
     const turnAudio = function() {
-      console.log('변경 전 > : ' + state.audioEnabled);
       state.audioEnabled = !state.audioEnabled;
-      console.log('변경 후 > : ' + state.audioEnabled);
-
-      console.log('오디오 상태 변경 버튼 클릭 > ');
       state.publisher.publishAudio(state.audioEnabled);
     }
 
     const turnChat = function() {
-      console.log('변경 전 > : ' + state.chatEnabled);
       state.chatEnabled = !state.chatEnabled;
-      console.log('변경 후 > : ' + state.chatEnabled);
       if(!state.chatEnabled) {
         state.spanVideo = 20;
       }
       else {
         state.spanVideo = 24;
       }
-      console.log('채팅창 표시 변경 버튼 클릭 > ');
     }
     return {router, store, state, onBeforeMount, joinSession, leaveSession, getToken, createSession, createToken, sendMessage, turnCamera, turnAudio, turnChat }
   }
