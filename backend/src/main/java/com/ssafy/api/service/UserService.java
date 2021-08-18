@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 
+import com.ssafy.api.request.UserUpdateNoImagePutReq;
 import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.db.entity.auth.Bookmark;
 import com.ssafy.db.entity.auth.CounselingHistory;
@@ -18,6 +19,7 @@ public interface UserService {
     User getUserById(String Id);
 //    UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq, MultipartFile multipartFile);
     UserProfile updateUserProfile(String id, UserUpdatePutReq userUpdatePutReq) throws IOException;
+    UserProfile updateUserNoImage(String id, UserUpdateNoImagePutReq userUpdateNoImagePutReq);
     UserProfile getUserProfile(String id); // userId를 통해 프로필 받아오는 함수
     boolean deleteUser(String id);
     String getUserName(String id);

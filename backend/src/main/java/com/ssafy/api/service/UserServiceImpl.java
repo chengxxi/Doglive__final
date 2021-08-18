@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.UserUpdateNoImagePutReq;
 import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.db.entity.auth.*;
 import com.ssafy.db.entity.board.Board;
@@ -115,6 +116,19 @@ public class UserServiceImpl implements UserService{
         userProfile.setEmail(userUpdatePutReq.getEmail());
         userProfile.setPhoneNumber(userUpdatePutReq.getPhoneNumber());
         userProfile.setBirth(userUpdatePutReq.getBirth());
+        userProfileRepository.save(userProfile);
+        return userProfile;
+    }
+
+    @Override
+    public UserProfile updateUserNoImage(String id, UserUpdateNoImagePutReq userUpdateNoImagePutReq) {
+        User user = userRepository.findUserById(id).get();
+        UserProfile userProfile = userProfileRepository.findByUserId(user).get();
+
+        userProfile.setName(userUpdateNoImagePutReq.getName());
+        userProfile.setEmail(userUpdateNoImagePutReq.getEmail());
+        userProfile.setPhoneNumber(userUpdateNoImagePutReq.getPhoneNumber());
+        userProfile.setBirth(userUpdateNoImagePutReq.getBirth());
         userProfileRepository.save(userProfile);
         return userProfile;
     }
