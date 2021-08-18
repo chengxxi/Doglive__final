@@ -6,11 +6,7 @@
           <img
             class="dog-thumbnail"
             :src="require('@/assets/images/mbti_isfp.png')"
-<<<<<<< HEAD
-            style="max-width: 60%"
-=======
             style="max-width: 60%;"
->>>>>>> feat-37/openvidu-connect
           />
         </el-col>
         <el-col :span="14">
