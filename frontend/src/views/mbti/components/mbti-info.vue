@@ -39,12 +39,14 @@
 </style>
 
 <script>
-import MbtiResult from "./mbti-result.vue";
-import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
-import { onMounted } from "vue";
-import { useStore } from "vuex";
+import MbtiResult from './mbti-result.vue'
+import BreadCrumb from '@/views/adopt/components/bread-crumb.vue'
+import { onMounted } from 'vue'
+import { useStore } from 'vuex'
+
+
 export default {
-  name: "mbti-info",
+  name: 'mbti-info',
   components: {
     MbtiResult,
     BreadCrumb
@@ -53,12 +55,12 @@ export default {
     const store = new useStore();
 
     onMounted(() => {
-      console.log("breadcrumb");
-      store.commit("root/setBreadcrumbInfo", {
+      // console.log('breadcrumb');
+      store.commit('root/setBreadcrumbInfo', {
         isHome: false,
-        title: "MPTI",
-        path: "/mbti",
-        subTitle: "MPTI 유형"
+        title: 'MPTI',
+        path: '/mbti',
+        subTitle: 'MPTI 유형'
       });
       window.scrollTo(0, 0);
     });
