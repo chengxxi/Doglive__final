@@ -117,7 +117,7 @@
                       prop="dogType"
                     >
                       <el-select
-                        v-model="ruleForm.dogType.id"
+                        v-model="state.board.dogType.id"
                         placeholder="품종"
                         style="width:90%;"
                       >
@@ -156,10 +156,10 @@
                       label-width="100%"
                     >
                       <el-select
-                        v-model="ruleForm.sido"
+                        v-model="state.board.sido"
                         placeholder="시/도"
                         style="width:95% ;"
-                        :change="gugunList(ruleForm.sido)"
+                        :change="gugunList(state.board.sido)"
                       >
                         <el-option value="empty" selected disabled
                           >시/도
@@ -182,7 +182,7 @@
                     >
                       <el-select
                         style="width:95% ;"
-                        v-model="ruleForm.gugun"
+                        v-model="state.board.gugun"
                         placeholder="구/군"
                       >
                         <el-option value="empty" selected disabled
