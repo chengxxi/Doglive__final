@@ -172,7 +172,7 @@
         </div>
       </div>
       <el-row class="vertical-center" :gutter="20">
-        <el-col :span="9" style="margin-left:50px;">
+        <el-col :span="10" style="margin-left:50px;">
           <img
             class="dog-thumbnail fit-image"
             :src="state.MbtiDetail.image_url"
@@ -182,8 +182,8 @@
           <div class="dog-info-box">
             <div class="box">
               <h6
-                class="mb-2"
-                style="font-size: 16px; line-height: 3rem; white-space:pre-wrap;"
+                class="mb-2 "
+                style="font-size:16px; line-height: 3rem; white-space:pre-wrap;"
               >
                 {{ state.MbtiDetail.desc }}
               </h6>
@@ -238,7 +238,7 @@
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import "mosha-vue-toastify/dist/style.css";
+// import 'mosha-vue-toastify/dist/style.css'
 import AdoptCard from "@/views/adopt/components/adopt-card.vue";
 import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
 import { onMounted } from "vue";
@@ -350,7 +350,6 @@ h3 {
 .dog-thumbnail {
   width: 90%;
   height: auto;
-  /* height: 200px; */
   margin-right: 20px;
 
   margin: 10px;
