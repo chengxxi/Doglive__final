@@ -224,7 +224,7 @@
               <span style="font-size: 1.25rem; font-weight:600">
                 📷 사진을 업로드 해주세요
               </span>
-              <span> (최대 5장)</span>
+              <span> (최대 5장 / 최소 2장)</span>
             </div>
 
             <el-row class="mt-4  mb-3">

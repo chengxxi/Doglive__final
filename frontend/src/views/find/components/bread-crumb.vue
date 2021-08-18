@@ -29,7 +29,6 @@ export default {
 
     const state = reactive({
       breadCrumbInfo: computed(() => {
-        console.log(store.getters["root/getBreadCrumbInfo"]);
         return store.getters["root/getBreadCrumbInfo"];
       })
     });

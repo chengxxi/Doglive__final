@@ -37,7 +37,6 @@ export default {
 
     const readDetail = function(id) {
       console.log("read");
-
       var checkId = state.userId;
       if (checkId === undefined || checkId === null || checkId == "") {
         checkId = "none";
@@ -77,6 +76,10 @@ export default {
           };
 
           store.commit("root/setBoardDetail", boardDetail);
+          store.commit(
+            "root/setBoardId",
+            result.data.dogInformation.boardId.id
+          );
           router.push({ name: "FindDetail" });
         })
         .catch(function(err) {
