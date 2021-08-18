@@ -30,13 +30,6 @@
               <br class="d-none d-lg-block" />
               유기견들의 평생 가족이 되어 주세요. 어쩌고 저쩌고
             </p>
-
-            <el-button
-              type="primary"
-              class="btn btn-lg btn-primary rounded-pill hover-top"
-              @click="goAdopt"
-              >새로운 가족 만나러가기</el-button
-            >
           </div>
         </div>
       </div>
@@ -729,7 +722,6 @@ export default {
     FindCard,
     AdoptCard
   },
-
   setup() {
     const store = new useStore();
     const router = new useRouter();
@@ -828,12 +820,16 @@ export default {
       router.push({ name: "MBTI" });
     };
 
+    const goLogin = function() {
+      router.push({ name: "Login" });
+    };
+
     onMounted(() => {
       // readRecentBoard();
       window.scrollTo(0, 0);
     });
 
-    return { state, readDetail, goCommunity, goAdopt, goFind, goMbti };
+    return { state, readDetail, goCommunity, goAdopt, goFind, goMbti, goLogin };
   }
 };
 </script>
