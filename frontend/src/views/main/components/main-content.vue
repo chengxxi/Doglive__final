@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div></div>
 
   <div class="main-body main-padding" id="top">
@@ -714,17 +715,19 @@
       </div>
     </div>
   </div>
+  </div>
+
 </template>
 
 <script>
-import FindCard from "@/views/main/components/main-find-card.vue";
-import AdoptCard from "@/views/main/components/main-adopt-card.vue";
-import { computed, reactive, onMounted } from "vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import FindCard from '@/views/main/components/main-find-card.vue'
+import AdoptCard from '@/views/main/components/main-adopt-card.vue'
+import { computed, reactive, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
-  name: "MainContent",
+  name: 'MainContent',
   components: {
     FindCard,
     AdoptCard
@@ -739,14 +742,14 @@ export default {
       findList: {},
       communityList: {},
       userId: computed(() => {
-        return store.getters["root/getLoginUserInfo"].userId;
+        return store.getters['root/getLoginUserInfo'].userId;
       })
     });
 
     //최신 커뮤니티 글 읽어오기
 
     store
-      .dispatch("root/readRecentCommunity")
+      .dispatch('root/readRecentCommunity')
       .then(function(result) {
         state.communityList = result.data;
       })
@@ -757,7 +760,7 @@ export default {
     //최신 공고 읽어오기
 
     store
-      .dispatch("root/readRecentBoard")
+      .dispatch('root/readRecentBoard')
       .then(function(result) {
         state.adoptList = result.data.adoptList;
         state.findList = result.data.findList;
@@ -768,12 +771,12 @@ export default {
 
     const readDetail = function(id) {
       var checkId = state.userId;
-      if (checkId === undefined || checkId === null || checkId == "") {
-        checkId = "none";
+      if (checkId === undefined || checkId === null || checkId == '') {
+        checkId = 'none';
       }
 
       store
-        .dispatch("root/requestBoardDetail", {
+        .dispatch('root/requestBoardDetail', {
           boardId: id,
           userId: checkId
         })
@@ -804,8 +807,8 @@ export default {
             isBookmarked: result.data.bookmarked
           };
 
-          store.commit("root/setBoardDetail", boardDetail);
-          router.push({ name: "AdoptDetail" });
+          store.commit('root/setBoardDetail', boardDetail);
+          router.push({ name: 'AdoptDetail' });
         })
         .catch(function(err) {
           console.log(err);
@@ -813,19 +816,19 @@ export default {
     };
 
     const goCommunity = function() {
-      router.push({ name: "Community" });
+      router.push({ name: 'Community' });
     };
 
     const goFind = function() {
-      router.push({ name: "Find" });
+      router.push({ name: 'Find' });
     };
 
     const goAdopt = function() {
-      router.push({ name: "Adopt" });
+      router.push({ name: 'Adopt' });
     };
 
     const goMbti = function() {
-      router.push({ name: "MBTI" });
+      router.push({ name: 'MBTI' });
     };
 
     onMounted(() => {
@@ -839,7 +842,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../../common/css/main-content.css";
+@import '../../../common/css/main-content.css';
 
 .main-body {
   width: 100%;
