@@ -178,7 +178,7 @@
         <el-col :span="15">
           <div class="dog-info-box">
             <div class="box">
-              <h6 class="mb-2" style="line-height: 3rem; white-space:pre-wrap;">
+              <h6 class="mb-2" style="text-size: 16px; line-height: 3rem; white-space:pre-wrap;">
                 {{ state.MbtiDetail.desc }}
               </h6>
             </div>
