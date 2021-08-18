@@ -102,14 +102,14 @@ export default {
             props.pageLinkCount;
         }
         // 위 오류나는 코드를 아래와 같이 비교해서 처리
-        console.log(
-          "endPage",
-          props.currentPageIndex,
-          props.pageLinkCount,
-          props.boardListCount,
-          props.listRowCount
-        );
-        console.log(ret > state.pageCount ? state.pageCount : ret);
+        // console.log(
+        //   "endPage",
+        //   props.currentPageIndex,
+        //   props.pageLinkCount,
+        //   props.boardListCount,
+        //   props.listRowCount
+        // );
+        // console.log(ret > state.pageCount ? state.pageCount : ret);
         return ret > state.pageCount ? state.pageCount : ret;
       }),
       prev: computed(() => {
@@ -129,9 +129,6 @@ export default {
     });
 
     const paginationChanged = function(pageIndex) {
-      console.log(
-        "paginationVue : paginationChanged : pageIndex : " + pageIndex
-      );
       emit("call-parent", pageIndex);
     };
 

@@ -304,7 +304,6 @@ export default {
     store
       .dispatch("root/requestSidoCodeList")
       .then(function(result) {
-        console.log("call : sidocode");
         state.sidoList = result.data.sidoList;
         state.sidoList.unshift({ id: "", name: "지역" });
       })
@@ -326,8 +325,6 @@ export default {
           dogType: state.dogTypeCode
         })
         .then(function(result) {
-          console.log("success search!");
-          console.log(result);
           state.boardList = result.data.boardList.content;
           state.boardListCount = result.data.boardList.totalElements;
         });
@@ -379,7 +376,6 @@ export default {
     const movePage = function(pageIndex) {
       state.offset = (pageIndex - 1) * state.listRowCount;
       state.currentPageIndex = pageIndex;
-      console.log(state.offset, state.currentPageIndex);
       readData();
     };
 
@@ -398,7 +394,6 @@ export default {
     //강아지 품종 데이터 읽어오기
     const readDogTypeList = function() {
       store.dispatch("root/requestDogTypeList").then(function(result) {
-        console.log("dogType:", result);
         state.dogTypeList = result.data.dogTypeList;
         state.dogTypeList.push({ id: 17, name: "기타" });
         state.dogTypeList.unshift({ id: "", name: "품종" });
@@ -406,7 +401,6 @@ export default {
     };
 
     onMounted(() => {
-      console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "실종/보호",
