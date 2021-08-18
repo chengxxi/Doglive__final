@@ -218,7 +218,7 @@
                             v-for="(card, idx) in state.adoptList"
                             :key="idx"
                             :card="card"
-                            @click="readDetail(card.boardId.id)"
+                            @click="readAdoptDetail(card.boardId.id)"
                           />
                         </div>
                       </div>
@@ -242,7 +242,7 @@
                             v-for="(card, idx) in state.findList"
                             :key="idx"
                             :card="card"
-                            @click="readDetail(card.boardId.id)"
+                            @click="readFindDetail(card.boardId.id)"
                           />
                         </div>
                       </div>
@@ -786,7 +786,7 @@ export default {
         console.log(err);
       });
 
-    const readDetail = function(id) {
+    const readAdoptDetail = function(id) {
       var checkId = state.userId;
       if (checkId === undefined || checkId === null || checkId == "") {
         checkId = "none";
@@ -830,6 +830,50 @@ export default {
         });
     };
 
+    const readFindDetail = function(id) {
+      var checkId = state.userId;
+      if (checkId === undefined || checkId === null || checkId == "") {
+        checkId = "none";
+      }
+
+      store
+        .dispatch("root/requestBoardDetail", {
+          boardId: id,
+          userId: checkId
+        })
+        .then(function(result) {
+          const boardDetail = {
+            boardId: result.data.dogInformation.boardId.id,
+            boardType: result.data.dogInformation.boardId.type,
+            thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+            title: result.data.dogInformation.boardId.title,
+            address: result.data.dogInformation.address,
+            mbti: result.data.dogInformation.mbti,
+            colorType: result.data.dogInformation.colorType,
+            gender: result.data.dogInformation.gender,
+            dogType: result.data.dogInformation.dogType,
+            neutralization: result.data.dogInformation.neutralization,
+            writer: result.data.writer,
+            weight: result.data.dogInformation.weight,
+            ageType: result.data.dogInformation.age,
+            regDate: result.data.dogInformation.boardId.regDate,
+            fileList: result.data.boardImageList,
+            isOwner: result.data.owner,
+            gugun: result.data.dogInformation.gugun,
+            sido: result.data.dogInformation.gugun.sidoCode,
+            description: result.data.dogInformation.description,
+            dogName: result.data.dogInformation.dogName,
+            isBookmarked: result.data.bookmarked
+          };
+
+          store.commit("root/setBoardDetail", boardDetail);
+          router.push({ name: "FindDetail" });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
+
     const goCommunity = function() {
       router.push({ name: "Community" });
     };
@@ -855,7 +899,16 @@ export default {
       window.scrollTo(0, 0);
     });
 
-    return { state, readDetail, goCommunity, goAdopt, goFind, goMbti, goLogin };
+    return {
+      state,
+      readFindDetail,
+      readAdoptDetail,
+      goCommunity,
+      goAdopt,
+      goFind,
+      goMbti,
+      goLogin
+    };
   }
 };
 </script>
