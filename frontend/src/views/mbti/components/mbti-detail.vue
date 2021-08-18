@@ -172,25 +172,13 @@
         </div>
       </div>
       <el-row class="vertical-center" :gutter="20">
-<<<<<<< HEAD
-        <el-col :span="9">
-          <img class="dog-thumbnail fit-image" :src="state.MbtiDetail.image_url" />
-=======
         <el-col :span="10" style="margin-left:50px;">
           <img class="dog-thumbnail" :src="state.MbtiDetail.image_url" />
->>>>>>> 026043b460649a41b7e8c464c154ebf17461c751
         </el-col>
         <el-col :span="14">
           <div class="dog-info-box">
             <div class="box">
-<<<<<<< HEAD
               <h6 class="mb-2" style="text-size: 20px; line-height: 3rem; white-space:pre-wrap;">
-=======
-              <h6
-                class="mb-2"
-                style="font-size: 16px; line-height: 3rem; white-space:pre-wrap;"
-              >
->>>>>>> 026043b460649a41b7e8c464c154ebf17461c751
                 {{ state.MbtiDetail.desc }}
               </h6>
             </div>
@@ -241,16 +229,16 @@
 </template>
 
 <script>
-import { computed, reactive } from "vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import "mosha-vue-toastify/dist/style.css";
-import AdoptCard from "@/views/adopt/components/adopt-card.vue";
-import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
-import { onMounted } from "vue";
+import { computed, reactive } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+// import 'mosha-vue-toastify/dist/style.css'
+import AdoptCard from '@/views/adopt/components/adopt-card.vue'
+import BreadCrumb from '@/views/adopt/components/bread-crumb.vue'
+import { onMounted } from 'vue'
 
 export default {
-  name: "MbtiDetail",
+  name: 'MbtiDetail',
   components: {
     AdoptCard,
     BreadCrumb
@@ -262,21 +250,21 @@ export default {
 
     const state = reactive({
       MbtiDetail: computed(() => {
-        return store.getters["root/getMbti"];
+        return store.getters['root/getMbti'];
       }),
       userId: computed(() => {
-        return store.getters["root/getLoginUserInfo"].userId;
+        return store.getters['root/getLoginUserInfo'].userId;
       })
     });
 
     const readDetail = function(id) {
       var checkId = state.userId;
-      if (checkId === undefined || checkId === null || checkId == "") {
-        checkId = "none";
+      if (checkId === undefined || checkId === null || checkId == '') {
+        checkId = 'none';
       }
 
       store
-        .dispatch("root/requestBoardDetail", {
+        .dispatch('root/requestBoardDetail', {
           boardId: id,
           userId: checkId
         })
@@ -305,8 +293,8 @@ export default {
             isBookmarked: result.data.bookmarked
           };
 
-          store.commit("root/setBoardDetail", boardDetail);
-          router.push({ name: "AdoptDetail" });
+          store.commit('root/setBoardDetail', boardDetail);
+          router.push({ name: 'AdoptDetail' });
         })
         .catch(function(err) {
           console.log(err);
@@ -315,10 +303,10 @@ export default {
 
     onMounted(() => {
       // console.log("breadcrumb");
-      store.commit("root/setBreadcrumbInfo", {
+      store.commit('root/setBreadcrumbInfo', {
         isHome: false,
-        title: "MPTI",
-        path: "/mbti",
+        title: 'MPTI',
+        path: '/mbti',
         subTitle: state.MbtiDetail.name
       });
       window.scrollTo(0, 0);
