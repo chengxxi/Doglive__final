@@ -98,6 +98,7 @@
 .scale-up-hover-2:hover .scale {
   transform: scale(1.03);
 }
+
 .fit-image{
   object-fit: cover;
 }

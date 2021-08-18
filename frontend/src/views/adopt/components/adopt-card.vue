@@ -95,6 +95,7 @@
 .fit-image{
   object-fit: cover;
 }
+
 </style>
 
 <script>

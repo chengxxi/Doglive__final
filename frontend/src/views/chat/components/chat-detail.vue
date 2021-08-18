@@ -225,7 +225,9 @@ export default {
       isOpenConference: true,
     });
     const chat = reactive({
-      init: true,
+      init: true, // 처음 채팅방 들어왔을 때
+      recv: false, // 새로운 메세지를 받았을 때
+      loaded: false, // 이전 로그를 페이지 단위로 불러올 때,
       open: computed(() => store.getters["root/getChat"].open),
       title: computed(() => store.getters["root/getChat"].title),
       roomId: computed(() => store.getters["root/getChat"].roomId),
@@ -233,6 +235,7 @@ export default {
       isLoading: computed(() => chat.loading),
       page: 0,
       noMore: false,
+      prevScrollHeight: 0,
     });
 
     /* Methods*/
@@ -246,13 +249,13 @@ export default {
           withCredentials: true
         })
         .then(function(result) {
-          console.log(result)
           var size = result.data.messageList.length;
           for (var i = 0; i < size; i++)
             state.recvList.push(result.data.messageList[i]);
           // 다 받아왔으면
           if (size < 30) chat.noMore = true;
           chat.loading = false;
+          chat.loaded = true;
           state.chatList = [...state.recvList].reverse();
         })
         .catch(function(err) {});
@@ -261,34 +264,24 @@ export default {
     // 채팅방 입장 요청 + 메시지 받아오기
     function fetchJoin() {
       client.subscribe("/sub/chat/room/" + roomId, function(result) {
-        console.log(JSON.parse(result.body));
         var msg = JSON.parse(result.body);
         state.recvList.push(msg);
         state.chatList.push(msg);
-        chat.init = true;
+        chat.recv = true;
       });
     }
 
     // Input에 입력한 메세지 전송
     function sendMessage() {
-      console.log(state.activeButton);
-      if (!state.activeButton)
-        // 입력하지 않은 상태로는 전송 불가
+      if (!state.activeButton) // 입력하지 않은 상태로는 전송 불가
         return;
 
-      client.send(
-        "/pub/chat/message",
-        JSON.stringify(
-          { roomId: roomId, chatMessage: state.content.trim(), userId: userId },
-          {}
-        )
-      );
+      client.send("/pub/chat/message", JSON.stringify({ roomId: roomId, chatMessage: state.content.trim(), userId: userId }, {} ) );
       state.content = "";
     }
 
     // 웹 소켓 연결 성공 시, 콜백 함수
     async function onConnected() {
-      console.log("onConnected 함수 호출!");
       var load = await fetchMessageLogs();
       fetchJoin();
     }
@@ -317,7 +310,6 @@ export default {
 
     // 닫기 버튼 : 화상회의 Open 여부 변경
     function changeOpenConference() {
-      console.log('화상회의 공지사항 버튼 클릭')
       state.isOpenConference = !state.isOpenConference
     }
 
@@ -326,9 +318,7 @@ export default {
       // 나가기 전, 지금까지 받았던 메세지들을 read 처리요청
       store.dispatch("root/requestChatMessageUpdate", {roomId : roomId, withCredentials : true})
       .then(function(result){
-        console.log(result)
       }).catch(function(err){
-        console.log(err)
       });
       store.commit("root/setChatMenu", 0);
       store.commit("root/setChatTitle", "");
@@ -345,26 +335,17 @@ export default {
       el.value.scrollTop = 99999;
     }
 
+    // scrollTop == 0 이면 다음 페이지 호출
     async function scroll(state) {
-      const scrollTop = divs.value.scrollTop;
-      const scrollHeight = divs.value.scrollHeight;
-      const clientHeight = divs.value.clientHeight;
-
-      if (scrollTop == 0 && !chat.noMore) {
+      if (divs.value.scrollTop == 0 && !chat.noMore) {
         chat.page += 1;
-        chat.prev = divs.value.scrollHeight;
         await fetchMessageLogs();
-        divs.value.scrollTop += 1800;
       }
-      console.log("scrollTo", divs.value.scrollTop);
     }
 
     // 화상회의 연결
     function createConference(title) {
-      // 세션 열기?
       // 공고 정보 받아오기
-      console.log(title);
-      console.log(store.getters["root/getChat"].roomId);
       const conference = {
         roomId: store.getters["root/getChat"].roomId,
         title: title,
@@ -373,28 +354,33 @@ export default {
         reader: "",
         fromChat: true
       };
-      console.log(conference.roomId);
-      console.log(conference.title);
-      // 채팅창 닫기
-      changeOpen();
+      changeOpen(); // 채팅창 닫기
       store.commit("root/setConference", conference);
-      console.log(store.getters["root/getConference"].title);
-      console.log(store.getters["root/getConference"].fromChat);
-
       moveConference();
     }
 
     function moveConference() {
       router.push({ name: "conference" });
     }
+
     onUpdated(() => {
-      if (chat.init) {
-        // 처음 화면을 불러올 때만 스크롤을 맨 아래로 배치
-        console.log(divs);
+      console.log(chat.init)
+      if (chat.init || chat.recv) {
+        // 처음 화면을 불러올 때와 새로운 메세지를 받을 때만 스크롤을 맨 아래로 배치
         chat.init = false;
+        chat.recv = false;
         scrollToBottom(divs);
       }
-      chat.now = divs.value.scrollHeight;
+
+      if(chat.loaded){
+        // 처음 화면을 불러오는 게 아닌 이전 로그를 페이지 단위로 불러올 때 호출
+        chat.loaded = false;
+        if(divs.value.scrollTop == 0){
+          divs.value.scrollTop = (divs.value.scrollHeight - chat.prevScrollHeight) // 시작위치 재설정
+        }
+        // 이전 스크롤 정보를 저장
+        chat.prevScrollHeight = divs.value.scrollHeight
+      }
     });
 
     connect();
