@@ -3,7 +3,7 @@
     <bread-crumb></bread-crumb>
     <div class="box-card " style="width:100%; border:none; ">
       <div style="margin-top:50px; margin-left:50px; ">
-        <h5 class="fw-bold">16 Pupsonality</h5>
+        <!-- <h5 class="fw-bold">16 Pupsonality</h5> -->
         <h1
           class="fw-bold"
           style="font-size:60pt; margin-bottom:0px; padding-bottom:0px; "
