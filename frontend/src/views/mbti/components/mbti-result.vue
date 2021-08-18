@@ -1,7 +1,7 @@
 <template>
   <div class="mbtibox">
     <div class="box">
-      <h3 class="description">🐕 독립 MPTI란? 🐾</h3> <br>
+      <h3 class="description"> 🔎 독립 MPTI란? </h3> <br>
 
       <p>
         "독립"의 <b>'MPTI(강아지 성향 지표, My Puppy Type Indicator)'</b>는 총 20가지의 문항을 통해 응답자가 선호하는 강아지의 행동 및 경향을 찾고,
