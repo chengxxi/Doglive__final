@@ -343,8 +343,7 @@ h3 {
 
 .dog-thumbnail {
   width: 90%;
-  /* height: auto; */
-  height: 200px;
+  height: auto;
   margin-right: 20px;
   margin: 10px;
 }
