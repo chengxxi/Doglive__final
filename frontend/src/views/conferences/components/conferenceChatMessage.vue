@@ -80,13 +80,6 @@ export default {
   },
 
   setup(props){
-    console.log('conferenceChatMessage vue 에 입장');
-    console.log(props)
-    console.log('현재 사용자 이름 🔽')
-    console.log(props.userName)
-    console.log('온 채팅 내용 🔽')
-    console.log(props.message.userName)
-    console.log(props.message.chatMessage)
     const state = reactive({
 
     })
