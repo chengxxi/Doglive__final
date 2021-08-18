@@ -321,7 +321,7 @@ export default {
 
 <style scoped>
 .main-body {
-  width: 100%;
+  width: 80%;
   margin-left: 10%; /* 페이지 양옆 200px여백 -> 10% */
   margin-right: 10%;
 }
