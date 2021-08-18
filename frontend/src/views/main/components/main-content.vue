@@ -429,7 +429,7 @@
                 <div class="d-flex align-items-center">
                   <img
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
-                    src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image.png"
+                    src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(5).png"
                     alt="blog"
                   />
                 </div>
