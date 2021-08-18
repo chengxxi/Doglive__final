@@ -59,8 +59,8 @@ export default {
     fileList: [],
     isOwner: false,
     isbookmarked: false,
-    sido: "",
-    gugun: "",
+    sido: {},
+    gugun: {},
     listSimilarDog: []
   },
 
@@ -69,7 +69,7 @@ export default {
     menu: 0 /* 0: 채팅 목록, 1: 채팅방, 2: 화상회의 목록 */,
     title: "",
     roomId: "",
-    exitMessage: false,
+    exitMessage: false
   },
 
   adoptForm: {

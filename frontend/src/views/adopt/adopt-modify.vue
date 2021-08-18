@@ -161,7 +161,7 @@
                         v-model="state.board.sido.id"
                         placeholder="시/도"
                         style="width:95% ;"
-                        :change="gugunList(state.board.sido.id)"
+                        @change="gugunList(state.board.sido.id)"
                       >
                         <el-option
                           v-for="(sido, idx) in state.sidoList"
@@ -608,7 +608,6 @@ export default {
   methods: {
     submitForm(formName) {
       if (this.state.board.fileList.length + this.state.newAddFile.length > 5) {
-        console.log("1");
         createToast("사진은 5장까지만 업로드 가능해요 💬💦", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -622,7 +621,6 @@ export default {
         this.state.board.fileList.length + this.state.newAddFile.length >=
         2
       ) {
-        console.log("2");
         const mbti =
           [this.ruleForm.energy == "에너지있는" ? "E" : "I"] +
           [this.ruleForm.obedience == "충성심 강한" ? "S" : "N"] +
@@ -639,9 +637,7 @@ export default {
         };
         this.$refs[formName].validate(valid => {
           if (valid) {
-            console.log("3");
             this.modifyData(data);
-            console.log(this.ruleForm);
           } else {
             createToast("작성하지 않은 항목이 있어요 💬💦", {
               hideProgressBar: "true",
@@ -676,10 +672,7 @@ export default {
     const router = new useRouter();
 
     const state = reactive({
-      board: computed(() => {
-        console.log(store.getters["root/getBoardDetail"]);
-        return store.getters["root/getBoardDetail"];
-      }),
+      board: store.getters["root/getBoardDetail"],
       deleteList: [],
       newAddFile: [],
       thumbnailList: [],
@@ -688,116 +681,119 @@ export default {
         return store.getters["root/getLoginUserInfo"];
       }),
       sidoList: [],
-      gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }]
+      gugunList: []
     });
 
     const modifyData = function(data) {
-      console.log("4");
-      const formData = new FormData();
-      formData.append("userId", state.userId.userId);
-      formData.append("boardType", state.board.boardType.id);
-      formData.append("dogName", data.dogName);
-      formData.append("mbti", data.mbti);
-      formData.append("title", data.title);
-      formData.append("description", data.desc);
-      formData.append("colorType", state.board.colorType.id);
-      formData.append("age", state.board.ageType.id);
-      formData.append("dogType", state.board.dogType.id);
-      formData.append("gender", data.gender == "여" ? 8 : 9);
-      formData.append(
-        "neutralization",
-        data.neutralization == "O" ? true : false
-      );
-      formData.append("weight", state.board.weight.id);
-      formData.append("gugun", state.board.gugun.id);
-      console.log("5");
-
-      const cnt = this.state.deleteList.length;
-      for (var i = 0; i < cnt; i++) {
-        formData.append("delList", this.state.deleteList[i]);
-      }
-      console.log("cnt");
-      for (var j = 0; j < this.state.newAddFile.length; j++) {
-        formData.append("fileList", this.state.newAddFile[j]);
-      }
-      console.log(formData);
-      console.log("7");
-      store
-        .dispatch("root/requestModifyBoard", {
-          boardId: state.board.boardId,
-          data: formData
-        })
-        .then(function(result) {
-          console.log("수정 성공");
-
-          store
-            .dispatch("root/requestBoardDetail", {
-              boardId: state.board.boardId,
-              userId: state.userId.userId
-            })
-            .then(function(result) {
-              console.log(result);
-
-              const boardDetail = {
-                boardId: result.data.dogInformation.boardId.id,
-                boardType: result.data.dogInformation.boardId.type,
-                thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
-                title: result.data.dogInformation.boardId.title,
-                address: result.data.dogInformation.address,
-                mbti: result.data.dogInformation.mbti,
-                colorType: result.data.dogInformation.colorType,
-                gender: result.data.dogInformation.gender,
-                dogType: result.data.dogInformation.dogType,
-                neutralization: result.data.dogInformation.neutralization,
-                writer: result.data.writer,
-                weight: result.data.dogInformation.weight,
-                ageType: result.data.dogInformation.age,
-                regDate: result.data.dogInformation.boardId.regDate,
-                fileList: result.data.boardImageList,
-                isOwner: result.data.owner,
-                gugun: result.data.dogInformation.gugun,
-                sido: result.data.dogInformation.gugun.sidoCode,
-                description: result.data.dogInformation.description,
-                dogName: result.data.dogInformation.dogName,
-                isBookmarked: result.data.bookmarked
-              };
-
-              console.log("8");
-              createToast("공고가 수정되었어요 📜🐾", {
-                hideProgressBar: "true",
-                timeout: 4500,
-                showIcon: "true",
-                toastBackgroundColor: "#7eaa72",
-                position: "bottom-left",
-                transition: "bounce",
-                type: "success"
-              });
-              store.commit("root/setBoardDetail", boardDetail);
-              router.push({ name: "AdoptDetail" });
-            })
-            .catch(function(err) {
-              console.log(err);
-            });
-        })
-        .catch(function(err) {
-          createToast("공고 수정에 실패했어요 😱💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "warning"
-          });
-          console.log(err);
+      if (state.board.gugun.id == null) {
+        createToast("작성하지 않은 항목이 있어요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
         });
+      } else {
+        const formData = new FormData();
+        formData.append("userId", state.userId.userId);
+        formData.append("boardType", state.board.boardType.id);
+        formData.append("dogName", data.dogName);
+        formData.append("mbti", data.mbti);
+        formData.append("title", data.title);
+        formData.append("description", data.desc);
+        formData.append("colorType", state.board.colorType.id);
+        formData.append("age", state.board.ageType.id);
+        formData.append("dogType", state.board.dogType.id);
+        formData.append("gender", data.gender == "여" ? 8 : 9);
+        formData.append(
+          "neutralization",
+          data.neutralization == "O" ? true : false
+        );
+        formData.append("weight", state.board.weight.id);
+        formData.append("gugun", state.board.gugun.id);
+
+        const cnt = this.state.deleteList.length;
+        for (var i = 0; i < cnt; i++) {
+          formData.append("delList", this.state.deleteList[i]);
+        }
+
+        for (var j = 0; j < this.state.newAddFile.length; j++) {
+          formData.append("fileList", this.state.newAddFile[j]);
+        }
+
+        store
+          .dispatch("root/requestModifyBoard", {
+            boardId: state.board.boardId,
+            data: formData
+          })
+          .then(function(result) {
+            store
+              .dispatch("root/requestBoardDetail", {
+                boardId: state.board.boardId,
+                userId: state.userId.userId
+              })
+              .then(function(result) {
+                const boardDetail = {
+                  boardId: result.data.dogInformation.boardId.id,
+                  boardType: result.data.dogInformation.boardId.type,
+                  thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+                  title: result.data.dogInformation.boardId.title,
+                  address: result.data.dogInformation.address,
+                  mbti: result.data.dogInformation.mbti,
+                  colorType: result.data.dogInformation.colorType,
+                  gender: result.data.dogInformation.gender,
+                  dogType: result.data.dogInformation.dogType,
+                  neutralization: result.data.dogInformation.neutralization,
+                  writer: result.data.writer,
+                  weight: result.data.dogInformation.weight,
+                  ageType: result.data.dogInformation.age,
+                  regDate: result.data.dogInformation.boardId.regDate,
+                  fileList: result.data.boardImageList,
+                  isOwner: result.data.owner,
+                  gugun: result.data.dogInformation.gugun,
+                  sido: result.data.dogInformation.gugun.sidoCode,
+                  description: result.data.dogInformation.description,
+                  dogName: result.data.dogInformation.dogName,
+                  isBookmarked: result.data.bookmarked
+                };
+
+                createToast("공고가 수정되었어요 📜🐾", {
+                  hideProgressBar: "true",
+                  timeout: 4500,
+                  showIcon: "true",
+                  toastBackgroundColor: "#7eaa72",
+                  position: "bottom-left",
+                  transition: "bounce",
+                  type: "success"
+                });
+                store.commit("root/setBoardDetail", boardDetail);
+                router.push({ name: "AdoptDetail" });
+              })
+              .catch(function(err) {
+                console.log(err);
+              });
+          })
+          .catch(function(err) {
+            createToast("공고 수정에 실패했어요 😱💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
+            });
+            console.log(err);
+          });
+      }
     };
 
     //시도 리스트 가져오기
     store
       .dispatch("root/requestSidoCodeList")
       .then(function(result) {
-        console.log("call : sidocode");
         state.sidoList = result.data.sidoList;
       })
       .catch(function(error) {
@@ -807,7 +803,6 @@ export default {
     //강아지 품종 데이터 읽어오기
     const readDogTypeList = function() {
       store.dispatch("root/requestDogTypeList").then(function(result) {
-        console.log("dogType:", result);
         state.dogTypeList = result.data.dogTypeList;
         state.dogTypeList.push({ id: 17, name: "기타" });
       });
@@ -815,13 +810,22 @@ export default {
 
     //시도에 맞는 구군 리스트 가져오기
     const gugunList = function(selectedSidoCode) {
-      console.log(selectedSidoCode);
+      state.board.gugun = {};
 
       store
         .dispatch("root/requestGugunCodeList", selectedSidoCode)
         .then(function(result) {
-          console.log("call : guguncode");
+          state.gugunList = result.data.gugunList;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    };
 
+    const gugunInitList = function(selectedSidoCode) {
+      store
+        .dispatch("root/requestGugunCodeList", selectedSidoCode)
+        .then(function(result) {
           state.gugunList = result.data.gugunList;
         })
         .catch(function(error) {
@@ -831,7 +835,20 @@ export default {
 
     //파일 업로드 시 호출
     const changeFile = function(fileEvent) {
-      if (fileEvent.target.files && fileEvent.target.files.length > 0) {
+      if (
+        fileEvent.target.files &&
+        fileEvent.target.files[0].size > 3 * 1024 * 1024
+      ) {
+        createToast("파일 사이즈가 3MB를 넘어요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      } else if (fileEvent.target.files && fileEvent.target.files.length > 0) {
         for (var i = 0; i < fileEvent.target.files.length; i++) {
           const file = fileEvent.target.files[i];
           state.thumbnailList.push(URL.createObjectURL(file));
@@ -851,7 +868,6 @@ export default {
     };
 
     onMounted(() => {
-      console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "입양/임보",
@@ -859,7 +875,7 @@ export default {
         subTitle: "입양/임보 공고 수정"
       });
       readDogTypeList();
-      gugunList(state.board.sido.id);
+      gugunInitList(state.board.sido.id);
       window.scrollTo(0, 0);
     });
 

@@ -36,26 +36,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <el-card
-    shadow="hover"
-    style="background:linear-gradient( to top,#f0ebe0, #f6ede9  );"
-    class="mbtiCard scale-up-2"
-
-    <el-row
-      style="margin-top:5px; display:flex; display: flex;
-      justify-content: center;">
-      <img :src="card.imageUrl" class="image" />
-    </el-row>
-
-    <el-row
-      style="margin-bottom:10px; margin-right:15px; margin-left:15px; vertical-align: middle; ">
-      <h3 style="font-weight:800; float: right;">
-        {{ card.name }}
-      </h3>
-    </el-row>
-
-  </el-card> -->
 </template>
 
 <style scoped>

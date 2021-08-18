@@ -107,15 +107,10 @@ public class UserServiceImpl implements UserService{
         System.out.println(user + " " + userUpdatePutReq.getBirth() + " " + userUpdatePutReq.getEmail() + " " +  userUpdatePutReq.getPhoneNumber() + " " + userUpdatePutReq.getName());
         UserProfile userProfile = userProfileRepository.findByUserId(user).get();
 
-        if(userUpdatePutReq.getDelfile()!=null){
-            deleteUserProfileImageByUrl(userUpdatePutReq.getDelfile());
-        }
-
         if(userUpdatePutReq.getFile()!=null){
             String profileImageUrl = s3Uploader.upload(userUpdatePutReq.getFile(),"static");
             userProfile.setProfileImageUrl("https://"+S3Uploader.CLOUD_FRONT_DOMAIN_NAME+"/"+profileImageUrl);
         }
-
         userProfile.setName(userUpdatePutReq.getName());
         userProfile.setEmail(userUpdatePutReq.getEmail());
         userProfile.setPhoneNumber(userUpdatePutReq.getPhoneNumber());
@@ -216,7 +211,6 @@ public class UserServiceImpl implements UserService{
                 List<CounselingHistory> List = counselingHistoryRepository.findCounselingHistoriesByApplicantId(userProfile.get()).get();
                 for (CounselingHistory counselingHistory: List) {
                     if(counselingHistory.getBoardType().equals("입양") || counselingHistory.getBoardType().equals("임보")){
-                        System.out.println(counselingHistory.getBoardType());
                         resultList.add(counselingHistory);
                     }
                 }

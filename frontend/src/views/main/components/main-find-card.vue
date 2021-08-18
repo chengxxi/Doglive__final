@@ -26,7 +26,7 @@
 
         <div class="d-flex align-items-center ">
           <img
-            class="rounded-2 "
+            class="rounded-2 fit-image"
             style="width:100%; height:300px; margin-left:5px margin-right:5px"
             :src="card.boardId.thumbnailUrl"
             alt="blog"
@@ -84,6 +84,10 @@
 
 .scale-up-hover-2:hover .scale {
   transform: scale(1.03);
+}
+
+.fit-image{
+  object-fit: cover;
 }
 </style>
 

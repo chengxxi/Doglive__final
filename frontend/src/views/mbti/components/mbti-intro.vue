@@ -2,17 +2,20 @@
 <div>
   <div class="box">
     <h1 class="description">
-      🐕 강아지 MBTI란? 🐾
+      🐕 My Puppy Type Indicator 🐾
     </h1>
 
     <img src="https://storage.googleapis.com/neris/public/images/articles/pets.svg" class="img"/>
+    <p>
+      "독립"의 <b>'MPTI(My Puppy Type Indicator)'</b>는 강아지들의 성격을 총 16가지로 분류해 정리했어요. <br>
+
+      원하는 강아지의 모습을 머릿속에 그리며, 하나씩 질문에 응답하다 보면 나와 꼭 맞는 강아지를 추천받을 수 있답니다! <br>
+
+      "독립"의 'MPTI'를 통해 <b style="color: #D7AFA4;">새롭게 우리 가족이 될 강아지</b>를 발견해 보세요. <br>
+    </p>
 
 
-    <p>'독립'의 강아지 MBTI는 강아지들의 성격을 총 16가지로 분류해 정리했어요. 원하는 성향을 선택하면 나와 꼭 맞는 강아지를 추천해 준답니다.</p>
-    <p>강아지 MBTI를 통해 새롭게 우리 가족이 될 강아지를 발견해 보세요!</p>
-
-    <a href="https://www.16personalities.com/articles/introducing-16pet-sonalities"><span style="float: right; font-weight: 300;">16 pet-sonalities</span></a>
-    <!-- 상세 소개 내용 수정 필요 -->
+    <!-- <a href="https://www.16personalities.com/articles/introducing-16pet-sonalities"><span style="float: right; font-weight: 300;">16 pet-sonalities</span></a> -->
   </div>
 
   <div class="mbtiBtn">
@@ -53,6 +56,7 @@
   margin-right: 50px;
   padding: 40px;
   background-color: #f9f0e7;
+  line-height: 2rem;
 }
 
 .description {
@@ -94,9 +98,6 @@
 <script>
 export default {
   name: 'MbtiIntro',
-  setup () {
-
-  }
 }
 </script>
 

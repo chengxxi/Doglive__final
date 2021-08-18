@@ -1,10 +1,11 @@
 <template>
+  <div>
   <div></div>
 
   <div class="main-body main-padding" id="top">
     <div class="py-0">
-      <!--/.bg-holder-->
 
+      <!-- 아이템 소개 -->
       <div class="container position-relative">
         <div class="row align-items-center">
           <div class="col-md-5 col-lg-6 order-md-1 pt-3">
@@ -22,25 +23,29 @@
               독립<span style="font-size:30pt; "> Dog Live</span>
             </h1>
             <p class="mb-5 fs-0">
-              독립은 강아지들의 행복하고 안정적인 삶을 위해 노력합니다.
+              <b>"독립"</b>은 유기 및 실종된 강아지들이 불안한 생활으로부터 벗어나 <br>
+              행복하고 안정적인 삶을 영위할 수 있게 합니다.
               <br class="d-none d-lg-block" />
 
-              새로운 만남을 기다리는 아이들이 지금 여기, 어쩌고 저쩌고 어쩌고
-              저쩌고
+              비대면 상담과 매칭 알고리즘을 통해 강아지들과 예비 반려인을 연결해 주는
               <br class="d-none d-lg-block" />
-              유기견들의 평생 가족이 되어 주세요. 어쩌고 저쩌고
+              <b>"독립"</b>을 통해 강아지들의 평생 가족이 되어주세요!
             </p>
 
+
+            <a class="page-scroll" href="#scrollToHere">
             <el-button
               type="primary"
               class="btn btn-lg btn-primary rounded-pill hover-top"
-              @click="goAdopt"
-              >새로운 가족 만나러가기</el-button
-            >
+              >독립 미리보기</el-button
+            ></a>
+
           </div>
         </div>
       </div>
     </div>
+
+    <!-- 입양/임보 소개 및 바로가기 -->
     <div class="py-3 mt-3"></div>
     <div class="py-6 py-lg-8" id="about">
       <div class="container">
@@ -54,13 +59,13 @@
             />
           </div>
           <div class="col-md-6 text-center text-md-start">
-            <h2 class="fw-bold lh-base">
-              유기견들의 <br /><span style="color:#D7AFA4;">따뜻한 새 가족</span
+            <h2 class="fw-bold lh-base" id="scrollToHere">
+              유기견들의 <br /><span style="color:#D7AFA4;">따뜻한 가족</span
               >이 되어주세요
             </h2>
             <hr
               class="text-dark mx-auto mx-md-0"
-              style="height:2px;width:50px"
+              style="height:2px; width:50px"
             />
             <p class="pt-3">
               농림축산검역본부의 통계 자료에 따르면, 작년 한 해에만 13만 마리의
@@ -89,6 +94,7 @@
       </div>
     </div>
 
+    <!-- 실종/보호 소개 및 바로가기 -->
     <div class="py-2 py-lg-4">
       <div class="container">
         <div class="row g-xl-0 align-items-center">
@@ -120,7 +126,7 @@
               <br /><br />독립만의 매칭 알고리즘으로 실종, 보호 공고들을 분석해
               유사도 높은 공고를 상호 추천합니다. 또한 실시간 채팅 및 화상상담
               서비스를 통해 실시간으로 실종견 목격 제보 및 상담을 할 수 있도록
-              지원합니다.<br /><br />독립을 통해 아이들이 하루빨리 안전하게
+              지원합니다.<br /><br />독립을 통해 강아지들이 하루빨리 안전하게
               가족의 품으로 돌아갈 수 있기를 바랍니다.
             </p>
             <div class="py-3">
@@ -136,6 +142,7 @@
       </div>
     </div>
 
+    <!-- MPTI 소개 및 바로가기 -->
     <div class="py-6 py-lg-8" id="about">
       <div class="container">
         <div class="row g-xl-0 align-items-center">
@@ -157,12 +164,13 @@
               style="height:2px;width:50px"
             />
             <p class="pt-3">
-              '독립'의
-              <b>16 Pupsonality, MPTI(My Puppy Type Indicator)</b>는<br />
-              강아지들의 성격을 총 16가지로 분류해 정리했어요. <br />원하는
-              성향을 선택하면 나와 꼭 맞는 강아지를 추천해 준답니다. 강아지
-              MBTI를 통해 새롭게 우리 가족이 될 강아지를 발견해 보세요! <br />
-              MPTI(*가제) 서비스를 제공합니다. 어쩌고
+              "독립"의 <b>'MPTI(My Puppy Type Indicator)'</b>는 <br>
+              강아지들의 성격을 총 16가지로 분류해 정리했어요. <br>
+
+              원하는 강아지의 모습을 머릿속에 그리며, 하나씩 질문에 응답하다 보면 <br>
+              나와 꼭 맞는 강아지를 추천받을 수 있답니다! <br> <br>
+
+              "독립"의 'MPTI'를 통해 <b>새롭게 우리 가족이 될 강아지</b>를 발견해 보세요.
             </p>
             <div class="py-3">
               <a href="/mbti">
@@ -338,8 +346,7 @@
 
                   <div class="d-flex align-items-center">
                     <img
-                      style="width:100%; height:300px;
-                    margin-left:5px margin-right:5px"
+                      style="width:100%; height:300px; margin-left:5px margin-right:5px; object-fit:cover;"
                       :src="card.fileList[0]"
                       alt="blog"
                     />
@@ -378,6 +385,8 @@
           </div>
         </div>
       </div>
+
+      <!-- 팀 소개 -->
       <div class="container-lg py-6 py-lg-8">
         <div class="row flex-center">
           <div class="col-auto text-center">
@@ -391,7 +400,7 @@
               서비스를 만들고 있는<span
                 style="font-size:13pt; font-weight:700;"
               >
-                犬과You </span
+                견과류(犬과You) </span
               >팀을 소개합니다.
             </p>
           </div>
@@ -428,8 +437,9 @@
 
                 <div class="d-flex align-items-center">
                   <img
+                    class="fit-image"
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
-                    src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image.png"
+                    src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(5).png"
                     alt="blog"
                   />
                 </div>
@@ -489,6 +499,7 @@
 
                 <div class="d-flex align-items-center">
                   <img
+                    class="fit-image"
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
                     src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(1).png"
                     alt="blog"
@@ -550,6 +561,7 @@
 
                 <div class="d-flex align-items-center">
                   <img
+                    class="fit-image"
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
                     src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(2).png"
                     alt="blog"
@@ -611,6 +623,7 @@
 
                 <div class="d-flex align-items-center">
                   <img
+                    class="fit-image"
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
                     src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(3).png"
                     alt="blog"
@@ -665,6 +678,7 @@
 
                 <div class="d-flex align-items-center">
                   <img
+                    class="fit-image"
                     style="width:100%; height:300px; margin-left:10p; margin-right:10px;"
                     src="https://d2ud6j7vlf3xy9.cloudfront.net/img/image+(4).png"
                     alt="blog"
@@ -714,17 +728,19 @@
       </div>
     </div>
   </div>
+  </div>
+
 </template>
 
 <script>
-import FindCard from "@/views/main/components/main-find-card.vue";
-import AdoptCard from "@/views/main/components/main-adopt-card.vue";
-import { computed, reactive, onMounted } from "vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import FindCard from '@/views/main/components/main-find-card.vue'
+import AdoptCard from '@/views/main/components/main-adopt-card.vue'
+import { computed, reactive, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
-  name: "MainContent",
+  name: 'MainContent',
   components: {
     FindCard,
     AdoptCard
@@ -739,14 +755,14 @@ export default {
       findList: {},
       communityList: {},
       userId: computed(() => {
-        return store.getters["root/getLoginUserInfo"].userId;
+        return store.getters['root/getLoginUserInfo'].userId;
       })
     });
 
     //최신 커뮤니티 글 읽어오기
 
     store
-      .dispatch("root/readRecentCommunity")
+      .dispatch('root/readRecentCommunity')
       .then(function(result) {
         state.communityList = result.data;
       })
@@ -757,7 +773,7 @@ export default {
     //최신 공고 읽어오기
 
     store
-      .dispatch("root/readRecentBoard")
+      .dispatch('root/readRecentBoard')
       .then(function(result) {
         state.adoptList = result.data.adoptList;
         state.findList = result.data.findList;
@@ -768,12 +784,12 @@ export default {
 
     const readDetail = function(id) {
       var checkId = state.userId;
-      if (checkId === undefined || checkId === null || checkId == "") {
-        checkId = "none";
+      if (checkId === undefined || checkId === null || checkId == '') {
+        checkId = 'none';
       }
 
       store
-        .dispatch("root/requestBoardDetail", {
+        .dispatch('root/requestBoardDetail', {
           boardId: id,
           userId: checkId
         })
@@ -804,8 +820,8 @@ export default {
             isBookmarked: result.data.bookmarked
           };
 
-          store.commit("root/setBoardDetail", boardDetail);
-          router.push({ name: "AdoptDetail" });
+          store.commit('root/setBoardDetail', boardDetail);
+          router.push({ name: 'AdoptDetail' });
         })
         .catch(function(err) {
           console.log(err);
@@ -813,19 +829,19 @@ export default {
     };
 
     const goCommunity = function() {
-      router.push({ name: "Community" });
+      router.push({ name: 'Community' });
     };
 
     const goFind = function() {
-      router.push({ name: "Find" });
+      router.push({ name: 'Find' });
     };
 
     const goAdopt = function() {
-      router.push({ name: "Adopt" });
+      router.push({ name: 'Adopt' });
     };
 
     const goMbti = function() {
-      router.push({ name: "MBTI" });
+      router.push({ name: 'MBTI' });
     };
 
     onMounted(() => {
@@ -839,7 +855,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../../common/css/main-content.css";
+@import '../../../common/css/main-content.css';
 
 .main-body {
   width: 100%;
@@ -884,5 +900,8 @@ export default {
   border-radius: 100%;
   margin-left: 8px;
   margin-right: 10px;
+}
+.fit-image{
+  object-fit: contain;
 }
 </style>

@@ -53,7 +53,7 @@
                     <el-form-item label="컬러" prop="color" label-width="100%">
                       <el-select
                         style="width:90%;"
-                        v-model="state.board.colorType"
+                        v-model="state.board.colorType.id"
                         placeholder="컬러"
                       >
                         <el-option label="White" :value="12"></el-option>
@@ -78,7 +78,7 @@
                         ></el-option>
                         <el-option
                           label="Junior(7개월 ~ 2살)"
-                          value="5"
+                          :value="5"
                         ></el-option>
                         <el-option
                           label="Adult(3살 ~ 8살)"
@@ -117,7 +117,7 @@
                       prop="dogType"
                     >
                       <el-select
-                        v-model="ruleForm.dogType.id"
+                        v-model="state.board.dogType.id"
                         placeholder="품종"
                         style="width:90%;"
                       >
@@ -156,14 +156,11 @@
                       label-width="100%"
                     >
                       <el-select
-                        v-model="ruleForm.sido"
+                        v-model="state.board.sido.id"
                         placeholder="시/도"
                         style="width:95% ;"
-                        :change="gugunList(ruleForm.sido)"
+                        @change="gugunList(state.board.sido.id)"
                       >
-                        <el-option value="empty" selected disabled
-                          >시/도
-                        </el-option>
                         <el-option
                           v-for="(sido, idx) in state.sidoList"
                           :key="idx"
@@ -182,12 +179,9 @@
                     >
                       <el-select
                         style="width:95% ;"
-                        v-model="ruleForm.gugun"
+                        v-model="state.board.gugun.id"
                         placeholder="구/군"
                       >
-                        <el-option value="empty" selected disabled
-                          >구/군
-                        </el-option>
                         <el-option
                           v-for="(gugun, idx) in state.gugunList"
                           :key="idx"
@@ -233,7 +227,7 @@
               <span style="font-size: 1.25rem; font-weight:600">
                 📷 사진을 업로드 해주세요
               </span>
-              <span> (최대 5장)</span>
+              <span> (최대 5장 / 최소 2장)</span>
             </div>
 
             <el-row class="mt-4  mb-3">
@@ -322,16 +316,16 @@ export default {
   data() {
     return {
       ruleForm: {
-        sido: this.state.board.sido,
-        gugun: this.state.board.gugun,
-        type: this.state.board.boardType,
+        sido: this.state.board.sido.id,
+        gugun: this.state.board.gugun.id,
+        type: this.state.board.boardType.id,
         title: this.state.board.title,
         name: this.state.board.dogName,
         gender: this.state.board.gender.name,
-        dogType: this.state.board.dogType,
-        color: this.state.board.colorType,
-        age: this.state.board.ageType,
-        size: this.state.board.weight,
+        dogType: this.state.board.dogType.id,
+        color: this.state.board.colorType.id,
+        age: this.state.board.ageType.id,
+        size: this.state.board.weight.id,
 
         address: this.state.board.address,
         desc: this.state.board.description,
@@ -484,7 +478,6 @@ export default {
         this.$refs[formName].validate(valid => {
           if (valid) {
             this.modifyData(data);
-            console.log(this.ruleForm);
           } else {
             createToast("작성하지 않은 항목이 있어요 💬💦", {
               hideProgressBar: "true",
@@ -521,10 +514,7 @@ export default {
 
     const state = reactive({
       dogTypeList: [],
-      board: computed(() => {
-        console.log(store.getters["root/getBoardDetail"]);
-        return store.getters["root/getBoardDetail"];
-      }),
+      board: store.getters["root/getBoardDetail"],
       deleteList: [],
       newAddFile: [],
       thumbnailList: [],
@@ -536,107 +526,114 @@ export default {
     });
 
     const modifyData = function(data) {
-      const formData = new FormData();
-      formData.append("userId", state.userId.userId);
-      formData.append("boardType", state.board.boardType.id);
-      formData.append("title", data.title);
-      formData.append("description", data.desc);
-      formData.append("colorType", state.board.colorType.id);
-      formData.append("age", state.board.ageType.id);
-      formData.append("address", data.address);
-      formData.append("dogType", state.board.dogType.id);
-      formData.append(
-        "gender",
-        data.gender == "여" ? 8 : data.gender == "남" ? 9 : 17
-      );
+      if (state.board.gugun.id != null) {
+        const formData = new FormData();
+        formData.append("userId", state.userId.userId);
+        formData.append("boardType", state.board.boardType.id);
+        formData.append("title", data.title);
+        formData.append("description", data.desc);
+        formData.append("colorType", state.board.colorType.id);
+        formData.append("age", state.board.ageType.id);
+        formData.append("address", data.address);
+        formData.append("dogType", state.board.dogType.id);
+        formData.append(
+          "gender",
+          data.gender == "여" ? 8 : data.gender == "남" ? 9 : 17
+        );
 
-      formData.append("weight", state.board.weight.id);
-      formData.append("gugun", state.board.gugun.id);
+        formData.append("weight", state.board.weight.id);
+        formData.append("gugun", state.board.gugun.id);
 
-      const cnt = this.state.deleteList.length;
+        const cnt = this.state.deleteList.length;
 
-      for (var i = 0; i < cnt; i++) {
-        formData.append("delList", this.state.deleteList[i]);
-      }
+        for (var i = 0; i < cnt; i++) {
+          formData.append("delList", this.state.deleteList[i]);
+        }
 
-      for (var j = 0; j < this.state.newAddFile.length; j++) {
-        formData.append("fileList", this.state.newAddFile[j]);
-      }
+        for (var j = 0; j < this.state.newAddFile.length; j++) {
+          formData.append("fileList", this.state.newAddFile[j]);
+        }
 
-      store
-        .dispatch("root/requestModifyBoard", {
-          boardId: state.board.boardId,
-          data: formData
-        })
-        .then(function(result) {
-          console.log(result);
-          store
-            .dispatch("root/requestBoardDetail", {
-              boardId: state.board.boardId,
-              userId: state.userId.userId
-            })
-            .then(function(result) {
-              console.log("수정 후 requestBoardDetail");
-              console.log(result);
-
-              const boardDetail = {
-                boardId: result.data.dogInformation.boardId.id,
-                boardType: result.data.dogInformation.boardId.type,
-                thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
-                title: result.data.dogInformation.boardId.title,
-                address: result.data.dogInformation.address,
-                mbti: result.data.dogInformation.mbti,
-                colorType: result.data.dogInformation.colorType,
-                gender: result.data.dogInformation.gender,
-                dogType: result.data.dogInformation.dogType,
-                neutralization: result.data.dogInformation.neutralization,
-                writer: result.data.writer,
-                weight: result.data.dogInformation.weight,
-                ageType: result.data.dogInformation.age,
-                regDate: result.data.dogInformation.boardId.regDate,
-                fileList: result.data.boardImageList,
-                isOwner: result.data.owner,
-                gugun: result.data.dogInformation.gugun,
-                sido: result.data.dogInformation.gugun.sidoCode,
-                description: result.data.dogInformation.description,
-                dogName: result.data.dogInformation.dogName,
-                isBookmarked: result.data.bookmarked,
-                listSimilarDog: result.data.listSimilarDog
-              };
-              createToast("공고가 수정되었어요 📜🐾", {
-                hideProgressBar: "true",
-                timeout: 4500,
-                showIcon: "true",
-                toastBackgroundColor: "#7eaa72",
-                position: "bottom-left",
-                transition: "bounce",
-                type: "success"
+        store
+          .dispatch("root/requestModifyBoard", {
+            boardId: state.board.boardId,
+            data: formData
+          })
+          .then(function(result) {
+            store
+              .dispatch("root/requestBoardDetail", {
+                boardId: state.board.boardId,
+                userId: state.userId.userId
+              })
+              .then(function(result) {
+                const boardDetail = {
+                  boardId: result.data.dogInformation.boardId.id,
+                  boardType: result.data.dogInformation.boardId.type,
+                  thumbnailUrl: result.data.dogInformation.boardId.thumbnailUrl,
+                  title: result.data.dogInformation.boardId.title,
+                  address: result.data.dogInformation.address,
+                  mbti: result.data.dogInformation.mbti,
+                  colorType: result.data.dogInformation.colorType,
+                  gender: result.data.dogInformation.gender,
+                  dogType: result.data.dogInformation.dogType,
+                  neutralization: result.data.dogInformation.neutralization,
+                  writer: result.data.writer,
+                  weight: result.data.dogInformation.weight,
+                  ageType: result.data.dogInformation.age,
+                  regDate: result.data.dogInformation.boardId.regDate,
+                  fileList: result.data.boardImageList,
+                  isOwner: result.data.owner,
+                  gugun: result.data.dogInformation.gugun,
+                  sido: result.data.dogInformation.gugun.sidoCode,
+                  description: result.data.dogInformation.description,
+                  dogName: result.data.dogInformation.dogName,
+                  isBookmarked: result.data.bookmarked,
+                  listSimilarDog: result.data.listSimilarDog
+                };
+                createToast("공고가 수정되었어요 📜🐾", {
+                  hideProgressBar: "true",
+                  timeout: 4500,
+                  showIcon: "true",
+                  toastBackgroundColor: "#7eaa72",
+                  position: "bottom-left",
+                  transition: "bounce",
+                  type: "success"
+                });
+                store.commit("root/setBoardDetail", boardDetail);
+                router.push({ name: "FindDetail" });
+              })
+              .catch(function(err) {
+                console.log(err);
               });
-              store.commit("root/setBoardDetail", boardDetail);
-              router.push({ name: "FindDetail" });
-            })
-            .catch(function(err) {
-              console.log(err);
+          })
+          .catch(function(err) {
+            createToast("공고 수정에 실패했어요 😱💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
             });
-        })
-        .catch(function(err) {
-          createToast("공고 수정에 실패했어요 😱💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "warning"
+            console.log(err);
           });
-          console.log(err);
+      } else {
+        createToast("작성하지 않은 항목이 있어요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
         });
+      }
     };
 
     //강아지 품종 데이터 읽어오기
     const readDogTypeList = function() {
       store.dispatch("root/requestDogTypeList").then(function(result) {
-        console.log("dogType:", result);
         state.dogTypeList = result.data.dogTypeList;
         state.dogTypeList.push({ id: 17, name: "기타" });
       });
@@ -646,7 +643,6 @@ export default {
     store
       .dispatch("root/requestSidoCodeList")
       .then(function(result) {
-        console.log("call : sidocode");
         state.sidoList = result.data.sidoList;
       })
       .catch(function(error) {
@@ -656,13 +652,22 @@ export default {
     //시도에 맞는 구군 리스트 가져오기
     const gugunList = function(selectedSidoCode) {
       state.board.gugun = {};
-      console.log(state.board.gugun);
-      console.log(selectedSidoCode);
+
       store
         .dispatch("root/requestGugunCodeList", selectedSidoCode)
         .then(function(result) {
-          console.log("call : guguncode");
+          state.gugunList = result.data.gugunList;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    };
 
+    //시도에 맞는 초기 구군 리스트 가져오기
+    const gugunInitList = function(selectedSidoCode) {
+      store
+        .dispatch("root/requestGugunCodeList", selectedSidoCode)
+        .then(function(result) {
           state.gugunList = result.data.gugunList;
         })
         .catch(function(error) {
@@ -672,7 +677,20 @@ export default {
 
     //파일 업로드 시 호출
     const changeFile = function(fileEvent) {
-      if (fileEvent.target.files && fileEvent.target.files.length > 0) {
+      if (
+        fileEvent.target.files &&
+        fileEvent.target.files[0].size > 3 * 1024 * 1024
+      ) {
+        createToast("파일 사이즈가 3MB를 넘어요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      } else if (fileEvent.target.files && fileEvent.target.files.length > 0) {
         for (var i = 0; i < fileEvent.target.files.length; i++) {
           const file = fileEvent.target.files[i];
           state.thumbnailList.push(URL.createObjectURL(file));
@@ -702,6 +720,7 @@ export default {
         subTitle: "실종/보호 공고 수정"
       });
       readDogTypeList();
+      gugunInitList(state.board.sido.id);
       window.scrollTo(0, 0);
     });
 

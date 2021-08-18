@@ -8,22 +8,23 @@
         <!-- 사용자 프로필 정보 -->
         <el-form class="userinfo-wrapper" :model="formData" label-width="120px" label-position="right">
           <!-- 사용자 프로필 이미지 -->
-          <div class="image-wrapper" style="margin-left:70px;">
+          <div class="image-wrapper">
+            <label for="changeProfile">
             <el-image
-              class="user-profile"
+              class="user-profile scale-up-2"
               :src="formData.userProfile.profileImageUrl"
-              :fit="fit"></el-image>
-              <span>
-                <font-awesome-icon
-                  icon="images"
-                  aria-hidden="true"
-                  style="color: rgb(78, 78, 78); font-size: 20px; cursor: pointer; margin-right:15px"
-                  class="scale-up-3"
-                >
-                </font-awesome-icon>
-            </span>
+              :fit="fit"
+              style="cursor:pointer"
+              ></el-image>
+            </label>
+              <input
+                id="changeProfile"
+                ref="file"
+                accept="image/*"
+                type="file"
+                style="display: none"
+                @change="changeFile"/>
           </div>
-          
         <el-form-item
           label="닉네임"
           :rules="{ required: true, message: '닉네임을 입력해주세요', trigger: 'change' }">
@@ -115,6 +116,9 @@
   margin-left: 8px;
   margin-right: 10px;
 }
+:deep(.el-image__inner){
+  object-fit: cover;
+}
 
 </style>
 
@@ -140,7 +144,8 @@ export default {
           console.log(store.getters["root/getUpdateUserInfo"])
           return store.getters["root/getUpdateUserInfo"];
         }
-      )
+      ),
+      imageFile : "",
      })
 
     const userId = store.getters['root/getLoginUserInfo'].userId;
@@ -163,8 +168,15 @@ export default {
 
 
     const updateProfile = function(){
-      console.log(formData.userProfile)
-      store.dispatch('root/changeUserInfo', {userId :userId, data :formData.userProfile})
+      const updateData = new FormData();
+
+      updateData.append("name", formData.userProfile.name);
+      updateData.append("email", formData.userProfile.email);
+      updateData.append("phoneNumber", formData.userProfile.phoneNumber);
+      updateData.append("birth", formData.userProfile.birth);
+      updateData.append("file", formData.imageFile);
+      console.log(updateData)
+      store.dispatch('root/changeUserInfo', {userId :userId, data :updateData})
       .then(function(result){
         createToast("프로필이 수정되었어요 💨💨", {
                 hideProgressBar: "true",
@@ -199,7 +211,22 @@ export default {
         console.log(err)
       });
     }
-    return { updateProfile, userDelete, formData }
+
+    //파일 업로드 시 호출
+    const changeFile = function(e) {
+      const file = e.target.files[0];
+      formData.userProfile.profileImageUrl = URL.createObjectURL(file);
+      formData.imageFile = file;
+    };
+
+    const deleteFile = function(index) {
+      console.log(state.sendFile);
+      state.fileList.splice(index, 1);
+      state.sendFile.splice(index, 1);
+      console.log(state.sendFile);
+    };
+
+    return { updateProfile, userDelete, formData, changeFile }
   }
 }
 </script>
