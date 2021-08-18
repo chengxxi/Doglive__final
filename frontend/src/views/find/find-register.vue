@@ -580,7 +580,7 @@ export default {
                 description: result.data.dogInformation.description,
                 dogName: result.data.dogInformation.dogName,
                 isBookmarked: result.data.bookmarked,
-                listSimilarDog: result.data.listSimilarDog,
+                listSimilarDog: result.data.listSimilarDog
               };
               createToast("공고가 등록되었어요 📜🐾", {
                 hideProgressBar: "true",
@@ -639,7 +639,20 @@ export default {
 
     //파일 업로드 시 호출
     const changeFile = function(fileEvent) {
-      if (fileEvent.target.files && fileEvent.target.files.length > 0) {
+      if (
+        fileEvent.target.files &&
+        fileEvent.target.files[0].size > 3 * 1024 * 1024
+      ) {
+        createToast("파일 사이즈가 3MB를 넘어요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
+        });
+      } else if (fileEvent.target.files && fileEvent.target.files.length > 0) {
         for (var i = 0; i < fileEvent.target.files.length; i++) {
           const file = fileEvent.target.files[i];
           state.fileList.push(URL.createObjectURL(file));
