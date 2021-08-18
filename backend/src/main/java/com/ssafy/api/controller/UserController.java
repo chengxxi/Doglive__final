@@ -70,8 +70,7 @@ public class UserController {
 //        return ResponseEntity.status(200).body(BaseResponseBody.of(200,"Success"));
 //    }
 
-    @SneakyThrows
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
     @ApiOperation(value = "회원 정보 수정", notes = "DB에 저장된 회원정보를 새로운 값으로 수정한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -80,7 +79,8 @@ public class UserController {
             @ApiResponse(code = 409, message = "이미 존재하는 유저"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> updateUser(@PathVariable("id") String id,  @RequestBody @ApiParam(value="회원정보수정", required = true) UserUpdatePutReq userUpdatePutReq) throws IOException {
+    public ResponseEntity<? extends BaseResponseBody> updateUser(@PathVariable("id") String id,  @ModelAttribute UserUpdatePutReq userUpdatePutReq) throws IOException {
+        System.out.println("req : " + userUpdatePutReq);
         userService.updateUserProfile(id, userUpdatePutReq);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200,"Success"));
     }
