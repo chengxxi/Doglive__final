@@ -53,7 +53,7 @@
                     <el-form-item label="컬러" prop="color" label-width="100%">
                       <el-select
                         style="width:90%;"
-                        v-model="state.board.colorType"
+                        v-model="state.board.colorType.id"
                         placeholder="컬러"
                       >
                         <el-option label="White" :value="12"></el-option>
@@ -322,16 +322,16 @@ export default {
   data() {
     return {
       ruleForm: {
-        sido: this.state.board.sido,
-        gugun: this.state.board.gugun,
-        type: this.state.board.boardType,
+        sido: this.state.board.sido.id,
+        gugun: this.state.board.gugun.id,
+        type: this.state.board.boardType.id,
         title: this.state.board.title,
         name: this.state.board.dogName,
         gender: this.state.board.gender.name,
-        dogType: this.state.board.dogType,
-        color: this.state.board.colorType,
-        age: this.state.board.ageType,
-        size: this.state.board.weight,
+        dogType: this.state.board.dogType.id,
+        color: this.state.board.colorType.id,
+        age: this.state.board.ageType.id,
+        size: this.state.board.weight.id,
 
         address: this.state.board.address,
         desc: this.state.board.description,
