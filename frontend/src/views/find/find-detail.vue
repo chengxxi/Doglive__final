@@ -405,19 +405,8 @@ export default {
       }
     };
 
-    const data = {
-      userId: state.userId,
-      data: {
-        boardId: state.board.boardId,
-        boardType: state.board.boardType.name,
-        boardTitle: state.board.title,
-        dogName: null,
-        content: null
-      }
-    };
-
     //입양신청서 제출
-    const submitAdoptForm = function(data) {
+    const submitAdoptForm = function() {
       if (
         state.userId === null ||
         state.userId == "" ||
@@ -434,6 +423,18 @@ export default {
         });
         router.push({ name: "Login" });
       } else {
+
+        const data = reactive({
+          userId: state.userId,
+          data: {
+            boardId: state.board.boardId,
+            boardType: state.board.boardType.name,
+            boardTitle: state.board.title,
+            dogName: null,
+            content: null
+          }
+        });
+
         store
           .dispatch("root/registerAdoptForm", data)
           .then(function(result) {
@@ -509,7 +510,7 @@ export default {
           })
           .then(function(result) {
             if (result.status == 204) {
-              submitAdoptForm(data); // counseling history가 존재하지 않음 -> 1. counseling history 생성   2. 채팅방 생성  3. 채팅방 오픈
+              submitAdoptForm(); // counseling history가 존재하지 않음 -> 1. counseling history 생성   2. 채팅방 생성  3. 채팅방 오픈
             } else {
               var counselingId = result.data.counselingHistory.id;
               store.dispatch("root/requestChatRoomByCounseling", {counselingId: counselingId})

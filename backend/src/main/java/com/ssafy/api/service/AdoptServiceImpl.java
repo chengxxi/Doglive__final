@@ -194,6 +194,7 @@ public class AdoptServiceImpl implements AdoptService{
 
         ChatRoom chatRoom = chatService.getChatRoomInfoByCounselingId(counselingId);
         if(chatRoom != null) {
+            System.out.println("채팅방 먼저 삭제 : " + chatRoom);
             chatService.deleteChatRoom(chatRoom); // 채팅방 먼저 삭제
         }
         Optional<CounselingHistory> counselingHistory = counselingHistoryRepository.findCounselingHistoryById(counselingId);
