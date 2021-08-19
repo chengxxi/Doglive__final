@@ -178,7 +178,7 @@ export default {
       console.log(updateData)
       store.dispatch('root/changeUserInfo', {userId :userId, data :updateData})
       .then(function(result){
-        createToast("프로필이 수정되었어요 💨💨", {
+        createToast("프로필이 수정되었어요 ✨", {
                 hideProgressBar: "true",
                 timeout: 4500,
                 showIcon: "true",
@@ -199,7 +199,15 @@ export default {
         // Request Header에 cookie를 담아서 전송 ({withCredentials: true} 설정을 통해 Cookie를 헤더에 담아서 전송 가능.)
         store.dispatch('root/requestKakaoLogout', {withCredentials: true})
         .then(function(result){
-          alert("탈퇴가 완료 되었습니다.")
+          createToast("탈퇴가 완료되었습니다 🎈🎈", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "success"
+          });
           // cookie 삭제
           cookies.remove('accessToken', { path : '/', sameSite : 'strict' })
           cookies.remove('refreshToken', { path : '/', sameSite : 'strict' })
@@ -219,12 +227,6 @@ export default {
       formData.imageFile = file;
     };
 
-    const deleteFile = function(index) {
-      console.log(state.sendFile);
-      state.fileList.splice(index, 1);
-      state.sendFile.splice(index, 1);
-      console.log(state.sendFile);
-    };
 
     return { updateProfile, userDelete, formData, changeFile }
   }
