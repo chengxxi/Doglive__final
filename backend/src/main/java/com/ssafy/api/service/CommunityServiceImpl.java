@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.CommentPostReq;
 import com.ssafy.api.request.CommunityParamDto;
+import com.ssafy.api.request.CommunityParamDtoInterface;
 import com.ssafy.api.request.CommunityRegisterPostReq;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
@@ -207,10 +208,13 @@ public class CommunityServiceImpl implements  CommunityService{
     /* 커뮤니티 게시글 전체 목록 불러오기 */
     @Override
     public List<CommunityParamDto> communityList(int page){
-        PageRequest pageRequest = PageRequest.of(page,20);
+        PageRequest pageRequest = PageRequest.of(page,10);
         System.out.println("page : " + page + " pageRequest: " + pageRequest);
-        Page<CommunityParamDto> communityList = communityRepository.findAllDesc(pageRequest).orElse(null);
-        for (CommunityParamDto dto : communityList) {
+        Page<CommunityParamDtoInterface> communityList = communityRepository.findAllDesc(pageRequest).orElse(null);
+
+        List<CommunityParamDto> list = new ArrayList<CommunityParamDto>(); // DB에서 받아온 community 값을 저장할 배열
+        for (CommunityParamDtoInterface dto : communityList) {
+            CommunityParamDto paramDto = new CommunityParamDto(dto.getId(), dto.getDescription(), dto.getTitle(), dto.getUserId(), dto.getName(), dto.getProfile_image_url(), dto.getCategory());
             Community community = communityRepository.findCommunityByIdOrderByIdDesc(dto.getId()).get();
             List<CommunityImage> communityImages = getCommunityImagesByCommunity(community);
             List<String> fileList = new ArrayList<>();
@@ -218,12 +222,14 @@ public class CommunityServiceImpl implements  CommunityService{
                 String filePath = communityImage.getFilePath();
                 fileList.add(filePath);
             }
-            dto.setFileList(fileList);
+            paramDto.setFileList(fileList);
+            list.add(paramDto);
         }
         System.out.println("Total Pages : " + communityList.getTotalPages());
         System.out.println("Total Count : " + communityList.getTotalElements());
         System.out.println("Next : " + communityList.nextPageable());
-        return communityList.getContent();
+
+        return list;
     }
 
     @Override

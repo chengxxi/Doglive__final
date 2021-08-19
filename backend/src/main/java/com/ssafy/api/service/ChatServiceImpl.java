@@ -132,7 +132,7 @@ public class ChatServiceImpl implements ChatService{
     @Override
     public List<ChatMessage> getChatMessageList(ChatRoom roomId, String userId, int page) {
         // 채팅방에 입장했을 때, 이전 채팅 기록을 불러오는 메소드 (최신순 페이징 처리)
-        PageRequest pageRequest = PageRequest.of(page,30, Sort.Direction.DESC, "sendTimeAt");
+        PageRequest pageRequest = PageRequest.of(page,30, Sort.Direction.DESC, "id");
         Page<ChatMessage> messageList = chatMessageRepository.findAllByRoomId(roomId, pageRequest).orElse(null);
         System.out.println("Total Pages : " + messageList.getTotalPages());
         System.out.println("Total Count : " + messageList.getTotalElements());

@@ -13,7 +13,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.ssafy.db.entity.community.QCommunity.community;
 
 /**
  * 커뮤니티 게시글 정보 Entity

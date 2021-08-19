@@ -79,7 +79,6 @@ export default {
           next()
         }
       } else if(from.name == 'conference') {        // 화상회의에서 나올 때
-        console.log('from > 화상회의에서 나온다')
         store.commit('root/setConference', {
           roomID: '',
           thumbnailUrl:'',
@@ -99,7 +98,6 @@ export default {
     router.afterEach((to, from, next) => {
       store.commit("root/setCurrentPath", to.path);
       store.commit("root/setCurrentPathParam", to.query);
-      console.log(to);
     });
   }
 };

@@ -60,7 +60,6 @@ export default {
     const deleteChatRoom = function(){
       store.dispatch("root/requestDeleteChatRoom", {withCredentials : true, roomId : props.roomId })
       .then(function(result){
-        console.log(result)
         createToast("채팅방이 삭제되었어요 💨💨", {
           hideProgressBar: "true",
           timeout: 4500,
@@ -77,7 +76,6 @@ export default {
         store.commit("root/setExitMessage", false);
       })
       .catch(function(err){
-        console.log(err);
       })
     }
 

@@ -1,6 +1,7 @@
 package com.ssafy.db.repository.community;
 
 import com.ssafy.api.request.CommunityParamDto;
+import com.ssafy.api.request.CommunityParamDtoInterface;
 import com.ssafy.db.entity.community.Community;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,8 +24,12 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
 
     Optional<Community> findCommunityByIdOrderByIdDesc(Long id);
 
-    @Query(name = "CommunityAndUser", nativeQuery = true)
-    Optional<Page<CommunityParamDto>> findAllDesc(Pageable paging);
+    @Query(
+            value="select `b`.id, `b`.description, `b`.title, `b`.user_id, `b`.reg_date, `u`.name, `u`.profile_image_url, `b`.category " +
+                    "from `community`.`community` b inner join `auth`.`user_profile` u where `b`.user_id = `u`.user_id " +
+                    "order by `b`.id desc",
+            nativeQuery = true)
+    Optional<Page<CommunityParamDtoInterface>> findAllDesc(Pageable paging);
 
 }
 

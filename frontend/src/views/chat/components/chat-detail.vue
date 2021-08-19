@@ -294,11 +294,10 @@ export default {
       client = Stomp.over(socket)
       client.connect({withCredentials : true, userId : userId }
       ,frame => {
-        console.log("연결 성공 : ", frame)
         onConnected()
       }
       ,error => {
-        console.log("연결 실패 : ", error)
+
       })
     }
 
@@ -364,7 +363,6 @@ export default {
     }
 
     onUpdated(() => {
-      console.log(chat.init)
       if (chat.init || chat.recv) {
         // 처음 화면을 불러올 때와 새로운 메세지를 받을 때만 스크롤을 맨 아래로 배치
         chat.init = false;
