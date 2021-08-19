@@ -323,7 +323,7 @@ export default {
         state.userId == "" ||
         state.userId === undefined
       ) {
-        createToast("로그인을 진행해주세요 💨💨", {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
           hideProgressBar: "true",
           timeout: 4500,
           showIcon: "true",
@@ -344,7 +344,7 @@ export default {
         state.userId == "" ||
         state.userId === undefined
       ) {
-        createToast("로그인을 진행해주세요 💨💨", {
+        createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
           hideProgressBar: "true",
           timeout: 4500,
           showIcon: "true",
@@ -467,25 +467,10 @@ export default {
     };
 
     const RegisterComment = function(id) {
-      if (
-        comment.input == null ||
-        comment.input == "" ||
-        state.userId === null ||
-        state.userId == "" ||
-        state.userId === undefined
-      ) {
-        createToast("댓글 내용을 적어주세요 😱💦", {
-          hideProgressBar: "true",
-          timeout: 4500,
-          showIcon: "true",
-          toastBackgroundColor: "#c49d83",
-          position: "bottom-left",
-          transition: "bounce",
-          type: "success"
-        });
-      } else {
-        if (state.userId === null) {
-          createToast("로그인을 진행해주세요 💨💨", {
+      if (state.userId === null ||
+            state.userId == "" ||
+            state.userId === undefined) {
+          createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
             hideProgressBar: "true",
             timeout: 4500,
             showIcon: "true",
@@ -495,7 +480,19 @@ export default {
             type: "success"
           });
           router.push({ name: "Login" });
-        } else {
+        }else {
+          if (
+            comment.input == null ||comment.input == "" ) {
+            createToast("댓글 내용을 적어주세요 😱💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "success"
+            });
+          }else{
           store
             .dispatch("root/requestRegisterComment", {
               communityId: id,

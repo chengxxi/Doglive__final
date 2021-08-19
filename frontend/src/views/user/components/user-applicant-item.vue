@@ -5,7 +5,7 @@
       :key="idx"
       style="margin-right:1%; margin-left:1%; width: 48%"
     >
-      <el-row class="grid-content bg-beige">
+      <el-row class="grid-content bg-beige" v-if="o.boardType=='입양'|| o.boardType=='임보'">
         <el-col :span="4">
           <div class="image">
             <el-avatar
@@ -303,3 +303,4 @@ export default {
   }
 };
 </script>
+
