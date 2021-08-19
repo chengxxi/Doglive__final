@@ -501,7 +501,7 @@ export default {
         });
         router.push({ name: "Login" });
       } else {
-        // 채팅방이 이미 존재하는지 체크
+        // 채팅방이 아니라 '신청로그'가 이미 존재하는지 체크
         store
           .dispatch("root/existedForm", {
             userId: state.userId,
@@ -509,11 +509,18 @@ export default {
           })
           .then(function(result) {
             if (result.status == 204) {
-              // counseling history가 존재하지 않음
-              submitAdoptForm(data); // 1. counseling history 생성   2. 채팅방 생성  3. 채팅방 오픈
+              submitAdoptForm(data); // counseling history가 존재하지 않음 -> 1. counseling history 생성   2. 채팅방 생성  3. 채팅방 오픈
             } else {
               var counselingId = result.data.counselingHistory.id;
-              openChatting(counselingId); // 1. 채팅방 오픈
+              store.dispatch("root/requestChatRoomByCounseling", {counselingId: counselingId})
+              .then(function(result){
+                if(result.data.chatRoomList.length == 0) // 채팅방이 삭제되어 존재하지 않음 -> 다시 생성, 오픈
+                  createChatting(counselingId);
+                else
+                  openChatting(counselingId); // 존재하면 채팅방만 오픈
+              })
+              .catch(function(err){
+              })
             }
           })
           .catch(function(err) {
@@ -568,6 +575,10 @@ export default {
           };
 
           store.commit("root/setBoardDetail", boardDetail);
+          store.commit(
+            "root/setBoardId",
+            result.data.dogInformation.boardId.id
+          );
           window.scrollTo(0, 0);
         })
         .catch(function(err) {
