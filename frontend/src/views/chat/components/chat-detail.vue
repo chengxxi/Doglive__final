@@ -242,6 +242,7 @@ export default {
 
     // 이전 채팅방 로그 가져오기
     function fetchMessageLogs() {
+      return new Promise(function(resolve, reject){
       store
         .dispatch("root/requestChatMessageList", {
           roomId: roomId,
@@ -257,8 +258,12 @@ export default {
           chat.loading = false;
           chat.loaded = true;
           state.chatList = [...state.recvList].reverse();
+          resolve(result)
         })
-        .catch(function(err) {});
+        .catch(function(err) {
+          resolve(err)
+        });
+      });
     }
 
     // 채팅방 입장 요청 + 메시지 받아오기

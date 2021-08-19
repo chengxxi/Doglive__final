@@ -361,16 +361,17 @@ export default {
 
     // 다음 커뮤니티 목록 가져오기
     function fetchCommunityList() {
+      return new Promise(function(resolve, reject){
       store
         .dispatch("root/requestCommunityBoardList", communities.page)
-        .then(function(result) {
+        .then(async function(result) {
           var size = result.data.length;
           for (var i = 0; i < size; i++) {
             state.boardList.push(result.data[i]);
             const id = result.data[i].id;
-            store
+            await store
               .dispatch("root/requestCommunityComment", id)
-              .then(function(result) {
+              .then(async function(result) {
                 var size = result.data.commentList.length;
                 for (var i = 0; i < size; i++) {
                   state.comments.push(result.data.commentList[i]);
@@ -382,32 +383,29 @@ export default {
               });
           }
           communities.loading = false // 로딩 중지
+          communities.init = false
 
           // 다 받아왔으면 = 더 이상 남아있지 않으면
           if(size < 10)
             communities.noMore = true
+
+          resolve(result)
         })
         .catch(function(err) {
           console.log(err);
+          resolve(err)
         });
+       });
     }
 
     function handleScroll(event) {
       // 요기
       if (
-         !communities.noMore &&
-          divs.value.scrollHeight >= divs.value.clientHeight &&
+         !communities.noMore && !communities.init &&
           window.scrollY >= divs.value.scrollHeight - 500
       ) {
-
-        console.log("불러와~!")
-        console.log(window.scrollY)
-        console.log(divs.value.scrollHeight)
-        console.log(divs.value.clientHeight)
-
         communities.loading = true
         communities.page += 1;
-        console.log(communities.page)
         fetchCommunityList();
       }
     }
@@ -424,7 +422,6 @@ export default {
       store
         .dispatch("root/requestCommunityDetail", id)
         .then(function(result) {
-          console.log(result);
           const CommunityDetail = {
             communityId: result.data.community.id,
             title: result.data.community.title,
@@ -506,7 +503,6 @@ export default {
               comment: comment.input
             })
             .then(function(result) {
-              console.log(result);
               createToast("댓글이 등록되었어요 💨💨", {
                 hideProgressBar: "true",
                 timeout: 4500,
@@ -567,7 +563,6 @@ export default {
 
             for (var i = 0; i < state.comments.length; i++) {
               if (state.comments[i].id == id) {
-                console.log(state.comments[i].id);
                 state.comments.splice(i, 1);
               }
             }
