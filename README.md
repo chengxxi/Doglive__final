@@ -1,16 +1,26 @@
-## 📢 독립 Version 0.2.0
+# 📢 독립 Version 0.2.0
 #### 🔗 [독립 Version 0.1.0 즐기러가기](http://i5a501.p.ssafy.io/)
 #### 💛 [독립 사용 설명서](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.1.0/README_0.1.0.md )
 #### 💻 [포팅 매뉴얼](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/exec/%ED%8F%AC%ED%8C%85_%EB%A7%A4%EB%89%B4%EC%96%BC.md)
 
-## 🐶 독립 Dog-Live (獨立)
-![image](/uploads/6c3aa15683a7052f3a1ca8af110407c6/image.png)
+<br>
 
-#### 독립은 강아지들의 행복하고 안정적인 삶을 위해 노력하는 서비스입니다.
+# 🐶 독립 Dog-Live (獨立)
 
-<b><pre> 犬과YOU (견과류) 🥜 <br>
-▶ 조다운, 이상현, 이영주, 최혜원, 한승희 </b>
-<br><br><br><br>
+> 서울 5반 1팀 견과류 🥜 조다운, 이상현, 이영주, 최혜원, 한승희 
+
+<br>
+
+#### 비대면 상담과 매칭 알고리즘을 통해 유기견과 예비 반려인을 연결해주는 입양 플랫폼
+<br>
+
+**당신**과 **강아지**의 행복한 삶을 위해,
+
+유기 및 실종된 강아지들이 불안정한 생활으로부터 벗어나 행복하고 안정적인 삶을 살 수 있도록 노력하는 서비스입니다.
+
+
+
+<br><br>
 
 
 ## 🗂 Content
