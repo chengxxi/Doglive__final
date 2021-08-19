@@ -34,22 +34,24 @@
     <el-row
       style="margin-top:10px; margin-right:15px; margin-left:15px; vertical-align: middle; "
     >
-      <h3 style="font-weight:800; float:right;" class="mb-0 ">
-        {{
-          card.dogType.name.length < 6
-            ? card.dogType.name
-            : card.dogType.name.substr(0, 5) + ".."
-        }}
+      <h3
+        style="font-size:1.8em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; max-width:60%;font-weight:800; float:right;"
+        class="mb-0 "
+      >
+        {{ card.dogType.name }}
       </h3>
+
       <!-- <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
         {{ card.boardId.title }}
       </p> -->
-      <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
+      <p
+        style="font-size:13px; overflow:hidden;text-overflow:ellipsis;white-space:nowrap;  font-weight:600; margin-bottom:0px;"
+      >
         {{ card.gugun.sidoCode.name }} {{ card.gugun.name }}
       </p>
 
       <p
-        style="font-size:11px; margin-top:0px; font-weight:600; color:#727272;"
+        style="font-size:10px; overflow:hidden;text-overflow:ellipsis;white-space:nowrap;  margin-top:0px; font-weight:600; color:#727272;"
       >
         <i v-if="card.gender.name == '여'" class="el-icon-female " />
         <i v-if="card.gender.name == '남'" class="el-icon-male " />
@@ -83,7 +85,7 @@
   transform: scale(1.03);
 }
 
-.fit-image{
+.fit-image {
   object-fit: cover;
 }
 </style>

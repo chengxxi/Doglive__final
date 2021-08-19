@@ -1,6 +1,6 @@
 <template>
   <div class="col-12 col-sm-9 col-md-4 mt-4">
-    <div class="card h-100 hover-top shadow" style="margin:10px;">
+    <div class="card h-100 hover-top shadow" style="margin:10px;  ">
       <div class="card-body">
         <el-row style="margin-top:5px; margin-right:15px; margin-left:15px;">
           <el-tag
@@ -34,19 +34,20 @@
         </div>
         <div class="my-3 fs--1">
           <div style="margin-left:10px; margin-right:10px;">
-            <h3 style="font-weight:800; float:right;" class="mb-0 ">
-              {{
-                card.dogType.name.length < 6
-                  ? card.dogType.name
-                  : card.dogType.name.substr(0, 5) + ".."
-              }}
+            <h3
+              style="font-weight:800; float:right; max-width:58%; overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+              class="mb-0 "
+            >
+              {{ card.dogType.name }}
             </h3>
-            <p style="font-size:16px; font-weight:600; margin-bottom:0px;">
+            <p
+              style="font-size:16px; font-weight:600; overflow:hidden;text-overflow:ellipsis;white-space:nowrap; margin-bottom:0px;"
+            >
               {{ card.gugun.sidoCode.name }} {{ card.gugun.name }}
             </p>
 
             <p
-              style="font-size:14px; margin-top:0px;  font-weight:600; color:#727272;"
+              style="font-size:14px; margin-top:0px;  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;  font-weight:600; color:#727272;"
             >
               <i v-if="card.gender.name == '여'" class="el-icon-female " />
               <i v-if="card.gender.name == '남'" class="el-icon-male " />
@@ -86,7 +87,7 @@
   transform: scale(1.03);
 }
 
-.fit-image{
+.fit-image {
   object-fit: cover;
 }
 </style>
