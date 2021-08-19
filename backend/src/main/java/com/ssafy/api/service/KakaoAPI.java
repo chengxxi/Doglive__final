@@ -114,27 +114,18 @@ public class KakaoAPI {
             name = kakao_account.getAsJsonObject().get("profile").getAsJsonObject().get("nickname").getAsString();
 
             JsonElement email = kakao_account.getAsJsonObject().get("email");
-            JsonElement phoneNumber = kakao_account.getAsJsonObject().get("birthday");
-            JsonElement birthday = kakao_account.getAsJsonObject().get("birthday");
 
             userInfo.put("accessToken", accessToken);
             userInfo.put("refreshToken", refreshToken);
             userInfo.put("userid", userid);
             userInfo.put("profileImageUrl", profileImageUrl);
             userInfo.put("name", name);
+            userInfo.put("phoneNumber", "");
+            userInfo.put("birthday", "");
 
             if(email!=null){
                 userInfo.put("email", email.getAsString());
             }
-            if(phoneNumber!=null){
-                userInfo.put("phoneNumber", phoneNumber.getAsString());
-            }
-            if(birthday!=null){
-                userInfo.put("birthday", birthday.getAsString());
-            }
-
-
-
 
         } catch (IOException e) {
             e.printStackTrace();
