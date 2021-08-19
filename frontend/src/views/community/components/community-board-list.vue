@@ -402,7 +402,7 @@ export default {
       // 요기
       if (
          !communities.noMore && !communities.init &&
-          window.scrollY >= divs.value.scrollHeight - 500
+          window.scrollY >= divs.value.scrollHeight - 900
       ) {
         communities.loading = true
         communities.page += 1;
