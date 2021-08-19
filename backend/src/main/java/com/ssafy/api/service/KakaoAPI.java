@@ -125,6 +125,8 @@ public class KakaoAPI {
 
             if(email!=null){
                 userInfo.put("email", email.getAsString());
+            }else{
+                userInfo.put("email" , "");
             }
 
         } catch (IOException e) {
@@ -175,6 +177,8 @@ public class KakaoAPI {
             userInfo.put("userid", userid);
             if(email!=null){
                 userInfo.put("email" , email.getAsString());
+            }else{
+                userInfo.put("email" , "");
             }
 
 
