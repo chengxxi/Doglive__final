@@ -22,12 +22,7 @@ export default {
   setup(props) {
     const state = reactive({
       clientData: computed(() => {
-        console.log('UserVide.vue > props')
-        console.log('UserVideo.vue > spanEachVideo 🔽 ')
-        console.log(props.spanEachVideo)
         const {connection} = props.streamManager.stream;
-        console.log('UserVideo.vue > connection.data 🔽')
-        console.log(JSON.parse(connection.data))
         return JSON.parse(connection.data).clientData;
       }),
     })
