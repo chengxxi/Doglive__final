@@ -170,12 +170,12 @@ export default {
       })
     });
 
-    const clickAccept = function(id) {
+    async function clickAccept(id) {
       router.push({ name: "mypage-applicant-list" });
       store
         .dispatch("root/changeResult", { id: id, status: { result: "승인" } })
-        .then(function(result) {
-          createChatting(id); // 채팅방 생성
+        .then(async function(result) {
+          var awaitResult = await createChatting(id); // 채팅방 생성
           router.go(router.currentRoute); // 승인 후 강제 새로고침
         })
         .catch(function(err) {
@@ -187,6 +187,7 @@ export default {
       store
         .dispatch("root/changeResult", { id: id, status: { result: "거절" } })
         .then(function(result) {
+          console.log(result)
           createToast("신청 결과가 등록되었습니다 💨💨", {
             hideProgressBar: "true",
             timeout: 4500,
@@ -218,7 +219,8 @@ export default {
 
     // 상담채팅방 생성
     const createChatting = function(counselingId) {
-      store
+      return new Promise(function(resolve, reject){
+        store
         .dispatch("root/requestCreateChatRoom", {
           counseling_id: counselingId,
           withCredentials: true // userId를 헤더 쿠키에 담아서 보냄
@@ -236,8 +238,9 @@ export default {
               type: "success"
             }
           );
+          resolve(result)
         })
-        .catch(function() {
+        .catch(function(err) {
           createToast(
             "상담채팅방을 생성하지 못하였습니다. 다시 시도해주세요.💬💦",
             {
@@ -250,7 +253,9 @@ export default {
               type: "warning"
             }
           );
+          resolve(err)
         });
+      });
     };
 
     // 상담채팅방 열기

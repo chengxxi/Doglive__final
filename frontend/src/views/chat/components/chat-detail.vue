@@ -294,10 +294,11 @@ export default {
       client = Stomp.over(socket)
       client.connect({withCredentials : true, userId : userId }
       ,frame => {
+        console.log("연결 성공", frame);
         onConnected()
       }
       ,error => {
-
+        console.log("연결 실패", error);
       })
     }
 

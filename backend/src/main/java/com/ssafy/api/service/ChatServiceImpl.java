@@ -89,6 +89,11 @@ public class ChatServiceImpl implements ChatService{
             ChatRoomGetRes chatRoom = new ChatRoomGetRes();
             ChatRoom room = joinedRoomList.get(i).getRoomId(); // 채팅방 목록의 roomId
             chatRoom.setChatRoom(room);
+
+            CounselingHistory history = userService.getCounselingById(room.getCounselingId());
+            if(history == null) // 해당 상담이 이미 삭제되었다면 채팅방 목록에 담지 않는다.
+                continue;
+
             chatRoom.setCounselingHistory(userService.getCounselingById(room.getCounselingId()));
             chatRoom.setUserNameList(getUserNameList(room));
             chatRoom.setUnReadCount(getUnReadMessage(room, userId));

@@ -273,7 +273,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public CounselingHistory getCounselingById(Long counselingId) {
-        Optional<CounselingHistory> counselingHistory = counselingHistoryRepository.findById(counselingId);
+        Optional<CounselingHistory> counselingHistory = counselingHistoryRepository.findCounselingHistoryById(counselingId);
         if(counselingHistory.isPresent())
             return counselingHistory.get();
         return null;
