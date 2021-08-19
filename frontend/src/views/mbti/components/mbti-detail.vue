@@ -172,13 +172,19 @@
         </div>
       </div>
       <el-row class="vertical-center" :gutter="20">
-        <el-col :span="9">
-          <img class="dog-thumbnail" :src="state.MbtiDetail.image_url" />
+        <el-col :span="10" style="margin-left:50px;">
+          <img
+            class="dog-thumbnail fit-image"
+            :src="state.MbtiDetail.image_url"
+          />
         </el-col>
-        <el-col :span="15">
+        <el-col :span="14">
           <div class="dog-info-box">
             <div class="box">
-              <h6 class="mb-2" style="text-size: 18px; line-height: 3rem; white-space:pre-wrap;">
+              <h6
+                class="mb-2 "
+                style="font-size:16px; line-height: 3rem; white-space:pre-wrap;"
+              >
                 {{ state.MbtiDetail.desc }}
               </h6>
             </div>
@@ -229,17 +235,16 @@
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-import 'mosha-vue-toastify/dist/style.css'
-import AdoptCard from '@/views/adopt/components/adopt-card.vue'
-import BreadCrumb from '@/views/adopt/components/bread-crumb.vue'
-import { onMounted } from 'vue'
-
+import { computed, reactive } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+// import 'mosha-vue-toastify/dist/style.css'
+import AdoptCard from "@/views/adopt/components/adopt-card.vue";
+import BreadCrumb from "@/views/adopt/components/bread-crumb.vue";
+import { onMounted } from "vue";
 
 export default {
-  name: 'MbtiDetail',
+  name: "MbtiDetail",
   components: {
     AdoptCard,
     BreadCrumb
@@ -251,26 +256,25 @@ export default {
 
     const state = reactive({
       MbtiDetail: computed(() => {
-        console.log(store.getters['root/getMbti']);
-        return store.getters['root/getMbti'];
+        return store.getters["root/getMbti"];
+      }),
+      userId: computed(() => {
+        return store.getters["root/getLoginUserInfo"].userId;
       })
     });
 
     const readDetail = function(id) {
-      console.log('read');
       var checkId = state.userId;
-      if (checkId === undefined || checkId === null || checkId == '') {
-        checkId = 'none';
+      if (checkId === undefined || checkId === null || checkId == "") {
+        checkId = "none";
       }
 
       store
-        .dispatch('root/requestBoardDetail', {
+        .dispatch("root/requestBoardDetail", {
           boardId: id,
           userId: checkId
         })
         .then(function(result) {
-          console.log(result);
-
           const boardDetail = {
             boardId: result.data.dogInformation.boardId.id,
             boardType: result.data.dogInformation.boardId.type,
@@ -295,21 +299,20 @@ export default {
             isBookmarked: result.data.bookmarked
           };
 
-          store.commit('root/setBoardDetail', boardDetail);
-          router.push({ name: 'AdoptDetail' });
+          store.commit("root/setBoardDetail", boardDetail);
+          router.push({ name: "AdoptDetail" });
         })
         .catch(function(err) {
-          console.log(state.userId);
           console.log(err);
         });
     };
 
     onMounted(() => {
       // console.log("breadcrumb");
-      store.commit('root/setBreadcrumbInfo', {
+      store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: 'MPTI',
-        path: '/mbti',
+        title: "MPTI",
+        path: "/mbti",
         subTitle: state.MbtiDetail.name
       });
       window.scrollTo(0, 0);
@@ -348,7 +351,12 @@ h3 {
   width: 90%;
   height: auto;
   margin-right: 20px;
+
   margin: 10px;
+}
+
+.fit-image {
+  object-fit: contain;
 }
 
 .dog-info-box {
@@ -376,7 +384,6 @@ h3 {
 }
 
 .dog-image-box {
-  margin: 30px;
   padding: 10px;
 }
 
@@ -401,8 +408,6 @@ h3 {
 .box {
   margin-top: 30px;
   margin-bottom: 40px;
-  margin-left: 50px;
-  margin-right: 50px;
   padding: 40px;
   background-color: #f9f0e7;
 }

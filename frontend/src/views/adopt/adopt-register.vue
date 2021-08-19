@@ -619,19 +619,14 @@ export default {
         formData.append("weight", this.ruleForm.size);
         formData.append("gugun", this.ruleForm.gugun);
 
-        console.log(this.state.fileList);
-
         const cnt = this.state.sendFile.length;
         for (var i = 0; i < cnt; i++) {
           formData.append("fileList", this.state.sendFile[i]);
         }
 
-        console.log(formData);
-
         this.$refs[formName].validate(valid => {
           if (valid) {
             this.registerData(formData);
-            console.log(this.ruleForm);
           } else {
             createToast("작성하지 않은 항목이 있어요 💬💦", {
               hideProgressBar: "true",
@@ -680,7 +675,6 @@ export default {
     store
       .dispatch("root/requestSidoCodeList")
       .then(function(result) {
-        console.log("call : sidocode");
         state.sidoList = result.data.sidoList;
       })
       .catch(function(error) {
@@ -691,16 +685,12 @@ export default {
       store
         .dispatch("root/requestRegisterBoard", data)
         .then(function(result) {
-          console.log("등록 성공");
-
           store
             .dispatch("root/requestBoardDetail", {
               boardId: result.data.boardId,
               userId: state.userId.userId
             })
             .then(function(result) {
-              console.log(result);
-
               const boardDetail = {
                 boardId: result.data.dogInformation.boardId.id,
                 boardType: result.data.dogInformation.boardId.type,
@@ -757,7 +747,6 @@ export default {
     //강아지 품종 데이터 읽어오기
     const readDogTypeList = function() {
       store.dispatch("root/requestDogTypeList").then(function(result) {
-        console.log("dogType:", result);
         state.dogTypeList = result.data.dogTypeList;
         state.dogTypeList.push({ id: 17, name: "기타" });
       });
@@ -765,7 +754,7 @@ export default {
 
     //시도에 맞는 구군 리스트 가져오기
     const gugunList = function(selectedSidoCode) {
-      console.log(selectedSidoCode);
+      this.ruleForm.gugun = null;
 
       store
         .dispatch("root/requestGugunCodeList", selectedSidoCode)
@@ -804,14 +793,11 @@ export default {
     };
 
     const deleteFile = function(index) {
-      console.log(state.sendFile);
       state.fileList.splice(index, 1);
       state.sendFile.splice(index, 1);
-      console.log(state.sendFile);
     };
 
     onMounted(() => {
-      console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "입양/임보",

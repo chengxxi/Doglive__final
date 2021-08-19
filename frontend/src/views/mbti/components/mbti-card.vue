@@ -15,7 +15,7 @@
         <div class="d-flex align-items-center">
           <img
             class="fit-image"
-            style="max-width:95%; height:auto; margin-left:5px margin-right:5px"
+            style="width:100%; height:auto; margin-left:5px margin-right:5px"
             :src="card.imageUrl"
             alt="blog"
           />
@@ -43,17 +43,8 @@
   align-content: center;
   display: flex;
   justify-content: center;
+
   margin: 10px;
-  height: 300px;
-}
-
-.img {
-  width: 100%;
-}
-
-.image {
-  width: 200px;
-  height: 200px;
 }
 
 .mbtiTitle {
@@ -72,16 +63,17 @@ el-col {
   box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
-.fit-image{
+.fit-image {
   object-fit: cover;
+  height: 200px;
 }
 </style>
 
 <script>
-import MbtiDetail from "./mbti-detail.vue";
+import MbtiDetail from './mbti-detail.vue'
 
 export default {
-  name: "MbtiCard",
+  name: 'MbtiCard',
   components: {
     MbtiDetail
   },

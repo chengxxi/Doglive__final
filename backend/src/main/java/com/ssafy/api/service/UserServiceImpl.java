@@ -1,11 +1,17 @@
 package com.ssafy.api.service;
 
+
+import com.ssafy.api.request.UserUpdateNoImagePutReq;
+import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.db.entity.auth.*;
 import com.ssafy.db.entity.board.Board;
+import com.ssafy.db.entity.community.CommunityComment;
 import com.ssafy.db.repository.auth.*;
 import com.ssafy.db.repository.board.BoardImageRepository;
 import com.ssafy.db.repository.board.BoardRepository;
+import com.ssafy.db.repository.community.CommunityCommentRepository;
+import com.ssafy.db.repository.community.CommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -30,7 +36,6 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserProfileRepository userProfileRepository;
 
-
     @Autowired
     UserTokenRepository userTokenRepository;
 
@@ -47,8 +52,19 @@ public class UserServiceImpl implements UserService{
     BoardImageRepository boardImageRepository;
 
     @Autowired
+    CommunityRepository communityRepository;
+
+    @Autowired
+    CommunityCommentRepository communityCommentRepository;
+
+    @Autowired
     S3Uploader s3Uploader;
 
+    @Autowired
+    BoardService boardService;
+
+    @Autowired
+    CommunityService communityService;
 
     @Override
     public User createUser(String access_Token, String refresh_Token, HashMap<String, Object> userInfo) {
@@ -120,6 +136,19 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserProfile updateUserNoImage(String id, UserUpdateNoImagePutReq userUpdateNoImagePutReq) {
+        User user = userRepository.findUserById(id).get();
+        UserProfile userProfile = userProfileRepository.findByUserId(user).get();
+
+        userProfile.setName(userUpdateNoImagePutReq.getName());
+        userProfile.setEmail(userUpdateNoImagePutReq.getEmail());
+        userProfile.setPhoneNumber(userUpdateNoImagePutReq.getPhoneNumber());
+        userProfile.setBirth(userUpdateNoImagePutReq.getBirth());
+        userProfileRepository.save(userProfile);
+        return userProfile;
+    }
+
+    @Override
     public UserProfile getUserProfile(String id) {
         Optional<User> user = userRepository.findUserById(id);
         if(user.isPresent()) {
@@ -141,24 +170,34 @@ public class UserServiceImpl implements UserService{
 
             if(userProfile.isPresent()) {
                 Optional<UserToken> userToken = userTokenRepository.findByUserId(user);
-                Optional<List<Bookmark>> bookmarkList = bookmarkRepository.findBookmarksByUserId(userProfile.get());
-                Optional<List<Board>> boardList = boardRepository.findBoardsByUserId(id);
-                Optional<List<CounselingHistory>> counselingHistoryList = counselingHistoryRepository.findCounselingHistoriesByWriter(id);
-                Optional<List<CounselingHistory>> applicantList = counselingHistoryRepository.findCounselingHistoriesByApplicantId(userProfile.get());
-                if(bookmarkList.isPresent()){
-                    bookmarkRepository.deleteBookmarksByUserId(userProfile.get());
+
+                // 상담내역 삭제
+                List<CounselingHistory> counselingHistoryList = counselingHistoryRepository.findCounselingHistoriesByWriter(id).get();
+                for (CounselingHistory couselingHistory: counselingHistoryList) {
+                    counselingHistoryRepository.delete(couselingHistory);
                 }
-                if(boardList.isPresent()){
-                    for (Board board:boardList.get()) {
-                        boardImageRepository.deleteBoardImagesByBoardId(board);
-                    }
-                    boardRepository.deleteBoardsByUserId(id);
+                // 신청 삭제
+                List<CounselingHistory> applicantList = counselingHistoryRepository.findCounselingHistoriesByApplicantId(userProfile.get()).get();
+                for (CounselingHistory couselinghistory: applicantList) {
+                    counselingHistoryRepository.delete(couselinghistory);
                 }
-                if(counselingHistoryList.isPresent()){
-                    counselingHistoryRepository.deleteCounselingHistoriesByWriter(id);
+                // 북마크 삭제
+                bookmarkRepository.deleteBookmarksByUserId(userProfile.get());
+
+                // 보드 삭제
+                List<Board> boardList = boardService.getBoardListByUserId(id);
+                for (Board board: boardList) {
+                    boardService.deleteBoard(board.getId());
                 }
-                if(applicantList.isPresent()){
-                    counselingHistoryRepository.deleteCounselingHistoriesByApplicantId(userProfile.get());
+                // community 삭제
+                List<CommunityParamDto> communityList =  communityService.getCommunityListByUserId(id);
+                for (CommunityParamDto dto: communityList) {
+                    communityService.deleteCommunityBoard(dto.getId());
+                }
+                // community 댓글 삭제
+                List<CommunityComment> communityCommentList = communityCommentRepository.findCommunityCommentsByUserId(id).get();
+                for (CommunityComment communitycomment: communityCommentList) {
+                    communityCommentRepository.delete(communitycomment);
                 }
                 if(userToken.isPresent()){
                     userTokenRepository.delete(userToken.get());

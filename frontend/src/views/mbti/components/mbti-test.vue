@@ -51,12 +51,7 @@
 
               <div class="col">
                 <div class="block" style="padding-top:4%;">
-                  <el-slider
-                    v-model="state.score"
-                    :step="20"
-                    show-tooltip="false"
-                    show-stops
-                  >
+                  <el-slider v-model="state.score" :step="20" show-stops>
                   </el-slider>
                 </div>
               </div>
@@ -188,6 +183,7 @@ export default {
 
     const nextPage = function() {
       state.answer.push(state.score);
+
       state.score = 0;
       state.index += 1;
     };
@@ -206,56 +202,53 @@ export default {
         scoreJ: 0
       };
 
-      for (var i = 0; i < 20; i++) {
-        if (i % 4 == 0) {
-          if (i <= 8) {
+      for (var i = 1; i <= 20; i++) {
+        if (i % 4 == 1) {
+          if (i <= 9) {
             //에너지
             result.scoreE += state.answer[i];
-            result.scoreI += 101 - state.answer[i];
+            result.scoreI += 100 - state.answer[i];
           } else {
             //침착한
             result.scoreI += state.answer[i];
-            result.scoreE += 101 - state.answer[i];
+            result.scoreE += 100 - state.answer[i];
           }
-        } else if (i % 4 == 1) {
-          if (i <= 5) {
+        } else if (i % 4 == 2) {
+          if (i <= 6) {
             //충성심강한
             result.scoreS += state.answer[i];
-            result.scoreN += 101 - state.answer[i];
+            result.scoreN += 100 - state.answer[i];
           } else {
             //영리한
             result.scoreN += state.answer[i];
-            result.scoreS += 101 - state.answer[i];
+            result.scoreS += 100 - state.answer[i];
           }
-        } else if (i % 4 == 2) {
+        } else if (i % 4 == 3) {
           if (i <= 11) {
             //관계지향
             result.scoreF += state.answer[i];
-            result.scoreT += 101 - state.answer[i];
+            result.scoreT += 100 - state.answer[i];
           } else {
             //독립지향
             result.scoreT += state.answer[i];
-            result.scoreF += 101 - state.answer[i];
+            result.scoreF += 100 - state.answer[i];
           }
-        } else if (i % 4 == 3) {
-          if (i <= 8) {
+        } else if (i % 4 == 0) {
+          if (i <= 12) {
             //신중한
             result.scoreP += state.answer[i];
-            result.scoreJ += 101 - state.answer[i];
+            result.scoreJ += 100 - state.answer[i];
           } else {
             //친화적인
             result.scoreJ += state.answer[i];
-            result.scoreP += 101 - state.answer[i];
+            result.scoreP += 100 - state.answer[i];
           }
         }
       }
 
-      console.log(result);
       store
         .dispatch("root/requestMBTIResult", result)
         .then(function(result) {
-          console.log(result);
-
           const data = {
             id: result.data.mbti.id,
             name: result.data.mbti.name,
@@ -275,7 +268,6 @@ export default {
         });
     };
     onMounted(() => {
-      console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "MPTI",
