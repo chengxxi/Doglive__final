@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService{
         userProfile.setName(name);
         userProfile.setProfileImageUrl(profileImageUrl);
         userProfile.setEmail(email);
-        userProfile.setPhoneNumber(phoneNumber);
+        userProfile.setPhoneNumber(" ");
 
         userProfileRepository.save(userProfile);
 
