@@ -268,7 +268,6 @@ export default {
         });
     };
     onMounted(() => {
-      console.log("breadcrumb");
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
         title: "MPTI",
