@@ -1,7 +1,7 @@
-## 📢 독립 Version 0.1.0
+## 📢 독립 Version 0.2.0
 #### 🔗 [독립 Version 0.1.0 즐기러가기](http://i5a501.p.ssafy.io/)
-#### 💛☝ 해당 문서와 함께 ➡ [사용방법 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.1.0/README_0.1.0.md )
-<br><br>
+#### 💛 [독립 사용 설명서](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.1.0/README_0.1.0.md )
+#### 💻 [포팅 매뉴얼](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/exec/%ED%8F%AC%ED%8C%85_%EB%A7%A4%EB%89%B4%EC%96%BC.md)
 
 ## 🐶 독립 Dog-Live (獨立)
 ![image](/uploads/6c3aa15683a7052f3a1ca8af110407c6/image.png)
