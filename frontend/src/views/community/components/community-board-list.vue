@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <!-- <div class="chat-body"
-        @scroll="scroll"
-        v-loading="communities.loading"
-        :ref="el => { if(el) divs = el}"
-    > -->
+  <!-- <div>  v-loading="communities.loading" -->
+  <div class="chat-body"
+      :ref="el => { if(el) divs = el}"
+  >
     <div class="button" style="text-align:right; margin-top:2%;">
       <el-button type="outline-primary" round @click="goRegister"
         >글 작성하기</el-button
@@ -147,6 +145,10 @@
         </div>
       </div>
     </el-row>
+    <div style="text-align: center; font-size:larger !important">
+      <p v-if="communities.loading"><i class="el-icon-loading"></i></p>
+      <p v-if="communities.noMore"><i class="el-icon-circle-check"></i></p>
+    </div>
   </div>
 </template>
 
@@ -274,7 +276,7 @@
 <script>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { ref, onBeforeMount, onMounted, reactive, computed } from "vue";
+import { ref, onBeforeMount, onMounted, reactive, computed, onUnmounted } from "vue";
 import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
 
@@ -287,16 +289,7 @@ export default {
   setup() {
     const store = new useStore();
     const router = new useRouter();
-
     const divs = ref(null); // 요기
-
-    // 이미지 배열
-    const images = [
-      require("@/assets/images/mbti_infj.png"),
-      require("@/assets/images/mbti_isfp.png"),
-      require("@/assets/images/icon.png")
-    ];
-
     const state = reactive({
       boardList: [],
       reverseList: [],
@@ -312,10 +305,11 @@ export default {
 
     const communities = reactive({
       init: true,
+      page: 0,
       loading: true,
       isLoading: computed(() => communities.loading),
-      page: 0,
-      noMore: false
+      noMore: false,
+      isNoMore: computed(() => communities.noMore),
     });
 
     // 댓글 입력 값을 받아올 객체
@@ -373,7 +367,6 @@ export default {
           var size = result.data.length;
           for (var i = 0; i < size; i++) {
             state.boardList.push(result.data[i]);
-            console.log(result.data[i]);
             const id = result.data[i].id;
             store
               .dispatch("root/requestCommunityComment", id)
@@ -388,28 +381,35 @@ export default {
                 console.log(err);
               });
           }
-          // 다 받아왔으면
-          // if(size < 10)
-          //   communities.noMore = true
-          // communities.loading = false
+          communities.loading = false // 로딩 중지
+
+          // 다 받아왔으면 = 더 이상 남아있지 않으면
+          if(size < 10)
+            communities.noMore = true
         })
         .catch(function(err) {
           console.log(err);
         });
     }
 
-    function scroll(state) {
+    function handleScroll(event) {
       // 요기
-      console.log(divs);
       if (
-        divs.value.scrollTop >= divs.value.clientHeight &&
-        !communities.noMore
+         !communities.noMore &&
+          divs.value.scrollHeight >= divs.value.clientHeight &&
+          window.scrollY >= divs.value.scrollHeight - 500
       ) {
-        console.log(divs.value.scrollHeight);
+
+        console.log("불러와~!")
+        console.log(window.scrollY)
+        console.log(divs.value.scrollHeight)
+        console.log(divs.value.clientHeight)
+
+        communities.loading = true
         communities.page += 1;
+        console.log(communities.page)
         fetchCommunityList();
       }
-      console.log("scrollTo", divs.value.scrollTop);
     }
 
     // store.dispatch('root/requestCommunityBoardList')
@@ -595,7 +595,12 @@ export default {
         subTitle: "게시글 구경하기"
       });
       fetchCommunityList();
+      window.addEventListener("scroll", handleScroll)
     });
+
+    onUnmounted(() => {
+      window.removeEventListener("scroll", handleScroll)
+    })
 
     return {
       state,
@@ -603,13 +608,12 @@ export default {
       updateCommunity,
       communities,
       fetchCommunityList,
-      scroll,
-      images,
       comment,
       RegisterComment,
       DeleteComment,
       goRegister,
-      goMyCommunity
+      goMyCommunity,
+      divs
     };
   }
 };

@@ -124,6 +124,7 @@
 import { onBeforeMount, onMounted, reactive, computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { createToast } from "mosha-vue-toastify";
 
 export default {
   name: "user-apply-result-item",

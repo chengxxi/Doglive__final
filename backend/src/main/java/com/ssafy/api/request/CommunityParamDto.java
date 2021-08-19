@@ -1,6 +1,7 @@
 package com.ssafy.api.request;
 
 
+import com.ssafy.db.entity.community.Community;
 import com.ssafy.db.entity.community.CommunityImage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -37,6 +38,8 @@ public class CommunityParamDto {
 
     @ApiModelProperty
     List<String> fileList;
+
+    public CommunityParamDto(){}
 
     public CommunityParamDto(Long id, String description, String title, String userId, String name, String profileImageUrl, String category) {
         this.id = id;
