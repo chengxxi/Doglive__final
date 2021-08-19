@@ -668,7 +668,7 @@ export default {
         return store.getters["root/getLoginUserInfo"];
       }),
       sidoList: [],
-      gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }]
+      gugunList: []
     });
 
     //시도 리스트 가져오기
@@ -754,8 +754,6 @@ export default {
 
     //시도에 맞는 구군 리스트 가져오기
     const gugunList = function(selectedSidoCode) {
-      this.ruleForm.gugun = null;
-
       store
         .dispatch("root/requestGugunCodeList", selectedSidoCode)
         .then(function(result) {

@@ -532,7 +532,7 @@ export default {
         return store.getters["root/getLoginUserInfo"];
       }),
       sidoList: [],
-      gugunList: [{ id: 0, name: "시/도를 먼저 선택해주세요" }]
+      gugunList: []
     });
 
     //시도 리스트 가져오기
