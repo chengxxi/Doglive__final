@@ -3,9 +3,12 @@ package com.ssafy.db.repository.auth;
 import com.ssafy.db.entity.auth.CounselingHistory;
 import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
+import com.ssafy.db.entity.chat.ChatRoom;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -29,6 +32,10 @@ public interface CounselingHistoryRepository extends JpaRepository<CounselingHis
     @Transactional
     Optional<List<CounselingHistory>> deleteCounselingHistoriesByWriter(String id);
 
-    Optional<CounselingHistory> findCounselingHistoryByApplicantIdAndBoardId(UserProfile userProfile, Long boardId);
+
+    Optional<CounselingHistory> findCounselingHistoryByApplicantIdAndBoardId(UserProfile applicantId, Long boardId);
+
+    @Transactional
+    Optional<CounselingHistory> deleteCounselingHistoriesById(Long id);
 
 }

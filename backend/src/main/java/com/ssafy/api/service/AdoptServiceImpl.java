@@ -13,6 +13,7 @@ import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
 import com.ssafy.db.entity.board.DogInformation;
 
+import com.ssafy.db.entity.chat.ChatRoom;
 import com.ssafy.db.repository.auth.CounselingHistoryRepository;
 import com.ssafy.db.repository.auth.UserProfileRepository;
 import com.ssafy.db.repository.auth.UserRepository;
@@ -25,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service("adoptService")
@@ -60,6 +62,9 @@ public class AdoptServiceImpl implements AdoptService{
 
     @Autowired
     SidoRepository sidoRepository;
+
+    @Autowired
+    ChatService chatService;
 
     /* 입양신청서 작성하기 */
     @Override
@@ -182,8 +187,19 @@ public class AdoptServiceImpl implements AdoptService{
             }
         }
         return null;
-
     }
 
+    @Override
+    public void deleteCounselingAndChatRoom(Long counselingId) {
 
+        ChatRoom chatRoom = chatService.getChatRoomInfoByCounselingId(counselingId);
+        if(chatRoom != null) {
+            System.out.println("채팅방 먼저 삭제 : " + chatRoom);
+            chatService.deleteChatRoom(chatRoom); // 채팅방 먼저 삭제
+        }
+        Optional<CounselingHistory> counselingHistory = counselingHistoryRepository.findCounselingHistoryById(counselingId);
+        if(counselingHistory.isPresent()){
+            counselingHistoryRepository.delete(counselingHistory.get());  // 그 다음, 상담 내역 삭제
+        }
+    }
 }

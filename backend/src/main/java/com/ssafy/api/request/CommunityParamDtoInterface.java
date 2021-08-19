@@ -12,7 +12,7 @@ public interface CommunityParamDtoInterface {
 
     String getTitle();
 
-    String getUserId();
+    String getUser_Id();
 
     String getName();
 

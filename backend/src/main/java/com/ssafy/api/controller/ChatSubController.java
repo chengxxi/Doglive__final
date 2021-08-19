@@ -78,7 +78,7 @@ public class ChatSubController {
     }
 
     @GetMapping(value="/counseling/{counselingId}")
-    @ApiOperation(value = "유저의 전체 채팅방 목록 조회", notes = "현재 로그인한 사용자의 채팅방 목록을 불러온다.")
+    @ApiOperation(value = "상담신청글에 대한 채팅방 조회", notes = "상담신청글에 맞는 채팅방 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -89,11 +89,12 @@ public class ChatSubController {
                                                     @PathVariable("counselingId") Long counselingId){
         String userId = userIdCookie.getValue();
         ChatRoom chatroom = chatService.getChatRoomInfoByCounselingId(counselingId);
-        ChatRoomGetRes result = chatService.getChatRoomGetRes(chatroom, userId);
-
         List<ChatRoomGetRes> chatRoomList = new ArrayList<>();
-        chatRoomList.add(result); // 또 만들기 귀찮아서 이미 만들어둔 List에 넣어서 보내줌
 
+        if(chatroom != null) {
+            ChatRoomGetRes result = chatService.getChatRoomGetRes(chatroom, userId);
+            chatRoomList.add(result); // 또 만들기 귀찮아서 이미 만들어둔 List에 넣어서 보내줌
+        }
         return ResponseEntity.ok(ChatRoomListGetRes.of(200, "Success", chatRoomList));
     }
 

@@ -214,7 +214,7 @@ public class CommunityServiceImpl implements  CommunityService{
 
         List<CommunityParamDto> list = new ArrayList<CommunityParamDto>(); // DB에서 받아온 community 값을 저장할 배열
         for (CommunityParamDtoInterface dto : communityList) {
-            CommunityParamDto paramDto = new CommunityParamDto(dto.getId(), dto.getDescription(), dto.getTitle(), dto.getUserId(), dto.getName(), dto.getProfile_image_url(), dto.getCategory());
+            CommunityParamDto paramDto = new CommunityParamDto(dto.getId(), dto.getDescription(), dto.getTitle(), dto.getUser_Id(), dto.getName(), dto.getProfile_image_url(), dto.getCategory());
             Community community = communityRepository.findCommunityByIdOrderByIdDesc(dto.getId()).get();
             List<CommunityImage> communityImages = getCommunityImagesByCommunity(community);
             List<String> fileList = new ArrayList<>();
