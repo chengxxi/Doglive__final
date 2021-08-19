@@ -5,7 +5,7 @@
       :key="idx"
       style="margin-right:1%; margin-left:1%; width: 48%"
     >
-      <el-row class="grid-content bg-beige">
+      <el-row class="grid-content bg-beige" v-if="o.boardType=='입양'|| o.boardType=='임보'">
         <el-col :span="4">
           <div class="image">
             <el-avatar
@@ -19,7 +19,6 @@
         <el-col :span="12">
           <div class="apply-content">
             <p>이름 : {{ o.applicantId.name }}</p>
-            <!-- <p>{{ o.applicantId.phoneNumber }}</p> -->
             <p>{{ o.applicantId.email }}</p>
           </div>
         </el-col>
@@ -303,3 +302,4 @@ export default {
   }
 };
 </script>
+

@@ -14,135 +14,145 @@
             >글 작성하기</el-button
           >
       </div>
-    <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
-      <div>
-        <div class="title">
-          <div class="user">
-            <img class="user-profile" :src="item.profileImageUrl" />
-            <span>{{ item.name }}</span>
-          </div>
-          <!-- 자신의 글만 수정, 삭제 가능 -->
-          <!-- <div class="button-group" v-if="item.userId==state.userId"> -->
-          <span class="button-group" v-if="item.userId == state.userId">
-            <el-button-group>
-              <el-button
-                type="info"
-                plain
-                icon="el-icon-edit"
-                size="mini"
-                @click="updateCommunity(item.id)"
-              ></el-button>
-              <el-button
-                type="info"
-                plain
-                icon="el-icon-delete"
-                size="mini"
-                @click="deleteCommunity(item.id)"
-              ></el-button>
-            </el-button-group>
-          </span>
-        </div>
-        <div class="body">
-          <el-carousel
-            class="image-carousel"
-            indicator-position="none"
-            style="margin-top:3%; margin-bottom:3%;"
-          >
-            <el-carousel-item v-for="(img, index) in item.fileList" :key="index">
-              <img class="image fit-image" :src="img" />
-            </el-carousel-item>
-          </el-carousel>
-          <div class="tag">
-            <el-tag
-              v-if="item.category == '입양일기'"
-              color="#D7AFA4"
-              effect="dark"
-              style="border:none; border-radius: 30px; font-size:14px;"
-              >{{ item.category }}</el-tag
-            >
-            <el-tag
-              v-if="item.category == '임보일기'"
-              color="#E9CDA4"
-              effect="dark"
-              style="border:none; border-radius: 30px; font-size:14px;"
-              >{{ item.category }}</el-tag
-            >
-            <el-tag
-              v-if="item.category == '자유게시판'"
-              color="#87CEDC"
-              effect="dark"
-              style="border:none; border-radius: 30px; font-size:14px;"
-              >{{ item.category }}</el-tag
-            >
-            <el-tag
-              v-if="item.category == '나눔'"
-              color="#B4D9A7"
-              effect="dark"
-              style="border:none; border-radius: 30px; font-size:14px;"
-              >{{ item.category }}</el-tag
-            >
-          </div>
-          <div class="content">
-            <span style="font-weight: 600; font-size: 18px;">
-              <!-- <font-awesome-icon
-              icon="heart"
-              aria-hidden="true"
-              style="color: rgb(237, 0, 109); font-size: 3vmin; cursor: pointer; margin-top: 10px;"
-              class="scale-up-5"
-            >
-          </font-awesome-icon> -->
-              {{ item.title }}</span
-            >
-            <div class="boardcontent" style="margin-top:2%; white-space:pre-wrap;">
-            {{ item.description }}</div>
-          </div>
-        </div>
-        <div class="comment">
-          <img
-            class="icon"
-            :src="require('@/assets/images/icon.png')"
-            style="margin-left:2%;"
-          />
-          <el-input
-            placeholder="댓글을 입력해주세요"
-            v-model="comment.input"
-            class="comment-input"
-            @keyup.enter="RegisterComment(item.id)"
-          >
-          </el-input>
-          <el-button
-            class="comment-button"
-            icon="el-icon-s-promotion"
-            @click="RegisterComment(item.id)"
-             @keyup.enter="RegisterComment(item.id)"
-          ></el-button>
-          <div
-            v-for="(i, index) in state.reverseList"
-            :key="index"
-            style="margin:2%;"
-          >
-            <div v-if="i.communityId.id == item.id && i.isDelete == true">
-              <span
-                style="margin-right:2%; font-weight:bold; font-size: 16px;"
-                >{{ i.name }}</span
+      <el-row v-if="state.boardList.length == 0">
+        <el-empty
+              style="margin-top:80px; margin-bottom:50px;"
+              description="작성한 게시글이 없다개 😢"
+          ></el-empty>
+      </el-row>
+      <el-row v-if="state.boardList.length != 0">
+        <el-row class="board" v-for="(item, index) in state.boardList" :key="index">
+          <div >
+            <div class="title">
+              <div class="user">
+                <img class="user-profile" :src="item.profileImageUrl" />
+                <span>{{ item.name }}</span>
+              </div>
+              <!-- 자신의 글만 수정, 삭제 가능 -->
+              <!-- <div class="button-group" v-if="item.userId==state.userId"> -->
+              <span class="button-group" v-if="item.userId == state.userId">
+                <el-button-group>
+                  <el-button
+                    type="info"
+                    plain
+                    icon="el-icon-edit"
+                    size="mini"
+                    @click="updateCommunity(item.id)"
+                  ></el-button>
+                  <el-button
+                    type="info"
+                    plain
+                    icon="el-icon-delete"
+                    size="mini"
+                    @click="deleteCommunity(item.id)"
+                  ></el-button>
+                </el-button-group>
+              </span>
+            </div>
+            <div class="body">
+              <el-carousel
+                class="image-carousel"
+                indicator-position="none"
+                style="margin-top:3%; margin-bottom:3%;"
               >
-              <span style="margin-right:2%; font-size: 16px;">{{
-                i.comment
-              }}</span>
-              <span
-                ><el-button
-                  v-if="state.userId == i.userId"
-                  class="close-button"
-                  icon="el-icon-close"
-                  style="position: absolute; right: 0; padding:1%; margin-right:3%;"
-                  @click="DeleteComment(i.id)"
-                ></el-button
-              ></span>
+                <el-carousel-item v-for="(img, index) in item.fileList" :key="index">
+                  <img class="image fit-image" :src="img" />
+                </el-carousel-item>
+              </el-carousel>
+              <div class="tag">
+                <el-tag
+                  v-if="item.category == '입양일기'"
+                  color="#D7AFA4"
+                  effect="dark"
+                  style="border:none; border-radius: 30px; font-size:14px;"
+                  >{{ item.category }}</el-tag
+                >
+                <el-tag
+                  v-if="item.category == '임보일기'"
+                  color="#E9CDA4"
+                  effect="dark"
+                  style="border:none; border-radius: 30px; font-size:14px;"
+                  >{{ item.category }}</el-tag
+                >
+                <el-tag
+                  v-if="item.category == '자유게시판'"
+                  color="#87CEDC"
+                  effect="dark"
+                  style="border:none; border-radius: 30px; font-size:14px;"
+                  >{{ item.category }}</el-tag
+                >
+                <el-tag
+                  v-if="item.category == '나눔'"
+                  color="#B4D9A7"
+                  effect="dark"
+                  style="border:none; border-radius: 30px; font-size:14px;"
+                  >{{ item.category }}</el-tag
+                >
+              </div>
+              <div class="content">
+                <span style="font-weight: 600; font-size: 18px;">
+                  <!-- <font-awesome-icon
+                  icon="heart"
+                  aria-hidden="true"
+                  style="color: rgb(237, 0, 109); font-size: 3vmin; cursor: pointer; margin-top: 10px;"
+                  class="scale-up-5"
+                >
+              </font-awesome-icon> -->
+                  {{ item.title }}</span
+                >
+                <div class="boardcontent" style="margin-top:2%; white-space:pre-wrap;">
+                {{ item.description }}</div>
+              </div>
+            </div>
+            <div class="comment">
+              <img
+                class="icon"
+                :src="require('@/assets/images/icon.png')"
+                style="margin-left:2%;"
+              />
+              <el-input
+                placeholder="댓글을 입력해주세요"
+                v-model="comment.input"
+                class="comment-input"
+                @keyup.enter="RegisterComment(item.id)"
+              >
+              </el-input>
+              <el-button
+                class="comment-button"
+                icon="el-icon-s-promotion"
+                @click="RegisterComment(item.id)"
+                @keyup.enter="RegisterComment(item.id)"
+              ></el-button>
+              <div
+                v-for="(i, index) in state.reverseList"
+                :key="index"
+                style="margin:2%;"
+              >
+                <div v-if="i.communityId.id == item.id && i.isDelete == true">
+                  <span
+                    style="margin-right:2%; font-weight:bold; font-size: 16px;"
+                    >{{ i.name }}</span
+                  >
+                  <span style="margin-right:2%; font-size: 16px;">{{
+                    i.comment
+                  }}</span>
+                  <span
+                    ><el-button
+                      v-if="state.userId == i.userId"
+                      class="close-button"
+                      icon="el-icon-close"
+                      style="position: absolute; right: 0; padding:1%; margin-right:3%;"
+                      @click="DeleteComment(i.id)"
+                    ></el-button
+                  ></span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </el-row>
+        </el-row>
+
+      </el-row>
+    
   </div>
 </template>
 
@@ -452,66 +462,65 @@ export default {
       });
 
     const RegisterComment = function(id) {
-      if(comment.input == null || comment.input==""){
-        createToast("댓글 내용을 적어주세요 😱💦", {
-          hideProgressBar: "true",
-          timeout: 4500,
-          showIcon: "true",
-          toastBackgroundColor: "#c49d83",
-          position: "bottom-left",
-          transition: "bounce",
-          type: "success"
-        });
-      }else{
-        if (state.userId === null) {
-        createToast("로그인을 진행해주세요 💨💨", {
-          hideProgressBar: "true",
-          timeout: 4500,
-          showIcon: "true",
-          toastBackgroundColor: "#c49d83",
-          position: "bottom-left",
-          transition: "bounce",
-          type: "success"
-        });
-        router.push({ name: "Login" });
-      } else {
-        store
-          .dispatch("root/requestRegisterComment", {
-            communityId: id,
-            userId: state.userId,
-            name: state.userProfile.name,
-            comment: comment.input
-          })
-          .then(function(result) {
-            console.log(result)
-            createToast("댓글이 등록되었어요 💨💨", {
-              hideProgressBar: "true",
-              timeout: 4500,
-              showIcon: "true",
-              toastBackgroundColor: "#7eaa72",
-              position: "bottom-left",
-              transition: "bounce",
-              type: "success"
-            });
-            state.comments.push(result.data);
-            comment.input = "";
-            state.reverseList = [...state.comments].reverse();
-          })
-          .catch(function(err) {
-            createToast("댓글 등록에 실패했어요 😱💦", {
+      if (state.userId === null ||
+            state.userId == "" ||
+            state.userId === undefined) {
+          createToast("로그인해야 이용 가능하개🐕‍🦺💨", {
+            hideProgressBar: "true",
+            timeout: 4500,
+            showIcon: "true",
+            toastBackgroundColor: "#c49d83",
+            position: "bottom-left",
+            transition: "bounce",
+            type: "success"
+          });
+          router.push({ name: "Login" });
+        }else {
+          if (
+            comment.input == null ||comment.input == "" ) {
+            createToast("댓글 내용을 적어주세요 😱💦", {
               hideProgressBar: "true",
               timeout: 4500,
               showIcon: "true",
               toastBackgroundColor: "#c49d83",
               position: "bottom-left",
               transition: "bounce",
-              type: "warning"
+              type: "success"
             });
-          });
+          }else{
+          store
+            .dispatch("root/requestRegisterComment", {
+              communityId: id,
+              userId: state.userId,
+              comment: comment.input
+            })
+            .then(function(result) {
+              createToast("댓글이 등록되었어요 💨💨", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#7eaa72",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "success"
+              });
+              state.comments.push(result.data);
+              comment.input = "";
+              state.reverseList = [...state.comments].reverse();
+            })
+            .catch(function(err) {
+              createToast("댓글 등록에 실패했어요 😱💦", {
+                hideProgressBar: "true",
+                timeout: 4500,
+                showIcon: "true",
+                toastBackgroundColor: "#c49d83",
+                position: "bottom-left",
+                transition: "bounce",
+                type: "warning"
+              });
+            });
+        }
       }
-
-      }
-
     };
 
     const DeleteComment = function(id) {
