@@ -173,7 +173,7 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
-                      label="거주지(구/군)"
+                      label="(구/군)"
                       prop="gugun"
                       label-width="100%"
                     >
@@ -373,20 +373,6 @@ export default {
           {
             required: true,
             message: "품종을 선택해주세요",
-            trigger: "change"
-          }
-        ],
-        sido: [
-          {
-            required: true,
-            message: "주소지를 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        gugun: [
-          {
-            required: true,
-            message: "주소지를 입력해주세요.",
             trigger: "change"
           }
         ],

@@ -175,7 +175,7 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
-                      label="거주지(구/군)"
+                      label="(구/군)"
                       prop="gugun"
                       label-width="100%"
                     >

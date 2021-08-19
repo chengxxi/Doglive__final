@@ -172,13 +172,13 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
-                      label="거주지(구/군)"
+                      label="(구/군)"
                       prop="gugun"
                       label-width="100%"
                     >
                       <el-select
                         style="width:95% ;"
-                        v-model="ruleForm.gugun"
+                        v-model="state.selectedGugun.id"
                         placeholder="구/군"
                       >
                         <el-option
@@ -443,7 +443,7 @@ export default {
     return {
       ruleForm: {
         sido: "",
-        gugun: "",
+        gugun: this.state.selectedGugun.id,
         type: "",
         title: "",
         name: "",
@@ -497,13 +497,6 @@ export default {
           }
         ],
         sido: [
-          {
-            required: true,
-            message: "주소지를 입력해주세요.",
-            trigger: "change"
-          }
-        ],
-        gugun: [
           {
             required: true,
             message: "주소지를 입력해주세요.",
@@ -617,7 +610,7 @@ export default {
           this.ruleForm.neutralization == "O" ? true : false
         );
         formData.append("weight", this.ruleForm.size);
-        formData.append("gugun", this.ruleForm.gugun);
+        formData.append("gugun", this.state.selectedGugun.id);
 
         const cnt = this.state.sendFile.length;
         for (var i = 0; i < cnt; i++) {
@@ -661,6 +654,7 @@ export default {
     const router = new useRouter();
 
     const state = reactive({
+      selectedGugun: {},
       fileList: [],
       sendFile: [],
       dogTypeList: [],
@@ -682,66 +676,82 @@ export default {
       });
 
     const registerData = function(data) {
-      store
-        .dispatch("root/requestRegisterBoard", data)
-        .then(function(result) {
-          store
-            .dispatch("root/requestBoardDetail", {
-              boardId: result.data.boardId,
-              userId: state.userId.userId
-            })
-            .then(function(result) {
-              const boardDetail = {
-                boardId: result.data.dogInformation.boardId.id,
-                boardType: result.data.dogInformation.boardId.type,
-                thumbnailUrl: result.data.dogInformation.boardId.thumbnail,
-                title: result.data.dogInformation.boardId.title,
-                address: result.data.dogInformation.address,
-                mbti: result.data.dogInformation.mbti,
-                colorType: result.data.dogInformation.colorType,
-                gender: result.data.dogInformation.gender,
-                dogType: result.data.dogInformation.dogType,
-                neutralization: result.data.dogInformation.neutralization,
-                writer: result.data.writer,
-                weight: result.data.dogInformation.weight,
-                ageType: result.data.dogInformation.age,
-                regDate: result.data.dogInformation.boardId.regDate,
-                fileList: result.data.boardImageList,
-                isOwner: result.data.owner,
-                gugun: result.data.dogInformation.gugun,
-                sido: result.data.dogInformation.gugun.sidoCode,
-                description: result.data.dogInformation.description,
-                dogName: result.data.dogInformation.dogName,
-                isBookmarked: result.data.bookmarked
-              };
-              createToast("공고가 등록되었어요 📜🐾", {
-                hideProgressBar: "true",
-                timeout: 4500,
-                showIcon: "true",
-                toastBackgroundColor: "#7eaa72",
-                position: "bottom-left",
-                transition: "bounce",
-                type: "success"
+      if (
+        state.selectedGugun != null &&
+        state.selectedgugun != undefined &&
+        state.selectedGugun != ""
+      ) {
+        store
+          .dispatch("root/requestRegisterBoard", data)
+          .then(function(result) {
+            store
+              .dispatch("root/requestBoardDetail", {
+                boardId: result.data.boardId,
+                userId: state.userId.userId
+              })
+              .then(function(result) {
+                const boardDetail = {
+                  boardId: result.data.dogInformation.boardId.id,
+                  boardType: result.data.dogInformation.boardId.type,
+                  thumbnailUrl: result.data.dogInformation.boardId.thumbnail,
+                  title: result.data.dogInformation.boardId.title,
+                  address: result.data.dogInformation.address,
+                  mbti: result.data.dogInformation.mbti,
+                  colorType: result.data.dogInformation.colorType,
+                  gender: result.data.dogInformation.gender,
+                  dogType: result.data.dogInformation.dogType,
+                  neutralization: result.data.dogInformation.neutralization,
+                  writer: result.data.writer,
+                  weight: result.data.dogInformation.weight,
+                  ageType: result.data.dogInformation.age,
+                  regDate: result.data.dogInformation.boardId.regDate,
+                  fileList: result.data.boardImageList,
+                  isOwner: result.data.owner,
+                  gugun: result.data.dogInformation.gugun,
+                  sido: result.data.dogInformation.gugun.sidoCode,
+                  description: result.data.dogInformation.description,
+                  dogName: result.data.dogInformation.dogName,
+                  isBookmarked: result.data.bookmarked
+                };
+                createToast("공고가 등록되었어요 📜🐾", {
+                  hideProgressBar: "true",
+                  timeout: 4500,
+                  showIcon: "true",
+                  toastBackgroundColor: "#7eaa72",
+                  position: "bottom-left",
+                  transition: "bounce",
+                  type: "success"
+                });
+                store.commit("root/setBoardDetail", boardDetail);
+                router.push({ name: "AdoptDetail" });
+              })
+              .catch(function(err) {
+                console.log(err);
               });
-              store.commit("root/setBoardDetail", boardDetail);
-              router.push({ name: "AdoptDetail" });
-            })
-            .catch(function(err) {
-              console.log(err);
+          })
+          .catch(function(err) {
+            createToast("공고 등록에 실패했어요 💬💦", {
+              hideProgressBar: "true",
+              timeout: 4500,
+              showIcon: "true",
+              toastBackgroundColor: "#c49d83",
+              position: "bottom-left",
+              transition: "bounce",
+              type: "warning"
             });
-        })
-        .catch(function(err) {
-          createToast("공고 등록에 실패했어요 💬💦", {
-            hideProgressBar: "true",
-            timeout: 4500,
-            showIcon: "true",
-            toastBackgroundColor: "#c49d83",
-            position: "bottom-left",
-            transition: "bounce",
-            type: "warning"
+            console.log(err);
           });
-          console.log(err);
+      } else {
+        createToast("작성하지 않은 항목이 있어요 💬💦", {
+          hideProgressBar: "true",
+          timeout: 4500,
+          showIcon: "true",
+          toastBackgroundColor: "#c49d83",
+          position: "bottom-left",
+          transition: "bounce",
+          type: "warning"
         });
+      }
     };
 
     //강아지 품종 데이터 읽어오기
@@ -754,6 +764,7 @@ export default {
 
     //시도에 맞는 구군 리스트 가져오기
     const gugunList = function(selectedSidoCode) {
+      state.selectedGugun = {};
       store
         .dispatch("root/requestGugunCodeList", selectedSidoCode)
         .then(function(result) {
