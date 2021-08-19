@@ -583,7 +583,7 @@ export default {
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: "Community",
+        title: "독립신문",
         subTitle: "게시글 구경하기"
       });
       fetchCommunityList();
