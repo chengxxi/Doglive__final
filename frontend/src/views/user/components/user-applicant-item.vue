@@ -19,7 +19,6 @@
         <el-col :span="12">
           <div class="apply-content">
             <p>이름 : {{ o.applicantId.name }}</p>
-            <!-- <p>{{ o.applicantId.phoneNumber }}</p> -->
             <p>{{ o.applicantId.email }}</p>
           </div>
         </el-col>
