@@ -1,0 +1,389 @@
+com/ssafy/api/request/UserUpdateNoImagePutReq.java
+ com.ssafy.api.request.UserUpdateNoImagePutReq
+com/ssafy/api/controller/BoardController.java
+ com.ssafy.api.controller.BoardController
+com/ssafy/db/entity/board/DogType.java
+ com.ssafy.db.entity.board.DogType
+com/ssafy/db/entity/chat/ChatMessageRead.java
+ com.ssafy.db.entity.chat.ChatMessageRead
+com/ssafy/db/entity/community/BaseEntity.java
+ com.ssafy.db.entity.community.BaseEntity
+com/ssafy/config/BoardDBConfig.java
+ com.ssafy.config.BoardDBConfig
+com/ssafy/api/response/UserProfileGetRes.java
+ com.ssafy.api.response.UserProfileGetRes
+com/ssafy/api/service/BoardServiceImpl.java
+ com.ssafy.api.service.BoardServiceImpl
+com/ssafy/db/entity/chat/QChatRoomJoin.java
+ com.ssafy.db.entity.chat.QChatRoomJoin
+com/ssafy/db/entity/community/Community.java
+ com.ssafy.db.entity.community.Community
+com/ssafy/api/service/AdoptService.java
+ com.ssafy.api.service.AdoptService
+com/ssafy/config/querydsl/ChatQuerydslRepositorySupport.java
+ com.ssafy.config.querydsl.ChatQuerydslRepositorySupport
+com/ssafy/db/repository/auth/UserProfileRepositorySupport.java
+ com.ssafy.db.repository.auth.UserProfileRepositorySupport
+com/ssafy/api/request/ConferenceRegisterPostReq.java
+ com.ssafy.api.request.ConferenceRegisterPostReq
+com/ssafy/api/request/UserLoginPostReq.java
+ com.ssafy.api.request.UserLoginPostReq
+com/ssafy/db/repository/board/DogInformationSpecification.java
+ com.ssafy.db.repository.board.DogInformationSpecification
+ com.ssafy.db.repository.board.DogInformationSpecification$1
+ com.ssafy.db.repository.board.DogInformationSpecification$10
+ com.ssafy.db.repository.board.DogInformationSpecification$11
+ com.ssafy.db.repository.board.DogInformationSpecification$12
+ com.ssafy.db.repository.board.DogInformationSpecification$13
+ com.ssafy.db.repository.board.DogInformationSpecification$14
+ com.ssafy.db.repository.board.DogInformationSpecification$15
+ com.ssafy.db.repository.board.DogInformationSpecification$2
+ com.ssafy.db.repository.board.DogInformationSpecification$3
+ com.ssafy.db.repository.board.DogInformationSpecification$4
+ com.ssafy.db.repository.board.DogInformationSpecification$5
+ com.ssafy.db.repository.board.DogInformationSpecification$6
+ com.ssafy.db.repository.board.DogInformationSpecification$7
+ com.ssafy.db.repository.board.DogInformationSpecification$8
+ com.ssafy.db.repository.board.DogInformationSpecification$9
+com/ssafy/api/response/DogTypeGetRes.java
+ com.ssafy.api.response.DogTypeGetRes
+com/ssafy/api/service/CommunityService.java
+ com.ssafy.api.service.CommunityService
+com/ssafy/db/entity/board/QBoard.java
+ com.ssafy.db.entity.board.QBoard
+com/ssafy/db/repository/auth/BookmarkRepository.java
+ com.ssafy.db.repository.auth.BookmarkRepository
+com/ssafy/api/response/CounselingHistoryGetRes.java
+ com.ssafy.api.response.CounselingHistoryGetRes
+com/ssafy/db/entity/board/QDogType.java
+ com.ssafy.db.entity.board.QDogType
+com/ssafy/api/request/BoardRegisterPostReq.java
+ com.ssafy.api.request.BoardRegisterPostReq
+com/ssafy/GroupCallApplication.java
+ com.ssafy.GroupCallApplication
+com/ssafy/db/entity/community/CommunityImage.java
+ com.ssafy.db.entity.community.CommunityImage
+com/ssafy/db/repository/chat/ChatRoomJoinRepository.java
+ com.ssafy.db.repository.chat.ChatRoomJoinRepository
+com/ssafy/db/repository/auth/BookmarkRepositorySupport.java
+ com.ssafy.db.repository.auth.BookmarkRepositorySupport
+com/ssafy/common/exception/handler/NotFoundHandler.java
+ com.ssafy.common.exception.handler.NotFoundHandler
+com/ssafy/api/response/MBTIDetailGetRes.java
+ com.ssafy.api.response.MBTIDetailGetRes
+com/ssafy/api/service/S3Uploader.java
+ com.ssafy.api.service.S3Uploader
+com/ssafy/api/response/ChatRoomGetRes.java
+ com.ssafy.api.response.ChatRoomGetRes
+com/ssafy/db/repository/auth/CounselingHistoryRepository.java
+ com.ssafy.db.repository.auth.CounselingHistoryRepository
+com/ssafy/config/querydsl/CommunityQuerydslRepositorySupport.java
+ com.ssafy.config.querydsl.CommunityQuerydslRepositorySupport
+com/ssafy/api/request/ChatMessagePostReq.java
+ com.ssafy.api.request.ChatMessagePostReq
+com/ssafy/api/controller/ChatPubController.java
+ com.ssafy.api.controller.ChatPubController
+com/ssafy/api/response/BoardDetailGetRes.java
+ com.ssafy.api.response.BoardDetailGetRes
+com/ssafy/api/response/UserLoginPostRes.java
+ com.ssafy.api.response.UserLoginPostRes
+com/ssafy/config/querydsl/BoardQuerydslRepositorySupport.java
+ com.ssafy.config.querydsl.BoardQuerydslRepositorySupport
+com/ssafy/api/response/AdoptFormGetRes.java
+ com.ssafy.api.response.AdoptFormGetRes
+com/ssafy/db/entity/board/Gugun.java
+ com.ssafy.db.entity.board.Gugun
+com/ssafy/api/service/BoardService.java
+ com.ssafy.api.service.BoardService
+com/ssafy/db/entity/auth/QBookmark.java
+ com.ssafy.db.entity.auth.QBookmark
+com/ssafy/db/repository/board/BoardRepository.java
+ com.ssafy.db.repository.board.BoardRepository
+com/ssafy/db/repository/board/BoardCommentRepository.java
+ com.ssafy.db.repository.board.BoardCommentRepository
+com/ssafy/api/response/CounselingHistoryListGetRes.java
+ com.ssafy.api.response.CounselingHistoryListGetRes
+com/ssafy/db/entity/board/QCode.java
+ com.ssafy.db.entity.board.QCode
+com/ssafy/kurento/Room.java
+ com.ssafy.kurento.Room
+ com.ssafy.kurento.Room$1
+com/ssafy/config/JpaConfig.java
+ com.ssafy.config.JpaConfig
+com/ssafy/kurento/UserRegistry.java
+ com.ssafy.kurento.UserRegistry
+com/ssafy/db/repository/community/CommunityImageRepository.java
+ com.ssafy.db.repository.community.CommunityImageRepository
+com/ssafy/db/entity/board/QBaseEntity.java
+ com.ssafy.db.entity.board.QBaseEntity
+com/ssafy/api/service/MBTIServiceImpl.java
+ com.ssafy.api.service.MBTIServiceImpl
+com/ssafy/config/S3Config.java
+ com.ssafy.config.S3Config
+com/ssafy/db/entity/board/Code.java
+ com.ssafy.db.entity.board.Code
+com/ssafy/api/response/CommunityBoardGetRes.java
+ com.ssafy.api.response.CommunityBoardGetRes
+com/ssafy/api/request/BoardDetailGetReq.java
+ com.ssafy.api.request.BoardDetailGetReq
+com/ssafy/db/entity/board/BaseEntity.java
+ com.ssafy.db.entity.board.BaseEntity
+com/ssafy/db/entity/chat/ChatRoomJoin.java
+ com.ssafy.db.entity.chat.ChatRoomJoin
+com/ssafy/api/response/CommunityListGetRes.java
+ com.ssafy.api.response.CommunityListGetRes
+com/ssafy/db/entity/chat/QChatMessage.java
+ com.ssafy.db.entity.chat.QChatMessage
+com/ssafy/db/entity/board/QBoardComment.java
+ com.ssafy.db.entity.board.QBoardComment
+com/ssafy/api/response/ChatMessageListGetRes.java
+ com.ssafy.api.response.ChatMessageListGetRes
+com/ssafy/db/repository/chat/ChatMessageReadRepository.java
+ com.ssafy.db.repository.chat.ChatMessageReadRepository
+com/ssafy/db/entity/board/QMBTI.java
+ com.ssafy.db.entity.board.QMBTI
+com/ssafy/api/request/BoardParamDto.java
+ com.ssafy.api.request.BoardParamDto
+com/ssafy/api/service/UserServiceImpl.java
+ com.ssafy.api.service.UserServiceImpl
+com/ssafy/db/entity/chat/QBaseEntity.java
+ com.ssafy.db.entity.chat.QBaseEntity
+com/ssafy/db/entity/auth/User.java
+ com.ssafy.db.entity.auth.User
+com/ssafy/api/request/AdoptFormReq.java
+ com.ssafy.api.request.AdoptFormReq
+com/ssafy/db/entity/chat/QChatMessageRead.java
+ com.ssafy.db.entity.chat.QChatMessageRead
+com/ssafy/db/entity/community/QCommunityComment.java
+ com.ssafy.db.entity.community.QCommunityComment
+com/ssafy/api/service/FindService.java
+ com.ssafy.api.service.FindService
+com/ssafy/db/entity/board/QSido.java
+ com.ssafy.db.entity.board.QSido
+com/ssafy/db/entity/board/Board.java
+ com.ssafy.db.entity.board.Board
+ com.ssafy.db.entity.board.Board$BoardBuilder
+com/ssafy/db/repository/auth/UserRepositorySupport.java
+ com.ssafy.db.repository.auth.UserRepositorySupport
+com/ssafy/config/QuerydslConfig.java
+ com.ssafy.config.QuerydslConfig
+com/ssafy/api/request/CommunityRegisterPostReq.java
+ com.ssafy.api.request.CommunityRegisterPostReq
+com/ssafy/db/entity/board/BoardComment.java
+ com.ssafy.db.entity.board.BoardComment
+com/ssafy/api/request/StatusUpdatePutReq.java
+ com.ssafy.api.request.StatusUpdatePutReq
+com/ssafy/common/auth/KakaoUserDetails.java
+ com.ssafy.common.auth.KakaoUserDetails
+com/ssafy/kurento/RoomManager.java
+ com.ssafy.kurento.RoomManager
+com/ssafy/common/model/response/BaseResponseBody.java
+ com.ssafy.common.model.response.BaseResponseBody
+com/ssafy/api/response/ChatRoomListGetRes.java
+ com.ssafy.api.response.ChatRoomListGetRes
+com/ssafy/config/querydsl/AuthQuerydslRepositorySupport.java
+ com.ssafy.config.querydsl.AuthQuerydslRepositorySupport
+com/ssafy/db/entity/chat/ChatRoom.java
+ com.ssafy.db.entity.chat.ChatRoom
+com/ssafy/db/entity/board/BoardCategory.java
+ com.ssafy.db.entity.board.BoardCategory
+com/ssafy/db/entity/chat/QConference.java
+ com.ssafy.db.entity.chat.QConference
+com/ssafy/api/request/UserUpdatePutReq.java
+ com.ssafy.api.request.UserUpdatePutReq
+com/ssafy/db/repository/community/CommunityRepository.java
+ com.ssafy.db.repository.community.CommunityRepository
+com/ssafy/api/response/GugunCodeGetRes.java
+ com.ssafy.api.response.GugunCodeGetRes
+com/ssafy/db/entity/board/BoardImage.java
+ com.ssafy.db.entity.board.BoardImage
+ com.ssafy.db.entity.board.BoardImage$BoardImageBuilder
+com/ssafy/api/controller/UserController.java
+ com.ssafy.api.controller.UserController
+com/ssafy/db/entity/board/SearchCondition.java
+ com.ssafy.db.entity.board.SearchCondition
+com/ssafy/db/repository/chat/ChatRoomRepository.java
+ com.ssafy.db.repository.chat.ChatRoomRepository
+com/ssafy/api/request/MbtiCalPostReq.java
+ com.ssafy.api.request.MbtiCalPostReq
+com/ssafy/db/repository/board/BoardImageRepository.java
+ com.ssafy.db.repository.board.BoardImageRepository
+com/ssafy/api/response/BoardDetailListGetRes.java
+ com.ssafy.api.response.BoardDetailListGetRes
+com/ssafy/api/response/BoardListGetRes.java
+ com.ssafy.api.response.BoardListGetRes
+com/ssafy/api/service/AdoptServiceImpl.java
+ com.ssafy.api.service.AdoptServiceImpl
+com/ssafy/config/SecurityConfig.java
+ com.ssafy.config.SecurityConfig
+com/ssafy/db/entity/chat/Conference.java
+ com.ssafy.db.entity.chat.Conference
+com/ssafy/api/service/ChatServiceImpl.java
+ com.ssafy.api.service.ChatServiceImpl
+com/ssafy/db/repository/community/CommunityCommentRepository.java
+ com.ssafy.db.repository.community.CommunityCommentRepository
+com/ssafy/db/entity/auth/QCounselingHistory.java
+ com.ssafy.db.entity.auth.QCounselingHistory
+com/ssafy/api/service/FindServiceImpl.java
+ com.ssafy.api.service.FindServiceImpl
+ com.ssafy.api.service.FindServiceImpl$DogInfoWithScore
+com/ssafy/db/entity/board/DogInformation.java
+ com.ssafy.db.entity.board.DogInformation
+com/ssafy/config/AuthDBConfig.java
+ com.ssafy.config.AuthDBConfig
+com/ssafy/api/response/MBTIListGetRes.java
+ com.ssafy.api.response.MBTIListGetRes
+com/ssafy/db/entity/chat/ChatMessage.java
+ com.ssafy.db.entity.chat.ChatMessage
+com/ssafy/db/entity/community/QBaseEntity.java
+ com.ssafy.db.entity.community.QBaseEntity
+com/ssafy/db/entity/board/QBoardImage.java
+ com.ssafy.db.entity.board.QBoardImage
+com/ssafy/api/controller/KakaoController.java
+ com.ssafy.api.controller.KakaoController
+com/ssafy/api/request/CommunityParamDtoInterface.java
+ com.ssafy.api.request.CommunityParamDtoInterface
+com/ssafy/db/entity/board/QBoardCategory.java
+ com.ssafy.db.entity.board.QBoardCategory
+com/ssafy/config/CommunityDBConfig.java
+ com.ssafy.config.CommunityDBConfig
+com/ssafy/api/service/ChatService.java
+ com.ssafy.api.service.ChatService
+com/ssafy/api/controller/CommunityController.java
+ com.ssafy.api.controller.CommunityController
+com/ssafy/api/request/CommentPostReq.java
+ com.ssafy.api.request.CommentPostReq
+com/ssafy/api/response/CommentListGetRes.java
+ com.ssafy.api.response.CommentListGetRes
+com/ssafy/api/response/AdoptFormData.java
+ com.ssafy.api.response.AdoptFormData
+com/ssafy/config/WebSocketConfig.java
+ com.ssafy.config.WebSocketConfig
+com/ssafy/db/repository/auth/UserTokenRepositorySupport.java
+ com.ssafy.db.repository.auth.UserTokenRepositorySupport
+com/ssafy/db/entity/auth/Bookmark.java
+ com.ssafy.db.entity.auth.Bookmark
+com/ssafy/db/repository/board/GugunRepository.java
+ com.ssafy.db.repository.board.GugunRepository
+com/ssafy/db/entity/community/CommunityComment.java
+ com.ssafy.db.entity.community.CommunityComment
+com/ssafy/db/repository/board/CodeRepository.java
+ com.ssafy.db.repository.board.CodeRepository
+com/ssafy/api/response/BookmarkListGetRes.java
+ com.ssafy.api.response.BookmarkListGetRes
+com/ssafy/db/repository/auth/UserProfileRepository.java
+ com.ssafy.db.repository.auth.UserProfileRepository
+com/ssafy/db/repository/chat/ChatMessageRepository.java
+ com.ssafy.db.repository.chat.ChatMessageRepository
+com/ssafy/kurento/GroupCallApp.java
+ com.ssafy.kurento.GroupCallApp
+com/ssafy/api/response/UserRes.java
+ com.ssafy.api.response.UserRes
+com/ssafy/db/entity/chat/QChatRoom.java
+ com.ssafy.db.entity.chat.QChatRoom
+com/ssafy/api/service/CommunityServiceImpl.java
+ com.ssafy.api.service.CommunityServiceImpl
+com/ssafy/api/service/KakaoAPI.java
+ com.ssafy.api.service.KakaoAPI
+com/ssafy/db/repository/board/SidoRepository.java
+ com.ssafy.db.repository.board.SidoRepository
+com/ssafy/api/response/BoardRecentListRes.java
+ com.ssafy.api.response.BoardRecentListRes
+com/ssafy/api/response/MBTIResultPostRes.java
+ com.ssafy.api.response.MBTIResultPostRes
+com/ssafy/api/request/CommunityParamDto.java
+ com.ssafy.api.request.CommunityParamDto
+com/ssafy/db/entity/auth/QUserToken.java
+ com.ssafy.db.entity.auth.QUserToken
+com/ssafy/db/entity/board/Sido.java
+ com.ssafy.db.entity.board.Sido
+com/ssafy/db/repository/board/BoardCommentRepositorySupport.java
+ com.ssafy.db.repository.board.BoardCommentRepositorySupport
+com/ssafy/db/entity/auth/UserProfile.java
+ com.ssafy.db.entity.auth.UserProfile
+com/ssafy/db/repository/board/DogInformationRepositorySupport.java
+ com.ssafy.db.repository.board.DogInformationRepositorySupport
+com/ssafy/db/entity/board/QGugun.java
+ com.ssafy.db.entity.board.QGugun
+com/ssafy/api/response/ChatMessageGetRes.java
+ com.ssafy.api.response.ChatMessageGetRes
+com/ssafy/db/entity/board/MBTI.java
+ com.ssafy.db.entity.board.MBTI
+com/ssafy/config/ChatDBConfig.java
+ com.ssafy.config.ChatDBConfig
+com/ssafy/api/response/SidoCodeGetRes.java
+ com.ssafy.api.response.SidoCodeGetRes
+com/ssafy/config/SwaggerConfig.java
+ com.ssafy.config.SwaggerConfig
+com/ssafy/api/controller/ChatSubController.java
+ com.ssafy.api.controller.ChatSubController
+com/ssafy/api/service/UserService.java
+ com.ssafy.api.service.UserService
+com/ssafy/db/repository/auth/UserTokenRepository.java
+ com.ssafy.db.repository.auth.UserTokenRepository
+com/ssafy/db/repository/auth/UserRepository.java
+ com.ssafy.db.repository.auth.UserRepository
+com/ssafy/api/response/BoardRegisterRes.java
+ com.ssafy.api.response.BoardRegisterRes
+com/ssafy/db/entity/auth/QUserProfile.java
+ com.ssafy.db.entity.auth.QUserProfile
+com/ssafy/db/repository/board/BoardCategoryRepository.java
+ com.ssafy.db.repository.board.BoardCategoryRepository
+com/ssafy/db/entity/chat/ConferenceUser.java
+ com.ssafy.db.entity.chat.ConferenceUser
+com/ssafy/api/controller/MBTIController.java
+ com.ssafy.api.controller.MBTIController
+com/ssafy/api/request/UserRegisterPostReq.java
+ com.ssafy.api.request.UserRegisterPostReq
+com/ssafy/api/response/BoardListData.java
+ com.ssafy.api.response.BoardListData
+com/ssafy/common/auth/KakaoUserDetailService.java
+ com.ssafy.common.auth.KakaoUserDetailService
+com/ssafy/db/repository/board/MBTIRepository.java
+ com.ssafy.db.repository.board.MBTIRepository
+com/ssafy/db/repository/board/DogTypeRepository.java
+ com.ssafy.db.repository.board.DogTypeRepository
+com/ssafy/kurento/UserSession.java
+ com.ssafy.kurento.UserSession
+ com.ssafy.kurento.UserSession$1
+ com.ssafy.kurento.UserSession$2
+ com.ssafy.kurento.UserSession$3
+ com.ssafy.kurento.UserSession$4
+ com.ssafy.kurento.UserSession$5
+com/ssafy/api/request/BookmarkReq.java
+ com.ssafy.api.request.BookmarkReq
+com/ssafy/kurento/CallHandler.java
+ com.ssafy.kurento.CallHandler
+com/ssafy/api/controller/ConferenceController.java
+ com.ssafy.api.controller.ConferenceController
+com/ssafy/db/entity/auth/CounselingHistory.java
+ com.ssafy.db.entity.auth.CounselingHistory
+com/ssafy/api/controller/AdoptController.java
+ com.ssafy.api.controller.AdoptController
+com/ssafy/db/entity/auth/UserToken.java
+ com.ssafy.db.entity.auth.UserToken
+com/ssafy/db/repository/board/BoardImageRepositorySupport.java
+ com.ssafy.db.repository.board.BoardImageRepositorySupport
+com/ssafy/db/entity/board/QDogInformation.java
+ com.ssafy.db.entity.board.QDogInformation
+com/ssafy/db/entity/community/QCommunityImage.java
+ com.ssafy.db.entity.community.QCommunityImage
+com/ssafy/api/service/MBTIService.java
+ com.ssafy.api.service.MBTIService
+com/ssafy/db/entity/chat/QConferenceUser.java
+ com.ssafy.db.entity.chat.QConferenceUser
+com/ssafy/db/entity/auth/QUser.java
+ com.ssafy.db.entity.auth.QUser
+com/ssafy/db/repository/chat/ConferenceRepository.java
+ com.ssafy.db.repository.chat.ConferenceRepository
+com/ssafy/db/entity/community/QCommunity.java
+ com.ssafy.db.entity.community.QCommunity
+com/ssafy/config/WebMvcConfig.java
+ com.ssafy.config.WebMvcConfig
+ com.ssafy.config.WebMvcConfig$KakaoAuthHandler
+com/ssafy/db/repository/board/DogInformationRepository.java
+ com.ssafy.db.repository.board.DogInformationRepository
+com/ssafy/db/entity/chat/BaseEntity.java
+ com.ssafy.db.entity.chat.BaseEntity
+com/ssafy/db/repository/chat/ConferenceUserRepository.java
+ com.ssafy.db.repository.chat.ConferenceUserRepository
