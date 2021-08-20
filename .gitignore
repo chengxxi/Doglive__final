@@ -54,6 +54,5 @@ Thumbs.db
 .gradle
 .settings
 bin
-build
 .project
 .classpath
