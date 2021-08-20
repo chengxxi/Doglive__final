@@ -21,7 +21,12 @@
         보세요. <br />
       </p>
 
-      <!-- <a href="https://www.16personalities.com/articles/introducing-16pet-sonalities"><span style="float: right; font-weight: 300;">16 pet-sonalities</span></a> -->
+      <a
+        href="https://www.16personalities.com/articles/introducing-16pet-sonalities"
+        ><span style="float: right; font-size:10pt; font-weight: 300;">
+          이미지 출처 : 16 pet-sonalities</span
+        ></a
+      >
     </div>
 
     <div class="mbtiBtn">
