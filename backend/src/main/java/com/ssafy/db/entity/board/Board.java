@@ -1,30 +1,29 @@
 package com.ssafy.db.entity.board;
 
 
-import com.ssafy.db.entity.auth.Bookmark;
-import com.ssafy.db.entity.auth.CounselingHistory;
-import com.ssafy.db.entity.auth.User;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDateTime;
 
 /**
- * 유기견 공고 게시물 정보를 담을 Board Entity
+ * 유기견 공고 게시물 정보를 담을 Board Entity.
  */
+
+
 @Entity
 @Table(name="board", schema = "board")
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 public class Board extends BaseEntity{
 
   @Column(name="user_id")
   private String userId;                //사용자 ID
-
-  @OneToOne(mappedBy = "board", fetch = FetchType.LAZY,
-          cascade = CascadeType.ALL)
-  private DogInformation dogInformation;                   // 유기견 ID
 
   @ManyToOne
   @JoinColumn(name="board_type")
@@ -36,15 +35,26 @@ public class Board extends BaseEntity{
   @Column(name="thumbnail_url")
   private String thumbnailUrl;          // 게시글 썸네일
 
+
   @Column(name="reg_date")
-  @Temporal(TemporalType.TIME)
-  private java.util.Date regDate; // 게시글 등록 일자
+  private LocalDateTime regDate; // 게시글 등록 일자
 
-  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<BoardComment> boardComments;
 
-  @OneToMany(mappedBy = "boardId", cascade = {CascadeType.ALL}, orphanRemoval=true)
-  private List<BoardImage> boardImages;
+  public Board() {
+    regDate = LocalDateTime.now();
+  }
 
+  @Builder
+  public Board(String userId, String title, String thumbnailUrl) {
+    this.userId = userId;
+    this.title = title;
+    this.thumbnailUrl = thumbnailUrl;
+    this.regDate =LocalDateTime.now();
+  }
+
+
+  public void addBoardCategory(BoardCategory boardCategory){
+    this.type = boardCategory;
+  }
 
 }

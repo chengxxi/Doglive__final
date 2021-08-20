@@ -29,4 +29,5 @@ public class GroupCallApplication {
         characterEncodingFilter.setForceEncoding(true);
         return characterEncodingFilter;
     }
+
 }

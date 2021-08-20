@@ -3,13 +3,15 @@
 </template>
 
 <script>
+
 import Main from './views/main/main.vue'
+
 
 export default {
   name: 'App',
 
   components: {
-    Main,
+    Main
   },
 
   data: () => ({

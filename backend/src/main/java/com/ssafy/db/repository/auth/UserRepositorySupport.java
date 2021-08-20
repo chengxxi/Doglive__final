@@ -6,7 +6,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.db.entity.auth.QUser;
 import com.ssafy.db.entity.auth.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,14 +14,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserRepositorySupport {
 
-    @Autowired
+
     private JPAQueryFactory jpaQueryFactory;
     QUser qUser = QUser.user;
 
     public Optional<User> findUserById(String id) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
                 .where(qUser.id.eq(id)).fetchOne();
-        if(user == null) return Optional.empty();
+        if(user==null) return Optional.empty();
         return Optional.ofNullable(user);
     }
 }

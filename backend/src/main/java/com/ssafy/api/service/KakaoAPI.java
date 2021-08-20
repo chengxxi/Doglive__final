@@ -32,8 +32,11 @@ public class KakaoAPI {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=8a6da8dccc17d0706c19f099353a04ca");
-            sb.append("&redirect_uri=http://localhost:8080/kakao/login");
+            sb.append("&client_id=bacd72f58ac01490602415c683ad8c05");
+
+           //sb.append("&redirect_uri=https://localhost:8082/kakao/callback");
+           sb.append("&redirect_uri=https://i5a501.p.ssafy.io/kakao/callback"); // 배포용
+
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -59,31 +62,24 @@ public class KakaoAPI {
             access_Token = element.getAsJsonObject().get("access_token").getAsString();
             refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
 
-            System.out.println("access_token : " + access_Token);
-            System.out.println("refresh_token : " + refresh_Token);
-
             Token.put("accessToken",access_Token);
             Token.put("refreshToken",refresh_Token);
 
             br.close();
             bw.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return Token;
     }
 
-
+    // UserProfile를 받아오는 메소드(userId, email, profileImage, name, phoneNumber)
     public HashMap<String, Object> getUserProfile(String access_Token, String refresh_Token){
         String accessToken = access_Token;
         String refreshToken = refresh_Token;
         String userid="";
-        String email = "";
         String profileImageUrl = "";
         String name = "";
-        String phoneNumber = "";
 
         // 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
@@ -111,39 +107,38 @@ public class KakaoAPI {
 
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
-
-            //JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             userid = element.getAsJsonObject().get("id").getAsString();
-            email = kakao_account.getAsJsonObject().get("email").getAsString();
             profileImageUrl = kakao_account.getAsJsonObject().get("profile").getAsJsonObject().get("profile_image_url").getAsString();
             name = kakao_account.getAsJsonObject().get("profile").getAsJsonObject().get("nickname").getAsString();
-            phoneNumber = kakao_account.getAsJsonObject().get("birthday").getAsString();
 
-            System.out.println("userInfo!!!" + userid + " " + email) ;
-//            userInfo.put("userid", userid);
+            JsonElement email = kakao_account.getAsJsonObject().get("email");
+
             userInfo.put("accessToken", accessToken);
             userInfo.put("refreshToken", refreshToken);
             userInfo.put("userid", userid);
-            userInfo.put("email", email);
             userInfo.put("profileImageUrl", profileImageUrl);
             userInfo.put("name", name);
-            userInfo.put("phoneNumber", phoneNumber);
+            userInfo.put("phoneNumber", "");
+            userInfo.put("birthday", "");
+
+            if(email!=null){
+                userInfo.put("email", email.getAsString());
+            }else{
+                userInfo.put("email" , "");
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return userInfo;
     }
 
-    public HashMap<String, Object> getUserInfo(HashMap<String, Object> Token){
+    // UserInfo를 받아오는 메소드(userId, email)
+    public HashMap<String, Object> getUserInfo(String accessToken, String refreshToken){
         String userid="";
-        String email = "";
-        String profileImageUrl = "";
-        String name = "";
-        String phoneNumber = "";
+        JsonElement email;
 
         // 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
@@ -153,10 +148,8 @@ public class KakaoAPI {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
 
-            String access_Token = (String) Token.get("accessToken");
-
             // 요청에 필요한 Header에 포함될 내용
-            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = conn.getResponseCode();
             System.out.println("responseCode : " + responseCode);
@@ -178,23 +171,20 @@ public class KakaoAPI {
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             userid = element.getAsJsonObject().get("id").getAsString();
-            email = kakao_account.getAsJsonObject().get("email").getAsString();
-            //profileImageUrl = properties.getAsJsonObject().get("profile_image").getAsString();
-            //name = properties.getAsJsonObject().get("nickname").getAsString();
-            //phoneNumber = kakao_account.getAsJsonObject().get("birthday").getAsString();
+            email = kakao_account.getAsJsonObject().get("email");
 
-            System.out.println("userInfo!!!" + userid + " " + email + " " + profileImageUrl + " " + name);
 
             userInfo.put("userid", userid);
-            userInfo.put("email" , email);
-            //userInfo.put("profileImageUrl",profileImageUrl);
-            //userInfo.put("name",name);
+            if(email!=null){
+                userInfo.put("email" , email.getAsString());
+            }else{
+                userInfo.put("email" , "");
+            }
 
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return userInfo;
     }
 
@@ -202,6 +192,7 @@ public class KakaoAPI {
     public void Logout(String access_Token) {
         String reqURL = "https://kapi.kakao.com/v1/user/logout";
         try {
+
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
@@ -223,4 +214,79 @@ public class KakaoAPI {
             e.printStackTrace();
         }
     }
+
+    // Token 정보 보기 (토큰 만료 여부)
+    public int checkAccessToken(String accessToken, String refreshToken) {
+        int responseCode = -1;
+        String reqURL = "https://kapi.kakao.com/v1/user/access_token_info";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+            responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responseCode;
+    }
+
+
+    // Token 갱신
+    public HashMap<String, Object> refreshAccessToken(String accessToken, String refreshToken){
+        HashMap<String, Object> Token = new HashMap<>();
+        String reqURL = "https://kauth.kakao.com/oauth/token";
+
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            // POST 요청을 위해 기본값이 false인 setDoOutput을 true로
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+
+            // POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+            sb.append("grant_type=refresh_token");
+            sb.append("&client_id=bacd72f58ac01490602415c683ad8c05");
+            sb.append("&refresh_token=" + refreshToken);
+            bw.write(sb.toString());
+            bw.flush();
+
+            // 결과 코드가 200이라면 성공
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+            // 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line = "";
+            String result = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println("response body : " + result);
+
+            // Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(result);
+
+            accessToken = element.getAsJsonObject().get("access_token").getAsString(); // 갱신된 AccessToken
+            refreshToken = element.getAsJsonObject().get("refresh_token").getAsString(); // 갱신된 RefreshToken
+
+            Token.put("accessToken", accessToken);
+            Token.put("refreshToken", refreshToken);
+
+            br.close();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Token;
+    }
+
 }

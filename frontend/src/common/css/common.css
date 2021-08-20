@@ -8,6 +8,7 @@ body {
   font-family: NEXONLv1Gothic;
   font-weight: 500;
   font-size: 16px;
+  overflow-X: hidden; /* 채팅방을 숨겼을 때, 가로 스크롤바가 생기지 않게하기 위함 */
 }
 
 ul, li {
@@ -45,16 +46,21 @@ a{
 
 @font-face {
   font-family: 'NEXONLv1Gothic';
-  font-weight: 600;
-  src: url('../../assets/fonts/NEXONLv1GothicBold.ttf');
-}
-@font-face {
-  font-family: 'NEXONLv1Gothic';
-  font-weight: 500;
-  src: url('../../assets/fonts/NEXONLv1GothicRegular.ttf');
-}
-@font-face {
-  font-family: 'NEXONLv1Gothic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff') format('woff');
   font-weight: 400;
-  src: url('../../assets/fonts/NEXONLv1GothicLight.ttf');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NEXONLv1Gothic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NEXONLv1Gothic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
 }

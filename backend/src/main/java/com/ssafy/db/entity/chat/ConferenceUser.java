@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.chat;
 
+import com.ssafy.db.entity.auth.User;
 import com.ssafy.db.entity.auth.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +23,6 @@ public class ConferenceUser extends BaseEntity {
 
     @Column(name="user_id")
     private String userId;          // 사용자 id
-
 
 }
 

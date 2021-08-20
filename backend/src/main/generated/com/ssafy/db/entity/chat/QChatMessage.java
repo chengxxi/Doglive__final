@@ -31,7 +31,7 @@ public class QChatMessage extends EntityPathBase<ChatMessage> {
 
     public final QChatRoom roomId;
 
-    public final TimePath<java.util.Date> time = createTime("time", java.util.Date.class);
+    public final DateTimePath<java.time.LocalDateTime> sendTimeAt = createDateTime("sendTimeAt", java.time.LocalDateTime.class);
 
     public final StringPath userId = createString("userId");
 
@@ -53,7 +53,7 @@ public class QChatMessage extends EntityPathBase<ChatMessage> {
 
     public QChatMessage(Class<? extends ChatMessage> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.roomId = inits.isInitialized("roomId") ? new QChatRoom(forProperty("roomId"), inits.get("roomId")) : null;
+        this.roomId = inits.isInitialized("roomId") ? new QChatRoom(forProperty("roomId")) : null;
     }
 
 }

@@ -9,8 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.util.Optional;
 
 @Repository
 public interface BoardCategoryRepository extends JpaRepository<BoardCategory, Long> {
 
+    @Override
+    Optional<BoardCategory> findById(Long id);
 }
