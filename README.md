@@ -11,6 +11,7 @@
 
 <br>
 ![image](/uploads/fef8846dde3324c6d3994901c3b2d355/image.png) <br>
+
 #### 비대면 상담과 매칭 알고리즘을 통해 유기견과 예비 반려인을 연결해주는 입양 플랫폼
 <br>
 
@@ -126,9 +127,10 @@
     🔑 매칭 알고리즘
     🔑 SNS 형식 커뮤니티
 
-![image](/uploads/60598af5414f0f086fda80e9f5310ecf/image.png)
-![image](/uploads/832254e04c212b017923623e55590ea4/image.png)
-![image](/uploads/25101db6b02d21eefb67d83c08afc472/image.png)
+![image](/uploads/250e26eeb231efec8f62b7cadcf6de1a/image.png)  
+![image](/uploads/d9ced1a2a864b0ae9cd1ea6aaff304db/image.png)  
+![image](/uploads/1c2fed8a4ece44b767a1709b786e4978/image.png)  
+![image](/uploads/8a91dc4a6668e782a18ab773e5a23b23/image.png)  
 <br><br>
 
 ## 🥜 구현 결과
