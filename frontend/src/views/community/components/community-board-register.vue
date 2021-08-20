@@ -406,8 +406,8 @@ export default {
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: "Adopt",
-        subTitle: "입양 공고 목록"
+        title: "독립신문",
+        subTitle: "글 작성하기"
       });
     });
 

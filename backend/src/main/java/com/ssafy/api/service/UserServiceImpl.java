@@ -6,6 +6,7 @@ import com.ssafy.api.request.CommunityParamDto;
 import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.db.entity.auth.*;
 import com.ssafy.db.entity.board.Board;
+import com.ssafy.db.entity.chat.ChatRoomJoin;
 import com.ssafy.db.entity.community.CommunityComment;
 import com.ssafy.db.repository.auth.*;
 import com.ssafy.db.repository.board.BoardImageRepository;
@@ -65,6 +66,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     CommunityService communityService;
+
+    @Autowired
+    ChatService chatService;
 
     @Override
     public User createUser(String access_Token, String refresh_Token, HashMap<String, Object> userInfo) {
@@ -199,6 +203,12 @@ public class UserServiceImpl implements UserService{
                 for (CommunityComment communitycomment: communityCommentList) {
                     communityCommentRepository.delete(communitycomment);
                 }
+                // 채팅내역 삭제
+                List<ChatRoomJoin> chatRoomJoinList = chatService.getChatroomJoinListByUser(user.getId());
+                for(ChatRoomJoin join : chatRoomJoinList){
+                    chatService.deleteChatRoom(join.getRoomId());
+                }
+
                 if(userToken.isPresent()){
                     userTokenRepository.delete(userToken.get());
                 }

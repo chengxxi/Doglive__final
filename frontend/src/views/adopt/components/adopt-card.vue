@@ -41,23 +41,21 @@
     <el-row
       style="margin-top:10px; margin-right:15px; margin-left:15px; vertical-align: middle; "
     >
-      <h3 style="font-weight:800; float:right;" class="mb-0 ">
-        {{
-          card.dogName.length < 6
-            ? card.dogName
-            : card.dogName.substr(0, 5) + ".."
-        }}
-      </h3>
-      <p style="font-size:13px; font-weight:600; margin-bottom:0px;">
-        {{
-          card.boardId.title.length < 15
-            ? card.boardId.title
-            : card.boardId.title.substr(0, 14) + "..."
-        }}
+      <p
+        style="font-size:27px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;  max-width:50%; font-weight:800; float:right; text-align:right;"
+        class="mb-0 "
+      >
+        {{ card.dogName }}
       </p>
 
       <p
-        style="font-size:11px; margin-top:0px; font-weight:600; color:#727272;"
+        style="font-size:13px; font-weight:600; overflow:hidden;text-overflow:ellipsis;white-space:nowrap; margin-bottom:0px;"
+      >
+        {{ card.boardId.title }}
+      </p>
+
+      <p
+        style="font-size:11px; overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:0px; font-weight:600; color:#727272;"
       >
         <i v-if="card.gender.name == '여'" class="el-icon-female " />
         <i v-if="card.gender.name == '남'" class="el-icon-male " /> /
@@ -92,10 +90,9 @@
   transform: scale(1.03);
 }
 
-.fit-image{
+.fit-image {
   object-fit: cover;
 }
-
 </style>
 
 <script>

@@ -5,11 +5,11 @@
       <ul>
         <li class="img_area"><img :src="require('@/assets/images/logo2.png')" style="height: 3rem; !important" /></li>
 
-        <li class="  vertical-center"><h6><a href="#">오시는 길</a></h6></li>
+        <li class="  vertical-center"><h6><a href="https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501">Gitlab</a></h6></li>
         <li class="  vertical-center"><h6>|</h6></li>
-        <li class="  vertical-center"><h6><a href="#">문의처</a></h6></li>
+        <li class="  vertical-center"><h6><a href="https://ssafyseoul5-1.notion.site/1-a1fcecce811a42f4bc399dd562d1ce2f">Notion</a></h6></li>
         <li class="  vertical-center"><h6>|</h6></li>
-        <li class="  vertical-center"><h6><a href="#">SNS</a></h6></li>
+        <li class="  vertical-center"><h6><a href="/community">SNS</a></h6></li>
 
       </ul>
     </div>

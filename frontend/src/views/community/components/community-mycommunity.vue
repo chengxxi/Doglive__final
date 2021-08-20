@@ -565,8 +565,8 @@ export default {
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: "Community",
-        subTitle: "게시글 구경하기"
+        title: "돍립신문",
+        subTitle: "내 피드 보러가기"
       });
       fetchCommunityList();
     });

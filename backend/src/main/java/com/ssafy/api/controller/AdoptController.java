@@ -90,9 +90,27 @@ public class AdoptController {
     public ResponseEntity<? extends BaseResponseBody> CheckAdoptBoard(@PathVariable("userId") String userId, @PathVariable("boardId") Long boardId){
 
         CounselingHistory counselingHistory = adoptService.canAdoptForm(userId, boardId);
-        if(counselingHistory == null)
+        System.out.println(counselingHistory);
+        if(counselingHistory == null) {
+            System.out.println(userId + "님의 " + boardId + "번 글에 대한 신청 기록이 없습니다.");
             return ResponseEntity.status(204).body(CounselingHistoryGetRes.of(204, "입양 신청이 가능합니다.", null)); // No Content
+        }
         return ResponseEntity.status(200).body(CounselingHistoryGetRes.of(200, "이미 작성한 신청폼이 있습니다.", counselingHistory));
 
+    }
+
+    @DeleteMapping("/{conselingId}")
+    @ApiOperation(value = "신청서 삭제", notes = "연결된 채팅방과 함께 신청서를 삭제한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 409, message = "이미 존재하는 유저"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> deleteCounselingHistory(@PathVariable("conselingId") Long conselingId) {
+
+        adoptService.deleteCounselingAndChatRoom(conselingId);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "입양 신청서와 채팅방이 정상적으로 삭제되었습니다."));
     }
 }

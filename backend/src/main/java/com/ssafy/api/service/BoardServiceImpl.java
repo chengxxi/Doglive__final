@@ -319,10 +319,6 @@ public class BoardServiceImpl implements  BoardService{
 
         //썸네일 및 이미지  저장
         if(boardRegisterPostReq.getFileList()!=null){
-            String thumbnailUrl = s3Uploader.upload(boardRegisterPostReq.getFileList().get(0), "static");
-
-            board.setThumbnailUrl("https://"+S3Uploader.CLOUD_FRONT_DOMAIN_NAME+"/"+thumbnailUrl);
-
 
             for(MultipartFile file : boardRegisterPostReq.getFileList()){
                 String saveUrl = s3Uploader.upload(file, "static");
@@ -336,6 +332,10 @@ public class BoardServiceImpl implements  BoardService{
             }
         }
 
+
+
+        BoardImage boardImage = boardImageRepository.findFirstByBoardIdOrderById(board);
+        board.setThumbnailUrl(boardImage.getImgFullPath());
 
         Optional<BoardCategory> boardCategory = boardCategoryRepository.findById(Long.parseLong(boardRegisterPostReq.getBoardType()));
         if(boardCategory.isPresent()){

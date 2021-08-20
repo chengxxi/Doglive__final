@@ -185,9 +185,9 @@ export default {
     const clickReject = function(id) {
       store
         .dispatch("root/changeResult", { id: id, status: { result: "거절" } })
-        .then(function(result) {
+        .then(async function(result) {
           console.log(result)
-          createToast("신청 결과가 등록되었습니다 💨💨", {
+          var out = await createToast("신청 결과가 등록되었습니다 💨💨", {
             hideProgressBar: "true",
             timeout: 4500,
             showIcon: "true",
@@ -196,7 +196,8 @@ export default {
             transition: "bounce",
             type: "success"
           });
-          router.push({ name: "mypage-applicant-list" });
+
+          router.go(router.currentRoute); // 승인 후 강제 새로고침
         })
         .catch(function(err) {
           console.log(err);

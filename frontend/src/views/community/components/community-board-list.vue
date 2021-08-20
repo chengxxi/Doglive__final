@@ -402,7 +402,7 @@ export default {
       // 요기
       if (
          !communities.noMore && !communities.init &&
-          window.scrollY >= divs.value.scrollHeight - 500
+          window.scrollY >= divs.value.scrollHeight - 900
       ) {
         communities.loading = true
         communities.page += 1;
@@ -583,7 +583,7 @@ export default {
     onMounted(() => {
       store.commit("root/setBreadcrumbInfo", {
         isHome: false,
-        title: "Community",
+        title: "독립신문",
         subTitle: "게시글 구경하기"
       });
       fetchCommunityList();

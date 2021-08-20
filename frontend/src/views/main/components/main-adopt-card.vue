@@ -43,23 +43,20 @@
         </div>
         <div class="my-3 fs--1">
           <div style="margin-left:10px; margin-right:10px;">
-            <h2 style="font-weight:800; float:right;" class="mb-0 ">
-              {{
-                card.dogName.length < 6
-                  ? card.dogName
-                  : card.dogName.substr(0, 5) + ".."
-              }}
-            </h2>
-            <p style="font-size:16px; font-weight:600; margin-bottom:0px;">
-              {{
-                card.boardId.title.length < 10
-                  ? card.boardId.title
-                  : card.boardId.title.substr(0, 10) + ".."
-              }}
+            <h3
+              style="font-weight:800;  max-width:40%; overflow:hidden;text-overflow:ellipsis;white-space:nowrap;  float:right;"
+              class="mb-0 "
+            >
+              {{ card.dogName }}
+            </h3>
+            <p
+              style="font-size:16px;  overflow:hidden;text-overflow:ellipsis;white-space:nowrap; font-weight:600; margin-bottom:0px;"
+            >
+              {{ card.boardId.title }}
             </p>
 
             <p
-              style="font-size:14px; margin-top:0px;  font-weight:600; color:#727272;"
+              style="font-size:14px;  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;  margin-top:0px;  font-weight:600; color:#727272;"
             >
               <i v-if="card.gender.name == '여'" class="el-icon-female " />
               <i v-if="card.gender.name == '남'" class="el-icon-male " /> /
@@ -99,7 +96,7 @@
   transform: scale(1.03);
 }
 
-.fit-image{
+.fit-image {
   object-fit: cover;
 }
 </style>

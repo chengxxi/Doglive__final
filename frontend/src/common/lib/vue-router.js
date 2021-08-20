@@ -247,6 +247,15 @@ const routes = [
     path: "/mbtis/detail",
     name: "MbtiDetail",
     component: MbtiDetail
+  },
+  {
+    path: "/notfound",
+    name: "NotFound",
+    component: () => import("@/views/main/components/not-found.vue")
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: '/notfound',
   }
 ];
 
