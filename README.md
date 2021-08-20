@@ -1,6 +1,6 @@
-# 📢 독립 Version 0.2.0
+# 📢 독립 Version 0.2.1
 
-#### 🔗 [독립 Version 0.2.0 즐기러가기](http://i5a501.p.ssafy.io/)
+#### 🔗 [독립 Version 0.2.1 즐기러가기](http://i5a501.p.ssafy.io/)
 
 #### 💛 [독립 사용 설명서](<https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/exec/A501_%EB%8F%85%EB%A6%BD_%EC%82%AC%EC%9A%A9_%EC%84%A4%EB%AA%85%EC%84%9C(%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4).md>)
 
@@ -143,7 +143,7 @@
 
 ## 🥜 구현 결과
 
-#### 🔗 [독립 Version 0.2.0 즐기러가기](http://i5a501.p.ssafy.io/)
+#### 🔗 [독립 Version 0.2.1 즐기러가기](http://i5a501.p.ssafy.io/)
 
 <br><br>
 
