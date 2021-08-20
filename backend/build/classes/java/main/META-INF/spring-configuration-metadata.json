@@ -1,0 +1,667 @@
+{
+  "groups": [
+    {
+      "name": "spring.datasource.hikari.auth",
+      "type": "com.ssafy.config.AuthDBConfig",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board",
+      "type": "com.ssafy.config.BoardDBConfig",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat",
+      "type": "com.ssafy.config.ChatDBConfig",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community",
+      "type": "com.ssafy.config.CommunityDBConfig",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.datasource.hikari.auth.allow-pool-suspension",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.auto-commit",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.catalog",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.connection-init-sql",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.connection-test-query",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.connection-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.data-source-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.data-source-j-n-d-i",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.data-source-properties",
+      "type": "java.util.Properties",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.exception-override-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.health-check-properties",
+      "type": "java.util.Properties",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.health-check-registry",
+      "type": "java.lang.Object",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.idle-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.initialization-fail-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.isolate-internal-queries",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.jdbc-url",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.leak-detection-threshold",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.max-lifetime",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.maximum-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.metric-registry",
+      "type": "java.lang.Object",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.metrics-tracker-factory",
+      "type": "com.zaxxer.hikari.metrics.MetricsTrackerFactory",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.minimum-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.password",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.pool-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.read-only",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.register-mbeans",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.scheduled-executor",
+      "type": "java.util.concurrent.ScheduledExecutorService",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.schema",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.transaction-isolation",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.username",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.auth.validation-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.AuthDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.allow-pool-suspension",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.auto-commit",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.catalog",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.connection-init-sql",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.connection-test-query",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.connection-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.data-source-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.data-source-j-n-d-i",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.data-source-properties",
+      "type": "java.util.Properties",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.exception-override-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.health-check-properties",
+      "type": "java.util.Properties",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.health-check-registry",
+      "type": "java.lang.Object",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.idle-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.initialization-fail-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.isolate-internal-queries",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.jdbc-url",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.leak-detection-threshold",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.max-lifetime",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.maximum-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.metric-registry",
+      "type": "java.lang.Object",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.metrics-tracker-factory",
+      "type": "com.zaxxer.hikari.metrics.MetricsTrackerFactory",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.minimum-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.password",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.pool-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.read-only",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.register-mbeans",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.scheduled-executor",
+      "type": "java.util.concurrent.ScheduledExecutorService",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.schema",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.transaction-isolation",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.username",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.board.validation-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.BoardDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.allow-pool-suspension",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.auto-commit",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.catalog",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.connection-init-sql",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.connection-test-query",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.connection-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.data-source-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.data-source-j-n-d-i",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.data-source-properties",
+      "type": "java.util.Properties",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.exception-override-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.health-check-properties",
+      "type": "java.util.Properties",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.health-check-registry",
+      "type": "java.lang.Object",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.idle-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.initialization-fail-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.isolate-internal-queries",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.jdbc-url",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.leak-detection-threshold",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.max-lifetime",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.maximum-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.metric-registry",
+      "type": "java.lang.Object",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.metrics-tracker-factory",
+      "type": "com.zaxxer.hikari.metrics.MetricsTrackerFactory",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.minimum-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.password",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.pool-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.read-only",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.register-mbeans",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.scheduled-executor",
+      "type": "java.util.concurrent.ScheduledExecutorService",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.schema",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.transaction-isolation",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.username",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.chat.validation-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.ChatDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.allow-pool-suspension",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.auto-commit",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.catalog",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.connection-init-sql",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.connection-test-query",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.connection-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.data-source-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.data-source-j-n-d-i",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.data-source-properties",
+      "type": "java.util.Properties",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.exception-override-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.health-check-properties",
+      "type": "java.util.Properties",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.health-check-registry",
+      "type": "java.lang.Object",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.idle-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.initialization-fail-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.isolate-internal-queries",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.jdbc-url",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.leak-detection-threshold",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.max-lifetime",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.maximum-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.metric-registry",
+      "type": "java.lang.Object",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.metrics-tracker-factory",
+      "type": "com.zaxxer.hikari.metrics.MetricsTrackerFactory",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.minimum-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.password",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.pool-name",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.read-only",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.register-mbeans",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.scheduled-executor",
+      "type": "java.util.concurrent.ScheduledExecutorService",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.schema",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.transaction-isolation",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.username",
+      "type": "java.lang.String",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    },
+    {
+      "name": "spring.datasource.hikari.community.validation-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.ssafy.config.CommunityDBConfig"
+    }
+  ],
+  "hints": []
+}
