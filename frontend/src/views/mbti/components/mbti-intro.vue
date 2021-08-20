@@ -6,8 +6,9 @@
       </h1>
 
       <img
-        src="https://storage.googleapis.com/neris/public/images/articles/pets.svg"
+        src="https://d2ud6j7vlf3xy9.cloudfront.net/mbti/MPTI_%EB%A9%94%EC%9D%B8.png"
         class="img"
+        style="height:600px; margin-top:30px;  object-fit: cover;"
       />
       <p>
         "독립"의 <b>'MPTI(My Puppy Type Indicator)'</b>는 강아지들의 성격을 총
