@@ -10,7 +10,7 @@
 > 서울 5반 1팀 견과류 🥜 조다운, 이상현, 이영주, 최혜원, 한승희 
 
 <br>
-
+![image](/uploads/fef8846dde3324c6d3994901c3b2d355/image.png) <br>
 #### 비대면 상담과 매칭 알고리즘을 통해 유기견과 예비 반려인을 연결해주는 입양 플랫폼
 <br>
 
@@ -90,12 +90,12 @@
 <br><br>
 
 ### 🔨 기술 스택
-![image](/uploads/f9ff0fed6f6ac20d1a210c2ce402cd8a/image.png)
+![image](/uploads/1c6881c2b70a865751439296996f1ecd/image.png)
 
 <br><br>
 
 ### 🎈 서버 아키텍처
-![image](/uploads/75f366f61a8bfbabb2840cbb09ebbf37/image.png)
+![image](/uploads/c0225c4fee74d38e6879af84dc2782ed/image.png)
 
 <br><br>
 
@@ -104,39 +104,20 @@
 
 <br><br>
 
-### 🎶 컴포넌트
-#### 🎨 대표색상 & 아이콘
-![image](/uploads/e17a70d23bb33a2717377cd9cd4692d6/image.png)
 
-<br><br>
 
-#### ✏ 폰트 
-![image](/uploads/fe456ea4741d8b3b6d6d36cb491edcec/image.png)
 
-<br><br>
-
-#### 🧮 버튼 
-![image](/uploads/e4309efc212d504128ad3a677ac8676d/image.png)
-
-<br><br>
-
-#### 🏷 태그
-![image](/uploads/a7e31f221d6954dcd4b6bc74294d0c54/image.png)
-
-<br><br>
-
-#### ⌨ 입력폼
-![image](/uploads/8d5043eed56f0fa8d53295c2a2e69073/image.png)
-
+### 💌 기능명세서
+[📁 기능명세서 보러가기](https://www.notion.so/ssafyseoul5-1/b41fb130e68846e9981052ba6777def4)
 <br><br>
 
 ### 🎨 와이어프레임
-[📁 와이어프레임 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/tree/master/documents/Wireframe)
+[📁 와이어프레임 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/tree/release-0.2.0/documents/Wireframe)
 
 <br><br>
 
 ### 📖 스토리보드
-[📁 스토리보드 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/master/documents/Storyboard/DogLive_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)
+[📁 스토리보드 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/documents/Storyboard/DogLive_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)
 
 <br><br>
 
