@@ -10,6 +10,7 @@
 > 서울 5반 1팀 견과류 🥜 조다운, 이상현, 이영주, 최혜원, 한승희 
 
 <br>
+![image](/uploads/fef8846dde3324c6d3994901c3b2d355/image.png) <br>
 
 #### 비대면 상담과 매칭 알고리즘을 통해 유기견과 예비 반려인을 연결해주는 입양 플랫폼
 <br>
@@ -27,6 +28,7 @@
 1. [🔈 프로젝트 소개](#-프로젝트-소개)
     <br>
     - [📑 타겟 및 목표](#-타겟-및-목표)
+    - [📑 개발 환경](#-개발-환경)
     - [📑 기술 스택](#-기술-스택)
     - [📑 서버 아키텍처](#-서버-아키텍처)
     - [📑 ERD](#-erd)
@@ -61,13 +63,40 @@
     ✔ WebRTC, WebSocket 등의 기술을 활용한 서비스 구현
 <br><br>
 
+
+### 🔨 개발 환경
+
+- OS : Windows 10
+
+- Server : AWS EC2
+    - Ubuntu 20.04.1
+    - Docker 20.10.8
+
+- Backend
+    - Java : Java 1.8.0
+    - Framework : SpringBoot 2.4.5
+    - ORM : JPA(Hibernate)
+    - Nginx : 1.18.0 (Ubuntu)
+    - IDE : Intellij 2021.1.3 / Visual Studio Code 1.59
+    - Dependency tool : gradle-6.7
+    - Database : MariaDB-10.3.31
+    - Image Server : AWS S3 & CloudFront
+
+- Frontend
+    - HTML5, CSS3, Javascript(Es6)
+    - Vue 3.0.0
+    - @vue/cli 4.5.0
+    - Vuex 4.0.0
+    - Vue-axios 3.2.4
+<br><br>
+
 ### 🔨 기술 스택
-![image](/uploads/f9ff0fed6f6ac20d1a210c2ce402cd8a/image.png)
+![image](/uploads/1c6881c2b70a865751439296996f1ecd/image.png)
 
 <br><br>
 
 ### 🎈 서버 아키텍처
-![image](/uploads/75f366f61a8bfbabb2840cbb09ebbf37/image.png)
+![image](/uploads/c0225c4fee74d38e6879af84dc2782ed/image.png)
 
 <br><br>
 
@@ -76,68 +105,21 @@
 
 <br><br>
 
-### 🎶 컴포넌트
-#### 🎨 대표색상 & 아이콘
-![image](/uploads/e17a70d23bb33a2717377cd9cd4692d6/image.png)
 
-<br><br>
 
-#### ✏ 폰트 
-![image](/uploads/fe456ea4741d8b3b6d6d36cb491edcec/image.png)
 
-<br><br>
-
-#### 🧮 버튼 
-![image](/uploads/e4309efc212d504128ad3a677ac8676d/image.png)
-
-<br><br>
-
-#### 🏷 태그
-![image](/uploads/a7e31f221d6954dcd4b6bc74294d0c54/image.png)
-
-<br><br>
-
-#### ⌨ 입력폼
-![image](/uploads/8d5043eed56f0fa8d53295c2a2e69073/image.png)
-
+### 💌 기능명세서
+[📁 기능명세서 보러가기](https://www.notion.so/ssafyseoul5-1/b41fb130e68846e9981052ba6777def4)
 <br><br>
 
 ### 🎨 와이어프레임
-⚠ 많은 페이지가 존재하는 관계로 일부만 README.md에 업로드하고 나머지는 첨부하겠습니다. [📁 와이어프레임 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/tree/master/documents/Wireframe)
+[📁 와이어프레임 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/tree/release-0.2.0/documents/Wireframe)
 
-▪ 메인 페이지
-![image](/uploads/b02b3b5667b4df8da7b5b4624322df58/image.png)
-<br><br>
-
-▪ 성향 매칭 페이지
-![image](/uploads/5f6d4d64097986438f8eb1ae51b2a6a3/image.png)
-<br><br>
-
-▪ 성향 테스트 페이지
-![image](/uploads/53508b45d8b9ffbeaf8e898cfc4f6179/image.png)
 <br><br>
 
 ### 📖 스토리보드
-⚠ 많은 페이지가 존재하는 관계로 일부만 README.md에 업로드하고 나머지는 첨부하겠습니다. [📁 스토리보드 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/master/documents/Storyboard/DogLive_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)
+[📁 스토리보드 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/documents/Storyboard/DogLive_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)
 
-▪ 메인 페이지 관련
-![image](/uploads/b05419eb1d5ef9983fc1768b8b995be1/image.png)
-<br><br>
-
-▪ 성향 매칭 페이지 관련
-![image](/uploads/96d75701fb0b63f468a2d3eca52458c5/image.png)
-<br><br>
-
-▪ 입양 상세 내용 페이지 관련
-![image](/uploads/1b1442d07a823ba7d1ba711c938b8149/image.png)
-<br><br>
-
-▪ 실종/보호 유사 공고 페이지 관련
-![image](/uploads/eef9e5de8ae5db85480ac54f2d6e716b/image.png)
-<br><br>
-
-▪ 커뮤니티 목록 페이지 관련
-![image](/uploads/1d66a04f4f87cf28a1b2211e9d454241/image.png)
 <br><br>
 
 ### 💎 핵심 기능
@@ -145,17 +127,24 @@
     🔑 매칭 알고리즘
     🔑 SNS 형식 커뮤니티
 
-![image](/uploads/60598af5414f0f086fda80e9f5310ecf/image.png)
-![image](/uploads/832254e04c212b017923623e55590ea4/image.png)
-![image](/uploads/25101db6b02d21eefb67d83c08afc472/image.png)
+![image](/uploads/250e26eeb231efec8f62b7cadcf6de1a/image.png)  
+![image](/uploads/d9ced1a2a864b0ae9cd1ea6aaff304db/image.png)  
+![image](/uploads/1c2fed8a4ece44b767a1709b786e4978/image.png)  
+![image](/uploads/8a91dc4a6668e782a18ab773e5a23b23/image.png)  
 <br><br>
 
 ## 🥜 구현 결과
 
 #### 🔗 [독립 Version 0.2.0 즐기러가기](http://i5a501.p.ssafy.io/)
-#### 💛 [독립 사용 설명서](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/exec/A501_%EB%8F%85%EB%A6%BD_%EC%82%AC%EC%9A%A9_%EC%84%A4%EB%AA%85%EC%84%9C(%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4).md )
-#### 💻 [포팅 매뉴얼](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/exec/%ED%8F%AC%ED%8C%85_%EB%A7%A4%EB%89%B4%EC%96%BC.md)
+
 <br><br>
+
+## 🥜 실행 가이드
+#### 💻 [포팅 매뉴얼](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/exec/%ED%8F%AC%ED%8C%85_%EB%A7%A4%EB%89%B4%EC%96%BC.md)
+#### 💛 [독립 사용 설명서](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/exec/A501_%EB%8F%85%EB%A6%BD_%EC%82%AC%EC%9A%A9_%EC%84%A4%EB%AA%85%EC%84%9C(%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4).md )
+
+<br><br>
+
 ## 🥜 팀원 소개 및 역할
 
 <br><br>
