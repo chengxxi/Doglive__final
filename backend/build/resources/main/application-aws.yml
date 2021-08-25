@@ -1,13 +1,11 @@
 cloud:
   aws:
     credentials:
-      accessKey: AKIATNLGVBOQSJLGLXOQ
-      secretKey: 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
+      accessKey: AKIATNLGVBOQTPGDYM36
+      secretKey: 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
     s3:
       bucket: doglive
     region:
-      static:
-        ap-northeast-2
+      static: ap-northeast-2
     stack:
-      auto:
-        false
+      auto: false
