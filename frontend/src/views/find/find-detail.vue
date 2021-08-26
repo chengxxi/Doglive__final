@@ -209,7 +209,7 @@ export default {
   },
   setup() {
     if (!Kakao.isInitialized()) {
-      Kakao.init("d0106aa9ba1feb9c379bbb82194695fe");
+      Kakao.init("40b60ede5e2a75999f8af0b642a7c4de");
     }
     const store = new useStore();
     const router = new useRouter();
@@ -304,16 +304,16 @@ export default {
           description: state.board.description,
           imageUrl: state.board.fileList[0],
           link: {
-            mobileWebUrl: "https://i5a501.p.ssafy.io/",
-            webUrl: "https://i5a501.p.ssafy.io/"
+            mobileWebUrl: "https://doglive.co.kr/",
+            webUrl: "https://doglive.co.kr/"
           }
         },
         buttons: [
           {
             title: "독립으로 이동",
             link: {
-              mobileWebUrl: "https://i5a501.p.ssafy.io/",
-              webUrl: "https://i5a501.p.ssafy.io/"
+              mobileWebUrl: "https://doglive.co.kr/",
+              webUrl: "https://doglive.co.kr/"
             }
           }
         ]

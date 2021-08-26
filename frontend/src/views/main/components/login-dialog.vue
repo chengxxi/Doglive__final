@@ -71,12 +71,12 @@ export default {
   name: "login-dialog",
   setup() {
     if (!Kakao.isInitialized()) {
-      Kakao.init("bacd72f58ac01490602415c683ad8c05");
+      Kakao.init("4a467f24f2a374df97df2b7457e97e54");
     }
     // 카카오 로그인
     const loginWithKakao = function() {
       Kakao.Auth.authorize({
-        redirectUri: "https://i5a501.p.ssafy.io/kakao/callback" //배포용
+        redirectUri: "https://doglive.co.kr/kakao/callback" //배포용
         //redirectUri: "https://localhost:8082/kakao/callback"
       });
     };
