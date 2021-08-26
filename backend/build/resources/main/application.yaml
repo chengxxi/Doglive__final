@@ -1,5 +1,5 @@
 build:
-  date: '20210826_1747'
+  date: '20210826_1752'
 jwt:
   expiration: 1296000000
   secret: dyAeHubOOc8KaOfYB6XEQoEj1QzRlVgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDa
@@ -58,8 +58,6 @@ spa:
   default-file: /dist/index.html
 
 
-profileImg:
-  path: C:\Users\multicampus\Desktop\ssafy\Í≥µÌÜµ?îÑÎ°úÏ†ù?ä∏\Doglive\profile_imgs\
 spring:
   servlet:
     multipart:
