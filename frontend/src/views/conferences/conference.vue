@@ -258,7 +258,7 @@ import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-const OPENVIDU_SERVER_URL = "https://ec2-18-141-121-90.ap-southeast-1.compute.amazonaws.com:8443";
+const OPENVIDU_SERVER_URL = "https://doglive.co.kr:8443";
 const OPENVIDU_SERVER_SECRET = "doglivedoggi";
 export default {
 	name: 'App',
