@@ -5,7 +5,7 @@
 
 # Node artifact files
 node_modules/
-#dist/
+dist/
 
 # Compiled Java class files
 *.class
@@ -16,13 +16,12 @@ node_modules/
 # Log files
 *.log
 
-
 # Package files
-# *.jar
+*.jar
 
 # Maven
-#target/
-#dist/
+target/
+dist/
 
 # JetBrains IDE
 .idea/
@@ -49,8 +48,9 @@ Thumbs.db
 *.mov
 *.wmv
 
-#.gradle
+.gradle
 .settings
 bin
+build
 .project
 .classpath
