@@ -1,5 +1,5 @@
 build:
-  date: '20210826_1752'
+  date: '20210826_2105'
 jwt:
   expiration: 1296000000
   secret: dyAeHubOOc8KaOfYB6XEQoEj1QzRlVgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDa
@@ -127,24 +127,24 @@ spring:
     hikari:
       auth:
         password: doglivedoggi
-        username: doglive
+        username: root
         jdbc-url: jdbc:mariadb://doglive.co.kr/auth?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver
 
       board:
         password: doglivedoggi
-        username: doglive
+        username: root
         jdbc-url: jdbc:mariadb://doglive.co.kr/board?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver
 
       community:
         password: doglivedoggi
-        username: doglive
+        username: root
         jdbc-url: jdbc:mariadb://doglive.co.kr/community?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver
 
       chat:
         password: doglivedoggi
-        username: doglive
+        username: root
         jdbc-url: jdbc:mariadb://doglive.co.kr/chat?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
         driver-class-name: org.mariadb.jdbc.Driver
