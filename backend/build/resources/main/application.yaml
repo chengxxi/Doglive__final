@@ -1,5 +1,5 @@
 build:
-  date: '20210827_0013'
+  date: '20210827_1841'
 jwt:
   expiration: 1296000000
   secret: dyAeHubOOc8KaOfYB6XEQoEj1QzRlVgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDa
