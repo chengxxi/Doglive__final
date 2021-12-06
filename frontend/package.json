@@ -65,7 +65,7 @@
     "prettier": "^1.19.1",
     "stylus": "^0.54.8",
     "vue-cli-plugin-vuetify": "~2.4.0",
-    "webpack": "^4.46.0",
+    "webpack": "^5.64.4",
     "webpack-cli": "^4.7.0"
   },
   "eslintConfig": {
