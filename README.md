@@ -147,7 +147,8 @@ SSAFY 관통프로젝트 우수상 🥈
 
 ## 🥜 구현 결과
 
-#### 🔗 [독립 Version 0.2.1 즐기러가기](http://i5a501.p.ssafy.io/)
+<!-- #### 🔗 [독립 Version 0.2.1 즐기러가기](http://i5a501.p.ssafy.io/) -->
+#### 🔗 [독립 Version 0.2.1 즐기러가기](http://doglive.co.kr)
 
 <br><br>
 
