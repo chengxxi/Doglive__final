@@ -1,22 +1,23 @@
-# 📢 독립 Version 0.2.1
-
-#### 🔗 [독립 Version 0.2.1 즐기러가기](http://i5a501.p.ssafy.io/)
-
-#### 💛 [독립 사용 설명서](<https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/exec/A501_%EB%8F%85%EB%A6%BD_%EC%82%AC%EC%9A%A9_%EC%84%A4%EB%AA%85%EC%84%9C(%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4).md>)
-
-#### 💻 [포팅 매뉴얼](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/dev/exec/%ED%8F%AC%ED%8C%85_%EB%A7%A4%EB%89%B4%EC%96%BC.pdf)
-
-#### 📺 [독립 UCC Full.ver](https://www.youtube.com/watch?v=0WWNJ1AWsgQ&t=7s)
-
-
-<br>
-
 # 🐶 독립 Dog-Live (獨立)
 
 > 서울 5반 1팀 견과류 🥜 조다운, 이상현, 이영주, 최혜원, 한승희
 
+SSAFY 관통프로젝트 우수상 🥈
+
 <br>
-![image](/uploads/fef8846dde3324c6d3994901c3b2d355/image.png) <br>
+
+![image](https://user-images.githubusercontent.com/61124319/130741327-74d6b5dc-82b0-45e4-847b-d973818b305c.png)
+
+<br>
+
+### 🔗 [독립 라이브 서비스 즐기러가기](https://doglive.co.kr)
+
+### 💻 [직접 실행해보기! 빌드 및 배포 가이드](https://github.com/2021-Dog-Live/Dog-Live/blob/master/exec/A501_%EB%8F%85%EB%A6%BD_%ED%8F%AC%ED%8C%85_%EB%A7%A4%EB%89%B4%EC%96%BC.md)
+
+### 📺 [독립 UCC Full.ver](https://www.youtube.com/watch?v=0WWNJ1AWsgQ&t=7s)
+
+
+<br><br>
 
 #### 비대면 상담과 매칭 알고리즘을 통해 유기견과 예비 반려인을 연결해주는 입양 플랫폼
 
@@ -99,19 +100,19 @@
 
 ### 🔨 기술 스택
 
-![image](/uploads/1c6881c2b70a865751439296996f1ecd/image.png)
+![image](https://user-images.githubusercontent.com/61124319/130740383-42a5b8a7-e59c-4da1-bbf5-96447d38937d.png)
 
 <br><br>
 
 ### 🎈 서버 아키텍처
 
-![image](/uploads/c0225c4fee74d38e6879af84dc2782ed/image.png)
+![image](https://user-images.githubusercontent.com/61124319/130740427-5ed3f8c8-31d6-4709-89e0-c35eff808766.png)
 
 <br><br>
 
 ### 🔍 ERD
 
-![image](/uploads/2ea42521895fee82f68527a11010b629/image.png)
+![image](https://user-images.githubusercontent.com/61124319/130740501-ef191746-8396-4e49-8323-f10ca85a0923.png)
 
 <br><br>
 
@@ -122,13 +123,13 @@
 
 ### 🎨 와이어프레임
 
-[📁 와이어프레임 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/tree/release-0.2.0/documents/Wireframe)
+[📁 와이어프레임 보러가기](https://www.figma.com/file/8qu5MvPdGtlTdXLOIcX8af/%EB%8F%85%EB%A6%BD-Dog-Live?node-id=0%3A1)
 
 <br><br>
 
 ### 📖 스토리보드
 
-[📁 스토리보드 보러가기](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/documents/Storyboard/DogLive_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)
+[📁 스토리보드 보러가기](https://www.figma.com/file/8qu5MvPdGtlTdXLOIcX8af/%EB%8F%85%EB%A6%BD-Dog-Live?node-id=26%3A2)
 
 <br><br>
 
@@ -138,10 +139,10 @@
     🔑 매칭 알고리즘
     🔑 SNS 형식 커뮤니티
 
-![image](/uploads/250e26eeb231efec8f62b7cadcf6de1a/image.png)  
-![image](/uploads/d9ced1a2a864b0ae9cd1ea6aaff304db/image.png)  
-![image](/uploads/1c2fed8a4ece44b767a1709b786e4978/image.png)  
-![image](/uploads/8a91dc4a6668e782a18ab773e5a23b23/image.png)  
+![image](https://user-images.githubusercontent.com/61124319/130740586-ac100504-4151-4582-bd65-ccbdc6d6ee33.png)
+![image](https://user-images.githubusercontent.com/61124319/130740609-16492586-e5ee-40d0-bcec-4be27b6f376a.png)
+![image](https://user-images.githubusercontent.com/61124319/130740632-3264b5fd-7d08-448d-8fba-378405caebae.png)
+![image](https://user-images.githubusercontent.com/61124319/130740654-de537f49-ac58-4e32-b108-6e9a2cad6677.png)
 <br><br>
 
 ## 🥜 구현 결과
@@ -152,9 +153,9 @@
 
 ## 🥜 실행 가이드
 
-#### 💻 [포팅 매뉴얼](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/exec/%ED%8F%AC%ED%8C%85_%EB%A7%A4%EB%89%B4%EC%96%BC.md)
+#### 💻 [포팅 매뉴얼](https://www.notion.so/ssafyseoul5-1/aeb2f5a759cc415fbc5450521673f964)
 
-#### 💛 [독립 사용 설명서](<https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/release-0.2.0/exec/A501_%EB%8F%85%EB%A6%BD_%EC%82%AC%EC%9A%A9_%EC%84%A4%EB%AA%85%EC%84%9C(%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4).md>)
+#### 💛 [독립 사용 설명서](https://www.notion.so/ssafyseoul5-1/938d94c6b64d43bb8ccfed1e0a0dbfbd)
 
 <br><br>
 
@@ -163,16 +164,16 @@
 <br><br>
 |Name|이상현|이영주|조다운|최혜원|한승희|
 |-----|-----|-----|------|----|-----|
-|Profile|![image](/uploads/4d156331ccd5da65543cb18035789378/image.png)|![image](/uploads/9c86cd209dadba7f4a1f4beed56032d0/image.png)|![image](/uploads/23efbe58618bc9ab0740879970255519/image.png)|![image](/uploads/a87491d4b266835da47b4c53b9f82749/image.png)|![image](/uploads/50d11a1a597d1cd199369ed7df756f90/image.png)|
+|Profile|![image](https://user-images.githubusercontent.com/61124319/130740694-34f9a3e5-f742-41cb-b752-c76f422b1d61.png)|![image](https://user-images.githubusercontent.com/61124319/130740722-616db638-688c-4196-959e-fe22a472dc3e.png)|![image](https://user-images.githubusercontent.com/61124319/130740752-b0009eb0-0b37-4ca9-a73b-af4546a638f0.png)|![image](https://user-images.githubusercontent.com/61124319/130740778-f09b08db-8b53-4766-8c70-aa3b350d284d.png)|![image](https://user-images.githubusercontent.com/61124319/130740827-ab576311-288f-46e4-bf53-9ef398ce8b53.png)|
 |Position|Frontend, Backend Develop & UI/UX|Backend Develop & CI/CD| 👑팀장 & Backend Develop & CI/CD|Backend Develop & CI/CD|Frontend & UI/UX|
-|Git|@zxd9857|@clleo97|@jodawooooon | @hiii456| @chengxxi|
+|Git|[@kimkuan](https://github.com/kimkuan)|[@0JUUU](https://github.com/0JUUU)|[@jodawoooon](https://github.com/jodawoooon)|[@hiii456](https://github.com/hiii456)|[@chengxxi](https://github.com/chengxxi)|
 
 <br><br>
 
 ## 🥜 개발 문서
 
-#### [ 🧾 기능명세서 ](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/blob/master/documents/function/DogLive_%EA%B8%B0%EB%8A%A5%EB%AA%85%EC%84%B8%EC%84%9C.pdf)
+#### [ 🧾 기능명세서 ](https://www.notion.so/ssafyseoul5-1/b41fb130e68846e9981052ba6777def4)
 
-#### [ 📑 Wiki 보러 가기 ](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13A501/-/wikis/home)
+#### [ 📑 Notion ](https://www.notion.so/ssafyseoul5-1/1-a1fcecce811a42f4bc399dd562d1ce2f)
 
 <br><br><br><br>
